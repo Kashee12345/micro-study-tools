@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microbiology Study Tools</title>
+<meta name="description" content="Animated walkthroughs, virtual labs and simulators for microbiology, Modules 1 to 14. Dr. Akash Garg.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@600&display=swap" rel="stylesheet">
+<script src="micro-kit.js"></script>
+<style>
+:root{--ground:#E5ECE8;--panel:#F7FAF8;--panel-2:#EBF2EE;--ink:#111A15;--ink-soft:#4F5E56;--rule:#C6D3CB;--accent:#19693F;--accent-wash:#DDF0E5;--shadow:0 1px 2px rgba(17,26,21,.08),0 6px 18px -8px rgba(17,26,21,.18)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0E1519;--panel:#16211B;--panel-2:#1C2A22;--ink:#E9F0EC;--ink-soft:#AFBCB4;--rule:#2C3A32;--accent:#6FD3A0;--accent-wash:#123524;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6)}}
+:root[data-theme="dark"]{--ground:#0E1519;--panel:#16211B;--panel-2:#1C2A22;--ink:#E9F0EC;--ink-soft:#AFBCB4;--rule:#2C3A32;--accent:#6FD3A0;--accent-wash:#123524}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}
+header{background:var(--panel);border-bottom:1px solid var(--rule)}
+.in{max-width:1040px;margin:0 auto;padding:22px 16px}
+.k{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:"IBM Plex Serif",Georgia,serif;font-size:32px;margin:4px 0 6px;line-height:1.15}
+.lead{margin:0;color:var(--ink-soft);font-size:16.5px;max-width:740px}
+h2{font-family:"IBM Plex Serif",Georgia,serif;font-size:22px;margin:30px 0 4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;scroll-margin-top:12px}
+h2 i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.sub{margin:0 0 8px;color:var(--ink-soft)}
+.ch{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-soft);font-weight:500}
+.jump{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 4px}.jump a{font-family:"IBM Plex Mono",monospace;font-size:12.5px;padding:5px 9px;border:1px solid var(--rule);border-radius:99px;background:var(--panel);color:var(--ink);text-decoration:none}.jump a:hover,.jump a:focus-visible{border-color:var(--accent)}
+.find{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.find label{font-weight:600}
+.find input{font:inherit;padding:8px 12px;border:1px solid var(--rule);border-radius:6px;background:var(--panel);color:var(--ink);min-width:0;flex:1 1 260px;max-width:440px}
+.find input:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+#count{color:var(--ink-soft);font-size:14px}
+.dz{list-style:none;padding:0;margin:0 0 12px;display:flex;flex-wrap:wrap;gap:5px}
+.dz li{font-size:13px;padding:2px 9px;border-radius:99px;background:var(--panel-2);border:1px solid var(--rule);color:var(--ink)}
+.dz li.hit{background:var(--accent-wash);border-color:var(--accent);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+a.card{display:flex;flex-direction:column;gap:6px;background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;box-shadow:var(--shadow);color:inherit;text-decoration:none;transition:border-color .15s,transform .15s}
+a.card:hover,a.card:focus-visible{border-color:var(--accent);transform:translateY(-2px)}
+.type{font-family:"IBM Plex Mono",monospace;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
+.card b{font-size:18px}
+.card span.d{color:var(--ink-soft);font-size:14.5px}
+.tip{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:12px 14px;margin-top:22px;font-size:15px}
+footer{max-width:1040px;margin:0 auto;padding:24px 16px 36px;font-size:13px;color:var(--ink-soft)}
+footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<header><div class="in">
+  <div class="k">Microbiology &middot; Modules 1 to 14</div>
+  <h1>Microbiology Study Tools</h1>
+  <p class="lead">See microbiology happen. Each module has an animated walkthrough and a hands-on Lab with simulators, a virtual bench, unknowns or patient cases, and sorting games. Everything runs in your browser on a computer, tablet or phone. No login, nothing graded.</p>
+</div></header>
+<main class="in" id="top" style="padding-top:4px">
+  <div class="find" role="search">
+    <label for="q">Find a topic</label>
+    <input id="q" type="search" placeholder="Try: Gram stain, MRSA, ELISA, malaria" autocomplete="off">
+    <span id="count" role="status" aria-live="polite"></span>
+  </div>
+  <nav class="jump" aria-label="Jump to module"><a href="#m1">M1</a><a href="#m2">M2</a><a href="#m3">M3</a><a href="#m4">M4</a><a href="#m5">M5</a><a href="#m6">M6</a><a href="#m7">M7</a><a href="#m8">M8</a><a href="#m9">M9</a><a href="#m10">M10</a><a href="#m11">M11</a><a href="#m12">M12</a><a href="#m13">M13</a><a href="#m14">M14</a></nav>
+  <p class="tip"><b>How to use this:</b> open the walkthrough first and go at your own pace with the arrow keys or Next. Then open the Lab: move the sliders, run the virtual bench, and work the unknowns and cases. Use the tools bar at the top of each page to pause the animations, slow them down, have the text read aloud, or get a written description of each picture.</p>
+  <section class="mod" id="m1" data-search="microscopy, staining and the microbial world microbe groups and sizes germ theory / koch light microscope magnification and resolution immersion oil electron microscopes gram stain acid-fast stain endospore and capsule stains cell shapes and arrangements">
+  <h2><i style="background:#2F7FC1" aria-hidden="true"></i><span class="ch">Module 1</span> Microscopy, staining and the microbial world</h2>
+  <p class="sub">What microbes are, how microscopes reveal them, and how stains tell them apart.</p>
+  <ul class="dz" aria-label="Topics in module 1"><li>Microbe groups and sizes</li><li>Germ theory / Koch</li><li>Light microscope</li><li>Magnification and resolution</li><li>Immersion oil</li><li>Electron microscopes</li><li>Gram stain</li><li>Acid-fast stain</li><li>Endospore and capsule stains</li><li>Cell shapes and arrangements</li></ul>
+  <div class="grid">
+    <a class="card" href="Microscopy-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Microscopy, staining and the microbial world Walkthrough</b><span class="d">Watch each process happen step by step, with a quick check and a plain-language explanation on every step.</span></a>
+    <a class="card" href="Microscopy-Lab.html"><span class="type">Simulators + virtual lab</span><b>Module 1 Lab</b><span class="d">Virtual microscope, Gram stain bench, 8 unknown slides, and sort-and-match rounds.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m2" data-search="prokaryotic and eukaryotic cell structure prokaryote vs eukaryote membrane transport / osmosis peptidoglycan gram-positive wall gram-negative wall / lps capsules and biofilms flagella / chemotaxis pili and fimbriae endospores endosymbiosis fungi and protozoa">
+  <h2><i style="background:#7B5CC9" aria-hidden="true"></i><span class="ch">Module 2</span> Prokaryotic and eukaryotic cell structure</h2>
+  <p class="sub">Inside and outside the bacterial cell, the cell wall that drugs target, and eukaryotic microbes.</p>
+  <ul class="dz" aria-label="Topics in module 2"><li>Prokaryote vs eukaryote</li><li>Membrane transport / osmosis</li><li>Peptidoglycan</li><li>Gram-positive wall</li><li>Gram-negative wall / LPS</li><li>Capsules and biofilms</li><li>Flagella / chemotaxis</li><li>Pili and fimbriae</li><li>Endospores</li><li>Endosymbiosis</li><li>Fungi and protozoa</li></ul>
+  <div class="grid">
+    <a class="card" href="Cell-Structure-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Prokaryotic and eukaryotic cell structure Walkthrough</b><span class="d">Watch each process happen step by step, with a quick check and a plain-language explanation on every step.</span></a>
+    <a class="card" href="Cell-Structure-Lab.html"><span class="type">Simulators + virtual lab</span><b>Module 2 Lab</b><span class="d">Osmosis bench, chemotaxis tracker, 8 lab unknowns, and sort-and-build rounds.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m3" data-search="viruses, viroids and prions virus structure lytic cycle lysogeny animal virus replication retroviruses latent infections oncogenic viruses plaque assay viroids prions">
+  <h2><i style="background:#C2407A" aria-hidden="true"></i><span class="ch">Module 3</span> Viruses, viroids and prions</h2>
+  <p class="sub">How viruses are built, how they hijack cells, and the strange cases of viroids and prions.</p>
+  <ul class="dz" aria-label="Topics in module 3"><li>Virus structure</li><li>Lytic cycle</li><li>Lysogeny</li><li>Animal virus replication</li><li>Retroviruses</li><li>Latent infections</li><li>Oncogenic viruses</li><li>Plaque assay</li><li>Viroids</li><li>Prions</li></ul>
+  <div class="grid">
+    <a class="card" href="Viruses-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Viruses, viroids and prions Walkthrough</b><span class="d">Watch each process happen step by step, with a quick check and a plain-language explanation on every step.</span></a>
+    <a class="card" href="Viruses-Lab.html"><span class="type">Simulators + virtual lab</span><b>Module 3 Lab</b><span class="d">Phage flask simulator, plaque assay bench, 8 virus unknowns, and sort-and-order rounds.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m4" data-search="microbial metabolism enzymes and inhibitors glycolysis krebs cycle electron transport aerobic vs anaerobic respiration fermentation photosynthesis catalase / oxidase imvic tests sugar fermentation tubes">
+  <h2><i style="background:#B5651D" aria-hidden="true"></i><span class="ch">Module 4</span> Microbial metabolism</h2>
+  <p class="sub">How microbes make and spend energy, and how labs use metabolism to identify them.</p>
+  <ul class="dz" aria-label="Topics in module 4"><li>Enzymes and inhibitors</li><li>Glycolysis</li><li>Krebs cycle</li><li>Electron transport</li><li>Aerobic vs anaerobic respiration</li><li>Fermentation</li><li>Photosynthesis</li><li>Catalase / oxidase</li><li>IMViC tests</li><li>Sugar fermentation tubes</li></ul>
+  <div class="grid">
+    <a class="card" href="Metabolism-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Microbial metabolism Walkthrough</b><span class="d">Watch each process happen step by step, with a quick check and a plain-language explanation on every step.</span></a>
+    <a class="card" href="Metabolism-Lab.html"><span class="type">Simulators + virtual lab</span><b>Module 4 Lab</b><span class="d">Cell energy simulator, enzyme simulator, 7 biochemical unknowns, and sorting rounds.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m5" data-search="microbial growth binary fission growth curve phases plate counts / serial dilution turbidity / mpn biofilms / quorum sensing oxygen requirements temperature groups ph and salt selective and differential media blood agar hemolysis">
+  <h2><i style="background:#2E8B7A" aria-hidden="true"></i><span class="ch">Module 5</span> Microbial growth</h2>
+  <p class="sub">How bacteria multiply, how we count them, and what oxygen, heat, pH and media do.</p>
+  <ul class="dz" aria-label="Topics in module 5"><li>Binary fission</li><li>Growth curve phases</li><li>Plate counts / serial dilution</li><li>Turbidity / MPN</li><li>Biofilms / quorum sensing</li><li>Oxygen requirements</li><li>Temperature groups</li><li>pH and salt</li><li>Selective and differential media</li><li>Blood agar hemolysis</li></ul>
+  <div class="grid">
+    <a class="card" href="Growth-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Microbial growth Walkthrough</b><span class="d">Watch each process happen step by step, with a quick check and a plain-language explanation on every step.</span></a>
+    <a class="card" href="Growth-Lab.html"><span class="type">Simulators + virtual lab</span><b>Module 5 Lab</b><span class="d">Growth curve simulator, plate count bench, tube and plate readers, and sorting rounds.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m6" data-search="microbial genetics and biotechnology dna replication transcription / translation lac operon trp operon mutations and mutagens ames test transformation transduction conjugation pcr / gel / crispr">
+  <h2><i style="background:#5A6FB0" aria-hidden="true"></i><span class="ch">Module 6</span> Microbial genetics and biotechnology</h2>
+  <p class="sub">How bacteria copy, read, switch, change and share genes, and how we use them.</p>
+  <ul class="dz" aria-label="Topics in module 6"><li>DNA replication</li><li>Transcription / translation</li><li>Lac operon</li><li>Trp operon</li><li>Mutations and mutagens</li><li>Ames test</li><li>Transformation</li><li>Transduction</li><li>Conjugation</li><li>PCR / gel / CRISPR</li></ul>
+  <div class="grid">
+    <a class="card" href="Genetics-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Microbial genetics and biotechnology Walkthrough</b><span class="d">Watch each process happen step by step, with a quick check and a plain-language explanation on every step.</span></a>
+    <a class="card" href="Genetics-Lab.html"><span class="type">Simulators + virtual lab</span><b>Module 6 Lab</b><span class="d">Lac operon simulator, PCR and resistance-spread bench, lab notebook, and sort-and-order rounds.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m7" data-search="controlling microbial growth sterilization vs disinfection death curve / d-value resistance ladder autoclave pasteurization filtration radiation alcohols and halogens quats / aldehydes / gases hand hygiene">
+  <h2><i style="background:#6B8E23" aria-hidden="true"></i><span class="ch">Module 7</span> Controlling microbial growth</h2>
+  <p class="sub">Sterilizing, disinfecting and keeping things clean, and why some microbes are so hard to kill.</p>
+  <ul class="dz" aria-label="Topics in module 7"><li>Sterilization vs disinfection</li><li>Death curve / D-value</li><li>Resistance ladder</li><li>Autoclave</li><li>Pasteurization</li><li>Filtration</li><li>Radiation</li><li>Alcohols and halogens</li><li>Quats / aldehydes / gases</li><li>Hand hygiene</li></ul>
+  <div class="grid">
+    <a class="card" href="Control-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Controlling microbial growth Walkthrough</b><span class="d">Watch each process happen step by step, with a quick check and a plain-language explanation on every step.</span></a>
+    <a class="card" href="Control-Lab.html"><span class="type">Simulators + virtual lab</span><b>Module 7 Lab</b><span class="d">Death curve simulator, autoclave bench, what-went-wrong scenarios, and sorting rounds.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m8" data-search="antimicrobial drugs and resistance selective toxicity beta-lactams / vancomycin ribosome drugs fluoroquinolones / rifampin sulfa / trimethoprim antifungals antivirals kirby-bauer / mic resistance mechanisms mrsa / vre / cre stewardship">
+  <h2><i style="background:#A52A3A" aria-hidden="true"></i><span class="ch">Module 8</span> Antimicrobial drugs and resistance</h2>
+  <p class="sub">How antibiotics and other drugs hit microbes, how we test them, and how resistance spreads.</p>
+  <ul class="dz" aria-label="Topics in module 8"><li>Selective toxicity</li><li>Beta-lactams / vancomycin</li><li>Ribosome drugs</li><li>Fluoroquinolones / rifampin</li><li>Sulfa / trimethoprim</li><li>Antifungals</li><li>Antivirals</li><li>Kirby-Bauer / MIC</li><li>Resistance mechanisms</li><li>MRSA / VRE / CRE</li><li>Stewardship</li></ul>
+  <div class="grid">
+    <a class="card" href="Antimicrobials-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Antimicrobial drugs and resistance Walkthrough</b><span class="d">Watch each process happen step by step, with a quick check and a plain-language explanation on every step.</span></a>
+    <a class="card" href="Antimicrobials-Lab.html"><span class="type">Simulators + virtual lab</span><b>Module 8 Lab</b><span class="d">Kirby-Bauer and MIC bench, resistance simulator, 8 which-drug cases, and sorting rounds.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m9" data-search="disease, virulence and epidemiology normal microbiota koch&#x27;s postulates periods of disease virulence factors exotoxins vs endotoxin portals of entry and exit incidence vs prevalence endemic / epidemic / pandemic transmission routes healthcare-associated infections herd immunity">
+  <h2><i style="background:#C0392B" aria-hidden="true"></i><span class="ch">Module 9</span> Disease, virulence and epidemiology</h2>
+  <p class="sub">How microbes cause disease, and how diseases spread through communities.</p>
+  <ul class="dz" aria-label="Topics in module 9"><li>Normal microbiota</li><li>Koch&#x27;s postulates</li><li>Periods of disease</li><li>Virulence factors</li><li>Exotoxins vs endotoxin</li><li>Portals of entry and exit</li><li>Incidence vs prevalence</li><li>Endemic / epidemic / pandemic</li><li>Transmission routes</li><li>Healthcare-associated infections</li><li>Herd immunity</li></ul>
+  <div class="grid">
+    <a class="card" href="Disease-Epi-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Disease, virulence and epidemiology Walkthrough</b><span class="d">Watch each process happen step by step, with a quick check and a plain-language explanation on every step.</span></a>
+    <a class="card" href="Disease-Epi-Lab.html"><span class="type">Simulators + virtual lab</span><b>Module 9 Lab</b><span class="d">Outbreak (SIR) simulator, John Snow map investigation, 7 chain-of-infection cases, and sorting rounds.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m10" data-search="innate immunity skin and mucous barriers lysozyme / defensins white blood cells differential count toll-like receptors phagocytosis nk cells complement interferons inflammation fever">
+  <h2><i style="background:#C9A227" aria-hidden="true"></i><span class="ch">Module 10</span> Innate immunity</h2>
+  <p class="sub">The body&#x27;s fast, built-in defenses: barriers, white cells, phagocytes, complement, inflammation and fever.</p>
+  <ul class="dz" aria-label="Topics in module 10"><li>Skin and mucous barriers</li><li>Lysozyme / defensins</li><li>White blood cells</li><li>Differential count</li><li>Toll-like receptors</li><li>Phagocytosis</li><li>NK cells</li><li>Complement</li><li>Interferons</li><li>Inflammation</li><li>Fever</li></ul>
+  <div class="grid">
+    <a class="card" href="Innate-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Innate immunity Walkthrough</b><span class="d">Watch each process happen step by step, with a quick check and a plain-language explanation on every step.</span></a>
+    <a class="card" href="Innate-Lab.html"><span class="type">Simulators + virtual lab</span><b>Module 10 Lab</b><span class="d">Infection simulator, fever thermostat, blood smear lab, and sort-and-order rounds.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m11" data-search="adaptive immunity, vaccines and diagnostics mhc i and ii helper and killer t cells b cells / plasma cells antibody classes primary vs secondary response active vs passive immunity vaccine types hypersensitivity elisa western blot rapid lateral flow tests">
+  <h2><i style="background:#8A2E62" aria-hidden="true"></i><span class="ch">Module 11</span> Adaptive immunity, vaccines and diagnostics</h2>
+  <p class="sub">T cells, B cells and antibodies, how vaccines train them, and the lab tests built from antibodies.</p>
+  <ul class="dz" aria-label="Topics in module 11"><li>MHC I and II</li><li>Helper and killer T cells</li><li>B cells / plasma cells</li><li>Antibody classes</li><li>Primary vs secondary response</li><li>Active vs passive immunity</li><li>Vaccine types</li><li>Hypersensitivity</li><li>ELISA</li><li>Western blot</li><li>Rapid lateral flow tests</li></ul>
+  <div class="grid">
+    <a class="card" href="Adaptive-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Adaptive immunity, vaccines and diagnostics Walkthrough</b><span class="d">Watch each process happen step by step, with a quick check and a plain-language explanation on every step.</span></a>
+    <a class="card" href="Adaptive-Lab.html"><span class="type">Simulators + virtual lab</span><b>Module 11 Lab</b><span class="d">Immune response simulator, ELISA plate bench, 8 test-reader cases, and sort-and-order rounds.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m12" data-search="skin, eye and respiratory infections staph aureus / mrsa strep pyogenes pseudomonas measles / rubella chickenpox / shingles tinea / candida conjunctivitis strep throat diphtheria pertussis tuberculosis pneumococcal pneumonia influenza covid-19 fungal lung infections">
+  <h2><i style="background:#1B6E88" aria-hidden="true"></i><span class="ch">Module 12</span> Skin, eye and respiratory infections</h2>
+  <p class="sub">Infections of the skin, eyes and airways, from staph and strep to TB, flu and COVID-19.</p>
+  <ul class="dz" aria-label="Topics in module 12"><li>Staph aureus / MRSA</li><li>Strep pyogenes</li><li>Pseudomonas</li><li>Measles / rubella</li><li>Chickenpox / shingles</li><li>Tinea / Candida</li><li>Conjunctivitis</li><li>Strep throat</li><li>Diphtheria</li><li>Pertussis</li><li>Tuberculosis</li><li>Pneumococcal pneumonia</li><li>Influenza</li><li>COVID-19</li><li>Fungal lung infections</li></ul>
+  <div class="grid">
+    <a class="card" href="Skin-Resp-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Skin, eye and respiratory infections Walkthrough</b><span class="d">Watch each process happen step by step, with a quick check and a plain-language explanation on every step.</span></a>
+    <a class="card" href="Skin-Resp-Lab.html"><span class="type">Simulators + virtual lab</span><b>Module 12 Lab</b><span class="d">Flu drift and shift simulator, TB granuloma simulator, 8 patient cases, and sorting rounds.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m13" data-search="urogenital and nervous system infections uti / pyelonephritis bacterial vaginosis candidiasis / trichomoniasis gonorrhea chlamydia syphilis genital herpes hpv bacterial meningitis listeria / cryptococcus west nile polio rabies tetanus vs botulism">
+  <h2><i style="background:#2F6F4F" aria-hidden="true"></i><span class="ch">Module 13</span> Urogenital and nervous system infections</h2>
+  <p class="sub">Urinary tract and sexually transmitted infections, meningitis, and the microbes that attack nerves.</p>
+  <ul class="dz" aria-label="Topics in module 13"><li>UTI / pyelonephritis</li><li>Bacterial vaginosis</li><li>Candidiasis / trichomoniasis</li><li>Gonorrhea</li><li>Chlamydia</li><li>Syphilis</li><li>Genital herpes</li><li>HPV</li><li>Bacterial meningitis</li><li>Listeria / Cryptococcus</li><li>West Nile</li><li>Polio</li><li>Rabies</li><li>Tetanus vs botulism</li></ul>
+  <div class="grid">
+    <a class="card" href="Uro-Neuro-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Urogenital and nervous system infections Walkthrough</b><span class="d">Watch each process happen step by step, with a quick check and a plain-language explanation on every step.</span></a>
+    <a class="card" href="Uro-Neuro-Lab.html"><span class="type">Simulators + virtual lab</span><b>Module 13 Lab</b><span class="d">CSF bench, toxin synapse simulator, urine culture bench, 8 patient cases, and sorting rounds.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m14" data-search="digestive, blood and lymphatic infections dental caries food intoxication salmonella / shigella e. coli o157:h7 cholera c. difficile h. pylori norovirus / rotavirus hepatitis a–e giardia / cryptosporidium sepsis plague lyme disease mononucleosis hiv malaria">
+  <h2><i style="background:#9C7A3C" aria-hidden="true"></i><span class="ch">Module 14</span> Digestive, blood and lymphatic infections</h2>
+  <p class="sub">Food poisoning and gut infections, hepatitis, and infections carried in blood and by vectors.</p>
+  <ul class="dz" aria-label="Topics in module 14"><li>Dental caries</li><li>Food intoxication</li><li>Salmonella / Shigella</li><li>E. coli O157:H7</li><li>Cholera</li><li>C. difficile</li><li>H. pylori</li><li>Norovirus / rotavirus</li><li>Hepatitis A–E</li><li>Giardia / Cryptosporidium</li><li>Sepsis</li><li>Plague</li><li>Lyme disease</li><li>Mononucleosis</li><li>HIV</li><li>Malaria</li></ul>
+  <div class="grid">
+    <a class="card" href="GI-Blood-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Digestive, blood and lymphatic infections Walkthrough</b><span class="d">Watch each process happen step by step, with a quick check and a plain-language explanation on every step.</span></a>
+    <a class="card" href="GI-Blood-Lab.html"><span class="type">Simulators + virtual lab</span><b>Module 14 Lab</b><span class="d">Cholera and malaria simulators, outbreak food investigation, 8 patient cases, and sort-and-order rounds.</span></a>
+  </div>
+  </section>
+</main>
+<footer>Dr. Akash Garg &middot; Microbiology Study Tools &middot; Diagrams are simplified and not to scale. For learning only, not medical advice. Licensed <a href="LICENSE">CC BY-NC-SA 4.0</a>.</footer>
+<script>
+(function(){
+  var q=document.getElementById('q'),count=document.getElementById('count'),mods=[].slice.call(document.querySelectorAll('.mod'));
+  function run(){
+    var v=q.value.trim().toLowerCase(),shown=0;
+    mods.forEach(function(m){
+      var ok=!v||m.getAttribute('data-search').indexOf(v)>=0;
+      m.hidden=!ok; if(ok)shown++;
+      [].forEach.call(m.querySelectorAll('.dz li'),function(li){li.classList.toggle('hit',!!v&&li.textContent.toLowerCase().indexOf(v)>=0);});
+    });
+    count.textContent=v?(shown?shown+(shown===1?' module matches':' modules match'):'No match. Try a shorter word.'):'';
+  }
+  q.addEventListener('input',run);
+})();
+</script>
+</body>
+</html>

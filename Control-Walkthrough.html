@@ -1,0 +1,1472 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Controlling Microbial Growth Walkthrough</title>
+<meta name="description" content="Step-by-step animated walkthrough of sterilization, disinfection, the microbial death curve, heat, filtration, radiation and chemical control of microbes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#1E7A4C;--accent-ink:#145A37;--accent-wash:#DDEFE5;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#7B5CC9;--act2:#C4644F;--act3:#D98A1C;--act4:#2F7FC1;--act5:#2E8A7A;--act6:#A04E8C;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#8A6D12;
+  /* microbe control palette */
+  --ecf:#EEF3EF;--bench:#E6ECE8;--grid:#D3DED7;
+  --bact:#3E8E41;--spore:#9A6A12;--spore-coat:#E9D3A0;--myco:#8A5A9E;--env:#B03A8C;--nonenv:#3F6DB3;--prion:#A9372F;--cyst:#5E7A2A;--fungus:#C77A12;--dead:#8B9094;
+  --gpos:#6B3FA0;--gneg:#D0457A;
+  --steam:#4F8FCB;--air:#8C969D;--heat:#E0563A;--cold:#2F7FC1;--uv:#7B5CC9;--ion:#C9A227;
+  --alc:#2E8A7A;--chlor:#7E9A2A;--iod:#8A4A1C;--phen:#A04E8C;--quat:#2F7FC1;--metal:#6E7F8C;--ald:#D98A1C;--perox:#1E9C7A;--gas:#5E6E7A;
+  --membrane:#C9A227;--protein:#C4644F;--dna:#2F6FD0;
+  --water:#CFE5F1;--agar:#EAD9A2;--agar-edge:#B9A160;--glass:#DCE8EE;--glass-edge:#7F99A6;
+  --steel:#C9D1D6;--steel-edge:#7A8790;--tape:#EFE3C2;--tape-ink:#3A2E1E;--bi-pass:#6B3FA0;--bi-fail:#D9B514;
+  --skin:#EAC9A8;--skin-edge:#B9937A;--body:#E9DCCB;--body-edge:#A88B6A;--soil:#B98A5A;
+  --milk:#F7F3E8;--food:#E8B86A;--organic:#9A5A3A;--glow:#F2B33B;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#15301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#E08A74;--act3:#F2A93B;--act4:#5AA9E6;--act5:#5CC4B0;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#141B1A;--bench:#1A2220;--grid:#26332F;
+  --bact:#6BC26E;--spore:#E0B050;--spore-coat:#5A4A2A;--myco:#C29AD6;--env:#E07AC4;--nonenv:#7FA6E6;--prion:#E07067;--cyst:#A3C95A;--fungus:#E0A050;--dead:#6F767B;
+  --gpos:#B08AE8;--gneg:#F08AB0;
+  --steam:#8FC0EC;--air:#7E8A92;--heat:#F27A5E;--cold:#5AA9E6;--uv:#A98BEF;--ion:#E0BE48;
+  --alc:#5CC4B0;--chlor:#B5CF5A;--iod:#D9925A;--phen:#D186C0;--quat:#5AA9E6;--metal:#A9B7C2;--ald:#F2A93B;--perox:#4FD0A8;--gas:#9AAAB6;
+  --membrane:#E0BE48;--protein:#E08A74;--dna:#6FA3F0;
+  --water:#1F3A4A;--agar:#4A4030;--agar-edge:#9C8A5A;--glass:#1E2C34;--glass-edge:#7F99A6;
+  --steel:#3A464E;--steel-edge:#8A98A2;--tape:#D9CDA8;--tape-ink:#2A2014;--bi-pass:#B08AE8;--bi-fail:#E8CC3A;
+  --skin:#5A4434;--skin-edge:#B9937A;--body:#3E3528;--body-edge:#B39773;--soil:#7A5A3A;
+  --milk:#3A3830;--food:#9A7A40;--organic:#C98A6A;--glow:#F2B33B;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#15301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#E08A74;--act3:#F2A93B;--act4:#5AA9E6;--act5:#5CC4B0;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#141B1A;--bench:#1A2220;--grid:#26332F;
+  --bact:#6BC26E;--spore:#E0B050;--spore-coat:#5A4A2A;--myco:#C29AD6;--env:#E07AC4;--nonenv:#7FA6E6;--prion:#E07067;--cyst:#A3C95A;--fungus:#E0A050;--dead:#6F767B;
+  --gpos:#B08AE8;--gneg:#F08AB0;
+  --steam:#8FC0EC;--air:#7E8A92;--heat:#F27A5E;--cold:#5AA9E6;--uv:#A98BEF;--ion:#E0BE48;
+  --alc:#5CC4B0;--chlor:#B5CF5A;--iod:#D9925A;--phen:#D186C0;--quat:#5AA9E6;--metal:#A9B7C2;--ald:#F2A93B;--perox:#4FD0A8;--gas:#9AAAB6;
+  --membrane:#E0BE48;--protein:#E08A74;--dna:#6FA3F0;
+  --water:#1F3A4A;--agar:#4A4030;--agar-edge:#9C8A5A;--glass:#1E2C34;--glass-edge:#7F99A6;
+  --steel:#3A464E;--steel-edge:#8A98A2;--tape:#D9CDA8;--tape-ink:#2A2014;--bi-pass:#B08AE8;--bi-fail:#E8CC3A;
+  --skin:#5A4434;--skin-edge:#B9937A;--body:#3E3528;--body-edge:#B39773;--soil:#7A5A3A;
+  --milk:#3A3830;--food:#9A7A40;--organic:#C98A6A;--glow:#F2B33B;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1240px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:7px 12px;cursor:pointer;font-size:14px}
+.tbtn:hover{border-color:var(--accent)}
+.wrap{max-width:1240px;margin:0 auto;padding:16px}
+.chain{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.actgrp{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:8px 10px;display:flex;flex-direction:column;gap:6px;flex:1 1 150px}
+.actgrp .an{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.actgrp .an i{width:10px;height:10px;border-radius:50%;display:inline-block;flex:0 0 auto}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--rule);background:var(--panel-2);font-family:var(--mono);font-size:13px;cursor:pointer;display:grid;place-items:center;padding:0}
+.dot:hover{border-color:var(--accent)}
+.dot.cur{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.dot.done:not(.cur){background:var(--good-wash);border-color:var(--good);color:var(--good)}
+.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);min-width:0}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%}
+.stagebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.stagebar input[type=range]{accent-color:var(--accent);width:110px}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2);flex:0 0 auto}
+.legend i.s{border-radius:2px}
+.legend i.d{border-radius:1px;transform:rotate(45deg);width:9px;height:9px}
+.legend i.r{border-radius:3px;width:14px}
+.legend i.l{width:18px;height:4px;border-radius:2px;border:0}
+.legend i.t{width:0;height:0;border-radius:0;border:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid;background:none!important}
+.legend i.dl{width:18px;height:0;border-radius:0;border:0;border-top:2px dashed;background:none!important}
+.legend i.y{width:12px;height:12px;border:0;border-radius:0;background:none!important;position:relative}
+.legend i.y::before{content:"Y";position:absolute;left:0;top:-4px;font:700 14px var(--sans);color:var(--yc)}
+.explain{padding:18px 20px}
+.stepno{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.actchip{padding:1px 8px 1px 6px;border-radius:99px;color:var(--ink);font-size:11px;border:1.5px solid var(--c,var(--accent));background:var(--panel);display:inline-flex;align-items:center;gap:5px}.actchip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c,var(--accent))}
+h2{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.25;margin:6px 0 10px}
+.body p{margin:0 0 10px}
+.body ol,.body ul{margin:0 0 10px;padding-left:22px}
+.body li{margin-bottom:4px}
+.body .tx{border-left:3px solid var(--accent);padding:2px 0 2px 10px;color:var(--ink)}
+.analogy{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:12px 0}
+.analogy b{display:block;font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.analogy p{margin:0}
+.terms{margin:12px 0 0;padding:0}
+.terms div{display:grid;grid-template-columns:minmax(110px,34%) 1fr;gap:10px;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14.5px}
+.terms dt{font-weight:600}
+.terms dd{margin:0;color:var(--ink-soft)}
+.check{margin-top:16px;border:1px solid var(--rule);border-radius:var(--r);padding:14px;background:var(--panel-2)}
+.check h3{margin:0 0 6px;font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
+.check .q{font-weight:600;margin:0 0 10px}
+.opt{display:block;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;margin:0 0 8px;cursor:pointer;font-size:15px;line-height:1.4}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:6px 0 0;font-size:14.5px}
+.fb.ok{color:var(--good)}
+.fb.no{color:var(--warn-ink)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+.nav{display:flex;align-items:center;gap:12px;margin-top:14px}
+.navbtn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:11px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.navbtn.sec{background:var(--panel);color:var(--ink);border:1px solid var(--rule)}
+.navbtn:disabled{opacity:.4;cursor:default}
+.prog{flex:1;height:8px;background:var(--sunk);border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+footer{max-width:1240px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+sub,sup{line-height:0}
+</style>
+</style>
+<script src="micro-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">Microbiology &middot; Module 7 &middot; Controlling microbial growth</div>
+    <h1>Controlling Microbial Growth Walkthrough</h1>
+    <p class="sub">How we kill, remove or slow down microbes: the words, the math of microbial death, heat, filters, radiation and chemicals. Go at your own pace. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+
+<div class="wrap">
+  <nav class="chain" id="chain" aria-label="Steps"></nav>
+  <div class="grid">
+    <section class="card stage" aria-label="Animation">
+      <div class="canvas-holder"><canvas id="stage" role="img" aria-label=""></canvas></div>
+      <div class="stagebar">
+        <button class="tbtn" id="pauseBtn" type="button">Pause</button>
+        <button class="tbtn" id="replayBtn" type="button">Replay</button>
+        <label>Speed <input type="range" id="speed" min="0.25" max="1.75" step="0.25" value="1"></label>
+        <span class="caption" id="caption"></span>
+      </div>
+      <div class="legend" id="legend"></div>
+    </section>
+    <section class="card explain" aria-live="polite">
+      <div class="stepno" id="stepno"></div>
+      <h2 id="title"></h2>
+      <div class="body" id="body"></div>
+      <div class="analogy" id="analogy"><b>Think of it like this</b><p></p></div>
+      <dl class="terms" id="terms"></dl>
+      <div class="check" id="check">
+        <h3>Quick check</h3>
+        <p class="q" id="q"></p>
+        <div id="opts"></div>
+        <p class="fb" id="fb"></p>
+        <p class="calm">Wrong answers are fine here. Read why, then try again.</p>
+      </div>
+      <div class="nav">
+        <button class="navbtn sec" id="prev" type="button">&larr; Back</button>
+        <div class="prog"><i id="progbar"></i></div>
+        <button class="navbtn" id="next" type="button">Next &rarr;</button>
+      </div>
+    </section>
+  </div>
+</div>
+<footer>Dr. Akash Garg &middot; Microbiology Study Tools &middot; Diagrams are simplified and not to scale. For learning only, not medical advice. CC BY-NC-SA 4.0<br>Use the left and right arrow keys to move between steps. Practice next in the <a href="Control-Lab.html">Controlling Microbial Growth Lab</a>. Microbes are drawn as large cartoons, and processes that take minutes or hours are sped up so you can watch them. Times, temperatures and concentrations are rounded teaching values; always follow the product label and your facility's policy.</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "gold", "gold-wash", "gold-ink", "ecf", "bench", "grid", "bact", "spore", "spore-coat", "myco", "env", "nonenv", "prion", "cyst", "fungus", "dead", "gpos", "gneg", "steam", "air", "heat", "cold", "uv", "ion", "alc", "chlor", "iod", "phen", "quat", "metal", "ald", "perox", "gas", "membrane", "protein", "dna", "water", "agar", "agar-edge", "glass", "glass-edge", "steel", "steel-edge", "tape", "tape-ink", "bi-pass", "bi-fail", "skin", "skin-edge", "body", "body-edge", "soil", "milk", "food", "organic", "glow"];
+/* ================= drawing kit (shared by both pages) ================= */
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"center";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase().replace(/Μ/g,"µ").replace(/µM/g,"µm"),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+
+/* ================= microbe drawing helpers ================= */
+function bact(x,y,ang,s,a,o){o=o||{};s=s||8;ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=a==null?1:clamp(a,0,1);
+  const L=s*1.6*(o.shrink?1-o.shrink*.25:1),Hh=s*.75*(o.shrink?1-o.shrink*.35:1);const col=o.dead?C.dead:(o.col||C.bact);
+  if(o.wax){rr(-L-s*.32,-Hh-s*.32,L*2+s*.64,Hh*2+s*.64,Hh+s*.32);ctx.fillStyle=hexA(col,.28);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke()}
+  if(o.wall){rr(-L-s*.2,-Hh-s*.2,L*2+s*.4,Hh*2+s*.4,Hh+s*.2);ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1.2;ctx.stroke()}
+  rr(-L,-Hh,L*2,Hh*2,Hh);ctx.fillStyle=col;ctx.fill();
+  if(o.dead){ctx.strokeStyle=hexA(C.ink,.55);ctx.setLineDash([3,2]);ctx.lineWidth=1.2;ctx.stroke();ctx.setLineDash([]);
+    ctx.strokeStyle=hexA(C.panel,.9);ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(-L*.2,-Hh);ctx.lineTo(0,-Hh*.2);ctx.lineTo(-L*.15,Hh*.3);ctx.lineTo(L*.05,Hh);ctx.stroke()}
+  else{ctx.strokeStyle=hexA(C.ink,.45);ctx.lineWidth=1;ctx.stroke();line(-L*.55,0,L*.55,0,hexA(C.panel,.55),1.2)}
+  if(o.flag&&!o.dead){ctx.strokeStyle=hexA(col,.85);ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(L,0);for(let k=1;k<=6;k++)ctx.lineTo(L+k*3,Math.sin(k*1.6+(o.t||0)*8)*2.5);ctx.stroke()}
+  if(o.sporeIn){ell(L*.55,0,s*.42,s*.34,0,C.spore,C.ink,1)}
+  ctx.restore()}
+function spore(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.spore;
+  ell(x,y,s*1.15,s*.8,o.ang||0,o.dead?hexA(C.dead,.35):C["spore-coat"],col,s*.28);
+  ell(x,y,s*.62,s*.4,o.ang||0,col);
+  if(o.dead){line(x-s*.6,y-s*.5,x+s*.6,y+s*.5,hexA(C.ink,.5),1.2)}
+  ctx.restore()}
+function envVirus(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.env;const t=o.t||0;const br=o.broken||0;
+  for(let k=0;k<12;k++){const an=k/12*TAU+t*.3;const d=r+br*r*.8*rnd(k);const X=x+Math.cos(an)*d,Y=y+Math.sin(an)*d;line(X,Y,X+Math.cos(an)*r*.38,Y+Math.sin(an)*r*.38,col,1.3);circ(X+Math.cos(an)*r*.45,Y+Math.sin(an)*r*.45,r*.13,col)}
+  if(br>0){ctx.setLineDash([4,3])}
+  circ(x,y,r,hexA(col,.25),col,1.8);ctx.setLineDash([]);
+  ctx.beginPath();for(let k=0;k<=6;k++){const an=k/6*TAU;const X=x+Math.cos(an)*r*.55,Y=y+Math.sin(an)*r*.55;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();ctx.fillStyle=col;ctx.fill();
+  ctx.restore()}
+function nakedVirus(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.nonenv;
+  ctx.beginPath();for(let k=0;k<=6;k++){const an=k/6*TAU+Math.PI/6;const X=x+Math.cos(an)*r,Y=y+Math.sin(an)*r;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1.2;ctx.stroke();
+  for(let k=0;k<6;k++){const an=k/6*TAU+Math.PI/6;line(x,y,x+Math.cos(an)*r,y+Math.sin(an)*r,hexA(C.panel,.6),1)}
+  ctx.restore()}
+function prion(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.prion;const t=o.t||0;
+  ctx.beginPath();for(let i=0;i<=30;i++){const f=i/30;const X=x-s+f*2*s;const Y=y+Math.sin(f*TAU*2.5+t)*s*.35+(i%6<3?-s*.18:s*.18);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}
+  ctx.strokeStyle=col;ctx.lineWidth=s*.28;ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();
+  ctx.beginPath();for(let i=0;i<=20;i++){const f=i/20;const X=x-s*.8+f*1.6*s;const Y=y+s*.55+Math.sin(f*TAU*2+t+1)*s*.25;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.lineWidth=s*.22;ctx.stroke();ctx.lineCap="butt";
+  ctx.restore()}
+function cyst(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.cyst;
+  circ(x,y,r,hexA(col,.25),col,r*.28);circ(x-r*.25,y-r*.1,r*.18,col);circ(x+r*.25,y+r*.15,r*.18,col);ctx.restore()}
+function yeast(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.fungus;
+  ell(x,y,s,s*.82,0,col,hexA(C.ink,.45),1);ell(x+s*.95,y-s*.45,s*.48,s*.4,0,col,hexA(C.ink,.45),1);circ(x-s*.2,y,s*.3,hexA(C.panel,.4));ctx.restore()}
+function microbe(kind,x,y,s,o){o=o||{};
+  if(kind==="bact")bact(x,y,o.ang||0,s,o.a,o);else if(kind==="spore")spore(x,y,s*.9,o);else if(kind==="myco")bact(x,y,o.ang||0,s,o.a,Object.assign({col:C.myco,wax:true},o));
+  else if(kind==="env")envVirus(x,y,s*.9,o);else if(kind==="nonenv")nakedVirus(x,y,s*.85,o);else if(kind==="prion")prion(x,y,s,o);else if(kind==="cyst")cyst(x,y,s,o);else if(kind==="yeast")yeast(x,y,s*.8,o)}
+/* flame for Bunsen burners */
+function flame(x,y,s,t){ctx.save();const fl=1+.08*Math.sin(t*17)+.05*Math.sin(t*29);
+  ctx.beginPath();ctx.moveTo(x-s*.5,y);ctx.bezierCurveTo(x-s*.6,y-s*1.2*fl,x-s*.1,y-s*1.6*fl,x,y-s*2.4*fl);ctx.bezierCurveTo(x+s*.1,y-s*1.6*fl,x+s*.6,y-s*1.2*fl,x+s*.5,y);ctx.closePath();
+  ctx.fillStyle=hexA(C.heat,.85);ctx.fill();
+  ctx.beginPath();ctx.moveTo(x-s*.25,y);ctx.bezierCurveTo(x-s*.3,y-s*.8,x,y-s*1.1*fl,x,y-s*1.4*fl);ctx.bezierCurveTo(x,y-s*1.1*fl,x+s*.3,y-s*.8,x+s*.25,y);ctx.closePath();ctx.fillStyle=hexA(C.steam,.9);ctx.fill();ctx.restore()}
+function burner(x,y,t){rr(x-9,y-40,18,40,3);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=1.3;ctx.stroke();rr(x-24,y-4,48,8,3);ctx.fill();ctx.stroke();flame(x,y-40,14,t)}
+function heatWaves(x,y,w,h,t,col,n){n=n||5;for(let i=0;i<n;i++){const X=x+(i+.5)*w/n;const p=P(t*.8+i*.23,1);ctx.save();ctx.globalAlpha*=Math.sin(p*Math.PI)*.85;ctx.beginPath();for(let k=0;k<=12;k++){const f=k/12;const Y=y-f*h-p*h*.4;const X2=X+Math.sin(f*TAU+t*3+i)*5;k?ctx.lineTo(X2,Y):ctx.moveTo(X2,Y)}ctx.strokeStyle=col||C.heat;ctx.lineWidth=2.2;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt";ctx.restore()}}
+function snow(x,y,w,h,t,n){for(let i=0;i<(n||10);i++){const X=x+rnd(i*3)*w+Math.sin(t+i)*6;const Y=y+P(t*.12+rnd(i*7),1)*h;const r=3+rnd(i)*2;ctx.save();ctx.translate(X,Y);ctx.rotate(t*.5+i);for(let k=0;k<3;k++){ctx.rotate(Math.PI/3);line(-r,0,r,0,C.cold,1.4)}ctx.restore()}}
+function thermo(x,y,h,f,col,lab){rr(x-6,y,12,h,6);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.3;ctx.stroke();
+  const fh=(h-8)*clamp(f,0,1);rr(x-3,y+h-4-fh,6,fh+4,3);ctx.fillStyle=col||C.heat;ctx.fill();circ(x,y+h+6,9,col||C.heat,C["ink-soft"],1.3);
+  if(lab)txt(x+14,y+h*.15,lab,{size:12.5,mono:true,weight:700})}
+function gaugeDial(x,y,r,f,lab,val,col){circ(x,y,r,C.panel,C["ink-soft"],1.6);const a0=Math.PI*.75,a1=Math.PI*2.25;
+  ctx.beginPath();ctx.arc(x,y,r-5,a0,a1);ctx.strokeStyle=C["rule"];ctx.lineWidth=4;ctx.stroke();ctx.beginPath();ctx.arc(x,y,r-5,a0,a0+(a1-a0)*clamp(f,0,1));ctx.strokeStyle=col||C.steam;ctx.stroke();
+  const a=a0+(a1-a0)*clamp(f,0,1);line(x,y,x+Math.cos(a)*(r-9),y+Math.sin(a)*(r-9),C.ink,2.2);circ(x,y,3,C.ink);
+  if(val)txt(x,y+r*.5,val,{size:11.5,mono:true,weight:700,align:"center"});if(lab)txt(x,y+r+11,lab,{size:12,weight:600,align:"center",color:C["ink-soft"]})}
+function clock(x,y,r,f,col){circ(x,y,r,C.panel,C["ink-soft"],1.4);if(f>0){ctx.beginPath();ctx.moveTo(x,y);ctx.arc(x,y,r-3,-Math.PI/2,-Math.PI/2+TAU*clamp(f,0,1));ctx.closePath();ctx.fillStyle=hexA(col||C.accent,.45);ctx.fill()}
+  const a=-Math.PI/2+TAU*f;line(x,y,x+Math.cos(a)*(r-3),y+Math.sin(a)*(r-3),C.ink,1.8)}
+function petri(x,y,r,o){o=o||{};ell(x,y+4,r,r*.42,0,hexA(C.ink,.12));ell(x,y,r,r*.42,0,C.agar,C["agar-edge"],1.5);if(o.lawn){ctx.save();ell(x,y,r-4,r*.42-3,0);ctx.clip();ctx.globalAlpha*=o.lawn;
+  for(let i=0;i<160;i++){const a=rnd(i)*TAU,d=Math.sqrt(rnd(i+9))*(r-4);circ(x+Math.cos(a)*d,y+Math.sin(a)*d*.42,1.6,hexA(o.col||C.bact,.6))}ctx.restore()}
+  ell(x,y,r+2,r*.42+2,0,null,hexA(C["glass-edge"],.8),1.3)}
+function tube(x,y,w,h,fill,o){o=o||{};ctx.save();rr(x-w/2,y,w,h,w/2);ctx.fillStyle=hexA(C.glass,.6);ctx.fill();
+  if(fill!=null){ctx.save();rr(x-w/2,y,w,h,w/2);ctx.clip();ctx.fillStyle=o.col||C.water;ctx.fillRect(x-w/2,y+h*(1-fill),w,h*fill);
+    if(o.cloudy){for(let i=0;i<26;i++)circ(x-w/2+rnd(i+(o.seed||0))*w,y+h*(1-fill)+rnd(i*3+1)*h*fill,1.4,hexA(C.ink,.35*o.cloudy))}ctx.restore()}
+  rr(x-w/2,y,w,h,w/2);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.5;ctx.stroke();if(o.cap){rr(x-w/2-2,y-8,w+4,12,3);ctx.fillStyle=o.cap;ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.stroke()}ctx.restore()}
+function flask(x,y,s,fill,col){ctx.save();ctx.beginPath();ctx.moveTo(x-s*.18,y-s);ctx.lineTo(x-s*.18,y-s*.55);ctx.lineTo(x-s*.55,y);ctx.lineTo(x+s*.55,y);ctx.lineTo(x+s*.18,y-s*.55);ctx.lineTo(x+s*.18,y-s);ctx.closePath();
+  ctx.fillStyle=hexA(C.glass,.55);ctx.fill();ctx.save();ctx.clip();const fy=y-s*fill;ctx.fillStyle=col||C.water;ctx.fillRect(x-s,fy,2*s,s);ctx.restore();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.8;ctx.stroke();ctx.restore()}
+function handShape(x,y,s,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(o.rot||0);ctx.scale(s*(o.flip?-1:1),s);const col=o.glove?C.steam:C.skin,ed=o.glove?C["glass-edge"]:C["skin-edge"];
+  rr(-22,-6,44,46,12);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=ed;ctx.lineWidth=1.4/s;ctx.stroke();
+  const fx=[-17,-6,5,16],fl=[30,36,34,26];fx.forEach((f,i)=>{rr(f-4.5,-6-fl[i],9,fl[i]+6,4.5);ctx.fillStyle=col;ctx.fill();ctx.stroke()});
+  ctx.beginPath();ctx.moveTo(-22,22);ctx.quadraticCurveTo(-40,10,-36,-6);ctx.lineTo(-29,-8);ctx.quadraticCurveTo(-30,6,-20,12);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.stroke();
+  ctx.restore()}
+function bottle(x,y,s,col,lab){ctx.save();rr(x-s*.45,y-s*1.4,s*.9,s*1.4,s*.15);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();
+  ctx.save();rr(x-s*.45,y-s*1.4,s*.9,s*1.4,s*.15);ctx.clip();ctx.fillStyle=hexA(col,.55);ctx.fillRect(x-s*.45,y-s*.95,s*.9,s*.95);ctx.restore();
+  rr(x-s*.18,y-s*1.75,s*.36,s*.38,3);ctx.fillStyle=col;ctx.fill();if(lab){rr(x-s*.38,y-s*.85,s*.76,s*.42,3);ctx.fillStyle=C.panel;ctx.fill();txt(x,y-s*.64,lab,{size:Math.max(10.5,s*.2),weight:700,mono:true,align:"center"})}ctx.restore()}
+function sprayBottle(x,y,s,col,t,spray){bottle(x,y,s,col);ctx.save();rr(x-s*.25,y-s*2.05,s*.6,s*.32,4);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.stroke();
+  if(spray>0){for(let i=0;i<14;i++){const f=P(t*1.6+i/14,1);const a=-.35+rnd(i)*.7;const d=f*s*2.2;circ(x+s*.4+Math.cos(a)*d,y-s*1.9+Math.sin(a)*d+f*f*s*.8,1.8,hexA(col,(1-f)*spray))}}ctx.restore()}
+/* exponent label like 10^6 using superscripts */
+const SUPD={"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","-":"⁻"};
+function ten(n){return "10"+String(n).split("").map(c=>SUPD[c]||c).join("")}
+function fmtN(n){if(n>=1)return Math.round(n).toLocaleString("en-US");return n.toPrecision(1)}
+/* log-scale graph frame. returns mapping helpers */
+function logFrame(x,y,w,h,lo,hi,tmax,o){o=o||{};panelBox(x-46,y-32,w+60,h+(o.noX?48:66),{fill:hexA(C.panel,.94)});
+  if(o.title)txt(x-38,y-18,o.title,{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  const Y=v=>y+h-(clamp(v,lo,hi)-lo)/(hi-lo)*h,X=t=>x+w*clamp(t/tmax,0,1);
+  for(let e=lo;e<=hi;e+=(o.step||2)){line(x,Y(e),x+w,Y(e),hexA(C.rule,.7),1);txt(x-6,Y(e),ten(e),{size:11.5,mono:true,align:"right",color:C["ink-soft"]})}
+  line(x,y,x,y+h,C["ink-soft"],1.4);line(x,y+h,x+w,y+h,C["ink-soft"],1.4);
+  if(!o.noX){const nt=o.xt||4;for(let i=0;i<=nt;i++){const t=tmax*i/nt;txt(X(t),y+h+12,(o.xfmt?o.xfmt(t):Math.round(t)),{size:11.5,mono:true,align:"center",color:C["ink-soft"]})}
+    txt(x+w/2,y+h+28,o.xlab||"Time (minutes)",{size:12,align:"center",color:C["ink-soft"],weight:600})}
+  return {X,Y}}
+
+/* ---------------- step content ---------------- */
+const ACTS={1:{name:"Part 1 · The words",col:"act1"},
+            2:{name:"Part 2 · How microbes die",col:"act2"},
+            3:{name:"Part 3 · Heat",col:"act3"},
+            4:{name:"Part 4 · Filters, cold, drying, radiation",col:"act4"},
+            5:{name:"Part 5 · Chemicals",col:"act5"},
+            6:{name:"Part 6 · Testing and hand hygiene",col:"act6"}};
+const NACT=6;
+const STEPS=[
+{act:0,scene:"map",desc:"The left panel shows a dish of green rod-shaped bacteria and cycles through three ways to control them, each named in a box at the top. Under Kill, orange heat waves rise and the bacteria turn grey and crack. Under Remove, the liquid drains down through a filter and the bacteria are left stuck on top of it. Under Slow, blue snowflakes fall and a small clock ticks while the bacteria stop dividing but stay green. The right half has six cards that light up one at a time with a coloured border: The words, How microbes die, Heat, Filters cold drying radiation, Chemicals, and Testing and hand hygiene, each with a small moving picture.",
+ title:"The big picture: kill, remove or slow",
+ body:`<p>Microbes are everywhere: on skin, counters, food and medical tools. Most are harmless, but in a hospital, a kitchen or a lab we need to <b>control</b> them so they cannot cause infection or spoilage.</p>
+ <p>Every control method does one of three things. It <b>kills</b> microbes (heat, many chemicals, radiation), <b>removes</b> them (filters, scrubbing and rinsing), or <b>slows</b> their growth (cold, drying, salt and sugar).</p>
+ <p>This walkthrough has six parts:</p>
+ <ol><li><b>The words:</b> sterile, disinfect, antiseptic and more.</li><li><b>How microbes die:</b> the death curve, the D-value and which microbes are toughest.</li><li><b>Heat:</b> boiling, the autoclave, pasteurization and dry heat.</li><li><b>Filters, cold, drying and radiation.</b></li><li><b>Chemicals:</b> how each family works and where it is used.</li><li><b>Testing and hand hygiene:</b> how we know a disinfectant works, and the most important control method of all.</li></ol>`,
+ analogy:"Weeds in a garden. You can pull them out by the roots (kill), lift the whole patch away (remove), or cover the bed so nothing new sprouts (slow). Each job needs a different tool.",
+ terms:[["Microbial control","Using physical or chemical methods to kill, remove or slow the growth of microbes."],["Contamination","Microbes getting where they are not wanted, such as on a sterile tool or in food."]],
+ check:null,caption:"Three ways to control microbes: kill them, remove them, or slow their growth.",
+ legend:[["bact","Living bacterium"],["dead","Dead bacterium"],["heat","Heat"],["cold","Cold"],["accent","Current part","s"]]},
+
+/* ---------- Part 1 ---------- */
+{act:1,scene:"sterile",desc:"Two panels. On the left, a wrapped surgical tray sits in a steam chamber with orange heat waves. Green bacteria, a pink virus and brown oval endospores sit on the tools; as a timer fills, every one of them fades away, and a green tag reads Sterile: no living microbes, endospores too. On the right, a sealed food can is heated. Brown botulinum endospores inside fade away, but two grey heat-loving spores stay, with small sleep marks beside them and a tag that says they cannot grow at room temperature. The tag reads Commercially sterile.",
+ title:"Sterilization and commercial sterilization",
+ body:`<p><b>Sterilization</b> kills or removes <b>all</b> living microbes, including tough <b>endospores</b> and viruses. Something is either sterile or it is not; there is no "mostly sterile". Surgical tools, needles and anything that enters sterile body tissue must be sterile.</p>
+ <p><b>Commercial sterilization</b> is used for canned food. The can is heated enough to kill the endospores of <b>Clostridium botulinum</b>, the bacterium that makes the deadly botulinum toxin. A few very heat-loving spores may survive, but they cannot grow at room temperature in a sealed can, so the food is safe.</p>
+ <p>Note: <b>prions</b> (infectious misfolded proteins) are so tough that normal sterilization does not reliably destroy them. They need special, longer methods.</p>`,
+ analogy:"Sterile is like an empty room: not one person left, not even someone hiding in a closet. Commercially sterile is a room where a couple of people are fast asleep and will never wake up while the door is closed.",
+ terms:[["Sterilization","Killing or removing all microbes, including endospores and viruses."],["Commercial sterilization","Heat treatment of canned food that kills C. botulinum endospores; a few harmless spores may remain."],["Endospore","A tough, dormant structure some bacteria form to survive heat, drying and chemicals."]],
+ check:{q:"Which item must be truly sterile?",opts:[
+  ["A scalpel used in surgery",1,"Yes. A scalpel enters sterile tissue, so it must carry no living microbes at all, endospores included."],
+  ["A hospital floor",0,"Floors are cleaned and disinfected, not sterilized. Nothing that touches a floor enters sterile body tissue."],
+  ["A dinner plate in a restaurant",0,"Dishes are sanitized to a safe level. They do not need to be sterile."],
+  ["A patient's unbroken skin",0,"Living skin cannot be sterilized without harming it. We use antiseptics to reduce microbes on skin."]]},
+ caption:"Sterile means zero living microbes. Commercially sterile cans may hold a few dormant spores that cannot grow.",
+ legend:[["bact","Bacterium"],["env","Virus"],["spore","Endospore"],["dead","Survivor that cannot grow"],["heat","Heat"]]},
+
+{act:1,scene:"words",desc:"Four panels in a two by two grid, each showing a different job. Top left, Disinfection: a spray bottle mists a countertop; green bacteria on it turn grey, but one brown endospore remains. Top right, Antisepsis: a brown iodine circle spreads on the skin of an arm and the bacteria inside the circle turn grey. Bottom left, Sanitization: a bar showing the number of germs on a fork drops below a dashed line marked safe level. Bottom right, Degerming: water and soap bubbles run over a hand and carry the bacteria off and down the drain without killing them.",
+ title:"Disinfect, antiseptic, sanitize, degerm",
+ body:`<p>These words are not the same as sterile. Each one names a smaller, different job:</p>
+ <ul><li><b>Disinfection</b>: killing or removing most harmful microbes on <b>nonliving objects</b> such as counters, bed rails and equipment. Endospores often survive.</li>
+ <li><b>Antisepsis</b>: reducing microbes on <b>living tissue</b>, such as skin before an injection or surgery. The chemical is an <b>antiseptic</b>. It must be gentle enough not to harm the tissue.</li>
+ <li><b>Sanitization</b>: lowering microbe numbers to a <b>safe public-health level</b>, such as dishes in a restaurant.</li>
+ <li><b>Degerming</b>: <b>physically removing</b> microbes from skin, such as hand washing or wiping skin with an alcohol pad before a shot.</li></ul>`,
+ analogy:"Cleaning a house. Disinfecting is scrubbing the kitchen counter. Antisepsis is washing your own face, gently. Sanitizing is getting the dishes clean enough to pass a health inspection. Degerming is sweeping the dust out the door.",
+ terms:[["Disinfectant","A chemical used on nonliving surfaces; often too harsh for skin."],["Antiseptic","A chemical gentle enough for living tissue, such as skin."],["Sanitization","Reducing microbes to a level public health standards call safe."],["Degerming","Removing microbes mechanically, such as scrubbing and rinsing."]],
+ check:{q:"A nurse paints a patient's skin with povidone-iodine before surgery. What is this called?",opts:[
+  ["Antisepsis",1,"Yes. Iodine is being used on living tissue (skin), so it is an antiseptic."],
+  ["Disinfection",0,"Disinfection is for nonliving objects like counters. Skin is living tissue, so this is antisepsis."],
+  ["Sterilization",0,"Skin cannot be sterilized. Some microbes always remain deep in pores and hair follicles."],
+  ["Sanitization",0,"Sanitization is lowering germs to a safe level on things like dishes. On skin before surgery, we call it antisepsis."]]},
+ caption:"Disinfect objects, use antiseptics on skin, sanitize to a safe level, and degerm by washing germs away.",
+ legend:[["bact","Bacterium"],["dead","Killed"],["spore","Endospore"],["iod","Iodine antiseptic","s"],["water","Water","s"]]},
+
+{act:1,scene:"cide",desc:"A graph shows the number of living bacteria on a log scale over time. A chemical is added at the dashed line marked Add chemical, and removed at a second dashed line marked Remove chemical. Three lines are drawn as a cursor sweeps right. The grey line, no chemical, keeps climbing. The blue line, bacteriostatic, goes flat while the chemical is present and then climbs again after it is removed. The red line, bactericidal, drops steeply and stays down. Below the graph, a blue bacterium with a pause sign waits, then starts dividing again, while a red-outlined bacterium cracks open and turns grey.",
+ title:"-cide or -static?",
+ body:`<p>The ending of a word tells you what the treatment does.</p>
+ <p><b>-cide</b> means <b>kills</b>. A <b>germicide</b> kills germs in general. A <b>bactericide</b> kills bacteria, a <b>fungicide</b> kills fungi, a <b>virucide</b> inactivates viruses, and a <b>sporicide</b> kills endospores.</p>
+ <p><b>-static</b> means <b>stops growth</b> without killing. A <b>bacteriostatic</b> agent holds bacteria in place. When it is removed, they start growing again. Refrigeration and many food preservatives are static.</p>
+ <p>Whether something is -cidal or -static can depend on the dose: a weak concentration may only slow microbes, while a strong one kills them.</p>`,
+ analogy:"A referee's whistle versus a red card. A whistle (static) stops play for a moment; once it ends, the game goes on. A red card (cidal) sends the player off for good.",
+ terms:[["Bactericidal","Kills bacteria. The count drops and does not come back."],["Bacteriostatic","Stops bacterial growth. The count recovers when the agent is removed."],["Sporicide","An agent that kills endospores."],["Germicide","An agent that kills microbes in general."]],
+ check:{q:"Bacteria are kept in a fridge for a week, then left on the counter. They start multiplying again. The fridge was:",opts:[
+  ["Bacteriostatic",1,"Yes. Cold slowed or stopped growth without killing. Once warm again, growth resumed."],
+  ["Bactericidal",0,"If the fridge had killed them, the count could not recover. Growth coming back is the sign of a -static effect."],
+  ["Sporicidal",0,"Sporicidal means killing endospores. Cold does not kill endospores or most bacteria."],
+  ["Sterilizing",0,"Sterilizing would leave no living microbes, so nothing could start growing again."]]},
+ caption:"Bactericidal agents kill, so the count falls. Bacteriostatic agents pause growth, which restarts when the agent is removed.",
+ legend:[["dead","No chemical","l"],["cold","Bacteriostatic","l"],["bad","Bactericidal","l"],["ink-soft","Chemical added / removed","dl"]]},
+
+{act:1,scene:"asepsis",desc:"On the left, a lab bench with a Bunsen burner flame. An inoculating wire loop moves into the flame and glows orange, then moves to a culture tube, whose open mouth is passed through the flame. The loop picks up bacteria and draws a zigzag streak on an agar plate whose lid is held tilted above it like a shield. Small grey dust specks with microbes drift down from the air but bounce off the tilted lid. On the right, a sterile field: a green drape with sterile instruments. A gloved hand places a tool inside the field and a green check appears; a tool that touched the table edge gets a red X and is moved away.",
+ title:"Aseptic technique",
+ body:`<p><b>Aseptic technique</b> is a set of habits that keep unwanted microbes out of something that must stay clean: a pure culture in the lab, or a patient's wound or IV line in the clinic.</p>
+ <p>In the lab: <b>flame the loop</b> until it glows red before and after use, briefly flame the mouth of the tube, keep lids open only a little and only for a short time, and work near the flame where rising warm air carries dust away.</p>
+ <p>In health care: <b>medical asepsis</b> (clean technique) lowers germs with hand hygiene and clean gloves. <b>Surgical asepsis</b> (sterile technique) keeps a <b>sterile field</b>: only sterile items touch it, and anything that touches something non-sterile is no longer sterile.</p>`,
+ analogy:"Carrying a full glass of water through a crowded room. You do not stop people from walking around; you just keep your hand over the glass and move with care so nothing falls in.",
+ terms:[["Aseptic technique","Methods that prevent contamination of sterile items, cultures or body sites."],["Sterile field","An area where only sterile items may be placed."],["Contaminant","An unwanted microbe that gets into a culture or sterile site."]],
+ check:{q:"During a sterile dressing change, a sterile gauze brushes the nurse's sleeve. What should happen?",opts:[
+  ["Throw it away and use a new sterile gauze",1,"Yes. Once a sterile item touches anything non-sterile, it is contaminated. You cannot tell if it picked up microbes."],
+  ["Use it, since the sleeve looked clean",0,"Looking clean does not mean sterile. Microbes are invisible, so the gauze must be treated as contaminated."],
+  ["Wipe it with alcohol and use it",0,"Alcohol does not make the gauze sterile again. Replace it."],
+  ["Use it only on the edge of the wound",0,"Any part of the wound can be infected. A contaminated item should not touch it."]]},
+ caption:"Flame the loop, shield the plate, and keep sterile items away from anything that is not sterile.",
+ legend:[["heat","Flame and hot loop"],["bact","Culture bacteria"],["air","Airborne dust and microbes"],["good","Sterile field","s"]]},
+
+/* ---------- Part 2 ---------- */
+{act:2,scene:"curve",desc:"On the left, a flask over a flame holds 100 green dots that stand for the starting population. Every minute, 9 out of every 10 remaining dots turn grey. A counter above reads the true number alive, starting at 1,000,000 and dropping to 100,000, then 10,000 and so on. On the right are two graphs that fill in as time passes. The top graph has an ordinary scale: its line plunges and soon looks like zero. The bottom graph has a log scale: the same data make a straight, steady downward line, one step per minute.",
+ title:"Microbes die at a steady rate: the death curve",
+ body:`<p>When you heat or treat a population, microbes do not all die at once. In each minute, the same <b>fraction</b> of the survivors dies. With a typical treatment, maybe 90% die in the first minute, then 90% of the ones left die in the next minute, and so on.</p>
+ <p>So the count falls 1,000,000 → 100,000 → 10,000 → 1,000. On an ordinary graph, the line crashes and looks like zero after a few minutes, even though thousands are still alive.</p>
+ <p>On a <b>log scale</b>, each step down is ten times smaller. Now the <b>microbial death curve</b> is a straight line. We call this <b>logarithmic</b> (exponential) death. It means we can predict how long a treatment must run.</p>`,
+ analogy:"Spending half of what is left in your wallet every day. You never quite reach zero, and the bigger the starting pile, the longer it takes to get down to coins.",
+ terms:[["Microbial death curve","A graph of survivors over time; on a log scale it is a straight line."],["Logarithmic death","The same fraction of survivors dies in each unit of time."],["Log scale","A graph scale where each step is ten times bigger or smaller than the last."]],
+ check:{q:"A treatment kills 90% of bacteria each minute. You start with 1,000,000. How many are alive after 3 minutes?",opts:[
+  ["1,000",1,"Yes. 1,000,000 → 100,000 → 10,000 → 1,000. Each minute leaves one tenth."],
+  ["0",0,"Death is a steady fraction, not a fixed number. After 3 minutes, one thousandth is still alive: 1,000 cells."],
+  ["700,000",0,"That would be killing a fixed 10% each minute. Here 90% of the survivors die each minute."],
+  ["100",0,"That would take 4 minutes. After 3 minutes, 1,000 remain."]]},
+ caption:"Each minute, 90% of the survivors die. On a log graph that steady fraction makes a straight line.",
+ legend:[["bact","Alive"],["dead","Killed"],["heat","Heat"],["accent","Survivors (graph)","l"]]},
+
+{act:2,scene:"dvalue",desc:"A large log graph shows survivors falling from one million over time. Two straight lines are drawn: an orange line for 121 degrees Celsius that falls steeply and a lighter line for 110 degrees that falls slowly. On the steep line, bracket steps mark each one-log drop with the label 1 D. A box under the graph shows a row of ten small bacteria: in each D step, nine turn grey and one stays green. A horizontal dashed line low on the graph is labelled one in a million chance of a survivor, the sterility assurance level.",
+ title:"The D-value: time to kill 90%",
+ body:`<p>The <b>decimal reduction time</b>, or <b>D-value</b>, is the time it takes to kill <b>90%</b> of a population (a drop of one log, or ten-fold) under set conditions, such as a certain temperature.</p>
+ <p>A small D-value means the treatment kills fast. Raising the temperature makes D smaller. For tough bacterial endospores in steam at 121 °C, D is about one to two minutes; at lower temperatures it can be many times longer.</p>
+ <p>Knowing D lets us plan. To go from 1,000,000 spores to a <b>one-in-a-million</b> chance of one survivor (written 10<sup>-6</sup>, the <b>sterility assurance level</b>), we need 12 log drops: 12 × D. Canning uses this same "12D" idea for botulinum spores.</p>`,
+ analogy:"A staircase going down. Each step is one D, and every step takes you to one tenth of where you were. The D-value tells you how long each step takes.",
+ terms:[["D-value","Minutes needed to kill 90% (one log) of a population under set conditions."],["Sterility assurance level","The chance that one microbe survives; for medical tools it is 1 in a million (10⁻⁶)."],["12D","Running a heat process long enough for 12 log drops, as in canning."]],
+ check:{q:"At 121 °C, the D-value for a spore is 2 minutes. How long to drop from 1,000,000 spores to 1,000?",opts:[
+  ["6 minutes",1,"Yes. 1,000,000 to 1,000 is three log drops. 3 × 2 minutes = 6 minutes."],
+  ["2 minutes",0,"2 minutes is one D, which gives only one log drop: 1,000,000 to 100,000."],
+  ["999 minutes",0,"Death is counted in log drops, not one cell at a time. Three drops × 2 minutes = 6 minutes."],
+  ["3 minutes",0,"Three log drops are needed, and each takes D = 2 minutes, so 6 minutes."]]},
+ caption:"Each D-value is one step down the staircase: 90% of survivors killed. Hotter means shorter steps.",
+ legend:[["heat","121 °C (short D)","l"],["ald","110 °C (long D)","l"],["bact","Alive"],["dead","Killed"],["ink-soft","Sterility assurance level","dl"]]},
+
+{act:2,scene:"factors",desc:"Four small graphs, each with a cartoon. Top left, Number of microbes: two parallel lines fall at the same slope, but the one that starts higher reaches zero later. Top right, Type of microbe: a green vegetative bacterium line drops steeply while a brown endospore line barely slopes. Bottom left, Organic matter: a bacterium sits inside a brown blob of organic material; teal chemical particles hit the blob and are used up, and the protected line falls more slowly. Bottom right, Temperature and time: a thermometer fills and the line gets steeper as the heat rises. Each graph is drawn by a moving cursor.",
+ title:"What changes how fast microbes die",
+ body:`<p>Several things change the death rate and the time a treatment needs:</p>
+ <ul><li><b>Number of microbes:</b> more microbes at the start means more time to reach zero, because each log drop takes the same time.</li>
+ <li><b>Type of microbe:</b> endospores and mycobacteria die much more slowly than ordinary (vegetative) bacteria.</li>
+ <li><b>Organic matter:</b> blood, vomit, feces and dirt shield microbes and use up chemicals like bleach. That is why you <b>clean first, then disinfect</b>.</li>
+ <li><b>Temperature, time and concentration:</b> hotter, longer, or (usually) stronger means faster killing. Every product has a <b>contact time</b> it must stay wet on the surface.</li></ul>
+ <p><b>Biofilms</b>, slimy layers of microbes stuck to surfaces, also protect microbes.</p>`,
+ analogy:"Washing a burnt pan. More burnt food takes longer, some spots are tougher than others, grease protects the gunk from the soap, and hot water with time to soak works best.",
+ terms:[["Vegetative cell","An active, growing cell, not a spore. Much easier to kill."],["Organic load","Blood, body fluids or dirt that protect microbes and weaken chemicals."],["Contact time","How long a disinfectant must stay wet on a surface to work."],["Biofilm","A slimy community of microbes stuck to a surface."]],
+ check:{q:"Why should a blood spill be wiped up before it is disinfected with bleach?",opts:[
+  ["Organic matter shields microbes and uses up the bleach",1,"Yes. Blood reacts with chlorine, leaving less to kill microbes, and it physically hides them."],
+  ["Blood makes bleach stronger",0,"It is the opposite. Organic matter weakens bleach."],
+  ["Bleach does not work on any blood-borne virus",0,"Bleach does inactivate blood-borne viruses on a clean surface. Cleaning first lets it reach them."],
+  ["Bleach only works on dry surfaces",0,"Bleach needs to stay wet for its contact time. The problem is the organic matter."]]},
+ caption:"Bigger populations, tougher microbes and organic matter slow the kill. Heat, time and concentration speed it up.",
+ legend:[["bact","Vegetative bacteria","l"],["spore","Endospores","l"],["organic","Organic matter","s"],["alc","Chemical particles"],["heat","Heat"]]},
+
+{act:2,scene:"ladder",desc:"A tall ladder fills the middle of the picture, with the hardest-to-kill microbes at the top and the easiest at the bottom. From top to bottom the rungs show: prions (red tangled proteins), endospores (brown ovals), mycobacteria (purple waxy rods), protozoan cysts and non-enveloped viruses, vegetative bacteria and fungi (green rods and an orange yeast), and enveloped viruses (pink with spikes). A coloured water level labelled kill power rises up the ladder and falls again. Every rung below the level turns grey. Brackets on the right mark low-level disinfectants near the bottom, high-level disinfectants up to the endospores, sterilization covering endospores, and prions above as needing special methods.",
+ title:"Some microbes are much tougher than others",
+ body:`<p>Microbes are not equally easy to kill. From <b>most resistant</b> to <b>least resistant</b>:</p>
+ <ol><li><b>Prions</b>: misfolded proteins with no DNA to damage.</li><li><b>Bacterial endospores</b> (Bacillus, Clostridium): thick coats, almost no water inside.</li><li><b>Mycobacteria</b> (the TB bacterium): waxy cell walls.</li><li><b>Protozoan cysts</b> and <b>non-enveloped viruses</b> (norovirus): tough outer shells.</li><li><b>Vegetative bacteria and fungi.</b></li><li><b>Enveloped viruses</b> (influenza, HIV, coronaviruses): their fatty envelope is fragile.</li></ol>
+ <p>Disinfectants are rated by how far up this ladder they reach. <b>Low-level</b> ones kill vegetative bacteria and enveloped viruses. <b>High-level</b> ones also kill mycobacteria and non-enveloped viruses, and some endospores. Sterilization kills everything, endospores included.</p>`,
+ analogy:"Locks of different strength. A paper clip opens a toy lock (enveloped virus). A bank vault (endospore) needs serious tools. Prions are like a vault with no door at all.",
+ terms:[["Enveloped virus","A virus wrapped in a fatty membrane; easy to destroy."],["Non-enveloped virus","A virus with only a protein shell; harder to destroy."],["Mycobacteria","Bacteria with waxy walls, such as the cause of TB; resist many chemicals."],["Prion","An infectious misfolded protein; the hardest of all to destroy."]],
+ check:{q:"Which of these is easiest to destroy with a disinfectant?",opts:[
+  ["Influenza virus, which has an envelope",1,"Yes. The fatty envelope breaks apart easily with alcohols, detergents and most disinfectants."],
+  ["Clostridioides difficile endospores",0,"Endospores are near the top of the ladder. Most disinfectants cannot kill them."],
+  ["Mycobacterium tuberculosis",0,"Its waxy wall makes it resistant to many disinfectants."],
+  ["Norovirus, which has no envelope",0,"Non-enveloped viruses like norovirus are tougher than enveloped ones."]]},
+ caption:"The kill power level rises up the ladder. Enveloped viruses fall first; endospores and prions hold out longest.",
+ legend:[["prion","Prions"],["spore","Endospores"],["myco","Mycobacteria"],["nonenv","Non-enveloped viruses"],["bact","Vegetative bacteria"],["env","Enveloped viruses"]]},
+
+{act:2,scene:"bsl",desc:"Four lab rooms stand side by side, labelled BSL-1 to BSL-4, with walls that get thicker from left to right. BSL-1 is an open bench with a worker in a lab coat. BSL-2 adds a biohazard sign, gloves and a biosafety cabinet with air flowing down through it. BSL-3 adds double doors, a respirator and blue arrows showing air flowing into the room and out through a filter, never out the door. BSL-4 shows a worker in a full suit with an air hose, an airlock and a separate building. One room at a time is highlighted, and an example microbe is listed under each.",
+ title:"Biosafety levels 1 to 4",
+ body:`<p>Labs that work with microbes are given a <b>biosafety level (BSL)</b> based on how dangerous the microbes are. Each level adds more protection.</p>
+ <ul><li><b>BSL-1:</b> microbes that rarely cause disease in healthy adults (a lab strain of E. coli). Open bench, lab coat, hand washing.</li>
+ <li><b>BSL-2:</b> moderate risk (Staphylococcus aureus, Salmonella, hepatitis B). Limited access, gloves, a <b>biosafety cabinet</b> for splashes or aerosols.</li>
+ <li><b>BSL-3:</b> serious disease spread through the air (Mycobacterium tuberculosis). Respirators, double doors, and <b>negative air pressure</b> so air flows into the lab, not out.</li>
+ <li><b>BSL-4:</b> deadly microbes with no treatment or vaccine (Ebola virus). Full-body suits with their own air supply, airlocks, separate buildings.</li></ul>`,
+ analogy:"Security at different places. A library has a front desk; an office needs an ID badge; a bank vault has double doors and cameras; a high-security facility has airlocks and suits.",
+ terms:[["Biosafety level","A rating from 1 to 4 of the safety measures needed for certain microbes."],["Biosafety cabinet","A ventilated cabinet with HEPA-filtered air that protects the worker and the sample."],["Negative pressure","Air flows into a room and out only through filters, so aerosols cannot escape."]],
+ check:{q:"A lab grows Mycobacterium tuberculosis, which spreads through the air. What level is needed?",opts:[
+  ["BSL-3",1,"Yes. Serious airborne pathogens need respirators, negative air pressure and controlled access."],
+  ["BSL-1",0,"BSL-1 is for microbes that rarely cause disease. TB is serious and airborne."],
+  ["BSL-2",0,"BSL-2 is for moderate-risk microbes not mainly spread through the air. TB needs more."],
+  ["BSL-4",0,"BSL-4 is for deadly agents with no treatment or vaccine, like Ebola. TB can be treated, so BSL-3 is used."]]},
+ caption:"Each biosafety level adds protection: from an open bench to airlocks and full-body suits.",
+ legend:[["accent","Highlighted level","s"],["steam","Air flow"],["gpos","Biohazard sign","s"]]},
+
+/* ---------- Part 3 ---------- */
+{act:3,scene:"moist",desc:"Two scenes side by side. On the left, a pot of water bubbles at 100 degrees Celsius. Green bacteria and pink viruses inside turn grey and stop moving, but three brown endospores stay brown, with a tag reading endospores survive. On the right, an autoclave chamber with a pressure gauge at 15 psi, a thermometer at 121 degrees and a timer filling toward 15 minutes. Blue steam swirls in and every microbe, endospores included, turns grey. Along the bottom, a folded protein chain unwinds and clumps into a tangle, labelled moist heat denatures proteins.",
+ title:"Moist heat: boiling and the autoclave",
+ body:`<p><b>Moist heat</b> (hot water or steam) kills by <b>denaturing proteins</b>: they unfold and clump, like an egg white turning solid. Moist heat works faster than dry heat at the same temperature, because water carries heat into cells well.</p>
+ <p><b>Boiling</b> (100 °C for about 10 minutes) kills vegetative bacteria, fungi and most viruses. It does <b>not</b> reliably kill endospores, so boiling is disinfection, not sterilization.</p>
+ <p>An <b>autoclave</b> is a steam pressure chamber. Under pressure, water gets hotter than 100 °C. The standard setting is <b>121 °C at 15 psi</b> (pounds per square inch above normal air pressure) for <b>at least 15 minutes</b>. This kills endospores too, so it sterilizes. Big or dense loads need longer.</p>`,
+ analogy:"A pressure cooker. Locking the lid lets the water get hotter than boiling, so tough beans soften fast. The autoclave does the same to tough spores.",
+ terms:[["Autoclave","A steam chamber that sterilizes at 121 °C and 15 psi for at least 15 minutes."],["Moist heat","Hot water or steam; kills by denaturing proteins."],["Denaturation","Proteins unfolding and losing their shape and function."]],
+ check:{q:"Why is boiling NOT a sterilization method?",opts:[
+  ["Some endospores survive 100 °C",1,"Yes. Boiling kills most vegetative cells and viruses, but endospores can survive, so the item is not sterile."],
+  ["Boiling does not kill viruses",0,"Boiling inactivates most viruses. The problem is endospores."],
+  ["Water cannot carry heat into cells",0,"Water carries heat very well; that is why moist heat beats dry heat. The issue is that 100 °C is not hot enough for spores."],
+  ["Boiling only works on plastics",0,"Boiling works on many items. It just cannot reliably kill endospores."]]},
+ caption:"Boiling at 100 °C leaves endospores alive. Steam at 121 °C and 15 psi for 15 minutes kills them.",
+ legend:[["bact","Bacteria"],["env","Viruses"],["spore","Endospores"],["dead","Killed"],["steam","Steam"],["protein","Protein chain","l"]]},
+
+{act:3,scene:"autoclave",desc:"A cutaway autoclave chamber. Blue steam enters at the top back and grey air, which is heavier, is pushed down and out a drain at the bottom front. Two wrapped packs sit on a rack. The loosely packed one fills with blue steam and tiny water droplets form on it, labelled steam condenses and gives up heat. The tightly crammed pack keeps a grey air pocket in its centre with a cooler thermometer reading. Below the chamber, the results: indicator tape on both packs changes from plain to dark stripes. Two small spore vials then show their colours: the vial from the loose pack stays purple, meaning no growth and pass; the vial from the air pocket turns yellow, meaning spores grew and the load failed.",
+ title:"How steam gets in, and how we check",
+ body:`<p>Steam must <b>touch every surface</b>. When steam hits a cooler item, it <b>condenses</b> into water and releases a lot of heat right onto it. Air does not do this. So the autoclave first pushes air out: steam enters at the top, and heavier cool air is pushed out a drain at the bottom (or pumped out by a vacuum).</p>
+ <p>Trapped air is the enemy. Packs that are <b>crammed in too tight</b>, wrapped in the wrong material, or sealed containers keep <b>air pockets</b>, and the center never reaches 121 °C.</p>
+ <p>We check with <b>indicators</b>. <b>Chemical indicators</b>, like autoclave tape, change color when they get hot, but only on the outside. <b>Biological indicators</b> hold endospores of <b>Geobacillus stearothermophilus</b>, a very heat-resistant bacterium. After the cycle they are incubated: no growth (stays purple) means the spores died; growth (turns yellow) means sterilization failed.</p>`,
+ analogy:"Steaming dumplings in a crowded basket. Steam reaches the ones with space around them. The ones squashed in the middle stay cold inside.",
+ terms:[["Chemical indicator","Tape or strip that changes color with heat; shows exposure, not sterility."],["Biological indicator","Live endospores that should be killed by a proper cycle; the best proof of sterility."],["Air removal","Pushing air out so steam can reach all surfaces."]],
+ check:{q:"Autoclave tape changed color, but the spore test grew. What most likely happened?",opts:[
+  ["Air was trapped inside the pack, so the center never got hot enough",1,"Yes. Tape only shows the outside got hot. Spores in the center survived because steam could not reach them."],
+  ["The tape was defective",0,"Even working tape only shows outside heat. The growth points to a cool spot inside the load."],
+  ["The spores are always resistant to 121 °C",0,"A good cycle at 121 °C kills these spores. Growth means the cycle did not work in that spot."],
+  ["Nothing; tape is the best proof of sterility",0,"Tape shows heat exposure only. The biological indicator is the better proof, and it failed."]]},
+ caption:"Steam pushes air out and condenses on items. Tape shows heat on the outside; spore tests prove the inside was sterilized.",
+ legend:[["steam","Steam"],["air","Trapped air"],["tape","Indicator tape","s"],["bi-pass","Spore test: no growth","s"],["bi-fail","Spore test: growth","s"]]},
+
+{act:3,scene:"pasteur",desc:"Milk flows from left to right through a pipe that coils through a heating section and then a cooling section. Inside the milk, green and red bacteria ride along. In the heating section, the red pathogens turn grey, but a few green harmless bacteria stay alive. On the right, a temperature-time graph shows two profiles: HTST rises to 72 degrees and holds for 15 seconds; UHT spikes to about 138 degrees for 2 seconds. A bar under each shows bacteria left: HTST still has a small amount, so the carton is shown in a fridge; UHT has almost none and the carton sits on a shelf.",
+ title:"Pasteurization",
+ body:`<p><b>Pasteurization</b> uses mild heat to kill <b>pathogens</b> (such as Listeria, Salmonella and E. coli O157:H7) and lower the number of spoilage microbes in milk, juice and other drinks, without cooking the taste out of them.</p>
+ <ul><li><b>HTST</b> (high temperature, short time): 72 °C for 15 seconds. The most common method for milk.</li>
+ <li><b>UHT</b> (ultra-high temperature): about 138 °C for 2 seconds or more. Packed in sterile cartons, UHT milk can sit unopened at room temperature for months.</li></ul>
+ <p>Pasteurization <b>reduces</b> microbes; it does <b>not sterilize</b>. HTST milk still has some harmless bacteria and must be kept cold.</p>`,
+ analogy:"Weeding the poisonous plants out of a garden but leaving the grass. The garden is safe to walk in, but it is not bare soil.",
+ terms:[["Pasteurization","Mild heating that kills pathogens and reduces spoilage microbes."],["HTST","High temperature, short time: 72 °C for 15 seconds."],["UHT","Ultra-high temperature: about 138 °C for 2 or more seconds."]],
+ check:{q:"Why does pasteurized (HTST) milk still need to be refrigerated?",opts:[
+  ["Pasteurization reduces microbes but does not sterilize the milk",1,"Yes. Some harmless spoilage bacteria survive and will grow if the milk is warm."],
+  ["Pasteurization adds bacteria",0,"Pasteurization kills bacteria. It just does not kill all of them."],
+  ["The heat makes milk easier to spoil",0,"The heat makes milk last longer. Survivors still grow slowly if the milk warms up."],
+  ["Refrigeration is needed to kill the pathogens",0,"The heat already killed the pathogens. Cold slows the survivors."]]},
+ caption:"Pasteurization kills pathogens and cuts spoilage bacteria. HTST milk still needs the fridge; UHT milk can sit on a shelf.",
+ legend:[["bad","Pathogen"],["bact","Harmless spoilage bacteria"],["dead","Killed"],["heat","HTST profile","l"],["ald","UHT profile","l"]]},
+
+{act:3,scene:"dry",desc:"On the left, an inoculating loop is held in a Bunsen burner flame. The wire glows orange and red, and small green bacteria on it turn black and crumble into ash specks that float away, labelled incineration. On the right, a hot air oven at 170 degrees holds glass flasks and metal tools. Wavy orange heat lines rise inside it and a clock fills. Beneath it, a bar chart compares times to sterilize: autoclave at 121 degrees about 15 minutes, hot air oven at 170 degrees about 1 hour, and at 160 degrees about 2 hours.",
+ title:"Dry heat: flames and ovens",
+ body:`<p><b>Dry heat</b> kills by <b>oxidation</b>: it slowly burns cell parts. Without water to carry heat, it needs higher temperatures and much longer times than steam.</p>
+ <p><b>Incineration</b> burns microbes to ash. Flaming an inoculating loop until it glows red sterilizes it in seconds. Hospitals also incinerate some medical waste.</p>
+ <p>A <b>hot air oven</b> (about 160 °C for 2 hours, or 170 °C for 1 hour) sterilizes things steam would damage or cannot get into: glassware, metal tools, powders and oils.</p>`,
+ analogy:"Drying wet clothes in a hot room versus with a steam iron. The iron's steam gets the heat in fast; the dry room takes a long time.",
+ terms:[["Dry heat","Heat without moisture; kills by oxidation; needs higher temperatures and longer times."],["Incineration","Burning to ash; the most complete sterilization."],["Hot air oven","Sterilizes glassware, metal, powders and oils with dry heat."]],
+ check:{q:"Why does a hot air oven need 160 °C for about 2 hours when an autoclave needs 121 °C for 15 minutes?",opts:[
+  ["Dry heat moves into cells more slowly than steam and kills by slow oxidation",1,"Yes. Without water, heat transfer is slow, so dry heat needs a higher temperature and more time."],
+  ["Dry heat only kills viruses",0,"Dry heat at the right time and temperature kills all microbes, including endospores."],
+  ["Ovens are not hot enough to kill spores",0,"At 160-170 °C with enough time, ovens do kill spores. They are just slower than steam."],
+  ["Steam is a chemical disinfectant",0,"Steam is a physical method. It is faster because water carries heat so well."]]},
+ caption:"Flames burn microbes to ash in seconds. Hot air ovens sterilize too, but need higher heat and more time than steam.",
+ legend:[["heat","Flame and heat"],["bact","Bacteria"],["dead","Burned"],["steam","Autoclave","s"],["heat","Hot air oven","s"]]},
+
+/* ---------- Part 4 ---------- */
+{act:4,scene:"filter",desc:"On the left, a cross-section of a membrane filter. Liquid with green rod bacteria and tiny pink virus particles is pulled downward by a vacuum. The filter is a sheet with small pores labelled 0.22 micrometres. Bacteria are too big and pile up on top, while the tiny viruses slip through into the clear liquid below. On the right, a biosafety cabinet: blue air arrows pass down through a HEPA filter at the top, flow over the work surface, and leave through another HEPA filter. Grey dust and microbe specks are caught in the filter layers, and an air curtain sweeps down across the open front.",
+ title:"Filtration: removing, not killing",
+ body:`<p><b>Filtration</b> removes microbes by passing a liquid or air through a filter with holes too small for them. It is used for things that heat would ruin.</p>
+ <p><b>Membrane filters</b> with pores of <b>0.22 µm</b> (micrometers) remove bacteria from heat-sensitive liquids such as some drugs, vaccines, vitamins and lab media. Most viruses are smaller than this and can pass through, so these filters do not remove every virus.</p>
+ <p><b>HEPA filters</b> (high-efficiency particulate air) trap at least 99.97% of particles 0.3 µm wide. They clean the air in biosafety cabinets, operating rooms and rooms for patients with airborne diseases or weak immune systems.</p>`,
+ analogy:"A kitchen strainer. Pasta stays in the strainer; water runs through. A 0.22 µm filter is a strainer for bacteria, but viruses are small enough to sneak through.",
+ terms:[["Membrane filter","A thin filter with tiny pores (often 0.22 µm) that holds back bacteria."],["HEPA filter","An air filter that traps 99.97% of particles 0.3 µm wide."],["Micrometer (µm)","One-millionth of a meter; most bacteria are about 1 to 5 µm long."]],
+ check:{q:"A heat-sensitive vitamin solution is passed through a 0.22 µm filter. What may still be in it?",opts:[
+  ["Some viruses",1,"Yes. Many viruses are smaller than 0.22 µm and can pass through, though bacteria are held back."],
+  ["Most bacteria",0,"Most bacteria are bigger than 0.22 µm and are trapped on the filter."],
+  ["Fungi such as yeasts",0,"Yeasts are several micrometers wide, far too big to pass a 0.22 µm filter."],
+  ["Nothing at all, filtration always sterilizes",0,"Filtration only removes things larger than the pores, so tiny viruses may remain."]]},
+ caption:"Filters hold back bacteria by size. Tiny viruses can slip through 0.22 µm pores. HEPA filters clean the air.",
+ legend:[["bact","Bacteria"],["env","Viruses"],["steam","Air flow"],["air","Trapped dust","s"]]},
+
+{act:4,scene:"cold",desc:"Three panels. In the first, a refrigerator at 4 degrees Celsius: green bacteria in it divide very slowly, with a clock beside them; a single blue-outlined Listeria cell keeps dividing slowly, tagged grows in the cold. In the second, Drying: a plump bacterium loses water drops and shrivels into a small, still shape; when water is added back, it plumps up and moves again. In the third, Osmotic pressure: a bacterium sits in a dish of jam with many salt and sugar dots around it; blue water arrows leave the cell and its membrane pulls away from the cell wall, labelled plasmolysis.",
+ title:"Cold, drying, salt and sugar",
+ body:`<p>These methods mostly <b>slow growth</b> (they are -static). They are good for preserving food and cultures, but they do not reliably kill.</p>
+ <ul><li><b>Cold:</b> a refrigerator (about 4 °C) slows growth. Freezing stops it, and ice crystals may kill some cells, but many survive. Labs freeze cultures at -70 °C or lower to keep them alive. <b>Listeria</b> is a dangerous exception: it can still grow in the fridge.</li>
+ <li><b>Desiccation</b> (drying): without water, microbes cannot grow, but many survive and grow again when wet. <b>Lyophilization</b> (freeze-drying) is used to store microbes for years.</li>
+ <li><b>Osmotic pressure:</b> lots of salt or sugar (jerky, pickles, jam) pulls water out of cells. The membrane shrinks away from the wall (<b>plasmolysis</b>) and growth stops. Molds and yeasts tolerate this better than bacteria.</li></ul>`,
+ analogy:"Putting microbes in a waiting room. Cold, dry or salty, they sit still and wait. Open the door to warmth and water, and many walk right out again.",
+ terms:[["Desiccation","Drying; stops growth but many microbes survive."],["Lyophilization","Freeze-drying; used to store cultures for years."],["Plasmolysis","Water leaves a cell in a salty or sugary place, so the membrane pulls away from the wall."],["Psychrotroph","A microbe that can grow in the fridge, such as Listeria."]],
+ check:{q:"Why can jam sit in a pantry without spoiling quickly from bacteria?",opts:[
+  ["High sugar pulls water out of bacteria, so they cannot grow",1,"Yes. That is osmotic pressure. Molds tolerate it better, which is why old jam can grow mold."],
+  ["Sugar kills all microbes on contact",0,"Sugar mainly stops growth by pulling out water. It is -static, not a reliable killer."],
+  ["Jam is sterilized by the sugar",0,"Sugar does not sterilize. It slows bacteria by osmotic pressure."],
+  ["Bacteria cannot digest fruit",0,"Many bacteria can use fruit sugars. The high concentration is what stops them."]]},
+ caption:"Cold, drying and salt or sugar slow microbes down. Most survive and can grow again later.",
+ legend:[["bact","Bacteria"],["cold","Listeria (grows in fridge)"],["water","Water","s"],["glow","Sugar and salt"]]},
+
+{act:4,scene:"radiation",desc:"Two panels. On the left, Ionizing radiation: yellow gamma rays pass straight through a sealed plastic package of syringes. A zoomed DNA ladder inside a bacterium snaps in two places, and small starburst radicals appear. On the right, UV light: a purple UV lamp shines down on a lab bench. Bacteria on the open bench turn grey, and a zoomed DNA strand shows two neighbouring T bases bonding into a thymine dimer. But a bacterium under a plastic lid and one in the shadow of a box stay green, because the UV rays stop at the lid and cannot bend around the box.",
+ title:"Radiation: ionizing and UV",
+ body:`<p><b>Ionizing radiation</b> (gamma rays, X-rays and electron beams) has high energy and <b>penetrates</b> deep into materials. It breaks DNA strands and creates reactive <b>radicals</b> that damage cells. It is used to sterilize sealed medical supplies such as syringes, gloves and sutures, and to treat some foods and spices.</p>
+ <p><b>Ultraviolet (UV) light</b> at about 260 nm is absorbed by DNA. It links neighboring thymine bases into <b>thymine dimers</b>, so the DNA cannot be copied. UV is used for air, water and surfaces in biosafety cabinets and hospital rooms.</p>
+ <p>UV has <b>limits</b>: it does <b>not penetrate</b> glass, plastic, paper, cloth or cloudy water, and it cannot reach shadows. It can also burn skin and eyes.</p>`,
+ analogy:"Ionizing radiation is like an X-ray that sees right through your suitcase. UV is like sunlight: it tans what it touches, but not what is under an umbrella.",
+ terms:[["Ionizing radiation","Gamma rays, X-rays or electron beams; penetrate and break DNA."],["Ultraviolet (UV)","Light that makes thymine dimers in DNA; acts only on surfaces it reaches."],["Thymine dimer","Two neighboring thymine bases wrongly linked, blocking DNA copying."]],
+ check:{q:"A UV lamp runs all night over a lab bench. A covered plastic dish of bacteria on the bench is still full of live cells. Why?",opts:[
+  ["UV cannot pass through the plastic lid",1,"Yes. UV does not penetrate plastic or glass, so cells under the lid were never exposed."],
+  ["UV only works on viruses",0,"UV damages DNA in bacteria too. It just could not reach these cells."],
+  ["UV needs to be used for weeks",0,"Direct UV acts quickly on exposed cells. The lid blocked it."],
+  ["The bacteria must have been endospores",0,"Even if spores are more resistant, the main issue is that UV cannot pass through the lid."]]},
+ caption:"Ionizing rays pass through packaging and break DNA. UV makes thymine dimers but stops at lids and shadows.",
+ legend:[["ion","Ionizing rays"],["uv","UV light"],["dna","DNA","l"],["bact","Alive"],["dead","Killed"]]},
+
+/* ---------- Part 5 ---------- */
+{act:5,scene:"targets",desc:"Three panels show the three targets of chemical agents. In the first, Membrane damage: a two-layer cell membrane with tan heads; small teal detergent and alcohol molecules wedge in and open holes, and blue cell contents leak out. In the second, Protein denaturation: a neatly folded orange protein shakes, unfolds into a loose chain and clumps with others. In the third, Nucleic acid damage: a blue DNA ladder gets bridges and breaks where small chemical molecules attach. Under each panel, a list of chemical families that work this way lights up.",
+ title:"How chemicals kill: three targets",
+ body:`<p>Chemical agents attack three main parts of a microbe:</p>
+ <ul><li><b>Cell membrane:</b> alcohols, <b>quats</b> and phenolics disrupt the fatty membrane so the cell leaks. The envelope of enveloped viruses is a membrane too, which is why these viruses are easy to destroy.</li>
+ <li><b>Proteins:</b> alcohols, halogens, heavy metals, aldehydes and peroxides <b>denature</b> or chemically damage proteins, including enzymes the cell cannot live without.</li>
+ <li><b>Nucleic acids (DNA and RNA):</b> aldehydes, ethylene oxide and peroxides damage DNA so the cell cannot copy its genes.</li></ul>
+ <p>Agents that hit several targets at once tend to be stronger, and are harder for microbes to resist.</p>`,
+ analogy:"Attacking a castle. You can break the wall (membrane), wreck the tools and machines inside (proteins), or burn the book of instructions (DNA).",
+ terms:[["Membrane disruption","Damage to the lipid membrane so the cell leaks and dies."],["Protein denaturation","Unfolding proteins so they stop working."],["Alkylating agent","A chemical, like ethylene oxide or glutaraldehyde, that attaches to proteins and DNA."]],
+ check:{q:"Enveloped viruses are easily destroyed by alcohol and soap. Which target explains this?",opts:[
+  ["The lipid envelope, which is a membrane",1,"Yes. Alcohols and detergents break apart lipid membranes, including a virus's envelope."],
+  ["The viral DNA only",0,"Alcohol mainly hits membranes and proteins. The fragile envelope is the weak spot."],
+  ["The cell wall",0,"Viruses do not have cell walls. The envelope is the lipid layer that breaks."],
+  ["Ribosomes",0,"Viruses do not have ribosomes. Their envelope is the target."]]},
+ caption:"Chemicals kill by breaking the membrane, ruining proteins, or damaging DNA and RNA.",
+ legend:[["membrane","Membrane lipids"],["protein","Protein","l"],["dna","DNA","l"],["alc","Chemical agent"]]},
+
+{act:5,scene:"alcohal",desc:"Left half, Alcohols: a graph of killing power against alcohol strength rises to a peak near 70 percent and drops toward 100 percent. A marker slides along the curve. Two bacteria beside it show why: in 70 percent alcohol, liquid flows in, proteins unfold and the cell turns grey. In 100 percent alcohol, a hard shell forms on the outside and the cell inside stays green, while the alcohol quickly evaporates. Right half, Halogens: a brown iodine swab paints a circle on skin and the bacteria in it turn grey; below, a bleach bottle drips into a bucket and yellow-green chlorine dots attack bacteria, but a brown blob of organic matter soaks up many of the dots.",
+ title:"Alcohols and halogens",
+ body:`<p><b>Alcohols</b> (ethanol and isopropanol) denature proteins and dissolve membranes. They work best at about <b>70%</b> in water: <b>water is needed</b> for proteins to unfold, and it slows evaporation so the alcohol stays on longer. Pure alcohol can harden the outside of a cell, shielding the inside. Alcohols kill vegetative bacteria, fungi and enveloped viruses fast, but <b>not endospores</b>. They are used on skin (hand rubs, swabs) and small surfaces.</p>
+ <p><b>Halogens</b> are strong oxidizers:</p>
+ <ul><li><b>Iodine</b>: <b>povidone-iodine</b> (an iodophor) is a skin antiseptic before surgery and injections.</li>
+ <li><b>Chlorine</b>: <b>bleach</b> (sodium hypochlorite) is a cheap, powerful disinfectant. In strong enough solutions it kills endospores, such as C. difficile. Chlorine also treats drinking water and pools. It is weakened by organic matter.</li></ul>`,
+ analogy:"Making instant coffee. A spoonful of dry powder sits on a dry crust, but add water and it dissolves right in. Alcohol needs some water to get inside cells too.",
+ terms:[["70% alcohol","The most effective strength; water helps it denature proteins and slows evaporation."],["Iodophor","Iodine bound to a carrier, such as povidone-iodine; used as a skin antiseptic."],["Sodium hypochlorite","Bleach; a chlorine compound that oxidizes cell parts."]],
+ check:{q:"Why does 70% alcohol work better than 100% alcohol?",opts:[
+  ["Water is needed to denature proteins, and it slows evaporation",1,"Yes. Pure alcohol evaporates fast and can harden the outer proteins into a shell that protects the inside of the cell."],
+  ["100% alcohol is too weak to touch membranes",0,"Pure alcohol is not weak; it just works poorly without water and dries off too fast."],
+  ["70% alcohol is sporicidal",0,"No strength of alcohol reliably kills endospores."],
+  ["The other 30% is bleach",0,"The other 30% is water. The water is what makes it work better."]]},
+ caption:"Alcohol works best at 70%. Iodine is a skin antiseptic. Bleach is a strong disinfectant, weakened by organic matter.",
+ legend:[["alc","Alcohol"],["iod","Iodine","s"],["chlor","Chlorine"],["organic","Organic matter","s"],["bact","Alive"],["dead","Killed"]]},
+
+{act:5,scene:"pqm",desc:"Three columns. In the first, Phenolics: a spray bottle mists a counter with a brown smear of organic material on it; magenta phenolic drops still reach the bacteria and the bacteria turn grey. In the second, Quats: long blue molecules with a plus-charged head line up on a bacterium's membrane, push their tails in, and the cell leaks; a soap bubble labelled soap cancels quats pops a few of them. In the third, Heavy metals: small grey silver ions drift from a silver-coated catheter tip and latch onto orange proteins of nearby bacteria, which turn grey.",
+ title:"Phenolics, quats and heavy metals",
+ body:`<p><b>Phenolics</b> (phenol and its relatives) damage membranes and denature proteins. Joseph Lister used phenol (carbolic acid) in the 1860s to cut surgical infections. Modern phenolics are found in some household and hospital disinfectants. They <b>stay active even with organic matter</b>, but can irritate skin.</p>
+ <p><b>Quaternary ammonium compounds (quats)</b>, such as benzalkonium chloride, are positively charged <b>detergents (surfactants)</b> that disrupt membranes. They are common surface disinfectants. They do <b>not</b> kill endospores, mycobacteria or many non-enveloped viruses, and soap and organic matter weaken them.</p>
+ <p><b>Heavy metals</b> such as <b>silver</b> and copper bind to proteins and ruin them, even in tiny amounts. Silver is used in burn creams (silver sulfadiazine), wound dressings and catheter coatings.</p>`,
+ analogy:"Quats are like magnets with a long nail attached: the positive head sticks to the negative cell surface, and the tail pokes holes in it.",
+ terms:[["Phenolic","Disinfectant related to phenol; works even with organic matter."],["Quat","Quaternary ammonium compound; a positively charged detergent that disrupts membranes."],["Surfactant","A soap-like molecule that breaks up fats and membranes."],["Oligodynamic action","The ability of tiny amounts of heavy metals to kill microbes."]],
+ check:{q:"A quat disinfectant is used to clean a room where a patient had C. difficile (a spore-former). What is the problem?",opts:[
+  ["Quats do not kill endospores",1,"Yes. C. difficile spores survive quats. A sporicidal product, such as a bleach solution, is needed."],
+  ["Quats are too strong for hospital surfaces",0,"Quats are used all over hospitals. The issue is that they cannot kill spores."],
+  ["Quats only work on skin",0,"Quats are surface disinfectants. They simply cannot kill spores."],
+  ["There is no problem",0,"There is: spores survive quats and can infect the next patient."]]},
+ caption:"Phenolics work despite organic matter. Quats punch holes in membranes but miss spores. Silver ions wreck proteins.",
+ legend:[["phen","Phenolic"],["quat","Quat molecule"],["metal","Silver ions"],["protein","Protein","s"],["organic","Organic matter","s"]]},
+
+{act:5,scene:"sterilants",desc:"Three panels. In the first, Aldehydes: an endoscope soaks in a tray of orange glutaraldehyde, and a zoom shows two protein chains being tied together by small orange bridges, labelled cross-linking. In the second, Peroxygens: hydrogen peroxide is poured on a cut and fizzes with bubbles as catalase breaks it into water and oxygen; next to it, a sealed chamber fills with peroxide vapour. In the third, Gases: wrapped plastic tubing sits in a sealed chamber; grey ethylene oxide gas molecules pass through the wrapping and attach to the bacteria's DNA, which turn grey; a fan then blows the leftover gas out, labelled aeration.",
+ title:"Aldehydes, peroxygens and gases",
+ body:`<p>These strong agents can reach the top of the resistance ladder. With enough time, they kill endospores, so they are used as <b>chemical sterilants</b> for items that heat would destroy.</p>
+ <ul><li><b>Aldehydes</b> (formaldehyde, <b>glutaraldehyde</b>, ortho-phthalaldehyde) <b>cross-link</b> proteins and nucleic acids. Glutaraldehyde is used for endoscopes; formaldehyde preserves tissue specimens. They irritate skin and lungs.</li>
+ <li><b>Peroxygens</b> (<b>hydrogen peroxide</b>, peracetic acid) oxidize cell parts. The 3% bottle is a weak wound cleaner, because body catalase quickly breaks it into water and oxygen (the fizz). Concentrated peroxide or peroxide vapor sterilizes equipment and rooms.</li>
+ <li><b>Ethylene oxide</b> gas penetrates packaging and alkylates proteins and DNA. It sterilizes heat-sensitive plastics, catheters and implants. It is toxic, explosive and can cause cancer, so items must be <b>aerated</b> before use.</li></ul>`,
+ analogy:"Cross-linking is like tying all the moving parts of a machine together with wire. Nothing can move, so nothing works.",
+ terms:[["Glutaraldehyde","An aldehyde that cross-links proteins; a high-level disinfectant and sterilant."],["Hydrogen peroxide","A peroxygen that oxidizes cell parts; catalase breaks it into water and oxygen."],["Ethylene oxide","A gas sterilant that penetrates packaging; items need aeration afterward."]],
+ check:{q:"A plastic heart catheter that would melt in an autoclave must be sterilized in its sealed package. Which method fits?",opts:[
+  ["Ethylene oxide gas",1,"Yes. Ethylene oxide penetrates packaging and works at low temperature. The catheter is then aerated to remove leftover gas."],
+  ["3% hydrogen peroxide from a brown bottle",0,"Household-strength peroxide is not a sterilant and cannot reach inside a sealed package."],
+  ["70% alcohol wipe",0,"Alcohol does not kill endospores and cannot reach inside the package."],
+  ["Boiling",0,"Boiling would damage the plastic and does not kill endospores."]]},
+ caption:"Aldehydes cross-link, peroxygens oxidize, and ethylene oxide gas sterilizes plastics through their packaging.",
+ legend:[["ald","Aldehyde"],["perox","Peroxide"],["gas","Ethylene oxide"],["dna","DNA","l"],["protein","Protein","l"]]},
+
+/* ---------- Part 6 ---------- */
+{act:6,scene:"testing",desc:"Left half, the use-dilution test, shown as four numbered steps. Small steel cylinders dip into a tube of bacteria, dry, then soak in a tube of disinfectant for 10 minutes, then drop into tubes of broth. After incubation most broth tubes stay clear, meaning no growth, and one is cloudy, meaning growth. Right half, the disk-diffusion test: an agar plate covered with a hazy lawn of bacteria holds four paper disks soaked in different chemicals. Clear rings grow around each disk to different sizes, labelled A, B, C and D, with the widest ring around disk A.",
+ title:"How do we know a disinfectant works?",
+ body:`<p>Labels on disinfectants are based on standard tests.</p>
+ <p>The <b>use-dilution test</b>: small metal cylinders (carriers) are dipped in a culture of a test bacterium (such as Staphylococcus aureus, Salmonella or Pseudomonas aeruginosa), dried, then placed in the disinfectant at its label strength for about 10 minutes. Each carrier is moved into broth and incubated. Clear broth means the bacteria were killed; cloudy broth means some survived. To pass, almost all carriers must show no growth.</p>
+ <p>The <b>disk-diffusion test</b>: paper disks soaked in different chemicals sit on a plate covered with bacteria. A clear <b>zone of inhibition</b> forms where the chemical stopped growth. A wider zone usually means a more effective chemical against that microbe, though zone size also depends on how well the chemical spreads through agar.</p>`,
+ analogy:"A crash test for cars. Each car (disinfectant) goes through the same standard test, so you can trust what the label says.",
+ terms:[["Use-dilution test","Tests a disinfectant at label strength on bacteria dried onto metal carriers."],["Disk-diffusion test","Chemical-soaked disks on a bacterial lawn; clear zones show inhibition."],["Zone of inhibition","The clear ring around a disk where microbes did not grow."]],
+ check:{q:"In a use-dilution test, a broth tube turns cloudy. What does that mean?",opts:[
+  ["Bacteria on that carrier survived the disinfectant",1,"Yes. Cloudy broth means bacteria grew, so the disinfectant did not kill all of them on that carrier."],
+  ["The disinfectant worked",0,"A working disinfectant leaves the broth clear, because nothing is left to grow."],
+  ["The broth was contaminated by the disinfectant",0,"Cloudiness is caused by growing bacteria, not by the disinfectant."],
+  ["The zone of inhibition was large",0,"Zones belong to the disk-diffusion test. In the use-dilution test, cloudy broth means survivors."]]},
+ caption:"Use-dilution: clear broth means the carrier was disinfected. Disk-diffusion: bigger clear zones mean stronger inhibition.",
+ legend:[["steel","Metal carrier","s"],["bact","Bacterial growth"],["agar","Agar","s"],["accent","Zone of inhibition","s"]]},
+
+{act:6,scene:"hands",desc:"Left, Alcohol-based hand rub: two hands rub together under a 20 to 30 second timer, and green bacteria and pink viruses on the hands turn grey and fade. Right, Soap and water: hands under a running tap with soap bubbles; bacteria, viruses and two brown endospores are lifted off and carried down the drain by the water over a 40 to 60 second timer. Along the bottom, five circles show the five moments for hand hygiene, lighting up in turn: before touching a patient, before a clean or aseptic task, after body fluid exposure risk, after touching a patient, and after touching patient surroundings.",
+ title:"Hand hygiene: the most important control",
+ body:`<p>Hands are the main way germs move between patients. Good <b>hand hygiene</b> prevents more infections than any other single step.</p>
+ <ul><li><b>Alcohol-based hand rub</b> (at least 60% alcohol) is the usual choice when hands are not visibly dirty. Rub all surfaces, including thumbs, fingertips and between fingers, until dry (about 20-30 seconds). It is fast and gentle on skin.</li>
+ <li><b>Soap and water</b> (about 40-60 seconds) when hands are <b>visibly soiled</b>, and after caring for patients with <b>C. difficile</b> or <b>norovirus</b>. Alcohol does not kill spores and works poorly on norovirus; scrubbing and rinsing <b>removes</b> them (degerming).</li></ul>
+ <p>The <b>five moments</b>: before touching a patient, before a clean or aseptic task, after a body-fluid exposure risk, after touching a patient, and after touching the patient's surroundings. Gloves do not replace hand hygiene.</p>`,
+ analogy:"Wiping your shoes at every doorway. It takes a few seconds, and it stops the mud from being tracked from one room to the next.",
+ terms:[["Hand hygiene","Hand rubbing with alcohol or washing with soap and water."],["Alcohol-based hand rub","Gel or foam with at least 60% alcohol; kills most germs, but not spores."],["Five moments","The five times health care workers must clean their hands."]],
+ check:{q:"A nurse leaves the room of a patient with C. difficile diarrhea. What hand hygiene is best?",opts:[
+  ["Wash with soap and water",1,"Yes. Alcohol does not kill C. difficile spores. Scrubbing and rinsing physically removes them."],
+  ["Alcohol hand rub, because it is faster",0,"Alcohol is great for most germs, but it does not kill spores. Soap and water removes them."],
+  ["No hand hygiene needed if gloves were worn",0,"Gloves can have tiny holes and hands get contaminated when gloves come off. Always clean hands after."],
+  ["Wipe hands with a quat surface wipe",0,"Surface disinfectants are not for skin, and quats do not kill spores."]]},
+ caption:"Alcohol rub kills most germs in 20-30 seconds. Soap and water removes spores and dirt. Clean hands at all five moments.",
+ legend:[["bact","Bacteria"],["env","Viruses"],["spore","Spores"],["dead","Killed"],["water","Water","s"],["accent","Current moment","s"]]},
+
+{act:0,scene:"recap",desc:"A summary board. On the left, a log graph shows a straight death line with one D step marked and the one-in-a-million line, and under it the resistance ladder in miniature, from prions at the top to enveloped viruses at the bottom. On the right, six summary cards light up one after another, each numbered and coloured for its part: The words, How microbes die, Heat, Filters cold drying radiation, Chemicals, and Testing and hand hygiene, each with a one-line reminder.",
+ title:"Recap: putting it all together",
+ body:`<p>You made it. Here is the whole module in a few lines:</p>
+ <ul><li><b>Words:</b> sterilization kills everything; disinfection is for objects; antisepsis is for skin; sanitizing is to a safe level; degerming removes. <b>-cide</b> kills; <b>-static</b> pauses.</li>
+ <li><b>Death is logarithmic:</b> the same fraction dies each minute. The <b>D-value</b> is the time to kill 90%. More microbes, tougher types and organic matter mean more time.</li>
+ <li><b>Toughest to easiest:</b> prions, endospores, mycobacteria, cysts and non-enveloped viruses, vegetative cells, enveloped viruses.</li>
+ <li><b>Heat:</b> autoclave 121 °C, 15 psi, at least 15 minutes; boiling does not kill spores; pasteurization reduces; dry heat is slower.</li>
+ <li><b>Other physical methods:</b> filters remove; cold, drying and salt slow; ionizing radiation penetrates, UV does not.</li>
+ <li><b>Chemicals:</b> hit membranes, proteins or DNA. Know what each one misses.</li>
+ <li><b>Hand hygiene</b> is the top infection-control step; soap and water for spores.</li></ul>`,
+ analogy:"A toolbox. No tool fits every job. A good worker picks the right tool for the material, the microbe and the risk.",
+ terms:[["Key numbers","121 °C, 15 psi, 15+ min; 70% alcohol; 0.22 µm filter; 72 °C for 15 s (HTST); SAL 10⁻⁶."],["Key idea","Pick the method by what must be killed and what the item can handle."]],
+ check:{q:"Which pairing is correct?",opts:[
+  ["Ethylene oxide: sterilizes heat-sensitive plastics in their packages",1,"Yes. The gas penetrates packaging and kills endospores at low temperatures."],
+  ["UV light: sterilizes liquids in closed glass bottles",0,"UV cannot pass through glass. It only works on exposed surfaces, air and clear water."],
+  ["Boiling: sterilizes surgical tools",0,"Boiling does not kill all endospores. Surgical tools are autoclaved or chemically sterilized."],
+  ["Quats: kill endospores on hospital floors",0,"Quats do not kill endospores. Sporicides, like bleach solutions, are needed."]]},
+ caption:"Pick the method by the microbe you must kill and what the item can survive.",
+ legend:[["act1","Words","s"],["act2","Death and resistance","s"],["act3","Heat","s"],["act4","Physical methods","s"],["act5","Chemicals","s"],["act6","Testing and hands","s"]]}
+];
+/* ---------------- DOM ---------------- */
+const $=s=>document.querySelector(s);
+const chainEl=$("#chain");
+const done=new Set();
+let cur=0;
+function buildChain(){
+  chainEl.innerHTML="";
+  const groups=[[0,"Start","accent",[0]]];
+  for(let a=1;a<=NACT;a++)groups.push([a,ACTS[a].name,ACTS[a].col,[]]);
+  groups.push([NACT+1,"Finish","accent",[STEPS.length-1]]);
+  STEPS.forEach((s,i)=>{if(s.act>0)groups[s.act][3].push(i)});
+  groups.forEach(g=>{
+    const d=document.createElement("div");d.className="actgrp";
+    if(g[0]===0||g[0]===NACT+1)d.style.flex="0 0 auto";
+    d.innerHTML=`<div class="an"><i style="background:var(--${g[2]})"></i>${g[1]}</div>`;
+    const dots=document.createElement("div");dots.className="dots";
+    g[3].forEach(i=>{const b=document.createElement("button");b.type="button";b.className="dot";b.textContent=i===0?"★":(i===STEPS.length-1?"✓":i);
+      b.setAttribute("aria-label",(i===0?"Start":i===STEPS.length-1?"Finish":"Step "+i)+": "+STEPS[i].title);b.onclick=()=>go(i);b.dataset.i=i;dots.appendChild(b)});
+    d.appendChild(dots);chainEl.appendChild(d);
+  });
+}
+function refreshDots(){document.querySelectorAll(".dot").forEach(b=>{const i=+b.dataset.i;b.classList.toggle("cur",i===cur);b.classList.toggle("done",done.has(i));if(i===cur)b.setAttribute("aria-current","step");else b.removeAttribute("aria-current")})}
+function legendHTML(l){const v="--"+l[0];const sh=l[2]||"c";
+  if(sh==="dl")return `<span><i class="dl" style="border-top-color:var(${v})"></i>${l[1]}</span>`;
+  if(sh==="t")return `<span><i class="t" style="border-bottom-color:var(${v})"></i>${l[1]}</span>`;
+  if(sh==="y")return `<span><i class="y" style="--yc:var(${v})"></i>${l[1]}</span>`;
+  return `<span><i class="${sh}" style="background:var(${v})"></i>${l[1]}</span>`}
+function render(){
+  const s=STEPS[cur];
+  const a=ACTS[s.act];
+  $("#stepno").innerHTML=(s.act?`<span class="actchip" style="--c:var(--${a.col})">${a.name}</span>`:"")+
+    (cur>0&&cur<STEPS.length-1?`<span>Step ${cur} of ${STEPS.length-2}</span>`:"");
+  $("#title").textContent=s.title;
+  $("#body").innerHTML=s.body;
+  $("#analogy p").textContent=s.analogy;
+  $("#terms").innerHTML=s.terms.map(t=>`<div><dt>${t[0]}</dt><dd>${t[1]}</dd></div>`).join("");
+  $("#caption").textContent=s.caption;
+  cv.setAttribute("aria-label","Animation: "+s.caption);if(window.gkDescribe)window.gkDescribe(s.desc);
+  $("#legend").innerHTML=(s.legend||[]).map(legendHTML).join("");
+  const ck=$("#check");
+  if(!s.check){ck.style.display="none"}else{
+    ck.style.display="";
+    $("#q").textContent=s.check.q;
+    const fb=$("#fb");fb.textContent="";fb.className="fb";
+    const box=$("#opts");box.innerHTML="";
+    s.check.opts.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];
+      b.onclick=()=>{box.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));
+        if(o[1]){b.classList.add("right");fb.className="fb ok";fb.textContent="✓ "+o[2];done.add(cur);refreshDots()}
+        else{b.classList.add("wrong");fb.className="fb no";fb.textContent="Not quite. "+o[2]}};
+      box.appendChild(b)});
+  }
+  $("#prev").disabled=cur===0;
+  $("#next").textContent=cur===STEPS.length-1?"Start over":"Next →";
+  $("#progbar").style.width=(cur/(STEPS.length-1)*100)+"%";
+  refreshDots();
+}
+function go(i){cur=Math.max(0,Math.min(STEPS.length-1,i));T=0;render();}
+$("#prev").onclick=()=>go(cur-1);
+$("#next").onclick=()=>go(cur===STEPS.length-1?0:cur+1);
+document.addEventListener("keydown",e=>{if(e.target.tagName==="INPUT"||e.altKey||e.ctrlKey||e.metaKey)return;if(e.key==="ArrowRight")go(cur+1);if(e.key==="ArrowLeft")go(cur-1)});
+let paused=false;
+$("#pauseBtn").onclick=()=>{paused=!paused;$("#pauseBtn").textContent=paused?"Play":"Pause"};
+$("#replayBtn").onclick=()=>{T=0};
+let speed=1;$("#speed").oninput=e=>speed=+e.target.value;
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";
+  r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+
+/* ---------------- canvas ---------------- */
+const W=800,H=480;
+const cv=document.getElementById("stage");ctx=cv.getContext("2d");
+let K=1;
+function fit(){const w=cv.parentElement.clientWidth;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);K=cv.width/W}
+window.addEventListener("resize",fit);
+
+/* ================= scenes: start + Part 1 + Part 2 ================= */
+function phaseOf(T,L,stops){const p=P(T,L)*L;for(let i=0;i<stops.length;i++)if(p<stops[i])return i;return stops.length}
+const SPOTS=[[-110,-40],[-70,10],[-30,-55],[10,-10],[50,-48],[90,5],[120,-30],[-95,45],[-45,50],[0,40],[45,55],[100,50],[-130,0],[135,25]];
+function dishScene(cx,cy,mode,p,T){
+  // mode 0 kill, 1 remove, 2 slow
+  if(mode===0){petri(cx,cy+40,150);heatWaves(cx-150,cy+120,300,170,T,C.heat,7);
+    SPOTS.forEach((s,i)=>{const d=p>.15+rnd(i)*.55;bact(cx+s[0],cy+40+s[1]*.42*1.6,rnd(i+3)*3,8,1,{dead:d,t:T})});
+    label(cx,cy-82,"Heat: cells die",{size:13,weight:700,border:C.heat})}
+  else if(mode===1){// funnel + filter
+    const fx=cx,top=cy-80,fw=150,fy=cy+30;ctx.beginPath();ctx.moveTo(fx-fw,top);ctx.lineTo(fx+fw,top);ctx.lineTo(fx+fw*.7,fy);ctx.lineTo(fx-fw*.7,fy);ctx.closePath();ctx.fillStyle=hexA(C.glass,.5);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.8;ctx.stroke();
+    const lvl=lerp(top+16,fy-6,smooth(p*1.3));ctx.save();ctx.beginPath();ctx.moveTo(fx-fw,top);ctx.lineTo(fx+fw,top);ctx.lineTo(fx+fw*.7,fy);ctx.lineTo(fx-fw*.7,fy);ctx.closePath();ctx.clip();ctx.fillStyle=hexA(C.water,.9);ctx.fillRect(fx-fw,lvl,2*fw,fy-lvl);ctx.restore();
+    rr(fx-fw*.72,fy-3,fw*1.44,8,2);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.2;ctx.stroke();for(let k=0;k<24;k++)circ(fx-fw*.68+k*fw*1.36/23,fy+1,1.2,C["ink-soft"]);
+    SPOTS.slice(0,10).forEach((s,i)=>{const y0=top+30+((i*37)%70);const yy=lerp(y0,fy-10,smooth(clamp(p*1.4-rnd(i)*.3,0,1)));bact(fx+s[0]*.75,Math.min(yy,fy-10),rnd(i+3)*.6-.3,7,1,{t:T})});
+    // drops and flask below
+    for(let k=0;k<4;k++){const f=P(T*1.3+k/4,1);circ(fx-30+k*20,fy+12+f*44,2.4,hexA(C.steam,1-f))}
+    flask(fx,cy+150,90,.35+.3*smooth(p),C.water);label(fx,cy-104,"Filter: cells removed",{size:13,weight:700,border:C.steam})}
+  else{petri(cx,cy+40,150);snow(cx-160,cy-90,320,240,T,14);
+    SPOTS.forEach((s,i)=>bact(cx+s[0],cy+40+s[1]*.42*1.6,rnd(i+3)*3,8,1,{t:T}));clock(cx+120,cy-40,18,P(T,6),C.cold);
+    label(cx,cy-82,"Cold: growth paused",{size:13,weight:700,border:C.cold})}
+}
+function sceneMap(T){
+  panelBox(12,12,380,456);title(26,32,"Three ways to control microbes");
+  const L=4.5,mode=Math.floor(T/L)%3,p=P(T,L);
+  ["Kill","Remove","Slow"].forEach((n,i)=>{const x=30+i*118,on=i===mode;panelBox(x,46,108,30,{stroke:on?C.accent:C.rule,lw:on?2.5:1.2,fill:on?hexA(C.accent,.14):hexA(C.panel,.9)});txt(x+54,61,n,{size:14,weight:700,align:"center"})});
+  ctx.save();rr(14,84,376,382,8);ctx.clip();dishScene(202,250,mode,p,T);ctx.restore();
+  const cards=[["The words","act1"],["How microbes die","act2"],["Heat","act3"],["Filters, cold, radiation","act4"],["Chemicals","act5"],["Testing and hands","act6"]];
+  const on=Math.floor(T/2.2)%6;
+  cards.forEach((c,i)=>{const x=404+(i%2)*194,y=12+Math.floor(i/2)*154,w=188,h=144;const lit=i===on;
+    panelBox(x,y,w,h,{stroke:lit?C[c[1]]:C.rule,lw:lit?3:1.2,fill:hexA(C.panel,lit?.97:.85)});
+    const cx=x+w/2,cy=y+54;ctx.save();ctx.globalAlpha*=lit?1:.62;
+    if(i===0){ell(cx-40,cy+6,32,13,0,C.agar,C["agar-edge"],1.3);ell(cx+40,cy+6,32,13,0,C.agar,C["agar-edge"],1.3);[[-8,2],[6,-3],[14,6]].forEach((q,k)=>bact(cx+40+q[0],cy+6+q[1],k,4.5));txt(cx-40,cy-22,"sterile",{size:12,mono:true,weight:600,align:"center"});txt(cx+40,cy-22,"clean",{size:12,mono:true,weight:600,align:"center"})}
+    else if(i===1){const gx=cx-60,gy=cy-30,gw=120,gh=62;line(gx,gy,gx,gy+gh,C["ink-soft"],1.2);line(gx,gy+gh,gx+gw,gy+gh,C["ink-soft"],1.2);const pf=P(T,3);line(gx,gy+4,gx+gw*pf,gy+4+(gh-8)*pf,C[c[1]],3);circ(gx+gw*pf,gy+4+(gh-8)*pf,4,C[c[1]])}
+    else if(i===2){rr(cx-46,cy-34,92,68,12);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=1.5;ctx.stroke();circ(cx,cy,22,C.panel,C["steel-edge"],2);for(let k=0;k<5;k++){const f=P(T*.8+k/5,1);circ(cx-10+k*5,cy+8-f*20,3+f*3,hexA(C.steam,.8*(1-f)))}gaugeDial(cx+62,cy-20,12,.5+.1*Math.sin(T),null,null)}
+    else if(i===3){line(cx-60,cy,cx+60,cy,C["ink-soft"],4);for(let k=0;k<5;k++){bact(cx-48+k*24,cy-10,0,5)}for(let k=0;k<3;k++){const f=P(T+k/3,1);circ(cx-30+k*30,cy+6+f*28,2.4,hexA(C.steam,1-f))}}
+    else if(i===4){sprayBottle(cx-40,cy+30,34,C.alc,T,1);[[30,0],[52,-10],[44,14]].forEach((q,k)=>bact(cx+q[0],cy+q[1],k,6,1,{dead:P(T,3)>.5}))}
+    else{handShape(cx,cy+18,.9,{});for(let k=0;k<6;k++){const f=P(T*.6+k/6,1);circ(cx-24+k*10,cy-6-f*30,3+rnd(k)*3,null,hexA(C.steam,1-f),1.4)}}
+    ctx.restore();
+    txt(cx,y+h-30,c[0],{size:14,weight:700,align:"center"});txt(cx,y+h-12,"Part "+(i+1),{size:12,mono:true,align:"center",color:C["ink-soft"],weight:600})});
+}
+
+/* ---------- 1 sterilization ---------- */
+function sceneSterile(T){
+  const L=9,p=P(T,L);
+  // left: tray in steam chamber
+  panelBox(12,12,384,456);title(26,32,"Sterilization");
+  rr(40,60,328,250,26);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=2;ctx.stroke();
+  rr(56,76,296,218,18);ctx.fillStyle=hexA(C.steam,.12+.1*Math.sin(T*2));ctx.fill();
+  for(let k=0;k<14;k++){const f=P(T*.5+k/14,1);circ(70+rnd(k)*270,290-f*200,5+f*6,hexA(C.steam,.5*(1-f)))}
+  // tray and tools
+  rr(90,220,230,26,5);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();
+  ctx.save();ctx.translate(140,210);ctx.rotate(-.08);rr(-40,-4,80,8,4);ctx.fillStyle=C["steel-edge"];ctx.fill();ctx.restore();
+  ctx.save();ctx.translate(250,206);ctx.rotate(.1);rr(-36,-3,60,6,3);ctx.fillStyle=C["steel-edge"];ctx.fill();ctx.beginPath();ctx.moveTo(24,-3);ctx.lineTo(44,0);ctx.lineTo(24,3);ctx.fill();ctx.restore();
+  const kill=smooth(seg(p,.15,.6));
+  const mics=[["bact",120,190],["env",170,180],["spore",215,192],["bact",270,186],["spore",300,196],["env",110,232],["bact",200,232]];
+  mics.forEach((m,i)=>{const a=1-smooth(seg(kill,i*.1,i*.1+.35));microbe(m[0],m[1],m[2],7,{a,t:T,ang:i})});
+  heatWaves(70,300,270,60,T,C.heat,6);
+  timeBar(60,330,288,seg(p,.1,.6),C.heat);txt(204,354,"121 °C steam, 15+ minutes",{size:12.5,mono:true,weight:600,align:"center"});
+  if(p>.6){withA(seg(p,.6,.7),()=>{label(204,392,"Sterile: no living microbes",{size:14,weight:700,border:C.good});label(204,424,"endospores and viruses too",{size:13,color:C["ink-soft"]})})}
+  // right: can
+  panelBox(404,12,384,456);title(418,32,"Commercial sterilization (canning)");
+  const cx=596,cy=200;rr(cx-90,cy-110,180,220,14);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=2;ctx.stroke();
+  for(let k=0;k<5;k++)line(cx-90,cy-90+k*44,cx+90,cy-90+k*44,hexA(C["steel-edge"],.5),1);
+  rr(cx-76,cy-96,152,190,8);ctx.fillStyle=hexA(C.food,.75);ctx.fill();
+  heatWaves(cx-100,cy+150,200,40,T,C.heat,5);
+  const bot=[[cx-40,cy-50],[cx+30,cy-30],[cx-20,cy+20],[cx+45,cy+40],[cx-50,cy+60]];
+  bot.forEach((b,i)=>{const a=1-smooth(seg(p,.2+i*.06,.5+i*.06));spore(b[0],b[1],8,{a});});
+  const thermo2=[[cx+10,cy-70],[cx-30,cy+70]];
+  thermo2.forEach((b,i)=>{spore(b[0],b[1],7,{dead:true});if(p>.55){txt(b[0]+14,b[1]-12-Math.sin(T*2+i)*3,"z",{size:13,weight:700,color:C["ink-soft"]});txt(b[0]+22,b[1]-20-Math.sin(T*2+i)*3,"z",{size:11,weight:700,color:C["ink-soft"]})}});
+  lead(cx-40,cy-50,cx-130,cy-150,"C. botulinum spores",{a:1-seg(p,.4,.55),align:"left"});
+  if(p>.6)withA(seg(p,.6,.7),()=>{label(cx,cy+168,"Botulinum spores killed",{size:13.5,weight:700,border:C.good});
+    label(cx,cy+200,"A few heat-loving spores remain,",{size:12.5,color:C["ink-soft"]});label(cx,cy+222,"but cannot grow in the sealed can",{size:12.5,color:C["ink-soft"]});label(cx,cy+254,"Commercially sterile",{size:14,weight:700,border:C.accent})});
+}
+function timeBar(x,y,w,f,col){rr(x,y,w,8,4);ctx.fillStyle=C.sunk;ctx.fill();rr(x,y,Math.max(8,w*clamp(f,0,1)),8,4);ctx.fillStyle=col||C.accent;ctx.fill()}
+
+/* ---------- 2 the words ---------- */
+function sceneWords(T){
+  const L=6,p=P(T,L);const PW=384,PH=222;
+  const box=(i,name,sub)=>{const x=12+(i%2)*(PW+8),y=12+Math.floor(i/2)*(PH+12);panelBox(x,y,PW,PH);txt(x+14,y+20,name.toUpperCase(),{size:12.5,mono:true,weight:700,color:C["ink-soft"]});txt(x+PW-12,y+20,sub,{size:12,align:"right",color:C["ink-soft"]});return [x,y]};
+  // disinfection
+  let [x,y]=box(0,"Disinfection","nonliving objects");
+  rr(x+20,y+150,PW-40,30,4);ctx.fillStyle=C.bench;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.2;ctx.stroke();
+  sprayBottle(x+70,y+140,40,C.alc,T,seg(p,.05,.15)*(1-seg(p,.6,.7)));
+  [[160,140],[200,136],[240,142],[290,138],[330,141]].forEach((q,i)=>{if(i===3){spore(x+q[0],y+q[1],8)}else bact(x+q[0],y+q[1],0,8,1,{dead:p>.25+i*.07,t:T})});
+  if(p>.55)lead(x+290,y+138,x+270,y+70,"endospore survives",{a:seg(p,.55,.65),align:"right"});
+  // antisepsis
+  [x,y]=box(1,"Antisepsis","living tissue (skin)");
+  ctx.save();rr(x+20,y+60,PW-40,130,60);ctx.fillStyle=C.skin;ctx.fill();ctx.strokeStyle=C["skin-edge"];ctx.lineWidth=1.5;ctx.stroke();
+  const rad=90*smooth(seg(p,.05,.45));ell(x+PW/2,y+125,rad*1.3,rad*.55,0,hexA(C.iod,.6));
+  [[-90,-20],[-40,20],[10,-25],[60,15],[100,-10],[-120,25],[140,20]].forEach((q,i)=>{const inside=Math.hypot(q[0]/1.3,q[1]/.55)<rad;bact(x+PW/2+q[0],y+125+q[1],i,7,1,{dead:inside&&p>.2,t:T})});ctx.restore();
+  // sanitization
+  [x,y]=box(2,"Sanitization","to a safe level");
+  // fork/plate icon
+  ell(x+80,y+120,54,22,0,C.panel,C["ink-soft"],1.5);ell(x+80,y+120,34,13,0,null,C.rule,1.2);
+  const lv=lerp(.9,.18,smooth(seg(p,.1,.6)));const bx=x+170,bw=180,by=y+60,bh=130;rr(bx,by,bw,bh,4);ctx.fillStyle=C.sunk;ctx.fill();
+  rr(bx+60,by+bh*(1-lv),60,bh*lv,3);ctx.fillStyle=lv>.3?C.warn:C.good;ctx.fill();line(bx,by+bh*.7,bx+bw,by+bh*.7,C.ink,1.5,[5,4]);txt(bx+bw-4,by+bh*.7-10,"safe level",{size:12,align:"right",weight:600});
+  txt(bx+90,by+bh+14,"germs on dishes",{size:12,align:"center",color:C["ink-soft"]});
+  // degerming
+  [x,y]=box(3,"Degerming","physical removal");
+  handShape(x+150,y+170,1.15,{rot:-.2});
+  for(let k=0;k<10;k++){const f=P(T*.9+k/10,1);circ(x+100+rnd(k)*110,y+40+f*170,2.5+rnd(k+2)*2,hexA(C.steam,.8*(1-f*.5)))}
+  for(let k=0;k<6;k++){const f=P(T*.4+k/6,1);circ(x+120+rnd(k+5)*80,y+120+Math.sin(f*6+k)*10-f*40,4+rnd(k)*4,null,hexA(C.steam,1-f),1.3)}
+  [[0,0],[1,1],[2,0]].forEach((q,i)=>{const f=P(T*.35+i/3,1);bact(x+130+i*28+f*120,y+130+f*80,f*3,6.5,1-seg(f,.8,1),{t:T})});
+  line(x+300,y+205,x+360,y+205,C["ink-soft"],3);txt(x+330,y+192,"drain",{size:12,align:"center",color:C["ink-soft"]});
+}
+
+/* ---------- 3 cide vs static ---------- */
+function sceneCide(T){
+  const L=12,p=P(T,L);panelBox(12,12,776,300);title(26,32,"Number of living bacteria (log scale)");
+  const gx=80,gy=50,gw=680,gh=220;const tmax=10;const X=t=>gx+gw*t/tmax,Y=v=>gy+gh-(v-2)/(8-2)*gh;
+  for(let e=2;e<=8;e+=2){line(gx,Y(e),gx+gw,Y(e),hexA(C.rule,.7),1);txt(gx-8,Y(e),ten(e),{size:12,mono:true,align:"right",color:C["ink-soft"]})}
+  line(gx,gy,gx,gy+gh,C["ink-soft"],1.4);line(gx,gy+gh,gx+gw,gy+gh,C["ink-soft"],1.4);txt(gx+gw/2,gy+gh+16,"Time (hours)",{size:12,align:"center",color:C["ink-soft"],weight:600});
+  line(X(2),gy,X(2),gy+gh,C["ink-soft"],1.4,[5,4]);label(X(2),gy+10,"Add chemical",{size:12,weight:700});
+  line(X(6),gy,X(6),gy+gh,C["ink-soft"],1.4,[5,4]);label(X(6),gy+10,"Remove chemical",{size:12,weight:700});
+  const ctrl=t=>Math.min(7.8,4+t*.42),stat=t=>t<2?4+t*.42:t<6?4.84:Math.min(7.8,4.84+(t-6)*.42),cide=t=>t<2?4+t*.42:Math.max(2,4.84-(t-2)*1.1);
+  const now=p*1.15*tmax;
+  plotFn(ctrl,0,tmax,gx,gy,gw,gh,2,8,C.dead,3,[],now);plotFn(stat,0,tmax,gx,gy,gw,gh,2,8,C.cold,3.5,[],now);plotFn(cide,0,tmax,gx,gy,gw,gh,2,8,C.bad,3.5,[],now);
+  const tn=Math.min(now,tmax);line(X(tn),gy,X(tn),gy+gh,hexA(C.accent,.6),2);
+  if(now>tmax*.95){label(X(9.4),Y(ctrl(9.4))+14,"no chemical",{size:12,weight:600,align:"right"});label(X(9.4),Y(stat(9.4))+16,"bacteriostatic",{size:12,weight:700,color:C.cold,align:"right"});label(X(9.6),Y(cide(9.6))-14,"bactericidal",{size:12,weight:700,color:C.bad,align:"right"})}
+  // cells
+  panelBox(12,322,384,146);title(26,342,"Bacteriostatic: paused");
+  const st=tn<2?0:tn<6?1:2;bact(110,410,0,13,1,{t:T});
+  if(st===1){rr(200,388,10,40,2);ctx.fillStyle=C.cold;ctx.fill();rr(218,388,10,40,2);ctx.fill();txt(250,410,"waiting",{size:13,weight:600})}
+  else if(st===2){const g=P(T,2);bact(170+g*30,410-g*14,.3,13*(.6+.4*g),1,{t:T});txt(250,410,"growing again",{size:13,weight:600})}else txt(200,410,"growing",{size:13,weight:600});
+  panelBox(404,322,384,146);title(418,342,"Bactericidal: killed");
+  const d=tn>2.3;bact(500,410,0,13,1,{dead:d,t:T});if(d){for(let k=0;k<6;k++){const f=P(T*.7+k/6,1);circ(500+Math.cos(k)*f*50,410+Math.sin(k)*f*30,2.5,hexA(C.steam,1-f))}txt(580,410,"cell bursts, does not recover",{size:13,weight:600})}else txt(580,410,"growing",{size:13,weight:600});
+}
+
+/* ---------- 4 aseptic technique ---------- */
+function sceneAsepsis(T){
+  const L=10,p=P(T,L);panelBox(12,12,520,456);title(26,32,"Lab: keeping a culture pure");
+  rr(24,400,496,14,3);ctx.fillStyle=C.bench;ctx.fill();ctx.strokeStyle=C.rule;ctx.lineWidth=1;ctx.stroke();
+  burner(150,400,T);
+  // tube
+  const tx=290,ty=250;ctx.save();ctx.translate(tx,ty);ctx.rotate(-.5);tube(0,0,26,110,.55,{col:hexA(C.bact,.5),cloudy:.6});ctx.restore();
+  // plate with lid tilted
+  const px=430,py=360;petri(px,py,70);const lidA=seg(p,.55,.6)*(1-seg(p,.92,.97));
+  ctx.save();ctx.translate(px-10,py-26-lidA*30);ctx.rotate(-lidA*.35);ell(0,0,74,22,0,hexA(C.glass,.5),C["glass-edge"],1.6);ctx.restore();
+  // streak
+  const sf=seg(p,.62,.88);if(sf>0){ctx.save();ctx.beginPath();for(let i=0;i<=40*sf;i++){const f=i/40;const X=px-50+f*100;const Y=py-8+Math.sin(f*TAU*3)*10;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=hexA(C.bact,.8);ctx.lineWidth=2.4;ctx.stroke();ctx.restore()}
+  // loop path: flame -> tube -> plate -> flame
+  const path=[[150,330],[150,330],[300,215],[300,215],[px-50,py-12],[px+50,py-12],[150,330]];
+  const lp=p<.15?0:p<.3?seg(p,.15,.3)*.333:p<.55?.333+seg(p,.35,.55)*.333:p<.9?.666+seg(p,.6,.9)*.17:.84+seg(p,.9,1)*.16;
+  const pos=along([[150,330],[300,215],[px-50,py-12],[px+50,py-12],[150,330]],lp);
+  const hot=p<.15||p>.93?1:Math.max(0,1-seg(p,.15,.3)*3);
+  line(pos[0],pos[1],pos[0]+60,pos[1]-80,C["steel-edge"],3);rr(pos[0]+56,pos[1]-110,10,40,4);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.stroke();
+  circ(pos[0],pos[1],7,null,hot>0?mix(C["steel-edge"],C.heat,hot):C["steel-edge"],2.5);if(hot>0)glow(pos[0],pos[1],22,C.heat,.6*hot);
+  if(p>.3&&p<.9)circ(pos[0],pos[1],3,C.bact);
+  // flaming tube mouth
+  if(p>.28&&p<.36)glow(tx+28,ty-40,26,C.heat,.5);
+  // air contaminants
+  for(let k=0;k<7;k++){const f=P(T*.15+k/7,1);let X=60+rnd(k)*440,Y=60+f*300;if(X>px-80&&X<px+80&&Y>py-80)Y=py-80-(Y-(py-80))*.3;if(Math.abs(X-150)<60&&Y>200)X+=(X<150?-1:1)*(Y-200)*.4;circ(X,Y,3,hexA(C.air,.85));circ(X+3,Y-2,1.6,C.air)}
+  const lab=["1. Flame the loop red-hot","2. Flame the tube mouth, take a little culture","3. Lift the lid only a little, streak the plate","4. Flame the loop again"][p<.25?0:p<.55?1:p<.9?2:3];
+  label(270,60,lab,{size:13.5,weight:700,border:C.accent});
+  // right: sterile field
+  panelBox(540,12,248,456);title(554,32,"Clinic: sterile field");
+  rr(560,120,208,170,8);ctx.fillStyle=hexA(C.good,.35);ctx.fill();ctx.strokeStyle=C.good;ctx.lineWidth=2;ctx.stroke();
+  for(let k=0;k<3;k++){ctx.save();ctx.translate(610+k*55,200);ctx.rotate(.2*k-.2);rr(-6,-34,12,68,4);ctx.fillStyle=C["steel-edge"];ctx.fill();ctx.restore()}
+  const g=P(T,6);const gy=g<.5?lerp(80,160,smooth(g*2)):160;
+  ctx.save();ctx.translate(700,gy);handShape(0,0,.6,{glove:true,rot:.3});ctx.restore();
+  if(g>.4&&g<.95)txt(700,gy+46,"✓ sterile item",{size:13,weight:700,color:C.good,align:"center"});
+  // contaminated tool
+  const c=P(T+3,6);const cx=lerp(600,680,smooth(c));line(cx-20,350,cx+30,350,C["steel-edge"],5);rr(556,370,216,10,2);ctx.fillStyle=C.bench;ctx.fill();
+  txt(cx+5,330,"✗ touched the table",{size:13,weight:700,color:C.bad,align:"center"});txt(664,410,"no longer sterile:",{size:12.5,align:"center",color:C["ink-soft"]});txt(664,428,"replace it",{size:12.5,align:"center",color:C["ink-soft"]});
+}
+
+/* ---------- 5 death curve ---------- */
+function sceneCurve(T){
+  const L=12,p=P(T,L);const tmin=Math.min(6,p*7.2);const N=1e6*Math.pow(10,-tmin);
+  panelBox(12,12,300,456);title(26,32,"Flask over a flame");
+  label(162,64,"Alive: "+(N>=1?fmtN(N):"less than 1"),{size:14,weight:700,mono:true,border:C.accent});
+  txt(162,92,"Minute "+tmin.toFixed(1),{size:12.5,mono:true,align:"center",color:C["ink-soft"]});
+  flask(162,380,260,.75,hexA(C.water,.9));burner(162,456,T);
+  const alive=Math.round(100*Math.pow(10,-tmin));
+  for(let i=0;i<100;i++){const r=Math.floor(i/10),c=i%10;const X=100+c*13+(r%2)*3,Y=272+r*10;const d=i>=alive;circ(X,Y,3.8,d?hexA(C.dead,.7):C.bact,d?null:hexA(C.ink,.35),.8)}
+  label(162,116,"100 dots = starting population",{size:12,color:C["ink-soft"]});
+  // graphs
+  panelBox(322,12,466,204);title(336,32,"Ordinary scale");
+  const gx=380,gy=50,gw=390,gh=124;line(gx,gy,gx,gy+gh,C["ink-soft"],1.4);line(gx,gy+gh,gx+gw,gy+gh,C["ink-soft"],1.4);
+  [0,.5,1].forEach(f=>{txt(gx-6,gy+gh-f*gh,(f*1000000/1000)+"k",{size:11.5,mono:true,align:"right",color:C["ink-soft"]})});
+  plotFn(t=>1e6*Math.pow(10,-t),0,6,gx,gy,gw,gh,0,1e6,C.accent,3,[],tmin);
+  for(let i=0;i<=6;i++)txt(gx+gw*i/6,gy+gh+12,String(i),{size:11.5,mono:true,align:"center",color:C["ink-soft"]});
+  if(tmin>1.5)label(gx+gw*.6,gy+gh-24,"looks like zero, but thousands are alive",{size:12,weight:600,color:C.bad});
+  const G=logFrame(380,262,390,140,0,6,6,{title:"Log scale",step:1,xt:6});
+  plotFn(t=>6-t,0,6,380,262,390,140,0,6,C.accent,3.5,[],tmin);circ(G.X(tmin),G.Y(6-tmin),5,C.accent);
+  for(let i=1;i<=Math.floor(tmin);i++){txt(G.X(i)+4,G.Y(6-i)-12,"1/10 left",{size:11.5,mono:true,weight:700,color:C.bad})}
+}
+
+/* ---------- 6 D-value ---------- */
+function sceneDvalue(T){
+  const L=14,p=P(T,L);const tmax=24;const now=p*1.1*tmax;
+  const G=logFrame(70,56,700,240,-6,6,tmax,{title:"Survivors (log scale)",step:2,xt:6});
+  const D121=2,D110=8;
+  plotFn(t=>6-t/D110,0,tmax,70,56,700,240,-6,6,C.ald,3,[6,4],now);
+  plotFn(t=>6-t/D121,0,tmax,70,56,700,240,-6,6,C.heat,3.5,[],now);
+  line(70,G.Y(-6),770,G.Y(-6),C["ink-soft"],1.6,[6,5]);label(766,G.Y(-6)-14,"1 in a million chance of a survivor (10⁻⁶)",{size:12,weight:600,align:"right"});
+  // D brackets on 121 line
+  const steps=Math.min(6,Math.floor(now/D121));for(let i=0;i<steps;i++){const t0=i*D121,t1=(i+1)*D121;const x0=G.X(t0),x1=G.X(t1),y0=G.Y(6-i),y1=G.Y(5-i);
+    line(x0,y0,x1,y0,C.heat,1.6);line(x1,y0,x1,y1,C.heat,1.6);if(i<4)txt(x1+5,(y0+y1)/2,"1 D",{size:11.5,mono:true,weight:700,color:C.heat})}
+  if(now>8)label(G.X(11),G.Y(6-11/D110)-16,"110 °C: D = 8 min",{size:12.5,weight:700,color:C.ald});
+  label(G.X(.6),G.Y(.6),"121 °C: D = 2 min",{size:12.5,weight:700,color:C.heat,align:"left"});
+  // row of ten
+  panelBox(12,352,776,116);title(26,372,"One D-value: 9 of every 10 die");
+  const sp=P(T,3);for(let i=0;i<10;i++){const d=i>0&&sp>.3+i*.05;bact(140+i*56,420,0,11,1,{dead:d,t:T})}
+  txt(700,420,sp>.8?"1 of 10 left":"",{size:13,weight:700,align:"center"});
+}
+
+/* ---------- 7 factors ---------- */
+function miniGraph(x,y,w,h,lines,now,lab){line(x,y,x,y+h,C["ink-soft"],1.3);line(x,y+h,x+w,y+h,C["ink-soft"],1.3);txt(x-6,y+6,"log",{size:11.5,mono:true,align:"right",color:C["ink-soft"]});txt(x+w,y+h+12,lab||"time",{size:11.5,align:"right",color:C["ink-soft"]});
+  lines.forEach(l=>plotFn(l[0],0,1,x,y,w,h,0,1,l[1],3,l[2]||[],now))}
+function sceneFactors(T){
+  const L=8,p=P(T,L);const now=smooth(seg(p,0,.8));const PW=384,PH=222;
+  const box=(i,name)=>{const x=12+(i%2)*(PW+8),y=12+Math.floor(i/2)*(PH+12);panelBox(x,y,PW,PH);txt(x+14,y+20,name.toUpperCase(),{size:12.5,mono:true,weight:700,color:C["ink-soft"]});return [x,y]};
+  let [x,y]=box(0,"Number of microbes");
+  miniGraph(x+40,y+40,200,150,[[t=>.95-t*1.1,C.bact],[t=>.6-t*1.1,C.bact,[5,4]]],now);
+  label(x+300,y+80,"big start: longer",{size:12,weight:600});label(x+300,y+110,"small start: sooner",{size:12,weight:600});
+  for(let k=0;k<9;k++)bact(x+260+(k%3)*22,y+150+Math.floor(k/3)*14,0,5);bact(x+330,y+170,0,5);
+  [x,y]=box(1,"Type of microbe");
+  miniGraph(x+40,y+40,200,150,[[t=>.9-t*1.4,C.bact],[t=>.9-t*.25,C.spore]],now);
+  bact(x+300,y+90,0,9,1,{dead:now>.5,t:T});txt(x+300,y+118,"vegetative",{size:12,align:"center",weight:600});spore(x+300,y+160,9);txt(x+300,y+186,"endospore",{size:12,align:"center",weight:600});
+  [x,y]=box(2,"Organic matter");
+  miniGraph(x+40,y+40,180,150,[[t=>.9-t*1.3,C.bact],[t=>.9-t*.45,C.organic,[5,4]]],now);
+  const ox=x+300,oy=y+120;blobPath(ox,oy,46,2,T*.5,.08);ctx.fillStyle=hexA(C.organic,.55);ctx.fill();ctx.strokeStyle=C.organic;ctx.lineWidth=1.5;ctx.stroke();bact(ox,oy,0,8,1,{t:T});
+  for(let k=0;k<8;k++){const f=P(T*.6+k/8,1);const a=k/8*TAU;const d=90-f*44;circ(ox+Math.cos(a)*d,oy+Math.sin(a)*d*.8,3.2,hexA(C.alc,f<.95?1:0))}
+  txt(ox,oy+66,"chemical used up",{size:12,align:"center",weight:600});
+  [x,y]=box(3,"Temperature, time, strength");
+  const tf=.3+.6*smooth(P(T,4));thermo(x+300,y+50,110,tf,C.heat);txt(x+330,y+100,Math.round(100+tf*30)+" °C",{size:12.5,mono:true,weight:700});
+  miniGraph(x+40,y+40,200,150,[[t=>.95-t*(.5+tf*1.5),C.heat]],1);txt(x+310,y+196,"hotter = steeper",{size:12,weight:600,align:"center"});
+}
+
+/* ---------- 8 resistance ladder ---------- */
+const LADDER=[["Prions","prion"],["Endospores","spore"],["Mycobacteria","myco"],["Cysts, non-enveloped viruses","cyst"],["Vegetative bacteria, fungi","bact"],["Enveloped viruses","env"]];
+function sceneLadder(T){
+  panelBox(12,12,776,456);title(26,32,"Hardest to kill at the top");
+  const lx=180,lw=320,top=56,rh=66;line(lx,top-6,lx,top+6*rh,C["ink-soft"],5);line(lx+lw,top-6,lx+lw,top+6*rh,C["ink-soft"],5);
+  const lvl=.5+.5*Math.sin(T*.6-Math.PI/2);const ly=top+6*rh-lvl*(5.6*rh);
+  ctx.save();rr(lx,ly,lw,top+6*rh-ly,0);ctx.fillStyle=hexA(C.accent,.18);ctx.fill();ctx.restore();line(lx-10,ly,lx+lw+10,ly,C.accent,3);label(lx-14,ly,"kill power",{size:12.5,weight:700,align:"right",color:C.accent});
+  LADDER.forEach((r,i)=>{const y=top+i*rh+rh/2;line(lx,y+rh/2-2,lx+lw,y+rh/2-2,C.rule,3);const dead=y>ly;
+    const cx=lx+50;if(r[1]==="cyst"){cyst(cx-14,y,10,{dead});nakedVirus(cx+16,y,9,{dead})}else if(r[1]==="bact"){bact(cx-14,y,0,9,1,{dead,t:T});yeast(cx+20,y,9,{dead})}else microbe(r[1],cx,y,11,{dead,t:T});
+    txt(lx+86,y,r[0],{size:13,weight:700,color:dead?C["ink-soft"]:C.ink});
+    txt(56,y,i===0?"most":i===5?"least":"",{size:12,mono:true,align:"center",color:C["ink-soft"]})});
+  // brackets: vertical bars with labels at their top ends
+  const br=(a,b,t,col,x,ty,sub)=>{const y0=top+a*rh+6,y1=top+(b+1)*rh-6;line(x,y0,x,y1,col,3.5);line(x,y1,x-8,y1,col,3.5);line(x-8,y0,x,y0,col,3.5);line(x,y0,586,y0,col,1.5,[3,3]);txt(592,y0,t,{size:12.5,weight:700});if(sub)txt(592,y0+16,sub,{size:12,color:C["ink-soft"]})};
+  br(0,0,"Prions: special methods",C.bad,530);br(1,5,"Sterilization",C.act3,575,0,"kills all of these");br(2,5,"High-level disinfectants",C.act4,555,0,"spores only with long contact");br(4,5,"Low-level disinfectants",C.act5,535);
+}
+
+/* ---------- 9 BSL ---------- */
+function sceneBSL(T){
+  const on=Math.floor(T/3)%4;const ex=["E. coli lab strain","Staph aureus, Salmonella","M. tuberculosis","Ebola virus"];
+  for(let i=0;i<4;i++){const x=12+i*196,w=188,y=12,h=456;const lit=i===on;panelBox(x,y,w,h,{stroke:lit?C.accent:C.rule,lw:lit?3:1.2});
+    txt(x+w/2,y+22,"BSL-"+(i+1),{size:16,weight:700,mono:true,align:"center"});
+    // room walls get thicker
+    const wt=2+i*3;rr(x+12,y+44,w-24,250,4);ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=wt;ctx.stroke();
+    // bench
+    rr(x+24,y+240,w-48,10,2);ctx.fillStyle=C.bench;ctx.fill();ctx.strokeStyle=C.rule;ctx.lineWidth=1;ctx.stroke();
+    // worker
+    const wx=x+60,wy=y+180;const suit=i===3;
+    circ(wx,wy-40,13,suit?hexA(C.steam,.5):C.skin,suit?C.steam:C["skin-edge"],1.5);rr(wx-18,wy-26,36,60,10);ctx.fillStyle=suit?hexA(C.steam,.45):C.panel;ctx.fill();ctx.strokeStyle=suit?C.steam:C["ink-soft"];ctx.lineWidth=1.5;ctx.stroke();
+    if(i>=1&&!suit){circ(wx+20,wy+10,5,C.steam)}
+    if(i===2){rr(wx-8,wy-38,16,8,3);ctx.fillStyle=C["ink-soft"];ctx.fill()}
+    if(suit){poly([[wx+18,wy-10],[wx+50,wy-60],[x+w-20,y+60]],C.steam,3)}
+    if(i>=1){// biosafety cabinet
+      rr(x+100,y+150,72,90,4);ctx.fillStyle=hexA(C.glass,.5);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();for(let k=0;k<3;k++){const f=P(T*.8+k/3,1);arrow(x+115+k*20,y+156+f*30,x+115+k*20,y+170+f*30,hexA(C.steam,1-f),1.6)}
+      // biohazard sign
+      circ(x+w-28,y+64,10,C.gpos);txt(x+w-28,y+64,"☣",{size:12,align:"center",color:onFill()})}
+    if(i>=2){for(let k=0;k<3;k++){const f=P(T*.5+k/3,1);arrow(x+16+f*30,y+120+k*30,x+28+f*30,y+120+k*30,hexA(C.steam,1-f),1.8)}
+      txt(x+w/2,y+282,"air flows in",{size:12,align:"center",color:C["ink-soft"]})}
+    if(i===3){rr(x+w/2-26,y+302,52,22,4);ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=2;ctx.stroke();txt(x+w/2,y+313,"airlock",{size:11.5,align:"center",weight:600})}
+    const feats=[["Open bench","Lab coat","Hand washing"],["Limited access","Gloves, eye shield","Biosafety cabinet"],["Respirator","Double doors","Negative pressure"],["Full suit with air","Airlock, showers","Separate building"]][i];
+    feats.forEach((f,k)=>txt(x+w/2,y+340+k*20,f,{size:12.5,align:"center"}));
+    txt(x+w/2,y+416,"Example:",{size:12,align:"center",color:C["ink-soft"],weight:600});txt(x+w/2,y+436,ex[i],{size:12.5,align:"center",weight:700});
+  }
+}
+
+/* ================= scenes: Part 3 heat + Part 4 physical ================= */
+function proteinChain(x,y,w,unf,t,col){ctx.save();ctx.beginPath();for(let i=0;i<=60;i++){const f=i/60;const fold=1-unf;
+  const X=x+lerp(w*.5+Math.cos(f*TAU*2.2)*w*.22*(1-f*.3),f*w,unf);const Y=y+lerp(Math.sin(f*TAU*2.2)*18,Math.sin(f*TAU*5+t*3)*8*unf,unf);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}
+  ctx.strokeStyle=col||C.protein;ctx.lineWidth=3.2;ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt";ctx.restore()}
+function chamber(x,y,w,h){rr(x,y,w,h,30);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=2.5;ctx.stroke();rr(x+14,y+14,w-28,h-28,22);ctx.fillStyle=hexA(C.panel,.6);ctx.fill()}
+function sceneMoist(T){
+  const L=10,p=P(T,L);
+  panelBox(12,12,384,350);title(26,32,"Boiling: 100 °C");
+  // pot
+  const px=204,py=250;rr(px-130,py-110,260,150,12);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=2;ctx.stroke();
+  rr(px-120,py-96,240,128,8);ctx.fillStyle=hexA(C.water,.9);ctx.fill();
+  for(let k=0;k<14;k++){const f=P(T*1.2+k/14,1);circ(px-110+rnd(k)*220,py+24-f*118,2+f*4,null,hexA(C.panel,.9*(1-f)),1.4)}
+  burner(px,py+92,T);
+  const m=[["bact",-80,-50],["env",-40,-10],["spore",0,-60],["bact",40,-20],["spore",80,-40],["env",70,10],["bact",-70,10],["spore",-10,6]];
+  m.forEach((q,i)=>{const dead=q[0]!=="spore"&&p>.2+i*.04;microbe(q[0],px+q[1],py-30+q[2]*.9,8,{dead,t:T,ang:i})});
+  if(p>.55)withA(seg(p,.55,.65),()=>{lead(px+80,py-66,px+120,py-130,"endospores survive",{border:C.spore,align:"right"})});
+  thermo(48,90,120,.72,C.heat);txt(66,90,"100 °C",{size:12.5,mono:true,weight:700});
+  panelBox(404,12,384,350);title(418,32,"Autoclave: 121 °C, 15 psi");
+  chamber(430,60,240,220);
+  for(let k=0;k<16;k++){const f=P(T*.6+k/16,1);const a=k*1.7+T*.3;circ(550+Math.cos(a)*f*90,170+Math.sin(a)*f*70,4+f*5,hexA(C.steam,.6*(1-f)))}
+  const m2=[["bact",-60,-30],["spore",-20,30],["env",20,-40],["spore",60,10],["bact",30,40],["spore",-60,30]];
+  const kf=seg(p,.15,.75);m2.forEach((q,i)=>{const dead=kf>(q[0]==="spore"?.5+i*.06:.1+i*.04);microbe(q[0],550+q[1],170+q[2],8,{dead,t:T,ang:i})});
+  gaugeDial(720,100,30,.55,"pressure","15 psi",C.steam);thermo(708,160,80,.85,C.heat);txt(728,170,"121 °C",{size:12.5,mono:true,weight:700});
+  clock(720,300,20,kf,C.heat);txt(690,300,"15 min",{size:12.5,mono:true,weight:700,align:"right"});
+  if(p>.75)withA(seg(p,.75,.82),()=>label(550,322,"everything killed, spores too",{size:13,weight:700,border:C.good}));
+  // protein strip
+  panelBox(12,372,776,96);title(26,392,"Moist heat denatures proteins");
+  const unf=smooth(seg(P(T,6),.2,.7));proteinChain(120,424,180,0,T);txt(210,458,"folded, working",{size:12,align:"center",color:C["ink-soft"]});
+  arrow(330,428,380,428,C.heat,2.5);proteinChain(410,424,180,unf,T);txt(500,458,"heat: unfolds",{size:12,align:"center",color:C["ink-soft"]});
+  arrow(620,428,650,428,C.heat,2.5);ctx.save();for(let k=0;k<3;k++){ctx.translate(0,0);proteinChain(668+k*14,422+k*5,70,1,T+k,mix(C.protein,C.dead,unf))}ctx.restore();txt(720,458,"clumps",{size:12,align:"center",color:C["ink-soft"]});
+}
+
+function packShape(x,y,w,h,tight,o){o=o||{};rr(x,y,w,h,6);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.5;ctx.stroke();
+  // inner items
+  const n=tight?7:3;for(let k=0;k<n;k++){const ix=x+10+k*(w-20)/n;rr(ix,y+10,(w-20)/n-(tight?2:12),h-20,3);ctx.fillStyle=hexA(C.steel,.9);ctx.fill()}
+  if(o.tape!=null){rr(x+w*.25,y-4,w*.5,10,2);ctx.fillStyle=C.tape;ctx.fill();for(let k=0;k<5;k++){rr(x+w*.28+k*w*.09,y-3,w*.04,8,1);ctx.fillStyle=hexA(C["tape-ink"],.15+o.tape*.85);ctx.fill()}}}
+function sceneAutoclave(T){
+  const L=14,p=P(T,L);const air=smooth(seg(p,.02,.35));
+  panelBox(12,12,520,456);title(26,32,"Inside the autoclave");
+  const cx=40,cy=56,cw=460,ch=250;chamber(cx,cy,cw,ch);
+  // steam fill from top, air pushed to bottom-front drain
+  ctx.save();rr(cx+14,cy+14,cw-28,ch-28,22);ctx.clip();
+  const sl=cy+14+(ch-28)*air;ctx.fillStyle=hexA(C.steam,.22);ctx.fillRect(cx,cy,cw,sl-cy);ctx.fillStyle=hexA(C.air,.35);ctx.fillRect(cx,sl,cw,cy+ch-sl);
+  for(let k=0;k<18;k++){const f=P(T*.5+k/18,1);const X=cx+30+rnd(k)*(cw-60),Y=cy+20+f*(sl-cy-20);circ(X,Y,3+rnd(k+1)*3,hexA(C.steam,.7*(1-f)))}
+  ctx.restore();
+  // inlet arrow and drain
+  arrow(cx+cw-60,cy-16,cx+cw-60,cy+26,C.steam,3);txt(cx+cw-66,cy-24,"steam in",{size:12,weight:700,align:"right"});
+  rr(cx+40,cy+ch-6,40,22,3);ctx.fillStyle=C["steel-edge"];ctx.fill();for(let k=0;k<3;k++){const f=P(T+k/3,1);if(air<.98)circ(cx+60,cy+ch+4+f*24,3,hexA(C.air,1-f))}txt(cx+90,cy+ch+22,"air out (drain)",{size:12,weight:700});
+  // rack + packs
+  line(cx+30,cy+190,cx+cw-30,cy+190,C["steel-edge"],3);
+  const pk1=[cx+70,cy+120,150,68],pk2=[cx+250,cy+120,160,68];
+  const tape=smooth(seg(p,.35,.5));packShape(...pk1,false,{tape});packShape(...pk2,true,{tape});
+  // air pocket in tight pack
+  const ap=1-smooth(seg(p,.3,.6))*.25;ell(pk2[0]+pk2[2]/2,pk2[1]+pk2[3]/2,40*ap,20*ap,0,hexA(C.air,.75),C.air,1.5);txt(pk2[0]+pk2[2]/2,pk2[1]+pk2[3]/2,"air",{size:12,weight:700,align:"center",color:C.ink});
+  // condensation on loose pack
+  if(air>.6){for(let k=0;k<8;k++){const f=P(T*.7+k/8,1);circ(pk1[0]+10+rnd(k)*(pk1[2]-20),pk1[1]+4+f*(pk1[3]-8),2.4,hexA(C.steam,.9))}
+    lead(pk1[0]+pk1[2]/2,pk1[1],cx+40,cy+36,"steam condenses, gives up heat",{a:seg(air,.6,.8),align:"left"})}
+  // thermo readouts
+  const t1=Math.round(lerp(60,121,smooth(seg(p,.1,.45)))),t2=Math.round(lerp(60,96,smooth(seg(p,.2,.6))));
+  label(pk1[0]+pk1[2]/2,pk1[1]+pk1[3]+18,"centre "+t1+" °C",{size:12.5,mono:true,weight:700,border:t1>=121?C.good:null});
+  label(pk2[0]+pk2[2]/2,pk2[1]+pk2[3]+18,"centre "+t2+" °C",{size:12.5,mono:true,weight:700,border:C.bad});
+  txt(pk1[0]+pk1[2]/2,pk1[1]-16,"loosely packed",{size:12,align:"center",weight:600});txt(pk2[0]+pk2[2]/2,pk2[1]-16,"crammed tight",{size:12,align:"center",weight:600});
+  // results row
+  panelBox(24,338,496,124,{fill:hexA(C.panel,.95)});txt(36,354,"RESULTS",{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  txt(36,378,"Indicator tape (outside):",{size:12.5,weight:600});
+  for(let j=0;j<2;j++){const x=230+j*150;rr(x,371,90,14,2);ctx.fillStyle=C.tape;ctx.fill();for(let k=0;k<5;k++){rr(x+6+k*17,373,8,10,1);ctx.fillStyle=hexA(C["tape-ink"],.15+tape*.85);ctx.fill()}txt(x+100,378,tape>.9?"✓":"",{size:13,weight:700,color:C.good})}
+  txt(36,422,"Spore vial (centre):",{size:12.5,weight:600});
+  const inc=smooth(seg(p,.65,.85));for(let j=0;j<2;j++){const x=250+j*150;const col=j===0?C["bi-pass"]:mix(C["bi-pass"],C["bi-fail"],inc);tube(x,402,18,46,.7,{col:col,cap:C.panel});
+    if(inc>.9)txt(x+16,424,j===0?"purple: no growth, pass":"yellow: growth, FAIL",{size:12,weight:700,color:j===0?C.good:C.bad})}
+  if(p>.62&&p<.85)txt(400,354,"incubating 24-48 h...",{size:12,mono:true,color:C["ink-soft"]});
+  // right info
+  panelBox(540,12,248,456);title(554,32,"Why air is the enemy");
+  wrapText("Steam is lighter than air. It fills the chamber from the top and pushes cool air out the bottom drain.",556,64,220,17,{size:13});
+  wrapText("Where air is trapped, steam cannot touch the item, so it stays cooler.",556,150,220,17,{size:13});
+  wrapText("Tape only proves the OUTSIDE got hot.",556,222,220,17,{size:13,weight:700});
+  wrapText("A spore vial in the hardest-to-reach spot proves the load was sterilized.",556,262,220,17,{size:13,weight:700});
+  spore(600,380,12);spore(640,394,10);spore(680,376,11);txt(664,420,"Geobacillus",{size:12.5,align:"center",weight:600});txt(664,438,"stearothermophilus",{size:12.5,align:"center",weight:600});
+}
+
+function scenePasteur(T){
+  const L=10,p=P(T,L);panelBox(12,12,452,456);title(26,32,"Milk through a heat exchanger");
+  const pipe=[[30,120],[140,120],[140,200],[300,200],[300,120],[440,120]];
+  // sections
+  rr(150,90,140,150,8);ctx.fillStyle=hexA(C.heat,.15);ctx.fill();ctx.strokeStyle=C.heat;ctx.lineWidth=1.5;ctx.stroke();txt(220,104,"HEAT 72 °C",{size:12,mono:true,weight:700,align:"center",color:C.ink});
+  rr(310,150,140,110,8);ctx.fillStyle=hexA(C.cold,.12);ctx.fill();ctx.strokeStyle=C.cold;ctx.stroke();txt(380,246,"COOL",{size:12,mono:true,weight:700,align:"center"});
+  poly(pipe,C.steel,20);poly(pipe,C.milk,14);
+  for(let k=0;k<12;k++){const f=P(T*.08+k/12,1);const pt=along(pipe,f);const path=rnd(k)<.4;const dead=path&&f>.42;const col=path?C.bad:C.bact;bact(pt[0],pt[1],0,5,1,{col,dead,t:T})}
+  heatWaves(160,280,120,40,T,C.heat,4);
+  // carton outputs
+  rr(40,300,180,150,8);ctx.fillStyle=hexA(C.cold,.12);ctx.fill();ctx.strokeStyle=C.cold;ctx.lineWidth=1.5;ctx.stroke();txt(130,318,"HTST milk: in the fridge",{size:12.5,weight:700,align:"center"});
+  carton(130,420,1);snow(50,330,160,110,T,6);
+  rr(250,300,200,150,8);ctx.strokeStyle=C.rule;ctx.stroke();txt(350,318,"UHT milk: on the shelf",{size:12.5,weight:700,align:"center"});line(270,428,430,428,C["ink-soft"],3);carton(350,420,1);
+  // right graph
+  panelBox(472,12,316,456);title(486,32,"Temperature over time");
+  const gx=520,gy=60,gw=240,gh=190;line(gx,gy,gx,gy+gh,C["ink-soft"],1.4);line(gx,gy+gh,gx+gw,gy+gh,C["ink-soft"],1.4);
+  const Y=v=>gy+gh-(v-0)/150*gh;[0,50,100,150].forEach(v=>{line(gx,Y(v),gx+gw,Y(v),hexA(C.rule,.6),1);txt(gx-6,Y(v),String(v),{size:11.5,mono:true,align:"right",color:C["ink-soft"]})});txt(gx-30,gy-14,"°C",{size:12,mono:true,weight:700});
+  const pf=seg(p,0,.7);
+  const htst=t=>t<.3?lerp(4,72,smooth(t/.3)):t<.6?72:lerp(72,4,smooth((t-.6)/.4));const uht=t=>t<.3?lerp(4,138,smooth(t/.3)):t<.36?138:lerp(138,4,smooth((t-.36)/.3));
+  plotFn(htst,0,1,gx,gy,gw,gh,0,150,C.heat,3,[],pf);plotFn(uht,0,1,gx,gy,gw,gh,0,150,C.ald,3,[6,4],pf);
+  if(pf>.4){label(gx+gw*.78,Y(72)-14,"HTST 72 °C, 15 s",{size:12,weight:700,color:C.heat});label(gx+gw*.33+30,Y(138)-2,"UHT ~138 °C, 2 s",{size:12,weight:700,color:C.ald,align:"left"})}
+  txt(gx+gw/2,gy+gh+16,"time (not to scale)",{size:12,align:"center",color:C["ink-soft"]});
+  // bars of survivors
+  txt(486,300,"BACTERIA LEFT AFTER",{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  const bf=smooth(seg(p,.4,.8));[["raw milk",1],["HTST",lerp(1,.18,bf)],["UHT",lerp(1,.02,bf)]].forEach((b,i)=>{const y=326+i*40;txt(486,y+8,b[0],{size:12.5,weight:600});rr(570,y,190,16,3);ctx.fillStyle=C.sunk;ctx.fill();rr(570,y,Math.max(3,190*b[1]),16,3);ctx.fillStyle=i===0?C.bad:C.bact;ctx.fill()});
+  txt(486,450,"Pathogens killed, not sterile",{size:12.5,weight:700});
+}
+function carton(x,y,s){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.beginPath();ctx.moveTo(-22,0);ctx.lineTo(-22,-60);ctx.lineTo(0,-80);ctx.lineTo(22,-60);ctx.lineTo(22,0);ctx.closePath();ctx.fillStyle=C.milk;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.5;ctx.stroke();txt(0,-30,"MILK",{size:11.5,mono:true,weight:700,align:"center"});ctx.restore()}
+
+function sceneDry(T){
+  const L=8,p=P(T,L);panelBox(12,12,384,456);title(26,32,"Incineration: flaming a loop");
+  burner(200,420,T);const lx=200,ly=300;const heatF=smooth(seg(p,.1,.4));
+  line(lx-130,ly-100,lx,ly,C["steel-edge"],3);rr(lx-170,ly-128,50,16,6);ctx.save();ctx.translate(lx-145,ly-120);ctx.restore();
+  circ(lx,ly,10,null,mix(C["steel-edge"],C.heat,heatF),3.5);glow(lx,ly,40,C.heat,.7*heatF);
+  [[-6,-4],[4,6],[8,-6]].forEach((q,i)=>{const d=heatF>.4+i*.15;if(!d)bact(lx+q[0]-10,ly+q[1]-10,i,5,1,{t:T});else{for(let k=0;k<4;k++){const f=P(T*.8+k/4+i*.3,1);circ(lx+q[0]-10+f*10,ly+q[1]-10-f*80,1.8,hexA(C.ink,.7*(1-f)))}}});
+  if(heatF>.5)label(200,120,"red-hot in seconds: burned to ash",{size:13,weight:700,border:C.heat});
+  panelBox(404,12,384,456);title(418,32,"Hot air oven");
+  const ox=440,oy=60,ow=310,oh=200;rr(ox,oy,ow,oh,12);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=2;ctx.stroke();rr(ox+14,oy+14,ow-90,oh-28,8);ctx.fillStyle=hexA(C.heat,.08+.05*Math.sin(T*2));ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.stroke();
+  flask(ox+60,oy+170,80,0);flask(ox+130,oy+170,64,0);ctx.save();ctx.translate(ox+180,oy+150);ctx.rotate(-.3);rr(-30,-3,60,6,3);ctx.fillStyle=C["steel-edge"];ctx.fill();ctx.restore();
+  ctx.save();rr(ox+14,oy+14,ow-90,oh-28,8);ctx.clip();heatWaves(ox+20,oy+180,ow-100,150,T,C.heat,5);ctx.restore();
+  txt(ox+ow-38,oy+44,"170 °C",{size:13,mono:true,weight:700,align:"center"});clock(ox+ow-38,oy+100,22,P(T*.2,1),C.heat);txt(ox+ow-38,oy+136,"1 hour",{size:12,mono:true,align:"center"});
+  title(418,290,"Time to sterilize");
+  [["Autoclave 121 °C",15,C.steam],["Oven 170 °C",60,C.heat],["Oven 160 °C",120,C.heat]].forEach((b,i)=>{const y=310+i*46;txt(418,y+10,b[0],{size:12.5,weight:600});const w=b[1]/120*200*smooth(seg(p,.1+i*.1,.5+i*.1));rr(560,y,Math.max(4,w),20,3);ctx.fillStyle=b[2];ctx.fill();txt(566+w,y+10,b[1]>=60?(b[1]/60)+" h":b[1]+" min",{size:12.5,mono:true,weight:700})});
+  txt(418,452,"Dry heat kills by oxidation, slowly.",{size:12.5,weight:600});
+}
+
+/* ---------- Part 4 ---------- */
+function sceneFilter(T){
+  panelBox(12,12,400,456);title(26,32,"Membrane filter, 0.22 µm pores");
+  const fy=250;// liquid above
+  rr(40,60,344,fy-60,6);ctx.fillStyle=hexA(C.water,.8);ctx.fill();rr(40,fy+14,344,180,6);ctx.fillStyle=hexA(C.water,.5);ctx.fill();
+  // filter sheet
+  rr(34,fy,356,14,2);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();for(let k=0;k<30;k++)rr(40+k*11.6,fy+2,3,10,1),ctx.fillStyle=hexA(C.water,.95),ctx.fill();
+  for(let k=0;k<3;k++)arrow(70+k*140,fy+60,70+k*140,fy+110,hexA(C.ink,.35),2);txt(212,fy+170,"vacuum pulls liquid down",{size:12.5,align:"center",weight:600});
+  // bacteria settle on filter
+  for(let i=0;i<12;i++){const f=P(T*.12+rnd(i),1);const X=60+rnd(i+4)*300,Y=lerp(80,fy-9,smooth(clamp(f*1.6,0,1)));bact(X,Y,f<.6?f*4+i:0,7,1,{t:T})}
+  // viruses pass through
+  for(let i=0;i<10;i++){const f=P(T*.18+rnd(i+20),1);const X=60+rnd(i+30)*300;const Y=lerp(80,fy+170,f);envVirus(X,Y,4,{t:T})}
+  lead(110,fy-10,110,fy-40,"bacteria trapped",{align:"center"});lead(300,fy+60,330,fy+70,"viruses pass",{align:"left"});
+  panelBox(420,12,368,456);title(434,32,"Biosafety cabinet (HEPA)");
+  const bx=470,by=70,bw=270,bh=300;rr(bx,by,bw,bh,8);ctx.fillStyle=hexA(C.glass,.4);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=2;ctx.stroke();
+  rr(bx+10,by+10,bw-20,30,4);ctx.fillStyle=C.panel;ctx.fill();ctx.stroke();for(let k=0;k<20;k++)line(bx+16+k*12.4,by+12,bx+16+k*12.4,by+38,C.rule,1);txt(bx+bw/2,by+25,"HEPA",{size:12.5,mono:true,weight:700,align:"center"});
+  rr(bx+bw-60,by-40,50,38,4);ctx.fillStyle=C.panel;ctx.fill();ctx.stroke();txt(bx+bw-35,by-21,"HEPA",{size:11.5,mono:true,weight:700,align:"center"});
+  rr(bx+10,by+240,bw-20,12,2);ctx.fillStyle=C.steel;ctx.fill();
+  for(let k=0;k<6;k++){const f=P(T*.5+k/6,1);arrow(bx+40+k*40,by+50+f*150,bx+40+k*40,by+66+f*150,hexA(C.steam,1-f*.6),2)}
+  for(let k=0;k<4;k++){const f=P(T*.6+k/4,1);arrow(bx+bw-35,by-42-f*12,bx+bw-35,by-52-f*12,hexA(C.steam,1-f),2)}
+  // air curtain front
+  for(let k=0;k<3;k++){const f=P(T*.8+k/3,1);arrow(bx+30+f*200,by+275,bx+44+f*200,by+275,hexA(C.steam,1-f),2)}
+  // trapped specks in filter
+  for(let k=0;k<12;k++)circ(bx+20+rnd(k*5)*(bw-40),by+18+rnd(k*2)*16,2,C.air);
+  txt(bx+bw/2,by+bh+24,"Clean air flows down over the work.",{size:12.5,align:"center",weight:600});txt(bx+bw/2,by+bh+44,"Exhaust air is filtered before leaving.",{size:12.5,align:"center"});
+  txt(bx+bw/2,by+bh+70,"HEPA traps 99.97% of 0.3 µm particles",{size:12.5,align:"center",weight:700});
+}
+function sceneCold(T){
+  const PW=252;const box=(i,n)=>{const x=12+i*(PW+10);panelBox(x,12,PW,456);title(x+14,32,n);return x};
+  let x=box(0,"Cold: 4 °C");
+  rr(x+30,60,PW-60,300,10);ctx.fillStyle=hexA(C.cold,.1);ctx.fill();ctx.strokeStyle=C.cold;ctx.lineWidth=2;ctx.stroke();line(x+30,200,x+PW-30,200,C.cold,2);
+  snow(x+40,70,PW-80,280,T,8);
+  for(let k=0;k<5;k++)bact(x+70+k*28,160,0,7,1,{t:T});clock(x+PW/2,110,16,P(T*.1,1),C.cold);txt(x+PW/2,140,"growth very slow",{size:12,align:"center",weight:600});
+  const g=P(T,5);bact(x+90,270,0,9,1,{col:C.cold,t:T});if(g>.5)bact(x+130+g*10,270,0,9*g,1,{col:C.cold,t:T});lead(x+90,282,x+PW/2,330,"Listeria grows in the cold",{align:"center",border:C.cold});
+  txt(x+PW/2,400,"Slows growth",{size:13,weight:700,align:"center"});txt(x+PW/2,420,"(bacteriostatic)",{size:12.5,align:"center",color:C["ink-soft"]});
+  x=box(1,"Drying (desiccation)");
+  const dp=P(T,8);const sh=smooth(seg(dp,.05,.4))*(1-smooth(seg(dp,.65,.9)));
+  bact(x+PW/2,200,0,22,1,{shrink:sh,t:T});
+  for(let k=0;k<6;k++){const f=P(T*.8+k/6,1);if(dp<.45)circ(x+PW/2+Math.cos(k)*(40+f*60),200+Math.sin(k)*(30+f*50),3,hexA(C.steam,1-f))}
+  if(dp>.6&&dp<.75)for(let k=0;k<8;k++){circ(x+60+k*18,120+(dp-.6)*400,3,C.steam)}
+  label(x+PW/2,290,dp<.45?"water leaves: dormant":dp<.6?"dry: no growth":"add water: grows again",{size:13,weight:700});
+  txt(x+PW/2,400,"Many survive drying",{size:13,weight:700,align:"center"});txt(x+PW/2,420,"freeze-drying stores cultures",{size:12.5,align:"center",color:C["ink-soft"]});
+  x=box(2,"Osmotic pressure");
+  rr(x+30,60,PW-60,300,10);ctx.fillStyle=hexA(C.fungus,.18);ctx.fill();ctx.strokeStyle=C.fungus;ctx.lineWidth=1.5;ctx.stroke();txt(x+PW/2,80,"jam: lots of sugar",{size:12.5,weight:600,align:"center"});
+  for(let k=0;k<40;k++)circ(x+40+rnd(k)*(PW-80),100+rnd(k+40)*250,2.4,hexA(C.glow,.9));
+  const op=smooth(P(T,5)*1.4);const cx=x+PW/2,cy=220;rr(cx-60,cy-30,120,60,30);ctx.strokeStyle=hexA(C.ink,.6);ctx.lineWidth=2.5;ctx.stroke();
+  const s=1-op*.35;rr(cx-50*s,cy-22*s,100*s,44*s,22*s);ctx.fillStyle=C.bact;ctx.fill();
+  for(let k=0;k<6;k++){const a=k/6*TAU;const f=P(T*.8+k/6,1);arrow(cx+Math.cos(a)*(30+f*20),cy+Math.sin(a)*(18+f*20),cx+Math.cos(a)*(44+f*20),cy+Math.sin(a)*(26+f*20),hexA(C.steam,1-f),1.8)}
+  label(cx,cy+60,"water leaves the cell",{size:12.5,weight:600});lead(cx+50*s,cy,cx+30,cy-70,"plasmolysis",{a:seg(op,.4,.7),align:"center"});
+  txt(x+PW/2,400,"Salt and sugar slow growth",{size:13,weight:700,align:"center"});txt(x+PW/2,420,"molds tolerate it better",{size:12.5,align:"center",color:C["ink-soft"]});
+}
+function dnaLadder(x,y,w,t,o){o=o||{};const n=12;for(let i=0;i<n;i++){const X=x+i*w/n;const brk=o.breaks&&o.breaks.indexOf(i)>=0;const y1=y-12+Math.sin(i*.7+t)*2,y2=y+12+Math.sin(i*.7+t)*2;
+  if(!brk){line(X,y1,X,y2,hexA(C.dna,.55),2)}
+  if(o.dimer!=null&&(i===o.dimer||i===o.dimer+1)){circ(X,y1+6,5,C.uv);if(i===o.dimer)line(X,y1+6,X+w/n,y1+6,C.uv,3)}}
+  const segs=o.cut?[[0,o.cut-.3],[o.cut+.3,n-1]]:[[0,n-1]];segs.forEach(sg=>{const a=x+sg[0]*w/n,b=x+sg[1]*w/n;line(a,y-12,b,y-12,C.dna,3);line(a,y+12+(o.cut?3:0),b,y+12+(o.cut?3:0),C.dna,3)})}
+function sceneRadiation(T){
+  const L=8,p=P(T,L);panelBox(12,12,384,456);title(26,32,"Ionizing radiation (gamma)");
+  // package
+  rr(120,90,230,140,10);ctx.fillStyle=hexA(C.glass,.6);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=2;ctx.stroke();txt(235,106,"sealed package",{size:12,align:"center",weight:600});
+  for(let k=0;k<3;k++){ctx.save();ctx.translate(180+k*55,160);rr(-8,-40,16,80,4);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.2;ctx.stroke();line(0,40,0,56,C["steel-edge"],2);ctx.restore()}
+  bact(200,200,0,7,1,{dead:p>.4,t:T});bact(290,130,1,7,1,{dead:p>.45,t:T});
+  for(let k=0;k<7;k++){const f=P(T*.9+k/7,1);const y=80+k*24;ctx.save();ctx.globalAlpha=.9;ctx.beginPath();for(let i=0;i<=30;i++){const X=24+f*360*i/30*1.2;if(X>380)break;const Y=y+Math.sin(i*1.4+T*10)*4;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=C.ion;ctx.lineWidth=2;ctx.stroke();ctx.restore()}
+  txt(40,60,"rays pass through",{size:12.5,weight:700});
+  panelBox(30,260,348,190,{fill:hexA(C.panel,.95)});txt(44,280,"ZOOM: DNA IN THE CELL",{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  const cut=p>.35?4:null;dnaLadder(70,340,280,T,{cut});if(cut){for(let k=0;k<5;k++){const a=k/5*TAU+T;circ(70+4*280/12+Math.cos(a)*30,340+Math.sin(a)*30,3.5,C.ion);line(70+4*280/12+Math.cos(a)*26,340+Math.sin(a)*26,70+4*280/12+Math.cos(a)*34,340+Math.sin(a)*34,C.ion,1.5)}
+    txt(204,400,"strands break; radicals form",{size:12.5,weight:700,align:"center"})}
+  txt(204,430,"Sterilizes syringes, gloves, sutures",{size:12.5,align:"center"});
+  panelBox(404,12,384,456);title(418,32,"Ultraviolet (UV) light, ~260 nm");
+  rr(480,58,230,20,8);ctx.fillStyle=C.uv;ctx.fill();txt(595,68,"UV lamp",{size:12,weight:700,align:"center",color:onFill()});
+  const bench=250;rr(420,bench,352,12,3);ctx.fillStyle=C.bench;ctx.fill();ctx.strokeStyle=C.rule;ctx.stroke();
+  // box casting shadow, lid
+  rr(640,bench-70,50,70,4);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.5;ctx.stroke();
+  ctx.save();ctx.beginPath();ctx.moveTo(690,bench-70);ctx.lineTo(760,bench);ctx.lineTo(690,bench);ctx.closePath();ctx.fillStyle=hexA(C.ink,.12);ctx.fill();ctx.restore();
+  ell(500,bench-14,40,8,0,hexA(C.glass,.6),C["glass-edge"],1.5);rr(458,bench-30,84,14,4);ctx.fillStyle=hexA(C.glass,.5);ctx.fill();ctx.stroke();txt(500,bench-42,"lidded dish",{size:12,align:"center",weight:600});
+  for(let k=0;k<9;k++){const x0=490+k*24;const f=P(T*1.2+k/9,1);let endY=bench-4;if(x0>458&&x0<542)endY=bench-30;if(x0>=640&&x0<=690)endY=bench-70;
+    const yy=78+f*(endY-78);line(x0,78,x0,yy,hexA(C.uv,.5),2);circ(x0,yy,2.5,C.uv)}
+  bact(590,bench-8,0,7,1,{dead:p>.3,t:T});bact(620,bench-8,0,7,1,{dead:p>.35,t:T});bact(500,bench-16,0,6,1,{t:T});bact(730,bench-8,0,7,1,{t:T});
+  lead(500,bench-16,445,bench+40,"under lid: alive",{align:"left"});lead(730,bench-8,770,bench+40,"in shadow: alive",{align:"right"});lead(605,bench-8,605,bench+66,"exposed: killed",{align:"center"});
+  panelBox(420,330,352,124,{fill:hexA(C.panel,.95)});txt(434,350,"ZOOM: THYMINE DIMER",{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  dnaLadder(460,400,280,T,{dimer:p>.3?5:null});txt(596,440,p>.3?"two T bases stuck together: DNA can't be copied":"",{size:12.5,weight:600,align:"center"});
+}
+
+/* ================= scenes: Part 5 chemicals + Part 6 ================= */
+function bilayer(x,y,w,t,holes,leak){const n=Math.floor(w/12);for(let i=0;i<n;i++){const X=x+i*12+6;const inHole=holes.some(h=>Math.abs(X-h[0])<h[1]);if(inHole)continue;
+  [[-14,1],[14,-1]].forEach(s=>{circ(X,y+s[0],5,C.membrane,hexA(C.ink,.35),.8);line(X-2,y+s[0]+s[1]*5,X-2,y+s[1]*2,hexA(C.membrane,.9),1.5);line(X+2,y+s[0]+s[1]*5,X+2,y+s[1]*2,hexA(C.membrane,.9),1.5)})}}
+function sceneTargets(T){
+  const L=8,p=P(T,L);const PW=252;const box=(i,n)=>{const x=12+i*(PW+10);panelBox(x,12,PW,456);title(x+14,32,n);return x};
+  let x=box(0,"Membrane damage");
+  const hp=smooth(seg(p,.15,.5));const holes=[[x+90,14*hp],[x+170,12*hp]];
+  rr(x+14,60,PW-28,100,6);ctx.fillStyle=hexA(C.water,.5);ctx.fill();txt(x+PW/2,76,"outside",{size:12,align:"center",color:C["ink-soft"]});
+  rr(x+14,220,PW-28,90,6);ctx.fillStyle=hexA(C.dna,.15);ctx.fill();txt(x+PW/2,296,"inside the cell",{size:12,align:"center",color:C["ink-soft"]});
+  bilayer(x+14,190,PW-28,T,holes);
+  for(let k=0;k<8;k++){const f=P(T*.5+k/8,1);const hx_=k%2?x+90:x+170;const tx=hx_+Math.sin(k)*30,ty=lerp(100,190,smooth(clamp(f*1.4,0,1)));circ(tx,ty,4,C.alc);line(tx,ty,tx,ty+10,C.alc,2)}
+  if(hp>.5)for(let k=0;k<6;k++){const f=P(T*.6+k/6,1);const hx_=k%2?x+90:x+170;circ(hx_+Math.sin(k*2)*8,250-f*130,3,hexA(C.dna,1-f))}
+  if(hp>.5)label(x+PW/2,330,"holes open, cell leaks",{size:12.5,weight:700});
+  x=box(1,"Protein denaturation");
+  const u=smooth(seg(p,.2,.6));const sh=u<.05?Math.sin(T*20)*2:0;
+  proteinChain(x+36+sh,120,180,0,T,C.protein);txt(x+PW/2,170,"working enzyme",{size:12,align:"center",color:C["ink-soft"]});
+  arrow(x+PW/2,184,x+PW/2,214,C.alc,2.5);
+  proteinChain(x+36,250,180,u,T,C.protein);if(u>.6){proteinChain(x+46,280,150,1,T+1,mix(C.protein,C.dead,.5));proteinChain(x+60,300,120,1,T+2,mix(C.protein,C.dead,.5))}
+  if(u>.5)label(x+PW/2,334,"unfolded and clumped",{size:12.5,weight:700});
+  x=box(2,"Nucleic acid damage");
+  const dmg=smooth(seg(p,.2,.6));dnaLadder(x+20,150,210,T,{});txt(x+PW/2,184,"intact DNA",{size:12,align:"center",color:C["ink-soft"]});
+  arrow(x+PW/2,198,x+PW/2,226,C.alc,2.5);dnaLadder(x+20,270,210,T,{cut:dmg>.5?6:null});
+  for(let k=0;k<4;k++){const X=x+40+k*50;const yy=lerp(220,258,dmg);diamond(X,yy,5,C.ald)}
+  if(dmg>.5)label(x+PW/2,320,"adducts and breaks",{size:12.5,weight:700});
+  const lists=[["Alcohols","Quats","Phenolics"],["Alcohols","Halogens","Heavy metals","Aldehydes","Peroxides"],["Aldehydes","Ethylene oxide","Peroxides","Radiation"]];
+  lists.forEach((ls,i)=>{const bx=12+i*(PW+10);const lit=Math.floor(T/2)%3===i;ls.forEach((s,k)=>txt(bx+PW/2,368+k*19,s,{size:12.5,weight:lit?700:500,align:"center",color:lit?C.ink:C["ink-soft"]}))});
+}
+function diamond(x,y,s,col){ctx.beginPath();ctx.moveTo(x,y-s);ctx.lineTo(x+s,y);ctx.lineTo(x,y+s);ctx.lineTo(x-s,y);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.lineWidth=1;ctx.stroke()}
+function sceneAlcHal(T){
+  panelBox(12,12,384,456);title(26,32,"Alcohols: best at 70%");
+  const gx=60,gy=60,gw=300,gh=130;line(gx,gy,gx,gy+gh,C["ink-soft"],1.4);line(gx,gy+gh,gx+gw,gy+gh,C["ink-soft"],1.4);
+  const eff=c=>c<20?0:c<=70?Math.pow((c-20)/50,1.3):Math.max(.25,1-(c-70)/30*.75);
+  plotFn(c=>eff(c*100),0,1,gx,gy,gw,gh,0,1.05,C.alc,3);[0,50,70,100].forEach(c=>txt(gx+gw*c/100,gy+gh+12,c+"%",{size:11.5,mono:true,align:"center",color:C["ink-soft"]}));
+  txt(gx-6,gy+6,"kill",{size:11.5,align:"right",color:C["ink-soft"]});const c=50+50*P(T*.12,1);circ(gx+gw*c/100,gy+gh-eff(c)/1.05*gh,6,C.alc,C.panel,2);txt(gx+gw/2,gy+gh+30,"alcohol strength",{size:12,align:"center",weight:600});
+  // two cells
+  const p=P(T,6);
+  txt(110,250,"70% (with water)",{size:12.5,weight:700,align:"center"});bact(110,300,0,16,1,{dead:p>.4,t:T});for(let k=0;k<6;k++){const f=P(T*.8+k/6,1);const a=k/6*TAU;circ(110+Math.cos(a)*(60-f*36),300+Math.sin(a)*(40-f*24),3,hexA(C.alc,1-f*.6))}
+  txt(110,348,p>.4?"proteins unfold: dead":"soaking in...",{size:12,align:"center"});
+  txt(290,250,"100% (no water)",{size:12.5,weight:700,align:"center"});rr(290-36,300-18,72,36,18);ctx.strokeStyle=C.dead;ctx.lineWidth=5;ctx.stroke();bact(290,300,0,16,1,{t:T});
+  for(let k=0;k<5;k++){const f=P(T*.9+k/5,1);circ(260+k*16,280-f*50,3,hexA(C.alc,1-f))}
+  txt(290,348,"hard shell forms;",{size:12,align:"center"});txt(290,364,"evaporates fast",{size:12,align:"center"});
+  txt(204,410,"Kills bacteria, fungi, enveloped viruses.",{size:12.5,align:"center"});txt(204,430,"Does not kill endospores.",{size:12.5,align:"center",weight:700});
+  panelBox(404,12,384,456);title(418,32,"Halogens: iodine and chlorine");
+  // iodine on skin
+  rr(430,56,332,120,50);ctx.fillStyle=C.skin;ctx.fill();ctx.strokeStyle=C["skin-edge"];ctx.lineWidth=1.5;ctx.stroke();
+  const ip=smooth(seg(P(T,7),.05,.45));ell(596,116,110*ip,42*ip,0,hexA(C.iod,.65));
+  const sw=[596+Math.cos(T*2)*100*ip,116+Math.sin(T*2)*38*ip];line(sw[0],sw[1],sw[0]+22,sw[1]-26,C["ink-soft"],5);circ(sw[0],sw[1],7,C.iod);
+  [[-80,-10],[-30,20],[30,-20],[80,10],[130,-25],[-140,15]].forEach((q,i)=>{const inside=Math.hypot(q[0]/110,q[1]/42)<ip;bact(596+q[0],116+q[1],i,6,1,{dead:inside&&ip>.3,t:T})});
+  txt(596,192,"Povidone-iodine: skin before surgery",{size:12.5,weight:600,align:"center"});
+  // bleach
+  bottle(470,340,52,C.chlor,"BLEACH");rr(560,260,210,120,6);ctx.fillStyle=hexA(C.water,.6);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();
+  const ox=720,oy=330;blobPath(ox,oy,28,3,T*.4,.1);ctx.fillStyle=hexA(C.organic,.65);ctx.fill();
+  for(let k=0;k<14;k++){const f=P(T*.3+k/14,1);const tx=lerp(570,k%2?ox:620,f),ty=lerp(280,k%2?oy:330,f);if(!(k%2&&f>.9))circ(tx+Math.sin(k)*10,ty+Math.cos(k)*10,3,C.chlor)}
+  bact(620,330,0,8,1,{dead:P(T*.3,1)>.6,t:T});bact(ox,oy,0,7,1,{t:T});
+  txt(620,395,"chlorine oxidizes",{size:12,align:"center"});txt(ox,395,"organic matter",{size:12,align:"center"});txt(ox,411,"soaks it up",{size:12,align:"center"});
+  txt(596,440,"Bleach: strong solutions kill spores",{size:12.5,weight:700,align:"center"});
+}
+function sceneMetals(T){
+  const PW=252;const box=(i,n)=>{const x=12+i*(PW+10);panelBox(x,12,PW,456);title(x+14,32,n);return x};const p=P(T,7);
+  let x=box(0,"Phenolics");
+  sprayBottle(x+60,200,40,C.phen,T,1);rr(x+20,280,PW-40,20,4);ctx.fillStyle=C.bench;ctx.fill();ctx.strokeStyle=C.rule;ctx.lineWidth=1;ctx.stroke();
+  blobPath(x+170,272,32,1,T*.3,.08);ctx.fillStyle=hexA(C.organic,.5);ctx.fill();
+  [[130,270],[170,268],[205,272]].forEach((q,i)=>bact(x+q[0],q[1],0,7,1,{dead:p>.3+i*.08,t:T}));
+  for(let k=0;k<6;k++){const f=P(T*.7+k/6,1);circ(lerp(x+100,x+130+k*14,f),lerp(170,262,f),2.6,hexA(C.phen,1-f*.3))}
+  wrapText("Still works with organic matter. Membranes and proteins.",x+18,340,PW-36,17,{size:12.5});wrapText("Lister's phenol, 1860s",x+18,400,PW-36,17,{size:12.5,weight:700});
+  x=box(1,"Quats (detergents)");
+  const cx=x+PW/2,cy=210,R=60;circ(cx,cy,R,hexA(C.bact,.25),C.bact,4);
+  const ins=smooth(seg(p,.1,.45));for(let k=0;k<10;k++){const a=k/10*TAU+.2;const d=R+30-ins*22;const hx_=cx+Math.cos(a)*d,hy=cy+Math.sin(a)*d;line(hx_,hy,hx_-Math.cos(a)*24,hy-Math.sin(a)*24,C.quat,3);circ(hx_,hy,6,C.quat);txt(hx_,hy,"+",{size:11.5,weight:700,align:"center",color:onFill()})}
+  if(ins>.8)for(let k=0;k<4;k++){const f=P(T*.6+k/4,1);circ(cx+Math.cos(k*1.6)*(R+f*40),cy+Math.sin(k*1.6)*(R+f*40),3,hexA(C.dna,1-f))}
+  const sb=P(T,4);circ(x+200,340,14+sb*4,null,hexA(C.steam,1-sb),1.6);txt(x+PW/2,370,"soap and organic matter",{size:12.5,align:"center"});txt(x+PW/2,388,"weaken quats",{size:12.5,align:"center"});
+  wrapText("Miss: endospores, mycobacteria, many non-enveloped viruses.",x+18,416,PW-36,17,{size:12.5,weight:700});
+  x=box(2,"Heavy metals (silver)");
+  rr(x+30,90,40,250,20);ctx.fillStyle=mix(C.metal,C.panel,.3);ctx.fill();ctx.strokeStyle=C.metal;ctx.lineWidth=2;ctx.stroke();txt(x+50,360,"silver-coated",{size:12,align:"center"});txt(x+50,376,"catheter",{size:12,align:"center"});
+  [[150,140],[190,220],[150,290]].forEach((q,i)=>{bact(x+q[0],q[1],0,12,1,{dead:p>.4+i*.1,t:T});for(let k=0;k<3;k++){const f=P(T*.4+k/3+i*.2,1);const tx=lerp(x+75,x+q[0]-14+k*12,f),ty=lerp(q[1]+(k-1)*20,q[1]-4,f);circ(tx,ty,3.4,C.metal,hexA(C.ink,.4),.8);if(f>.9)circ(x+q[0]-14+k*12,q[1]-4,5,null,C.protein,1.6)}});
+  txt(x+170,370,"Ag⁺ binds proteins",{size:12.5,align:"center",weight:700});wrapText("Burn creams, wound dressings, catheter coatings.",x+18,416,PW-36,17,{size:12.5});
+}
+function sceneSterilants(T){
+  const PW=252;const box=(i,n)=>{const x=12+i*(PW+10);panelBox(x,12,PW,456);title(x+14,32,n);return x};const p=P(T,8);
+  let x=box(0,"Aldehydes");
+  rr(x+20,70,PW-40,90,8);ctx.fillStyle=hexA(C.ald,.35);ctx.fill();ctx.strokeStyle=C.ald;ctx.lineWidth=1.5;ctx.stroke();
+  poly([[x+40,110],[x+90,100],[x+140,125],[x+190,105],[x+220,120]],C.ink,4);txt(x+PW/2,176,"endoscope soaking in glutaraldehyde",{size:12,align:"center"});
+  const cl=smooth(seg(p,.2,.6));poly(Array.from({length:12},(_,i)=>[x+30+i*17,240+Math.sin(i+T)*4]),C.protein,3.5);poly(Array.from({length:12},(_,i)=>[x+30+i*17,300+Math.sin(i+T+1)*4]),C.protein,3.5);
+  for(let k=0;k<5;k++){const X=x+46+k*40;const h=cl*60;line(X,240,X,240+h,C.ald,3);diamond(X,240+h,4,C.ald)}
+  if(cl>.9)label(x+PW/2,334,"proteins cross-linked",{size:12.5,weight:700});wrapText("Also formaldehyde for tissue specimens. Irritating fumes.",x+18,380,PW-36,17,{size:12.5});
+  x=box(1,"Peroxygens");
+  rr(x+30,80,PW-60,60,30);ctx.fillStyle=C.skin;ctx.fill();ctx.strokeStyle=C["skin-edge"];ctx.lineWidth=1.5;ctx.stroke();line(x+90,110,x+160,110,C.bad,3);
+  for(let k=0;k<10;k++){const f=P(T*.9+k/10,1);circ(x+90+rnd(k)*70,106-f*40,2+f*4,null,hexA(C.perox,1-f),1.5)}
+  txt(x+PW/2,160,"3% on a cut: catalase fizzes it",{size:12,align:"center"});txt(x+PW/2,176,"into water and oxygen",{size:12,align:"center"});
+  rr(x+40,200,PW-80,120,10);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=2;ctx.stroke();
+  for(let k=0;k<16;k++){const a=k*2.1+T*.4;circ(x+PW/2+Math.cos(a)*(30+rnd(k)*40),260+Math.sin(a)*(20+rnd(k)*24),3,hexA(C.perox,.8))}
+  bact(x+PW/2,260,0,8,1,{dead:p>.4,t:T});txt(x+PW/2,336,"vapor sterilizes equipment",{size:12,align:"center"});
+  wrapText("Oxidize proteins, membranes and DNA.",x+18,380,PW-36,17,{size:12.5});
+  x=box(2,"Gas: ethylene oxide");
+  rr(x+20,70,PW-40,190,12);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=2;ctx.stroke();
+  rr(x+50,120,PW-100,90,8);ctx.fillStyle=hexA(C.glass,.7);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.setLineDash([5,4]);ctx.stroke();ctx.setLineDash([]);
+  poly([[x+70,150],[x+110,180],[x+150,150],[x+190,170]],C.alc,6);
+  const aer=seg(p,.65,.85);for(let k=0;k<18;k++){const f=P(T*.3+k/18,1);const X=x+30+rnd(k)*(PW-60),Y=80+((rnd(k+7)*170+f*60)%170);circ(X+aer*120,Y,3.4,hexA(C.gas,1-aer),hexA(C.ink,.3*(1-aer)),.6)}
+  bact(x+120,190,0,7,1,{dead:p>.4,t:T});
+  if(aer>0){for(let k=0;k<3;k++){const a=T*8+k*2.1;line(x+PW-40,165,x+PW-40+Math.cos(a)*14,165+Math.sin(a)*14,C["ink-soft"],3)}txt(x+PW/2,280,"aeration removes leftover gas",{size:12.5,weight:700,align:"center"})}
+  else txt(x+PW/2,280,"gas passes through the wrap",{size:12.5,weight:700,align:"center"});
+  wrapText("Sterilizes heat-sensitive plastics, catheters, implants. Toxic, explosive, can cause cancer.",x+18,330,PW-36,17,{size:12.5});
+}
+
+/* ---------- Part 6 ---------- */
+function sceneTesting(T){
+  const L=12,p=P(T,L);panelBox(12,12,452,456);title(26,32,"Use-dilution test");
+  const st=p<.25?0:p<.5?1:p<.7?2:3;const labels=["1. Dip carriers in bacteria","2. Dry","3. Soak in disinfectant, 10 min","4. Into broth, incubate"];
+  labels.forEach((l,i)=>{const y=60+i*24;txt(36,y,l,{size:13,weight:i===st?700:500,color:i===st?C.ink:C["ink-soft"]});if(i===st)circ(28,y,4,C.accent)});
+  // carriers
+  const cyl=(x,y,coat)=>{rr(x-7,y,14,30,3);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=1.3;ctx.stroke();if(coat)for(let k=0;k<4;k++)circ(x-4+k*2.6,y+6+k*6,2,C.bact)};
+  tube(90,200,40,120,.6,{col:hexA(C.bact,.45),cloudy:.8});tube(200,200,40,120,.6,{col:hexA(C.alc,.45)});txt(90,336,"bacteria",{size:12,align:"center"});txt(200,336,"disinfectant",{size:12,align:"center"});
+  const cx=st===0?90:st===1?145:st===2?200:300;const cy=st===0||st===2?250+Math.sin(T*3)*6:180;cyl(cx,cy,st<3);
+  if(st===2){clock(250,170,16,seg(p,.5,.7),C.alc)}
+  // broth rack
+  const res=st===3?smooth(seg(p,.75,.95)):0;for(let i=0;i<6;i++){const x=290+i*28;tube(x,220,20,90,.7,{col:i===4?mix(C.water,C.food,res):C.water,cloudy:i===4?res:0,seed:i*9})}
+  txt(360,330,"broth tubes",{size:12,align:"center"});
+  if(res>.8){txt(360,356,"clear = killed",{size:12.5,weight:700,align:"center"});txt(360,376,"cloudy = survivors grew",{size:12.5,weight:700,align:"center",color:C.bad})}
+  wrapText("Test bacteria: Staphylococcus aureus, Salmonella, Pseudomonas aeruginosa. To pass, almost every carrier must stay clear.",36,404,400,17,{size:12.5});
+  panelBox(472,12,316,456);title(486,32,"Disk-diffusion test");
+  const px=630,py=230,R=130;circ(px,py,R+4,null,C["glass-edge"],2);circ(px,py,R,C.agar);ctx.save();ctx.beginPath();ctx.arc(px,py,R-2,0,TAU);ctx.clip();
+  for(let i=0;i<500;i++){const a=rnd(i)*TAU,d=Math.sqrt(rnd(i+3))*R;circ(px+Math.cos(a)*d,py+Math.sin(a)*d,1.6,hexA(C.bact,.55))}
+  const g=smooth(seg(p,.1,.6));const disks=[["A",-50,-50,52],["B",50,-50,30],["C",-50,50,18],["D",50,50,0]];
+  disks.forEach(d=>{const r=10+d[3]*g;if(d[3]>0){circ(px+d[1],py+d[2],r,C.agar);circ(px+d[1],py+d[2],r,null,C.accent,2)}});ctx.restore();
+  disks.forEach(d=>{circ(px+d[1],py+d[2],10,C.panel,C["ink-soft"],1.3);txt(px+d[1],py+d[2],d[0],{size:12,weight:700,align:"center",mono:true})});
+  wrapText("Clear zone = growth stopped. Widest zone (A) inhibited this bacterium best. D did not work.",490,394,280,17,{size:12.5});
+}
+function sceneHands(T){
+  const L=8,p=P(T,L);panelBox(12,12,384,330);title(26,32,"Alcohol hand rub: 20-30 seconds");
+  const rub=Math.sin(T*6)*10;handShape(150+rub,230,1.4,{rot:.3});handShape(250-rub,230,1.4,{rot:-.3,flip:true});
+  const k1=smooth(seg(p,.1,.6));[[130,180],[160,150],[240,160],[270,190],[200,140],[120,220]].forEach((q,i)=>{if(i%2)envVirus(q[0],q[1],6,{dead:k1>.2+i*.1,a:1-seg(k1,.7,1),t:T});else bact(q[0],q[1],i,6,1-seg(k1,.7,1),{dead:k1>.2+i*.1,t:T})});
+  clock(340,70,18,k1,C.alc);txt(204,330,"kills most germs; not spores",{size:12.5,weight:700,align:"center"});
+  panelBox(404,12,384,330);title(418,32,"Soap and water: 40-60 seconds");
+  rr(560,50,60,20,4);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=1.5;ctx.stroke();rr(600,66,16,20,3);ctx.fill();
+  for(let k=0;k<12;k++){const f=P(T*1.1+k/12,1);circ(600+rnd(k)*24,90+f*220,2.6,hexA(C.steam,.9))}
+  handShape(560,230,1.3,{rot:.2});handShape(650,230,1.3,{rot:-.2,flip:true});
+  for(let k=0;k<8;k++){const f=P(T*.4+k/8,1);circ(540+rnd(k)*140,200-f*80,4+rnd(k+1)*5,null,hexA(C.steam,1-f),1.3)}
+  ["bact","env","spore","spore","bact"].forEach((m,i)=>{const f=P(T*.25+i/5,1);microbe(m,560+i*25+f*20,170+f*140,6,{a:1-seg(f,.85,1),t:T})});
+  line(540,312,700,312,C["ink-soft"],3);clock(750,70,18,P(T*.12,1),C.steam);
+  txt(596,330,"washes spores and dirt away",{size:12.5,weight:700,align:"center"});
+  panelBox(12,352,776,116);title(26,372,"The five moments for hand hygiene");
+  const mo=["Before touching a patient","Before a clean or aseptic task","After body fluid exposure risk","After touching a patient","After touching patient surroundings"];
+  const on=Math.floor(T/2)%5;mo.forEach((m,i)=>{const x=90+i*155,y=410;circ(x,y,16,i===on?C.accent:C.panel,i===on?C.accent:C.rule,2);txt(x,y,String(i+1),{size:13,weight:700,mono:true,align:"center",color:i===on?onFill():C.ink});
+    const w=m.split(" ");const half=Math.ceil(w.length/2);txt(x,y+28,w.slice(0,half).join(" "),{size:12,align:"center",weight:i===on?700:500});txt(x,y+44,w.slice(half).join(" "),{size:12,align:"center",weight:i===on?700:500})});
+}
+function sceneRecap(T){
+  panelBox(12,12,384,456);
+  const G=logFrame(70,48,300,150,-6,6,12,{title:"Death curve",step:3,xt:3});const now=P(T,8)*14;
+  plotFn(t=>6-t,0,12,70,48,300,150,-6,6,C.act2,3,[],now);line(70,G.Y(-6),370,G.Y(-6),C["ink-soft"],1.4,[5,4]);
+  line(G.X(0),G.Y(6),G.X(1),G.Y(6),C.heat,1.6);line(G.X(1),G.Y(6),G.X(1),G.Y(5),C.heat,1.6);txt(G.X(1)+6,G.Y(5.6),"1 D",{size:11.5,mono:true,weight:700,color:C.heat});
+  title(26,280,"Resistance ladder");
+  LADDER.forEach((r,i)=>{const y=304+i*26;const kind=r[1]==="cyst"?"nonenv":r[1];microbe(kind,50,y,7,{t:T});txt(72,y,r[0],{size:12.5,weight:600})});
+  const parts=[["The words","act1","Sterile, disinfect, antiseptic; -cide vs -static"],["How microbes die","act2","Log death, D-value, resistance ladder, BSL"],["Heat","act3","Autoclave 121 °C 15 psi; pasteurize; dry heat"],["Filters, cold, radiation","act4","0.22 µm, HEPA; cold slows; UV vs ionizing"],["Chemicals","act5","Membranes, proteins, DNA; know the gaps"],["Testing and hands","act6","Use-dilution, disk-diffusion; five moments"]];
+  const lit=Math.floor(P(T,14)*7);
+  parts.forEach((pt,i)=>{const x=404,y=12+i*76,w=384,h=68;const l=i<=lit;panelBox(x,y,w,h,{stroke:l?C[pt[1]]:C.rule,lw:l?2.5:1.2,fill:hexA(C.panel,l?.97:.6)});
+    ctx.save();ctx.globalAlpha=l?1:.45;badge(x+24,y+h/2,i+1,C[pt[1]],12);txt(x+46,y+22,pt[0],{size:14,weight:700});wrapText(pt[2],x+46,y+46,w-60,16,{size:12.5,color:C["ink-soft"]});ctx.restore()});
+}
+
+/* ---------------- loop ---------------- */
+let T=0,last=performance.now();
+const SCENES={map:sceneMap,sterile:sceneSterile,words:sceneWords,cide:sceneCide,asepsis:sceneAsepsis,curve:sceneCurve,dvalue:sceneDvalue,factors:sceneFactors,ladder:sceneLadder,bsl:sceneBSL,
+  moist:sceneMoist,autoclave:sceneAutoclave,pasteur:scenePasteur,dry:sceneDry,filter:sceneFilter,cold:sceneCold,radiation:sceneRadiation,
+  targets:sceneTargets,alcohal:sceneAlcHal,pqm:sceneMetals,sterilants:sceneSterilants,testing:sceneTesting,hands:sceneHands,recap:sceneRecap};
+function draw(){
+  ctx.setTransform(K,0,0,K,0,0);ctx.clearRect(0,0,W,H);ctx.globalAlpha=1;bg(C.ecf);
+  const s=STEPS[cur];
+  try{(SCENES[s.scene]||sceneRecap)(T)}catch(e){console.error(e)}
+  ctx.globalAlpha=1;
+}
+function frame(now){
+  const dt=Math.min(.05,(now-last)/1000);last=now;if(!paused)T+=dt*speed;
+  draw();
+  requestAnimationFrame(frame);
+}
+window.__setT=v=>{T=v;paused=true;draw()};
+window.__go=i=>go(i);
+window.__n=()=>STEPS.length;
+readColors();buildChain();fit();render();requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

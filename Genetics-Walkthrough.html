@@ -1,0 +1,1600 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microbial Genetics Walkthrough</title>
+<meta name="description" content="An animated, step-by-step walkthrough of bacterial DNA, gene expression, the lac and trp operons, mutations, gene transfer and biotechnology.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#1E7A4C;--accent-ink:#145C38;--accent-wash:#DDEFE4;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#4F6F94;--act2:#A04E8C;--act3:#D98A1C;--act4:#C4644F;--act5:#7B5CC9;--act6:#2E8A7A;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#8A6D12;
+  /* microbial genetics palette */
+  --ecf:#EEF4F0;--cyto:#E1F0E6;--wall:#9CC4AB;--wall-edge:#4E7A60;--chrom:#4F6F94;
+  --old:#2F6FB3;--new:#D9761C;--rna:#A04E8C;--prot:#7B5CC9;--aa:#C9A227;--ribo:#9A7B5A;--rnap:#3E7E8E;
+  --rplas:#C2392F;--fplas:#2E8A7A;--plas:#7B5CC9;--rep:#C4644F;--cap:#D98A1C;--camp:#B8901C;--sug:#2E8A7A;--glu:#3F8FD0;--trp:#B5527A;
+  --phage:#5E6E7E;--drug:#D9531E;--uv:#7B5CC9;--gpos:#6B3FA0;--gneg:#C2477A;--cas:#2F7FC1;
+  --agar:#F1E3BC;--agar-edge:#B9A26A;--colony:#FFFDF6;--colony-edge:#9C8A5A;--gel:#D3E2E8;--band:#14866A;--heat:#E0563A;--cold:#3F8FD0;
+  --mouse:#DCD2CB;--mouse-edge:#8F7F75;--dead:#8B9094;--glow:#F2B33B;
+  --bA:#D98A1C;--bU:#C4644F;--bG:#2E8A7A;--bC:#4F6F94;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#16301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#8FB1D9;--act2:#D186C0;--act3:#F2A93B;--act4:#E08A74;--act5:#A98BEF;--act6:#5CC4B0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#111A17;--cyto:#1A2B22;--wall:#3E6A50;--wall-edge:#8FC4A2;--chrom:#8FB1D9;
+  --old:#7FB0E8;--new:#F2A93B;--rna:#D186C0;--prot:#A98BEF;--aa:#E0BE48;--ribo:#C9A880;--rnap:#7CC4D4;
+  --rplas:#E8786A;--fplas:#5CC4B0;--plas:#A98BEF;--rep:#E08A74;--cap:#F2A93B;--camp:#E0BE48;--sug:#5CC4B0;--glu:#7FB8EC;--trp:#E08FB0;
+  --phage:#A9B9C9;--drug:#F28A50;--uv:#B49BF0;--gpos:#B48BE8;--gneg:#E88AB4;--cas:#5AA9E6;
+  --agar:#3A3322;--agar-edge:#8F7C4E;--colony:#EDE6D2;--colony-edge:#B9A880;--gel:#1A2B33;--band:#4FD0A8;--heat:#F27A5E;--cold:#7FB8EC;
+  --mouse:#5E544E;--mouse-edge:#C9B9AE;--dead:#6F767B;--glow:#F2B33B;
+  --bA:#F2A93B;--bU:#E08A74;--bG:#5CC4B0;--bC:#8FB1D9;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#16301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#8FB1D9;--act2:#D186C0;--act3:#F2A93B;--act4:#E08A74;--act5:#A98BEF;--act6:#5CC4B0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#111A17;--cyto:#1A2B22;--wall:#3E6A50;--wall-edge:#8FC4A2;--chrom:#8FB1D9;
+  --old:#7FB0E8;--new:#F2A93B;--rna:#D186C0;--prot:#A98BEF;--aa:#E0BE48;--ribo:#C9A880;--rnap:#7CC4D4;
+  --rplas:#E8786A;--fplas:#5CC4B0;--plas:#A98BEF;--rep:#E08A74;--cap:#F2A93B;--camp:#E0BE48;--sug:#5CC4B0;--glu:#7FB8EC;--trp:#E08FB0;
+  --phage:#A9B9C9;--drug:#F28A50;--uv:#B49BF0;--gpos:#B48BE8;--gneg:#E88AB4;--cas:#5AA9E6;
+  --agar:#3A3322;--agar-edge:#8F7C4E;--colony:#EDE6D2;--colony-edge:#B9A880;--gel:#1A2B33;--band:#4FD0A8;--heat:#F27A5E;--cold:#7FB8EC;
+  --mouse:#5E544E;--mouse-edge:#C9B9AE;--dead:#6F767B;--glow:#F2B33B;
+  --bA:#F2A93B;--bU:#E08A74;--bG:#5CC4B0;--bC:#8FB1D9;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent-ink)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1240px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:7px 12px;cursor:pointer;font-size:14px}
+.tbtn:hover{border-color:var(--accent)}
+.wrap{max-width:1240px;margin:0 auto;padding:16px}
+.chain{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.actgrp{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:8px 10px;display:flex;flex-direction:column;gap:6px;flex:1 1 150px}
+.actgrp .an{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.actgrp .an i{width:10px;height:10px;border-radius:50%;display:inline-block;flex:0 0 auto}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--rule);background:var(--panel-2);font-family:var(--mono);font-size:13px;cursor:pointer;display:grid;place-items:center;padding:0}
+.dot:hover{border-color:var(--accent)}
+.dot.cur{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.dot.done:not(.cur){background:var(--good-wash);border-color:var(--good);color:var(--good)}
+.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);min-width:0}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%}
+.stagebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.stagebar input[type=range]{accent-color:var(--accent);width:110px}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2);flex:0 0 auto}
+.legend i.s{border-radius:2px}
+.legend i.l{width:18px;height:4px;border-radius:2px;border:0}
+.legend i.o{background:none!important;border:2.5px solid}
+.explain{padding:18px 20px}
+.stepno{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.actchip{padding:1px 8px 1px 6px;border-radius:99px;color:var(--ink);font-size:11px;border:1.5px solid var(--c,var(--accent));background:var(--panel);display:inline-flex;align-items:center;gap:5px}.actchip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c,var(--accent))}
+h2{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.25;margin:6px 0 10px}
+.body p{margin:0 0 10px}
+.body ol,.body ul{margin:0 0 10px;padding-left:22px}
+.body li{margin-bottom:4px}
+.body .tx{border-left:3px solid var(--accent);padding:2px 0 2px 10px;color:var(--ink)}
+.analogy{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:12px 0}
+.analogy b{display:block;font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.analogy p{margin:0}
+.terms{margin:12px 0 0;padding:0}
+.terms div{display:grid;grid-template-columns:minmax(110px,34%) 1fr;gap:10px;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14.5px}
+.terms dt{font-weight:600}
+.terms dd{margin:0;color:var(--ink-soft)}
+.check{margin-top:16px;border:1px solid var(--rule);border-radius:var(--r);padding:14px;background:var(--panel-2)}
+.check h3{margin:0 0 6px;font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
+.check .q{font-weight:600;margin:0 0 10px}
+.opt{display:block;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;margin:0 0 8px;cursor:pointer;font-size:15px;line-height:1.4}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:6px 0 0;font-size:14.5px}
+.fb.ok{color:var(--good)}
+.fb.no{color:var(--warn-ink)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+.nav{display:flex;align-items:center;gap:12px;margin-top:14px}
+.navbtn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:11px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.navbtn.sec{background:var(--panel);color:var(--ink);border:1px solid var(--rule)}
+.navbtn:disabled{opacity:.4;cursor:default}
+.prog{flex:1;height:8px;background:var(--sunk);border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+footer{max-width:1240px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+sub,sup{line-height:0}
+</style>
+<script src="micro-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">Microbiology &middot; Module 6 &middot; Microbial genetics and biotechnology</div>
+    <h1>Microbial Genetics and Biotechnology Walkthrough</h1>
+    <p class="sub">How bacteria copy, read, switch on and share their genes, and how scientists borrow those tools to make medicines. Go at your own pace. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+
+<div class="wrap">
+  <nav class="chain" id="chain" aria-label="Steps"></nav>
+  <div class="grid">
+    <section class="card stage" aria-label="Animation">
+      <div class="canvas-holder"><canvas id="stage" role="img" aria-label=""></canvas></div>
+      <div class="stagebar">
+        <button class="tbtn" id="pauseBtn" type="button">Pause</button>
+        <button class="tbtn" id="replayBtn" type="button">Replay</button>
+        <label>Speed <input type="range" id="speed" min="0.25" max="1.75" step="0.25" value="1"></label>
+        <span class="caption" id="caption"></span>
+      </div>
+      <div class="legend" id="legend"></div>
+    </section>
+    <section class="card explain" aria-live="polite">
+      <div class="stepno" id="stepno"></div>
+      <h2 id="title"></h2>
+      <div class="body" id="body"></div>
+      <div class="analogy" id="analogy"><b>Think of it like this</b><p></p></div>
+      <dl class="terms" id="terms"></dl>
+      <div class="check" id="check">
+        <h3>Quick check</h3>
+        <p class="q" id="q"></p>
+        <div id="opts"></div>
+        <p class="fb" id="fb"></p>
+        <p class="calm">Wrong answers are fine here. Read why, then try again.</p>
+      </div>
+      <div class="nav">
+        <button class="navbtn sec" id="prev" type="button">&larr; Back</button>
+        <div class="prog"><i id="progbar"></i></div>
+        <button class="navbtn" id="next" type="button">Next &rarr;</button>
+      </div>
+    </section>
+  </div>
+</div>
+<footer>Dr. Akash Garg &middot; Microbiology Study Tools &middot; Diagrams are simplified and not to scale. For learning only, not medical advice. CC BY-NC-SA 4.0<br>Use the left and right arrow keys to move between steps. Practice next in the <a href="Genetics-Lab.html">Microbial Genetics Lab</a>. Molecules and cells are drawn as large cartoons, DNA is shown with far fewer base pairs than real genes, and processes that take seconds to hours are slowed down or sped up so you can watch them.</footer>
+<script>
+(function(){
+"use strict";
+/* ================= drawing kit (shared by both pages) ================= */
+const KEYS=["ground","panel","panel-2","sunk","ink","ink-soft","ink-faint","rule","rule-soft","accent","accent-ink","accent-wash","warn","warn-wash","bad","bad-wash","good","good-wash","on-accent","warn-ink",
+ "act1","act2","act3","act4","act5","act6","gold","gold-wash","gold-ink",
+ "ecf","cyto","wall","wall-edge","chrom","old","new","rna","prot","aa","ribo","rnap","rplas","fplas","plas","rep","cap","camp","sug","glu","trp",
+ "phage","drug","uv","gpos","gneg","cas","agar","agar-edge","colony","colony-edge","gel","band","heat","cold","mouse","mouse-edge","dead","glow","bA","bU","bG","bC"];
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||600} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"left";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function withA(a,fn){if(a<=0)return;ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase(),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+function stepRow(x,y,w,items,on,col){const n=items.length,gap=6,bw=(w-gap*(n-1))/n;items.forEach((s,i)=>{const X=x+i*(bw+gap);const lit=i===on,past=i<on;rr(X,y,bw,24,12);ctx.fillStyle=lit?(col||C.accent):past?hexA(col||C.accent,.18):hexA(C.panel,.9);ctx.fill();ctx.strokeStyle=lit||past?(col||C.accent):C.rule;ctx.lineWidth=1.3;ctx.stroke();
+  txt(X+bw/2,y+12.5,(i+1)+" "+s,{size:12,weight:700,align:"center",color:lit?onFill():C.ink})})}
+function checkMk(x,y,ok,s){s=s||8;ctx.save();ctx.lineWidth=3;ctx.lineCap="round";ctx.strokeStyle=ok?C.good:C.bad;ctx.beginPath();
+  if(ok){ctx.moveTo(x-s,y);ctx.lineTo(x-s*.3,y+s*.7);ctx.lineTo(x+s,y-s*.8)}else{ctx.moveTo(x-s*.8,y-s*.8);ctx.lineTo(x+s*.8,y+s*.8);ctx.moveTo(x+s*.8,y-s*.8);ctx.lineTo(x-s*.8,y+s*.8)}ctx.stroke();ctx.restore()}
+
+/* ---- bacteria and cells ---- */
+/* rod-shaped bacterium centred at x,y; w,h full size */
+function rod(x,y,w,h,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(o.rot||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const lw=o.lw||clamp(h*.04,2,3.4);
+  if(o.capsule){rr(-w/2-h*.16,-h/2-h*.16,w+h*.32,h*1.32,h*.66);ctx.fillStyle=hexA(o.capCol||C.gpos,.16);ctx.fill();ctx.strokeStyle=hexA(o.capCol||C.gpos,.6);ctx.setLineDash([4,3]);ctx.lineWidth=1.4;ctx.stroke();ctx.setLineDash([])}
+  rr(-w/2,-h/2,w,h,h/2);ctx.fillStyle=o.fill||C.cyto;ctx.fill();ctx.strokeStyle=o.edge||C["wall-edge"];ctx.lineWidth=lw;ctx.stroke();
+  if(o.inner!==false){rr(-w/2+lw*1.6,-h/2+lw*1.6,w-lw*3.2,h-lw*3.2,h/2-lw*1.6);ctx.strokeStyle=hexA(o.edge||C["wall-edge"],.35);ctx.lineWidth=1;ctx.stroke()}
+  ctx.restore()}
+/* small simple bacterium for crowds */
+function bug(x,y,s,ang,col,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const L=s*1.5,Hh=s*.7;rr(-L,-Hh,L*2,Hh*2,Hh);ctx.fillStyle=o.fill||mix(col||C.wall,C.panel,.45);ctx.fill();ctx.strokeStyle=col||C["wall-edge"];ctx.lineWidth=o.lw||1.6;ctx.stroke();
+  if(o.plas){circ(L*.35,0,Hh*.5,null,o.plasCol||C.rplas,2)}
+  ctx.restore()}
+function coccus(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  if(o.capsule){circ(x,y,r*1.42,hexA(o.col||C.gpos,.16),hexA(o.col||C.gpos,.6),1.4)}
+  circ(x,y,r,o.fill||mix(o.col||C.gpos,C.panel,.55),o.col||C.gpos,Math.max(1.5,r*.12));ctx.restore()}
+/* tangled circular chromosome (nucleoid) */
+function nucleoid(x,y,rx,ry,t,col,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:o.a;ctx.beginPath();const N=220;
+  for(let i=0;i<=N;i++){const a=i/N*TAU;const r1=1+.22*Math.sin(a*7+t*.6)+.14*Math.sin(a*13-t*.4)+.08*Math.sin(a*23);const X=x+Math.cos(a)*rx*r1,Y=y+Math.sin(a)*ry*r1;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}
+  ctx.closePath();ctx.strokeStyle=col||C.chrom;ctx.lineWidth=o.lw||2.2;ctx.lineJoin="round";ctx.stroke();ctx.restore()}
+/* plasmid: double ring with optional gene segments [a0,a1,col] */
+function plasmid(x,y,r,col,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.strokeStyle=col;ctx.lineWidth=o.lw||3;ctx.stroke();
+  ctx.beginPath();ctx.arc(x,y,Math.max(1,r-(o.lw||3)-1.5),0,TAU);ctx.strokeStyle=hexA(col,.45);ctx.lineWidth=1.2;ctx.stroke();
+  (o.genes||[]).forEach(g=>{ctx.beginPath();ctx.arc(x,y,r,g[0],g[1]);ctx.strokeStyle=g[2];ctx.lineWidth=(o.lw||3)+4;ctx.lineCap="butt";ctx.stroke()});
+  ctx.restore()}
+/* double helix drawn as a ladder: two strands with rungs */
+function ladder(x1,x2,y,gap,c1,c2,o){o=o||{};const step=o.step||10;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  for(let x=x1+step/2;x<x2;x+=step){line(x,y-gap/2,x,y+gap/2,hexA(C["ink-soft"],.45),1.4)}
+  line(x1,y-gap/2,x2,y-gap/2,c1,o.lw||3.2);line(x1,y+gap/2,x2,y+gap/2,c2,o.lw||3.2);ctx.restore()}
+function strand(x1,x2,y,col,lw,o){o=o||{};line(x1,y,x2,y,col,lw||3.2);if(o.ticks){const d=o.ticks;for(let x=x1+5;x<x2;x+=10)line(x,y,x,y+d,hexA(col,.6),1.2)}}
+function endLab(x,y,t,o){txt(x,y,t,Object.assign({size:12,mono:true,weight:700,color:C["ink-soft"],align:"center"},o||{}))}
+/* RNA polymerase */
+function rnapol(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  ctx.beginPath();ctx.ellipse(x,y,s*1.25,s,0,0,TAU);ctx.fillStyle=mix(C.rnap,C.panel,.45);ctx.fill();ctx.strokeStyle=C.rnap;ctx.lineWidth=2;ctx.stroke();
+  if(o.sigma){ell(x-s*.95,y+s*.55,s*.45,s*.32,0,mix(C.gold,C.panel,.4),C.gold,1.6)}
+  if(o.lab!==false)txt(x,y-(o.labUp?s*.2:0),o.lab||"RNA pol",{size:Math.max(11.5,Math.round(s*.36)),weight:700,align:"center",color:C.ink});ctx.restore()}
+/* ribosome: small 30S below, large 50S above */
+function ribosome(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const big=o.big||C.ribo,sm=o.small||mix(C.ribo,C.panel,.3);
+  ell(x,y-s*.42,s*1.05,s*.62,0,mix(big,C.panel,.25),mix(big,C.ink,.3),1.5);
+  ell(x,y+s*.42,s*.85,s*.4,0,mix(sm,C.panel,.15),mix(big,C.ink,.3),1.5);
+  if(o.lab){txt(x,y-s*.45,o.lab[0],{size:Math.max(11.5,s*.42),weight:700,align:"center",color:C.ink});txt(x,y+s*.45,o.lab[1],{size:Math.max(11,s*.36),weight:700,align:"center",color:C.ink})}
+  ctx.restore()}
+function aaChain(pts,o){o=o||{};const r=o.r||4.2;pts.forEach((p,i)=>{if(i)line(pts[i-1][0],pts[i-1][1],p[0],p[1],hexA(C.ink,.35),1.2)});pts.forEach((p,i)=>circ(p[0],p[1],r,o.cols?o.cols[i%o.cols.length]:C.aa,hexA(C.ink,.35),.8))}
+/* repressor protein: two lobes; active=fits operator; ind=inducer bound */
+function repressor(x,y,s,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(o.rot||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.col||C.rep;
+  const bent=o.bent||0;
+  ctx.beginPath();ctx.moveTo(-s,-s*.7);ctx.quadraticCurveTo(0,-s*1.15,s,-s*.7);ctx.lineTo(s,s*.15);
+  if(bent>0){ctx.quadraticCurveTo(s*.5,s*(.55+bent*.3),s*.1,s*.5);ctx.lineTo(-s*.1,s*.5);ctx.quadraticCurveTo(-s*.5,s*(.55+bent*.3),-s,s*.15)}
+  else{ctx.lineTo(s*.45,s*.15);ctx.lineTo(s*.45,s*.6);ctx.lineTo(-s*.45,s*.6);ctx.lineTo(-s*.45,s*.15);ctx.lineTo(-s,s*.15)}
+  ctx.closePath();ctx.fillStyle=mix(col,C.panel,.35);ctx.fill();ctx.strokeStyle=mix(col,C.ink,.25);ctx.lineWidth=1.8;ctx.stroke();
+  if(o.ind){const ic=o.indCol||C.sug;hexS(-s*.45,-s*.38,s*.26,ic);hexS(s*.45,-s*.38,s*.26,ic)}
+  if(o.lab)txt(0,-s*.2+(o.ind?s*.25:0),o.lab,{size:Math.max(11.5,s*.42),weight:700,align:"center",color:C.ink});
+  ctx.restore()}
+/* small hexagon sugar */
+function hexS(x,y,r,col,o){o=o||{};ctx.beginPath();for(let k=0;k<6;k++){const a=k/6*TAU+Math.PI/6;const X=x+Math.cos(a)*r,Y=y+Math.sin(a)*r;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();
+  ctx.fillStyle=o.fill||mix(col,C.panel,.35);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=o.lw||1.6;ctx.stroke()}
+function lactose(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const sp=o.split||0;
+  if(sp<1)line(x-r*.7+sp*0,y,x+r*.7,y,C.sug,1.6);hexS(x-r*(.9+sp*.8),y,r*.8,C.sug);hexS(x+r*(.9+sp*.8),y,r*.8,o.split?C.glu:C.sug);ctx.restore()}
+function glucose(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);hexS(x,y,r,C.glu);ctx.restore()}
+/* CAP protein carrying cAMP */
+function capProt(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  ell(x-s*.5,y,s*.62,s*.72,0,mix(C.cap,C.panel,.35),mix(C.cap,C.ink,.25),1.6);ell(x+s*.5,y,s*.62,s*.72,0,mix(C.cap,C.panel,.35),mix(C.cap,C.ink,.25),1.6);
+  if(o.camp){circ(x-s*.5,y-s*.25,s*.2,C.camp,hexA(C.ink,.4),.8);circ(x+s*.5,y-s*.25,s*.2,C.camp,hexA(C.ink,.4),.8)}
+  if(o.lab!==false)txt(x,y+s*.25,"CAP",{size:Math.max(11.5,s*.4),weight:700,align:"center",color:C.ink});ctx.restore()}
+function campDot(x,y,r){circ(x,y,r||3.2,C.camp,hexA(C.ink,.4),.8)}
+function trpMol(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ctx.beginPath();ctx.moveTo(x,y-s);ctx.lineTo(x+s,y);ctx.lineTo(x,y+s);ctx.lineTo(x-s,y);ctx.closePath();ctx.fillStyle=C.trp;ctx.fill();ctx.strokeStyle=hexA(C.ink,.35);ctx.lineWidth=1;ctx.stroke();ctx.restore()}
+/* enzyme blob (beta-galactosidase etc.) */
+function enzyme(x,y,s,col,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ctx.translate(x,y);ctx.rotate(o.rot||0);
+  ctx.beginPath();ctx.arc(0,0,s,.5,TAU-.5);ctx.lineTo(s*.25,0);ctx.closePath();ctx.fillStyle=mix(col,C.panel,.3);ctx.fill();ctx.strokeStyle=mix(col,C.ink,.25);ctx.lineWidth=1.5;ctx.stroke();ctx.restore()}
+/* bacteriophage: head, tail, fibres. ang=direction tail points */
+function phage(x,y,s,ang,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate((ang||0)-Math.PI/2);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.col||C.phage;
+  ctx.beginPath();for(let k=0;k<6;k++){const a=k/6*TAU;const X=Math.cos(a)*s*.62,Y=-s*.62+Math.sin(a)*s*.62;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();ctx.fillStyle=o.fill||mix(col,C.panel,.45);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=1.8;ctx.stroke();
+  if(o.dna){ctx.save();ctx.beginPath();ctx.arc(0,-s*.62,s*.4,0,TAU);ctx.clip();ctx.strokeStyle=o.dna;ctx.lineWidth=1.6;ctx.beginPath();for(let i=0;i<=30;i++){const a=i/30*TAU*3;const X=Math.cos(a)*s*.3*(i/30),Y=-s*.62+Math.sin(a)*s*.3*(i/30);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.stroke();ctx.restore()}
+  rr(-s*.13,0,s*.26,s*.9,2);ctx.fillStyle=mix(col,C.panel,.2);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=1.4;ctx.stroke();
+  for(let k=0;k<4;k++){const sx=k<2?-1:1;const off=k%2?.3:.15;line(sx*s*off,s*.9,sx*s*(off+.35),s*1.25,col,1.4)}
+  ctx.restore()}
+/* petri plate with colonies list [[dx,dy,r,col]] in units of plate radius */
+function plate(x,y,R,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  circ(x,y,R+5,hexA(C.panel,.9),C["ink-soft"],1.6);circ(x,y,R,o.agar||C.agar,C["agar-edge"],1.2);
+  (o.cols||[]).forEach(c=>{if(c[2]<=0)return;circ(x+c[0]*R,y+c[1]*R,c[2],c[3]||C.colony,C["colony-edge"],1)});
+  ctx.restore()}
+function colonyPts(n,seed,rmax){const out=[];for(let i=0;i<n;i++){const a=rnd(seed+i*3.1)*TAU,d=Math.sqrt(rnd(seed+i*7.7))*.86;out.push([Math.cos(a)*d,Math.sin(a)*d,rmax*(.6+.4*rnd(seed+i*1.3))])}return out}
+/* simple lab mouse icon (side view, facing right) */
+function mouse(x,y,s,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const sick=o.sick||0;const body=mix(C.mouse,C.dead,sick),edge=mix(C["mouse-edge"],C.dead,sick);
+  ctx.beginPath();ctx.moveTo(-26,4);ctx.quadraticCurveTo(-46,6,-50,-6);ctx.strokeStyle=edge;ctx.lineWidth=2;ctx.stroke();
+  ell(0,0,28,16,0,body,edge,1.6);ell(26,-6,13,11,-.2,body,edge,1.6);circ(18,-17,6,mix(body,C.rplas,.2),edge,1.4);
+  if(sick>.5){line(28,-10,32,-6,C.ink,1.6);line(32,-10,28,-6,C.ink,1.6)}else circ(30,-8,1.8,C.ink);
+  circ(38,-4,2,mix(C.rplas,C.panel,.3));line(-14,14,-16,20,edge,2);line(12,14,14,20,edge,2);ctx.restore()}
+/* restriction enzyme scissors */
+function scissors(x,y,s,ang,open,col){ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);col=col||C.ink;const o=(open==null?.5:open)*.5;
+  [1,-1].forEach(sd=>{ctx.save();ctx.rotate(sd*o);line(0,0,s,0,col,2.4);circ(-s*.45,sd*s*.22,s*.22,null,col,2);line(0,0,-s*.3,sd*s*.15,col,2.4);ctx.restore()});circ(0,0,2,col);ctx.restore()}
+/* Cas9 protein with guide RNA */
+function cas9(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  ctx.beginPath();ctx.moveTo(x-s,y+s*.2);ctx.bezierCurveTo(x-s*1.1,y-s*1.1,x+s*1.1,y-s*1.1,x+s,y+s*.2);ctx.bezierCurveTo(x+s*.8,y+s*.75,x-s*.8,y+s*.75,x-s,y+s*.2);ctx.closePath();
+  ctx.fillStyle=mix(C.cas,C.panel,.5);ctx.fill();ctx.strokeStyle=C.cas;ctx.lineWidth=2;ctx.stroke();
+  if(o.guide!==false){ctx.beginPath();for(let i=0;i<=20;i++){const f=i/20;const X=x-s*.7+f*s*1.4,Y=y-s*.35+Math.sin(f*TAU*1.5)*s*.12;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=C.rna;ctx.lineWidth=2.6;ctx.stroke()}
+  if(o.lab!==false)txt(x,y+s*.22,"Cas9",{size:Math.max(11.5,s*.34),weight:700,align:"center",color:C.ink});ctx.restore()}
+/* zigzag ray (UV / X-ray) */
+function ray(x1,y1,x2,y2,col,a,lw){withA(a==null?1:a,()=>{const n=8;const dx=(x2-x1)/n,dy=(y2-y1)/n;const L=Math.hypot(dx,dy)||1;const px=-dy/L*6,py=dx/L*6;ctx.beginPath();ctx.moveTo(x1,y1);for(let i=1;i<n;i++){const s=i%2?1:-1;ctx.lineTo(x1+dx*i+px*s,y1+dy*i+py*s)}ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||2.4;ctx.lineJoin="round";ctx.stroke();
+  const a2=Math.atan2(y2-y1,x2-x1);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-9*Math.cos(a2-.5),y2-9*Math.sin(a2-.5));ctx.lineTo(x2-9*Math.cos(a2+.5),y2-9*Math.sin(a2+.5));ctx.closePath();ctx.fillStyle=col;ctx.fill()})}
+/* base tile with letter */
+const BASE={A:"bA",U:"bU",T:"bU",G:"bG",C:"bC"};
+function tile(x,y,ch,o){o=o||{};const w=o.w||17,h=o.h||22;const col=C[BASE[ch]]||C.dead;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  rr(x-w/2,y-h/2,w,h,3);ctx.fillStyle=mix(col,C.panel,o.hl?.45:.62);ctx.fill();ctx.strokeStyle=o.hl?C.bad:col;ctx.lineWidth=o.hl?2.6:1.3;ctx.stroke();
+  txt(x,y+.5,ch,{size:o.size||13,mono:true,weight:700,align:"center",color:C.ink});ctx.restore()}
+/* thermometer */
+function thermo(x,y,h,f,o){o=o||{};rr(x-6,y,12,h,6);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();
+  const fh=(h-8)*clamp(f,0,1);rr(x-3,y+h-fh-2,6,fh+4,3);ctx.fillStyle=o.col||C.heat;ctx.fill();circ(x,y+h+6,9,o.col||C.heat,C["ink-soft"],1.4);
+  if(o.lab)txt(x,y+h+26,o.lab,{size:12,mono:true,weight:700,align:"center",color:o.labCol||C.ink})}
+/* little tube */
+function tube(x,y,w,h,fill,col){ctx.beginPath();ctx.moveTo(x-w/2,y);ctx.lineTo(x-w/2,y+h-w/2);ctx.arc(x,y+h-w/2,w/2,Math.PI,0,true);ctx.lineTo(x+w/2,y);ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.6;ctx.stroke();
+  if(fill>0){ctx.save();ctx.beginPath();ctx.moveTo(x-w/2,y);ctx.lineTo(x-w/2,y+h-w/2);ctx.arc(x,y+h-w/2,w/2,Math.PI,0,true);ctx.lineTo(x+w/2,y);ctx.clip();ctx.fillStyle=col||hexA(C.glu,.35);ctx.fillRect(x-w/2,y+h*(1-fill),w,h*fill+2);ctx.restore()}}
+
+/* ---------------- step content ---------------- */
+const ACTS={1:{name:"Part 1 · DNA and copying",col:"act1"},
+            2:{name:"Part 2 · Reading genes",col:"act2"},
+            3:{name:"Part 3 · Gene switches",col:"act3"},
+            4:{name:"Part 4 · Mutations and repair",col:"act4"},
+            5:{name:"Part 5 · Gene sharing",col:"act5"},
+            6:{name:"Part 6 · Biotechnology",col:"act6"}};
+const NACT=6;
+const STEPS=[
+{act:0,scene:"map",desc:"Six cards sit in two rows of three, and one card at a time gets a thick coloured border. Card 1, DNA and copying, shows a blue circle of DNA with orange new DNA growing around it in both directions from the top. Card 2, Reading genes, shows a brown ribosome sliding along a purple mRNA while a gold chain of beads grows from it. Card 3, Gene switches, shows a red-brown repressor dropping onto a DNA box and lifting off again, with the words ON and OFF switching. Card 4, Mutations and repair, shows a row of letter tiles where one tile flips to a new letter and gets a red border. Card 5, Gene sharing, shows two rod-shaped bacteria joined by a thin tube with a red ring sliding across. Card 6, Biotechnology, shows bars that double in height: 1, 2, 4, 8, 16.",
+ title:"The big picture: bacteria and their genes",
+ body:`<p>Every bacterium carries instructions written in <b>DNA</b>. A <b>gene</b> is one stretch of DNA that holds the recipe for one product, usually a protein.</p>
+ <p>Bacteria are fast and flexible with their genes. They copy them, read them, switch them on and off, and even <b>share</b> them with other bacteria. That flexibility is why they adapt so quickly, and why antibiotic resistance spreads.</p>
+ <p>This walkthrough has six parts:</p>
+ <ol><li><b>DNA and copying:</b> the chromosome, plasmids, and DNA replication.</li><li><b>Reading genes:</b> transcription, translation and the 70S ribosome that many antibiotics target.</li><li><b>Gene switches:</b> the lac and trp operons.</li><li><b>Mutations and repair:</b> kinds of mutations, mutagens, DNA repair and the Ames test.</li><li><b>Gene sharing:</b> transformation, transduction, conjugation and transposons.</li><li><b>Biotechnology:</b> recombinant DNA, insulin from bacteria, PCR, gel electrophoresis and CRISPR.</li></ol>`,
+ analogy:"A bacterium is like a tiny kitchen with one main cookbook and a few loose recipe cards. It can copy the book, cook from it, decide which recipes to use today, and swap recipe cards with the kitchen next door.",
+ terms:[["DNA","The molecule that stores genetic instructions, written in four bases: A, T, G and C."],["Gene","A stretch of DNA that codes for one product, usually a protein."]],
+ check:null,caption:"Six parts: DNA and copying, reading genes, gene switches, mutations, gene sharing and biotechnology.",
+ legend:[["old","DNA","s"],["new","New DNA","s"],["rna","mRNA","s"],["rplas","Plasmid","o"],["accent","Current part","s"]]},
+
+/* ---------- Part 1 ---------- */
+{act:1,scene:"genome",desc:"On the left, a large rod-shaped bacterium is drawn with a green outline. Inside, a long tangled blue loop labelled Chromosome slowly ripples. Near the right end of the cell are two small rings: a red one labelled R plasmid, with thicker dark sections for resistance genes, and a teal one labelled F plasmid. Every few seconds the red ring makes a copy of itself that slides away and fades. A thin teal tube, the sex pilus, waves out of the right end of the cell. A table under the cell compares the chromosome and plasmids. On the right, orange antibiotic dots rain on two smaller cells. In the top cell, which has a red R plasmid, small enzyme shapes chop the dots in half and a green check says it keeps growing. In the bottom cell, with no plasmid, the dots reach the inside, the cell turns grey and a red cross says growth stops.",
+ title:"The bacterial chromosome and plasmids",
+ body:`<p>Most bacteria have one main <b>chromosome</b>: a single, circular DNA molecule. It is packed into a region called the <b>nucleoid</b>. There is no nucleus around it. In <i>E. coli</i> the chromosome has about 4.6 million base pairs and holds the genes the cell needs to live.</p>
+ <p>Many bacteria also carry <b>plasmids</b>. These are small, extra circles of DNA that copy themselves on their own. The cell can usually live without them, but they often carry useful "bonus" genes.</p>
+ <p>Two plasmids matter a lot in this module. <b>R plasmids</b> (resistance plasmids) carry genes that protect the cell from antibiotics, for example a gene for an enzyme that breaks the drug apart. The <b>F plasmid</b> (fertility plasmid) carries genes to build a <b>sex pilus</b> and pass DNA to another cell.</p>`,
+ analogy:"The chromosome is the main cookbook that never leaves the kitchen. Plasmids are loose recipe cards: handy extras that can be copied and handed to a neighbour.",
+ terms:[["Nucleoid","The region of a bacterial cell where the chromosome is packed. It has no membrane."],["Plasmid","A small circle of DNA, separate from the chromosome, that copies itself."],["R plasmid","A plasmid that carries antibiotic resistance genes."],["F plasmid","The fertility plasmid: carries the genes for a sex pilus and DNA transfer."]],
+ check:{q:"A bacterium survives an antibiotic that kills its neighbours. The resistance gene is on a small circle of DNA separate from its chromosome. What is that circle?",opts:[
+  ["An R plasmid",1,"Yes. R plasmids are small extra DNA circles that carry resistance genes, such as a gene for an enzyme that breaks down the drug."],
+  ["The nucleoid",0,"The nucleoid is the region where the main chromosome is packed. The resistance gene here is on a separate small circle."],
+  ["The F plasmid",0,"The F plasmid carries genes for the sex pilus and DNA transfer, not antibiotic resistance. A resistance plasmid is called an R plasmid."],
+  ["A second nucleus",0,"Bacteria have no nucleus at all. Their extra DNA circles are plasmids."]]},
+ caption:"One circular chromosome plus small plasmids. An R plasmid protects its cell from the antibiotic.",
+ legend:[["chrom","Chromosome","s"],["rplas","R plasmid","o"],["fplas","F plasmid and pilus","o"],["drug","Antibiotic"],["prot","Enzyme that breaks the drug"]]},
+
+{act:1,scene:"bidir",desc:"A large circle of blue double-stranded DNA fills the left side. A label at the top marks the Origin. Starting there, two forks move in opposite directions around the circle, one clockwise and one counterclockwise, each marked with a small green ring and an arrow. Behind each fork, the DNA is drawn as two circles, an outer and an inner one, and each has one blue old strand and one orange new strand. The forks meet at the bottom, labelled Terminus. Then the picture changes to two separate circles side by side, each half blue and half orange. On the right, four numbered steps light up in turn to match.",
+ title:"Copying the chromosome: two forks from one origin",
+ body:`<p>Before a bacterium divides, it copies its whole chromosome. Copying is called <b>DNA replication</b>.</p>
+ <p>It starts at one spot, the <b>origin of replication</b>. There, the two DNA strands are pulled apart, forming two <b>replication forks</b>. The forks move away from each other around the circle. This is called <b>bidirectional</b> replication.</p>
+ <p>The forks meet on the far side of the circle (the terminus). The result is two complete chromosomes, one for each daughter cell. Each new chromosome has one <b>old strand</b> and one <b>new strand</b>. This is called <b>semiconservative</b> replication.</p>`,
+ analogy:"Two people start at the top of a round track and paint in opposite directions. They meet at the bottom, and the whole track is done in half the time.",
+ terms:[["Origin of replication","The one place on the bacterial chromosome where copying starts."],["Replication fork","The Y-shaped spot where the DNA strands are being separated and copied."],["Bidirectional","Two forks move in opposite directions from the origin."],["Semiconservative","Each new DNA molecule keeps one old strand and gets one new strand."]],
+ check:{q:"How many replication forks work on a bacterial chromosome when copying begins at its origin?",opts:[
+  ["Two, moving in opposite directions",1,"Right. Copying is bidirectional: two forks leave the single origin and travel around the circle until they meet."],
+  ["One, moving all the way around",0,"Bacteria use two forks from one origin. That halves the time compared with a single fork."],
+  ["Hundreds, one for every gene",0,"Human chromosomes have many origins, but a bacterial chromosome usually has just one origin and two forks."],
+  ["None; the chromosome is copied by splitting in half",0,"DNA is not simply split. Each strand is used as a template to build a new partner strand."]]},
+ caption:"Two forks leave one origin, travel around the circle and meet at the terminus.",
+ legend:[["old","Old (parent) strand","s"],["new","New strand","s"],["good","Replication fork"]]},
+
+{act:1,scene:"fork",desc:"A close-up of one replication fork moving from left to right. On the right, the unopened DNA is two blue strands close together. A green ring, the helicase, sits at the fork and pulls them apart. On the left, the upper blue strand has one long orange new strand growing along it toward the fork, with a teal DNA polymerase blob at its tip: this is the leading strand. The lower blue strand gets short orange pieces, each starting with a short purple RNA primer at its right end and growing to the left, away from the fork. These are Okazaki fragments. Further left, the purple primers turn orange and small gold sparkles mark where ligase seals the gaps. Labels 5 prime and 3 prime mark the strand ends.",
+ title:"At the fork: leading and lagging strands",
+ body:`<p>At each fork, an enzyme called <b>helicase</b> unzips the DNA. Each old strand is then a <b>template</b> for a new one.</p>
+ <p><b>DNA polymerase</b> builds the new strand, but it has two rules. It needs a short <b>RNA primer</b> to start on (made by <b>primase</b>), and it can only add new pieces to one end, so it only builds in the <b>5′ to 3′</b> direction.</p>
+ <p>Because the two strands run in opposite directions, the copies are made differently. The <b>leading strand</b> is built in one long piece, following the fork. The <b>lagging strand</b> is built backward in short pieces called <b>Okazaki fragments</b>. Later, another DNA polymerase swaps the RNA primers for DNA, and <b>DNA ligase</b> seals the gaps.</p>`,
+ analogy:"Picture two people laying train track behind a moving tunnel digger. One faces forward and lays track in one long run. The other must face backward, so they lay short sections and then bolt them together.",
+ terms:[["Helicase","The enzyme that unzips the DNA at the fork."],["Primer","A short RNA piece that gives DNA polymerase a place to start."],["Okazaki fragments","Short DNA pieces made on the lagging strand."],["DNA ligase","The enzyme that seals gaps between DNA pieces."]],
+ check:{q:"Why is the lagging strand made in short Okazaki fragments?",opts:[
+  ["DNA polymerase can only build 5′ to 3′, so on this strand it must work away from the fork, in pieces",1,"Yes. The two strands run in opposite directions. On the lagging strand, building 5′ to 3′ means moving away from the fork, so it restarts with a new primer again and again."],
+  ["The lagging strand is damaged and must be patched",0,"Nothing is damaged. The short pieces come from the one-way rule of DNA polymerase."],
+  ["Helicase cuts the lagging strand into pieces",0,"Helicase only unzips the two strands. It does not cut them."],
+  ["Short pieces copy faster than one long piece",0,"Speed is not the reason. The pieces come from polymerase only building in the 5′ to 3′ direction."]]},
+ caption:"The leading strand grows smoothly; the lagging strand is built backward in short pieces, then sealed.",
+ legend:[["old","Template (old) DNA","s"],["new","New DNA","s"],["rna","RNA primer","s"],["good","Helicase"],["rnap","DNA polymerase"],["glow","Ligase seals a gap"]]},
+
+/* ---------- Part 2 ---------- */
+{act:2,scene:"transcription",desc:"A long blue DNA ladder runs across the lower half. Coloured bars above it mark a Promoter, Gene A, Gene B and Gene C, and a Terminator. A teal blob labelled RNA pol, with a small gold sigma factor attached, drops onto the promoter. The sigma factor falls away, and RNA polymerase slides to the right along the DNA, opening a small bubble. Above the DNA, a purple mRNA strand grows behind it, coloured in three sections that sit over Genes A, B and C. When RNA polymerase reaches the terminator, the finished mRNA floats upward with the label One mRNA, three genes, and the polymerase lets go.",
+ title:"Transcription: copying a gene into mRNA",
+ body:`<p>To use a gene, the cell first copies it into <b>messenger RNA (mRNA)</b>. This step is <b>transcription</b>.</p>
+ <p><b>RNA polymerase</b> does the copying. A helper protein called the <b>sigma factor</b> guides it to the <b>promoter</b>, a DNA "start here" signal in front of the gene. The polymerase opens the DNA, reads one strand, and builds a matching RNA strand. It stops at a <b>terminator</b> sequence.</p>
+ <p>Bacteria often put related genes side by side and copy them into one long mRNA. An mRNA that carries several genes is called <b>polycistronic</b>. This lets the cell make a whole team of proteins at once.</p>`,
+ analogy:"Transcription is like photocopying a few pages from a reference book. The book (DNA) stays safe on the shelf, and the copy (mRNA) goes to the kitchen to be used.",
+ terms:[["RNA polymerase","The enzyme that builds mRNA from a DNA template."],["Promoter","The DNA sequence where RNA polymerase starts."],["Sigma factor","A helper that steers bacterial RNA polymerase to promoters."],["Polycistronic mRNA","One mRNA that carries the code for several proteins."]],
+ check:{q:"One bacterial mRNA carries the code for three different enzymes. What is this mRNA called?",opts:[
+  ["Polycistronic",1,"Correct. Bacteria often copy neighbouring genes into one long polycistronic mRNA, so related proteins are made together."],
+  ["A promoter",0,"A promoter is a DNA start signal, not an mRNA."],
+  ["A plasmid",0,"A plasmid is a small DNA circle. The question is about one mRNA that codes for several proteins."],
+  ["An Okazaki fragment",0,"Okazaki fragments are short DNA pieces made during replication, not mRNA."]]},
+ caption:"RNA polymerase reads three genes in a row and makes one long, polycistronic mRNA.",
+ legend:[["old","DNA","s"],["rnap","RNA polymerase"],["gold","Sigma factor"],["rna","mRNA","s"]]},
+
+{act:2,scene:"translation",desc:"Along the bottom, a blue DNA ladder has a teal RNA polymerase moving right. A purple mRNA strand rises from the polymerase and stretches left. Brown ribosomes, each a large top part and a small bottom part, hop onto the left end of the mRNA one after another and slide right, even though the mRNA is still being made. Each ribosome has a gold chain of beads, a growing protein, waving above it, and chains are longer on the ribosomes that started earlier. In a box at the top right, a big ribosome splits into a small 30S part and a large 50S part and joins again, with the labels 30S plus 50S equals 70S, and Human cells: 40S plus 60S equals 80S.",
+ title:"Translation: ribosomes build protein, right away",
+ body:`<p>In <b>translation</b>, a <b>ribosome</b> reads the mRNA three bases at a time. Each three-base word is a <b>codon</b>, and each codon calls for one amino acid. The ribosome links the amino acids into a protein chain.</p>
+ <p>Bacteria have no nucleus, so nothing separates the DNA from the ribosomes. Ribosomes jump onto the mRNA while it is still being made. Transcription and translation are <b>coupled</b>. Many ribosomes can read one mRNA at once, so proteins are made very fast.</p>
+ <p>Bacterial ribosomes are <b>70S</b>, built from a small <b>30S</b> and a large <b>50S</b> subunit. Human ribosomes are bigger: <b>80S</b> (40S plus 60S). The "S" numbers measure size by how fast they settle in a spinning centrifuge, which is why they do not simply add up.</p>`,
+ analogy:"An assembly line where workers start building cars from the first page of the instructions while the rest of the pages are still coming off the printer.",
+ terms:[["Codon","A three-base word on mRNA that codes for one amino acid or a stop."],["70S ribosome","The bacterial ribosome, made of 30S and 50S subunits."],["Coupled transcription and translation","Ribosomes start reading mRNA before it is finished; possible because bacteria have no nucleus."]],
+ check:{q:"Why can bacteria translate an mRNA before transcription is even finished?",opts:[
+  ["They have no nucleus, so ribosomes can reach the mRNA as it is made",1,"Yes. In human cells, mRNA is made in the nucleus and must leave before ribosomes can use it. Bacteria have no nuclear wall in the way."],
+  ["Their ribosomes are larger than human ribosomes",0,"Bacterial ribosomes are actually smaller (70S versus 80S). The reason is the missing nucleus."],
+  ["Their mRNA has no codons",0,"Bacterial mRNA is read in codons just like ours."],
+  ["Their DNA is made of RNA",0,"Bacterial genes are DNA. The reason is that no nuclear membrane separates DNA from ribosomes."]]},
+ caption:"No nucleus: ribosomes start translating mRNA while RNA polymerase is still making it.",
+ legend:[["old","DNA","s"],["rnap","RNA polymerase"],["rna","mRNA","s"],["ribo","70S ribosome"],["aa","Growing protein"]]},
+
+{act:2,scene:"abx",desc:"Two panels sit side by side. The left one, labelled Bacterial 70S ribosome, shows a brown ribosome on a purple mRNA with a gold protein chain. Orange drug molecules drift in. One labelled Tetracycline sticks to the small 30S part and one labelled Macrolide sticks to the large 50S part. The chain stops growing and a red label says Stalled: no new protein. The right panel, labelled Human 80S ribosome, shows a larger ribosome. The same orange drugs drift in, bounce off with curved arrows, and its gold chain keeps growing under a green label Keeps working. A strip along the bottom shows an orange rifampin molecule sticking to a teal bacterial RNA polymerase, which stops making mRNA.",
+ title:"Why many antibiotics target the 70S ribosome",
+ body:`<p>A good antibiotic must harm the bacterium but not the patient. This is called <b>selective toxicity</b>. Bacterial 70S ribosomes have a different shape from human 80S ribosomes, so drugs can be designed to fit only the bacterial one.</p>
+ <ul><li><b>30S blockers:</b> tetracyclines and aminoglycosides (such as gentamicin).</li><li><b>50S blockers:</b> macrolides (such as azithromycin), chloramphenicol, clindamycin and linezolid.</li></ul>
+ <p>When the drug sticks, the ribosome cannot make proteins properly, so the bacterium cannot grow. Some drugs block other parts of gene expression. <b>Rifampin</b>, used for tuberculosis, blocks bacterial <b>RNA polymerase</b>.</p>
+ <p class="tx"><b>Why some side effects happen:</b> mitochondria inside our cells have ribosomes that look a bit like bacterial ones, which helps explain some side effects of these drugs.</p>`,
+ analogy:"A key cut for one lock. The bacterial ribosome is the lock it fits; the human ribosome has a different keyhole, so the key does nothing there.",
+ terms:[["Selective toxicity","Harming the microbe while sparing the host."],["30S / 50S blockers","Antibiotics that bind one ribosome subunit and stop protein making."],["Rifampin","An antibiotic that blocks bacterial RNA polymerase."]],
+ check:{q:"Why does tetracycline stop bacterial protein making but mostly leave human cells alone?",opts:[
+  ["It fits the bacterial 70S ribosome (its 30S part) but not the human 80S ribosome",1,"Correct. The difference in ribosome shape is what gives selective toxicity."],
+  ["Human cells do not make proteins",0,"Human cells make proteins all the time, on 80S ribosomes that the drug does not fit well."],
+  ["It breaks down the bacterial cell wall",0,"That is how penicillins work. Tetracycline targets the 30S ribosome subunit."],
+  ["It blocks DNA replication in all cells",0,"Tetracycline blocks protein making on bacterial ribosomes, not DNA copying."]]},
+ caption:"The drug fits the bacterial 70S ribosome and stalls it; the human 80S ribosome keeps working.",
+ legend:[["ribo","Ribosome"],["rna","mRNA","s"],["aa","Protein chain"],["drug","Antibiotic"],["rnap","RNA polymerase"]]},
+
+/* ---------- Part 3 ---------- */
+{act:3,scene:"lacoff",desc:"A blue DNA ladder runs across the middle with coloured blocks above it labelled lacI, P for promoter, O for operator, and the three genes lacZ, lacY and lacA. Every few seconds a red-brown repressor protein pops up out of the lacI gene. One repressor sits on the operator block and bobs slightly. A teal RNA polymerase slides in from the left, reaches the promoter, bumps into the repressor, shakes, and backs away, again and again. A red OFF sign glows over the three genes. A status box at the top right reads Lactose: none, Repressor: on the operator, Genes: OFF. A key at the bottom says what each gene makes.",
+ title:"The lac operon, part 1: switched off",
+ body:`<p>Making enzymes costs energy, so bacteria only make them when needed. Genes that work together are often grouped with one on/off switch. This group is an <b>operon</b>.</p>
+ <p>The <b>lac operon</b> in <i>E. coli</i> holds three genes for using the sugar <b>lactose</b>: <b>lacZ</b> (β-galactosidase, which splits lactose), <b>lacY</b> (permease, which lets lactose in) and <b>lacA</b> (transacetylase). In front of them sit the <b>promoter</b>, where RNA polymerase binds, and the <b>operator</b>, the switch.</p>
+ <p>A separate gene, <b>lacI</b>, makes a <b>repressor</b> protein all the time. With no lactose around, the repressor sits on the operator and blocks RNA polymerase. The genes stay <b>off</b>. No point making lactose tools with no lactose.</p>`,
+ analogy:"A security guard (the repressor) stands in the doorway of a closed workshop. Workers (RNA polymerase) arrive at the door but cannot get in.",
+ terms:[["Operon","A group of genes controlled together by one promoter and operator."],["Operator","The DNA switch where the repressor binds."],["Repressor","A protein that blocks transcription by sitting on the operator."],["lacZ","The gene for β-galactosidase, the enzyme that splits lactose."]],
+ check:{q:"With no lactose present, why are the lac genes off?",opts:[
+  ["The repressor sits on the operator and blocks RNA polymerase",1,"Yes. The repressor is made all the time and, with nothing to remove it, stays on the operator."],
+  ["The lacZ gene has been deleted",0,"The gene is still there. It is just not being read."],
+  ["RNA polymerase cannot find the promoter",0,"RNA polymerase reaches the promoter, but the repressor on the operator is in its way."],
+  ["Glucose has destroyed the operon",0,"Glucose does not destroy anything. Here the key is that the repressor is bound because there is no lactose."]]},
+ caption:"No lactose: the repressor sits on the operator and blocks RNA polymerase. Genes OFF.",
+ legend:[["old","DNA","s"],["rep","Repressor (from lacI)"],["rnap","RNA polymerase"],["bad","OFF","s"]]},
+
+{act:3,scene:"lacon",desc:"The same lac operon map as before. Lactose molecules, each two linked green hexagons, float in from the top left. Some turn into allolactose and drift to the red-brown repressor on the operator. When they attach, the repressor bends out of shape and lifts off the DNA. An orange CAP protein carrying gold cAMP dots already sits on its site to the left of the promoter. The teal RNA polymerase then slides across lacZ, lacY and lacA, trailing a purple mRNA. Brown ribosomes on the mRNA release purple enzyme shapes, beta-galactosidase, which grab lactose molecules and split each one into a green and a blue hexagon. A green ON sign glows and the status box reads Lactose: present, Repressor: off, Genes: ON.",
+ title:"The lac operon, part 2: lactose turns it on",
+ body:`<p>When lactose arrives, a little of it is changed into a related sugar, <b>allolactose</b>. Allolactose is the <b>inducer</b>: it sticks to the repressor and changes its shape. The bent repressor can no longer hold the operator, so it falls off.</p>
+ <p>Now RNA polymerase can copy lacZ, lacY and lacA into one mRNA. The cell makes permease, which pulls in more lactose, and β-galactosidase, which splits lactose into <b>glucose</b> and <b>galactose</b> for energy.</p>
+ <p>When the lactose is used up, allolactose leaves the repressor, the repressor clamps back onto the operator, and the genes switch off again. Because a substance switches it <b>on</b>, the lac operon is called an <b>inducible operon</b>.</p>`,
+ analogy:"A visitor (allolactose) hands the guard a note that makes him leave his post. The workers walk in and start making lactose-processing tools. When the visitors stop coming, the guard returns.",
+ terms:[["Inducer","A molecule that turns an operon on. For lac, it is allolactose."],["Inducible operon","Normally off; turned on when its substrate is present (lac)."],["β-galactosidase","The lacZ enzyme; splits lactose into glucose and galactose."]],
+ check:{q:"What does allolactose do in the lac operon?",opts:[
+  ["It binds the repressor and changes its shape, so the repressor falls off the operator",1,"Correct. Allolactose is the inducer. Once the repressor is off, RNA polymerase can transcribe the genes."],
+  ["It binds the operator and blocks RNA polymerase",0,"That is what the repressor does. Allolactose removes the repressor."],
+  ["It is the enzyme that splits lactose",0,"The enzyme is β-galactosidase, made from lacZ. Allolactose is a sugar that acts as the signal."],
+  ["It destroys the lacI gene",0,"lacI is untouched and keeps making repressor. Allolactose just inactivates the repressor protein."]]},
+ caption:"Allolactose pulls the repressor off. RNA polymerase reads the genes and β-galactosidase splits lactose.",
+ legend:[["sug","Lactose / allolactose"],["glu","Glucose"],["rep","Repressor"],["cap","CAP with cAMP"],["prot","β-galactosidase"],["rna","mRNA","s"]]},
+
+{act:3,scene:"cap",desc:"Four small panels form a two by two grid, and each gets a bright border in turn. Each panel shows a short blue DNA with a CAP site, promoter, operator and the lac genes. Top left, Glucose present, no lactose: the repressor sits on the operator, few gold cAMP dots float around, no CAP is bound, and the output bar reads OFF. Top right, Glucose present and lactose present: the repressor is gone but CAP is not bound, RNA polymerase only now and then releases a purple mRNA, and the output bar is short, LOW. Bottom left, No glucose, lactose present: many cAMP dots, CAP sits on its site, the repressor is gone, mRNAs stream out quickly and the bar is full, HIGH. Bottom right, No glucose and no lactose: CAP is bound but the repressor blocks the operator, so the bar reads OFF.",
+ title:"Glucose first: catabolite repression and cAMP-CAP",
+ body:`<p>Bacteria prefer <b>glucose</b>. It is the easiest sugar to use. So even when lactose is present, the lac genes stay low while glucose is around. This is called <b>catabolite repression</b>.</p>
+ <p>It works through a small signal molecule, <b>cAMP</b>. When glucose is <b>low</b>, cAMP levels <b>rise</b>. cAMP binds a protein called <b>CAP</b> (catabolite activator protein). The <b>cAMP-CAP</b> pair sits next to the promoter and helps RNA polymerase bind strongly, so transcription is high.</p>
+ <ul><li>Glucose present, no lactose: <b>off</b> (repressor bound).</li><li>Glucose present, lactose present: <b>low</b> (no repressor, but no CAP help).</li><li>No glucose, lactose present: <b>high</b> (no repressor, cAMP-CAP helping).</li><li>No glucose, no lactose: <b>off</b> (repressor bound).</li></ul>`,
+ analogy:"The repressor is a lock on the door; lactose unlocks it. cAMP-CAP is a megaphone calling workers over. Full speed needs the door unlocked AND the megaphone on, and the megaphone only turns on when the favourite food, glucose, runs out.",
+ terms:[["Catabolite repression","Glucose keeps genes for other sugars low."],["cAMP","A signal molecule that rises when glucose is low."],["CAP","Catabolite activator protein; with cAMP, it boosts transcription of the lac operon."]],
+ check:{q:"A culture has plenty of lactose but no glucose. What happens to the lac operon?",opts:[
+  ["It is highly expressed: the repressor is off and cAMP-CAP is helping RNA polymerase",1,"Right. This is the only one of the four conditions that gives full, high expression."],
+  ["It is off, because the repressor is bound",0,"Lactose (as allolactose) removes the repressor, so it is not bound here."],
+  ["It is low, because CAP cannot bind",0,"With no glucose, cAMP is high and CAP binds. Low expression happens when glucose AND lactose are both present."],
+  ["It is off, because cAMP blocks the promoter",0,"cAMP helps rather than blocks. Bound to CAP, it boosts transcription."]]},
+ caption:"Full lac expression needs two things: lactose (repressor off) and no glucose (cAMP-CAP on).",
+ legend:[["rep","Repressor"],["cap","CAP"],["camp","cAMP"],["rnap","RNA polymerase"],["rna","mRNA","s"]]},
+
+{act:3,scene:"trp",desc:"A blue DNA ladder shows a promoter P, an operator O and five genes labelled trpE, trpD, trpC, trpB and trpA. A vertical gauge on the right shows the tryptophan level. At first the level is low: a red-brown repressor floats loose, RNA polymerase moves along the genes making purple mRNA, purple enzymes appear, and pink diamond-shaped tryptophan molecules pile up while the gauge rises. When the gauge is high, tryptophan diamonds stick to the repressor, which changes shape and settles on the operator. RNA polymerase is now blocked and a red OFF sign appears. Then the cell uses up tryptophan, the diamonds disappear into a growing protein chain, the gauge falls, the repressor lets go, and the genes switch back ON.",
+ title:"The trp operon: a repressible switch",
+ body:`<p>The <b>trp operon</b> holds five genes for enzymes that <b>build</b> the amino acid <b>tryptophan</b>. Unlike lac, it is normally <b>on</b>: the cell usually needs tryptophan.</p>
+ <p>Its repressor is made in an <b>inactive</b> shape that cannot grab the operator. When tryptophan builds up, tryptophan itself binds the repressor and acts as a <b>corepressor</b>. The repressor changes shape, sits on the operator, and the genes turn <b>off</b>. Why build more of something you already have plenty of?</p>
+ <p>When tryptophan is used up, the repressor lets go and the genes turn on again. Because its own product switches it <b>off</b>, the trp operon is a <b>repressible operon</b>.</p>
+ <p class="tx"><b>Compare:</b> lac is inducible (off until lactose arrives; for breaking food down). trp is repressible (on until tryptophan piles up; for building something).</p>`,
+ analogy:"A bakery keeps baking bread until the shelves are full. A full shelf (lots of tryptophan) is the signal to stop the ovens; an empty shelf starts them again.",
+ terms:[["Repressible operon","Normally on; turned off when its product builds up (trp)."],["Corepressor","A molecule that activates a repressor. For trp, it is tryptophan."],["Inducible vs repressible","Inducible: switched on by a substrate. Repressible: switched off by a product."]],
+ check:{q:"A cell is swimming in tryptophan. What is happening at the trp operon?",opts:[
+  ["Tryptophan binds the repressor, the repressor binds the operator, and the genes are off",1,"Yes. Tryptophan acts as the corepressor, so the cell stops building more of it."],
+  ["The genes are fully on to make even more tryptophan",0,"That would waste energy. Plenty of tryptophan switches the operon off."],
+  ["Tryptophan removes the repressor, like allolactose does",0,"That is the lac story. In trp, tryptophan activates the repressor instead."],
+  ["CAP and cAMP turn the operon on",0,"cAMP-CAP is part of the lac story, about glucose. trp is controlled by the tryptophan level."]]},
+ caption:"Tryptophan builds up, activates the repressor, and switches its own genes off; when it runs low, they switch on.",
+ legend:[["trp","Tryptophan"],["rep","Repressor"],["rnap","RNA polymerase"],["prot","Enzymes"],["rna","mRNA","s"]]},
+
+/* ---------- Part 4 ---------- */
+{act:4,scene:"point",desc:"Four rows of coloured letter tiles show mRNA codons in groups of three, with three-letter amino acid names below each group. The top row, Original, reads AUG UUU GGC UAC AAA UAA and codes Met, Phe, Gly, Tyr, Lys, then Stop. In the next rows, one tile flips to a new letter with a red border. Silent: GGC becomes GGA, still Gly, and the protein picture on the right is unchanged with the label Same protein. Missense: GGC becomes AGC, Ser instead of Gly, and one bead of the protein turns a different colour with the label One amino acid changed. Nonsense: UAC becomes UAA, a stop codon, and the protein on the right is cut short with the label Cut short: usually useless.",
+ title:"Point mutations: one base changes",
+ body:`<p>A <b>mutation</b> is a change in the DNA sequence. The simplest kind is a <b>point mutation</b> (base substitution): one base is swapped for another. What happens next depends on the codon it lands in.</p>
+ <ul><li><b>Silent:</b> the new codon still codes for the same amino acid (several codons can mean the same one), so the protein is unchanged.</li><li><b>Missense:</b> the new codon codes for a different amino acid. The protein may work fine, poorly or not at all. Sickle cell disease in humans comes from one missense change.</li><li><b>Nonsense:</b> the new codon is a <b>stop codon</b>. The protein is cut short and usually does not work.</li></ul>
+ <p>Mutations happen by chance during copying. In bacteria, a rare useful mutation, such as one that changes an antibiotic's target, can be passed to millions of offspring within a day.</p>`,
+ analogy:"Changing one letter in a recipe. \"Add 2 cups\" to \"add 2 cupz\" still works (silent). \"Add salt\" to \"add malt\" changes the dish (missense). \"Add salt. STOP.\" ends the recipe early (nonsense).",
+ terms:[["Point mutation","A change of a single base."],["Silent mutation","The amino acid stays the same."],["Missense mutation","One amino acid is swapped for another."],["Nonsense mutation","A codon becomes a stop codon; the protein is cut short."]],
+ check:{q:"A base change turns the codon UAC (tyrosine) into UAA (stop). What kind of mutation is this?",opts:[
+  ["Nonsense",1,"Yes. UAA is a stop codon, so the protein is cut short at that point."],
+  ["Silent",0,"A silent change keeps the same amino acid. Here tyrosine becomes a stop signal."],
+  ["Missense",0,"Missense swaps one amino acid for another. A change to a stop codon is called nonsense."],
+  ["Frameshift",0,"A frameshift comes from adding or removing bases. This is a single base swap."]]},
+ caption:"One base swap: silent (same amino acid), missense (different amino acid) or nonsense (early stop).",
+ legend:[["bA","A","s"],["bU","U","s"],["bG","G","s"],["bC","C","s"],["bad","Changed base","o"]]},
+
+{act:4,scene:"frameshift",desc:"At the top, the sentence THE CAT ATE THE RAT is shown in three-letter words. An extra letter X drops in after THE, and the words regroup as THE XCA TAT ETH ERA T, now nonsense, with the changed words in red. Below, three rows of codon tiles. Original: AUG UUU GGC UAC AAA UAA, coding Met Phe Gly Tyr Lys Stop. Insertion: an extra green A tile drops in after AUG, the tiles slide right, and the brackets that group them in threes shift, giving Met Ile Trp Leu Gln Ile with all of the changed amino acids marked in red. Deletion: one U tile lifts out and fades, the tiles slide left, and the groups read Met Leu Ala Thr Asn, also changed after the deletion. A note at the bottom says adding or removing three bases keeps the frame.",
+ title:"Frameshift mutations: the reading frame slips",
+ body:`<p>Ribosomes read mRNA in groups of three, starting from the start codon. This grouping is the <b>reading frame</b>.</p>
+ <p>An <b>insertion</b> adds one or more bases. A <b>deletion</b> removes one or more. If the number added or removed is not a multiple of three, every codon after that point is regrouped. This is a <b>frameshift mutation</b>.</p>
+ <p>After a frameshift, almost every amino acid downstream is wrong, and a stop codon often appears early. Frameshifts usually destroy the protein. Removing or adding exactly three bases keeps the frame: the protein just gains or loses one amino acid.</p>`,
+ analogy:"Read THE CAT ATE THE RAT. Slip in one extra letter and keep reading in threes: THE XCA TAT ETH ERA T. Every word after the slip is garbage.",
+ terms:[["Reading frame","The way bases are grouped into codons, set by the start codon."],["Insertion / deletion","Adding or removing bases."],["Frameshift","An insertion or deletion that is not a multiple of three; all later codons change."]],
+ check:{q:"Which change is most likely to wreck the whole protein?",opts:[
+  ["Deleting one base near the start of the gene",1,"Right. Removing one base shifts the reading frame, so nearly every codon after it changes."],
+  ["Changing the third base of one codon to another base that codes for the same amino acid",0,"That is a silent mutation. The protein is unchanged."],
+  ["Deleting three bases in a row",0,"That removes one codon but keeps the frame, so only one amino acid is lost."],
+  ["Swapping one base in the last codon before the stop",0,"That changes at most one amino acid at the very end."]]},
+ caption:"Add or remove one base and every codon after it is read wrong.",
+ legend:[["bA","A","s"],["bU","U","s"],["bG","G","s"],["bC","C","s"],["good","Inserted base","o"],["bad","Changed amino acid","s"]]},
+
+{act:4,scene:"mutagens",desc:"Three panels, each with a short stretch of DNA drawn as two rows of coloured base tiles joined by rungs. Left panel, Chemicals: a grey look-alike base labelled 5-BU slides in and pairs with G, so after copying an A-T pair becomes a G-C pair. Then a flat orange bar, an intercalating chemical, wedges between two base pairs, pushing them apart, with the label Frameshifts. Middle panel, UV light: purple zigzag rays strike two T tiles that sit side by side on one strand; a thick bond forms between them, the DNA bends, and the label reads Thymine dimer. Right panel, Ionizing radiation: zigzag X-ray beams strike, small sparks appear, and both backbones snap, leaving a gap labelled Strand breaks.",
+ title:"Mutagens: chemicals, UV light and radiation",
+ body:`<p>Mutations happen by chance, but <b>mutagens</b> make them happen much more often. There are three main kinds.</p>
+ <ul><li><b>Chemical mutagens.</b> <b>Base analogs</b> such as 5-bromouracil look like normal bases but pair wrongly. Other chemicals (such as nitrous acid) change bases directly. <b>Intercalating agents</b>, such as ethidium bromide, are flat molecules that slide between base pairs and cause frameshifts.</li><li><b>UV light</b> (nonionizing radiation) links two neighbouring thymines on the same strand into a <b>thymine dimer</b>. The DNA kinks, and copying stalls or makes errors.</li><li><b>Ionizing radiation</b> (X-rays, gamma rays) carries more energy. It makes reactive <b>free radicals</b> and breaks the DNA backbone.</li></ul>
+ <p class="tx"><b>Why it matters:</b> UV lamps and gamma radiation are used to kill microbes. Damage too great to repair is lethal.</p>`,
+ analogy:"Chemical mutagens are typos sneaked into the text; UV glues two neighbouring letters together; ionizing radiation tears the page.",
+ terms:[["Mutagen","Anything that raises the rate of mutation."],["Base analog","A look-alike base that pairs incorrectly."],["Thymine dimer","Two neighbouring thymines bonded together by UV light."],["Ionizing radiation","High-energy radiation (X-rays, gamma rays) that breaks DNA strands."]],
+ check:{q:"A UV lamp is used to disinfect a biosafety cabinet. What does UV do to microbial DNA?",opts:[
+  ["It links neighbouring thymines into dimers that block copying",1,"Correct. Thymine dimers kink the DNA and stall replication; enough of them kills the cell."],
+  ["It slides between base pairs and causes frameshifts",0,"That is what intercalating chemicals do, not UV light."],
+  ["It replaces A with a look-alike base",0,"That describes a base analog chemical. UV acts by bonding thymines together."],
+  ["It turns DNA into RNA",0,"UV damages DNA by forming dimers; it does not convert it."]]},
+ caption:"Chemicals cause wrong pairing or frameshifts; UV glues thymines; ionizing radiation breaks strands.",
+ legend:[["bA","A","s"],["bU","T","s"],["bG","G","s"],["bC","C","s"],["uv","UV / X-ray"],["drug","Chemical mutagen","s"]]},
+
+{act:4,scene:"repair",desc:"Three horizontal lanes, each with a short blue DNA stretch. Top lane, Proofreading: a teal DNA polymerase moves right adding orange bases to a new strand. It adds one red wrong base, pauses, backs up, removes it, and adds a correct orange one, with the label Oops, fixed. Middle lane, Light repair: a thymine dimer, two tiles joined by a thick bond, sits in the DNA. A green photolyase enzyme lands on it, yellow rays of visible light shine down, and the bond breaks, with the label Bacteria have this; humans do not. Bottom lane, Excision repair: a damaged spot glows red; scissors cut the strand on both sides; the short damaged piece lifts out and floats away; an orange new piece fills the gap from left to right and gold sparkles mark where ligase seals it.",
+ title:"DNA repair: fixing mistakes",
+ body:`<p>Cells do not just accept damage. They have repair crews.</p>
+ <ul><li><b>Proofreading:</b> DNA polymerase checks each base it adds. If one is wrong, it backs up, removes it and tries again.</li><li><b>Light repair (photoreactivation):</b> an enzyme called <b>photolyase</b> uses energy from visible light to split thymine dimers. Bacteria have it; humans do not.</li><li><b>Excision repair:</b> enzymes cut out the damaged stretch of one strand. DNA polymerase fills the gap using the other strand as a guide, and DNA ligase seals it. People who lack this repair (xeroderma pigmentosum) are very sensitive to sunlight.</li><li><b>Mismatch repair</b> finds wrong pairs that proofreading missed.</li></ul>
+ <p>Repair is good, but not perfect. A few mistakes slip through. That small error rate gives bacteria variety for natural selection.</p>`,
+ analogy:"A writer who rereads each word (proofreading), a special eraser that only works in daylight (light repair), and an editor who cuts out a bad sentence and rewrites it (excision repair).",
+ terms:[["Proofreading","DNA polymerase removing a wrong base it just added."],["Photolyase","An enzyme that splits thymine dimers using visible light."],["Excision repair","Cutting out a damaged stretch and filling it in again."]],
+ check:{q:"In excision repair, how does the cell know which bases to put back into the gap?",opts:[
+  ["It copies the matching bases from the undamaged opposite strand",1,"Yes. The intact strand is the template, so the new piece pairs correctly."],
+  ["It guesses randomly",0,"It does not guess. The undamaged strand gives the correct partner for each base."],
+  ["Visible light tells it",0,"Light powers photolyase in light repair, a different system. Excision repair uses the other strand as a guide."],
+  ["It borrows the sequence from a plasmid",0,"The template is the opposite strand of the same DNA."]]},
+ caption:"Proofreading, light repair and excision repair fix most DNA damage.",
+ legend:[["old","DNA","s"],["new","New DNA","s"],["bad","Wrong or damaged base","s"],["good","Photolyase"],["glow","Ligase seal"]]},
+
+{act:4,scene:"ames",desc:"A process runs from left to right. A tube labelled Salmonella his minus, cannot make histidine, fills with cells. An orange test chemical and a brown liver extract are poured in and swirl. The mixture is poured onto two agar plates labelled No histidine in the agar: a Control plate with no chemical and a Test chemical plate. A clock shows 48 hours of incubation. Cream-coloured colonies pop up: only about 15 on the control plate but about 120 on the test plate, with counters ticking up under each. A callout explains that each colony is a cell that mutated back and can now make histidine. At the end, the verdict reads Many more colonies: the chemical is a mutagen, so it may cause cancer.",
+ title:"The Ames test: is this chemical a mutagen?",
+ body:`<p>Most chemicals that cause cancer also cause mutations. The <b>Ames test</b> uses bacteria as a fast, cheap mutation detector.</p>
+ <ol><li>Start with a strain of <i>Salmonella</i> that has a mutation in a histidine gene. It is <b>his⁻</b>: it cannot make the amino acid histidine, so it cannot grow without being given histidine.</li><li>Mix the bacteria with the test chemical and with <b>liver extract</b>. The liver extract imitates how the human body changes chemicals, since some only become mutagens after the liver processes them.</li><li>Spread the mix on agar with <b>no histidine</b>. Only bacteria that mutate back to <b>his⁺</b> (called <b>revertants</b>) can grow into colonies.</li><li>Compare with a <b>control</b> plate with no chemical. A few colonies always appear by chance.</li></ol>
+ <p>If the test plate has many more colonies than the control, the chemical is a mutagen and a possible <b>carcinogen</b> (cancer-causing agent).</p>`,
+ analogy:"A smoke detector for DNA damage. The bacteria start out broken in one known way; the more of them that \"accidentally fix\" themselves, the more mutations the chemical is causing.",
+ terms:[["Auxotroph (his⁻)","A mutant that cannot make a nutrient it needs, here histidine."],["Revertant","A mutant that mutates back to the original working form."],["Carcinogen","Something that can cause cancer."]],
+ check:{q:"Why is the agar in the Ames test made without histidine?",opts:[
+  ["So only bacteria that mutated back to making histidine can grow into colonies",1,"Exactly. The plate selects for revertants, so the colony count measures how many mutations happened."],
+  ["Because histidine is a mutagen",0,"Histidine is a normal amino acid. It is left out so that only revertants can grow."],
+  ["So the liver extract can work",0,"The liver extract activates chemicals. Leaving out histidine is what selects for revertants."],
+  ["To kill all the Salmonella",0,"It does not kill them; non-revertants simply cannot grow into colonies."]]},
+ caption:"Many more his⁺ revertant colonies than the control means the chemical causes mutations.",
+ legend:[["gneg","Salmonella (his⁻)"],["drug","Test chemical"],["agar","Agar without histidine"],["colony","Revertant colony"]]},
+
+/* ---------- Part 5 ---------- */
+{act:5,scene:"griffith",desc:"Four rows on the left show Griffith's experiment. In each, purple paired cocci are shown on the left, an arrow carries them to a simple mouse outline, and a result appears. Row 1, Live S strain with a dashed capsule: the mouse turns grey with an X eye, labelled Dies. Row 2, Live R strain without a capsule: the mouse stays its normal colour, labelled Lives. Row 3, Heat-killed S strain shown as grey broken cells with a small flame: Lives. Row 4, Heat-killed S plus live R: Dies, and live S found. On the right, a zoom panel labelled What happened in row 4 shows a purple R cell. Blue DNA pieces float near a grey dead S cell. An orange piece labelled capsule gene drifts into the R cell and joins its chromosome, and then a dashed capsule appears around the cell.",
+ title:"Transformation: picking up free DNA (Griffith)",
+ body:`<p>In 1928, Frederick Griffith worked with <i>Streptococcus pneumoniae</i>. The <b>S strain</b> (smooth) has a <b>capsule</b> that hides it from white blood cells, so it caused fatal pneumonia in mice. The <b>R strain</b> (rough) has no capsule and was harmless.</p>
+ <p>Heat-killed S cells were harmless too. But when he injected heat-killed S together with live R, the mice died, and he found <b>live S cells</b> in them. Something from the dead S cells had changed the R cells permanently.</p>
+ <p>That process is <b>transformation</b>: a bacterium takes up <b>free DNA</b> from its surroundings and adds it to its own chromosome. In 1944 Avery, MacLeod and McCarty showed the "transforming principle" was <b>DNA</b>. Cells that can take up DNA are called <b>competent</b>.</p>`,
+ analogy:"Finding a page torn from someone else's cookbook on the street, taking it home, and pasting it into your own book. Now you can make their recipe.",
+ terms:[["Transformation","Uptake of free (naked) DNA from the environment."],["Competent","Able to take up DNA from the surroundings."],["Capsule","A sticky outer layer that helps bacteria avoid being eaten; a virulence factor."]],
+ check:{q:"In Griffith's experiment, why did mice given heat-killed S plus live R die?",opts:[
+  ["The live R cells took up capsule DNA from the dead S cells and became S",1,"Yes. Transformation gave the R cells the capsule gene, making them deadly."],
+  ["The heat-killed S cells came back to life",0,"The dead cells stayed dead. Their DNA changed the live R cells."],
+  ["The R strain was always deadly",0,"Live R alone did not kill the mice (row 2)."],
+  ["Heat turned the capsule into a toxin",0,"Heat-killed S alone was harmless (row 3). The change came from DNA moving into R cells."]]},
+ caption:"Live R cells took up capsule DNA from dead S cells and became deadly S cells.",
+ legend:[["gpos","Streptococcus pneumoniae"],["old","DNA fragment","s"],["mouse","Mouse"],["dead","Did not survive","s"]]},
+
+{act:5,scene:"transduction",desc:"Two lanes of four boxes each, read left to right, with the active box getting a bright border. Top lane, Generalized transduction. Box 1: a grey phage, a virus with a six-sided head and a tail, injects its DNA into a green bacterium. Box 2: the bacterium's blue chromosome breaks into pieces while grey phage parts appear. Box 3: new phages fill the cell; one head is packed with a blue host DNA piece instead of grey phage DNA, marked Mistake: host DNA packed. Box 4: that phage injects the blue piece into a new cell, where it joins the chromosome. Bottom lane, Specialized transduction. Box 1: a grey prophage sits in the chromosome right next to a green gene labelled gal. Box 2: the prophage cuts out and takes the gal gene with it. Box 3: new phages carry phage DNA plus gal. Box 4: a new cell receives gal.",
+ title:"Transduction: viruses carry genes",
+ body:`<p>A <b>bacteriophage</b> (phage) is a virus that infects bacteria. Sometimes a phage carries bacterial DNA from one cell to another by mistake. This is <b>transduction</b>.</p>
+ <p><b>Generalized transduction:</b> when a lytic phage multiplies, it chops up the host chromosome. While new phages are assembled, a random piece of <b>host DNA</b> can get packed into a phage head. That phage injects the host DNA into the next cell. <b>Any</b> gene can be moved this way.</p>
+ <p><b>Specialized transduction:</b> a temperate phage inserts into the host chromosome at one spot (as a <b>prophage</b>). When it pops back out, it sometimes cuts out imperfectly and takes a <b>neighbouring gene</b> with it. Only genes next to the insertion site move.</p>
+ <p class="tx"><b>Clinical link:</b> some toxin genes, such as those for diphtheria toxin and cholera toxin, are carried by phages.</p>`,
+ analogy:"A delivery truck that sometimes loads the wrong package. Generalized: any package from the warehouse can end up on the truck. Specialized: only the box sitting right next to the loading dock.",
+ terms:[["Bacteriophage","A virus that infects bacteria."],["Generalized transduction","A phage accidentally packs a random piece of host DNA."],["Specialized transduction","A prophage cuts out imperfectly, carrying neighbouring genes."],["Prophage","Phage DNA inserted into the bacterial chromosome."]],
+ check:{q:"Which kind of gene transfer can move ANY bacterial gene, packed by mistake into a phage head?",opts:[
+  ["Generalized transduction",1,"Correct. A random piece of the chopped-up host chromosome gets packaged, so any gene can be moved."],
+  ["Specialized transduction",0,"Specialized transduction only moves genes right next to the prophage insertion site."],
+  ["Conjugation",0,"Conjugation moves DNA through a pilus bridge between two cells, not inside a virus."],
+  ["Transformation",0,"Transformation is uptake of free DNA, with no virus involved."]]},
+ caption:"Generalized: any host gene can be packed by mistake. Specialized: only genes beside the prophage.",
+ legend:[["phage","Bacteriophage"],["chrom","Host DNA","s"],["dead","Phage DNA","s"],["fplas","gal gene","s"]]},
+
+{act:5,scene:"conj",desc:"Top half, F plus crossed with F minus. A rod labelled F plus holds a teal F plasmid ring. A thin teal pilus grows from it and hooks onto a second rod labelled F minus, then shortens and pulls the two cells together. One strand of the plasmid slides across the bridge as a chain of teal dots, and a teal ring forms in the recipient. Both rings then thicken to double strands, the cells separate, and both are labelled F plus. Bottom half, Hfr. A rod labelled Hfr shows its chromosome as a long blue line with a teal F segment built into it and coloured genes a, b and c next to it. A copy starts crossing the bridge, F part first, then gene a, then gene b. The bridge snaps before gene c and the rest of F can cross. The recipient's chromosome takes in a and b, and it stays labelled F minus, now with new genes.",
+ title:"Conjugation: passing DNA through a pilus",
+ body:`<p><b>Conjugation</b> is gene transfer by direct contact. It needs a donor cell with the <b>F plasmid</b>, called <b>F⁺</b>, and a recipient without it, called <b>F⁻</b>.</p>
+ <p><b>F⁺ × F⁻:</b> the F⁺ cell builds a <b>sex pilus</b> (also called a conjugation pilus) that grabs the F⁻ cell and pulls it close. One strand of the F plasmid is passed across while it is being copied. Both cells then build the missing strand. Now <b>both</b> cells are F⁺.</p>
+ <p><b>Hfr (high frequency of recombination):</b> sometimes the F plasmid joins the chromosome. When that cell conjugates, it starts sending the F plasmid and then keeps pulling <b>chromosome genes</b> across behind it. The contact usually breaks long before the whole chromosome (or the end of F) gets through, so the recipient gains new genes but usually <b>stays F⁻</b>.</p>
+ <p>Many R plasmids carry their own transfer genes, so resistance spreads by conjugation, sometimes between different species.</p>`,
+ analogy:"F⁺ to F⁻ is handing over a copy of a recipe card through a mail slot; afterwards both people have it. Hfr is when the card is glued into the cookbook, so pages after it get pulled through the slot too until the slot snaps shut.",
+ terms:[["Conjugation","DNA transfer between bacteria through direct contact via a pilus."],["F⁺ / F⁻","Cells with or without the F plasmid."],["Sex pilus","The bridge-building pilus made by F⁺ cells."],["Hfr cell","A cell whose F plasmid is inserted in the chromosome; it transfers chromosomal genes."]],
+ check:{q:"After an F⁺ cell conjugates with an F⁻ cell, what are the two cells?",opts:[
+  ["Both F⁺",1,"Right. The F⁺ cell keeps its plasmid and sends a copy, so the recipient becomes F⁺ too."],
+  ["Both F⁻",0,"The donor keeps its F plasmid; it only sends a copy."],
+  ["The donor becomes F⁻ and the recipient F⁺",0,"The donor does not lose its plasmid. One strand is copied as it is sent."],
+  ["The recipient becomes Hfr",0,"Hfr means F is built into the chromosome. A simple F⁺ × F⁻ mating gives two F⁺ cells."]]},
+ caption:"F⁺ × F⁻ makes two F⁺ cells. An Hfr cell drags chromosome genes across, but the recipient usually stays F⁻.",
+ legend:[["fplas","F plasmid / F DNA","o"],["chrom","Chromosome","s"],["new","Newly made strand","s"],["rplas","Gene a","s"],["gold","Gene b","s"]]},
+
+{act:5,scene:"transposon",desc:"A long blue chromosome runs across the top. One section is a transposon: a red resistance gene and a gold transposase gene, with black triangle ends. A gold transposase enzyme appears, and a copy of the transposon lifts out of the chromosome, arcs down through the air, and slides into a purple plasmid ring at the bottom right, which then shows a red segment and the label R plasmid now carries resistance. Next, a copy of the transposon jumps into a green gene on the chromosome labelled Gene X; Gene X is split in two and a red label reads Gene X disrupted. A zoom box at the bottom left shows the parts: inverted repeat, transposase gene, resistance gene, inverted repeat.",
+ title:"Transposons: jumping genes",
+ body:`<p><b>Transposons</b> are pieces of DNA that can move from one place to another: within a chromosome, from a chromosome to a plasmid, or back. They are often called <b>jumping genes</b>. Barbara McClintock discovered them in corn and won a Nobel Prize in 1983.</p>
+ <p>The simplest transposons, called <b>insertion sequences</b>, carry only a gene for <b>transposase</b> (the enzyme that cuts and pastes them) between short <b>inverted repeats</b> at each end. Larger, <b>composite</b> transposons also carry extra genes, often <b>antibiotic resistance</b> genes.</p>
+ <p>Transposons matter in two ways. A transposon that lands inside a gene can break it, causing a <b>mutation</b>. And a transposon that hops onto a plasmid lets its resistance gene ride along when the plasmid moves to another cell.</p>`,
+ analogy:"A sticky note that can peel itself off one page and stick onto another, even into another book. If it lands in the middle of a sentence, that sentence no longer makes sense.",
+ terms:[["Transposon","A DNA segment that can move to a new location."],["Transposase","The enzyme that cuts out and inserts a transposon."],["Inverted repeats","Matching sequences at both ends that transposase recognises."]],
+ check:{q:"How can a transposon help resistance spread to other bacteria?",opts:[
+  ["It can jump from the chromosome onto a plasmid that is then shared by conjugation",1,"Yes. Once the resistance gene sits on a transferable plasmid, it can move to other cells and even other species."],
+  ["It turns into a virus and infects other cells",0,"Transposons are not viruses. They spread by hitching a ride on plasmids (or phages)."],
+  ["It makes the antibiotic stop working in the patient's blood",0,"A transposon acts inside bacteria; it moves genes from place to place."],
+  ["It cannot; transposons only move inside one chromosome",0,"Transposons can move between chromosomes and plasmids, which is how they help resistance spread."]]},
+ caption:"A transposon carrying a resistance gene jumps onto a plasmid; another copy breaks a gene it lands in.",
+ legend:[["chrom","Chromosome","s"],["rplas","Resistance gene","s"],["gold","Transposase","s"],["plas","Plasmid","o"],["fplas","Gene X","s"]]},
+
+{act:5,scene:"spread",desc:"On the left, a large box holds a crowd of pink rod-shaped bacteria and some purple round ones, a different species. A few carry a small red plasmid ring. At first there is no antibiotic: thin lines flash between neighbours as plasmids are passed, and a few more cells gain red rings, including one purple round cell, marked Crosses species. Then orange antibiotic dots rain in and the label changes to Antibiotic ON. Cells without the red ring turn grey and fade away. Cells with the ring survive and divide until they fill the space. On the right, a graph line for percent resistant climbs slowly at first, then sharply after the antibiotic arrives. Below it, two small diagrams compare Vertical, parent to daughter cells, with Horizontal, neighbour to neighbour, even across species.",
+ title:"Why gene sharing spreads antibiotic resistance",
+ body:`<p>Bacteria pass genes in two ways. <b>Vertical gene transfer</b> is from parent to daughter cells when a cell divides. <b>Horizontal gene transfer (HGT)</b> is between neighbouring cells, by transformation, transduction or conjugation.</p>
+ <p>HGT means a resistance gene does not have to arise by mutation in each bacterium. One cell can <b>share</b> it, sometimes with a completely different species. Resistance genes often sit on <b>R plasmids</b> and transposons, which move easily.</p>
+ <p>Antibiotic use adds <b>selective pressure</b>. The drug kills the susceptible cells, while the resistant ones survive and multiply. Soon most of the population is resistant. This is why antibiotics should be used only when needed and taken exactly as prescribed, and why hospitals practise infection control.</p>`,
+ analogy:"A cheat sheet that gets passed around a classroom. When the surprise quiz (the antibiotic) comes, only students holding the sheet pass, and soon the whole class is copying it.",
+ terms:[["Vertical gene transfer","Genes passed from a parent cell to its daughter cells."],["Horizontal gene transfer","Genes passed between neighbouring cells, even different species."],["Selective pressure","A condition, such as an antibiotic, that lets only certain cells survive and multiply."]],
+ check:{q:"Why does heavy antibiotic use make resistance spread faster?",opts:[
+  ["It kills susceptible bacteria, so resistant ones (often carrying shared plasmids) take over",1,"Correct. The drug is the selective pressure; the resistant cells it leaves behind multiply and keep sharing their genes."],
+  ["Antibiotics create resistance genes in every bacterium",0,"Antibiotics do not write new genes. Resistance genes already exist or arise by chance; the drug selects for them."],
+  ["Antibiotics make bacteria form pili",0,"Pili come from F plasmid genes. The drug's role is to remove the competition."],
+  ["Resistant bacteria eat the antibiotic",0,"Some resistance enzymes break drugs down, but the main point is selection: susceptible cells die and resistant ones multiply."]]},
+ caption:"Plasmids spread resistance sideways; the antibiotic then kills everything without it.",
+ legend:[["gneg","Species 1 (rods)"],["gpos","Species 2 (cocci)"],["rplas","R plasmid","o"],["drug","Antibiotic"],["dead","Killed","s"]]},
+
+/* ---------- Part 6 ---------- */
+{act:6,scene:"insulin",desc:"Four boxes across the top run left to right and light up in turn. Box 1, Cut: a pair of scissors, the restriction enzyme, snips a purple plasmid ring that carries a red ampicillin resistance gene, opening it, and also snips a green human insulin gene out of a longer blue DNA. Box 2, Join: the green gene slides into the gap in the plasmid and gold sparkles mark where DNA ligase seals it, labelled Recombinant plasmid. Box 3, Into E. coli: the plasmid enters a pink rod-shaped cell. Box 4, Select: on an ampicillin plate, only cells with the plasmid grow into colonies. Bottom left, a zoom shows the cut site G A A T T C: the cut is staggered, leaving single-stranded sticky ends that pair up again. Bottom right, a tank of E. coli cells divides, and small insulin molecules, two short chains joined by links, pile up as a counter rises.",
+ title:"Recombinant DNA: bacteria that make human insulin",
+ body:`<p>Bacteria make <b>restriction enzymes</b> to chop up invading phage DNA. Each one cuts at a specific short sequence. <b>EcoRI</b>, for example, cuts at GAATTC. Many cut in a staggered way, leaving short single-stranded <b>sticky ends</b>.</p>
+ <p>Scientists use them as DNA scissors:</p>
+ <ol><li>Cut a plasmid and the human insulin gene with the <b>same</b> enzyme, so their sticky ends match.</li><li>Mix them; the sticky ends pair up, and <b>DNA ligase</b> seals them. The result is <b>recombinant DNA</b>.</li><li>Put the plasmid into <i>E. coli</i> by transformation.</li><li>Grow the bacteria on an antibiotic. Only cells that took up the plasmid (with its resistance gene) survive.</li><li>Grow billions of them; they make human insulin, which is purified.</li></ol>
+ <p>Human insulin made by bacteria was approved in 1982. Before that, people with diabetes used insulin from pigs and cows.</p>`,
+ analogy:"Cutting two pieces of paper with the same zig-zag craft scissors. The edges match perfectly, so a new page fits neatly into the book, and tape (ligase) holds it there.",
+ terms:[["Restriction enzyme","A bacterial enzyme that cuts DNA at a specific sequence."],["Sticky ends","Short single-stranded overhangs left by a staggered cut; they pair with matching ends."],["Recombinant DNA","DNA joined together from two different sources."],["Vector","A carrier, such as a plasmid, used to move a gene into a cell."]],
+ check:{q:"Why must the plasmid and the insulin gene be cut with the same restriction enzyme?",opts:[
+  ["So their sticky ends match and can pair before ligase seals them",1,"Yes. Matching overhangs base-pair with each other, letting the gene slot into the plasmid."],
+  ["Because only one restriction enzyme exists",0,"There are hundreds of restriction enzymes, each with its own target sequence."],
+  ["So the bacteria will not notice the new gene",0,"Bacteria do not inspect it. The point is matching sticky ends."],
+  ["Because the enzyme also makes the insulin",0,"The enzyme only cuts DNA. The bacteria make insulin by reading the inserted gene."]]},
+ caption:"Cut with the same enzyme, paste with ligase, put into E. coli, select, and grow: bacteria make insulin.",
+ legend:[["plas","Plasmid (vector)","o"],["rplas","Antibiotic resistance gene","s"],["fplas","Insulin gene","s"],["glow","Ligase seal"],["gneg","E. coli"]]},
+
+{act:6,scene:"pcr",desc:"Top left, a temperature graph steps through cycles of three plateaus, labelled 95 degrees denature, 55 degrees anneal and 72 degrees extend, with a dot moving along the line and a thermometer showing the current temperature. Below it, a close-up of DNA: at 95 degrees the two blue strands of a double helix pull apart; at 55 degrees short purple primers drop onto the ends of each strand; at 72 degrees an orange Taq polymerase slides along each strand building a new orange partner, leaving two double strands. On the right, a counter shows the cycle number, and a column of small DNA icons doubles with each cycle: 1, 2, 4, 8, 16, with the formula 2 to the power n and the note 30 cycles is about 1 billion copies.",
+ title:"PCR: copying one gene billions of times",
+ body:`<p>The <b>polymerase chain reaction (PCR)</b> makes millions to billions of copies of one chosen DNA piece in a few hours. It is used to diagnose infections (such as COVID-19 tests), match DNA, and study genes.</p>
+ <p>Each <b>cycle</b> has three temperature steps:</p>
+ <ol><li><b>Denature</b>, about 95 °C: heat separates the two DNA strands.</li><li><b>Anneal</b>, about 50 to 65 °C: short <b>primers</b> stick to each strand on either side of the target.</li><li><b>Extend</b>, about 72 °C: <b>Taq polymerase</b> builds new strands starting from the primers.</li></ol>
+ <p>Each cycle <b>doubles</b> the target. After n cycles there are about <b>2ⁿ</b> copies of each starting molecule: 10 cycles give about a thousand, 30 cycles about a billion.</p>
+ <p class="tx"><b>Microbe link:</b> Taq polymerase comes from <i>Thermus aquaticus</i>, a bacterium from hot springs. Its enzymes survive the 95 °C steps that would destroy ours.</p>`,
+ analogy:"A photocopier where every copy also becomes an original. One page makes 2, then 4, then 8, and after 30 rounds you have a stack of a billion.",
+ terms:[["Primer","A short DNA piece that marks where copying starts."],["Taq polymerase","A heat-stable DNA polymerase from a hot-spring bacterium."],["Denature / anneal / extend","Separate strands, attach primers, build new strands."]],
+ check:{q:"You start PCR with one DNA molecule. About how many copies are there after 5 perfect cycles?",opts:[
+  ["32",1,"Right. Each cycle doubles: 2, 4, 8, 16, 32. That is 2 to the power 5."],
+  ["5",0,"That would be adding one copy per cycle. PCR doubles each cycle."],
+  ["10",0,"That would be adding two per cycle. Doubling gives 2 to the power 5, which is 32."],
+  ["25",0,"That is 5 times 5. PCR grows by doubling: 2 × 2 × 2 × 2 × 2 = 32."]]},
+ caption:"Denature, anneal, extend: every cycle doubles the target DNA.",
+ legend:[["old","Template DNA","s"],["rna","Primer","s"],["new","New DNA","s"],["heat","Temperature","l"]]},
+
+{act:6,scene:"gel",desc:"On the left is a gel box with a black minus electrode at the top and a red plus electrode at the bottom, and five wells. A pipette loads blue-tinted DNA into each well. The first lane is a ladder of known sizes, labelled 3000, 1500, 1000, 500 and 250 base pairs. Bands slide downward toward the plus end, with small pieces moving farthest and large pieces staying near the top. At the end the gel glows and the bands light up green. On the right, a zoom panel shows a mesh of gel fibres: a short DNA piece zips through the gaps quickly while a long piece winds through slowly, with the label Small pieces move farther.",
+ title:"Gel electrophoresis: sorting DNA by size",
+ body:`<p><b>Gel electrophoresis</b> separates DNA pieces by size. It is how scientists check a PCR result or see the pieces made by a restriction enzyme.</p>
+ <ol><li>DNA samples are loaded into small wells at one end of a slab of <b>agarose gel</b>.</li><li>An electric current is turned on. DNA is <b>negatively charged</b> (from its phosphate backbone), so it moves toward the <b>positive</b> end.</li><li>The gel is a mesh. <b>Small pieces</b> slip through easily and travel <b>farther</b>; large pieces move slowly and stay near the wells.</li><li>A stain makes the DNA glow under UV light, and each group of same-size pieces shows as a <b>band</b>.</li></ol>
+ <p>A <b>ladder</b> (DNA pieces of known sizes) runs in one lane, so you can read the size of the unknown bands.</p>`,
+ analogy:"A crowd running through a dense forest toward a finish line. Small children slip between the trees and get far; big adults with backpacks get snagged and stay near the start.",
+ terms:[["Agarose gel","A jelly-like mesh that DNA moves through."],["Band","A line on the gel made of many DNA pieces of the same size."],["DNA ladder","A set of DNA pieces of known sizes used as a ruler."]],
+ check:{q:"Which DNA piece travels farthest from the wells?",opts:[
+  ["The smallest piece",1,"Yes. Small pieces slip through the gel mesh fastest, so they end up farthest toward the positive end."],
+  ["The largest piece",0,"Large pieces get tangled in the mesh and stay closer to the wells."],
+  ["The one with the most positive charge",0,"All DNA is negative. Size is what makes the difference."],
+  ["They all travel the same distance",0,"If they did, the gel could not separate them. Size controls the speed."]]},
+ caption:"Negative DNA moves toward the positive end; small pieces travel farthest.",
+ legend:[["band","DNA band","s"],["gel","Agarose gel","s"],["bad","Positive electrode (+)","s"],["ink","Negative electrode (−)","s"]]},
+
+{act:6,scene:"crispr",desc:"Two halves. Left, In bacteria: a bacterium holds a CRISPR array, a row of black diamond repeats with coloured squares, the spacers, between them. A grey phage injects DNA; the cell clips a short piece and adds it to the array as a new light blue spacer. The array is copied into a short purple guide RNA that loads into a blue Cas9 protein. When the same kind of phage injects again, Cas9 slides to the matching phage DNA, cuts it in two with a spark, and a green label says Infection stopped. Right, In the lab: a long blue DNA in a cell has a target gene marked in red. A blue Cas9 carrying a guide RNA labelled Designed guide scans along the DNA, stops at the matching sequence and cuts both strands. The cell repairs the cut, and two outcomes are labelled: Gene switched off, or New DNA pasted in. A strip at the bottom notes that the first approved CRISPR treatment, for sickle cell disease, came in 2023.",
+ title:"CRISPR: a bacterial immune system turned gene editor",
+ body:`<p>Bacteria have their own <b>immune memory</b> against phages. When a phage attacks and the cell survives, it saves a short piece of the phage DNA as a <b>spacer</b> in its <b>CRISPR</b> array (Clustered Regularly Interspaced Short Palindromic Repeats).</p>
+ <p>The array is copied into short <b>guide RNAs</b>. Each guide loads into a cutting protein, such as <b>Cas9</b>. If the same phage returns, the guide matches its DNA and Cas9 <b>cuts</b> it, stopping the infection.</p>
+ <p>In 2012, scientists (Jennifer Doudna and Emmanuelle Charpentier, Nobel Prize 2020) showed that Cas9 can be given a <b>designed guide RNA</b> to cut any DNA sequence they choose. The cell then repairs the cut, which can switch a gene off or let a corrected piece be pasted in. The first CRISPR-based treatment, for sickle cell disease, was approved in 2023.</p>`,
+ analogy:"A \"wanted poster\" wall. The bacterium pins up a photo (spacer) of every virus it has met, and Cas9 is the guard who checks visitors against the photos. Scientists simply pin up a photo of the gene they want to cut.",
+ terms:[["CRISPR array","Repeats with stored phage DNA spacers; the bacterial memory."],["Cas9","A protein that cuts DNA where its guide RNA matches."],["Guide RNA","A short RNA that leads Cas9 to a matching DNA sequence."]],
+ check:{q:"In bacteria, what is the natural job of CRISPR-Cas9?",opts:[
+  ["To remember and cut the DNA of phages that attacked before",1,"Correct. It is an adaptive immune system: stored spacers guide Cas9 to cut returning phage DNA."],
+  ["To copy the chromosome before division",0,"That is DNA replication by DNA polymerase."],
+  ["To build the sex pilus for conjugation",0,"Pilus genes are on the F plasmid. CRISPR defends against phages."],
+  ["To make antibiotics",0,"CRISPR-Cas9 is a defense against viruses, not an antibiotic factory."]]},
+ caption:"Bacteria store phage DNA to guide Cas9; scientists give Cas9 their own guide to edit genes.",
+ legend:[["cas","Cas9"],["rna","Guide RNA","s"],["phage","Phage"],["old","DNA","s"],["bad","Target gene","s"]]},
+
+{act:0,scene:"recap",desc:"Six cards fill the canvas in two columns of three, each with a coloured number badge, a title, a one-line summary and a small moving picture. They light up one after another. Card 1, DNA and copying: an orange arc grows around a blue circle. Card 2, Reading genes: a ribosome slides on mRNA. Card 3, Gene switches: a repressor lifts on and off with ON and OFF. Card 4, Mutations and repair: a letter tile flips. Card 5, Gene sharing: a red plasmid ring crosses between two cells. Card 6, Biotechnology: bars double in height.",
+ title:"Recap: microbial genetics and biotechnology",
+ body:`<ol><li><b>DNA and copying:</b> one circular chromosome plus plasmids (R plasmids for resistance, F for transfer). Replication is bidirectional from one origin; the leading strand is continuous, the lagging strand is made in Okazaki fragments.</li>
+ <li><b>Reading genes:</b> RNA polymerase makes (often polycistronic) mRNA; 70S ribosomes translate it right away. Many antibiotics target the 70S ribosome or bacterial RNA polymerase.</li>
+ <li><b>Gene switches:</b> lac is inducible (allolactose removes the repressor; no glucose means cAMP-CAP boosts it). trp is repressible (tryptophan activates the repressor).</li>
+ <li><b>Mutations and repair:</b> silent, missense, nonsense, frameshift. Chemicals, UV (thymine dimers) and ionizing radiation cause damage; proofreading, light repair and excision repair fix it. The Ames test spots mutagens.</li>
+ <li><b>Gene sharing:</b> transformation (free DNA, Griffith), transduction (phages), conjugation (pilus; F⁺, Hfr) and transposons spread genes, including resistance.</li>
+ <li><b>Biotechnology:</b> restriction enzymes and ligase make recombinant DNA (insulin in <i>E. coli</i>); PCR doubles DNA each cycle; gels sort DNA by size; CRISPR-Cas9 edits genes.</li></ol>
+ <p>Next, try the <a href="Genetics-Lab.html">Microbial Genetics Lab</a>: run the lac operon, PCR and resistance-spread simulators, solve lab notebook puzzles, and sort and order the processes.</p>`,
+ analogy:"Bacteria are tiny, fast kitchens that copy, read, switch and swap recipes. Biotechnology borrows their tools: their scissors, their copiers and even their immune memory.",
+ terms:[["Key numbers","E. coli chromosome about 4.6 million base pairs; PCR about 2ⁿ copies after n cycles; denature 95 °C, anneal 50 to 65 °C, extend 72 °C."],["Big idea","Horizontal gene transfer plus antibiotic selection explains how resistance spreads."]],
+ check:null,caption:"Six parts in review, from the chromosome to CRISPR.",
+ legend:[["act1","DNA and copying","s"],["act2","Reading genes","s"],["act3","Gene switches","s"],["act4","Mutations","s"],["act5","Gene sharing","s"],["act6","Biotechnology","s"]]}
+];
+
+/* ---------------- DOM ---------------- */
+const $=s=>document.querySelector(s);
+const chainEl=$("#chain");
+const done=new Set();
+let cur=0;
+function buildChain(){
+  chainEl.innerHTML="";
+  const groups=[[0,"Start","accent",[0]]];
+  for(let a=1;a<=NACT;a++)groups.push([a,ACTS[a].name,ACTS[a].col,[]]);
+  groups.push([NACT+1,"Finish","accent",[STEPS.length-1]]);
+  STEPS.forEach((s,i)=>{if(s.act>0)groups[s.act][3].push(i)});
+  groups.forEach(g=>{
+    const d=document.createElement("div");d.className="actgrp";
+    if(g[0]===0||g[0]===NACT+1)d.style.flex="0 0 auto";
+    d.innerHTML=`<div class="an"><i style="background:var(--${g[2]})"></i>${g[1]}</div>`;
+    const dots=document.createElement("div");dots.className="dots";
+    g[3].forEach(i=>{const b=document.createElement("button");b.type="button";b.className="dot";b.textContent=i===0?"★":(i===STEPS.length-1?"✓":i);
+      b.setAttribute("aria-label",(i===0?"Start":i===STEPS.length-1?"Finish":"Step "+i)+": "+STEPS[i].title);b.onclick=()=>go(i);b.dataset.i=i;dots.appendChild(b)});
+    d.appendChild(dots);chainEl.appendChild(d);
+  });
+}
+function refreshDots(){document.querySelectorAll(".dot").forEach(b=>{const i=+b.dataset.i;b.classList.toggle("cur",i===cur);b.classList.toggle("done",done.has(i));if(i===cur)b.setAttribute("aria-current","step");else b.removeAttribute("aria-current")})}
+function legendHTML(l){const v="--"+l[0];const sh=l[2]||"c";
+  if(sh==="o")return `<span><i class="o" style="border-color:var(${v})"></i>${l[1]}</span>`;
+  return `<span><i class="${sh}" style="background:var(${v})"></i>${l[1]}</span>`}
+function render(){
+  const s=STEPS[cur];
+  const a=ACTS[s.act];
+  $("#stepno").innerHTML=(s.act?`<span class="actchip" style="--c:var(--${a.col})">${a.name}</span>`:"")+
+    (cur>0&&cur<STEPS.length-1?`<span>Step ${cur} of ${STEPS.length-2}</span>`:"");
+  $("#title").textContent=s.title;
+  $("#body").innerHTML=s.body;
+  $("#analogy p").textContent=s.analogy;
+  $("#terms").innerHTML=s.terms.map(t=>`<div><dt>${t[0]}</dt><dd>${t[1]}</dd></div>`).join("");
+  $("#caption").textContent=s.caption;
+  cv.setAttribute("aria-label","Animation: "+s.caption);if(window.gkDescribe)window.gkDescribe(s.desc);
+  $("#legend").innerHTML=(s.legend||[]).map(legendHTML).join("");
+  const ck=$("#check");
+  if(!s.check){ck.style.display="none"}else{
+    ck.style.display="";
+    $("#q").textContent=s.check.q;
+    const fb=$("#fb");fb.textContent="";fb.className="fb";
+    const box=$("#opts");box.innerHTML="";
+    s.check.opts.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];
+      b.onclick=()=>{box.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));
+        if(o[1]){b.classList.add("right");fb.className="fb ok";fb.textContent="✓ "+o[2];done.add(cur);refreshDots()}
+        else{b.classList.add("wrong");fb.className="fb no";fb.textContent="Not quite. "+o[2]}};
+      box.appendChild(b)});
+  }
+  $("#prev").disabled=cur===0;
+  $("#next").textContent=cur===STEPS.length-1?"Start over":"Next →";
+  $("#progbar").style.width=(cur/(STEPS.length-1)*100)+"%";
+  refreshDots();
+}
+function go(i){cur=Math.max(0,Math.min(STEPS.length-1,i));T=0;render();}
+$("#prev").onclick=()=>go(cur-1);
+$("#next").onclick=()=>go(cur===STEPS.length-1?0:cur+1);
+document.addEventListener("keydown",e=>{if(e.target.tagName==="INPUT"||e.altKey||e.ctrlKey||e.metaKey)return;if(e.key==="ArrowRight")go(cur+1);if(e.key==="ArrowLeft")go(cur-1)});
+let paused=false;
+$("#pauseBtn").onclick=()=>{paused=!paused;$("#pauseBtn").textContent=paused?"Play":"Pause"};
+$("#replayBtn").onclick=()=>{T=0};
+let speed=1;$("#speed").oninput=e=>speed=+e.target.value;
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";
+  r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+
+/* ---------------- canvas ---------------- */
+const W=800,H=480;
+const cv=document.getElementById("stage");ctx=cv.getContext("2d");
+let K=1;
+function fit(){const w=cv.parentElement.clientWidth;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);K=cv.width/W}
+window.addEventListener("resize",fit);
+
+/* ================= mini icons (map + recap) ================= */
+function miniIcon(i,T,s){ctx.save();ctx.scale(s,s);
+  if(i===0){const R=52;ctx.beginPath();ctx.arc(0,0,R,0,TAU);ctx.strokeStyle=C.old;ctx.lineWidth=5;ctx.stroke();const a=Math.PI*P(T,4);
+    ctx.beginPath();ctx.arc(0,0,R-8,-Math.PI/2-a,-Math.PI/2+a);ctx.strokeStyle=C.new;ctx.lineWidth=4;ctx.stroke();
+    [-Math.PI/2-a,-Math.PI/2+a].forEach(an=>circ(Math.cos(an)*R,Math.sin(an)*R,7,null,C.good,3));}
+  else if(i===1){const pts=[];for(let x=-95;x<=95;x+=4)pts.push([x,24+Math.sin(x*.12+T*2)*3]);poly(pts,C.rna,3);const pr=P(T,4);const rx=-85+170*pr;
+    const n=1+Math.floor(pr*9);const ch=[];for(let k=0;k<n;k++)ch.push([rx-k*5+Math.sin(k*.9+T*2)*4,2-k*8]);aaChain(ch,{r:4.5});ribosome(rx,24,17)}
+  else if(i===2){ladder(-100,100,30,14,C.old,C.old,{step:9});rr(-22,44,44,14,3);ctx.fillStyle=hexA(C.bad,.6);ctx.fill();
+    const pr=P(T,4);const up=smooth(seg(pr,.5,.62))-smooth(seg(pr,.9,1));repressor(0,10-up*55,16,{bent:up>.5?1:0,ind:up>.5});
+    if(up<.5)rnapol(-62,30,15,{lab:false});else rnapol(-62+70*smooth(seg(pr,.62,.85)),30,15,{lab:false})}
+  else if(i===3){const L="AUGGC";const pr=P(T,3);const fl=seg(pr,.35,.5);for(let k=0;k<5;k++){let ch=L[k];let w=19;if(k===2){const c=Math.cos(fl*Math.PI);w=19*Math.abs(c);if(fl>.5)ch="A"}tile(-52+k*26,0,ch,{w:Math.max(1,w),h:26,hl:k===2&&fl>.5,size:14})}}
+  else if(i===4){rod(-58,10,86,36,{});rod(58,10,86,36,{});line(-15,10,15,10,C.fplas,3);const pr=smooth(P(T,3));plasmid(lerp(-62,62,pr),10,9,C.rplas,{lw:2.6})}
+  else if(i===5){const n=Math.floor(P(T,5)*6);for(let k=0;k<5;k++){const h=6*Math.pow(2,k)*.62;const X=-80+k*40;rr(X-12,50-h,24,h,3);ctx.fillStyle=k<n?C.new:hexA(C["ink-soft"],.2);ctx.fill()}}
+  ctx.restore()}
+const PARTS=[["DNA and copying","act1","One circular chromosome plus plasmids; two forks copy it from one origin."],["Reading genes","act2","RNA polymerase makes mRNA; 70S ribosomes translate it at once."],["Gene switches","act3","lac: lactose turns it on, glucose keeps it low. trp: tryptophan turns it off."],["Mutations and repair","act4","Silent, missense, nonsense, frameshift; UV dimers; repair; Ames test."],["Gene sharing","act5","Transformation, transduction, conjugation and transposons spread resistance."],["Biotechnology","act6","Recombinant insulin, PCR doubling, gels sort by size, CRISPR edits genes."]];
+function sceneMap(T){const on=Math.floor(T/2.2)%6;
+  PARTS.forEach((c,i)=>{const x=12+(i%3)*262,y=12+Math.floor(i/3)*234,w=252,h=222;const lit=i===on;
+    panelBox(x,y,w,h,{stroke:lit?C[c[1]]:C.rule,lw:lit?3:1.2,fill:hexA(C.panel,lit?.97:.85)});
+    ctx.save();ctx.globalAlpha*=lit?1:.62;ctx.translate(x+w/2,y+92);miniIcon(i,T,1);ctx.restore();
+    if(i===2){const up=P(T,4)>.56&&P(T,4)<.95;label(x+w/2,y+28,up?"ON":"OFF",{size:13,color:up?C.good:C.bad,border:up?C.good:C.bad})}
+    txt(x+w/2,y+h-36,c[0],{size:15,weight:700,align:"center"});txt(x+w/2,y+h-15,"Part "+(i+1),{size:12,mono:true,align:"center",color:C["ink-soft"],weight:600})});
+}
+
+/* ================= Part 1 ================= */
+function drugDot(x,y,r,a){withA(a==null?1:a,()=>{hexS(x,y,r||4.5,C.drug,{fill:C.drug,lw:1})})}
+function sceneGenome(T){
+  title(24,30,"Inside one bacterium (simplified)");
+  rod(230,165,400,200,{});
+  nucleoid(185,165,105,62,T,C.chrom,{lw:2.4});label(160,165,"Chromosome",{size:13,color:C.ink,bga:.85});
+  plasmid(360,112,20,C.rplas,{genes:[[-.7,.9,mix(C.rplas,C.ink,.35)]]});label(360,82,"R plasmid",{size:12.5,color:C.ink});
+  const q=P(T,5);const ca=seg(q,.2,.4)*(1-seg(q,.8,1));if(ca>0){const f=smooth(seg(q,.25,.55));plasmid(lerp(360,395,f),lerp(112,170,f),16,C.rplas,{a:ca*.9,genes:[[-.7,.9,mix(C.rplas,C.ink,.35)]]});label(395,200,"copies itself",{size:12,a:ca*seg(q,.5,.6),color:C["ink-soft"]})}
+  plasmid(330,222,17,C.fplas);label(330,252,"F plasmid",{size:12.5,color:C.ink});
+  const pts=[];for(let k=0;k<=12;k++){const f=k/12;pts.push([430+f*40,165-f*30+Math.sin(f*7+T*3)*4])}poly(pts,C.fplas,2.6);label(470,112,"Sex pilus",{size:12,color:C.ink,align:"right"});
+  panelBox(20,288,452,180);
+  title(36,310,"Chromosome (E. coli)",C.chrom);title(258,310,"Plasmids",C.rplas);
+  [["One large, circular DNA molecule","Small extra DNA circles"],["About 4.6 million base pairs","Copy themselves on their own"],["Genes the cell needs to live","Bonus genes, such as resistance"],["Packed in the nucleoid","Can be passed to other cells"]].forEach((r,i)=>{const y=338+i*32;line(32,y-16,460,y-16,C["rule-soft"],1);wrapText(r[0],36,y,206,14,{size:12.5});wrapText(r[1],258,y,206,14,{size:12.5})});
+  /* right: antibiotic test */
+  panelBox(488,12,300,456);title(502,34,"Antibiotic added");
+  [[0,"With R plasmid",130],[1,"No plasmid",340]].forEach(([k,lab,cy])=>{
+    txt(638,cy-70,lab,{size:13.5,weight:700,align:"center"});
+    const dead=k===1?smooth(seg(P(T,7),.3,.75)):0;
+    rod(638,cy,190,78,{fill:mix(C.cyto,C.dead,dead*.7),edge:mix(C["wall-edge"],C.dead,dead)});
+    nucleoid(610,cy,38,18,T,mix(C.chrom,C.dead,dead),{lw:1.6});
+    if(k===0){plasmid(690,cy-10,11,C.rplas,{lw:2.4});enzyme(672,cy+18,9,C.prot,{rot:Math.sin(T*3)*.3});enzyme(706,cy+16,9,C.prot,{rot:Math.PI+Math.sin(T*3)*.3})}
+    for(let i=0;i<7;i++){const q=P(T*.9+i*.43,3);const sx=548+i*30;
+      if(k===0){if(q<.5)drugDot(sx,lerp(cy-56,cy-30,q*2),4.5,seg(q,0,.1));else if(q<.72){const f=smooth(seg(q,.5,.72));drugDot(lerp(sx,688,f),lerp(cy-30,cy+12,f),4.5)}else{const f=seg(q,.72,1);withA(1-f,()=>{hexS(688-12*f,cy+12+10*f,3,C.drug,{fill:C.drug,lw:1});hexS(688+12*f,cy+12+12*f,3,C.drug,{fill:C.drug,lw:1})})}}
+      else{const f=smooth(seg(q,0,.6));drugDot(sx,lerp(cy-56,cy-8+((i*13)%26),f),4.5,seg(q,0,.1)*(1-seg(q,.92,1)))}}
+    if(k===0){checkMk(560,cy+66,true,8);txt(576,cy+66,"Drug is broken down: keeps growing",{size:12.5,weight:600})}
+    else{withA(dead,()=>{checkMk(560,cy+66,false,8);txt(576,cy+66,"Drug reaches its target: growth stops",{size:12.5,weight:600})})}
+  });
+}
+function sceneBidir(T){const p=P(T,10);const cx=270,cy=245,R=168;
+  const fa=1-smooth(seg(p,.76,.82)),fb=smooth(seg(p,.8,.86));
+  if(fa>0)withA(fa,()=>{const a=Math.PI*smooth(seg(p,.05,.72));const t1=-Math.PI/2+a,t2=-Math.PI/2-a;
+    // unreplicated
+    if(a<Math.PI-.01){[R-4,R+4].forEach(r=>{ctx.beginPath();ctx.arc(cx,cy,r,t1,t2+TAU);ctx.strokeStyle=C.old;ctx.lineWidth=3.2;ctx.stroke()})}
+    if(a>0.01){[[R+18,C.old],[R+10,C.new],[R-10,C.new],[R-18,C.old]].forEach(([r,c])=>{ctx.beginPath();ctx.arc(cx,cy,r,t2,t1);ctx.strokeStyle=c;ctx.lineWidth=3.2;ctx.stroke()})}
+    [t1,t2].forEach((t,k)=>{const fx=cx+Math.cos(t)*R,fy=cy+Math.sin(t)*R;circ(fx,fy,10,hexA(C.good,.25),C.good,3.5);
+      if(a<Math.PI-.05){const dir=k===0?1:-1;const tx=-Math.sin(t)*dir,ty=Math.cos(t)*dir;arrow(fx+tx*16,fy+ty*16,fx+tx*40,fy+ty*40,C.good,2.4)}
+      const lx=cx+Math.cos(t)*(R+52),ly=cy+Math.sin(t)*(R+44);if(a>.25&&a<Math.PI-.2)label(lx,ly,"Fork "+(k+1),{size:12.5,align:"center",color:C.ink})});
+    label(cx,cy-R-34,"Origin (oriC)",{size:13,align:"center",border:C.good});
+    label(cx,cy+R+34,"Terminus",{size:13,align:"center"});
+    if(p>.08&&p<.7)label(cx,cy,"Copying...",{size:13,align:"center",color:C["ink-soft"]});
+  });
+  if(fb>0)withA(fb,()=>{[[150,1],[390,2]].forEach(([x])=>{ctx.beginPath();ctx.arc(x,cy,92,0,TAU);ctx.strokeStyle=C.old;ctx.lineWidth=3.2;ctx.stroke();ctx.beginPath();ctx.arc(x,cy,84,0,TAU);ctx.strokeStyle=C.new;ctx.lineWidth=3.2;ctx.stroke()});
+    label(270,cy-130,"Two chromosomes",{size:14,align:"center"});wrapText("Each has one old (blue) strand and one new (orange) strand.",160,cy+130,230,17,{size:13})});
+  panelBox(488,20,300,440);title(504,44,"How it works");
+  const st=p<.08?0:p<.72?1:p<.8?2:3;
+  ["Copying starts at one origin.","Two forks move apart, around the circle in opposite directions.","The forks meet at the terminus.","Two chromosomes, each with one old and one new strand (semiconservative)."].forEach((s,i)=>{const y=82+i*82;const lit=i===st;
+    rr(500,y-24,276,72,8);ctx.fillStyle=lit?hexA(C.accent,.14):"transparent";ctx.fill();if(lit){ctx.strokeStyle=C.accent;ctx.lineWidth=2;ctx.stroke()}
+    badge(520,y-4,i+1,lit?C.accent:C["ink-soft"],11);wrapText(s,540,y-4,226,17,{size:13,weight:lit?600:500})});
+  wrapText("E. coli copies its whole chromosome in about 40 minutes.",504,418,270,16,{size:12.5,color:C["ink-soft"]});
+}
+function sceneFork(T){const p=P(T,14);const fx=330+400*p;title(24,30,"One replication fork (close-up)");const yT=140,yB=340,x0=34;
+  // rungs of the parent duplex
+  for(let x=fx+6;x<790;x+=10)line(x,230,x,250,hexA(C["ink-soft"],.45),1.4);
+  // leading strand
+  const lt=fx-96;for(let x=x0+5;x<lt;x+=10)line(x,yT,x,yT+16,hexA(C["ink-soft"],.4),1.3);
+  line(x0,yT+16,lt,yT+16,C.new,3.4);
+  // lagging fragments
+  const F=[];for(let i=0;i<10;i++){const b=x0+90*i,R=b+90;const built=clamp(fx-100-R,0,90);const rep=clamp((fx-100-R-90)/30,0,1);F.push({b,R,built,rep})}
+  F.forEach((f,i)=>{if(f.built<=0)return;const xl=f.R-f.built;for(let x=Math.ceil(xl/10)*10+4;x<f.R;x+=10)line(x,yB-16,x,yB,hexA(C["ink-soft"],.4),1.3);
+    const sealedL=f.rep>=1;line(xl+(sealedL?0:3),yB-16,Math.max(xl,f.R-18),yB-16,i%2?mix(C.new,C.ink,.28):C.new,3.4);const nxt=F[i+1];const pr=nxt?nxt.rep:0;line(f.R-18,yB-16,f.R,yB-16,mix(C.rna,C.new,pr),4.2);
+    if(nxt&&nxt.rep>.5&&nxt.rep<1)glow(f.R,yB-16,16,C.glow,.9*(1-Math.abs(nxt.rep-.8)*3));if(nxt&&nxt.rep>=1)circ(f.R,yB-16,2.5,C.glow)});
+  // templates
+  [[yT,230],[yB,250]].forEach(([y,yd])=>{ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(fx-110,y);ctx.bezierCurveTo(fx-60,y,fx-50,yd,fx-4,yd);ctx.lineTo(796,yd);ctx.strokeStyle=C.old;ctx.lineWidth=3.4;ctx.stroke()});
+  // enzymes
+  ell(lt+14,yT+16,22,15,0,mix(C.rnap,C.panel,.45),C.rnap,2);txt(lt+14,yT+16,"Pol III",{size:11.5,weight:700,align:"center"});
+  const act=F.find(f=>f.built>0&&f.built<90);if(act){const xl=act.R-act.built;ell(xl-8,yB-16,22,15,0,mix(C.rnap,C.panel,.45),C.rnap,2);txt(xl-8,yB-16,"Pol III",{size:11.5,weight:700,align:"center"});
+    if(act.built<36){ell(act.R-6,yB-42,20,11,0,mix(C.gold,C.panel,.45),C.gold,1.6);label(act.R-6,yB-66,"Primase",{size:12,align:"center"})}}
+  circ(fx,240,17,null,C.good,6);circ(fx,240,17,null,hexA(C.panel,.5),1.5);label(fx+26,196,"Helicase",{size:12.5});
+  arrow(fx+40,292,fx+96,292,C["ink-soft"],2);txt(fx+40,312,"Fork moves",{size:12.5,color:C["ink-soft"]});
+  endLab(20,yT,"3′");endLab(20,yB,"5′");endLab(20,yT+20,"5′",{color:C.new});
+  label(x0+150,yT-30,"Leading strand: one long piece",{size:13,color:C.ink});
+  label(x0+150,yB+30,"Lagging strand: short Okazaki fragments",{size:13,color:C.ink});
+  [[C.rna,"Primase lays a short RNA primer"],[C.new,"DNA pol I swaps primer for DNA"],[C.glow,"DNA ligase seals each gap"]].forEach((n,i)=>{const x=24+i*258;rr(x,410,248,46,8);ctx.fillStyle=hexA(C.panel,.9);ctx.fill();ctx.strokeStyle=C.rule;ctx.lineWidth=1.2;ctx.stroke();circ(x+18,433,7,n[0]);wrapText(n[1],x+32,433,206,15,{size:12.5,weight:600})});
+}
+
+/* ================= Part 2 ================= */
+const GENES3=[[160,320,"act1","Gene A"],[330,490,"act6","Gene B"],[500,650,"act5","Gene C"]];
+function geneCol(x,list){for(const g of list)if(x<=g[1]+5)return C[g[2]];return C.rna}
+function sceneTranscription(T){const p=P(T,12);const y=300;
+  title(24,30,"Transcription: copying a gene into RNA");
+  [[C.act3,"Promoter: the start signal"],[C.gold,"Sigma factor: guides RNA pol"],[C.bad,"Terminator: the stop signal"]].forEach((n,i)=>{const x=24+i*258;rr(x,410,248,46,8);ctx.fillStyle=hexA(C.panel,.9);ctx.fill();ctx.strokeStyle=C.rule;ctx.lineWidth=1.2;ctx.stroke();circ(x+18,433,7,n[0]);txt(x+32,433,n[1],{size:12.5,weight:600})});
+  ladder(30,770,y,18,C.old,C.old,{step:10});
+  rr(60,326,90,20,4);ctx.fillStyle=hexA(C.act3,.55);ctx.fill();txt(105,336.5,"Promoter",{size:12,weight:700,align:"center"});
+  GENES3.forEach(g=>{rr(g[0],326,g[1]-g[0],20,4);ctx.fillStyle=hexA(C[g[2]],.5);ctx.fill();txt((g[0]+g[1])/2,336.5,g[3],{size:12.5,weight:700,align:"center"})});
+  rr(662,326,62,20,4);ctx.fillStyle=hexA(C.bad,.45);ctx.fill();txt(693,336.5,"Stop",{size:12,weight:700,align:"center"});txt(693,362,"Terminator",{size:12,align:"center",color:C["ink-soft"]});
+  let xr=105,yr=y;if(p<.12){yr=lerp(170,y,smooth(seg(p,0,.12)))}else xr=lerp(105,690,seg(p,.2,.82));
+  const off=-90*smooth(seg(p,.84,.95));const xe=Math.min(xr,655);
+  if(xe>162){const pts=[];for(let x=160;x<=xe;x+=4)pts.push([x,200+off+Math.sin(x*.12+T*2)*3]);
+    poly(pts,C.rna,7);for(let i=1;i<pts.length;i++)line(pts[i-1][0],pts[i-1][1],pts[i][0],pts[i][1],geneCol(pts[i][0],GENES3),2.6);
+    if(p<.84){poly([[xe,200+off],[xr-10,y-16]],C.rna,3)}
+    endLab(148,200+off,"5′",{color:C.rna});if(p>.82)endLab(xe+14,200+off,"3′",{color:C.rna})}
+  const la=1-seg(p,.86,.94);if(la>0){const lift=-60*seg(p,.86,.94);
+    // bubble
+    if(p>=.2&&p<.84){ell(xr,y,34,16,0,C.ecf);line(xr-34,y-9,xr+34,y-9,C.old,2);ctx.beginPath();ctx.moveTo(xr-34,y-9);ctx.quadraticCurveTo(xr,y-30,xr+34,y-9);ctx.strokeStyle=C.old;ctx.lineWidth=3;ctx.stroke();ctx.beginPath();ctx.moveTo(xr-34,y+9);ctx.quadraticCurveTo(xr,y+30,xr+34,y+9);ctx.stroke()}
+    rnapol(xr,yr+lift,26,{a:la,sigma:p<.14})}
+  if(p>=.12&&p<.3){const f=seg(p,.12,.3);ell(105-38-20*f,y+16+50*f,12,8,0,mix(C.gold,C.panel,.4),C.gold,1.6);label(60,y+76,"Sigma factor lets go",{size:12,a:1-f})}
+  if(p<.2)label(105,130,"Sigma factor guides RNA pol to the promoter",{size:12.5,align:"left",a:1-seg(p,.15,.2)});
+  label(405,82,"One mRNA, three genes (polycistronic)",{size:14,align:"center",border:C.rna,a:seg(p,.86,.94)*(1-seg(p,.97,1))});
+  if(p>.3&&p<.84)label(xr,y-54,"RNA polymerase reads the DNA",{size:12.5,align:"center"});
+}
+function sceneTranslation(T){const p=P(T,14);const y=430,ym=320;
+  wrapText("No nucleus: ribosomes start reading the mRNA while it is still being made.",24,30,520,18,{size:14,weight:600});
+  ladder(30,560,y,16,C.old,C.old,{step:10});txt(36,y+24,"DNA",{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  const run=seg(p,0,.88);const xr=lerp(80,540,run);const fade=1-seg(p,.92,1);
+  withA(fade,()=>{
+    if(xr>84){const pts=[];for(let x=80;x<=xr;x+=4)pts.push([x,ym+Math.sin(x*.11+T*2)*3]);poly(pts,C.rna,3.4);poly([[xr,ym],[xr,y-18]],C.rna,3)}
+    endLab(66,ym,"5′",{color:C.rna});
+    rnapol(xr,y,24,{});
+    const vR=460/.88*.78;
+    for(let k=0;k<5;k++){const ts=.06+k*.15;if(p<ts)continue;const rx=Math.min(80+(p-ts)*vR,xr-34);if(rx<80)continue;
+      const n=Math.min(16,1+Math.floor((rx-80)/12));const ch=[];for(let j=0;j<n;j++)ch.push([rx-6-j*4+Math.sin(j*.8+T*2+k)*4,ym-26-j*9]);aaChain(ch,{r:4.2});ribosome(rx,ym,16)}
+    label(150,ym+40,"mRNA",{size:12.5,color:C.rna});
+  });
+  panelBox(580,14,206,246);title(594,36,"70S ribosome");
+  const sep=12*(.5+.5*Math.sin(T*1.6));
+  ell(683,104-sep,52,32,0,mix(C.ribo,C.panel,.25),mix(C.ribo,C.ink,.3),1.6);txt(683,104-sep,"50S",{size:14,weight:700,align:"center"});
+  ell(683,150+sep,42,22,0,mix(C.ribo,C.panel,.45),mix(C.ribo,C.ink,.3),1.6);txt(683,150+sep,"30S",{size:13,weight:700,align:"center"});
+  txt(683,206,"30S + 50S = 70S",{size:13,weight:700,align:"center",mono:true});
+  txt(683,232,"Human: 40S + 60S = 80S",{size:12,align:"center",color:C["ink-soft"]});
+  panelBox(580,276,206,190);title(594,298,"Codons");
+  const cod=[["AUG","Met"],["UUU","Phe"],["GGC","Gly"]];const hi=Math.floor(P(T,4.5)*3);
+  cod.forEach((c,i)=>{const cx=612+i*64;for(let b=0;b<3;b++)tile(cx-18+b*18+9,340,c[0][b],{w:16,h:22,size:12,hl:i===hi});arrow(cx+9,356,cx+9,384,C["ink-soft"],1.5);circ(cx+9,398,10,i<=hi?C.aa:hexA(C.aa,.3),hexA(C.ink,.35),1);txt(cx+9,420,c[1],{size:12,mono:true,weight:600,align:"center"})});
+  txt(594,440,"3 bases = 1 codon",{size:12,color:C["ink-soft"]});txt(594,456,"1 codon = 1 amino acid",{size:12,color:C["ink-soft"]});
+}
+function drawTetra(x,y,s,a){withA(a,()=>{for(let k=0;k<4;k++)hexS(x-s*2.6+k*s*1.75,y,s,C.drug,{fill:mix(C.drug,C.panel,.25),lw:1.3})})}
+function drawMacro(x,y,s,a){withA(a,()=>{circ(x,y,s,mix(C.drug,C.panel,.55),C.drug,2.4);for(let k=0;k<6;k++){const an=k/6*TAU;circ(x+Math.cos(an)*s,y+Math.sin(an)*s,2.6,C.drug)}})}
+function sceneAbx(T){const p=P(T,9);
+  [[12,"Bacterial 70S ribosome",26,["50S","30S"],true],[408,"Human 80S ribosome",33,["60S","40S"],false]].forEach(([x0,ttl,s,lab,bact])=>{
+    panelBox(x0,12,380,320);title(x0+14,34,ttl);
+    const rx=x0+190,ry=210;const pts=[];for(let x=x0+20;x<=x0+360;x+=4)pts.push([x,ry+Math.sin(x*.11)*3]);poly(pts,C.rna,3.4);
+    const grow=bact?Math.min(p,.42):p;const n=Math.min(13,3+Math.floor(grow*26));const ch=[];for(let j=0;j<n;j++)ch.push([rx-8-j*4+Math.sin(j*.8+(bact&&p>.42?0:T*2))*5,ry-s*1.05-j*7.5]);aaChain(ch,{r:4});
+    ribosome(rx,ry,s,{lab:lab});
+    const t1=[rx+s*.55,ry+s*.42],t2=[rx-s*.7,ry-s*.55];
+    [[t1,[x0+320,96],drawTetra,"Tetracycline",5],[t2,[x0+64,96],drawMacro,"Macrolide",9]].forEach(([tg,st,fn,nm,sz],k)=>{
+      const f=smooth(seg(p,.08+k*.06,.38+k*.04));let X=lerp(st[0],tg[0]+(bact?0:(k?-26:26)),f),Y=lerp(st[1],tg[1]-(bact?0:22),f);
+      if(!bact&&p>.46){const b=smooth(seg(p,.46,.7));X=lerp(X,st[0],b);Y=lerp(Y,st[1]+20,b);if(p<.75)arrow(X+(k?14:-14),Y+16,X+(k?20:-20),Y-6,C["ink-soft"],1.6)}
+      fn(X,Y,sz,1);const la=(k===0?seg(p,.08,.14):seg(p,.14,.2))*(bact?1-seg(p,.34,.4):1);label(X,Y-22,nm,{size:12,align:"center",a:la});
+      if(bact&&p>.44)pulseRing(tg[0],tg[1],14,C.drug,P(T,1.2))});
+    if(bact){label(rx+52,ry+48,"Tetracycline on 30S",{size:12,a:seg(p,.4,.46)});label(rx-52,ry-62,"Macrolide on 50S",{size:12,align:"right",a:seg(p,.42,.48)})}
+    if(bact)label(rx,306,"Stalled: no new protein",{size:13,align:"center",color:C.bad,border:C.bad,a:seg(p,.44,.5)});
+    else label(rx,306,"Drug does not fit: keeps working",{size:13,align:"center",color:C.good,border:C.good,a:seg(p,.5,.56)});
+  });
+  panelBox(12,344,776,124);title(26,366,"Another target: bacterial RNA polymerase");
+  const xr=lerp(70,230,smooth(seg(p,0,.4)));line(40,430,370,430,C.old,3.2);line(40,442,370,442,C.old,3.2);
+  if(xr>80){const pts=[];for(let x=60;x<=xr;x+=4)pts.push([x,404+Math.sin(x*.12)*2.5]);poly(pts,C.rna,3)}
+  const sh=p>.42?Math.sin(T*30)*1.5:0;rnapol(xr+sh,436,20,{lab:"RNA pol"});
+  const df=smooth(seg(p,.2,.4));drugDot(lerp(330,xr+18,df),lerp(370,420,df),6);label(lerp(330,xr+18,df)+12,lerp(370,420,df)-14,"Rifampin",{size:12,a:seg(p,.2,.26)*(1-seg(p,.38,.42))});
+  label(40,386,"Rifampin stuck: RNA pol stopped",{size:12.5,color:C.bad,a:seg(p,.44,.5)});
+  txt(400,398,"30S blockers: tetracyclines, aminoglycosides",{size:12.5,weight:600});
+  txt(400,422,"50S blockers: macrolides, chloramphenicol,",{size:12.5,weight:600});txt(400,442,"clindamycin, linezolid",{size:12.5,weight:600});
+}
+
+/* ================= Part 3: operons ================= */
+const LAC=[[40,150,"rep","lacI"],[188,228,"cap","CAP"],[230,298,"act1","P"],[300,350,"bad","O"],[356,500,"prot","lacZ"],[505,610,"sug","lacY"],[615,700,"act6","lacA"]];
+const LACY=280;
+function lacMap(o){o=o||{};ladder(30,770,LACY,16,C.old,C.old,{step:10});
+  LAC.forEach(b=>{rr(b[0],LACY+16,b[1]-b[0],22,4);ctx.fillStyle=hexA(C[b[2]],.5);ctx.fill();ctx.strokeStyle=hexA(C[b[2]],.9);ctx.lineWidth=1.2;ctx.stroke();txt((b[0]+b[1])/2,LACY+27.5,b[3],{size:12.5,weight:700,align:"center",mono:true})});
+  txt(95,LACY+52,"repressor gene",{size:12,align:"center",color:C["ink-soft"]});txt(264,LACY+52,"promoter",{size:12,align:"center",color:C["ink-soft"]});txt(325,LACY+66,"operator",{size:12,align:"center",color:C["ink-soft"]});
+  txt(528,LACY+52,"genes for using lactose",{size:12,align:"center",color:C["ink-soft"]})}
+function lacKey(){panelBox(20,368,760,100);
+  [["rep","lacI","repressor protein (made all the time)"],["prot","lacZ","β-galactosidase: splits lactose"],["sug","lacY","permease: lets lactose in"],["act6","lacA","transacetylase"]].forEach((k,i)=>{const x=36+(i%2)*372,y=394+Math.floor(i/2)*44;
+    rr(x,y-10,44,20,4);ctx.fillStyle=hexA(C[k[0]],.5);ctx.fill();txt(x+22,y+.5,k[1],{size:12.5,mono:true,weight:700,align:"center"});wrapText(k[2],x+54,y,300,15,{size:13})})}
+function statusBox(rows){panelBox(560,16,224,24+rows.length*26);rows.forEach((r,i)=>{const y=38+i*26;txt(574,y,r[0],{size:13,color:C["ink-soft"]});txt(770,y,r[1],{size:13,weight:700,align:"right",color:r[2]||C.ink})})}
+function sceneLacOff(T){
+  title(24,30,"No lactose around");lacMap();lacKey();
+  // repressors produced from lacI
+  const q=P(T,4);withA(seg(q,0,.15)*(1-seg(q,.75,1)),()=>{const f=smooth(seg(q,0,.8));repressor(lerp(95,150,f),lerp(262,150,f),15,{})});
+  label(120,120,"Repressor made all the time",{size:12.5,a:seg(q,.1,.3)*(1-seg(q,.85,1))});
+  const bob=Math.sin(T*2)*1.5;repressor(325,LACY-22+bob,21,{lab:"Rep"});
+  const r=P(T,4.4);let x;if(r<.45)x=lerp(150,262,smooth(seg(r,0,.45)));else if(r<.65)x=262+Math.sin(T*28)*2;else x=lerp(262,150,smooth(seg(r,.65,1)));
+  rnapol(x,LACY,26,{a:r<.9?1:1-seg(r,.9,1)});
+  if(r>.45&&r<.65)label(262,LACY-62,"Blocked!",{size:13,align:"center",color:C.bad});
+  const pulse=.75+.25*Math.sin(T*3);label(528,LACY-46,"Genes OFF",{size:15,align:"center",color:C.bad,border:C.bad,a:pulse});
+  statusBox([["Lactose","none"],["Repressor","on the operator",C.bad],["Genes","OFF",C.bad]]);
+}
+function sceneLacOn(T){const p=P(T,14);
+  title(24,30,"Lactose arrives (no glucose)");lacMap();lacKey();
+  capProt(208,LACY-20,15,{camp:true});label(186,LACY-44,"CAP-cAMP",{size:12,align:"right"});
+  const LS=[[150,120],[214,150],[262,108],[110,176],[176,96],[236,190]];
+  // lactose molecules
+  LS.forEach((L,i)=>{const enter=smooth(seg(p,i*.02,.12+i*.02));const sx=-20,sy=60+i*12;let x=lerp(sx,L[0],enter),y=lerp(sy,L[1],enter)+Math.sin(T*1.5+i)*3;
+    if(i<2){// become allolactose and bind repressor
+      const f=smooth(seg(p,.14,.24));if(p>.14){const tx=325+(i?13:-13),ty=LACY-30;x=lerp(x,tx,f);y=lerp(y,ty,f)}
+      if(p<.24)lactose(x,y,7,{});return}
+    const sp=smooth(seg(p,.58+i*.06,.66+i*.06));lactose(x,y,7,{split:sp});
+    if(i===3&&sp>.5){label(x-26,y+22,"galactose",{size:12,align:"center",a:sp});label(x+30,y+22,"glucose",{size:12,align:"center",a:sp})}});
+  if(p>.1&&p<.24)label(330,190,"Some lactose becomes allolactose",{size:12.5,align:"center",a:seg(p,.1,.14)});
+  // repressor
+  const lift=smooth(seg(p,.26,.38));const rx=lerp(325,420,lift),ry=lerp(LACY-22,150,lift);
+  repressor(rx,ry,21,{ind:p>.24,bent:smooth(seg(p,.22,.28)),lab:"Rep"});
+  if(p>.28&&p<.5)label(rx+40,ry-36,"Repressor falls off",{size:12.5,a:seg(p,.28,.32)});
+  // RNA polymerase
+  let xr,yr=LACY,ra=1;if(p<.3){xr=lerp(150,264,smooth(seg(p,.05,.3)));yr=lerp(170,LACY,smooth(seg(p,.05,.3)))}else{xr=lerp(264,690,seg(p,.36,.78))}
+  if(p>.8)ra=1-seg(p,.8,.88);
+  const xe=Math.min(xr,700);const mY=196;
+  if(xe>360&&p<.97){const pts=[];for(let x=356;x<=xe;x+=4)pts.push([x,mY+Math.sin(x*.12+T*2)*3]);poly(pts,C.rna,3.4);if(p<.8)poly([[xe,mY],[xr-8,LACY-14]],C.rna,2.6)}
+  rnapol(xr,yr,26,{a:ra});
+  // ribosomes and enzymes
+  for(let k=0;k<2;k++){const ts=.48+k*.1;if(p<ts||p>.97)continue;const rbx=Math.min(356+(p-ts)*900,xe-30);ribosome(rbx,mY,13)}
+  for(let k=0;k<4;k++){const ts=.54+k*.06;if(p<ts)continue;const f=smooth(seg(p,ts,ts+.08));const tgt=LS[2+k];enzyme(lerp(420+k*30,tgt[0]+18,f),lerp(mY-10,tgt[1]+4,f),9,C.prot,{rot:Math.PI+Math.sin(T*4+k)*.3,a:1-seg(p,.95,1)})}
+  if(p>.55)label(520,170,"β-galactosidase splits lactose",{size:12.5,align:"center",a:seg(p,.55,.6)*(1-seg(p,.95,1))});
+  const on=p>.36&&p<.92;label(430,52,on?"Genes ON":"Switching on...",{size:15,align:"center",color:on?C.good:C["ink-soft"],border:on?C.good:null});
+  statusBox([["Lactose","present",C.good],["Repressor",p>.3?"off":"on the operator",p>.3?C.good:C.bad],["Genes",on?"ON":"OFF",on?C.good:C.bad]]);
+}
+function miniLac(x,y,w,h,glu,lacP,T,lit){panelBox(x,y,w,h,{stroke:lit?C.accent:C.rule,lw:lit?3:1.2,fill:hexA(C.panel,lit?.97:.88)});
+  title(x+14,y+20,(glu?"Glucose +":"Glucose −")+" · "+(lacP?"Lactose +":"Lactose −"),lit?C.ink:C["ink-soft"]);
+  hexS(x+w-46,y+20,7,C.glu,{fill:glu?mix(C.glu,C.panel,.3):"transparent"});if(!glu)line(x+w-56,y+30,x+w-36,y+10,C.bad,2);
+  lactose(x+w-20,y+20,5,{a:lacP?1:.35});if(!lacP)line(x+w-32,y+30,x+w-8,y+10,C.bad,2);
+  const dy=y+118;line(x+16,dy-7,x+w-16,dy-7,C.old,2.6);line(x+16,dy+7,x+w-16,dy+7,C.old,2.6);for(let xx=x+20;xx<x+w-16;xx+=9)line(xx,dy-7,xx,dy+7,hexA(C["ink-soft"],.4),1.2);
+  const bl=[[x+30,x+70,"cap","CAP"],[x+72,x+108,"act1","P"],[x+110,x+136,"bad","O"],[x+140,x+w-20,"prot","lacZ  lacY  lacA"]];
+  bl.forEach(b=>{rr(b[0],dy+10,b[1]-b[0],18,3);ctx.fillStyle=hexA(C[b[2]],.5);ctx.fill();txt((b[0]+b[1])/2,dy+19.5,b[3],{size:11.5,mono:true,weight:700,align:"center"})});
+  const nc=glu?3:12;for(let k=0;k<nc;k++){const ax=x+24+((k*53+T*14*(k%2?1:-1))%(w-48)+(w-48))%(w-48),ay=y+44+((k*19)%40)+Math.sin(T*2+k)*4;campDot(ax,ay,3.4)}
+  txt(x+16,y+90,glu?"cAMP low":"cAMP high",{size:12,weight:600,color:C["ink-soft"]});
+  if(!glu)capProt(x+50,dy-17,11,{camp:true,lab:false});
+  if(!lacP)repressor(x+123,dy-18,11,{});else repressor(x+178,y+76+Math.sin(T*2)*3,10,{ind:true,bent:1});
+  rnapol(x+92,dy,13,{lab:false});
+  const lvl=glu?(lacP?"LOW":"OFF"):(lacP?"HIGH":"OFF");const rate=lvl==="HIGH"?1.6:lvl==="LOW"?.35:0;
+  if(rate>0){const n=lvl==="HIGH"?4:1;for(let k=0;k<n;k++){const q=P(T*rate/ n+k/n,1);if(lvl==="LOW"&&q>.6)continue;const f=lvl==="LOW"?q/.6:q;const mx=lerp(x+150,x+w-60,f),my=lerp(dy-22,y+60,f);const pts=[];for(let j=0;j<8;j++)pts.push([mx+j*4,my+Math.sin(j+T*4)*2.5]);poly(pts,C.rna,2.6)}}
+  const fr=lvl==="HIGH"?1:lvl==="LOW"?.22:.03;txt(x+16,y+h-34,"β-galactosidase made",{size:12,color:C["ink-soft"]});
+  rr(x+16,y+h-24,w-120,14,7);ctx.fillStyle=C.sunk;ctx.fill();rr(x+16,y+h-24,Math.max(14,(w-120)*fr),14,7);ctx.fillStyle=lvl==="HIGH"?C.good:lvl==="LOW"?C.warn:C.bad;ctx.fill();
+  txt(x+w-16,y+h-17,lvl,{size:15,weight:700,align:"right",mono:true,color:lvl==="HIGH"?C.good:lvl==="LOW"?C["warn-ink"]:C.bad})}
+function sceneCap(T){const on=Math.floor(T/3)%4;
+  [[12,12,1,0],[406,12,1,1],[12,246,0,1],[406,246,0,0]].forEach((c,i)=>miniLac(c[0],c[1],382,222,c[2],c[3],T,i===on));
+}
+const TRPG=[[60,130,"act1","P"],[132,180,"bad","O"],[186,280,"trp","trpE"],[284,380,"trp","trpD"],[384,480,"trp","trpC"],[484,580,"trp","trpB"],[584,680,"trp","trpA"]];
+function trpLevel(p){if(p<.45)return lerp(.1,.9,smooth(p/.45));if(p<.7)return .9;if(p<.95)return lerp(.9,.1,smooth(seg(p,.7,.95)));return .1}
+function sceneTrp(T){const p=P(T,16);const y=250;
+  title(24,30,"trp operon: genes to BUILD tryptophan");
+  ladder(30,700,y,16,C.old,C.old,{step:10});
+  TRPG.forEach(b=>{rr(b[0],y+16,b[1]-b[0],22,4);ctx.fillStyle=hexA(C[b[2]],b[2]==="trp"?.35:.5);ctx.fill();txt((b[0]+b[1])/2,y+27.5,b[3],{size:12.5,weight:700,align:"center",mono:true})});
+  const lev=trpLevel(p);
+  // gauge
+  txt(744,40,"Tryptophan",{size:12,weight:700,align:"center"});rr(728,60,32,300,8);ctx.fillStyle=C.sunk;ctx.fill();rr(728,60+300*(1-lev),32,300*lev,8);ctx.fillStyle=C.trp;ctx.fill();
+  txt(744,372,lev>.6?"high":lev<.3?"low":"rising",{size:12,weight:600,align:"center",color:C["ink-soft"]});
+  // tryptophan molecules
+  const nT=Math.round(lev*16);for(let k=0;k<nT;k++){const x=70+((k*97)%600),yy=70+((k*37)%90)+Math.sin(T*1.6+k)*4;trpMol(x,yy,6)}
+  const bound=p>.5&&p<.86;const toOp=smooth(seg(p,.48,.56))*(1-smooth(seg(p,.86,.92)));
+  const rx=lerp(380,156,toOp),ry=lerp(150+Math.sin(T*2)*4,y-22,toOp);
+  repressor(rx,ry,20,{bent:p>.44&&p<.9?0:1,lab:"Rep"});
+  if(p>.44&&p<.9){const f=smooth(seg(p,.44,.5));trpMol(lerp(300,rx-10,f),lerp(100,ry-12,f),6);trpMol(lerp(460,rx+10,f),lerp(110,ry-12,f),6)}
+  if(p<.44)label(380,108,"Repressor inactive: cannot bind",{size:12.5,align:"center"});
+  if(p>.5&&p<.86)label(156,140,"Tryptophan activates the repressor",{size:12.5,align:"center"});
+  if(!bound){const q=P(T,3);const xr=lerp(95,690,q);if(xr>190){const pts=[];for(let x=186;x<=xr;x+=4)pts.push([x,190+Math.sin(x*.12+T*2)*3]);poly(pts,C.rna,3)}rnapol(xr,y,24,{a:1-seg(q,.9,1)});
+    for(let k=0;k<3;k++){const f=P(T*.5+k/3,1);enzyme(220+k*150+f*40,205-f*40,8,C.prot,{a:1-f})}}
+  else{rnapol(95+Math.sin(T*28)*2,y,24,{});label(95,y-50,"Blocked",{size:12.5,align:"center",color:C.bad})}
+  label(380,330,bound?"Genes OFF":"Genes ON",{size:15,align:"center",color:bound?C.bad:C.good,border:bound?C.bad:C.good});
+  if(p>.7&&p<.95)label(560,330,"Cell uses up tryptophan",{size:12.5,align:"center"});
+  panelBox(20,366,690,100);
+  txt(36,394,"lac",{size:14,weight:700,mono:true,color:C.prot});txt(80,394,"Inducible: OFF until lactose turns it ON (to break down food)",{size:13});
+  txt(36,430,"trp",{size:14,weight:700,mono:true,color:C.trp});txt(80,430,"Repressible: ON until tryptophan turns it OFF (to build)",{size:13});
+}
+
+/* ================= Part 4: mutations ================= */
+const ORIG=["AUG","UUU","GGC","UAC","AAA","UAA"],ORIGAA=["Met","Phe","Gly","Tyr","Lys","Stop"];
+const PM=[{name:"Original",sub:"the normal gene",c:-1},{name:"Silent",sub:"GGC to GGA",c:2,b:2,to:"A",aa:"Gly",res:"Same protein"},{name:"Missense",sub:"GGC to AGC",c:2,b:0,to:"A",aa:"Ser",res:"One amino acid changed"},{name:"Nonsense",sub:"UAC to UAA",c:3,b:2,to:"A",aa:"Stop",res:"Cut short: usually useless"}];
+function protBeads(x,y,n,odd,T){for(let k=0;k<n;k++){const X=x+k*30,Y=y+Math.sin(k*1.3+T*1.5)*6;if(k)line(X-30,y+Math.sin((k-1)*1.3+T*1.5)*6,X,Y,hexA(C.ink,.4),1.6);circ(X,Y,9,k===odd?C.bad:C.aa,hexA(C.ink,.4),1)}}
+function scenePoint(T){const p=P(T,13);
+  txt(24,26,"mRNA codons, read in threes",{size:12,mono:true,weight:700,color:C["ink-soft"]});title(612,26,"Protein");
+  PM.forEach((r,ri)=>{const y=74+ri*104;const t0=ri*.15-.07;const a=1;
+    withA(a,()=>{panelBox(12,y-40,776,96,{fill:hexA(C.panel,.6)});txt(24,y-12,r.name,{size:15,weight:700});txt(24,y+10,r.sub,{size:12,mono:true,color:C["ink-soft"]});
+      const fl=ri===0?0:seg(p,t0+.05,t0+.1);
+      for(let c=0;c<6;c++){for(let b=0;b<3;b++){let ch=ORIG[c][b];let w=17,hl=false;if(c===r.c&&b===r.b){const cs=Math.cos(fl*Math.PI);w=Math.max(1,17*Math.abs(cs));if(fl>.5){ch=r.to;hl=true}}
+          tile(160+c*68+b*20,y-8,ch,{w,hl})}
+        const X=160+c*68+20;line(X-28,y+8,X+28,y+8,C["ink-soft"],1.2);
+        let aa=ORIGAA[c],col=C.ink;if(fl>.5){if(c===r.c){aa=r.aa;col=r.name==="Silent"?C.good:C.bad}else if(r.name==="Nonsense"&&c>r.c){aa="—";col=C["ink-faint"]}}
+        txt(X,y+26,aa,{size:12.5,mono:true,weight:700,align:"center",color:col})}
+      const show=ri===0?1:seg(p,t0+.1,t0+.14);if(show>0)withA(show,()=>{const n=r.name==="Nonsense"?3:5;protBeads(612,y-12,n,r.name==="Missense"?2:-1,T);
+        txt(612,y+26,ri===0?"Normal protein":r.res,{size:12.5,weight:600,color:ri===0?C.ink:r.name==="Silent"?C.good:C.bad})});
+    })});
+}
+const FS={orig:"AUGUUUGGCUACAAAUAA",ins:"AUGAUUUGGCUACAAAUAA",del:"AUGUUGGCUACAAAUAA"};
+const AA={AUG:"Met",UUU:"Phe",GGC:"Gly",UAC:"Tyr",AAA:"Lys",UAA:"Stop",AUU:"Ile",UGG:"Trp",CUA:"Leu",CAA:"Gln",AUA:"Ile",UUG:"Leu",GCU:"Ala",ACA:"Thr",AAU:"Asn"};
+function codonRow(seq,xs,y,a,bad){const n=Math.floor(seq.length/3);for(let c=0;c<n;c++){const x1=xs[c*3]-9,x2=xs[c*3+2]+9;withA(a,()=>{ctx.beginPath();ctx.moveTo(x1,y+14);ctx.lineTo(x1,y+20);ctx.lineTo(x2,y+20);ctx.lineTo(x2,y+14);ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();
+  const cod=seq.substr(c*3,3);txt((x1+x2)/2,y+36,AA[cod]||"?",{size:12.5,mono:true,weight:700,align:"center",color:bad&&c>0?C.bad:C.ink})})}}
+function sceneFrameshift(T){const p=P(T,14);
+  panelBox(12,12,776,108);title(26,32,"Reading in threes");
+  const w1=["THE","CAT","ATE","THE","RAT"],w2=["THE","XCA","TAT","ETH","ERA","T"];
+  txt(26,62,"Original",{size:12,mono:true,weight:700,color:C["ink-soft"]});w1.forEach((w,i)=>txt(130+i*66,62,w,{size:17,mono:true,weight:700}));
+  const a2=seg(p,.06,.12);withA(a2,()=>{txt(26,98,"Add X",{size:12,mono:true,weight:700,color:C["ink-soft"]});w2.forEach((w,i)=>txt(130+i*66,98,w,{size:17,mono:true,weight:700,color:i?C.bad:C.ink}))});
+  wrapText("One extra letter and every later word is nonsense.",560,80,210,17,{size:13,color:C["ink-soft"]});
+  const S=22,X0=150;
+  // original
+  const yo=172;txt(24,yo,"Original",{size:14,weight:700});FS.orig.split("").forEach((b,i)=>tile(X0+i*S,yo,b,{w:18}));codonRow(FS.orig,FS.orig.split("").map((b,i)=>X0+i*S),yo,1,false);
+  // insertion
+  const yi=284;txt(24,yi-8,"Insertion",{size:14,weight:700});txt(24,yi+12,"one extra A",{size:12,mono:true,color:C["ink-soft"]});
+  const sh=smooth(seg(p,.24,.32));const xsO=FS.orig.split("").map((b,i)=>X0+(i+(i>=3?sh:0))*S);
+  FS.orig.split("").forEach((b,i)=>tile(xsO[i],yi,b,{w:18}));
+  const dy=lerp(yi-70,yi,smooth(seg(p,.28,.36)));if(p>.24)tile(X0+3*S,dy,"A",{w:18,hl:false,a:seg(p,.24,.28)});if(p>.24)withA(seg(p,.28,.36),()=>{rr(X0+3*S-11,dy-13,22,26,4);ctx.strokeStyle=C.good;ctx.lineWidth=2.6;ctx.stroke()});
+  const xsI=FS.ins.split("").map((b,i)=>X0+i*S);
+  if(p<.36)codonRow(FS.orig,FS.orig.split("").map((b,i)=>X0+i*S),yi,1-seg(p,.2,.24),false);else codonRow(FS.ins,xsI,yi,seg(p,.36,.44),true);
+  // deletion
+  const yd=396;txt(24,yd-8,"Deletion",{size:14,weight:700});txt(24,yd+12,"one U removed",{size:12,mono:true,color:C["ink-soft"]});
+  const sd=smooth(seg(p,.6,.68));FS.orig.split("").forEach((b,i)=>{if(i===3){const f=seg(p,.54,.62);tile(X0+3*S,yd-50*smooth(f),b,{w:18,a:1-f,hl:p>.5});return}tile(X0+(i-(i>3?sd:0))*S,yd,b,{w:18})});
+  if(p<.68)codonRow(FS.orig,FS.orig.split("").map((b,i)=>X0+i*S),yd,1-seg(p,.5,.54),false);else codonRow(FS.del,FS.del.split("").map((b,i)=>X0+i*S),yd,seg(p,.68,.76),true);
+  label(580,yi,"All later codons change",{size:12.5,color:C.bad,a:seg(p,.42,.48)});
+  label(580,yd,"All later codons change",{size:12.5,color:C.bad,a:seg(p,.74,.8)});
+  txt(400,462,"Add or remove exactly 3 bases and the frame stays the same: only one amino acid is gained or lost.",{size:12.5,align:"center",color:C["ink-soft"]});
+}
+const PAIR={A:"T",T:"A",G:"C",C:"G"};
+function duplex(x,y,seq,o){o=o||{};const S=26;const n=seq.length;const xs=[];for(let i=0;i<n;i++){let X=x+i*S+(o.shift&&i>=o.shiftAt?o.shift:0);xs.push(X)}
+  // backbones
+  const kink=o.kink||0;const ky=i=>(kink&&(i===o.kinkAt||i===o.kinkAt+1))?-kink:(kink&&(i===o.kinkAt-1||i===o.kinkAt+2))?-kink*.45:0;
+  const brk=o.brk||0;
+  [[y-26,0],[y+26,1]].forEach(([yy,k])=>{ctx.beginPath();for(let i=0;i<n;i++){const X=xs[i]+(brk&&i>=o.brkAt?brk:0),Y=yy+ky(i)+(brk&&i>=o.brkAt?brk*.4:0);if(i===0||(brk&&i===o.brkAt))ctx.moveTo(X-13,Y);ctx.lineTo(X+13,Y)}ctx.strokeStyle=C.old;ctx.lineWidth=3;ctx.stroke()});
+  for(let i=0;i<n;i++){const X=xs[i]+(brk&&i>=o.brkAt?brk:0),dyb=(brk&&i>=o.brkAt?brk*.4:0);const top=(o.topOver&&o.topOver[i])||seq[i],bot=(o.botOver&&o.botOver[i])||PAIR[seq[i]];
+    if(!(o.noRung&&o.noRung.includes(i)))line(X,y-4+ky(i)+dyb,X,y+4+dyb,hexA(C["ink-soft"],.6),1.4);
+    tile(X,y-14+ky(i)+dyb,top,{w:20,h:20,size:12,hl:o.hlTop&&o.hlTop.includes(i)});
+    if(bot==="BU"){rr(X-10,y+4+dyb,20,20,3);ctx.fillStyle=mix(C.dead,C.panel,.4);ctx.fill();ctx.strokeStyle=C.dead;ctx.lineWidth=2;ctx.stroke();txt(X,y+14.5+dyb,"BU",{size:11.5,weight:700,align:"center",mono:true})}
+    else tile(X,y+14+dyb,bot,{w:20,h:20,size:12,hl:o.hlBot&&o.hlBot.includes(i)})}
+  return xs}
+function sceneMutagens(T){const p=P(T,12);
+  const P1=12,P2=276,P3=540;[P1,P2,P3].forEach(x=>panelBox(x,12,248,456));
+  // chemicals
+  title(P1+14,34,"Chemicals");
+  const ba=smooth(seg(p,.05,.22));const swap=p>.3;
+  const xs=duplex(P1+33,170,"GCTAGCAT",{botOver:{3:ba>.98?"BU":undefined},topOver:{3:swap?"G":"A"},hlTop:swap?[3]:[]});
+  if(ba<.98&&p>.04){rr(xs[3]-10+(1-ba)*120,170+4+(1-ba)*40,20,20,3);ctx.fillStyle=mix(C.dead,C.panel,.4);ctx.fill();ctx.strokeStyle=C.dead;ctx.lineWidth=2;ctx.stroke();txt(xs[3]+(1-ba)*120,184+(1-ba)*40,"BU",{size:11.5,weight:700,align:"center",mono:true})}
+  label(P1+124,104,"Base analog (5-BU)",{size:12.5,align:"center",a:seg(p,.05,.1)});
+  wrapText("It pairs like the wrong base, so after copying an A-T pair becomes G-C.",P1+16,236,216,16,{size:12.5,a:1});
+  const ic=smooth(seg(p,.5,.65));const xs2=duplex(P1+33,330,"GCATAGCT",{shift:12*ic,shiftAt:5});
+  if(p>.48){withA(seg(p,.48,.52),()=>{rr(lerp(P1+240,xs2[4]+16,ic)-4,300,8,60,3);ctx.fillStyle=C.drug;ctx.fill()})}
+  label(P1+124,272,"Intercalating agent",{size:12.5,align:"center",a:seg(p,.48,.52)});
+  wrapText("A flat molecule wedges between base pairs, causing frameshifts.",P1+16,394,216,16,{size:12.5});
+  txt(P1+124,446,"e.g. ethidium bromide",{size:12,align:"center",color:C["ink-soft"]});
+  // UV
+  title(P2+14,34,"UV light");
+  for(let k=0;k<3;k++){const q=seg(p,.08+k*.06,.28+k*.06);if(q>0&&q<1){const x2=P2+86+k*20,y2=150;ray(x2+120*(1-q)+60,40+60*(1-q)*0,x2+lerp(60,0,q),lerp(70,y2,q),C.uv,1-seg(q,.85,1),2.4)}}
+  const dim=smooth(seg(p,.36,.48));
+  const xs3=duplex(P2+33,220,"GATTCAGC",{kink:12*dim,kinkAt:2,noRung:dim>.5?[2,3]:[]});
+  if(dim>0){withA(dim,()=>{line(xs3[2]+3,206-12*dim-10,xs3[3]-3,206-12*dim-10,C.uv,5);line(xs3[2],206-12*dim-10,xs3[2],206-12*dim-4,C.uv,4);line(xs3[3],206-12*dim-10,xs3[3],206-12*dim-4,C.uv,4)})}
+  label(P2+124,140,"Thymine dimer",{size:13,align:"center",border:C.uv,a:seg(p,.46,.52)});
+  wrapText("UV links two neighbouring T's on the same strand. The DNA kinks, and copying stalls or makes errors.",P2+16,300,216,16,{size:12.5});
+  txt(P2+124,446,"Used in UV lamps to kill microbes",{size:12,align:"center",color:C["ink-soft"]});
+  // ionizing
+  title(P3+14,34,"Ionizing radiation");
+  for(let k=0;k<2;k++){const q=seg(p,.1+k*.08,.3+k*.08);if(q>0&&q<1)ray(P3+200-k*50,50,lerp(P3+200-k*50,P3+138,q),lerp(50,206,q),C["ink-soft"],1-seg(q,.85,1),2.6)}
+  const sp=seg(p,.34,.46);if(sp>0&&sp<1){for(let k=0;k<6;k++){const an=k/6*TAU+sp*2;glow(P3+137+Math.cos(an)*24*sp,220+Math.sin(an)*24*sp,10,C.glow,1-sp)}}
+  const brk=10*smooth(seg(p,.42,.56));duplex(P3+33,220,"CGATGCAT",{brk,brkAt:4,noRung:brk>2?[]:[]});
+  label(P3+124,140,"Strand breaks",{size:13,align:"center",border:C.bad,a:seg(p,.48,.54)});
+  label(P3+70,286,"Free radicals",{size:12,align:"center",a:seg(p,.34,.4)*(1-seg(p,.6,.7))});
+  wrapText("X-rays and gamma rays carry so much energy they break the DNA backbone.",P3+16,320,216,16,{size:12.5});
+  txt(P3+124,446,"Used to sterilize medical supplies",{size:12,align:"center",color:C["ink-soft"]});
+}
+function sceneRepair(T){const p=P(T,10);
+  const L=[[12,"Proofreading"],[166,"Light repair (photolyase)"],[320,"Excision repair"]];
+  L.forEach(([y,t])=>{panelBox(12,y,776,148);title(26,y+22,t)});
+  // lane 1: proofreading
+  {const y=12,ty=y+104,ny=y+84;line(50,ty,750,ty,C.old,3.2);for(let x=56;x<750;x+=12)line(x,ny,x,ty,hexA(C["ink-soft"],.3),1.2);
+    let xb;if(p<.3)xb=lerp(60,300,p/.3);else if(p<.6)xb=300;else xb=lerp(312,700,seg(p,.6,1));
+    line(50,ny,Math.min(xb,300),ny,C.new,3.4);if(p>.55)line(300,ny,xb,ny,C.new,3.4);
+    const wrongA=p>.28&&p<.5?1:p>=.5?1-seg(p,.5,.56):0;if(wrongA>0){const up=seg(p,.48,.56)*30;withA(wrongA,()=>{rr(300,ny-7-up,12,14,2);ctx.fillStyle=C.bad;ctx.fill()})}
+    const back=p>.34&&p<.5?-12*Math.sin(seg(p,.34,.5)*Math.PI):0;
+    ell(xb+18+back,ny+10,24,16,0,mix(C.rnap,C.panel,.45),C.rnap,2);txt(xb+18+back,ny+10,"DNA pol",{size:11.5,weight:700,align:"center"});
+    label(306,y+48,"Wrong base!",{size:12.5,align:"center",color:C.bad,a:seg(p,.3,.34)*(1-seg(p,.55,.6))});
+    label(306,y+48,"Oops, fixed",{size:12.5,align:"center",color:C.good,a:seg(p,.58,.62)*(1-seg(p,.9,.95))});
+    txt(770,y+22,"DNA polymerase checks each base it adds",{size:12.5,align:"right",color:C["ink-soft"]})}
+  // lane 2: photolyase
+  {const y=166,cy=y+92;const xs=[];for(let i=0;i<20;i++)xs.push(150+i*26);
+    line(130,cy-26,660,cy-26,C.old,3);line(130,cy+26,660,cy+26,C.old,3);
+    const brk=seg(p,.55,.62);
+    xs.forEach((x,i)=>{const isT=i===9||i===10;const lift=isT&&brk<1?-6:0;if(!(isT&&brk<.5))line(x,cy-4,x,cy+4,hexA(C["ink-soft"],.6),1.4);const s2="GCAGCAGCATTGCAGCAGCG";tile(x,cy-14+lift,s2[i],{w:20,h:20,size:12});tile(x,cy+14,PAIR[s2[i]],{w:20,h:20,size:12})});
+    if(brk<1)withA(1-brk,()=>{line(xs[9]+4,cy-34,xs[10]-4,cy-34,C.uv,5);line(xs[9],cy-34,xs[9],cy-26,C.uv,4);line(xs[10],cy-34,xs[10],cy-26,C.uv,4)});
+    const pd=smooth(seg(p,.1,.3))*(1-smooth(seg(p,.7,.85)));const px=(xs[9]+xs[10])/2;
+    if(pd>0){ell(px,lerp(y+20,cy-46,pd),30,15,0,mix(C.good,C.panel,.5),C.good,2);txt(px,lerp(y+20,cy-46,pd),"Photolyase",{size:11.5,weight:700,align:"center"})}
+    for(let k=0;k<3;k++){const q=seg(p,.35+k*.04,.55+k*.04);if(q>0&&q<1)ray(px-60+k*60,y+6,lerp(px-60+k*60,px-10+k*10,q),lerp(y+6,cy-60,q),C.glow,1-seg(q,.8,1),2.6)}
+    label(px,y+22,"Visible light",{size:12,align:"center",a:seg(p,.35,.4)*(1-seg(p,.62,.7))});
+    txt(770,y+22,"Splits thymine dimers",{size:12.5,align:"right",color:C["ink-soft"]});
+    txt(770,y+130,"Bacteria have this; humans do not",{size:12.5,align:"right",weight:600})}
+  // lane 3: excision
+  {const y=320,cy=y+96;stepRow(440,y+10,330,["Cut","Remove","Fill","Seal"],p<.25?0:p<.45?1:p<.75?2:3,C.act4);
+    line(50,cy+12,750,cy+12,C.old,3.2);for(let x=56;x<750;x+=12)line(x,cy-10,x,cy+12,hexA(C["ink-soft"],.3),1.2);
+    const rem=smooth(seg(p,.25,.45));line(50,cy-10,330,cy-10,C.old,3.2);line(420,cy-10,750,cy-10,C.old,3.2);
+    withA(1-seg(p,.4,.5),()=>{line(330,cy-10-rem*40,420,cy-10-rem*40,C.old,3.2);circ(372,cy-10-rem*40,8,C.bad);glow(372,cy-10-rem*40,16,C.bad,.5)});
+    if(p<.25)label(372,cy-40,"Damage",{size:12,align:"center",color:C.bad});
+    [330,420].forEach(x=>{const s=seg(p,.08,.22);if(s>0&&s<1)scissors(x,cy-30,14,Math.PI/2,Math.abs(Math.sin(s*Math.PI*3)),C.ink)});
+    const fill=seg(p,.45,.75);if(fill>0){line(330,cy-10,330+90*fill,cy-10,C.new,3.4);if(fill<1){ell(330+90*fill+16,cy-10,20,13,0,mix(C.rnap,C.panel,.45),C.rnap,2);txt(330+90*fill+16,cy-10,"Pol I",{size:11.5,weight:700,align:"center"})}}
+    const sl=seg(p,.75,.85);if(sl>0){[330,420].forEach(x=>{glow(x,cy-10,16,C.glow,.9*(1-Math.abs(sl-.5)));circ(x,cy-10,2.6,C.glow)});label(375,cy+40,"Ligase seals",{size:12,align:"center",a:sl})}}
+}
+function sceneAmes(T){const p=P(T,14);
+  title(24,26,"The Ames test");
+  // tube 1
+  tube(70,60,40,140,.7,hexA(C.gneg,.35));for(let k=0;k<6;k++)bug(60+(k%2)*20,130+Math.floor(k/2)*20+Math.sin(T*2+k)*2,4,k,C.gneg);
+  txt(70,226,"Salmonella his⁻",{size:12.5,weight:700,align:"center"});txt(70,244,"cannot make histidine",{size:12,align:"center",color:C["ink-soft"]});
+  arrow(100,130,170,130,C["ink-soft"],2);
+  // tube 2 mixing
+  const sw=seg(p,.28,.38);tube(230,60,44,140,.72,hexA(mix(C.gneg,mix(C.drug,C.ribo,seg(p,.18,.28)*.5),seg(p,.1,.2)),.35));
+  for(let k=0;k<6;k++){const an=k+T*3*sw;bug(230+Math.cos(an)*10*sw+((k%2)*16-8)*(1-sw),130+Math.floor(k/2)*20+Math.sin(an)*8*sw,4,k+T*sw,C.gneg)}
+  const d1=seg(p,.08,.18);if(d1>0&&d1<1)circ(222,lerp(20,110,d1),5,C.drug);const d2=seg(p,.18,.28);if(d2>0&&d2<1)circ(238,lerp(20,110,d2),5,C.ribo);
+  label(160,40,"+ test chemical",{size:12,align:"center",a:seg(p,.08,.12)});label(310,40,"+ liver extract",{size:12,align:"center",a:seg(p,.18,.22)});
+  txt(230,226,"Mix",{size:12.5,weight:700,align:"center"});
+  // pour
+  const po=seg(p,.38,.48);if(po>0){arrow(262,110,262+(380-262)*po,lerp(110,140,po),C["ink-soft"],2,[5,4]);if(po>.2)arrow(262,100,262+(600-262)*po,lerp(100,120,po),C["ink-soft"],2,[5,4])}
+  // plates
+  const nC=Math.floor(15*smooth(seg(p,.55,.85))),nT=Math.floor(120*smooth(seg(p,.55,.85)));
+  const pc=colonyPts(120,11,4.2),pt=colonyPts(120,47,4.2);
+  plate(470,150,78,{cols:pc.slice(0,nC)});plate(680,150,78,{cols:pt.slice(0,nT).map(c=>[c[0],c[1],c[2]*.85])});
+  txt(470,52,"Control (no chemical)",{size:13,weight:700,align:"center"});txt(680,52,"Test chemical",{size:13,weight:700,align:"center"});
+  label(470,246,nC+(nC===1?" colony":" colonies"),{size:13,align:"center",mono:true});label(680,246,nT+(nT===1?" colony":" colonies"),{size:13,align:"center",mono:true,color:nT>40?C.bad:C.ink});
+  const ck=seg(p,.48,.86);circ(575,150,17,C.panel,C["ink-soft"],1.6);line(575,150,575+Math.cos(ck*TAU*2-Math.PI/2)*12,150+Math.sin(ck*TAU*2-Math.PI/2)*12,C.ink,2);txt(575,182,"48 h",{size:12,mono:true,weight:700,align:"center"});
+  txt(575,272,"Both plates: agar with NO histidine",{size:12.5,align:"center",color:C["ink-soft"]});
+  // bottom callout
+  panelBox(20,290,760,170);title(36,312,"What a colony means");
+  rod(110,370,120,46,{edge:C.gneg});rr(70,362,80,14,4);ctx.fillStyle=hexA(C.bad,.5);ctx.fill();txt(110,369.5,"his gene",{size:11.5,weight:700,align:"center"});checkMk(110,404,false,7);txt(110,430,"his⁻: broken",{size:12,align:"center"});
+  arrow(180,370,240,370,C["ink-soft"],2);txt(210,352,"mutation",{size:12,align:"center",color:C["ink-soft"]});
+  rod(310,370,120,46,{edge:C.gneg});rr(270,362,80,14,4);ctx.fillStyle=hexA(C.good,.55);ctx.fill();txt(310,369.5,"his gene",{size:11.5,weight:700,align:"center"});checkMk(310,404,true,7);txt(310,430,"his⁺: works again",{size:12,align:"center"});
+  wrapText("Each colony grew from one cell that mutated back (a revertant), so it can make its own histidine.",400,340,360,17,{size:13});
+  label(570,420,"Many more colonies: a mutagen, possibly a carcinogen",{size:13,align:"center",color:C.bad,border:C.bad,a:seg(p,.86,.9)});
+}
+
+/* ================= Part 5: gene sharing ================= */
+function sceneGriffith(T){const p=P(T,16);
+  const rows=[["1. Live S strain","S",1],["2. Live R strain","R",0],["3. Heat-killed S","K",0],["4. Heat-killed S + live R","KR",1]];
+  rows.forEach((r,k)=>{const y=70+k*100;panelBox(12,y-46,458,92);txt(24,y-28,r[0],{size:13,weight:700});
+    const gx=56,gy=y+12;
+    if(r[1]==="S"){coccus(gx,gy,9,{capsule:true});coccus(gx+19,gy,9,{capsule:true})}
+    else if(r[1]==="R"){coccus(gx,gy,9,{});coccus(gx+19,gy,9,{})}
+    else{coccus(gx-6,gy,9,{col:C.dead,a:.8});coccus(gx+13,gy,9,{col:C.dead,a:.8});ctx.save();ctx.translate(gx+40,gy+6);ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(-8,-10,0,-20);ctx.quadraticCurveTo(8,-10,0,0);ctx.fillStyle=C.heat;ctx.fill();ctx.restore();
+      if(r[1]==="KR"){coccus(gx+64,gy,9,{});coccus(gx+83,gy,9,{});txt(gx+52,gy,"+",{size:16,weight:700,align:"center"})}}
+    const t0=.04+k*.2;const inj=seg(p,t0,t0+.08);const ax0=r[1]==="KR"?160:130;arrow(ax0,gy,262,gy,hexA(C["ink-soft"],.5),2,[5,4]);
+    if(inj>0&&inj<1)circ(lerp(ax0,262,inj),gy,5,C.gpos);
+    const res=seg(p,t0+.1,t0+.16);const sick=r[2]?res:0;mouse(322,y+8,.95,{sick});
+    if(res>0)withA(res,()=>{if(r[2]){txt(462,y-2,"Dies",{size:14,weight:700,align:"right",color:C.bad});if(r[1]==="KR")txt(462,y+18,"live S found",{size:12.5,weight:600,align:"right",color:C.bad})}
+      else txt(462,y+2,"Lives",{size:14,weight:700,align:"right",color:C.good})});
+  });
+  // zoom
+  panelBox(484,12,304,406);title(498,34,"What happened in row 4");
+  const q=P(T,9);
+  coccus(540,96,14,{col:C.dead,a:.8});coccus(566,96,14,{col:C.dead,a:.8});txt(553,128,"dead S cell",{size:12,align:"center",color:C["ink-soft"]});
+  const frags=[[600,90],[640,120],[700,92],[620,150]];
+  frags.forEach((f,i)=>{let x=f[0]+Math.sin(T*1.3+i)*6,y=f[1]+Math.cos(T*1.1+i)*5;if(i===0){const g=smooth(seg(q,.15,.45));x=lerp(x,636,g);y=lerp(y,262,g)}
+    if(i===0&&q>.45)return;const pts=[];for(let j=0;j<8;j++)pts.push([x-14+j*4,y+Math.sin(j*1.2)*4]);poly(pts,i===0?C.new:C.old,3)});
+  label(650,62,"capsule gene",{size:12,align:"center",a:1-seg(q,.15,.25),color:C.ink});
+  const cap=smooth(seg(q,.62,.85));coccus(606,262,36,{capsule:cap>0,a:1});coccus(670,262,36,{capsule:cap>0});
+  if(cap>0&&cap<1)withA(1-cap,()=>{circ(606,262,51,C.panel);circ(670,262,51,C.panel);coccus(606,262,36,{});coccus(670,262,36,{})});
+  nucleoid(606,262,18,12,T,C.chrom,{lw:1.8});nucleoid(670,262,18,12,T+1,C.chrom,{lw:1.8});
+  if(q>.45){const g=smooth(seg(q,.45,.6));const pts=[];for(let j=0;j<6;j++)pts.push([lerp(632,620,g)+j*4,lerp(262,252,g)+Math.sin(j)*3]);poly(pts,C.new,3.4)}
+  label(638,200,"R cell takes up the DNA",{size:12.5,align:"center",a:seg(q,.3,.4)*(1-seg(q,.6,.65))});
+  label(638,200,"Now it makes a capsule: S!",{size:12.5,align:"center",color:C.bad,a:seg(q,.7,.78)});
+  wrapText("Transformation: a bacterium takes up free DNA and adds it to its own chromosome.",500,346,276,17,{size:13,weight:600});
+  txt(20,444,"1928: Griffith's experiment. 1944: Avery, MacLeod and McCarty showed the transforming substance is DNA.",{size:12.5,color:C["ink-soft"]});
+}
+function stageQ(p,i,n,T,dur){const k=Math.floor(p*n);return i!==k?1:P(T,dur)}
+function sceneTransduction(T){const p=P(T,16);const k=Math.floor(p*4);
+  [[12,"Generalized transduction: any gene"],[244,"Specialized transduction: only the neighbour gene"]].forEach(([y,t],lane)=>{panelBox(12,y,776,224,{fill:hexA(C.panel,.5)});title(26,y+20,t);
+    const names=lane===0?["Phage infects","Host DNA chopped","Packing mistake","New cell gets gene"]:["Prophage beside gal","Cuts out with gal","Phages carry gal","New cell gets gal"];
+    for(let i=0;i<4;i++){const x=20+i*192,bx=x,by=y+34,bw=182,bh=182;const lit=i===k;const q=stageQ(p,i,4,T,4);
+      panelBox(bx,by,bw,bh,{stroke:lit?C.act5:C.rule,lw:lit?3:1.2,fill:hexA(C.panel,lit?.97:.8)});
+      txt(bx+bw/2,by+16,names[i],{size:12.5,weight:700,align:"center"});if(i<3)arrow(bx+bw+1,by+bh/2,bx+bw+9,by+bh/2,C["ink-soft"],1.6);
+      const cx=bx+bw/2,cy=by+110;ctx.save();rr(bx,by,bw,bh,8);ctx.clip();if(i>k)ctx.globalAlpha*=.4;
+      if(lane===0)genStage(i,q,cx,cy,T);else speStage(i,q,cx,cy,T);ctx.restore()}
+  });
+}
+function chromPieces(cx,cy,f){for(let j=0;j<5;j++){const x=cx-50+j*24,y=cy+(j%2?8:-8);line(x-8,y,x+8,y+(j%2?-4:4),C.chrom,3)}}
+function genStage(i,q,cx,cy,T){
+  if(i===0){rod(cx,cy+12,150,64,{});nucleoid(cx,cy+12,48,20,T,C.chrom,{lw:2});phage(cx,cy-42,20,Math.PI/2,{dna:q<.4?C.dead:null});
+    if(q>.3){const f=seg(q,.3,.8);const pts=[];for(let j=0;j<=10*f;j++)pts.push([cx+Math.sin(j)*5,cy-16+j*3]);if(pts.length>1)poly(pts,C.dead,2.6)}}
+  else if(i===1){rod(cx,cy+12,150,64,{});withA(1-q,()=>nucleoid(cx,cy+12,48,20,T,C.chrom,{lw:2}));withA(q,()=>chromPieces(cx,cy+12));
+    for(let j=0;j<3;j++)withA(seg(q,.3+j*.15,.5+j*.15),()=>{hexS(cx-50+j*50,cy-12,7,C.phage,{fill:mix(C.phage,C.panel,.5)})})}
+  else if(i===2){rod(cx,cy+12,150,64,{});const ph=[[cx-48,cy+14,C.dead],[cx,cy+14,C.chrom],[cx+48,cy+14,C.dead]];
+    ph.forEach((f,j)=>{phage(f[0],f[1]-6,13,Math.PI/2,{dna:f[2],a:seg(q,j*.15,.3+j*.15)})});if(q>.5){pulseRing(cx,cy,20,C.act5,P(T,1.2));label(cx,cy-46,"Mistake: host DNA packed",{size:12,align:"center",color:C.ink})}}
+  else{rod(cx,cy+16,150,62,{});nucleoid(cx,cy+18,46,18,T,C.chrom,{lw:2});phage(cx,cy-46,20,Math.PI/2,{dna:q<.4?C.chrom:null});
+    const f=seg(q,.3,.7);if(f>0){const pts=[];for(let j=0;j<=8*f;j++)pts.push([cx+Math.sin(j)*4,cy-20+j*4]);if(pts.length>1)poly(pts,C.chrom,3.4)}
+    if(q>.7){glow(cx,cy+2,20,C.glow,.6*(1-seg(q,.7,1)));label(cx,cy+60,"New gene joins chromosome",{size:12,align:"center"})}}}
+function speStage(i,q,cx,cy,T){const ly=cy+10;
+  const chromLine=(withPro,withGal,gap)=>{line(cx-74,ly,cx+74,ly,C.chrom,4);if(withPro){rr(cx-34,ly-6,40,12,3);ctx.fillStyle=C.dead;ctx.fill()}if(withGal){rr(cx+8,ly-6,30,12,3);ctx.fillStyle=C.fplas;ctx.fill()}};
+  if(i===0){rod(cx,cy+10,154,70,{});chromLine(true,true);label(cx-14,ly-26,"prophage",{size:12,align:"center"});label(cx+23,ly+26,"gal",{size:12,align:"center"})}
+  else if(i===1){rod(cx,cy+10,154,70,{});const f=smooth(q);line(cx-74,ly,cx+74,ly,C.chrom,4);withA(1-f,()=>{rr(cx-34,ly-6,72,12,3);ctx.fillStyle=C.panel;ctx.fill();rr(cx-34,ly-6,40,12,3);ctx.fillStyle=C.dead;ctx.fill();rr(cx+8,ly-6,30,12,3);ctx.fillStyle=C.fplas;ctx.fill()});
+    if(f>0)withA(f,()=>{const yy=ly-34*f;ctx.beginPath();ctx.arc(cx,yy,18,Math.PI*.15,Math.PI*1.35);ctx.strokeStyle=C.dead;ctx.lineWidth=5;ctx.stroke();ctx.beginPath();ctx.arc(cx,yy,18,Math.PI*1.35,Math.PI*2.15);ctx.strokeStyle=C.fplas;ctx.lineWidth=5;ctx.stroke()});
+    if(q>.6)label(cx,cy+58,"Cut out wrongly, taking gal",{size:12,align:"center"})}
+  else if(i===2){rod(cx,cy+10,154,70,{});line(cx-74,ly+20,cx+74,ly+20,C.chrom,3);[cx-40,cx+40].forEach((x,j)=>{withA(seg(q,j*.2,.4+j*.2),()=>{phage(x,cy+2,16,Math.PI/2,{dna:C.dead});circ(x+3,cy-14,4,C.fplas)})})}
+  else{rod(cx,cy+16,154,66,{});line(cx-74,ly+8,cx+74,ly+8,C.chrom,4);phage(cx,cy-46,20,Math.PI/2,{dna:q<.4?C.dead:null});const f=seg(q,.5,.8);
+    if(f>0){rr(cx-15,ly+2,30*f,12,3);ctx.fillStyle=C.fplas;ctx.fill();label(cx,ly+34,"gal gene added",{size:12,align:"center",a:f})}}}
+function sceneConj(T){const p=P(T,14);
+  // top: F+ x F-
+  panelBox(12,12,776,222,{fill:hexA(C.panel,.5)});title(26,34,"F⁺ × F⁻");
+  const cyT=128;const rX=p<.2?600:p<.35?lerp(600,452,smooth(seg(p,.2,.35))):p<.85?452:lerp(452,560,smooth(seg(p,.85,1)));
+  rod(200,cyT,220,90,{});rod(rX,cyT,220,90,{});nucleoid(150,cyT,36,18,T,C.chrom,{lw:1.8});nucleoid(rX+40,cyT,36,18,T+2,C.chrom,{lw:1.8});
+  const pl=seg(p,0,.2);if(p<.35){const ex=p<.2?lerp(310,rX-110,pl):rX-110;const pts=[];for(let k=0;k<=10;k++){const f=k/10;pts.push([lerp(310,ex,f),cyT+Math.sin(f*8+T*4)*3*(1-seg(p,.2,.35))])}poly(pts,C.fplas,3);if(p<.3)label((310+ex)/2,cyT-28,"Sex pilus",{size:12,align:"center"})}
+  else if(p<.86){rr(308,cyT-8,40,16,6);ctx.fillStyle=hexA(C.fplas,.35);ctx.fill()}
+  // donor plasmid (copying)
+  plasmid(250,cyT,20,C.fplas,{lw:2.6});const cp=seg(p,.35,.7);if(cp>0){ctx.beginPath();ctx.arc(250,cyT,14,-Math.PI/2,-Math.PI/2+TAU*cp);ctx.strokeStyle=C.new;ctx.lineWidth=2.6;ctx.stroke()}
+  // transferring dots
+  if(p>.35&&p<.72){for(let k=0;k<7;k++){const f=P(T*1.2+k/7,1);circ(lerp(270,rX-60,f),cyT+Math.sin(f*6)*4,3.2,C.fplas)}}
+  const rc=seg(p,.38,.7);if(rc>0){ctx.beginPath();ctx.arc(rX-60,cyT,20,-Math.PI/2,-Math.PI/2+TAU*rc);ctx.strokeStyle=C.fplas;ctx.lineWidth=2.6;ctx.stroke()}
+  const rn=seg(p,.7,.85);if(rn>0){ctx.beginPath();ctx.arc(rX-60,cyT,14,-Math.PI/2,-Math.PI/2+TAU*rn);ctx.strokeStyle=C.new;ctx.lineWidth=2.6;ctx.stroke()}
+  txt(200,cyT-60,"F⁺ (donor)",{size:13,weight:700,align:"center"});txt(rX,cyT-60,p>.85?"F⁺ (now has F)":"F⁻ (recipient)",{size:13,weight:700,align:"center",color:p>.85?C.good:C.ink});
+  if(p>.35&&p<.72)label(380,cyT+66,"One strand crosses; both cells build the partner strand",{size:12.5,align:"center"});
+  // bottom: Hfr
+  panelBox(12,246,776,222,{fill:hexA(C.panel,.5)});title(26,268,"Hfr: F built into the chromosome");
+  const cyB=360;const sep=p>.6?smooth(seg(p,.6,.7))*30:0;
+  rod(200,cyB,240,100,{});rod(470+sep,cyB,240,100,{});
+  if(p<.6){rr(322,cyB-8,30,16,6);ctx.fillStyle=hexA(C.fplas,.35);ctx.fill()}else if(p<.66){glow(336,cyB,18,C.bad,.7);label(336,cyB-66,"Contact breaks",{size:12.5,align:"center",color:C.bad})}
+  const SEGS=[[100,118,C.fplas,""],[120,200,C.chrom,""],[206,229,C.act6,"c"],[234,257,C.gold,"b"],[262,285,C.rplas,"a"],[290,305,C.fplas,"F"]];
+  line(95,cyB+12,308,cyB+12,C.chrom,4);SEGS.forEach(s=>{line(s[0],cyB+12,s[1],cyB+12,s[2],8);if(s[3])txt((s[0]+s[1])/2,cyB+30,s[3],{size:12.5,mono:true,weight:700,align:"center"})});
+  txt(200,cyB-64,"Hfr donor",{size:13,weight:700,align:"center"});
+  // transferred copy enters recipient (order: F, a, b)
+  const Lt=74*seg(p,.1,.6);const order=[[15,C.fplas,"F"],[23,C.rplas,"a"],[23,C.gold,"b"],[23,C.act6,"c"]];
+  const rx0=356+sep;const join=smooth(seg(p,.72,.88));
+  let acc=0;order.forEach(o=>{const s0=acc,s1=Math.min(acc+o[0],Lt);acc+=o[0]+5;if(s1<=s0)return;
+    const keep=o[2]==="a"||o[2]==="b";if(!keep&&p>.72){withA(1-seg(p,.72,.8),()=>line(rx0+s0,cyB-14,rx0+s1,cyB-14,o[1],7));return}
+    const tx=keep?(o[2]==="a"?440:470)+sep:0;const X0=lerp(rx0+s0,tx,keep?join:0);const Y=lerp(cyB-14,cyB+12,keep?join:0);line(X0,Y,X0+(s1-s0),Y,o[1],7);if(s1-s0>12)txt(X0+(s1-s0)/2,Y-14,o[2],{size:12.5,mono:true,weight:700,align:"center"})});
+  line(380+sep,cyB+12,560+sep,cyB+12,C.chrom,4);
+  txt(470+sep,cyB-64,p>.8?"Still F⁻, but now has genes a and b":"F⁻ recipient",{size:13,weight:700,align:"center",color:p>.8?C.good:C.ink});
+  if(p>.1&&p<.6)label(560,cyB+72,"Chromosome genes follow F across",{size:12.5,align:"center"});
+}
+function sceneTransposon(T){const p=P(T,16);const y=120;
+  title(24,30,"Jumping genes");
+  // chromosome with gene X insert
+  const ins=smooth(seg(p,.7,.78));const gap=78*ins;
+  line(30,y,770,y,C.chrom,8);
+  // original transposon on chromosome
+  const tn=(x,yy,s,a)=>withA(a==null?1:a,()=>{const w=130*s;rr(x,yy-9*s,w,18*s,3);ctx.fillStyle=C.panel;ctx.fill();rr(x+12*s,yy-7*s,48*s,14*s,2);ctx.fillStyle=C.gold;ctx.fill();rr(x+64*s,yy-7*s,54*s,14*s,2);ctx.fillStyle=C.rplas;ctx.fill();
+    [[x,1],[x+w,-1]].forEach(([ex,d])=>{ctx.beginPath();ctx.moveTo(ex,yy-9*s);ctx.lineTo(ex+d*10*s,yy);ctx.lineTo(ex,yy+9*s);ctx.closePath();ctx.fillStyle=C.ink;ctx.fill()})});
+  tn(200,y,1);
+  // gene X (split by insertion)
+  if(gap<1){rr(540,y-9,120,18,3);ctx.fillStyle=C.fplas;ctx.fill()}else{rr(540,y-9,60,18,3);ctx.fillStyle=C.fplas;ctx.fill();rr(600+gap,y-9,60,18,3);ctx.fillStyle=C.fplas;ctx.fill()}
+  if(gap>2){rr(600,y-9,gap,18,0);ctx.fillStyle=C.ecf;ctx.fill();tn(600,y,.6)}
+  txt(600+gap/2,y-24,"Gene X",{size:12.5,weight:700,align:"center"});
+  if(p>.76)label(600+gap/2,y+40,"Gene X disrupted",{size:13,align:"center",color:C.bad,border:C.bad,a:seg(p,.76,.8)});
+  // transposase
+  const ta=seg(p,.03,.1)*(1-seg(p,.4,.46));if(ta>0){withA(ta,()=>{ell(265,y-48,26,14,0,mix(C.gold,C.panel,.4),C.gold,2);label(265,y-76,"Transposase",{size:12,align:"center"})})}
+  // jump 1: to plasmid
+  const PX=600,PY=330,PR=70;
+  const ins1=smooth(seg(p,.38,.46));
+  plasmid(PX,PY,PR,C.plas,{lw:4,genes:ins1>0?[[-Math.PI/2-.45*ins1,-Math.PI/2-.05,C.gold],[-Math.PI/2-.05,-Math.PI/2+.5*ins1,C.rplas]]:[]});
+  txt(PX,PY,"Plasmid",{size:13,weight:700,align:"center"});
+  const j1=seg(p,.12,.38);if(j1>0&&j1<1){const f=smooth(j1);const x=lerp(200,PX-65,f),yy=lerp(y,PY-PR,f)-Math.sin(f*Math.PI)*90;tn(x,yy,1-.2*f)}
+  if(p>.12&&p<.36)label(420,60,"A copy jumps",{size:12.5,align:"center"});
+  label(PX,PY+PR+30,"Plasmid now carries resistance: an R plasmid",{size:13,align:"center",border:C.rplas,a:seg(p,.44,.5)});
+  // jump 2: into gene X
+  const j2=seg(p,.52,.7);if(j2>0&&j2<1){const f=smooth(j2);const x=lerp(200,600,f),yy=y-Math.sin(f*Math.PI)*70;tn(x,yy,1-.4*f)}
+  // structure zoom
+  panelBox(20,232,440,150);title(36,254,"Parts of a transposon");
+  const zx=44,zy=300;rr(zx,zy-16,376,32,4);ctx.fillStyle=C.panel;ctx.fill();rr(zx+44,zy-12,140,24,3);ctx.fillStyle=mix(C.gold,C.panel,.35);ctx.fill();rr(zx+192,zy-12,140,24,3);ctx.fillStyle=mix(C.rplas,C.panel,.4);ctx.fill();
+  [[zx,1],[zx+376,-1]].forEach(([ex,d])=>{ctx.beginPath();ctx.moveTo(ex,zy-16);ctx.lineTo(ex+d*30,zy);ctx.lineTo(ex,zy+16);ctx.closePath();ctx.fillStyle=C.ink;ctx.fill()});
+  txt(zx+114,zy+.5,"transposase",{size:12.5,weight:700,align:"center"});txt(zx+262,zy+.5,"resistance",{size:12.5,weight:700,align:"center"});
+  txt(zx+14,zy+34,"inverted",{size:12,align:"center",color:C["ink-soft"]});txt(zx+14,zy+50,"repeat",{size:12,align:"center",color:C["ink-soft"]});
+  txt(zx+362,zy+34,"inverted",{size:12,align:"center",color:C["ink-soft"]});txt(zx+362,zy+50,"repeat",{size:12,align:"center",color:C["ink-soft"]});
+  txt(zx+188,zy+42,"cut-and-paste enzyme gene · passenger gene",{size:12,align:"center",color:C["ink-soft"]});
+  txt(20,410,"Barbara McClintock first found jumping genes in corn.",{size:12.5,color:C["ink-soft"]});
+  txt(20,436,"Transposons move between chromosomes and plasmids,",{size:12.5,color:C["ink-soft"]});txt(20,454,"taking resistance genes along.",{size:12.5,color:C["ink-soft"]});
+}
+/* resistance spread population (deterministic) */
+const SPOP=(()=>{const cells=[];for(let r=0;r<6;r++)for(let c=0;c<8;c++){const i=cells.length;cells.push({x:52+c*58+(rnd(i*3+1)-.5)*22,y:84+r*62+(rnd(i*5+2)-.5)*20,a:rnd(i*7+3)*TAU,co:rnd(i*11+4)<.26,tg:null,donor:null,td:.42+rnd(i*13+5)*.14})}
+  [9,22,37].forEach(i=>{cells[i].tg=-1;cells[i].co=false});
+  for(let j=0;j<9;j++){let best=null,bd=1e9,bdon=null;cells.forEach((c,i)=>{if(c.tg!==null)return;cells.forEach((d,k)=>{if(d.tg===null)return;const dd=Math.hypot(c.x-d.x,c.y-d.y);if(dd<bd){bd=dd;best=i;bdon=k}})});cells[best].tg=.05+j*.035;cells[best].donor=bdon}
+  if(!cells.some(c=>c.tg>0&&c.co)){const g=cells.filter(c=>c.tg>0)[3];g.co=true}
+  const resAt=c=>c.tg!==null&&c.tg<=.38;
+  cells.forEach((c,i)=>{if(!resAt(c)){let bd=1e9,bp=null;cells.forEach((d,k)=>{if(!resAt(d))return;const dd=Math.hypot(c.x-d.x,c.y-d.y);if(dd<bd){bd=dd;bp=k}});c.parent=bp;c.born=.6+rnd(i*17+9)*.32}});
+  return cells})();
+function popAt(q){let alive=0,res=0;SPOP.forEach(c=>{const R=c.tg!==null&&c.tg<=q;const resAnt=c.tg!==null&&c.tg<=.38;
+  if(resAnt){alive++;if(R)res++;return}if(q<c.td+.06){alive++;if(R)res++}if(q>=c.born){alive++;res++}});return {alive,res}}
+function sceneSpread(T){const p=P(T,18);const ab=p>=.38;
+  panelBox(12,12,520,456,{fill:hexA(C.panel,.55)});title(26,34,"Mixed population");
+  label(518,34,ab?"Antibiotic: ON":"Antibiotic: OFF",{size:13,align:"right",color:ab?C.bad:C.ink,border:ab?C.bad:C.rule});
+  if(ab){for(let k=0;k<26;k++){const q=P(T*.6+rnd(k*5.1+2),1);const x=30+rnd(k*3.3+1)*490,y=50+q*410;drugDot(x,y,3.6,.75*(1-seg(q,.85,1)))}}
+  const drawCell=(c,x,y,s,a,res,dead)=>{const col=dead>0?mix(c.co?C.gpos:C.gneg,C.dead,dead):(c.co?C.gpos:C.gneg);
+    if(c.co){coccus(x,y,8*s,{col,a});if(res)withA(a,()=>circ(x,y,4*s,null,C.rplas,2.2))}else bug(x,y,8*s,c.a,col,{a,plas:res,plasCol:C.rplas})};
+  SPOP.forEach((c,i)=>{const res=c.tg!==null&&c.tg<=p;const resAnt=c.tg!==null&&c.tg<=.38;const wob=Math.sin(T*1.5+i)*1.5;
+    if(!resAnt&&p>=c.td){const d=seg(p,c.td,c.td+.06);if(d<1)drawCell(c,c.x+wob,c.y,1,1-d*.8,false,1)}
+    else drawCell(c,c.x+wob,c.y,1,1,res,0);
+    if(c.donor!=null&&c.tg>0&&p>c.tg-.04&&p<c.tg+.01){const d=SPOP[c.donor];const f=seg(p,c.tg-.04,c.tg);line(d.x,d.y,c.x,c.y,C.fplas,2.4);circ(lerp(d.x,c.x,f),lerp(d.y,c.y,f),4,null,C.rplas,2)}
+    if(c.co&&c.tg>0&&p>c.tg&&p<.38)label(c.x,c.y-22,"Crosses species",{size:12,align:"center"});
+    if(!resAnt&&p>=c.born){const par=SPOP[c.parent];const g=smooth(seg(p,c.born,c.born+.04));drawCell(par,lerp(par.x,c.x,g),lerp(par.y,c.y,g),.6+.4*g,1,true,0)}
+  });
+  // graph
+  panelBox(546,12,242,236);title(560,34,"% resistant");
+  const gx=572,gy=52,gw=200,gh=150;line(gx,gy+gh,gx+gw,gy+gh,C["ink-soft"],1.2);line(gx,gy,gx,gy+gh,C["ink-soft"],1.2);
+  txt(gx-6,gy,"100",{size:12,mono:true,align:"right",color:C["ink-soft"]});txt(gx-6,gy+gh,"0",{size:12,mono:true,align:"right",color:C["ink-soft"]});
+  line(gx+gw*.38,gy,gx+gw*.38,gy+gh,C.bad,1.4,[4,3]);txt(gx+gw*.38+4,gy+10,"drug",{size:12,color:C.bad});
+  ctx.beginPath();for(let k=0;k<=60;k++){const q=p*k/60;const s=popAt(q);const v=s.alive?s.res/s.alive:0;const X=gx+gw*q,Y=gy+gh*(1-v);k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=C.rplas;ctx.lineWidth=2.6;ctx.stroke();
+  const s=popAt(p);const v=s.alive?s.res/s.alive:0;circ(gx+gw*p,gy+gh*(1-v),4.5,C.rplas);txt(gx+gw/2,gy+gh+24,"time",{size:12,align:"center",color:C["ink-soft"]});
+  label(gx+gw-4,gy+gh-14,Math.round(v*100)+"%",{size:13,align:"right",mono:true});
+  // vertical vs horizontal
+  panelBox(546,260,242,208);title(560,282,"Two ways to pass genes");
+  bug(600,322,9,0,C.gneg,{plas:true});arrow(588,338,574,362,C["ink-soft"],1.6);arrow(612,338,626,362,C["ink-soft"],1.6);bug(570,376,8,0,C.gneg,{plas:true});bug(630,376,8,0,C.gneg,{plas:true});
+  txt(600,404,"Vertical",{size:12.5,weight:700,align:"center"});txt(600,422,"parent to daughters",{size:12,align:"center",color:C["ink-soft"]});
+  bug(700,322,9,0,C.gneg,{plas:true});line(712,334,740,362,C.fplas,2.4);const hf=P(T,2.5);circ(lerp(712,740,hf),lerp(334,362,hf),3.6,null,C.rplas,2);coccus(748,372,10,{});
+  txt(722,404,"Horizontal",{size:12.5,weight:700,align:"center"});txt(722,422,"to a neighbour,",{size:12,align:"center",color:C["ink-soft"]});txt(722,440,"even other species",{size:12,align:"center",color:C["ink-soft"]});
+}
+
+/* ================= Part 6: biotechnology ================= */
+function insulinMol(x,y,s,a){withA(a==null?1:a,()=>{s=s||1;for(let k=0;k<4;k++){circ(x-9*s+k*6*s,y-4*s,2.8*s,C.prot)}for(let k=0;k<5;k++){circ(x-12*s+k*6*s,y+4*s,2.8*s,C.aa)}line(x-6*s,y-4*s,x-6*s,y+4*s,hexA(C.ink,.5),1.2);line(x+6*s,y-4*s,x+6*s,y+4*s,hexA(C.ink,.5),1.2)})}
+function sceneInsulin(T){const p=P(T,16);const k=Math.floor(p*4);
+  const names=["1 · Cut","2 · Join","3 · Into E. coli","4 · Select"];
+  for(let i=0;i<4;i++){const x=12+i*196,y=12,w=188,h=220;const lit=i===k;const q=stageQ(p,i,4,T,4);
+    panelBox(x,y,w,h,{stroke:lit?C.act6:C.rule,lw:lit?3:1.2,fill:hexA(C.panel,lit?.97:.8)});txt(x+w/2,y+18,names[i],{size:13,weight:700,align:"center"});
+    const cx=x+w/2;ctx.save();rr(x,y,w,h,8);ctx.clip();if(i>k)ctx.globalAlpha*=.4;
+    if(i===0){const op=smooth(seg(q,.35,.55));const gp=.28*op;ctx.beginPath();ctx.arc(cx-30,y+92,34,-Math.PI/2+gp,-Math.PI/2-gp+TAU);ctx.strokeStyle=C.plas;ctx.lineWidth=4;ctx.stroke();
+      ctx.beginPath();ctx.arc(cx-30,y+92,34,.3,1.2);ctx.strokeStyle=C.rplas;ctx.lineWidth=8;ctx.stroke();txt(cx-30,y+92,"plasmid",{size:12,align:"center"});
+      const sc=seg(q,.15,.45);if(sc>0&&sc<1)scissors(cx-30,y+48,13,Math.PI/2,Math.abs(Math.sin(sc*Math.PI*3)),C.ink);
+      line(x+14,y+178,x+w-14,y+178,C.old,4);const lift=smooth(seg(q,.55,.8))*18;line(cx-10,y+178-lift,cx+40,y+178-lift,C.fplas,7);if(lift>0){line(x+14,y+178,cx-12,y+178,C.old,4)}
+      txt(cx+15,y+156-lift,"insulin gene",{size:12,align:"center"});txt(x+w/2,y+204,"human DNA",{size:12,align:"center",color:C["ink-soft"]});
+      [cx-10,cx+40].forEach(xx=>{if(sc>0&&sc<1)scissors(xx,y+158,12,Math.PI/2,Math.abs(Math.sin(sc*Math.PI*3)),C.ink)})}
+    else if(i===1){const gp=.28;const f=smooth(seg(q,0,.5));ctx.beginPath();ctx.arc(cx,y+110,46,-Math.PI/2+gp,-Math.PI/2-gp+TAU);ctx.strokeStyle=C.plas;ctx.lineWidth=4;ctx.stroke();ctx.beginPath();ctx.arc(cx,y+110,46,.3,1.2);ctx.strokeStyle=C.rplas;ctx.lineWidth=8;ctx.stroke();
+      if(f<1){line(cx-20,lerp(y+190,y+64,f),cx+20,lerp(y+190,y+64,f),C.fplas,7)}else{ctx.beginPath();ctx.arc(cx,y+110,46,-Math.PI/2-gp,-Math.PI/2+gp);ctx.strokeStyle=C.fplas;ctx.lineWidth=7;ctx.stroke()}
+      const sl=seg(q,.5,.8);if(sl>0){[-gp,gp].forEach(g=>{const an=-Math.PI/2+g;glow(cx+Math.cos(an)*46,y+110+Math.sin(an)*46,14,C.glow,.9*(1-Math.abs(sl-.5)));circ(cx+Math.cos(an)*46,y+110+Math.sin(an)*46,2.6,C.glow)})}
+      if(q>.5)label(cx,y+196,"Recombinant plasmid",{size:12,align:"center",a:seg(q,.6,.75)});if(q>.45&&q<.85)label(cx,y+40,"Ligase seals",{size:12,align:"center"})}
+    else if(i===2){rod(cx,y+130,160,74,{edge:C.gneg});nucleoid(cx-28,y+130,30,16,T,C.chrom,{lw:1.8});const f=smooth(seg(q,0,.6));const px=lerp(cx+20,cx+40,f),py=lerp(y+50,y+130,f);
+      plasmid(px,py,15,C.plas,{lw:2.6,genes:[[-Math.PI/2-.5,-Math.PI/2+.5,C.fplas],[.4,1.4,C.rplas]]});txt(cx,y+196,"transformation",{size:12,align:"center",color:C["ink-soft"]})}
+    else{plate(cx,y+118,64,{cols:colonyPts(9,5,7).slice(0,Math.floor(9*seg(q,.2,.9)))});txt(cx,y+44,"ampicillin plate",{size:12,align:"center",color:C["ink-soft"]});txt(cx,y+202,"Only plasmid holders grow",{size:12,weight:600,align:"center"})}
+    ctx.restore()}
+  // sticky ends
+  panelBox(12,244,370,224);title(26,266,"EcoRI cuts G^AATTC");
+  const q2=P(T,7);const cut=seg(q2,.1,.25),sepr=smooth(seg(q2,.3,.5))*(1-smooth(seg(q2,.65,.85)));const d=26*sepr;
+  const top="GAATTC",bot="CTTAAG";const x0=110,S=28,yt=330,yb=370;
+  for(let i=0;i<6;i++){const leftT=i<1,leftB=i<5;tile(x0+i*S+(leftT?-d:d),yt,top[i],{w:22,h:24});tile(x0+i*S+(leftB?-d:d),yb,bot[i],{w:22,h:24});
+    if(sepr<.05||!((i>=1&&i<5)))line(x0+i*S+(leftT===leftB?(leftT?-d:d):0),yt+12,x0+i*S+(leftT===leftB?(leftT?-d:d):0),yb-12,hexA(C["ink-soft"],sepr>.05&&i>=1&&i<5?0:.6),1.4)}
+  if(cut>0&&sepr<.05){withA(cut,()=>{ctx.beginPath();ctx.moveTo(x0+S*.5,yt-16);ctx.lineTo(x0+S*.5,yt+16);ctx.lineTo(x0+S*4.5,yb-16);ctx.lineTo(x0+S*4.5,yb+16);ctx.strokeStyle=C.bad;ctx.lineWidth=2.4;ctx.setLineDash([4,3]);ctx.stroke();ctx.setLineDash([])})}
+  txt(x0-62,yt,"5′",{size:12,mono:true,weight:700,color:C["ink-soft"]});txt(x0-62,yb,"3′",{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  label(196,420,sepr>.5?"Sticky ends: single-stranded overhangs":q2>.8?"Matching ends pair up again":"Staggered cut",{size:12.5,align:"center"});
+  // fermenter
+  panelBox(394,244,394,224);title(408,266,"Bacteria make human insulin");
+  rr(420,290,150,160,10);ctx.fillStyle=hexA(C.glu,.16);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=2;ctx.stroke();
+  for(let i=0;i<12;i++){const x=440+((i*37+T*12*(i%2?1:-1))%110+110)%110,y=310+((i*29)%120)+Math.sin(T*2+i)*4;bug(x,y,5,i+T*.3,C.gneg)}
+  const nI=Math.floor(P(T,7)*24);for(let i=0;i<nI;i++){insulinMol(600+(i%4)*42,300+Math.floor(i/4)*24,1.2)}
+  txt(596,452,"Purified for patients since 1982",{size:12,color:C["ink-soft"]});
+}
+function tempAt(t){const u=(t%4)/4;if(u<.3)return lerp(72,95,smooth(u/.06));if(u<.6)return lerp(95,55,smooth((u-.3)/.06));return lerp(55,72,smooth((u-.6)/.05))}
+function scenePCR(T){const t=T%22;const tt=Math.min(t,20-1e-3);const c=Math.min(4,Math.floor(tt/4));const ph=t>=20?1:(tt%4)/4;const phase=ph<.3?0:ph<.6?1:2;
+  panelBox(12,12,520,180);title(26,32,"Thermal cycler");
+  const gx=60,gw=400,gy=52,gh=120;const ty=v=>gy+gh-(v-40)/(100-40)*gh;
+  [[95,"95"],[72,"72"],[55,"55"]].forEach(([v,l])=>{line(gx,ty(v),gx+gw,ty(v),C["rule-soft"],1);txt(gx-8,ty(v),l+" °C",{size:12,mono:true,align:"right",color:C["ink-soft"]})});
+  ctx.beginPath();for(let i=0;i<=200;i++){const s=20*i/200;const X=gx+gw*s/20,Y=ty(tempAt(s));i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=hexA(C.heat,.3);ctx.lineWidth=2;ctx.stroke();
+  ctx.beginPath();for(let i=0;i<=200;i++){const s=tt*i/200;const X=gx+gw*s/20,Y=ty(tempAt(s));i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=C.heat;ctx.lineWidth=3;ctx.stroke();
+  const tc=tempAt(tt);circ(gx+gw*tt/20,ty(tc),5,C.heat,C.panel,2);
+  thermo(496,44,100,(tc-40)/60,{});txt(496,176,Math.round(tc)+" °C",{size:13,mono:true,weight:700,align:"center"});
+  // molecules
+  panelBox(12,204,520,264);const names=["Denature (95 °C): strands separate","Anneal (55 °C): primers stick","Extend (72 °C): Taq builds new strands"];
+  stepRow(24,216,496,["Denature","Anneal","Extend"],phase,C.heat);
+  label(272,258,names[phase],{size:13.5,align:"center"});
+  const g=lerp(16,96,smooth(seg(ph,0,.25)));const yT=342-g/2,yB=342+g/2;
+  line(80,yT,460,yT,C.old,3.4);line(80,yB,460,yB,C.old,3.4);if(g<30)for(let x=86;x<460;x+=10)line(x,yT,x,yB,hexA(C["ink-soft"],.45),1.3);
+  endLab(66,yT,"5′");endLab(474,yT,"3′");endLab(66,yB,"3′");endLab(474,yB,"5′");
+  const pa=smooth(seg(ph,.3,.5));if(ph>=.3){line(410,lerp(yT-40,yT+12,pa),450,lerp(yT-40,yT+12,pa),C.rna,5);line(90,lerp(yB+40,yB-12,pa),130,lerp(yB+40,yB-12,pa),C.rna,5)}
+  const ex=seg(ph,.6,.95);if(ex>0){const xa=lerp(410,84,ex),xb=lerp(130,456,ex);line(xa,yT+12,410,yT+12,C.new,4);line(130,yB-12,xb,yB-12,C.new,4);
+    if(ex<1){ell(xa-10,yT+14,18,11,0,mix(C.drug,C.panel,.4),C.drug,1.6);txt(xa-10,yT+14,"Taq",{size:11.5,weight:700,align:"center"});ell(xb+10,yB-14,18,11,0,mix(C.drug,C.panel,.4),C.drug,1.6);txt(xb+10,yB-14,"Taq",{size:11.5,weight:700,align:"center"})}}
+  if(ph>.95)label(272,440,"Two copies where there was one",{size:12.5,align:"center",color:C.good});
+  // copies
+  panelBox(546,12,242,456);title(560,34,"Copies of the target");
+  const n=Math.pow(2,c+(ph>.95?1:0));txt(667,74,"Cycle "+(c+1)+" of 5 shown",{size:13,weight:600,align:"center"});
+  txt(667,108,String(n),{size:34,weight:700,mono:true,align:"center",color:C.new});txt(667,136,n===1?"copy":"copies",{size:12.5,align:"center",color:C["ink-soft"]});
+  for(let i=0;i<Math.min(32,n);i++){const X=574+(i%4)*52,Y=164+Math.floor(i/4)*24;line(X,Y-3,X+38,Y-3,C.old,3);line(X,Y+3,X+38,Y+3,i===0?C.old:C.new,3)}
+  txt(667,372,"After n cycles: about 2ⁿ",{size:13,weight:700,align:"center"});
+  txt(667,396,"10 cycles ≈ 1,000",{size:12.5,align:"center",color:C["ink-soft"]});txt(667,418,"20 cycles ≈ 1 million",{size:12.5,align:"center",color:C["ink-soft"]});txt(667,440,"30 cycles ≈ 1 billion",{size:12.5,align:"center",weight:700});
+}
+const LANES=[["Ladder",[3000,1500,1000,500,250]],["1",[1000]],["2",[500,250]],["3",[3000,1000]],["4",[1500]]];
+function bandY(bp,f){return 96+300*(Math.log10(5000)-Math.log10(bp))/(Math.log10(5000)-Math.log10(150))*f}
+function sceneGel(T){const p=P(T,12);
+  panelBox(12,12,470,456);
+  rr(40,18,410,18,4);ctx.fillStyle=C.ink;ctx.fill();txt(245,27.5,"−  negative electrode",{size:12,weight:700,align:"center",color:C.panel});
+  rr(40,416,410,18,4);ctx.fillStyle=C.bad;ctx.fill();txt(245,425.5,"+  positive electrode",{size:12,weight:700,align:"center",color:"#fff"});
+  rr(40,70,410,336,4);ctx.fillStyle=C.gel;ctx.fill();ctx.strokeStyle=C.rule;ctx.lineWidth=1.2;ctx.stroke();
+  const f=smooth(seg(p,.16,.8)),uv=seg(p,.8,.88);
+  if(uv>0){withA(uv*.5,()=>{rr(40,70,410,336,4);ctx.fillStyle=isDark()?"#0B1A20":"#1B2A30";ctx.fill()})}
+  LANES.forEach((L,i)=>{const lx=100+i*80;txt(lx,56,L[0],{size:12.5,weight:700,align:"center",mono:true});rr(lx-22,80,44,10,2);ctx.fillStyle=hexA(C.ink,.35);ctx.fill();
+    const ld=seg(p,i*.025,i*.025+.03);if(ld<=0)return;
+    L[1].forEach(bp=>{const y=f>0?bandY(bp,f):85;const col=uv>0?mix(C.glu,C.band,uv):C.glu;if(uv>0)glow(lx,y,30,C.band,.35*uv);rr(lx-20,y-4,40,8,3);ctx.fillStyle=hexA(col,.85*ld);ctx.fill()});
+    if(i===0&&f>.5)L[1].forEach(bp=>txt(lx-28,bandY(bp,f),String(bp),{size:12,mono:true,weight:600,align:"right",color:uv>.5?"#E8EEF1":C.ink}))});
+  const pi=Math.min(4,Math.floor(p/.03));if(p<.16){const px=100+pi*80;line(px+6,40,px,76,C["ink-soft"],3);ctx.beginPath();ctx.moveTo(px-4,74);ctx.lineTo(px+4,74);ctx.lineTo(px,84);ctx.closePath();ctx.fillStyle=C["ink-soft"];ctx.fill()}
+  txt(245,452,uv>.5?"Stain glows under UV: each band is one size":f>0?"Current on: DNA moves toward +":"Loading samples into wells",{size:12.5,align:"center",color:C["ink-soft"],weight:600});
+  // zoom
+  panelBox(494,12,294,456);title(508,34,"Inside the gel");
+  const zx=512,zy=52,zw=258,zh=250;rr(zx,zy,zw,zh,6);ctx.fillStyle=C.gel;ctx.fill();
+  ctx.save();rr(zx,zy,zw,zh,6);ctx.clip();for(let i=0;i<26;i++){const x1=zx+rnd(i*3)*zw,y1=zy+rnd(i*5+1)*zh;line(x1,y1,x1+(rnd(i*7)-.5)*120,y1+(rnd(i*11)-.5)*120,hexA(C["ink-soft"],.35),1.6)}
+  const q=P(T,6);const sy=zy+10+q*(zh-20),ly=zy+10+q*.35*(zh-20);
+  poly([[zx+70,sy],[zx+78,sy+5],[zx+86,sy]],C.band,4);
+  const lp=[];for(let j=0;j<12;j++)lp.push([zx+170+j*6,ly+Math.sin(j*1.3+T)*5]);poly(lp,C.band,4);ctx.restore();
+  txt(zx+78,zy+zh+16,"small: zips through",{size:12,align:"center"});txt(zx+200,zy+zh+16,"large: gets tangled",{size:12,align:"center"});
+  txt(zx-6,zy+8,"−",{size:16,weight:700});txt(zx-6,zy+zh-8,"+",{size:16,weight:700,color:C.bad});
+  ["DNA is negative (its phosphates),","so it moves toward the + end.","Small pieces travel farther.","A ladder of known sizes is the ruler."].forEach((s,i)=>txt(512,348+i*24,s,{size:13,weight:i===2?700:500}));
+}
+function sceneCrispr(T){const p=P(T,16);
+  panelBox(12,12,380,410);title(26,34,"In bacteria: immune memory");
+  rod(200,250,340,220,{});
+  // CRISPR array
+  const add=smooth(seg(p,.16,.26));const ay=330;const items=[["R"],["S",C.prot],["R"],["S",C.aa],["R"],["S",C.fplas],["R"]];
+  let ax=74;txt(74,ay-26,"CRISPR array",{size:12,weight:700});
+  items.forEach((it,j)=>{const xx=ax+(j>0?add*46:0);if(it[0]==="R"){ctx.beginPath();ctx.moveTo(xx,ay-7);ctx.lineTo(xx+7,ay);ctx.lineTo(xx,ay+7);ctx.lineTo(xx-7,ay);ctx.closePath();ctx.fillStyle=C.ink;ctx.fill();ax+=18}else{rr(xx-2,ay-8,22,16,3);ctx.fillStyle=it[1];ctx.fill();ax+=28}});
+  if(add>0){rr(74+16,ay-8,22*add,16,3);ctx.fillStyle=C.cas;ctx.fill();withA(add,()=>{const xx=74+46;ctx.beginPath();ctx.moveTo(xx,ay-7);ctx.lineTo(xx+7,ay);ctx.lineTo(xx,ay+7);ctx.lineTo(xx-7,ay);ctx.closePath();ctx.fillStyle=C.ink;ctx.fill()})}
+  // phage 1
+  const ph1=seg(p,0,.08)*(1-seg(p,.28,.34));if(ph1>0)phage(200,lerp(60,104,seg(p,0,.08)),22,Math.PI/2,{a:ph1,dna:p<.08?C.dead:null});
+  const inj1=seg(p,.06,.14)*(1-seg(p,.26,.32));if(inj1>0)withA(inj1,()=>{const pts=[];for(let j=0;j<12;j++)pts.push([170+j*6,190+Math.sin(j+T*2)*6]);poly(pts,C.phage,3)});
+  if(p>.12&&p<.2){const f=seg(p,.12,.2);rr(lerp(200,92,f)-8,lerp(190,ay,f)-6,16,12,3);ctx.fillStyle=C.cas;ctx.fill()}
+  label(200,150,"Saves a piece as a new spacer",{size:12,align:"center",a:seg(p,.12,.16)*(1-seg(p,.3,.34))});
+  // guide RNA to Cas9
+  const g=smooth(seg(p,.3,.44));const casX=lerp(110,lerp(110,256,smooth(seg(p,.6,.74))),1),casY=lerp(240,198,smooth(seg(p,.6,.74)));
+  if(p>.3&&p<.44){const pts=[];for(let j=0;j<6;j++)pts.push([lerp(100,casX,g)+j*4,lerp(ay-12,casY,g)+Math.sin(j*1.5)*2]);poly(pts,C.rna,3)}
+  cas9(casX,casY,26,{guide:p>.44,a:seg(p,.26,.32)});
+  // phage 2
+  const ph2=seg(p,.46,.52)*(1-seg(p,.92,.98));if(ph2>0)phage(220,lerp(60,104,seg(p,.46,.52)),22,Math.PI/2,{a:ph2,dna:p<.52?C.dead:null});
+  const cutF=seg(p,.74,.8);const dn=seg(p,.52,.6)*(1-seg(p,.86,.94));if(dn>0)withA(dn,()=>{const pts1=[],pts2=[];for(let j=0;j<8;j++){pts1.push([206+j*6-cutF*14,200+Math.sin(j+T*2)*6+cutF*8])}for(let j=0;j<8;j++){pts2.push([262+j*6+cutF*14,200+Math.sin(j+8+T*2)*6+cutF*8])}poly(pts1,C.phage,3);poly(pts2,C.phage,3)});
+  if(cutF>0&&cutF<1)glow(258,200,22,C.glow,1-cutF);
+  label(200,402,"Infection stopped",{size:13,align:"center",color:C.good,border:C.good,a:seg(p,.82,.88)});
+  // lab
+  panelBox(408,12,380,410);title(422,34,"In the lab: gene editing");
+  const dy=176;const sp=smooth(seg(p,.55,.62))*(1-smooth(seg(p,.66,.74)))*10;
+  line(430,dy-8,650-sp,dy-8,C.old,3.2);line(650+sp,dy-8,770,dy-8,C.old,3.2);line(430,dy+8,650-sp,dy+8,C.old,3.2);line(650+sp,dy+8,770,dy+8,C.old,3.2);
+  for(let x=434;x<770;x+=10)if(Math.abs(x-650)>sp+2)line(x,dy-8,x,dy+8,hexA(C["ink-soft"],.45),1.3);
+  rr(620,dy+14,60,14,3);ctx.fillStyle=hexA(C.bad,.6);ctx.fill();txt(650,dy+36,"target gene",{size:12,align:"center",color:C["ink-soft"]});
+  const cx=lerp(470,650,smooth(seg(p,.08,.45)));cas9(cx,dy-34,26,{});label(cx,dy-80,"Designed guide",{size:12,align:"center",border:C.rna});
+  if(p>.45&&p<.56)glow(650,dy,26,C.glow,.6);if(p>.55&&p<.66)label(720,dy-40,"Cut!",{size:12.5,color:C.bad,align:"center"});
+  label(590,232,"The cell repairs the cut",{size:12.5,align:"center",a:seg(p,.64,.7)});
+  const oc=seg(p,.72,.8);withA(oc,()=>{panelBox(422,262,170,148);panelBox(604,262,170,148);
+    txt(507,284,"Gene switched off",{size:12.5,weight:700,align:"center"});line(440,330,574,330,C.old,3);line(440,342,574,342,C.old,3);rr(492,323,30,26,3);ctx.fillStyle=hexA(C.bad,.4);ctx.fill();checkMk(507,370,false,8);txt(507,394,"small error at cut",{size:12,align:"center",color:C["ink-soft"]});
+    txt(689,284,"New DNA pasted in",{size:12.5,weight:700,align:"center"});line(622,330,756,330,C.old,3);line(622,342,756,342,C.old,3);rr(670,322,40,28,3);ctx.fillStyle=hexA(C.good,.55);ctx.fill();checkMk(689,370,true,8);txt(689,394,"using a template",{size:12,align:"center",color:C["ink-soft"]})});
+  panelBox(12,432,776,36);txt(400,450,"First approved CRISPR-based treatment: for sickle cell disease, in 2023.",{size:13,weight:600,align:"center"});
+}
+function sceneRecap(T){const lit=Math.floor(P(T,12)*6);
+  PARTS.forEach((pt,i)=>{const x=12+(i%2)*392,y=12+Math.floor(i/2)*154,w=384,h=146;const l=i<=lit;
+    panelBox(x,y,w,h,{stroke:l?C[pt[1]]:C.rule,lw:l?2.5:1.2,fill:hexA(C.panel,l?.97:.6)});
+    ctx.save();ctx.globalAlpha=l?1:.45;badge(x+24,y+28,i+1,C[pt[1]],12);txt(x+46,y+28,pt[0],{size:15,weight:700});wrapText(pt[2],x+22,y+62,w-150,18,{size:13,color:C.ink});
+    ctx.translate(x+w-66,y+h/2+4);miniIcon(i,T,.55);ctx.restore();
+    if(i===2&&l){const up=P(T,4)>.56&&P(T,4)<.95;txt(x+w-66,y+20,up?"ON":"OFF",{size:12,weight:700,mono:true,align:"center",color:up?C.good:C.bad})}});
+}
+
+/* ---------------- loop ---------------- */
+let T=0,last=performance.now();
+const SCENES={map:sceneMap,genome:sceneGenome,bidir:sceneBidir,fork:sceneFork,transcription:sceneTranscription,translation:sceneTranslation,abx:sceneAbx,
+  lacoff:sceneLacOff,lacon:sceneLacOn,cap:sceneCap,trp:sceneTrp,point:scenePoint,frameshift:sceneFrameshift,mutagens:sceneMutagens,repair:sceneRepair,ames:sceneAmes,
+  griffith:sceneGriffith,transduction:sceneTransduction,conj:sceneConj,transposon:sceneTransposon,spread:sceneSpread,insulin:sceneInsulin,pcr:scenePCR,gel:sceneGel,crispr:sceneCrispr,recap:sceneRecap};
+function draw(){
+  ctx.setTransform(K,0,0,K,0,0);ctx.clearRect(0,0,W,H);ctx.globalAlpha=1;bg(C.ecf);
+  const s=STEPS[cur];
+  try{(SCENES[s.scene]||sceneRecap)(T)}catch(e){console.error(e)}
+  ctx.globalAlpha=1;
+}
+function frame(now){
+  const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;if(!paused)T+=dt*speed;
+  draw();
+  requestAnimationFrame(frame);
+}
+window.__setT=v=>{T=v;paused=true;draw()};
+window.__go=i=>go(i);
+window.__n=()=>STEPS.length;
+readColors();buildChain();fit();render();requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

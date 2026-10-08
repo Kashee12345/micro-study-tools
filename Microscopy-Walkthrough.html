@@ -1,0 +1,1502 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microscopy and Staining Walkthrough</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#1E7A4C;--accent-ink:#155C39;--accent-wash:#DDF0E5;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#2E8A7A;--act2:#D98A1C;--act3:#4F6F94;--act4:#7B5CC9;--act5:#C4644F;--act6:#A04E8C;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#8A6D12;
+  --ecf:#EEF3EF;--grid:#D5E0D8;
+  --gpos:#6B3FA0;--gneg:#C23A6E;--gpos-wash:#ECE3F6;--gneg-wash:#F8E1EA;
+  --field:#F7F4EA;--field-edge:#2B2F33;--st-cv:#4B2683;--st-saf:#D9497E;--st-cf:#C8203F;--st-mb:#2F62B5;--st-mg:#179A5B;--st-nig:#2E2A33;--st-iod:#8A5A1E;
+  --dye-cv:#4B2683;--dye-saf:#D9497E;--dye-cf:#C8203F;--dye-mb:#2F62B5;--dye-iod:#8A5A1E;
+  --pg:#C9A227;--memb:#D98A1C;--lps:#7B5CC9;--wax:#B9A06A;
+  --beam:#F2B33B;--glass:#CFE6EE;--glass-edge:#6E9AB0;--oil:#E3B341;--metal:#4F5B63;--scope:#D5DCE0;--scope-edge:#7D8A92;--electron:#2F8FCB;--flame:#E0563A;
+  --broth:#EBDDAF;--cloud:#BBA66E;--dust:#8A7B5E;
+  --bact:#3E8E41;--arch:#C77B30;--fungus:#B07A1E;--proto:#2E8A9A;--alga:#5E9A2A;--helm:#A0526E;--virus:#B03A8C;--para:#A0526E;
+  --hair:#6E5A44;--rbc:#C2392F;--rbc-hi:#E8877C;--mouse:#B9A99A;--mouse-edge:#7A6A5A;--skin:#EAC9A8;--skin-edge:#B9937A;
+  --neut:#EEE6F3;--cell-edge:#9A86B3;--nuc:#5B3F9C;--macro:#E6D3B3;--macro-edge:#A5854F;
+  --glow:#F2B33B;--heat:#E0563A;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#143022;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5CC4B0;--act2:#F2A93B;--act3:#8FB1D9;--act4:#A98BEF;--act5:#E08A74;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#22302A;
+  --gpos:#B08BE8;--gneg:#F08AB0;--gpos-wash:#2A2140;--gneg-wash:#3A1C2A;
+  --field:#DDD8CA;--field-edge:#05080A;--st-cv:#4B2683;--st-saf:#D9497E;--st-cf:#C8203F;--st-mb:#2F62B5;--st-mg:#179A5B;--st-nig:#2E2A33;--st-iod:#8A5A1E;
+  --dye-cv:#A27AE8;--dye-saf:#F08AB0;--dye-cf:#F2707E;--dye-mb:#7FAEF2;--dye-iod:#D9A060;
+  --pg:#E0BE48;--memb:#E8A060;--lps:#A98BEF;--wax:#C9B27A;
+  --beam:#F2C94C;--glass:#2A4450;--glass-edge:#8FBCD0;--oil:#E8C24A;--metal:#A9B6BD;--scope:#2C3A42;--scope-edge:#8D9EA7;--electron:#6FB8EC;--flame:#F27A5E;
+  --broth:#4A4126;--cloud:#8F7C4E;--dust:#B9A88C;
+  --bact:#6BC26E;--arch:#E8A060;--fungus:#E0B050;--proto:#5CC4D0;--alga:#A3C95A;--helm:#D98AA8;--virus:#E07AC4;--para:#D98AA8;
+  --hair:#B9A88C;--rbc:#D24C42;--rbc-hi:#EE9A90;--mouse:#8F8070;--mouse-edge:#C9B9A8;--skin:#5A4434;--skin-edge:#B9937A;
+  --neut:#3B3346;--cell-edge:#A592C2;--nuc:#B49BF0;--macro:#4A4030;--macro-edge:#C9A66E;
+  --glow:#F2B33B;--heat:#F27A5E;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#143022;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5CC4B0;--act2:#F2A93B;--act3:#8FB1D9;--act4:#A98BEF;--act5:#E08A74;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#22302A;
+  --gpos:#B08BE8;--gneg:#F08AB0;--gpos-wash:#2A2140;--gneg-wash:#3A1C2A;
+  --field:#DDD8CA;--field-edge:#05080A;--st-cv:#4B2683;--st-saf:#D9497E;--st-cf:#C8203F;--st-mb:#2F62B5;--st-mg:#179A5B;--st-nig:#2E2A33;--st-iod:#8A5A1E;
+  --dye-cv:#A27AE8;--dye-saf:#F08AB0;--dye-cf:#F2707E;--dye-mb:#7FAEF2;--dye-iod:#D9A060;
+  --pg:#E0BE48;--memb:#E8A060;--lps:#A98BEF;--wax:#C9B27A;
+  --beam:#F2C94C;--glass:#2A4450;--glass-edge:#8FBCD0;--oil:#E8C24A;--metal:#A9B6BD;--scope:#2C3A42;--scope-edge:#8D9EA7;--electron:#6FB8EC;--flame:#F27A5E;
+  --broth:#4A4126;--cloud:#8F7C4E;--dust:#B9A88C;
+  --bact:#6BC26E;--arch:#E8A060;--fungus:#E0B050;--proto:#5CC4D0;--alga:#A3C95A;--helm:#D98AA8;--virus:#E07AC4;--para:#D98AA8;
+  --hair:#B9A88C;--rbc:#D24C42;--rbc-hi:#EE9A90;--mouse:#8F8070;--mouse-edge:#C9B9A8;--skin:#5A4434;--skin-edge:#B9937A;
+  --neut:#3B3346;--cell-edge:#A592C2;--nuc:#B49BF0;--macro:#4A4030;--macro-edge:#C9A66E;
+  --glow:#F2B33B;--heat:#F27A5E;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1240px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:7px 12px;cursor:pointer;font-size:14px}
+.tbtn:hover{border-color:var(--accent)}
+.wrap{max-width:1240px;margin:0 auto;padding:16px}
+.chain{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.actgrp{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:8px 10px;display:flex;flex-direction:column;gap:6px;flex:1 1 150px}
+.actgrp .an{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.actgrp .an i{width:10px;height:10px;border-radius:50%;display:inline-block;flex:0 0 auto}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--rule);background:var(--panel-2);font-family:var(--mono);font-size:13px;cursor:pointer;display:grid;place-items:center;padding:0}
+.dot:hover{border-color:var(--accent)}
+.dot.cur{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.dot.done:not(.cur){background:var(--good-wash);border-color:var(--good);color:var(--good)}
+.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);min-width:0}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%}
+.stagebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.stagebar input[type=range]{accent-color:var(--accent);width:110px}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2);flex:0 0 auto}
+.legend i.s{border-radius:2px}
+.legend i.d{border-radius:1px;transform:rotate(45deg);width:9px;height:9px}
+.legend i.r{border-radius:3px;width:14px}
+.legend i.l{width:18px;height:4px;border-radius:2px;border:0}
+.legend i.t{width:0;height:0;border-radius:0;border:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid;background:none!important}
+.legend i.dl{width:18px;height:0;border-radius:0;border:0;border-top:2px dashed;background:none!important}
+.legend i.y{width:12px;height:12px;border:0;border-radius:0;background:none!important;position:relative}
+.legend i.y::before{content:"Y";position:absolute;left:0;top:-4px;font:700 14px var(--sans);color:var(--yc)}
+.explain{padding:18px 20px}
+.stepno{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.actchip{padding:1px 8px 1px 6px;border-radius:99px;color:var(--ink);font-size:11px;border:1.5px solid var(--c,var(--accent));background:var(--panel);display:inline-flex;align-items:center;gap:5px}.actchip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c,var(--accent))}
+h2{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.25;margin:6px 0 10px}
+.body p{margin:0 0 10px}
+.body ol,.body ul{margin:0 0 10px;padding-left:22px}
+.body li{margin-bottom:4px}
+.body .tx{border-left:3px solid var(--accent);padding:2px 0 2px 10px;color:var(--ink)}
+.analogy{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:12px 0}
+.analogy b{display:block;font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.analogy p{margin:0}
+.terms{margin:12px 0 0;padding:0}
+.terms div{display:grid;grid-template-columns:minmax(110px,34%) 1fr;gap:10px;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14.5px}
+.terms dt{font-weight:600}
+.terms dd{margin:0;color:var(--ink-soft)}
+.check{margin-top:16px;border:1px solid var(--rule);border-radius:var(--r);padding:14px;background:var(--panel-2)}
+.check h3{margin:0 0 6px;font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
+.check .q{font-weight:600;margin:0 0 10px}
+.opt{display:block;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;margin:0 0 8px;cursor:pointer;font-size:15px;line-height:1.4}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:6px 0 0;font-size:14.5px}
+.fb.ok{color:var(--good)}
+.fb.no{color:var(--warn-ink)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+.nav{display:flex;align-items:center;gap:12px;margin-top:14px}
+.navbtn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:11px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.navbtn.sec{background:var(--panel);color:var(--ink);border:1px solid var(--rule)}
+.navbtn:disabled{opacity:.4;cursor:default}
+.prog{flex:1;height:8px;background:var(--sunk);border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+footer{max-width:1240px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+sub,sup{line-height:0}
+</style>
+<script src="micro-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">Microbiology &middot; Module 1 &middot; Microscopy, staining and the microbial world</div>
+    <h1>Microscopy and Staining Walkthrough</h1>
+    <p class="sub">Meet the microbes, learn how scientists first found them, and see how a microscope and a few dyes turn invisible cells into purple, pink, red and green shapes you can name. Go at your own pace. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+
+<div class="wrap">
+  <nav class="chain" id="chain" aria-label="Steps"></nav>
+  <div class="grid">
+    <section class="card stage" aria-label="Animation">
+      <div class="canvas-holder"><canvas id="stage" role="img" aria-label=""></canvas></div>
+      <div class="stagebar">
+        <button class="tbtn" id="pauseBtn" type="button">Pause</button>
+        <button class="tbtn" id="replayBtn" type="button">Replay</button>
+        <label>Speed <input type="range" id="speed" min="0.25" max="1.75" step="0.25" value="1"></label>
+        <span class="caption" id="caption"></span>
+      </div>
+      <div class="legend" id="legend"></div>
+    </section>
+    <section class="card explain" aria-live="polite">
+      <div class="stepno" id="stepno"></div>
+      <h2 id="title"></h2>
+      <div class="body" id="body"></div>
+      <div class="analogy" id="analogy"><b>Think of it like this</b><p></p></div>
+      <dl class="terms" id="terms"></dl>
+      <div class="check" id="check">
+        <h3>Quick check</h3>
+        <p class="q" id="q"></p>
+        <div id="opts"></div>
+        <p class="fb" id="fb"></p>
+        <p class="calm">Wrong answers are fine here. Read why, then try again.</p>
+      </div>
+      <div class="nav">
+        <button class="navbtn sec" id="prev" type="button">&larr; Back</button>
+        <div class="prog"><i id="progbar"></i></div>
+        <button class="navbtn" id="next" type="button">Next &rarr;</button>
+      </div>
+    </section>
+  </div>
+</div>
+<footer>Dr. Akash Garg &middot; Microbiology Study Tools &middot; Diagrams are simplified and not to scale. For learning only, not medical advice. CC BY-NC-SA 4.0<br>Use the left and right arrow keys to move between steps. Practice next in the <a href="Microscopy-Lab.html">Microscopy Lab</a>: a virtual microscope, a Gram stain bench, unknowns to identify and a sorting game. Cells and molecules are drawn as large cartoons, staining times are sped up, and stain colours are simplified to the classic textbook results.</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "gold", "gold-wash", "gold-ink", "ecf", "grid", "gpos", "gneg", "gpos-wash", "gneg-wash", "field", "field-edge", "st-cv", "st-saf", "st-cf", "st-mb", "st-mg", "st-nig", "st-iod", "dye-cv", "dye-saf", "dye-cf", "dye-mb", "dye-iod", "pg", "memb", "lps", "wax", "beam", "glass", "glass-edge", "oil", "metal", "scope", "scope-edge", "electron", "flame", "broth", "cloud", "dust", "bact", "arch", "fungus", "proto", "alga", "helm", "virus", "para", "hair", "rbc", "rbc-hi", "mouse", "mouse-edge", "skin", "skin-edge", "neut", "cell-edge", "nuc", "macro", "macro-edge", "glow", "heat"];
+/* ================= drawing kit (shared by both pages) ================= */
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"left";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase(),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+
+
+/* ---- germs ---- */
+function bact(x,y,ang,s,a,o){o=o||{};s=s||8;ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=a==null?1:clamp(a,0,1);
+  const sw=o.swell||0;const L=s*1.6*(1+sw*.25),Hh=s*.75*(1+sw*.6);
+  if(o.capsule){rr(-L-s*.45,-Hh-s*.45,L*2+s*.9,Hh*2+s*.9,Hh+s*.45);ctx.fillStyle=hexA(o.col||C.bact,.18);ctx.fill();ctx.strokeStyle=hexA(o.col||C.bact,.6);ctx.setLineDash([3,3]);ctx.lineWidth=1.2;ctx.stroke();ctx.setLineDash([])}
+  if(o.pili){ctx.strokeStyle=hexA(o.col||C.bact,.9);ctx.lineWidth=1.1;for(let k=0;k<10;k++){const px=-L+k*(2*L)/9;ctx.beginPath();ctx.moveTo(px,Hh);ctx.lineTo(px+Math.sin(k+(o.t||0)*3)*2,Hh+s*.7);ctx.stroke();ctx.beginPath();ctx.moveTo(px,-Hh);ctx.lineTo(px+Math.sin(k*1.7)*2,-Hh-s*.5);ctx.stroke()}}
+  rr(-L,-Hh,L*2,Hh*2,Hh);ctx.fillStyle=o.col||C.bact;ctx.fill();ctx.strokeStyle=hexA(C.ink,.45);ctx.lineWidth=1;ctx.stroke();
+  line(-L*.55,0,L*.55,0,hexA(C.panel,.55),1.2);
+  if(o.flag){ctx.strokeStyle=hexA(o.col||C.bact,.8);ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(L,0);for(let k=1;k<=6;k++)ctx.lineTo(L+k*3,Math.sin(k*1.6+(o.t||0)*8)*2.5);ctx.stroke()}
+  ctx.restore()}
+function virus(x,y,r,a,t,col){r=r||7;ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);col=col||C.virus;
+  for(let k=0;k<10;k++){const an=k/10*TAU+(t||0)*.3;line(x+Math.cos(an)*r,y+Math.sin(an)*r,x+Math.cos(an)*(r+r*.45),y+Math.sin(an)*(r+r*.45),col,1.4);circ(x+Math.cos(an)*(r+r*.5),y+Math.sin(an)*(r+r*.5),r*.16,col)}
+  ctx.beginPath();for(let k=0;k<=6;k++){const an=k/6*TAU+(t||0)*.3;const X=x+Math.cos(an)*r,Y=y+Math.sin(an)*r;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();
+  ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.lineWidth=1;ctx.stroke();circ(x,y,r*.4,hexA(C.panel,.45));ctx.restore()}
+function yeast(x,y,s,ang,bud,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:o.a;const col=o.col||C.fungus;
+  ell(0,0,s,s*.75,0,mix(col,C.panel,.55),col,1.5);circ(-s*.15,0,s*.28,hexA(col,.6));
+  if(bud>0){ell(s*(.85+bud*.35),0,s*.55*bud,s*.45*bud,0,mix(col,C.panel,.55),col,1.4)}ctx.restore()}
+function hypha(pts,col,lw){poly(pts,col||C.fungus,lw||5);poly(pts,hexA(C.panel,.5),(lw||5)*.35);pts.forEach((p,i)=>{if(i&&i%2===0)circ(p[0],p[1],(lw||5)*.45,col||C.fungus)})}
+function worm(x,y,len,t,o){o=o||{};const col=o.col||C.para;const pts=[];for(let i=0;i<=24;i++){const f=i/24;pts.push([x+f*len,y+Math.sin(f*7+t*2.4)*len*.06])}poly(pts,mix(col,C.ink,.3),7.5);poly(pts,col,5.5);circ(pts[24][0],pts[24][1],3.4,col)}
+function diamond(x,y,s,col,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.beginPath();ctx.moveTo(x,y-s);ctx.lineTo(x+s,y);ctx.lineTo(x,y+s);ctx.lineTo(x-s,y);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.3);ctx.lineWidth=1;ctx.stroke();ctx.restore()}
+function tri(x,y,s,col,ang,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.translate(x,y);ctx.rotate(ang||0);ctx.beginPath();ctx.moveTo(0,-s);ctx.lineTo(s*.9,s*.7);ctx.lineTo(-s*.9,s*.7);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.35);ctx.lineWidth=1;ctx.stroke();ctx.restore()}
+function dotM(x,y,r,col,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x,y,r,col,hexA(C.ink,.25),.8);ctx.restore()}
+function neut(x,y,r,o){o=o||{};const t=o.t||0;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);blobPath(x,y,r,o.seed||3,t,.07);ctx.fillStyle=C.neut;ctx.fill();ctx.strokeStyle=C["cell-edge"];ctx.lineWidth=1.5;ctx.stroke();
+  for(let i=0;i<16;i++){const an=rnd(i*7+(o.seed||3))*TAU,d=Math.sqrt(rnd(i*5+2))*r*.8;circ(x+Math.cos(an)*d,y+Math.sin(an)*d,Math.max(.8,r*.05),hexA(C["cell-edge"],.8))}
+  const L=[[-.42,.12],[-.16,-.24],[.18,-.08],[.4,.24]];ctx.strokeStyle=C.nuc;ctx.lineWidth=r*.14;ctx.lineCap="round";ctx.beginPath();L.forEach((p,i)=>i?ctx.lineTo(x+p[0]*r,y+p[1]*r):ctx.moveTo(x+p[0]*r,y+p[1]*r));ctx.stroke();ctx.lineCap="butt";L.forEach(p=>circ(x+p[0]*r,y+p[1]*r,r*.19,C.nuc));
+  ctx.restore()}
+function macro(x,y,r,o){o=o||{};const t=o.t||0;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);if(o.glow)glow(x,y,r*1.8,C.glow,.5*o.glow);
+  blobPath(x,y,r,o.seed||5,t,o.amp==null?.11:o.amp);ctx.fillStyle=C.macro;ctx.fill();ctx.strokeStyle=C["macro-edge"];ctx.lineWidth=Math.max(1.5,r*.05);ctx.stroke();
+  ctx.beginPath();ctx.ellipse(x-r*.18,y+r*.08,r*.3,r*.22,.4,0,TAU);ctx.fillStyle=mix(C["macro-edge"],C.nuc,.5);ctx.fill();
+  if(o.lab!==false&&r>14){ctx.font=`700 ${Math.max(10,Math.round(r*.32))}px ${FONT}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=C.ink;ctx.fillText(o.lab||"Mφ",x+r*.25,y-r*.35)}
+  ctx.restore()}
+function gauge(x,y,r,v,v0,v1,o){o=o||{};const a0=Math.PI*.8,a1=Math.PI*2.2;ctx.lineCap="round";
+  ctx.beginPath();ctx.arc(x,y,r,a0,a1);ctx.strokeStyle=C.sunk;ctx.lineWidth=r*.18;ctx.stroke();
+  (o.zones||[]).forEach(z=>{ctx.beginPath();ctx.arc(x,y,r,a0+(a1-a0)*seg(z[0],v0,v1),a0+(a1-a0)*seg(z[1],v0,v1));ctx.strokeStyle=hexA(z[2],.75);ctx.lineWidth=r*.18;ctx.stroke()});
+  ctx.lineCap="butt";const a=a0+(a1-a0)*seg(v,v0,v1);line(x,y,x+Math.cos(a)*r*.82,y+Math.sin(a)*r*.82,C.ink,3);circ(x,y,4.5,C.ink);
+  if(o.title)txt(x,y+r*.42,o.title,{size:11.5,mono:true,weight:700,align:"center",color:C["ink-soft"]});
+  if(o.val)txt(x,y+r*.78,o.val,{size:14,mono:true,weight:700,align:"center",color:o.valCol||C.ink})}
+function thermo(x,y,h,f,o){o=o||{};rr(x-6,y,12,h,6);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();
+  const fh=(h-8)*clamp(f,0,1);rr(x-3,y+h-fh-2,6,fh+4,3);ctx.fillStyle=C.heat;ctx.fill();circ(x,y+h+6,9,C.heat,C["ink-soft"],1.4);
+  if(o.lab)txt(x,y+h+24,o.lab,{size:12,mono:true,weight:700,align:"center",color:o.labCol||C.ink})}
+function timeBar(x,y,w,f,marks,o){o=o||{};rr(x,y,w,8,4);ctx.fillStyle=C.sunk;ctx.fill();rr(x,y,w*clamp(f,0,1),8,4);ctx.fillStyle=o.col||C.accent;ctx.fill();
+  (marks||[]).forEach(m=>{const X=x+w*m[0];line(X,y-3,X,y+11,C["ink-soft"],1.2);txt(X,y+22,m[1],{size:11.5,mono:true,align:m[0]<=0?"left":m[0]>=1?"right":"center",color:C["ink-soft"]})});
+  circ(x+w*clamp(f,0,1),y+4,6,o.col||C.accent,C.panel,2)}
+function stepRow(x,y,w,items,on,col){const n=items.length,gap=6,bw=(w-gap*(n-1))/n;items.forEach((s,i)=>{const X=x+i*(bw+gap);const lit=i===on,past=i<on;rr(X,y,bw,24,12);ctx.fillStyle=lit?(col||C.accent):past?hexA(col||C.accent,.18):hexA(C.panel,.9);ctx.fill();ctx.strokeStyle=lit||past?(col||C.accent):C.rule;ctx.lineWidth=1.3;ctx.stroke();
+  txt(X+bw/2,y+12.5,(i+1)+" "+s,{size:12,weight:700,align:"center",color:lit?onFill():C.ink})})}
+
+/* ---- HIV teaching model (rounded, typical untreated course; ART started at year artStart) ---- */
+
+/* ---- microbiology drawing kit ---- */
+function rodPath(x,y,len,w,ang){ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);rr(-len/2,-w/2,len,w,w/2);ctx.restore()}
+function rod(x,y,len,w,ang,fill,stroke,lw){ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);rr(-len/2,-w/2,len,w,w/2);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1;ctx.stroke()}ctx.restore()}
+function cocc(x,y,r,fill,stroke,lw){circ(x,y,r,fill,stroke,lw)}
+/* a wavy line along a direction: used for spirilla, spirochetes, flagella */
+function wave(x,y,len,amp,waves,ang,col,lw,ph){ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.beginPath();const N=Math.max(24,Math.round(waves*16));for(let i=0;i<=N;i++){const f=i/N;const X=-len/2+f*len,Y=Math.sin(f*waves*TAU+(ph||0))*amp;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.lineCap="round";ctx.lineJoin="round";ctx.stroke();ctx.lineCap="butt";ctx.restore()}
+function vibrioC(x,y,len,w,ang,col,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.beginPath();ctx.arc(0,len*.9,len,-Math.PI/2-.5,-Math.PI/2+.5);ctx.strokeStyle=col;ctx.lineWidth=w;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt";
+  if(o.flag){const ex=Math.sin(.5)*len+Math.cos(.5)*w*.5,ey=len*.9-Math.cos(.5)*len+Math.sin(.5)*w*.5;ctx.beginPath();ctx.moveTo(ex,ey);for(let k=1;k<=10;k++)ctx.lineTo(ex+k*2.4,ey+Math.sin(k*1.2+(o.t||0)*9)*2.6);ctx.strokeStyle=hexA(col,.8);ctx.lineWidth=1.2;ctx.stroke()}ctx.restore()}
+/* draw one cell of a given shape; s = size in px of 1 µm */
+function cellK(kind,x,y,s,ang,col,o){o=o||{};const edge=o.edge||mix(col,"#10161A",.35);const lw=Math.max(.6,s*.12);
+  if(kind==="coccus")cocc(x,y,s*.5,col,edge,lw);
+  else if(kind==="lancet"){ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.beginPath();ctx.ellipse(0,0,s*.62,s*.42,0,0,TAU);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=edge;ctx.lineWidth=lw;ctx.stroke();ctx.restore()}
+  else if(kind==="bean"){ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.beginPath();ctx.moveTo(-s*.14,-s*.5);ctx.ellipse(-s*.14,0,s*.44,s*.5,0,-Math.PI/2,Math.PI/2);ctx.quadraticCurveTo(-s*.04,0,-s*.14,-s*.5);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=edge;ctx.lineWidth=lw;ctx.stroke();ctx.restore()}
+  else if(kind==="rod")rod(x,y,s*(o.len||2),s*(o.w||.7),ang,col,edge,lw);
+  else if(kind==="slim")rod(x,y,s*(o.len||2.6),s*.36,ang,col,edge,lw*.8);
+  else if(kind==="cocb")rod(x,y,s*1.1,s*.75,ang,col,edge,lw);
+  else if(kind==="spore")ell(x,y,s*.36,s*.27,ang||0,col,edge,lw);
+  else if(kind==="vibrio")vibrioC(x,y,s*1.3,s*.55,ang,col,{flag:o.flag,t:o.t});
+  else if(kind==="spirillum")wave(x,y,s*4.4,s*.6,1.6,ang,col,s*.5,o.ph||0);
+  else if(kind==="spirochete")wave(x,y,s*6,s*.28,5,ang,col,s*.22,o.ph||0);
+  if(o.spore){const sp=o.spore;ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ell(sp.pos*s*(o.len||2)*.38,0,s*.36,s*.31,0,sp.col,mix(sp.col,"#10161A",.3),lw);ctx.restore()}}
+/* cell arrangements -> list of [dx,dy,ang] in units of 1 µm */
+function arrange(arr,seed,n){const out=[];n=n||1;const r=k=>rnd(seed*31+k);
+  if(arr==="single"){out.push([0,0,r(1)*TAU])}
+  else if(arr==="diplo"){const a=r(2)*TAU;out.push([Math.cos(a)*.5,Math.sin(a)*.5,a],[-Math.cos(a)*.5,-Math.sin(a)*.5,a])}
+  else if(arr==="bean"){const a=r(2)*TAU;out.push([Math.cos(a)*.27,Math.sin(a)*.27,a],[-Math.cos(a)*.27,-Math.sin(a)*.27,a+Math.PI])}
+  else if(arr==="strep"){let x=0,y=0,a=r(3)*TAU;const m=n||6;for(let k=0;k<m;k++){out.push([x,y,a]);a+=(r(k+5)-.5)*.5;x+=Math.cos(a)*1.0;y+=Math.sin(a)*1.0}const cx=x/2,cy=y/2;out.forEach(p=>{p[0]-=cx;p[1]-=cy})}
+  else if(arr==="staph"){const m=n||9;for(let k=0;k<m;k++){const an=r(k*2+7)*TAU,d=Math.sqrt(r(k*3+9))*1.25;out.push([Math.cos(an)*d,Math.sin(an)*d,0])}}
+  else if(arr==="tetrad"){[[-.5,-.5],[.5,-.5],[-.5,.5],[.5,.5]].forEach(p=>out.push([p[0],p[1],0]))}
+  else if(arr==="sarcina"){for(let i=0;i<4;i++)for(let j=0;j<2;j++)out.push([(i%2)-.5+(j?.25:0),(i<2?-.5:.5)+(j?.25:0),0])}
+  else if(arr==="strepbac"){const a=r(3)*TAU;const m=n||4;for(let k=0;k<m;k++){const d=(k-(m-1)/2)*2.15;out.push([Math.cos(a)*d,Math.sin(a)*d,a])}}
+  else if(arr==="diplobac"){const a=r(3)*TAU;out.push([Math.cos(a)*1.08,Math.sin(a)*1.08,a],[-Math.cos(a)*1.08,-Math.sin(a)*1.08,a])}
+  else if(arr==="clump"){const m=n||4;for(let k=0;k<m;k++)out.push([(r(k*3+1)-.5)*2.4,(r(k*3+2)-.5)*2.4,r(k*3+3)*TAU])}
+  else if(arr==="palisade"){const a=r(3)*TAU;for(let k=0;k<4;k++){const d=(k-1.5)*.85;out.push([Math.cos(a+Math.PI/2)*d,Math.sin(a+Math.PI/2)*d,a+(r(k)-.5)*.2])}}
+  return out}
+/* offscreen drawing: render fn into a low-resolution canvas then scale up (gives a soft blur that works in every browser) */
+const OFF={};
+function offCanvas(key,w,h){let o=OFF[key];if(!o){o={cv:document.createElement("canvas")};o.ctx=o.cv.getContext("2d");OFF[key]=o}if(o.cv.width!==w||o.cv.height!==h){o.cv.width=Math.max(1,w);o.cv.height=Math.max(1,h)}return o}
+function blurDraw(key,x,y,w,h,blur,fn){if(blur<.6){fn();return}
+  const tr=ctx.getTransform();const sc=Math.hypot(tr.a,tr.b)||1;const k=clamp(1/(1+blur*.55),.05,1);
+  const ow=Math.ceil(w*sc*k),oh=Math.ceil(h*sc*k);const o=offCanvas(key,ow,oh);const save=ctx;ctx=o.ctx;
+  ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,ow,oh);ctx.setTransform(sc*k,0,0,sc*k,-x*sc*k,-y*sc*k);try{fn()}finally{ctx=save}
+  ctx.save();ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality="high";ctx.drawImage(o.cv,x,y,w,h);ctx.restore()}
+/* a round microscope field of view */
+function microField(cx,cy,R,fn,o){o=o||{};ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,TAU);ctx.clip();
+  ctx.fillStyle=o.bg||C.field;ctx.fillRect(cx-R,cy-R,R*2,R*2);
+  blurDraw(o.key||"mf",cx-R,cy-R,R*2,R*2,o.blur||0,()=>{ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,TAU);ctx.clip();if(o.blur>=.6){ctx.fillStyle=o.bg||C.field;ctx.fillRect(cx-R,cy-R,R*2,R*2)}fn();ctx.restore()});
+  if(o.wash)ctx.fillStyle=`rgba(255,255,250,${clamp(o.wash,0,1)})`,ctx.fillRect(cx-R,cy-R,R*2,R*2);
+  if(o.dim)ctx.fillStyle=`rgba(8,10,12,${clamp(o.dim,0,1)})`,ctx.fillRect(cx-R,cy-R,R*2,R*2);
+  const g=ctx.createRadialGradient(cx,cy,R*.72,cx,cy,R);g.addColorStop(0,"rgba(0,0,0,0)");g.addColorStop(1,"rgba(0,0,0,.28)");ctx.fillStyle=g;ctx.fillRect(cx-R,cy-R,R*2,R*2);ctx.restore();
+  circ(cx,cy,R,null,C["field-edge"],o.edge||5);if(o.ring)circ(cx,cy,R+4,null,o.ring,2.5)}
+/* draw a group of stained cells in a field; pos in px, s = px per µm */
+function cellGroup(kind,arr,x,y,s,col,seed,o){o=o||{};const pts=arrange(arr,seed,o.n);if(o.halo){pts.forEach(p=>{ctx.save();ctx.translate(x+p[0]*s,y+p[1]*s);ctx.rotate(p[2]+(o.rot||0));const L=kind==="rod"?s*(o.len||2)/2:s*.5;ell(0,0,L+s*.75,s*.5+s*.75,0,o.halo);ctx.restore()})}pts.forEach((p,i)=>{const sp=o.spore?{pos:o.spore.pos,col:o.spore.col}:null;cellK(kind,x+p[0]*s*(kind==="rod"||kind==="slim"?1:1),y+p[1]*s,s,p[2]+(o.rot||0),typeof col==="function"?col(i):col,{len:o.len,w:o.w,spore:sp&&rnd(seed+i)<(o.spore.frac||1)?sp:null,ph:o.ph,flag:o.flag,t:o.t})})}
+/* lipid bilayer row: heads on both faces */
+function bilayer(x,y,w,col,h){h=h||16;const n=Math.max(4,Math.round(w/7));ctx.save();for(let i=0;i<n;i++){const X=x+(i+.5)*w/n;line(X-1,y+3,X-1,y+h/2-1,hexA(col,.7),1);line(X+1,y+3,X+1,y+h/2-1,hexA(col,.7),1);line(X-1,y+h/2+1,X-1,y+h-3,hexA(col,.7),1);line(X+1,y+h/2+1,X+1,y+h-3,hexA(col,.7),1);circ(X,y+2.6,2.6,col);circ(X,y+h-2.6,2.6,col)}ctx.restore()}
+/* peptidoglycan mesh band: glycan strands (horizontal) with peptide cross-links */
+function pgMesh(x,y,w,h,rows,col,o){o=o||{};const rh=h/rows;for(let r=0;r<rows;r++){const Y=y+rh*(r+.5);for(let k=0;k<w/14;k++){const X=x+k*14+(r%2)*7;if(X+10>x+w)break;rr(X,Y-rh*.22,10,rh*.44,2);ctx.fillStyle=col;ctx.fill()}
+  if(r<rows-1&&o.links!==false){for(let k=0;k<w/28;k++){const X=x+10+k*28+(r%2)*14;if(X>x+w-4)break;line(X,Y+rh*.22,X,Y+rh*.78,mix(col,C.ink,.35),1.4)}}}}
+/* Gram-positive and Gram-negative wall cross-sections, outside on top. Returns key y positions */
+function wallGpos(x,y,w,o){o=o||{};const pgH=o.pgH||84,rows=o.rows||7;const t=o.t||0;
+  for(let k=0;k<w/40;k++){const X=x+18+k*40;if(X>x+w-8)break;line(X,y,X,y-16,mix(C.pg,C.ink,.3),2);circ(X,y-17,2.8,mix(C.pg,C.ink,.3))}
+  rr(x,y,w,pgH,4);ctx.fillStyle=hexA(C.pg,.16);ctx.fill();pgMesh(x+4,y+4,w-8,pgH-8,rows,C.pg);
+  bilayer(x,y+pgH+4,w,C.memb,18);return {pgTop:y,pgBot:y+pgH,memTop:y+pgH+4,bottom:y+pgH+22}}
+function wallGneg(x,y,w,o){o=o||{};const om=o.omGone||0;
+  withA(1-om,()=>{for(let k=0;k<w/22;k++){const X=x+10+k*22;poly([[X,y],[X+2,y-8],[X-1,y-15],[X+1,y-22]],C.lps,2.2);circ(X+1,y-23,2.6,C.lps)}bilayer(x,y,w,C.memb,18)});
+  const gp=o.gap||12;const pgY=y+18+gp;rr(x,pgY,w,14,3);ctx.fillStyle=hexA(C.pg,.16);ctx.fill();pgMesh(x+4,pgY+2,w-8,10,1,C.pg,{links:false});
+  bilayer(x,pgY+14+gp,w,C.memb,18);return {omTop:y,pgTop:pgY,pgBot:pgY+14,memTop:pgY+14+gp,bottom:pgY+32+gp}}
+/* dye molecules */
+function dyeDot(x,y,col,r,a){if(a!=null&&a<=0)return;ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x,y,r||3.6,col,hexA("#10161A",.35),.8);ctx.restore()}
+function cviComplex(x,y,s,a){if(a!=null&&a<=0)return;ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x-s*.4,y,s,C["dye-cv"],hexA("#10161A",.4),.8);circ(x+s*.7,y-s*.3,s*.7,C["dye-iod"],hexA("#10161A",.4),.8);circ(x+s*.5,y+s*.6,s*.6,C["dye-cv"]);ctx.restore()}
+/* glass slide, seen from the top */
+function slideTop(x,y,w,h,o){o=o||{};rr(x,y,w,h,3);ctx.fillStyle=hexA(C.glass,.75);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.4;ctx.stroke();
+  rr(x+4,y+4,w*.2,h-8,2);ctx.fillStyle=hexA(C.panel,.85);ctx.fill();if(o.lab)txt(x+4+w*.1,y+h/2,o.lab,{size:12,mono:true,weight:700,align:"center"});
+  if(o.smear){ell(x+w*.6,y+h/2,w*.2,h*.3,0,hexA(o.smear,o.sa==null?.6:o.sa))}}
+/* dropper bottle */
+function bottle(x,y,s,col,lab,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.scale(s,s);rr(-18,-30,36,48,6);ctx.fillStyle=hexA(C.panel,.95);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.6/s;ctx.stroke();
+  rr(-15,-8,30,24,4);ctx.fillStyle=col;ctx.fill();rr(-6,-44,12,14,3);ctx.fillStyle=C.metal;ctx.fill();rr(-3,-54,6,12,3);ctx.fillStyle=C.scope;ctx.fill();ctx.strokeStyle=C["scope-edge"];ctx.stroke();
+  if(o.on){ctx.lineWidth=3/s;rr(-21,-58,42,80,8);ctx.strokeStyle=C.accent;ctx.stroke()}ctx.restore();if(lab)txt(x,y+(22*s)+12,lab,{size:12,weight:700,align:"center",color:o.labCol||C.ink})}
+/* bunsen burner flame */
+function burner(x,y,s,t){ctx.save();ctx.translate(x,y);ctx.scale(s,s);rr(-6,-40,12,40,2);ctx.fillStyle=C.metal;ctx.fill();rr(-20,-4,40,8,3);ctx.fill();
+  const f=1+.08*Math.sin((t||0)*14);ctx.beginPath();ctx.moveTo(-8,-40);ctx.quadraticCurveTo(-12,-62*f,0,-86*f);ctx.quadraticCurveTo(12,-62*f,8,-40);ctx.closePath();ctx.fillStyle=hexA(C.flame,.35);ctx.fill();
+  ctx.beginPath();ctx.moveTo(-5,-40);ctx.quadraticCurveTo(-7,-52*f,0,-64*f);ctx.quadraticCurveTo(7,-52*f,5,-40);ctx.closePath();ctx.fillStyle=hexA(C.electron,.55);ctx.fill();ctx.restore()}
+/* inoculating loop */
+function loopTool(x,y,ang,s,col){ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.scale(s||1,s||1);rr(-80,-4,46,8,3);ctx.fillStyle=C.scope;ctx.fill();ctx.strokeStyle=C["scope-edge"];ctx.lineWidth=1;ctx.stroke();line(-34,0,0,0,col||C.metal,1.8);circ(5,0,5,null,col||C.metal,1.8);ctx.restore()}
+/* petri plate with colonies */
+function plate(x,y,r,o){o=o||{};circ(x,y,r,hexA(o.agar||C.broth,.9),C["glass-edge"],2);circ(x,y,r-5,null,hexA(C["glass-edge"],.5),1);
+  const n=o.n||0;for(let i=0;i<n;i++){const an=rnd(i*3+(o.seed||1))*TAU,d=Math.sqrt(rnd(i*7+2))*(r-12);circ(x+Math.cos(an)*d,y+Math.sin(an)*d,o.cr||3.4,o.col||C.cloud,hexA(C.ink,.25),.8)}}
+/* simple lab mouse, side view */
+function mouseIcon(x,y,s,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.globalAlpha*=o.a==null?1:o.a;const col=o.sick?mix(C.mouse,C.ink,.15):C.mouse;
+  ell(0,0,26,15,0,col,C["mouse-edge"],1.4/s);ell(24,-6,12,9,-.3,col,C["mouse-edge"],1.4/s);circ(20,-16,6,mix(col,C.rbc,.25),C["mouse-edge"],1.2/s);circ(28,-8,1.8,C.ink);circ(35,-4,1.6,C.rbc);
+  ctx.beginPath();ctx.moveTo(-26,2);ctx.quadraticCurveTo(-44,6,-50,-6);ctx.strokeStyle=C["mouse-edge"];ctx.lineWidth=2/s;ctx.stroke();
+  [-12,10].forEach(px=>line(px,13,px,19,C["mouse-edge"],2/s));if(o.sick){ctx.fillStyle=C.ink;ctx.font=`700 ${12}px ${FONT}`;ctx.textAlign="center";ctx.fillText("x",28,-6)}ctx.restore()}
+/* eye icon (side) */
+function eyeIcon(x,y,s){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.beginPath();ctx.moveTo(-16,0);ctx.quadraticCurveTo(0,-14,16,0);ctx.quadraticCurveTo(0,14,-16,0);ctx.closePath();ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C.ink;ctx.lineWidth=1.6/s;ctx.stroke();circ(2,0,6,C.act3);circ(2,0,2.6,C.ink);ctx.restore()}
+/* compound light microscope, side view. Origin = middle of the base bottom.
+   o.obj 0..3 (4x,10x,40x,100x) or fractional while turning; o.stage px raise; o.oil; o.light 0..1; o.iris 0..1 (open); o.t time; o.beam; o.hl part to highlight; o.labels */
+const OBJ=[{m:4,band:"#C2392F",len:30,name:"4x"},{m:10,band:"#D9A514",len:40,name:"10x"},{m:40,band:"#4F8FCB",len:52,name:"40x"},{m:100,band:"#E8EEF1",len:60,name:"100x oil"}];
+function scopeGeom(x,y,s,o){const ax=x+30*s;return {ax,baseY:y,lampY:y-34*s,condY:y-118*s,stageY:y-150*s-(o.stage||0)*s,turretY:y-250*s,tubeTop:y-318*s,ocX:ax-38*s,ocY:y-372*s,coarse:[x-62*s,y-152*s]}}
+function scopeDraw(x,y,s,o){o=o||{};const g=scopeGeom(x,y,s,o);const ax=g.ax;const hl=o.hl||"";const lw=1.6;const body=C.scope,edge=C["scope-edge"];
+  const H_=k=>hl===k?C.accent:edge;const HW=k=>hl===k?3.2:lw;
+  ctx.save();ctx.lineJoin="round";
+  // base
+  rr(x-96*s,y-26*s,196*s,26*s,8*s);ctx.fillStyle=body;ctx.fill();ctx.strokeStyle=H_("base");ctx.lineWidth=HW("base");ctx.stroke();
+  // arm
+  ctx.beginPath();ctx.moveTo(x-80*s,y-26*s);ctx.lineTo(x-80*s,y-200*s);ctx.quadraticCurveTo(x-80*s,y-300*s,ax-20*s,y-306*s);ctx.lineTo(ax-20*s,y-280*s);ctx.quadraticCurveTo(x-52*s,y-276*s,x-52*s,y-200*s);ctx.lineTo(x-52*s,y-26*s);ctx.closePath();ctx.fillStyle=body;ctx.fill();ctx.strokeStyle=H_("arm");ctx.lineWidth=HW("arm");ctx.stroke();
+  // lamp
+  const L=o.light==null?.8:o.light;rr(ax-16*s,y-46*s,32*s,22*s,5*s);ctx.fillStyle=mix(body,C.ink,.08);ctx.fill();ctx.strokeStyle=H_("lamp");ctx.lineWidth=HW("lamp");ctx.stroke();
+  glow(ax,g.lampY-6*s,26*s*(.4+L),C.beam,.25+.7*L);circ(ax,g.lampY-6*s,6*s,mix(C.beam,"#ffffff",.3*L),edge,1);
+  // condenser + iris
+  ctx.beginPath();ctx.moveTo(ax-24*s,g.condY+16*s);ctx.lineTo(ax+24*s,g.condY+16*s);ctx.lineTo(ax+16*s,g.condY-8*s);ctx.lineTo(ax-16*s,g.condY-8*s);ctx.closePath();ctx.fillStyle=mix(body,C.ink,.06);ctx.fill();ctx.strokeStyle=H_("cond");ctx.lineWidth=HW("cond");ctx.stroke();
+  const iris=o.iris==null?.7:o.iris;const gap=(4+14*iris)*s;rr(ax-30*s,g.condY+20*s,30*s-gap/2,5*s,2);ctx.fillStyle=H_("iris")===C.accent?C.accent:C.metal;ctx.fill();rr(ax+gap/2,g.condY+20*s,30*s-gap/2,5*s,2);ctx.fill();
+  // stage + clips + slide
+  rr(ax-78*s,g.stageY,128*s,10*s,2);ctx.fillStyle=mix(body,C.ink,.15);ctx.fill();ctx.strokeStyle=H_("stage");ctx.lineWidth=HW("stage");ctx.stroke();
+  rr(x-52*s,g.stageY+10*s,8*s,(y-26*s)-(g.stageY+10*s)<0?0:12*s,2);ctx.fillStyle=edge;ctx.fill();
+  rr(ax-50*s,g.stageY-4*s,90*s,4*s,1);ctx.fillStyle=hexA(C.glass,.95);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1;ctx.stroke();
+  line(ax-46*s,g.stageY-6*s,ax-30*s,g.stageY-6*s,C.metal,2.4*s);
+  if(o.smearCol)rr(ax-10*s,g.stageY-5.5*s,20*s,2*s,1),ctx.fillStyle=o.smearCol,ctx.fill();
+  // focus knobs
+  const [kx,ky]=g.coarse;circ(kx,ky,17*s,mix(body,C.ink,.2),H_("coarse"),HW("coarse"));for(let k=0;k<8;k++){const an=k/8*TAU+(o.knob||0);line(kx+Math.cos(an)*11*s,ky+Math.sin(an)*11*s,kx+Math.cos(an)*16*s,ky+Math.sin(an)*16*s,edge,1.2)}
+  circ(kx,ky,8*s,mix(body,C.ink,.32),H_("fine"),HW("fine"));for(let k=0;k<6;k++){const an=k/6*TAU+(o.knob||0)*3;line(kx+Math.cos(an)*3*s,ky+Math.sin(an)*3*s,kx+Math.cos(an)*7*s,ky+Math.sin(an)*7*s,edge,1)}
+  // body tube + head + ocular
+  rr(ax-14*s,g.tubeTop,28*s,g.turretY-g.tubeTop,4);ctx.fillStyle=body;ctx.fill();ctx.strokeStyle=H_("tube");ctx.lineWidth=HW("tube");ctx.stroke();
+  ctx.save();ctx.translate(ax,g.tubeTop);ctx.rotate(-.55);rr(-12*s,-62*s,24*s,64*s,4);ctx.fillStyle=body;ctx.fill();ctx.strokeStyle=H_("ocular");ctx.lineWidth=HW("ocular");ctx.stroke();rr(-14*s,-70*s,28*s,12*s,3);ctx.fillStyle=mix(body,C.ink,.25);ctx.fill();ctx.restore();
+  // turret + objectives
+  const obj=o.obj==null?0:o.obj;
+  ctx.beginPath();ctx.ellipse(ax,g.turretY,40*s,12*s,0,0,TAU);ctx.fillStyle=mix(body,C.ink,.12);ctx.fill();ctx.strokeStyle=H_("turret");ctx.lineWidth=HW("turret");ctx.stroke();
+  const objs=[0,1,2,3].map(i=>({i,rel:i-obj})).sort((a,b)=>Math.abs(b.rel)-Math.abs(a.rel));
+  objs.forEach(({i,rel})=>{const ob=OBJ[i];const an=clamp(rel,-2,2)*.42;if(Math.abs(rel)>2.2)return;ctx.save();ctx.translate(ax,g.turretY+6*s);ctx.rotate(an);ctx.globalAlpha*=Math.abs(rel)<.5?1:.75;
+    const len=ob.len*s;ctx.beginPath();ctx.moveTo(-11*s,0);ctx.lineTo(11*s,0);ctx.lineTo(7*s,len);ctx.lineTo(-7*s,len);ctx.closePath();ctx.fillStyle=mix(body,C.ink,.08);ctx.fill();ctx.strokeStyle=Math.abs(rel)<.5?H_("obj"):edge;ctx.lineWidth=Math.abs(rel)<.5?HW("obj"):1.2;ctx.stroke();
+    rr(-10*s,len*.3,20*s,5*s,1);ctx.fillStyle=ob.band;ctx.fill();if(i===3){rr(-8*s,len*.72,16*s,3*s,1);ctx.fillStyle="#10161A";ctx.fill()}
+    rr(-4*s,len,8*s,3*s,1);ctx.fillStyle=C.glass;ctx.fill();ctx.restore()});
+  const tipY=g.turretY+6*s+OBJ[Math.round(clamp(obj,0,3))].len*s+3*s;
+  // oil drop
+  if(o.oil){const gapY=g.stageY-4*s-tipY;ctx.beginPath();ctx.moveTo(ax-10*s,g.stageY-4*s);ctx.quadraticCurveTo(ax,g.stageY-4*s-Math.max(6*s,gapY+4*s),ax+10*s,g.stageY-4*s);ctx.closePath();ctx.fillStyle=hexA(C.oil,.75);ctx.fill();ctx.strokeStyle=mix(C.oil,C.ink,.3);ctx.lineWidth=1;ctx.stroke()}
+  // light beam
+  if(o.beam!==false&&L>0){const path=[[ax,g.lampY-6*s],[ax,g.condY],[ax,g.stageY],[ax,tipY],[ax,g.tubeTop],[ax-Math.sin(.55)*70*s,g.tubeTop-Math.cos(.55)*70*s]];
+    poly(path,hexA(C.beam,.28*L+.08),5*s*(.5+iris*.6));const n=7;for(let k=0;k<n;k++){const f=P((o.t||0)*.35+k/n,1);const p=along(path,f);circ(p[0],p[1],3*s,hexA(C.beam,.9*(.4+L*.6)),hexA(C.ink,.3),.6)}}
+  ctx.restore();return Object.assign(g,{tipY})}
+/* swan-neck or straight flask with broth; o.cloud 0..1, o.swan, o.broken */
+function flask(x,y,s,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.scale(s,s);const lw=1.8/s;
+  ctx.beginPath();ctx.moveTo(-12,-60);ctx.lineTo(-12,-40);ctx.quadraticCurveTo(-52,-14,-48,14);ctx.quadraticCurveTo(-44,40,0,40);ctx.quadraticCurveTo(44,40,48,14);ctx.quadraticCurveTo(52,-14,12,-40);ctx.lineTo(12,-60);
+  ctx.fillStyle=hexA(C.glass,.45);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=lw;ctx.stroke();
+  ctx.save();ctx.clip();ctx.fillStyle=mix(C.broth,C.cloud,o.cloud||0);ctx.fillRect(-60,4,120,40);if(o.cloud>.05){for(let i=0;i<30;i++){const X=-40+rnd(i)*80,Y=8+rnd(i+40)*28;circ(X,Y,1.4,hexA(C.dust,o.cloud))}}ctx.restore();
+  if(o.swan&&!o.broken){ctx.beginPath();ctx.moveTo(-12,-60);ctx.bezierCurveTo(-12,-110,50,-110,56,-60);ctx.bezierCurveTo(60,-30,86,-30,96,-62);ctx.moveTo(12,-60);ctx.bezierCurveTo(12,-92,40,-92,44,-60);ctx.bezierCurveTo(48,-18,98,-18,108,-58);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=lw;ctx.stroke()}
+  else if(o.swan&&o.broken){line(-12,-60,-12,-74,C["glass-edge"],lw);line(12,-60,12,-74,C["glass-edge"],lw)}
+  else{line(-12,-60,-12,-96,C["glass-edge"],lw);line(12,-60,12,-96,C["glass-edge"],lw)}
+  ctx.restore()}
+/* cached layer: draws fn once into an offscreen canvas (per key, scale and theme) and reuses it */
+const LAYERS={};
+function layer(key,x,y,w,h,fn,sig){const tr=ctx.getTransform();const sc=Math.hypot(tr.a,tr.b)||1;const full=key+"|"+sc.toFixed(3)+"|"+(C.ground||"")+"|"+(C.field||"")+"|"+(sig||"");
+  let L=LAYERS[key];if(!L||L.full!==full){if(!L){L={cv:document.createElement("canvas")};L.ctx=L.cv.getContext("2d");LAYERS[key]=L}L.full=full;L.cv.width=Math.max(1,Math.ceil(w*sc));L.cv.height=Math.max(1,Math.ceil(h*sc));
+    const save=ctx;ctx=L.ctx;ctx.setTransform(sc,0,0,sc,-x*sc,-y*sc);ctx.clearRect(x,y,w,h);try{fn()}finally{ctx=save}}
+  ctx.drawImage(L.cv,x,y,w,h)}
+function clearLayers(prefix){Object.keys(LAYERS).forEach(k=>{if(!prefix||k.indexOf(prefix)===0)delete LAYERS[k]})}
+/* procedural smear: tiles of `tile` µm, each may hold one group of cells. s = px per µm. (ox,oy) = stage position in µm */
+function smearDraw(spec,s,cx,cy,R,ox,oy){ox=ox||0;oy=oy||0;const tile=s<1.6?Math.max(spec.tile||6,7/s):(spec.tile||6);const rU=R/s;const i0=Math.floor((ox-rU)/tile)-1,i1=Math.ceil((ox+rU)/tile)+1,j0=Math.floor((oy-rU)/tile)-1,j1=Math.ceil((oy+rU)/tile)+1;
+  const tot=spec.groups.reduce((a,g)=>a+g.w,0);const sd=spec.seed||1;
+  for(let i=i0;i<=i1;i++)for(let j=j0;j<=j1;j++){const h=rnd(sd*13.7+i*91.3+j*57.1);if(h>(spec.fill||.5))continue;
+    let pick=rnd(sd*3.1+i*17.9+j*29.3)*tot,g=spec.groups[0];for(const gg of spec.groups){if(pick<gg.w){g=gg;break}pick-=gg.w}
+    const wx=(i+.15+.7*rnd(i*3.3+j*7.7+sd))*tile,wy=(j+.15+.7*rnd(i*5.1+j*2.9+sd*2))*tile;const X=cx+(wx-ox)*s,Y=cy+(wy-oy)*s;if(Math.hypot(X-cx,Y-cy)>R+30)continue;
+    const col=typeof g.col==="function"?g.col(i,j):g.col;const gs=Math.floor(rnd(i*11.1+j*13.3)*1000);
+    if(s<1.6){const rad=Math.max(.8,s*(g.arr==="staph"||g.arr==="strep"?1.7:g.kind==="host"?9:1));ctx.globalAlpha=g.kind==="host"?.35:.85;circ(X,Y,rad,col);ctx.globalAlpha=1;continue}
+    if(g.kind==="host"){hostSq(X,Y,s,col,typeof g.nuc==="function"?g.nuc():g.nuc,gs);continue}
+    if(g.kind==="debris"){circ(X,Y,s*.4,col);continue}
+    cellGroup(g.kind,g.arr,X,Y,s*(g.sc||1),col,gs,{n:g.n?g.n+Math.floor(rnd(gs)*3):undefined,len:g.len,w:g.w2,spore:g.spore,ph:g.ph,halo:g.halo})
+  }}
+/* human squamous / epithelial cell in a smear */
+function hostSq(x,y,s,col,nuc,seed){ctx.save();ctx.beginPath();const r=s*9;for(let k=0;k<=12;k++){const a=k/12*TAU;const rr_=r*(.85+.25*rnd(seed+k));const X=x+Math.cos(a)*rr_,Y=y+Math.sin(a)*rr_*.8;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();ctx.fillStyle=hexA(col,.28);ctx.fill();ctx.strokeStyle=hexA(col,.6);ctx.lineWidth=Math.max(.6,s*.15);ctx.stroke();ell(x+s*1.5,y-s*.8,s*2.1,s*1.7,.3,nuc||col);ctx.restore()}
+
+/* standard smears (colours read at draw time so both themes work) */
+const SMEAR={
+ gram:{tile:5,fill:.6,seed:3,groups:[{w:3,kind:"coccus",arr:"staph",col:()=>C["st-cv"],n:6},{w:3,kind:"rod",arr:"single",col:()=>C["st-saf"]},{w:1.2,kind:"rod",arr:"diplobac",col:()=>C["st-saf"]},{w:1,kind:"coccus",arr:"diplo",col:()=>C["st-cv"]}]},
+ af:{tile:7,fill:.6,seed:5,groups:[{w:1.1,kind:"host",col:()=>C["st-mb"],nuc:()=>mix(C["st-mb"],"#10161A",.25)},{w:1.6,kind:"slim",arr:"clump",n:3,col:()=>C["st-cf"]},{w:1,kind:"slim",arr:"single",col:()=>C["st-cf"]},{w:2,kind:"coccus",arr:"diplo",col:()=>C["st-mb"]},{w:1.4,kind:"rod",arr:"single",col:()=>C["st-mb"]}]},
+ spore:{tile:5.5,fill:.62,seed:8,groups:[{w:3,kind:"rod",arr:"single",len:2.6,col:()=>C["st-saf"],spore:{pos:.55,col:"#179A5B",frac:.85}},{w:1.6,kind:"rod",arr:"strepbac",n:2,len:2.6,col:()=>C["st-saf"],spore:{pos:.55,col:"#179A5B",frac:.6}},{w:1.4,kind:"spore",arr:"single",col:()=>C["st-mg"]}]},
+ caps:{tile:6,fill:.55,seed:11,bg:()=>C["st-nig"],groups:[{w:3,kind:"rod",arr:"single",len:1.8,w2:.9,col:()=>C["st-saf"],halo:"rgba(246,243,234,.92)"},{w:2,kind:"lancet",arr:"diplo",col:()=>C["st-saf"],halo:"rgba(246,243,234,.92)"}]}};
+
+/* ---------------- step content ---------------- */
+const ACTS={1:{name:"Part 1 · The microbial world",col:"act1"},
+            2:{name:"Part 2 · Discovering microbes",col:"act2"},
+            3:{name:"Part 3 · Microscopes",col:"act3"},
+            4:{name:"Part 4 · Preparing and staining",col:"act4"},
+            5:{name:"Part 5 · Shapes and arrangements",col:"act5"}};
+const NACT=5;
+const opt=(t,ok,why)=>[t,ok?1:0,why];
+const STEPS=[
+{act:0,scene:"map",desc:"On the left stands a grey compound light microscope drawn from the side. Small gold dots of light rise from the lamp in the base, pass up through the condenser, the glass slide on the stage, the objective lens and the tube, and leave through the eyepiece at the top. On the right, five cards are stacked in two columns and one wide card: The microbial world shows a green rod, a tan budding yeast and a magenta virus; Discovering microbes shows a glass flask of broth; Microscopes shows a round view that zooms in on cells; Preparing and staining shows a purple ball and a pink rod; Shapes and arrangements shows a chain, a grape-like cluster and a pink spiral. The cards light up with a coloured border one after another.",
+ title:"Seeing the invisible",
+ body:`<p><b>Microbes</b> (microorganisms) are living things too small to see clearly with your eyes alone. They live in soil, water, food and on and in your body. Most are harmless or helpful. A small number cause disease, and those are called <b>pathogens</b>.</p>
+ <p>To study microbes we have to make them visible. That takes two tools: a <b>microscope</b> to enlarge them, and <b>stains</b> (dyes) to give them colour and contrast.</p>
+ <p>This walkthrough has five parts:</p>
+ <ol><li><b>The microbial world:</b> the main groups, how small they are, and how they are named.</li><li><b>Discovering microbes:</b> the first microscopes, the end of spontaneous generation, and germ theory.</li><li><b>Microscopes:</b> how a light microscope works, magnification, resolution, oil, and other kinds of microscopes.</li><li><b>Preparing and staining:</b> smears, simple stains, the Gram stain, acid-fast, endospore and capsule stains.</li><li><b>Shapes and arrangements:</b> cocci, rods and spirals, in pairs, chains and clusters.</li></ol>`,
+ analogy:"Trying to study microbes without a microscope and stain is like trying to read a page of glass with clear ink. The microscope makes the page big enough to read; the stain makes the ink dark enough to see.",
+ terms:[["Microbe","A living thing too small to see clearly without a microscope. Also called a microorganism."],["Pathogen","A microbe that can cause disease."]],
+ check:null,caption:"A light microscope sends light up through the specimen to your eye. Five parts to explore.",
+ legend:[["beam","Light path"],["gpos","Gram-positive purple"],["gneg","Gram-negative pink"],["accent","Current part","s"]]},
+
+/* ---------- Part 1 ---------- */
+{act:1,scene:"groups",desc:"Seven cards fill the picture, four on top and three below, and a highlight moves from card to card. Bacteria: green rods with whip-like tails, one rod pinching in two. Archaea: orange rods in bubbling hot water. Fungi: a tan yeast cell growing a bud, and branching threads of mold. Protozoa: a teal blob that pushes out arm-like extensions and creeps along. Algae: bright green cells with darker green chloroplasts under small sun rays. Helminths: a pink worm that wiggles, next to a small oval egg. Viruses: a magenta ball with spikes. Each card has a tag underneath: Prokaryote cell for bacteria and archaea, Eukaryote for fungi, protozoa, algae and helminths, and Not a cell for viruses.",
+ title:"Meet the microbes",
+ body:`<p>Microbiology covers seven big groups. Two are <b>prokaryotes</b>: simple cells with <b>no nucleus</b>.</p>
+ <ul><li><b>Bacteria:</b> tiny single cells, most with a cell wall made of <b>peptidoglycan</b>. A few cause disease; most are harmless or helpful.</li><li><b>Archaea:</b> look like bacteria but have different chemistry and no peptidoglycan. Many live in extreme places like hot springs. None are known to cause human disease.</li></ul>
+ <p>Four are <b>eukaryotes</b>, with a nucleus: <b>fungi</b> (single-celled yeasts and thread-like molds), <b>protozoa</b> (single cells that often move, like the amoeba or <i>Giardia</i>), <b>algae</b> (cells that make food by photosynthesis), and <b>helminths</b> (parasitic worms; the adults are big, but their eggs and larvae are microscopic, so labs find them with a microscope).</p>
+ <p><b>Viruses</b> are <b>not cells</b> at all: just genes inside a protein coat. They can only multiply inside a host cell.</p>`,
+ analogy:"Think of a city. Bacteria and archaea are tiny one-room cabins. Fungi, protozoa, algae and worms are houses with a separate office (the nucleus) for the blueprints. Viruses are not houses at all; they are a set of blueprints in an envelope that must break into a house to get copied.",
+ terms:[["Prokaryote","A cell without a nucleus: bacteria and archaea."],["Eukaryote","A cell with a nucleus: fungi, protozoa, algae, helminths, and your own cells."],["Acellular","Not made of cells. Viruses are acellular."],["Peptidoglycan","The mesh-like material in most bacterial cell walls."]],
+ check:{q:"Which group is NOT made of cells?",opts:[
+  opt("Viruses",1,"Right. A virus is genetic material in a protein coat, with no cell of its own, so it must use a host cell to copy itself."),
+  opt("Archaea",0,"Archaea are single prokaryotic cells. They just have different chemistry from bacteria."),
+  opt("Protozoa",0,"Protozoa are single eukaryotic cells with a nucleus, like an amoeba."),
+  opt("Fungi",0,"Fungi are eukaryotic cells: yeasts are single cells and molds are long chains of cells.")]},
+ caption:"Seven groups: two prokaryote groups, four eukaryote groups, and viruses, which are not cells.",
+ legend:[["bact","Bacteria"],["arch","Archaea"],["fungus","Fungi"],["proto","Protozoa"],["alga","Algae"],["helm","Helminths"],["virus","Viruses"]]},
+
+{act:1,scene:"size",desc:"A wide window at the top zooms in smoothly, ten times closer every few seconds, then starts over. First a brown band, a human hair about 80 micrometres wide, crosses the view with a tiny red dot on it. Zooming in, the red dot grows into a red blood cell about 7 micrometres across that fills the view. On it sits a small green rod, an E. coli bacterium about 2 micrometres long, which grows until it fills the screen, and then a magenta spiky virus about 100 nanometres wide appears on its surface and grows. A label in the corner shows the width of the view, from 1 millimetre down to about 200 nanometres. Below, a ruler runs from 1 millimetre on the left to 1 nanometre on the right, with three coloured bars showing what each tool can see: your eye down to about 100 micrometres, a light microscope down to about 0.2 micrometres, and an electron microscope far smaller. A marker slides along the ruler to match the zoom.",
+ title:"How small is small?",
+ body:`<p>Microbes are measured in tiny metric units:</p>
+ <ul><li><b>1 millimetre (mm) = 1,000 micrometres (µm)</b></li><li><b>1 micrometre (µm) = 1,000 nanometres (nm)</b></li></ul>
+ <p>A human hair is about <b>80 µm</b> wide. A red blood cell is about <b>7 µm</b>. A typical bacterium such as <i>E. coli</i> is about <b>1 µm wide and 2 µm long</b>. Yeast cells are larger, about 3 to 5 µm. Most viruses are much smaller, about <b>20 to 300 nm</b>; the flu virus is about 100 nm.</p>
+ <p>Your eye can just make out things about <b>0.1 mm (100 µm)</b> across. A light microscope lets you see down to about <b>0.2 µm</b>, enough for bacteria but not for most viruses. Seeing viruses takes an <b>electron microscope</b>.</p>`,
+ analogy:"If a bacterium were the size of a grain of rice, a red blood cell would be about the size of a coin, a human hair would be as wide as a dinner plate, and a flu virus would be a speck of dust on the rice grain.",
+ terms:[["Micrometre (µm)","One millionth of a metre; one thousandth of a millimetre. Bacteria are measured in µm."],["Nanometre (nm)","One thousandth of a micrometre. Viruses are measured in nm."],["Limit of the light microscope","About 0.2 µm. Smaller things blur together."]],
+ check:{q:"A virus is 100 nm across. How many micrometres is that?",opts:[
+  opt("0.1 µm",1,"Yes. 1 µm is 1,000 nm, so 100 nm is 100/1,000 = 0.1 µm. That is below the light microscope's limit of about 0.2 µm."),
+  opt("10 µm",0,"That would be larger than a red blood cell. Divide nm by 1,000 to get µm: 100 nm = 0.1 µm."),
+  opt("100 µm",0,"100 µm is about the width of a hair. To change nm to µm, divide by 1,000."),
+  opt("1 µm",0,"1 µm is 1,000 nm, ten times bigger than this virus.")]},
+ caption:"Zooming from a hair to a red blood cell to a bacterium to a virus. The ruler shows what each tool can see.",
+ legend:[["hair","Hair (80 µm)"],["rbc","Red blood cell (7 µm)"],["bact","E. coli (2 µm)"],["virus","Virus (100 nm)"]]},
+
+{act:1,scene:"names",desc:"In the middle, the name Escherichia coli is written in large slanted italic letters. A bracket under Escherichia is labelled Genus, capital first letter, and a bracket under coli is labelled species, all lowercase. Then the first word shrinks to the letter E with a full stop, showing the short form E. coli. The display then changes to Staphylococcus aureus, with notes that staphylo means grape-like cluster, coccus means berry, and aureus means golden, and then to Mycobacterium tuberculosis. Beside each name, small drawings show the matching cells: green rods for E. coli, a gold grape-like cluster of round cells for Staphylococcus, and thin rods for Mycobacterium. At the bottom, a handwritten version of the name is shown underlined instead of slanted.",
+ title:"Naming microbes: two names each",
+ body:`<p>Every species gets a two-part scientific name. This system is called <b>binomial nomenclature</b>, and it came from Carl Linnaeus in the 1700s.</p>
+ <ul><li>The first word is the <b>genus</b>. It always starts with a <b>capital letter</b>.</li><li>The second word is the <b>species</b> (specific epithet). It is <b>all lowercase</b>.</li><li>The whole name is written in <b>italics</b>, or underlined when handwritten.</li></ul>
+ <p>After you write the full name once, you can shorten the genus to its first letter: <i>Escherichia coli</i> becomes <i>E. coli</i>.</p>
+ <p>Names often describe the microbe. <i>Staphylococcus aureus</i> means "golden grape-cluster berries": round cells in clusters that make golden colonies. <i>Mycobacterium tuberculosis</i> causes tuberculosis.</p>`,
+ analogy:"It works like a person's name written last-name-first: the genus is the family name shared by close relatives, and the species is the given name of one member.",
+ terms:[["Binomial nomenclature","The two-name system: Genus species."],["Genus","The first, capitalized name, shared by closely related species."],["Species","The second, lowercase name that pins down one kind of organism."]],
+ check:{q:"Which is written correctly?",opts:[
+  opt("Staphylococcus aureus (in italics)",1,"Correct. Genus capitalized, species lowercase, both in italics."),
+  opt("staphylococcus Aureus",0,"The capitals are swapped. The genus gets the capital; the species is all lowercase."),
+  opt("Staphylococcus Aureus",0,"The species name is never capitalized, even when it comes from a word like aureus (golden)."),
+  opt("S. Aureus",0,"Shortening the genus to S. is fine, but aureus must stay lowercase.")]},
+ caption:"Genus (capital) plus species (lowercase), in italics. After first use the genus can be shortened.",
+ legend:[["accent","Genus","s"],["act4","Species","s"]]},
+
+/* ---------- Part 2 ---------- */
+{act:2,scene:"leeuw",desc:"The picture is split in two. On the left, labelled Robert Hooke, 1665, a slice of cork is drawn as rows of empty boxes like a honeycomb, with the word Cells. On the right, labelled Antonie van Leeuwenhoek, 1670s, a small flat metal plate holds a tiny bead-like lens, with a pin in front holding a drop of water, and a round view beside it shows his animalcules: little rods, round cells and a larger oval protozoan with beating hairs swimming around in different directions. A timeline across the bottom marks 1665 and 1676.",
+ title:"The first look: Hooke and van Leeuwenhoek",
+ body:`<p>In <b>1665</b>, <b>Robert Hooke</b> looked at thin slices of cork with an early microscope. He saw tiny boxes and called them <b>cells</b>. This idea grew into the <b>cell theory</b>: all living things are made of cells.</p>
+ <p>In the <b>1670s</b>, <b>Antonie van Leeuwenhoek</b>, a Dutch cloth merchant, ground his own tiny glass lenses. His simple, single-lens microscopes magnified up to about 300 times. In rainwater and scrapings from his teeth he saw moving "<b>animalcules</b>": the first people to see living bacteria and protozoa.</p>
+ <p>He wrote careful letters describing their shapes, which match the cocci, rods and spirals we still describe today.</p>`,
+ analogy:"Van Leeuwenhoek was like the first person to put a camera underwater. The fish had always been there; nobody had seen them before.",
+ terms:[["Animalcules","Van Leeuwenhoek's word for the tiny moving creatures he saw."],["Simple microscope","A microscope with just one lens, like a strong magnifying glass."],["Cell theory","All living things are made of one or more cells."]],
+ check:{q:"Why is van Leeuwenhoek remembered in microbiology?",opts:[
+  opt("He was the first to see and describe living bacteria and protozoa",1,"Yes. With his own single-lens microscopes he described moving microbes from water and his own teeth in the 1670s."),
+  opt("He proved that microbes cause disease",0,"That came about 200 years later with Pasteur and Koch."),
+  opt("He invented the Gram stain",0,"The Gram stain was developed by Hans Christian Gram in 1884."),
+  opt("He named cells after looking at cork",0,"That was Robert Hooke in 1665.")]},
+ caption:"Hooke named cells in cork (1665); van Leeuwenhoek saw living microbes with a single lens (1670s).",
+ legend:[["wax","Cork cells"],["bact","Bacteria"],["proto","Protozoa"]]},
+
+{act:2,scene:"pasteur",desc:"Two glass flasks of yellow broth sit side by side. The left flask has a straight, open neck. The right flask has a long S-shaped swan neck. First, steam rises from both as they are boiled, and a day counter starts. Grey dust specks drift down from the air. In the straight-neck flask, dust falls right in and the broth slowly turns cloudy. In the swan-neck flask, the dust gets stuck in the low bend of the neck and the broth stays clear. Then a crack appears and the swan neck is snapped off; now dust falls straight in and that broth turns cloudy too. Labels say Clear: no microbes got in, and Cloudy: microbes from the air grew.",
+ title:"Pasteur and the swan-neck flask",
+ body:`<p>For centuries people believed in <b>spontaneous generation</b>: the idea that life can arise from non-living material, like maggots from meat or microbes from broth.</p>
+ <p>In the <b>1860s</b>, <b>Louis Pasteur</b> boiled broth in flasks with long, curved <b>swan necks</b>. Air could still reach the broth, but dust and microbes got trapped in the bend. The broth stayed <b>clear</b> for a long time. When he broke the neck off, microbes from the air fell in and the broth turned <b>cloudy</b> with growth.</p>
+ <p>Conclusion: microbes come from <b>other microbes</b>, not from the broth itself. This led to <b>biogenesis</b> (life comes from life) and to sterile technique: heating to kill microbes and keeping them out.</p>`,
+ analogy:"The swan neck is like a long, winding driveway. Air can drift in, but dust settles in the dip of the driveway and never reaches the front door.",
+ terms:[["Spontaneous generation","The old, disproved idea that living things arise from non-living matter."],["Biogenesis","Living things come only from other living things."],["Sterile","Free of all living microbes."]],
+ check:{q:"What did the swan-neck flask prove?",opts:[
+  opt("Microbes in the broth came from the air, not from the broth itself",1,"Right. With the neck trapping dust, the boiled broth stayed clear. Break the neck and it clouds over."),
+  opt("Broth needs fresh air to grow microbes",0,"The swan neck let air in, yet nothing grew. Air alone does not create microbes."),
+  opt("Boiling cannot kill microbes",0,"Boiling killed the microbes; that is why the broth stayed clear until dust got in."),
+  opt("Microbes are made by the glass",0,"Both flasks were glass. Only the one that let dust fall in became cloudy.")]},
+ caption:"Dust is trapped in the swan neck, so the broth stays clear until the neck is broken.",
+ legend:[["broth","Clear broth"],["cloud","Cloudy (microbes growing)"],["dust","Dust carrying microbes"]]},
+
+{act:2,scene:"koch",desc:"On the left, four stations sit in a loop joined by arrows, and a bright marker travels around them. Station 1: a sick mouse with green rod bacteria shown in a small blood view, next to a healthy mouse with none. Station 2: a petri dish where one type of colony grows, labelled Pure culture. Station 3: a syringe puts the culture into a healthy mouse, which then becomes sick. Station 4: the same green rods are grown again from the new sick mouse, with a check mark. On the right, a timeline of cards lights up from top to bottom: 1847 Semmelweis, hand washing; 1860s Pasteur, germs from germs; 1867 Lister, carbolic acid in surgery; 1876 and 1882 Koch, anthrax and tuberculosis.",
+ title:"Germ theory: Koch, Lister and friends",
+ body:`<p>The <b>germ theory of disease</b> says that specific microbes cause specific diseases. Several people built the evidence:</p>
+ <ul><li><b>Ignaz Semmelweis (1847):</b> doctors who washed their hands in a chlorine solution between patients cut deaths from childbed fever.</li><li><b>Joseph Lister (1867):</b> used <b>carbolic acid</b> (phenol) on wounds and instruments. Surgical infections dropped: the start of <b>antiseptic surgery</b>.</li><li><b>Robert Koch:</b> proved that a bacterium causes <b>anthrax</b> (1876) and found the cause of <b>tuberculosis</b> (1882). His lab also introduced pure cultures on solid media.</li></ul>
+ <p><b>Koch's postulates</b> are the steps to link one microbe to one disease: (1) find it in every sick animal, (2) grow it in <b>pure culture</b>, (3) put it into a healthy animal and the same disease appears, (4) grow the same microbe again from that animal.</p>`,
+ analogy:"Koch's postulates work like a detective proving a suspect did it: the suspect is at every crime scene, is caught and identified alone, does it again when released, and is caught again with the same fingerprints.",
+ terms:[["Germ theory","Specific microbes cause specific infectious diseases."],["Koch's postulates","Four steps that link one microbe to one disease."],["Pure culture","A culture that contains only one kind of microbe."],["Antiseptic","A chemical used on skin or wounds to kill or slow microbes."]],
+ check:{q:"In Koch's postulates, what happens right after the microbe is grown in pure culture?",opts:[
+  opt("It is put into a healthy animal, which should develop the same disease",1,"Yes. Step 3 tests whether the microbe alone can cause the disease."),
+  opt("It is stained with crystal violet",0,"Staining helps identify a microbe, but it is not one of the four postulates."),
+  opt("It is boiled to see if it survives",0,"Boiling is about sterilization, not about proving a cause of disease."),
+  opt("The sick animal is treated with antibiotics",0,"Antibiotics were not available until the 1900s and are not part of the postulates.")]},
+ caption:"Koch's four postulates link one microbe to one disease. A timeline shows the people behind germ theory.",
+ legend:[["bact","Suspect microbe"],["mouse","Lab mouse"],["accent","Current postulate","s"]]},
+
+/* ---------- Part 3 ---------- */
+{act:3,scene:"parts",desc:"A large compound light microscope is drawn from the side. Gold dots of light travel upward along a glowing line from the lamp in the base, through the condenser and its iris diaphragm, through the glass slide on the stage, into the objective lens, up the body tube and out of the slanted eyepiece. One part at a time is outlined in green and named in a list on the right: light source, condenser, iris diaphragm, stage, objective lenses on a revolving nosepiece, ocular or eyepiece, coarse focus knob, fine focus knob, arm and base. A short note under the list says what the highlighted part does.",
+ title:"Parts of the light microscope",
+ body:`<p>In a <b>compound light microscope</b>, light travels in a straight line from bottom to top:</p>
+ <ol><li><b>Light source</b> (illuminator) in the base.</li><li><b>Condenser:</b> a lens that focuses light onto the specimen. Its <b>iris diaphragm</b> opens and closes to control how much light gets through and the contrast.</li><li><b>Stage:</b> holds the slide.</li><li><b>Objective lens:</b> the first lens to magnify the image. Several sit on a <b>revolving nosepiece</b>.</li><li><b>Ocular</b> (eyepiece): magnifies the image again, usually 10x.</li></ol>
+ <p>Two knobs move the stage to focus: the <b>coarse focus</b> moves it a lot (use only with the low-power lenses), and the <b>fine focus</b> moves it a tiny bit for a sharp image. It is called "compound" because two lenses (objective and ocular) magnify in a row.</p>`,
+ analogy:"Light moving through a microscope is like water moving through a set of pipes. The lamp is the faucet, the condenser and diaphragm are the valve, and each lens is a nozzle that spreads the stream wider.",
+ terms:[["Objective lens","The lens just above the slide; most microscopes have 4x, 10x, 40x and 100x."],["Ocular","The eyepiece; usually 10x."],["Condenser","Focuses light onto the specimen."],["Iris diaphragm","Opens and closes to adjust light and contrast."]],
+ check:{q:"Which part should you use to focus once you are on the 40x or 100x objective?",opts:[
+  opt("The fine focus knob",1,"Right. At high power the lens sits very close to the slide, so only small fine-focus moves are safe."),
+  opt("The coarse focus knob",0,"Big coarse moves at high power can crash the lens into the slide and crack it."),
+  opt("The iris diaphragm",0,"The diaphragm changes light and contrast, not focus."),
+  opt("The condenser lens",0,"The condenser gathers light onto the specimen; the focus knobs bring the image into focus.")]},
+ caption:"Light travels from the lamp through the condenser, specimen, objective and ocular to your eye.",
+ legend:[["beam","Light path"],["accent","Part being named","s"],["glass","Glass slide"]]},
+
+{act:3,scene:"mag",desc:"On the left, a smaller microscope turns its nosepiece so a new objective lens swings into place every few seconds: 4x with a red band, 10x with a yellow band, 40x with a blue band, then 100x with a white band and a drop of amber oil. On the right, a large round field of view shows the same stained smear at each setting. At 40x it looks like faint coloured specks; at 100x small dots; at 400x you can see purple round cells in clusters and pink rods; at 1000x the cells are large and clear. Above the field, a sum reads 10x ocular times the current objective equals the total, for example 10 times 40 equals 400x.",
+ title:"Total magnification",
+ body:`<p>Two lenses magnify the image one after the other, so you <b>multiply</b> them:</p>
+ <p class="tx"><b>Total magnification = ocular × objective</b></p>
+ <p>With a 10x ocular: 4x objective gives <b>40x</b> (scanning), 10x gives <b>100x</b> (low power), 40x gives <b>400x</b> (high dry), and the 100x <b>oil immersion</b> lens gives <b>1000x</b>.</p>
+ <p>Bacteria are so small that you usually need <b>1000x with oil</b> to see their shape and arrangement clearly. Start at low power to find the smear, then move up one lens at a time. Most microscopes are <b>parfocal</b>: when one lens is in focus, the next is nearly in focus too, so you only need the fine focus.</p>`,
+ analogy:"It is like zooming a photo twice: zoom 10 times on your phone, then zoom that picture 40 times on a big screen, and the total zoom is 400 times.",
+ terms:[["Total magnification","Ocular power times objective power."],["Oil immersion lens","The 100x objective, used with a drop of oil; gives 1000x total."],["Parfocal","Lenses stay nearly in focus when you switch between them."]],
+ check:{q:"You use a 10x ocular with the 40x objective. What is the total magnification?",opts:[
+  opt("400x",1,"Yes: 10 × 40 = 400."),
+  opt("50x",0,"You multiply the lenses, not add them: 10 × 40 = 400."),
+  opt("40x",0,"That is just the objective. The ocular magnifies it 10 more times."),
+  opt("4000x",0,"That would need a 400x objective. 10 × 40 = 400.")]},
+ caption:"Turning the nosepiece: 40x, 100x, 400x and 1000x views of the same Gram-stained smear.",
+ legend:[["gpos","Gram-positive cocci"],["gneg","Gram-negative rods"],["oil","Immersion oil"]]},
+
+{act:3,scene:"resol",desc:"On the left, two small bright points sit on a dark panel and slowly move together and apart. Each point is drawn as a soft glowing blur. Under them, a graph shows the brightness across the panel: when the points are far apart there are two separate humps, and the label says Resolved: two points. When they move closer than the limit, the blurs merge into one oval and the graph becomes a single hump, labelled Not resolved: looks like one. On the right, the merged blur is enlarged twice as big in a second panel labelled More magnification, and it is still one fuzzy shape, labelled Empty magnification. Small notes give the limits: light microscope about 0.2 micrometres, electron microscope less than 1 nanometre.",
+ title:"Resolution matters more than magnification",
+ body:`<p><b>Magnification</b> makes an image bigger. <b>Resolution</b> (resolving power) is the ability to see two points that are close together as <b>two separate points</b>.</p>
+ <p>Every lens blurs each point a little. If two points are closer than the lens can resolve, their blurs overlap and they look like one. Making that blurry image bigger does not help: you just get a bigger blur. This is called <b>empty magnification</b>.</p>
+ <p>The best light microscopes resolve about <b>0.2 µm</b>. The limit comes from the <b>wavelength of light</b>: shorter wavelengths give better resolution. Electrons have far shorter wavelengths than light, so electron microscopes resolve less than 1 nm.</p>`,
+ analogy:"Two car headlights far away look like one light. As the car comes closer they split into two. Your eye's resolution decides when you see two, and looking through a fuzzy zoom lens would not split them sooner.",
+ terms:[["Resolution","The smallest distance at which two points are still seen as separate."],["Empty magnification","Enlarging an image without improving resolution; it just gets bigger and blurrier."],["Wavelength","The distance between light waves; shorter waves give better resolution."]],
+ check:{q:"Two bacteria 0.1 µm apart look like one blob at 1000x. What would help you see them as two?",opts:[
+  opt("A microscope with better resolution, such as an electron microscope",1,"Yes. They are closer than the light microscope's limit of about 0.2 µm, so you need better resolving power, not more magnification."),
+  opt("A 20x ocular for 2000x total",0,"That is empty magnification: the blob gets bigger but stays one blob."),
+  opt("Turning the light up brighter",0,"Brighter light does not change how close two points can be and still look separate."),
+  opt("Closing the diaphragm all the way",0,"Closing the diaphragm adds contrast, but too far actually lowers resolution.")]},
+ caption:"Two points merge into one when they are closer than the resolution limit. Enlarging the blur does not separate them.",
+ legend:[["beam","Light from each point"],["accent","Brightness profile","l"]]},
+
+{act:3,scene:"oil",desc:"Two side-by-side diagrams show the gap between a glass slide (bottom) and the tip of the 100x objective lens (top). Gold light rays travel upward through the slide. On the left, labelled Air gap, the gap is empty: as each slanted ray leaves the glass it bends outward, and the most slanted rays bounce back down into the glass, so only 5 of 9 rays reach the lens. On the right, labelled With oil, an amber drop fills the gap and all 9 rays carry straight on into the lens without bending. Small tags show the refractive index: glass 1.52, air 1.00, oil 1.52. Under each diagram is a round view of the specimen: the air view is dim and blurry; the oil view is bright and sharp, with clear purple and pink cells. A counter shows how many rays reach the lens on each side.",
+ title:"Why immersion oil helps",
+ body:`<p>The 100x objective has a very small front lens that sits almost touching the slide. Light leaving the glass slide would normally pass into air before reaching the lens.</p>
+ <p>When light passes from glass into air, it <b>bends</b> (this is called <b>refraction</b>), because the two have different <b>refractive indexes</b>. The slanted rays bend outward and miss the tiny lens. Less light enters, so the image is dim and less sharp.</p>
+ <p><b>Immersion oil</b> has nearly the <b>same refractive index as glass</b> (about 1.5). With a drop of oil between slide and lens, light travels as if through one continuous piece of glass: it does not bend away, more of it enters the lens, and <b>resolution improves</b>.</p>
+ <p class="tx">Use oil only with the 100x lens, and wipe it off the lens with lens paper afterward.</p>`,
+ analogy:"Imagine a line of people walking from pavement onto deep sand: they swerve and scatter. Lay a pavement path across the sand (the oil) and everyone keeps walking straight to the door.",
+ terms:[["Refraction","The bending of light when it passes between materials, such as glass and air."],["Refractive index","A number for how much a material bends light. Glass and immersion oil are both about 1.5; air is 1.0."],["Immersion oil","Oil placed between the slide and the 100x lens so light does not bend away."]],
+ check:{q:"Why does immersion oil sharpen the 1000x image?",opts:[
+  opt("It matches the refractive index of glass, so light is not bent away from the lens",1,"Right. More light reaches the small 100x lens, which improves resolution."),
+  opt("It magnifies the image a little more",0,"Oil does not add magnification. It stops light from bending away, so more light enters the lens."),
+  opt("It stains the bacteria so they show up",0,"Oil is clear and does not stain. Stains are added before the slide goes on the microscope."),
+  opt("It keeps the lens from touching the slide",0,"The oil fills the gap, but its job is optical: it keeps light from bending at a glass-air boundary.")]},
+ caption:"Without oil, light bends at the glass-air boundary and misses the lens. Oil keeps the path straight.",
+ legend:[["beam","Light rays"],["glass","Glass"],["oil","Immersion oil"]]},
+
+{act:3,scene:"lightscopes",desc:"Four round views sit in a two-by-two grid, each with a label and a one-line use, and a highlight moves among them. Brightfield, top left: purple and pink stained cells on a bright cream background. Darkfield, top right: thin bright corkscrew-shaped cells glowing white against a black background, wriggling. Phase contrast, bottom left: grey, unstained live yeast cells with darker and lighter inner details and soft bright halos on a grey background, slowly budding. Fluorescence, bottom right: slim rods glowing yellow-green on a black background, gently pulsing.",
+ title:"Other light microscopes",
+ body:`<p>The microscope you use in class is a <b>brightfield</b> microscope: dark, stained specimens on a bright background. Other light microscopes add contrast in clever ways:</p>
+ <ul><li><b>Darkfield:</b> a disk blocks the direct light, so only light bouncing off the specimen reaches your eye. Bright cells on a black background. Good for thin, live, unstained cells such as the spirochete that causes <b>syphilis</b>.</li>
+ <li><b>Phase contrast:</b> turns small differences in density inside a cell into light and dark. Lets you see <b>live, unstained</b> cells and their internal parts.</li>
+ <li><b>Fluorescence:</b> UV or blue light makes special dyes (<b>fluorochromes</b>) glow. Used to spot TB bacteria quickly with the auramine stain, and in <b>fluorescent antibody</b> tests that tag one specific microbe.</li></ul>`,
+ analogy:"Brightfield is like seeing people in daylight. Darkfield is like seeing dust floating in a sunbeam in a dark room. Fluorescence is like spotting glow-in-the-dark stickers once the lights are off.",
+ terms:[["Brightfield","Dark specimen on a bright background; usually needs stains."],["Darkfield","Bright specimen on a black background; good for thin live cells."],["Phase contrast","Shows details inside live, unstained cells."],["Fluorescence","Glowing dyes or tagged antibodies light up specific cells."]],
+ check:{q:"A lab needs to see live, thin spirochetes that do not stain well. Which microscope fits best?",opts:[
+  opt("Darkfield",1,"Yes. Light scattered by the thin cells makes them glow against a black background, with no stain needed."),
+  opt("Brightfield with a simple stain",0,"Thin spirochetes take up ordinary stains poorly, and staining kills them."),
+  opt("Scanning electron microscope",0,"Electron microscopes need dead specimens in a vacuum, so you could not watch them live."),
+  opt("Brightfield without stain",0,"Unstained thin cells are nearly invisible on a bright background.")]},
+ caption:"Same idea, different contrast: brightfield, darkfield, phase contrast and fluorescence.",
+ legend:[["gpos","Stained cells"],["st-mg","Fluorescent glow"],["accent","Current microscope","s"]]},
+
+{act:3,scene:"em",desc:"Two tall electron microscope columns stand side by side. On the left, labelled TEM, blue electrons travel down from an electron gun at the top through ring-shaped magnetic lenses and pass through an ultra-thin slice of a bacterium; at the bottom, a screen shows a black-and-white cross-section with the cell wall as layered rings and dark dots for ribosomes. On the right, labelled SEM, the electron beam sweeps back and forth across the surface of a few rod-shaped bacteria, row by row, and a screen beside it builds up a shaded, three-dimensional-looking image of the rods one line at a time. Notes say: vacuum inside, specimens are dead, images are black and white.",
+ title:"Electron microscopes: TEM and SEM",
+ body:`<p>Instead of light, electron microscopes use a beam of <b>electrons</b>, focused by <b>magnets</b> instead of glass lenses. Electrons have a much shorter wavelength, so resolution is far better: you can see viruses and the parts inside cells.</p>
+ <ul><li><b>Transmission electron microscope (TEM):</b> electrons pass <b>through</b> an ultra-thin slice. You see <b>inside</b> the cell (walls, membranes, ribosomes) as a flat image. Highest resolution.</li><li><b>Scanning electron microscope (SEM):</b> the beam scans across the <b>surface</b> of a metal-coated specimen. You see the <b>outside</b> in a <b>3D-looking</b> image.</li></ul>
+ <p>The trade-offs: the column is under a <b>vacuum</b>, so specimens must be <b>dead</b> and specially prepared, and images are black and white. Any colour you see in an EM photo was added later (false colour).</p>`,
+ analogy:"A TEM is like an X-ray of a sliced loaf: you see the inside of one thin slice. An SEM is like running a flashlight over the outside of the loaf to see its crust in 3D.",
+ terms:[["TEM","Transmission electron microscope: electrons pass through thin slices to show internal structure."],["SEM","Scanning electron microscope: electrons scan the surface to show 3D shape."],["False colour","Colour added to a black-and-white electron image to make parts easier to see."]],
+ check:{q:"You want a 3D-looking picture of the surface of a bacterium. Which tool?",opts:[
+  opt("Scanning electron microscope (SEM)",1,"Right. The SEM scans the surface and shows depth and texture."),
+  opt("Transmission electron microscope (TEM)",0,"The TEM shows a thin flat slice through the inside, not the 3D surface."),
+  opt("Phase-contrast microscope",0,"Phase contrast shows inside detail of live cells, not a 3D surface view, and cannot reach EM resolution."),
+  opt("Brightfield microscope at 1000x",0,"At 1000x you can see shape and colour, but not surface detail in 3D.")]},
+ caption:"TEM looks through thin slices; SEM scans the surface to build a 3D-looking image.",
+ legend:[["electron","Electron beam"],["metal","Magnetic lenses"]]},
+
+/* ---------- Part 4 ---------- */
+{act:4,scene:"smear",desc:"A row of five step chips runs across the top: drop of water, add cells, spread thin, air dry, heat fix. The big picture acts out each step on a glass slide: a water drop is placed on the slide; a wire loop dips into a colony on a petri dish and touches the drop; the loop swirls the drop into a thin oval smear; wavy lines rise as the smear air dries; then the slide passes quickly through the blue flame of a burner two or three times. A small panel on the right compares two slides being rinsed under water: on the heat-fixed one the cells stay stuck; on the unfixed one the cells float away.",
+ title:"Making a smear and heat fixing",
+ body:`<p>Before you can stain bacteria you need a <b>smear</b>: a thin layer of cells dried onto a glass slide.</p>
+ <ol><li>Put a small drop of water on a clean slide (skip this if the cells are already in liquid).</li><li>With a sterile <b>loop</b>, mix in a tiny amount of a colony.</li><li>Spread it into a <b>thin</b>, even film. Thick smears stain unevenly.</li><li>Let it <b>air dry</b> completely.</li><li><b>Heat fix:</b> pass the slide quickly through a flame two or three times, or use a slide warmer.</li></ol>
+ <p><b>Fixing</b> kills the cells and makes them <b>stick to the glass</b>, so they are not washed away when you rinse off each stain. It also preserves their shape. (A slide for a negative or capsule stain is <b>not</b> heat fixed, because heat can shrink the cells and their capsules.)</p>`,
+ analogy:"Heat fixing is like baking a thin layer of glaze onto a plate: once it is set, you can rinse the plate without washing the glaze off.",
+ terms:[["Smear","A thin film of microbes spread and dried on a slide."],["Heat fixing","Gentle heating that kills cells and sticks them to the slide."],["Loop","A wire tool, sterilized in a flame, used to move microbes."]],
+ check:{q:"A student forgets to heat fix. What will most likely happen during staining?",opts:[
+  opt("Many cells wash off the slide when it is rinsed",1,"Yes. Without fixing, the cells are not attached, so rinsing between stains carries them away."),
+  opt("The cells stain much darker",0,"Fixing does not control how dark cells stain. The main problem is that unfixed cells rinse away."),
+  opt("Gram-negative cells turn purple",0,"Missing fixation does not change the Gram reaction; you just lose cells."),
+  opt("The cells swell up and burst",0,"Water rinses do not make dried bacteria burst; they just float off an unfixed slide.")]},
+ caption:"Water, cells, spread thin, air dry, heat fix. Fixed cells stay put when rinsed; unfixed cells wash away.",
+ legend:[["flame","Flame"],["bact","Bacteria"],["glass","Slide"]]},
+
+{act:4,scene:"simple",desc:"The picture has two halves. On the left, labelled Basic dye, blue dye particles each carry a plus sign and drift toward a large cell whose surface is dotted with minus signs; the particles stick all around and inside the cell until it is blue. Below, a round microscope view shows blue rods on a bright background, labelled Simple stain. On the right, labelled Acidic dye, dark particles carrying minus signs are pushed away from the cell and settle in the space around it, so the background turns dark grey while the cell stays clear. Below, a round view shows clear, unstained cells as bright shapes on a dark background, labelled Negative stain.",
+ title:"Simple stains and negative stains",
+ body:`<p>Most microbes are nearly <b>colourless and see-through</b>, so we add dyes.</p>
+ <p>Bacterial surfaces carry a slight <b>negative charge</b>. <b>Basic dyes</b> have a <b>positive</b> coloured part, so they are attracted to cells and colour them. Examples: <b>crystal violet</b>, <b>methylene blue</b>, <b>safranin</b>. A <b>simple stain</b> uses just <b>one</b> basic dye; it shows size, shape and arrangement, but all cells end up the same colour.</p>
+ <p><b>Acidic dyes</b> such as <b>nigrosin</b> (and India ink) are <b>negative</b>, so cells push them away. They colour the <b>background</b> and leave the cells clear. This is a <b>negative stain</b>. It needs no heat fixing, so cells keep their true size and shape, and it is used to show <b>capsules</b>.</p>`,
+ analogy:"Opposite charges attract, like magnets. A positive basic dye snaps onto the negative cell. A negative acidic dye is pushed away, like magnets facing the same way, so it fills the space around the cell instead.",
+ terms:[["Basic dye","Positively charged coloured dye that sticks to negatively charged cells."],["Acidic dye","Negatively charged dye that is repelled by cells and colours the background."],["Simple stain","One dye; shows shape, size and arrangement."],["Negative stain","Background is coloured; cells stay clear."]],
+ check:{q:"Why do basic dyes like methylene blue colour bacterial cells?",opts:[
+  opt("The dye's positive charge is attracted to the cell's negative surface",1,"Right. Opposite charges attract, so the coloured part of the dye binds the cell."),
+  opt("The dye is negative and the cell is positive",0,"It is the other way around: cells are slightly negative, and basic dyes are positive."),
+  opt("Bacteria eat the dye as food",0,"Staining is chemical attraction, and fixed cells are no longer alive."),
+  opt("Heat fixing paints the cells",0,"Heat fixing sticks cells to the slide; colour comes from the dye.")]},
+ caption:"Positive basic dye sticks to negative cells (simple stain); negative acidic dye colours only the background (negative stain).",
+ legend:[["st-mb","Basic dye (+)"],["st-nig","Acidic dye (−)"]]},
+
+{act:4,scene:"gram",desc:"A row of four step chips across the top lights up in turn: crystal violet, iodine, decolorizer, safranin, with a timer. On the left, a glass slide rests on a staining rack and a dropper bottle above it drips the current reagent, which spreads as a coloured puddle: deep purple, then brown iodine, then clear alcohol running off, then pink. On the right, a round 1000x microscope view shows two kinds of cells, round cocci in clusters and rods. During crystal violet and iodine, both are purple. When the decolorizer runs over, the rods fade to colourless while the cocci stay purple. After safranin, the rods turn pink. Final labels read Gram-positive: purple and Gram-negative: pink.",
+ title:"The Gram stain, step by step",
+ body:`<p>The <b>Gram stain</b> (Hans Christian Gram, 1884) is the most important <b>differential stain</b>: it uses more than one dye to sort bacteria into two groups.</p>
+ <ol><li><b>Crystal violet</b>, about 1 minute: the <b>primary stain</b>. All cells turn purple. Rinse.</li><li><b>Gram's iodine</b>, about 1 minute: the <b>mordant</b>. It joins crystal violet to form a large <b>crystal violet-iodine complex</b> inside cells. Rinse.</li><li><b>Decolorizer</b> (alcohol or acetone-alcohol), just a <b>few seconds</b> until the runoff is clear: the critical step. Gram-negative cells lose the purple; Gram-positive cells keep it. Rinse right away.</li><li><b>Safranin</b>, about 1 minute: the <b>counterstain</b>. It colours the now-clear Gram-negative cells pink. Rinse and blot dry.</li></ol>
+ <p class="tx"><b>Gram-positive = purple. Gram-negative = pink (red).</b></p>`,
+ analogy:"Think of dyeing two shirts purple, one thick wool and one thin cotton, then quickly rinsing both in bleach. The wool holds the purple; the cotton goes white. Dip both in pink, and only the white cotton shows it.",
+ terms:[["Differential stain","Uses two or more dyes to tell groups of bacteria apart."],["Primary stain","The first dye: crystal violet."],["Mordant","Iodine; locks crystal violet into a larger complex."],["Counterstain","Safranin; colours cells that lost the primary stain."]],
+ check:{q:"After the decolorizer step, what colour are Gram-negative cells?",opts:[
+  opt("Colourless",1,"Yes. They have lost the crystal violet and have not yet been counterstained with safranin."),
+  opt("Purple",0,"Purple is kept only by Gram-positive cells. Gram-negative cells lose it in the decolorizer."),
+  opt("Pink",0,"They turn pink only after the safranin counterstain, the next step."),
+  opt("Brown from the iodine",0,"Iodine forms a complex with crystal violet; the decolorizer washes that complex out of Gram-negative cells.")]},
+ caption:"Crystal violet, iodine, decolorizer, safranin: Gram-positive stays purple, Gram-negative ends up pink.",
+ legend:[["gpos","Gram-positive (purple)"],["gneg","Gram-negative (pink)"],["dye-iod","Iodine"]]},
+
+{act:4,scene:"gramwhy",desc:"Two cell walls are shown in cross-section side by side, outside at the top. The Gram-positive wall on the left has a thick gold mesh of peptidoglycan, many layers deep, with short teichoic acid sticks poking up, above an orange membrane. The Gram-negative wall on the right has purple sugar chains on an outer membrane at the top, then a thin single layer of gold peptidoglycan, then the inner membrane. A step chip row matches the stain. Purple crystal violet dots soak into both walls. Brown iodine dots join them, making bigger clumps. Then alcohol flows over: in the Gram-positive wall, the mesh layers squeeze closer together and the purple clumps stay trapped; in the Gram-negative wall, the outer membrane fades away and the purple clumps stream out the top. Finally pink safranin dots enter the Gram-negative wall. Small cells at the bottom show the result: purple on the left, pink on the right.",
+ title:"Why the Gram stain works: the cell wall",
+ body:`<p>The difference is in the <b>cell wall</b>.</p>
+ <p><b>Gram-positive</b> bacteria have a <b>thick peptidoglycan</b> wall, many layers deep, with no outer membrane. The alcohol <b>dehydrates</b> this thick mesh and makes its holes shrink, so the big crystal violet-iodine complexes are <b>trapped</b>. The cell stays <b>purple</b>.</p>
+ <p><b>Gram-negative</b> bacteria have only a <b>thin peptidoglycan</b> layer, covered by an <b>outer membrane</b> made of lipid and <b>lipopolysaccharide (LPS)</b>. Alcohol <b>dissolves the outer membrane</b>, and the thin layer cannot hold the complex, so the purple <b>washes out</b>. Then safranin turns the colourless cells <b>pink</b>.</p>
+ <p>This is useful in medicine too: the two groups differ in which antibiotics work best, and the Gram-negative outer membrane carries <b>endotoxin</b> (LPS).</p>`,
+ analogy:"The Gram-positive wall is a thick sponge you squeeze shut: the purple is stuck inside. The Gram-negative wall is a thin net under a plastic wrap; dissolve the wrap and the purple drains right out.",
+ terms:[["Gram-positive wall","Thick peptidoglycan, many layers; teichoic acids; no outer membrane."],["Gram-negative wall","Thin peptidoglycan plus an outer membrane with LPS."],["Crystal violet-iodine complex","Large dye clump formed by the mordant; too big to escape a thick, dehydrated wall."],["LPS","Lipopolysaccharide in the Gram-negative outer membrane; also called endotoxin."]],
+ check:{q:"Why do Gram-negative cells lose crystal violet during decolorizing?",opts:[
+  opt("Alcohol dissolves their outer membrane and the thin peptidoglycan cannot hold the dye complex",1,"Right. The dye complex leaks out, leaving the cells colourless until safranin."),
+  opt("They have a thick peptidoglycan wall that traps the dye",0,"That describes Gram-positive cells, which stay purple."),
+  opt("They never took up crystal violet in the first place",0,"All cells turn purple in step 1. The difference shows up in the decolorizer step."),
+  opt("Iodine bleaches them",0,"Iodine is the mordant that helps hold crystal violet in; it does not bleach.")]},
+ caption:"Thick peptidoglycan traps the purple dye complex; alcohol strips the thin Gram-negative wall and the purple washes out.",
+ legend:[["pg","Peptidoglycan"],["memb","Membrane"],["lps","LPS (outer membrane)"],["dye-cv","Crystal violet"],["dye-iod","Iodine"],["dye-saf","Safranin"]]},
+
+{act:4,scene:"grammist",desc:"Five round microscope views are arranged with a label and a strip of the four Gram steps under each. In every view, the top-left half is a known Gram-positive coccus culture and the bottom-right half is a known Gram-negative rod culture. Correct: purple cocci and pink rods, with a green check. Over-decolorized: the decolorizer chip is marked too long, and the cocci look pink like the rods. Iodine skipped: the iodine chip is crossed out, and everything is pink. Old culture: many of the cocci are pink with a few still purple, labelled Gram-variable. Too thick or under-decolorized: the decolorizer chip is marked too short and the rods stay purple. A sixth box explains that labs stain known control organisms on the same slide. A highlight moves from view to view.",
+ title:"Gram stain mistakes and how to spot them",
+ body:`<p>Small errors give the wrong colours. Labs run <b>control</b> organisms of known Gram reaction on the same slide to catch them.</p>
+ <ul><li><b>Over-decolorizing</b> (alcohol on too long): purple washes out of Gram-positive cells too. They look <b>pink: a false Gram-negative</b>.</li><li><b>Under-decolorizing</b> (too short) or a <b>smear that is too thick</b>: Gram-negative cells keep the purple. They look <b>purple: a false Gram-positive</b>.</li><li><b>Skipping the iodine</b>: no large complex forms, so crystal violet washes out of everything. <b>All cells look pink.</b></li><li><b>Old cultures</b>: aging Gram-positive cells have weaker, breaking-down walls and may stain pink or mixed (<b>Gram-variable</b>). Use young cultures, about 18 to 24 hours old.</li></ul>`,
+ analogy:"It is like toasting bread: the timer matters. Too short and the white bread stays white; too long and even the dark bread burns. The controls are your test slices.",
+ terms:[["Over-decolorizing","Too much alcohol: Gram-positive cells look pink."],["Under-decolorizing","Too little alcohol: Gram-negative cells look purple."],["Gram-variable","A mix of purple and pink cells of one kind, often from old cultures."],["Control","A known organism stained alongside to check the method."]],
+ check:{q:"Your known Gram-positive control looks pink. The iodine was applied. What most likely went wrong?",opts:[
+  opt("The slide was over-decolorized",1,"Yes. Too much alcohol strips crystal violet from even thick Gram-positive walls."),
+  opt("The slide was under-decolorized",0,"Under-decolorizing leaves too much purple; it would make Gram-negatives look purple, not Gram-positives pink."),
+  opt("Too much safranin was used",0,"Safranin cannot hide purple. Pink Gram-positives mean the purple was already gone."),
+  opt("The smear was too thick",0,"A thick smear tends to hold purple and look falsely Gram-positive.")]},
+ caption:"Over-decolorizing, skipping iodine and old cultures make Gram-positives look pink; thick or under-decolorized smears make Gram-negatives look purple.",
+ legend:[["gpos","Purple"],["gneg","Pink"],["bad","Step done wrong","s"],["good","Correct result","s"]]},
+
+{act:4,scene:"acidfast",desc:"On the left, two cell walls are shown in cross-section. The acid-fast wall of Mycobacterium has a thick, wavy, waxy tan layer of mycolic acid on top of a thin gold peptidoglycan layer and a membrane. The ordinary wall beside it has no wax. A step chip row reads carbolfuchsin with heat, acid-alcohol, methylene blue. First, steam rises and red carbolfuchsin dots are driven into both walls. Then acid-alcohol washes over: the red stays locked in the waxy wall but rinses out of the ordinary wall. Then blue methylene blue dots colour the ordinary wall. On the right, a round sputum view shows large pale blue human cells with dark blue nuclei, small blue bacteria, and slender red rods in small clumps, labelled Acid-fast bacilli.",
+ title:"The acid-fast stain: waxy walls",
+ body:`<p>Some bacteria, mainly <b><i>Mycobacterium</i></b> (the causes of <b>tuberculosis</b> and leprosy) and partly <i>Nocardia</i>, have walls full of a waxy lipid called <b>mycolic acid</b>. The wax keeps ordinary stains out, so these bacteria Gram stain poorly.</p>
+ <ol><li><b>Carbolfuchsin</b> (red), with <b>heat</b> (Ziehl-Neelsen method) or a stronger dye mix without heat (Kinyoun method), pushes the red dye into the wax.</li><li><b>Acid-alcohol</b> decolorizer: red washes out of ordinary cells but stays in the waxy ones. They are "fast" (resistant) to acid.</li><li><b>Methylene blue</b> counterstain: everything else turns blue.</li></ol>
+ <p class="tx"><b>Acid-fast = red/pink. Non-acid-fast = blue.</b> Finding acid-fast bacilli in a sputum sample is a fast first clue to TB.</p>`,
+ analogy:"A waxed car is hard to paint, but once paint is baked into the wax, a quick wash will not take it off. A plain car rinses clean and can be painted blue.",
+ terms:[["Acid-fast","Keeps carbolfuchsin even when washed with acid-alcohol."],["Mycolic acid","Waxy lipid in the walls of Mycobacterium."],["Carbolfuchsin","Red primary stain of the acid-fast stain."],["Methylene blue","Blue counterstain for non-acid-fast cells."]],
+ check:{q:"A sputum smear shows slender red rods among blue cells after an acid-fast stain. What does red tell you?",opts:[
+  opt("The rods are acid-fast, as Mycobacterium is",1,"Right. Their waxy mycolic acid held the red carbolfuchsin through the acid-alcohol wash."),
+  opt("The rods are Gram-negative",0,"Red here comes from carbolfuchsin in an acid-fast stain, not safranin in a Gram stain."),
+  opt("The rods are dead and the blue cells are alive",0,"Fixed smears are all dead; colour reflects wall chemistry, not life."),
+  opt("The rods have endospores",0,"Endospores are shown with the green malachite green stain.")]},
+ caption:"Waxy mycolic acid holds red carbolfuchsin through the acid-alcohol wash; other cells take the blue counterstain.",
+ legend:[["dye-cf","Carbolfuchsin (acid-fast)"],["dye-mb","Methylene blue"],["wax","Mycolic acid wax"]]},
+
+{act:4,scene:"spores",desc:"The picture is split into two halves. On the left, labelled Endospore stain, rod-shaped cells each contain an oval spore near one end, and a few free spores float between them. A step chip row reads malachite green with steam, water rinse, safranin. Steam rises and everything turns green; the water rinse washes green out of the rods but the spores stay green; then safranin turns the rods pink, leaving bright green ovals inside pink rods. On the right, labelled Capsule stain, dark ink particles settle over the background so it turns dark grey, and each pink oval cell is surrounded by a clear, bright halo, which is the capsule. Labels name Bacillus and Clostridium on the left and Klebsiella and Streptococcus pneumoniae on the right.",
+ title:"Endospore and capsule stains",
+ body:`<p><b>Endospores</b> are tough, dormant structures made inside some Gram-positive rods, mainly <b><i>Bacillus</i></b> and <b><i>Clostridium</i></b> (for example the causes of anthrax, tetanus and botulism). Spores resist heat, drying and chemicals, and ordinary stains cannot get in.</p>
+ <p><b>Endospore stain (Schaeffer-Fulton):</b> <b>malachite green</b> is steamed into the spores; a <b>water rinse</b> removes it from the rest of the cell; <b>safranin</b> colours the cells pink. Result: <b>green spores</b> in <b>pink cells</b>. Where the spore sits (end or middle) helps identify the species.</p>
+ <p><b>Capsule stain:</b> a <b>capsule</b> is a slimy outer layer that helps some bacteria escape white blood cells. It does not take up stain well, so we use a <b>negative stain</b> (India ink or nigrosin) for a dark background, plus a simple stain for the cell. The capsule shows as a <b>clear halo</b>. Examples: <i>Klebsiella pneumoniae</i>, <i>Streptococcus pneumoniae</i>, and the yeast <i>Cryptococcus</i>.</p>`,
+ analogy:"An endospore is like a seed in a tough shell: you need steam to get dye through its coat. A capsule is like a clear raincoat: you see it best when the room around it is dark.",
+ terms:[["Endospore","A tough, dormant structure some Gram-positive rods form to survive harsh conditions."],["Malachite green","Green primary stain of the endospore stain."],["Capsule","A slimy outer layer that helps bacteria avoid being eaten by white blood cells."],["Halo","The clear zone around a cell in a capsule stain."]],
+ check:{q:"In an endospore stain, the cells are pink with green ovals inside. What are the green ovals?",opts:[
+  opt("Endospores",1,"Yes. Malachite green was steamed into the spores and stayed when water rinsed the rest of the cell."),
+  opt("Capsules",0,"Capsules appear as clear halos on a dark background in a capsule stain."),
+  opt("Gram-positive cells",0,"Gram reaction is purple or pink in a Gram stain; green comes from malachite green."),
+  opt("Acid-fast bacteria",0,"Acid-fast cells stain red with carbolfuchsin.")]},
+ caption:"Endospores hold malachite green inside pink cells; capsules show as clear halos against a dark background.",
+ legend:[["st-mg","Endospore (green)"],["st-saf","Vegetative cell (pink)"],["st-nig","Ink background"]]},
+
+/* ---------- Part 5 ---------- */
+{act:5,scene:"shapes",desc:"Six cards in two rows each show one cell shape, drawn large and moving, and a highlight moves from card to card. The coccus is purple, as a Gram-positive example; the others are pink, as Gram-negative examples. Coccus: a round ball. Bacillus: a rod. Coccobacillus: a short, oval rod. Vibrio: a curved comma shape with one whipping tail. Spirillum: a stiff wavy spiral with tufts of tails at each end. Spirochete: a long, thin, tight corkscrew that twists and flexes as it moves. Each card names an example: Staphylococcus, E. coli, Haemophilus, Vibrio cholerae, Spirillum, and Treponema or Borrelia.",
+ title:"Bacterial shapes",
+ body:`<p>Most bacteria come in three basic shapes:</p>
+ <ul><li><b>Coccus</b> (plural <b>cocci</b>): spheres. Example: <i>Staphylococcus</i>.</li><li><b>Bacillus</b> (plural <b>bacilli</b>): rods. Example: <i>E. coli</i>. A very short, oval rod is a <b>coccobacillus</b>, such as <i>Haemophilus</i>.</li><li><b>Spiral forms:</b><ul><li><b>Vibrio:</b> a curved, comma-shaped rod (<i>Vibrio cholerae</i>, cholera).</li><li><b>Spirillum:</b> a rigid, thick spiral that swims with flagella on the outside.</li><li><b>Spirochete:</b> a thin, flexible spiral that corkscrews using <b>axial filaments</b> (internal flagella). Examples: <i>Treponema</i> (syphilis) and <i>Borrelia</i> (Lyme disease).</li></ul></li></ul>
+ <p>Be careful: "<b>bacillus</b>" (lowercase, not italic) means any rod, while "<i>Bacillus</i>" (capital, italic) is one genus.</p>`,
+ analogy:"Cocci are peas, bacilli are grains of rice, vibrios are commas, spirilla are stiff spiral pasta, and spirochetes are a stretched-out telephone cord that can wiggle.",
+ terms:[["Coccus","Spherical bacterium."],["Bacillus","Rod-shaped bacterium."],["Vibrio","Curved, comma-shaped rod."],["Spirochete","Thin, flexible spiral that moves with internal axial filaments."]],
+ check:{q:"A thin, flexible spiral bacterium moves like a corkscrew using internal flagella. What shape is it?",opts:[
+  opt("Spirochete",1,"Right. Spirochetes are flexible and move with axial filaments inside the cell."),
+  opt("Spirillum",0,"A spirillum is a rigid spiral that uses flagella on the outside."),
+  opt("Vibrio",0,"A vibrio is a short, curved comma-shaped rod, not a long spiral."),
+  opt("Coccobacillus",0,"A coccobacillus is a short oval rod.")]},
+ caption:"Cocci, bacilli, coccobacilli, vibrios, spirilla and spirochetes.",
+ legend:[["gpos","Gram-positive example"],["gneg","Gram-negative example"],["accent","Current shape","s"]]},
+
+{act:5,scene:"arrange",desc:"Five panels each start with one round cell that divides again and again while you watch, with new cells budding off along a dashed division line. Panel Diplo-: the cell divides once, making a pair. Panel Strepto-: it keeps dividing in one direction, making a chain. Panel Tetrad: it divides in two directions at right angles, making a square of four. Panel Sarcina: it divides in three directions, making a cube of eight. Panel Staphylo-: it divides in random directions, making a grape-like cluster. A sixth panel at the bottom right shows rods: a single rod, a pair of rods, and a chain of rods, labelled diplobacilli and streptobacilli.",
+ title:"Arrangements: pairs, chains and clusters",
+ body:`<p>When bacteria divide, the new cells may stay stuck together. The pattern depends on the <b>direction (plane) of division</b>:</p>
+ <ul><li><b>Diplo-</b> means pairs. <b>Diplococci:</b> <i>Neisseria</i> (bean-shaped pairs) and <i>Streptococcus pneumoniae</i>.</li><li><b>Strepto-</b> means chains: division in one plane, again and again. <b>Streptococci:</b> <i>Streptococcus pyogenes</i> (strep throat).</li><li><b>Staphylo-</b> means grape-like clusters: division in random planes. <b>Staphylococci:</b> <i>Staphylococcus aureus</i>.</li><li><b>Tetrads</b> (squares of four, two planes) and <b>sarcinae</b> (cubes of eight, three planes).</li></ul>
+ <p>Rods divide only across their short width, so they form singles, <b>diplobacilli</b> (pairs) or <b>streptobacilli</b> (chains, such as <i>Bacillus anthracis</i>).</p>`,
+ analogy:"Cutting a sheet of cookie dough: always cut in the same direction and you get a long row (a chain); cut in random directions and you get a jumbled pile (a cluster).",
+ terms:[["Diplo-","In pairs."],["Strepto-","In chains."],["Staphylo-","In grape-like clusters."],["Plane of division","The direction a cell splits; it decides the arrangement."]],
+ check:{q:"Round cells that divide in random planes and stay attached form which arrangement?",opts:[
+  opt("Staphylococci (grape-like clusters)",1,"Yes. Random planes of division pile the cells into clusters."),
+  opt("Streptococci (chains)",0,"Chains form when cells keep dividing in one plane."),
+  opt("Tetrads",0,"Tetrads form from two planes at right angles: neat squares of four."),
+  opt("Diplococci",0,"Diplococci are pairs, from one division where the cells stay together.")]},
+ caption:"One plane gives pairs and chains, two planes give tetrads, three give cubes, random planes give clusters.",
+ legend:[["gpos","Cocci"],["gneg","Rods"],["accent","Division line","dl"]]},
+
+{act:5,scene:"read",desc:"Four round 1000x microscope views sit in a two-by-two grid, and a highlight moves from one to the next while a report line types out beneath each. Top left: purple round cells in grape-like clusters, reported as Gram-positive cocci in clusters, think Staphylococcus. Top right: purple round cells in chains, reported as Gram-positive cocci in chains, think Streptococcus. Bottom left: pink bean-shaped cells in pairs, reported as Gram-negative diplococci, think Neisseria. Bottom right: pink rods, reported as Gram-negative rods, think E. coli and relatives.",
+ title:"Putting it together: reading a Gram stain",
+ body:`<p>A lab report describes three things, in this order: <b>Gram reaction</b>, <b>shape</b>, and <b>arrangement</b>. Together they narrow down the possibilities fast, often a day or more before culture results come back.</p>
+ <ul><li><b>Gram-positive cocci in clusters:</b> think <i>Staphylococcus</i>.</li><li><b>Gram-positive cocci in chains:</b> think <i>Streptococcus</i> (and <i>Enterococcus</i>).</li><li><b>Gram-negative diplococci:</b> think <i>Neisseria</i> (gonorrhea, meningitis).</li><li><b>Gram-negative rods:</b> a large group including <i>E. coli</i>, <i>Klebsiella</i> and <i>Pseudomonas</i>.</li></ul>
+ <p>A Gram stain gives clues, not a final answer. The lab confirms the identity with cultures and other tests.</p>`,
+ analogy:"It is like describing a car from across the street: colour, body style, and whether it is alone or in a line of traffic. That is often enough to guess the make, and a closer look confirms it.",
+ terms:[["Gram reaction","Gram-positive (purple) or Gram-negative (pink)."],["Morphology","Cell shape: cocci, rods, spirals."],["Arrangement","Pairs, chains, clusters, and so on."]],
+ check:{q:"A slide shows pink, bean-shaped cells in pairs. How would you report it?",opts:[
+  opt("Gram-negative diplococci",1,"Yes. Pink means Gram-negative, round or bean-shaped means cocci, and pairs means diplo-. Think Neisseria."),
+  opt("Gram-positive diplococci",0,"Gram-positive cells are purple. Pink cells are Gram-negative."),
+  opt("Gram-negative streptococci",0,"Strepto- means chains. These cells are in pairs."),
+  opt("Gram-negative bacilli",0,"Bacilli are rods. Bean-shaped pairs are cocci.")]},
+ caption:"Gram reaction, shape and arrangement: four classic Gram stain patterns.",
+ legend:[["gpos","Gram-positive"],["gneg","Gram-negative"],["accent","Field being read","s"]]},
+
+{act:0,scene:"recap",desc:"Five summary cards are stacked down the right side, each with a coloured number badge and a short line: The microbial world, Discovering microbes, Microscopes, Preparing and staining, and Shapes and arrangements. They light up one after another. On the left, a round microscope view cycles through the four classic stains: Gram stain with purple cocci and pink rods, acid-fast with red rods among blue cells, endospore with green spores in pink rods, and a capsule stain with clear halos on a dark background, each named underneath.",
+ title:"Recap: microscopy, staining and the microbial world",
+ body:`<ol><li><b>The microbial world:</b> bacteria and archaea (prokaryotes); fungi, protozoa, algae, helminths (eukaryotes); viruses (not cells). Bacteria are about 1 to 2 µm, viruses 20 to 300 nm. Names are <i>Genus species</i>.</li>
+ <li><b>Discovering microbes:</b> van Leeuwenhoek saw them; Pasteur's swan-neck flask ended spontaneous generation; Semmelweis, Lister and Koch built germ theory; Koch's postulates link a microbe to a disease.</li>
+ <li><b>Microscopes:</b> total magnification = ocular × objective; resolution (about 0.2 µm for light) matters more than magnification; oil matches glass so light does not bend away; darkfield, phase contrast, fluorescence, TEM and SEM each add something.</li>
+ <li><b>Staining:</b> smear, air dry, heat fix. Gram stain: crystal violet, iodine, decolorizer, safranin; thick peptidoglycan stays purple, thin wall plus outer membrane turns pink. Acid-fast: red waxy <i>Mycobacterium</i>. Endospores green; capsules as clear halos.</li>
+ <li><b>Shapes and arrangements:</b> cocci, bacilli, spirals; diplo-, strepto-, staphylo-.</li></ol>
+ <p>Next, try the <a href="Microscopy-Lab.html">Microscopy Lab</a>: focus a virtual microscope, run your own Gram stain, identify unknowns, and play the sorting game.</p>`,
+ analogy:"You now have the two basic tools of the microbiologist: a way to make microbes big enough to see, and a set of colours that tell you what kind of wall each one has.",
+ terms:[["Gram stain order","Crystal violet, iodine, decolorizer, safranin."],["Key numbers","Bacteria about 1 to 2 µm; light microscope limit about 0.2 µm; 10x × 100x = 1000x with oil."]],
+ check:null,caption:"Five parts in review, with the four classic stains.",
+ legend:[["act1","The microbial world","s"],["act2","Discovering microbes","s"],["act3","Microscopes","s"],["act4","Staining","s"],["act5","Shapes","s"]]}
+];
+
+/* ---------------- DOM ---------------- */
+const $=s=>document.querySelector(s);
+const chainEl=$("#chain");
+const done=new Set();
+let cur=0;
+function buildChain(){
+  chainEl.innerHTML="";
+  const groups=[[0,"Start","accent",[0]]];
+  for(let a=1;a<=NACT;a++)groups.push([a,ACTS[a].name,ACTS[a].col,[]]);
+  groups.push([NACT+1,"Finish","accent",[STEPS.length-1]]);
+  STEPS.forEach((s,i)=>{if(s.act>0)groups[s.act][3].push(i)});
+  groups.forEach(g=>{
+    const d=document.createElement("div");d.className="actgrp";
+    if(g[0]===0||g[0]===NACT+1)d.style.flex="0 0 auto";
+    d.innerHTML=`<div class="an"><i style="background:var(--${g[2]})"></i>${g[1]}</div>`;
+    const dots=document.createElement("div");dots.className="dots";
+    g[3].forEach(i=>{const b=document.createElement("button");b.type="button";b.className="dot";b.textContent=i===0?"★":(i===STEPS.length-1?"✓":i);
+      b.setAttribute("aria-label",(i===0?"Start":i===STEPS.length-1?"Finish":"Step "+i)+": "+STEPS[i].title);b.onclick=()=>go(i);b.dataset.i=i;dots.appendChild(b)});
+    d.appendChild(dots);chainEl.appendChild(d);
+  });
+}
+function refreshDots(){document.querySelectorAll(".dot").forEach(b=>{const i=+b.dataset.i;b.classList.toggle("cur",i===cur);b.classList.toggle("done",done.has(i));if(i===cur)b.setAttribute("aria-current","step");else b.removeAttribute("aria-current")})}
+function legendHTML(l){const v="--"+l[0];const sh=l[2]||"c";
+  if(sh==="dl")return `<span><i class="dl" style="border-top-color:var(${v})"></i>${l[1]}</span>`;
+  if(sh==="t")return `<span><i class="t" style="border-bottom-color:var(${v})"></i>${l[1]}</span>`;
+  if(sh==="y")return `<span><i class="y" style="--yc:var(${v})"></i>${l[1]}</span>`;
+  return `<span><i class="${sh}" style="background:var(${v})"></i>${l[1]}</span>`}
+function render(){
+  const s=STEPS[cur];
+  const a=ACTS[s.act];
+  $("#stepno").innerHTML=(s.act?`<span class="actchip" style="--c:var(--${a.col})">${a.name}</span>`:"")+
+    (cur>0&&cur<STEPS.length-1?`<span>Step ${cur} of ${STEPS.length-2}</span>`:"");
+  $("#title").textContent=s.title;
+  $("#body").innerHTML=s.body;
+  $("#analogy p").textContent=s.analogy;
+  $("#terms").innerHTML=s.terms.map(t=>`<div><dt>${t[0]}</dt><dd>${t[1]}</dd></div>`).join("");
+  $("#caption").textContent=s.caption;
+  cv.setAttribute("aria-label","Animation: "+s.caption);if(window.gkDescribe)window.gkDescribe(s.desc);
+  $("#legend").innerHTML=(s.legend||[]).map(legendHTML).join("");
+  const ck=$("#check");
+  if(!s.check){ck.style.display="none"}else{
+    ck.style.display="";
+    $("#q").textContent=s.check.q;
+    const fb=$("#fb");fb.textContent="";fb.className="fb";
+    const box=$("#opts");box.innerHTML="";
+    s.check.opts.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];
+      b.onclick=()=>{box.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));
+        if(o[1]){b.classList.add("right");fb.className="fb ok";fb.textContent="✓ "+o[2];done.add(cur);refreshDots()}
+        else{b.classList.add("wrong");fb.className="fb no";fb.textContent="Not quite. "+o[2]}};
+      box.appendChild(b)});
+  }
+  $("#prev").disabled=cur===0;
+  $("#next").textContent=cur===STEPS.length-1?"Start over":"Next →";
+  $("#progbar").style.width=(cur/(STEPS.length-1)*100)+"%";
+  refreshDots();
+}
+function go(i){cur=Math.max(0,Math.min(STEPS.length-1,i));T=0;render();}
+$("#prev").onclick=()=>go(cur-1);
+$("#next").onclick=()=>go(cur===STEPS.length-1?0:cur+1);
+document.addEventListener("keydown",e=>{if(e.target.tagName==="INPUT"||e.altKey||e.ctrlKey||e.metaKey)return;if(e.key==="ArrowRight")go(cur+1);if(e.key==="ArrowLeft")go(cur-1)});
+let paused=false;
+$("#pauseBtn").onclick=()=>{paused=!paused;$("#pauseBtn").textContent=paused?"Play":"Pause"};
+$("#replayBtn").onclick=()=>{T=0};
+let speed=1;$("#speed").oninput=e=>speed=+e.target.value;
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";
+  r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+
+/* ---------------- canvas ---------------- */
+const W=800,H=480;
+const cv=document.getElementById("stage");ctx=cv.getContext("2d");
+let K=1;
+function fit(){const w=cv.parentElement.clientWidth;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);K=cv.width/W}
+window.addEventListener("resize",fit);
+
+/* ================= scenes: start + Part 1 + Part 2 ================= */
+function cardBox(x,y,w,h,lit,col){panelBox(x,y,w,h,{stroke:lit?col:C.rule,lw:lit?3:1.2,fill:hexA(C.panel,lit?.97:.85)})}
+function gramMini(cx,cy,s,T){cellGroup("coccus","staph",cx-18,cy,s,C["st-cv"],7,{n:7});cellGroup("rod","single",cx+22,cy-6,s,C["st-saf"],3);cellGroup("rod","single",cx+30,cy+12,s,C["st-saf"],11)}
+function sceneMap(T){
+  panelBox(12,12,330,456);title(26,32,"Light microscope");
+  scopeDraw(150,446,1.04,{obj:2,t:T,light:.9,smearCol:C["st-cv"]});
+  const cards=[["The microbial world","act1"],["Discovering microbes","act2"],["Microscopes","act3"],["Preparing and staining","act4"],["Shapes and arrangements","act5"]];
+  const on=Math.floor(T/2.2)%5;
+  cards.forEach((c,i)=>{const wide=i===4;const x=wide?354:354+(i%2)*222,y=wide?320:12+Math.floor(i/2)*154,w=wide?434:212,h=wide?148:144;const lit=i===on;cardBox(x,y,w,h,lit,C[c[1]]);
+    const cx=x+w/2,cy=y+56;ctx.save();ctx.globalAlpha*=lit?1:.62;
+    if(i===0){bact(cx-52,cy,Math.sin(T)*.3,9,1,{flag:true,t:T});yeast(cx+2,cy+2,13,.3,.5+.4*Math.sin(T*2));virus(cx+56,cy-2,10,1,T)}
+    else if(i===1){flask(cx-20,cy+18,.62,{swan:true,cloud:0})}
+    else if(i===2){const z=1+P(T,3)*1.5;microField(cx,cy,40,()=>{gramMini(cx,cy,4*z,T)},{edge:3})}
+    else if(i===3){cellGroup("coccus","staph",cx-40,cy,9,C.gpos,5,{n:6});cellGroup("rod","diplobac",cx+38,cy,9,C.gneg,4)}
+    else{cellGroup("coccus","strep",cx-130,cy,9,C.gpos,3,{n:7});cellGroup("coccus","staph",cx-10,cy,9,C.gpos,9,{n:9});cellK("spirochete",cx+120,cy,10,0,C.gneg,{ph:T*4})}
+    ctx.restore();
+    txt(cx,y+h-30,c[0],{size:14,weight:700,align:"center"});txt(cx,y+h-12,"Part "+(i+1),{size:12,mono:true,align:"center",color:C["ink-soft"],weight:600})});
+}
+
+/* ---------- 1 microbe groups ---------- */
+const GROUPS=[["Bacteria","bact","Prokaryote cell","act3"],["Archaea","arch","Prokaryote cell","act3"],["Fungi","fungus","Eukaryote","act4"],["Protozoa","proto","Eukaryote","act4"],["Algae","alga","Eukaryote","act4"],["Helminths","helm","Eukaryote, many cells","act4"],["Viruses","virus","Not a cell","act6"]];
+function groupArt(i,cx,cy,T){
+  if(i===0){bact(cx-44,cy-26,.3,10,1,{flag:true,t:T});bact(cx+40,cy+30,-.4,10,1,{flag:true,t:T+1});const p=P(T,3.4);const g=seg(p,.05,.6),sp=seg(p,.66,.95);const E=mix(C.bact,C.ink,.4);
+    if(sp<=0){const L=30+20*g;rod(cx,cy+2,L,18,0,C.bact,E,1);if(g>.55){const k=(g-.55)/.45;line(cx,cy-7,cx,cy-7+7*k,C.panel,2.4);line(cx,cy+11,cx,cy+11-7*k,C.panel,2.4)}}
+    else{const d=sp*12;rod(cx-12.5-d,cy+2,25,18,0,C.bact,E,1);rod(cx+12.5+d,cy+2,25,18,0,C.bact,E,1)}
+    txt(cx,cy+56,"dividing in two",{size:12,align:"center",color:C["ink-soft"]})}
+  else if(i===1){for(let k=0;k<8;k++){const f=P(T*.4+k/8,1);circ(cx-60+k*17,cy+50-f*100,2+rnd(k)*2.5,null,hexA(C.electron,.7*(1-f)),1.2)}
+    for(let k=0;k<3;k++)bact(cx-36+k*36,cy-6+(k%2)*22,.5*k-.4,9,1,{col:C.arch});for(let k=0;k<3;k++)wave(cx-40+k*40,cy+58,30,2.5,1.5,0,hexA(C.heat,.7),1.6,T*3);txt(cx,cy+76,"hot spring",{size:12,align:"center",color:C["ink-soft"]})}
+  else if(i===2){yeast(cx-36,cy-18,15,.2,.4+.55*P(T,4));hypha([[cx-10,cy+50],[cx+10,cy+24],[cx+30,cy+6],[cx+50,cy-18]],C.fungus,5);hypha([[cx+30,cy+6],[cx+58,cy+20],[cx+74,cy+16]],C.fungus,5);txt(cx-36,cy+18,"yeast",{size:12,align:"center",color:C["ink-soft"]});txt(cx+58,cy+44,"mold",{size:12,align:"center",color:C["ink-soft"]})}
+  else if(i===3){const mx=cx+Math.sin(T*.6)*16;blobPath(mx,cy,34,2,T*1.4,.2);ctx.fillStyle=hexA(C.proto,.35);ctx.fill();ctx.strokeStyle=C.proto;ctx.lineWidth=2;ctx.stroke();circ(mx-6,cy-4,9,hexA(C.proto,.8),mix(C.proto,C.ink,.3),1.2);circ(mx+14,cy+10,5,null,C.proto,1.4);txt(cx,cy+56,"amoeba creeping",{size:12,align:"center",color:C["ink-soft"]})}
+  else if(i===4){for(let k=0;k<5;k++){const an=-Math.PI/2+(k-2)*.35;line(cx+Math.cos(an)*56,cy-34+Math.sin(an)*18,cx+Math.cos(an)*70,cy-38+Math.sin(an)*26,hexA(C.glow,.6+.4*Math.sin(T*3+k)),2)}
+    [[-34,10],[0,22],[34,8],[-14,-14],[20,-12]].forEach((p,k)=>{circ(cx+p[0],cy+p[1],15,hexA(C.alga,.3),C.alga,1.6);ell(cx+p[0]-3,cy+p[1]+2,7,4,k,C.alga);ell(cx+p[0]+5,cy+p[1]-4,5,3,k+1,mix(C.alga,C.ink,.2))})}
+  else if(i===5){worm(cx-74,cy-6,110,T,{col:C.helm});ell(cx+60,cy+36,13,8,0,hexA(C.helm,.25),C.helm,1.6);circ(cx+57,cy+36,3,hexA(C.helm,.6));txt(cx+60,cy+56,"egg (microscopic)",{size:12,align:"center",color:C["ink-soft"]})}
+  else if(i===6){virus(cx,cy,26,1,T*.6);virus(cx+56,cy+30,9,1,T*.6+1);txt(cx,cy+60,"genes in a protein coat",{size:12,align:"center",color:C["ink-soft"]})}}
+function sceneGroups(T){const on=Math.floor(T/2.4)%7;
+  GROUPS.forEach((g,i)=>{const top=i<4;const w=top?188:253,h=top?212:236;const x=top?12+i*196:12+(i-4)*261,y=top?12:232;const lit=i===on;cardBox(x,y,w,h,lit,C[g[1]]);
+    const cx=x+w/2,cy=y+(h-56)/2+6;ctx.save();ctx.rect(x+2,y+2,w-4,h-58);ctx.clip();ctx.globalAlpha*=lit?1:.7;groupArt(i,cx,cy,T);ctx.restore();
+    txt(cx,y+h-36,g[0],{size:15,weight:700,align:"center",color:C.ink});chipText(cx,y+h-14,g[2],C[g[3]])})}
+
+/* ---------- 2 sizes ---------- */
+function fmtLen(um){if(um>=1000)return (um/1000).toFixed(um>=10000?0:1).replace(/\.0$/,"")+" mm";if(um>=1)return (um>=10?Math.round(um):um.toFixed(1).replace(/\.0$/,""))+" µm";return Math.round(um*1000)+" nm"}
+function sceneSize(T){
+  const L=17,t=P(T,L)*L;const z=3.7*(seg(t,.1,14.5)+smooth(seg(t,.1,14.5)))/2;const Vw=1000/Math.pow(10,z);const ppu=760/Vw;
+  const x0=20,y0=16,w=760,h=272,cx=x0+w/2,cy=y0+h/2+6;
+  panelBox(12,10,776,284);ctx.save();rr(x0,y0,w,h,6);ctx.clip();ctx.fillStyle=mix(C.field,C.panel,.3);ctx.fillRect(x0,y0,w,h);
+  const X=u=>cx+u*ppu,Y=u=>cy+u*ppu;
+  // hair: vertical band 80 µm wide with cuticle scales
+  {const hw=80*ppu;ctx.fillStyle=C.hair;ctx.fillRect(cx-hw/2,y0,hw,h);ctx.save();ctx.beginPath();ctx.rect(cx-hw/2,y0,hw,h);ctx.clip();const step=9*ppu;if(step>4){for(let k=-60;k<60;k++){const yy=cy+k*step;if(yy<y0-step||yy>y0+h+step)continue;ctx.beginPath();ctx.moveTo(cx-hw/2,yy);ctx.quadraticCurveTo(cx,yy-step*.6,cx+hw/2,yy+step*.2);ctx.strokeStyle=hexA(C.panel,.25);ctx.lineWidth=Math.max(1,step*.08);ctx.stroke()}}ctx.restore()}
+  // red blood cell 7.5 µm
+  {const r=3.75*ppu;if(r>.6){ell(cx,cy,r,r,0,C.rbc,mix(C.rbc,C.ink,.3),Math.max(.6,r*.03));ell(cx,cy,r*.5,r*.5,0,hexA(C["rbc-hi"],.55))}}
+  // E. coli 2 x 0.9 µm, lying on the cell
+  const ex=.9,ey=-.5;{const Lr=2*ppu,Wr=.9*ppu;if(Lr>1)rod(X(ex),Y(ey),Lr,Wr,.4,C.bact,mix(C.bact,C.ink,.35),Math.max(.6,Wr*.04));if(Wr>30){for(let k=0;k<5;k++){const a=.4,f=(k-2)*.18;circ(X(ex+Math.cos(a)*f*2),Y(ey+Math.sin(a)*f*2),Wr*.05,hexA(C.panel,.5))}}}
+  // flu virus 0.1 µm on the bacterium surface
+  const vx=ex+.12,vy=ey-.47;{const r=.05*ppu;if(r>.8)virus(X(vx),Y(vy),r*.72,1,T*.4)}
+  ctx.restore();
+  // labels for things at a readable size
+  const lab=(px,py,size,text,lx,ly,al)=>{const a=clamp((size-8)/10,0,1)*clamp((900-size)/300,0,1);if(a>0)lead(px,py,lx,ly,text,{a,size:12.5,align:al})};
+  lab(cx-40*ppu*.7,y0+40,80*ppu,"Human hair, about 80 µm wide",x0+20,y0+30,"left");
+  lab(cx-3.75*ppu*.7,cy+3.75*ppu*.7,7.5*ppu,"Red blood cell, about 7 µm",x0+20,y0+h-60,"left");
+  lab(X(ex)+ppu*.8,Y(ey)+ppu*.3,2*ppu,"E. coli bacterium, about 2 µm long",x0+w-20,y0+h-30,"right");
+  lab(X(vx)+.05*ppu,Y(vy)-.03*ppu,.1*ppu,"Flu virus, about 100 nm",x0+w-20,y0+60,"right");
+  label(x0+w-10,y0+18,"View width: "+fmtLen(Vw),{size:13,weight:700,align:"right",mono:true,border:C.accent});
+  {let bu=Math.pow(10,Math.floor(Math.log10(Vw/4)));const bpx=bu*ppu;rr(x0+14,y0+h-20,bpx,6,2);ctx.fillStyle=C.ink;ctx.fill();label(x0+14+bpx/2,y0+h-34,fmtLen(bu),{size:12,mono:true,weight:700,align:"center"})}
+  // ruler
+  panelBox(12,302,776,166);title(26,320,"What can each tool see?");
+  const rx0=70,rx1=740,LX=um=>rx0+(3-Math.log10(um))/6*(rx1-rx0);const ay=376;
+  line(rx0,ay,rx1,ay,C.ink,1.6);[[1000,"1 mm"],[100,"100 µm"],[10,"10 µm"],[1,"1 µm"],[.1,"100 nm"],[.01,"10 nm"],[.001,"1 nm"]].forEach(m=>{const X_=LX(m[0]);line(X_,ay-5,X_,ay+5,C.ink,1.4);txt(X_,ay+16,m[1],{size:12,mono:true,align:"center",color:C["ink-soft"]})});
+  [[80,"hair","hair"],[7.5,"rbc","RBC"],[2,"bact","E. coli"],[.1,"virus","virus"]].forEach((o,i)=>{const X_=LX(o[0]);circ(X_,ay-12,5,C[o[1]],C.panel,1.2);txt(X_,ay-28-(i%2)*14,o[2],{size:12,weight:600,align:"center"})});
+  const bars=[[1000,100,"Your eye","act2",0],[1000,.2,"Light microscope","act3",1],[1000,.0005,"Electron microscope","act4",2]];
+  bars.forEach(b=>{const xa=LX(b[0]),xb=Math.min(rx1+30,LX(b[1]));const y=398+b[4]*22;rr(xa,y,xb-xa,16,8);ctx.fillStyle=hexA(C[b[3]],.28);ctx.fill();ctx.strokeStyle=C[b[3]];ctx.lineWidth=1.4;ctx.stroke();
+    const tx_=b[4]===0?xb+8:xa+8;txt(tx_,y+8.5,b[2]+(b[4]===0?" (to 0.1 mm)":b[4]===1?" (to about 0.2 µm)":" (below 1 nm)"),{size:12,weight:700,color:C.ink})});
+  const mx=LX(Vw/4);ctx.beginPath();ctx.moveTo(mx,ay-2);ctx.lineTo(mx-7,ay-14);ctx.lineTo(mx+7,ay-14);ctx.closePath();ctx.fillStyle=C.accent;ctx.fill();
+}
+
+/* ---------- 3 names ---------- */
+const NAMES=[["Escherichia","coli","E.","Named after Theodor Escherich · coli = of the colon (gut)","ecoli"],["Staphylococcus","aureus","S.","staphylo = grape cluster · coccus = berry · aureus = golden","staph"],["Mycobacterium","tuberculosis","M.","myco = fungus-like · bacterium = small rod · causes tuberculosis","myco"]];
+function sceneNames(T){
+  const L=7,i=Math.floor(T/L)%3,t=P(T,L)*L;const nm=NAMES[i];
+  panelBox(12,12,560,456);title(26,32,"Binomial nomenclature");
+  const typed=seg(t,.2,1.8);const ab=smooth(seg(t,4.2,5));const full=nm[0]+" "+nm[1];
+  ctx.font=`italic 600 40px ${"'IBM Plex Serif',Georgia,serif"}`;const wG=ctx.measureText(nm[0]).width,wS=ctx.measureText(nm[1]).width,wSp=ctx.measureText(" ").width,wA=ctx.measureText(nm[2]).width;
+  const gW=lerp(wG,wA,ab);const tot=gW+wSp+wS;const x0=292-tot/2,y=170;
+  const nChars=Math.floor(typed*full.length);
+  ctx.textAlign="left";ctx.textBaseline="alphabetic";
+  if(ab<.5){ctx.fillStyle=C.accent;ctx.globalAlpha=1-ab*2;ctx.fillText(nm[0].slice(0,Math.min(nChars,nm[0].length)),x0,y);ctx.globalAlpha=1}
+  if(ab>0){ctx.fillStyle=C.accent;ctx.globalAlpha=ab;ctx.fillText(nm[2],x0,y);ctx.globalAlpha=1}
+  ctx.fillStyle=C.act4;ctx.fillText(nChars>nm[0].length+1?nm[1].slice(0,nChars-nm[0].length-1):"",x0+gW+wSp,y);
+  if(typed<1&&Math.floor(T*3)%2===0){const cx_=x0+ctx.measureText(full.slice(0,nChars)).width;line(cx_+2,y-34,cx_+2,y+4,C.ink,2)}
+  const br=seg(t,2,2.8);if(br>0)withA(br,()=>{const by=y+16;poly([[x0,by-6],[x0,by],[x0+gW,by],[x0+gW,by-6]],C.accent,2);poly([[x0+gW+wSp,by-6],[x0+gW+wSp,by],[x0+gW+wSp+wS,by],[x0+gW+wSp+wS,by-6]],C.act4,2);
+    label(x0+gW/2,by+22,ab>.5?"Genus, shortened":"Genus: capital first letter",{size:12.5,weight:700,align:"center",border:C.accent});label(x0+gW+wSp+wS/2,by+54,"species: all lowercase",{size:12.5,weight:700,align:"center",border:C.act4})});
+  if(ab>0)label(292,y-62,"After the first time: "+nm[2]+" "+nm[1],{size:13,weight:700,align:"center",a:ab});
+  wrapText(nm[3],40,290,500,20,{size:13.5,color:C.ink});
+  // handwritten form
+  panelBox(28,350,528,104,{fill:hexA(C["panel-2"],.9)});title(42,370,"Handwritten");
+  ctx.font=`500 30px ${"'IBM Plex Serif',Georgia,serif"}`;ctx.textAlign="center";ctx.fillStyle=C.ink;ctx.textBaseline="alphabetic";ctx.fillText(nm[2]+" "+nm[1],292,418);const hw=ctx.measureText(nm[2]+" "+nm[1]).width;line(292-hw/2,424,292+hw/2,424,C.ink,2);
+  txt(292,442,"underline instead of italics",{size:12,align:"center",color:C["ink-soft"]});
+  // the cells
+  panelBox(584,12,204,456);title(598,32,"What it looks like");
+  const cx=686,cy=200;
+  if(nm[4]==="ecoli"){for(let k=0;k<7;k++){bact(cx-60+rnd(k)*120,cy-90+rnd(k+9)*180,rnd(k+3)*TAU,10,1,{flag:k%2===0,t:T+k})}txt(686,330,"Rods",{size:13,weight:700,align:"center"})}
+  else if(nm[4]==="staph"){[[0,-70],[-30,40],[40,60]].forEach((p,k)=>cellGroup("coccus","staph",cx+p[0],cy+p[1],16,C.gold,k*5+2,{n:9}));txt(686,330,"Round cells in clusters",{size:13,weight:700,align:"center"});txt(686,350,"golden colonies",{size:12,align:"center",color:C["ink-soft"]})}
+  else{for(let k=0;k<9;k++)cellK("slim",cx-60+rnd(k*2)*120,cy-90+rnd(k+4)*180,14,rnd(k+7)*TAU,C.wax);txt(686,330,"Thin rods",{size:13,weight:700,align:"center"});txt(686,350,"waxy wall",{size:12,align:"center",color:C["ink-soft"]})}
+  stepRow(598,420,176,["E. coli","Staph","Myco"].map(s=>s),i,C.accent);
+}
+
+/* ---------- 4 Hooke and van Leeuwenhoek ---------- */
+function sceneLeeuw(T){
+  panelBox(12,12,330,392);title(26,32,"Robert Hooke, 1665");
+  ctx.save();rr(36,56,282,250,10);ctx.clip();ctx.fillStyle=mix(C.wax,C.panel,.7);ctx.fillRect(36,56,282,250);
+  for(let r=0;r<9;r++)for(let c=0;c<8;c++){const x=40+c*36+(r%2)*18+rnd(r*9+c)*4,y=60+r*28+rnd(c*7+r)*3;rr(x,y,32+rnd(r+c)*4,24,4);ctx.strokeStyle=mix(C.wax,C.ink,.35);ctx.lineWidth=2.2;ctx.stroke()}
+  ctx.restore();ctx.strokeStyle=C.rule;rr(36,56,282,250,10);ctx.stroke();
+  label(177,330,"Cork: rows of empty boxes he called cells",{size:12.5,weight:700,align:"center"});txt(177,360,"He was looking at dead plant walls,",{size:12,align:"center",color:C["ink-soft"]});txt(177,378,"not microbes.",{size:12,align:"center",color:C["ink-soft"]});
+  panelBox(354,12,434,392);title(368,32,"Antonie van Leeuwenhoek, 1670s");
+  // his microscope: a flat plate with a bead lens and a specimen pin
+  const px=410,py=100;rr(px,py,54,200,6);ctx.fillStyle=C.metal;ctx.fill();ctx.strokeStyle=mix(C.metal,C.ink,.4);ctx.lineWidth=1.5;ctx.stroke();
+  circ(px+27,py+44,9,C.glass,C["glass-edge"],2);glow(px+27,py+44,16,C.beam,.5+.3*Math.sin(T*2));
+  line(px+54,py+130,px+78,py+130,C.metal,4);line(px+78,py+130,px+78,py+46,C.metal,3);circ(px+78,py+44,5,hexA(C.electron,.5),C["glass-edge"],1.4);
+  txt(px+27,py+226,"single lens",{size:12,align:"center",color:C["ink-soft"]});txt(px+27,py+244,"about 300x",{size:12,mono:true,align:"center",color:C["ink-soft"]});
+  lead(px+27,py+44,px-30,py-30,"bead lens",{size:12,align:"left"});
+  const fx=640,fy=190,R=118;
+  microField(fx,fy,R,()=>{
+    for(let k=0;k<20;k++){const sp=.18+rnd(k)*.25;const a=rnd(k+3)*TAU;const d=((T*sp+rnd(k+8))%1);const X=fx-R+((rnd(k*2)*2*R+Math.cos(a)*d*2*R)%(2*R)+2*R)%(2*R),Y=fy-R+((rnd(k*5)*2*R+Math.sin(a)*d*2*R)%(2*R)+2*R)%(2*R);
+      if(k%3===0)cellK("rod",X,Y,9,a,mix(C.bact,C.field,.25));else if(k%3===1)cellK("coccus",X,Y,9,0,mix(C.bact,C.field,.35));else cellK("spirillum",X,Y,6,a,mix(C.bact,C.field,.2),{ph:T*5})}
+    const px2=fx+Math.sin(T*.4)*50,py2=fy+Math.cos(T*.3)*30;ell(px2,py2,36,20,T*.2,hexA(C.proto,.35),C.proto,2);for(let k=0;k<24;k++){const a=k/24*TAU;const ex=Math.cos(a)*36,ey=Math.sin(a)*20;const ca=Math.cos(T*.2),sa=Math.sin(T*.2);const bx=px2+ex*ca-ey*sa,by=py2+ex*sa+ey*ca;line(bx,by,bx+Math.cos(a+T*.2)*6+Math.sin(T*9+k)*2,by+Math.sin(a+T*.2)*6,C.proto,1.2)}circ(px2,py2,7,hexA(C.proto,.8))
+  },{key:"leeuw"});
+  label(fx,fy+R+22,"Animalcules in a drop of water",{size:12.5,weight:700,align:"center"});
+  panelBox(12,416,776,52);const f=P(T,8);timeBar(80,432,640,f,[[0,"1665 Hooke"],[11/15,"1676 van Leeuwenhoek's letter"],[1,"1680"]],{col:C.act2});
+}
+
+/* ---------- 5 Pasteur ---------- */
+function scenePasteur(T){
+  const L=17,t=P(T,L)*L;const st=t<2.6?0:t<8.4?1:t<9.8?2:3;
+  panelBox(12,12,776,456);stepRow(26,22,748,["Boil the broth","Wait: dust falls","Break the swan neck","Wait again"],st,C.act2);
+  const day=t<2.6?0:t<8.4?Math.round(seg(t,2.6,8.4)*30):t<9.8?30:30+Math.round(seg(t,9.8,15.5)*3);label(740,70,"Day "+day,{size:13,weight:700,mono:true,align:"right",border:C.act2});
+  const A={x:220,y:330,s:1.45},B={x:500,y:330,s:1.45};
+  const cloudA=smooth(seg(t,4,8.2)),cloudB=smooth(seg(t,11,15));const broken=t>=9.2;
+  if(st===0){burner(A.x,A.y+92,.7,T);burner(B.x,B.y+92,.7,T);for(let k=0;k<6;k++){const f=P(T*.7+k/6,1);circ(A.x-6+k*2,A.y-90-f*70,4+f*6,hexA(C["ink-soft"],.25*(1-f)));circ(B.x+150-k*2,B.y-90-f*70,4+f*6,hexA(C["ink-soft"],.25*(1-f)))}}
+  flask(A.x,A.y,A.s,{cloud:cloudA});flask(B.x,B.y,B.s,{swan:true,broken,cloud:cloudB});
+  if(t>9.2&&t<10.4){const f=seg(t,9.2,10.4);const nx=B.x+70*B.s,ny=B.y-80*B.s;withA(1-f,()=>{ctx.save();ctx.translate(nx+f*40,ny+f*120);ctx.rotate(f*1.5);poly([[-60,-30],[0,-40],[40,-10],[70,-40]],C["glass-edge"],2.5);ctx.restore()})}
+  // dust
+  for(let k=0;k<26;k++){const ph=rnd(k*3.3);const sp=.08+rnd(k)*.05;const f=P(T*sp+ph,1);const x=60+rnd(k*7.1)*640,y=90+f*170;if(st===0)continue;
+    let a=1;const inA=Math.abs(x-A.x)<16;const swanOpen=B.x+102*B.s;const inBneck=!broken&&Math.abs(x-swanOpen)<14;const inB=broken&&Math.abs(x-B.x)<16;
+    if(inA||inB||inBneck){a=y>230?0:1}circ(x,y,2.2,hexA(C.dust,.85*a))}
+  const trapped=Math.round(clamp(seg(t,3,9.2)*10,0,10));if(!broken)for(let k=0;k<trapped;k++){circ(B.x+66*B.s+rnd(k)*16-8,B.y-31*B.s+rnd(k+5)*4,2.2,C.dust)}
+  if(!broken&&st>=1)lead(B.x+66*B.s,B.y-31*B.s,B.x+150,B.y+36,"Dust trapped in the bend",{size:12.5,align:"center"});
+  txt(A.x,A.y+86,"Straight neck",{size:13,weight:700,align:"center"});txt(B.x,B.y+86,broken?"Swan neck, broken off":"Swan neck",{size:13,weight:700,align:"center"});
+  const res=(x,c)=>{if(st===0)return;const cl=c>.5;label(x,A.y+112,cl?"Cloudy: microbes from the air grew":c>.08?"Turning cloudy":"Clear: no microbes got in",{size:12.5,weight:700,align:"center",border:cl?C.cloud:C.good})};res(A.x,cloudA);res(B.x,cloudB);
+  if(st===3&&t>14)label(400,120,"Microbes come from microbes, not from broth",{size:14,weight:700,align:"center",border:C.act2});
+}
+
+/* ---------- 6 Koch and germ theory ---------- */
+function syringe(x,y,s,ang){ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.scale(s,s);rr(-26,-6,36,12,3);ctx.fillStyle=hexA(C.glass,.9);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.4;ctx.stroke();rr(-24,-4,18,8,2);ctx.fillStyle=hexA(C.bact,.6);ctx.fill();line(10,0,26,0,C.metal,1.6);line(-26,0,-36,0,C.metal,3);line(-36,-6,-36,6,C.metal,3);ctx.restore()}
+function sceneKoch(T){
+  panelBox(12,12,512,456);title(26,32,"Koch's postulates");
+  const L=12,t=P(T,L)*L;const on=Math.floor(t/3);
+  const S=[[30,48],[282,48],[282,262],[30,262]];const sw=212,sh=172;
+  const names=["Found in every sick animal","Grown in pure culture","Causes the disease again","Same microbe grown again"];
+  S.forEach((p,i)=>{const lit=i===on;cardBox(p[0],p[1],sw,sh,lit,C.accent);badge(p[0]+16,p[1]+16,i+1,lit?C.accent:C["ink-soft"],11);txt(p[0]+34,p[1]+17,names[i],{size:12.5,weight:700});
+    const cx=p[0]+sw/2,cy=p[1]+96;ctx.save();ctx.globalAlpha*=lit?1:.6;
+    if(i===0){mouseIcon(cx-56,cy-10,.95,{sick:true});circ(cx-56,cy+48,20,C.field,C.rule,1.2);for(let k=0;k<4;k++)cellK("rod",cx-64+k*5,cy+42+(k%2)*10,6,k,C.bact);txt(cx-56,cy+80-4,"sick",{size:12,align:"center",color:C["ink-soft"]});
+      mouseIcon(cx+50,cy-10,.95);circ(cx+50,cy+48,20,C.field,C.rule,1.2);txt(cx+50,cy+76,"healthy",{size:12,align:"center",color:C["ink-soft"]})}
+    else if(i===1){plate(cx-10,cy+4,52,{n:22,seed:4,col:C.cloud,cr:4});loopTool(cx+62,cy-34,2.4,.8);label(cx-10,cy+70,"one kind of colony only",{size:12,align:"center"})}
+    else if(i===2){const f=lit?seg(t-6,.6,2.2):1;mouseIcon(cx+10,cy+6,1.1,{sick:f>.6});syringe(cx-50,cy-30+f*14,1,.5);if(f>.6)label(cx+10,cy+64,"same disease appears",{size:12,align:"center"})}
+    else{plate(cx-40,cy+8,44,{n:18,seed:9,col:C.cloud,cr:4});circ(cx+50,cy+4,30,C.field,C.rule,1.2);for(let k=0;k<5;k++)cellK("rod",cx+38+k*6,cy-4+(k%2)*12,6,k*.7,C.bact);if(lit&&t-9>1){circ(cx+76,cy-30,13,C.good);poly([[cx+70,cy-30],[cx+75,cy-25],[cx+83,cy-36]],onFill(),2.6)}}
+    ctx.restore()});
+  arrow(244,134,278,134,C["ink-soft"],2);arrow(388,222,388,258,C["ink-soft"],2);arrow(278,348,246,348,C["ink-soft"],2);
+  poly([[136,258],[136,224]],C.accent,2,[5,4]);txt(146,241,"match?",{size:12,weight:700,color:C.accent});
+  // marker
+  const pts=[[136,134],[388,134],[388,348],[136,348]];const seg_=Math.floor(t/3),f=smooth(seg(t%3,2.4,3));const a=pts[seg_],b=pts[(seg_+1)%4];if(seg_<3)glow(lerp(a[0],b[0],f),lerp(a[1],b[1],f),16,C.accent,.5);
+  // timeline
+  panelBox(536,12,252,456);title(550,32,"Germ theory timeline");
+  const TL=[["1847","Semmelweis","Hand washing cuts childbed fever"],["1860s","Pasteur","Microbes come from microbes"],["1867","Lister","Carbolic acid in surgery"],["1876, 1882","Koch","Anthrax and TB bacteria"]];
+  const lit=Math.floor(P(T,10)*5);
+  TL.forEach((c,i)=>{const y=48+i*104;const l=i<=lit;panelBox(548,y,228,94,{stroke:l?C.act2:C.rule,lw:l?2.5:1.2,fill:hexA(C.panel,l?.97:.6)});ctx.save();ctx.globalAlpha*=l?1:.5;
+    txt(560,y+18,c[0],{size:13,mono:true,weight:700,color:C["gold-ink"]});txt(560,y+40,c[1],{size:14,weight:700});wrapText(c[2],560,y+62,150,16,{size:12,color:C["ink-soft"]});
+    const ix=744,iy=y+50;if(i===0){for(let k=0;k<4;k++){const f=P(T+k/4,1);circ(ix-8+k*5,iy-20+f*30,2.4,hexA(C.electron,1-f))}rr(ix-14,iy+4,28,14,6);ctx.fillStyle=C.skin;ctx.fill()}
+    else if(i===1)flask(ix,iy+8,.32,{swan:true});else if(i===2){rr(ix-8,iy-6,16,24,3);ctx.fillStyle=C.glass;ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.stroke();for(let k=0;k<5;k++){const f=P(T*1.5+k/5,1);circ(ix-4-f*18,iy-10-f*8+k,1.8,hexA(C.electron,1-f))}}
+    else bact(ix,iy,.4,9,1,{});ctx.restore()});
+}
+
+/* ================= scenes: Part 3 microscopes ================= */
+const PARTS=[["lamp","Light source","Makes the light (illuminator)."],["cond","Condenser","Focuses light onto the specimen."],["iris","Iris diaphragm","Opens or closes: light and contrast."],["stage","Stage","Holds the slide."],["obj","Objective lenses","First lens to magnify; on a revolving nosepiece."],["ocular","Ocular (eyepiece)","Magnifies again, usually 10x."],["coarse","Coarse focus","Big moves; low power only."],["fine","Fine focus","Small moves for a sharp image."],["arm","Arm","Carry the microscope by the arm..."],["base","Base","...with your other hand under the base."]];
+function sceneParts(T){
+  const on=Math.floor(T/2.3)%PARTS.length;const pt=PARTS[on];
+  panelBox(12,12,488,456);
+  const g=scopeDraw(250,452,1.12,{obj:1,t:T,light:.95,hl:pt[0],smearCol:C["st-cv"],knob:(pt[0]==="coarse"||pt[0]==="fine")?T*1.5:0});
+  const s=1.12;const anc={lamp:[g.ax+14*s,g.lampY-4*s],cond:[g.ax+20*s,g.condY+4*s],iris:[g.ax+26*s,g.condY+22*s],stage:[g.ax+48*s,g.stageY+5*s],obj:[g.ax+10*s,g.turretY+40*s],ocular:[g.ax-30*s,g.tubeTop-40*s],coarse:[g.coarse[0]-16*s,g.coarse[1]],fine:[g.coarse[0]-6*s,g.coarse[1]+4*s],arm:[250-74*s,452-230*s],base:[250-80*s,452-12*s]};
+  const a=anc[pt[0]];const right=a[0]>250;const lx=right?470:30,ly=a[1]<60?60:a[1];lead(a[0],a[1],lx,ly,pt[1],{size:13,weight:700,align:right?"right":"left",border:C.accent});
+  panelBox(512,12,276,456);title(526,32,"Light path, bottom to top");
+  PARTS.forEach((p,i)=>{const y=58+i*34;const lit=i===on;if(lit){rr(522,y-14,256,28,6);ctx.fillStyle=hexA(C.accent,.16);ctx.fill();ctx.strokeStyle=C.accent;ctx.lineWidth=1.6;ctx.stroke()}
+    badge(538,y,i+1,lit?C.accent:C["ink-soft"],10);txt(556,y,p[1],{size:13,weight:lit?700:500,color:C.ink})});
+  panelBox(522,404,256,56,{fill:hexA(C.accent,.1),stroke:C.accent});wrapText(pt[2],534,422,232,17,{size:13,color:C.ink});
+}
+
+/* ---------- 8 total magnification ---------- */
+const GRAMSMEAR=SMEAR.gram;
+const MAGS=[40,100,400,1000];
+function magField(i,cx,cy,R){layer("mag"+i,cx-R,cy-R,R*2,R*2,()=>{ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,TAU);ctx.clip();ctx.fillStyle=C.field;ctx.fillRect(cx-R,cy-R,R*2,R*2);smearDraw(GRAMSMEAR,MAGS[i]*.011,cx,cy,R,0,0);ctx.restore()})}
+function sceneMag(T){
+  const per=3.8;const i=Math.floor(T/per)%4;const f=smooth(seg(P(T,per)*per,per-.8,per));const objPos=i===3?3-3*f:i+f;
+  panelBox(12,12,262,456);title(26,32,"Revolving nosepiece");
+  scopeDraw(118,452,.84,{obj:objPos,t:T,light:.9,oil:i===3&&f<.5,smearCol:C["st-cv"]});
+  panelBox(286,12,502,456);
+  const cx=537,cy=262,R=168;const nxt=(i+1)%4;
+  microField(cx,cy,R,()=>{magField(i,cx,cy,R);if(f>0)withA(f,()=>magField(nxt,cx,cy,R))},{key:"magf"});
+  const shown=f>.5?nxt:i;const ob=[4,10,40,100][shown];
+  label(cx,46,"10x ocular  ×  "+ob+"x objective  =  "+MAGS[shown]+"x total",{size:15,weight:700,align:"center",mono:true,border:C.act3});
+  const note=["40x: the smear is just coloured specks","100x: tiny dots; good for finding the smear","400x: cells and colours start to show","1000x with oil: shape and arrangement are clear"][shown];
+  label(cx,450,note,{size:13,weight:600,align:"center"});
+  OBJ.forEach((o,k)=>{const x=36+k*58,y=100;rr(x-22,y-12,48,24,12);ctx.fillStyle=k===shown?hexA(C.act3,.2):hexA(C.panel,.6);ctx.fill();ctx.strokeStyle=k===shown?C.act3:C.rule;ctx.lineWidth=k===shown?2:1;ctx.stroke();circ(x-12,y,4,o.band,C["ink-soft"],1);txt(x+6,y,String(o.m)+"x",{size:12,mono:true,weight:700,align:"center"})});
+}
+
+/* ---------- 9 resolution ---------- */
+function blurPt(x,y,s,col,a){const g=ctx.createRadialGradient(x,y,0,x,y,s*2.6);const A=hx(col);g.addColorStop(0,`rgba(${A},${a})`);g.addColorStop(.45,`rgba(${A},${a*.45})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,s*2.6,0,TAU);ctx.fill()}
+function sceneResol(T){
+  panelBox(12,12,480,456);title(26,32,"Two points, seen through a lens");
+  const d=12+80*(.5+.5*Math.sin(T*.55));const sg=15;const res=d>2.1*sg;
+  const bx=30,by=48,bw=444,bh=180,cx=bx+bw/2,cy=by+bh/2;
+  rr(bx,by,bw,bh,6);ctx.fillStyle="#070B0D";ctx.fill();
+  ctx.save();rr(bx,by,bw,bh,6);ctx.clip();ctx.globalCompositeOperation="lighter";blurPt(cx-d/2,cy,sg,"#F2C94C",.85);blurPt(cx+d/2,cy,sg,"#F2C94C",.85);ctx.restore();
+  ctx.save();ctx.globalAlpha=.9;circ(cx-d/2,cy,2,"#FFFFFF");circ(cx+d/2,cy,2,"#FFFFFF");ctx.restore();
+  label(cx,by+bh-18,res?"Resolved: two points":"Not resolved: looks like one",{size:13,weight:700,align:"center",border:res?C.good:C.bad});
+  // profile graph
+  const gx=48,gy=262,gw=410,gh=130;panelBox(30,244,444,170,{fill:hexA(C.panel,.95)});txt(42,256,"BRIGHTNESS ACROSS THE PICTURE",{size:11.5,mono:true,weight:700,color:C["ink-soft"]});
+  const I=x=>Math.exp(-((x-(cx-d/2))**2)/(2*sg*sg))+Math.exp(-((x-(cx+d/2))**2)/(2*sg*sg));
+  line(gx,gy+gh,gx+gw,gy+gh,C["ink-soft"],1.2);ctx.beginPath();for(let k=0;k<=gw;k++){const X=gx+k;const v=I(bx+k/gw*bw);const Y=gy+gh-v/2.05*gh*.95;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=C.accent;ctx.lineWidth=2.6;ctx.stroke();
+  txt(gx,gy+gh+14,"distance apart: "+(d/sg*.09).toFixed(2)+" µm",{size:12,mono:true,color:C["ink-soft"]});txt(gx+gw,gy+gh+14,res?"two humps":"one hump",{size:12,weight:700,align:"right",color:res?C.good:C.bad});
+  txt(42,436,"Light microscope limit: about 0.2 µm",{size:13,weight:700});txt(42,456,"Electron microscope: less than 1 nm",{size:13,weight:600,color:C["ink-soft"]});
+  // empty magnification
+  panelBox(504,12,284,456);title(518,32,"More magnification?");
+  const d2=14,b1x=520,b1y=56;rr(b1x,b1y,120,110,6);ctx.fillStyle="#070B0D";ctx.fill();ctx.save();rr(b1x,b1y,120,110,6);ctx.clip();ctx.globalCompositeOperation="lighter";blurPt(b1x+60-d2/2,b1y+55,sg*.6,"#F2C94C",.85);blurPt(b1x+60+d2/2,b1y+55,sg*.6,"#F2C94C",.85);ctx.restore();
+  txt(b1x+60,b1y+128,"1000x",{size:12,mono:true,weight:700,align:"center"});
+  const gz=1+P(T,4)*1.0;arrow(652,110,676,110,C["ink-soft"],2);
+  const b2x=520,b2y=200,bw2=252,bh2=186;rr(b2x,b2y,bw2,bh2,6);ctx.fillStyle="#070B0D";ctx.fill();ctx.save();rr(b2x,b2y,bw2,bh2,6);ctx.clip();ctx.globalCompositeOperation="lighter";blurPt(b2x+bw2/2-d2*gz/2*1.6,b2y+bh2/2,sg*.6*gz*1.6,"#F2C94C",.85);blurPt(b2x+bw2/2+d2*gz/2*1.6,b2y+bh2/2,sg*.6*gz*1.6,"#F2C94C",.85);ctx.restore();
+  txt(686,110,(1000*gz*1.6).toFixed(0)+"x",{size:12,mono:true,weight:700});
+  label(b2x+bw2/2,b2y+bh2+20,"Empty magnification",{size:13,weight:700,align:"center",border:C.bad});
+  wrapText("Bigger, but still one blur. Only better resolution splits the two points.",522,428,250,16,{size:12.5,color:C.ink});
+}
+
+/* ---------- 10 immersion oil ---------- */
+function oilDiagram(x0,oil,T){const w=384;const cx=x0+w/2;
+  panelBox(x0,12,w,300);title(x0+14,32,oil?"With oil":"Air gap");
+  const yLens=170,yTop=200,ySp=216,ySlideB=262;const half=84;
+  // lens (objective tip)
+  ctx.beginPath();ctx.moveTo(cx-120,46);ctx.lineTo(cx+120,46);ctx.lineTo(cx+half+6,yLens);ctx.lineTo(cx-half-6,yLens);ctx.closePath();ctx.fillStyle=C.scope;ctx.fill();ctx.strokeStyle=C["scope-edge"];ctx.lineWidth=1.6;ctx.stroke();
+  ctx.beginPath();ctx.ellipse(cx,yLens,half,10,0,Math.PI,TAU);ctx.fillStyle=hexA(C.glass,.95);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.stroke();txt(cx,96,"100x objective",{size:12.5,weight:700,align:"center"});
+  // gap
+  if(oil){ctx.beginPath();ctx.moveTo(cx-half-30,yTop);ctx.quadraticCurveTo(cx-half-10,yLens-4,cx-half,yLens);ctx.lineTo(cx+half,yLens);ctx.quadraticCurveTo(cx+half+10,yLens-4,cx+half+30,yTop);ctx.closePath();ctx.fillStyle=hexA(C.oil,.55);ctx.fill()}
+  // coverslip + slide
+  ctx.fillStyle=hexA(C.glass,.9);ctx.fillRect(x0+14,yTop,w-28,ySlideB-yTop);line(x0+14,yTop,x0+w-14,yTop,C["glass-edge"],1.6);line(x0+14,ySlideB,x0+w-14,ySlideB,C["glass-edge"],1.6);
+  circ(cx,ySp,4,C["st-cv"]);
+  label(x0+60,yTop+20,"glass 1.52",{size:12,mono:true,weight:700});label(x0+w-24,yLens+16,oil?"oil 1.52":"air 1.00",{size:12,mono:true,weight:700,align:"right",border:oil?C.oil:null});
+  // rays
+  const angs=[-60,-45,-30,-15,0,15,30,45,60];let hit=0;
+  angs.forEach((ad,k)=>{const a=ad*Math.PI/180;const x1=cx+(ySp-yTop)*Math.tan(a);let pts=[[cx,ySp],[x1,yTop]];let got=false;
+    const s2=oil?Math.sin(a):1.52*Math.sin(a);
+    if(Math.abs(s2)>=1){pts.push([x1+(ySp-yTop)*Math.tan(a),ySp])}
+    else{const a2=Math.asin(s2);const x2=x1+(yTop-yLens)*Math.tan(a2);if(Math.abs(x2-cx)<=half){got=true;pts.push([x2,yLens]);pts.push([lerp(x2,cx,.7),yLens-60])}else{const ex=x1+(yTop-36)*Math.tan(a2);pts.push([ex,36])}}
+    if(got)hit++;
+    ctx.save();rr(x0+2,14,w-4,296,8);ctx.clip();poly(pts,hexA(C.beam,got?.95:.5),got?2.6:1.8);
+    ctx.setLineDash([6,10]);ctx.lineDashOffset=-T*30;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=hexA(C.ink,got?.55:.25);ctx.lineWidth=1.2;ctx.stroke();ctx.setLineDash([]);ctx.restore()});
+  label(cx,292,"Rays reaching the lens: "+hit+" of "+angs.length,{size:13,weight:700,align:"center",border:oil?C.good:C.bad});
+  // field view
+  panelBox(x0,322,w,146);const fx=x0+90,fy=396;
+  microField(fx,fy,62,()=>gramMini(fx,fy,7,T),{blur:oil?0:4,dim:oil?0:.35,key:"oil"+(oil?1:0),edge:4});
+  txt(x0+170,376,oil?"Bright and sharp":"Dim and blurry",{size:14,weight:700});wrapText(oil?"Light travels straight from glass through oil into the lens.":"Light bends outward leaving the glass, and some is lost.",x0+170,400,196,17,{size:12.5,color:C["ink-soft"]})}
+function sceneOil(T){oilDiagram(12,false,T);oilDiagram(404,true,T)}
+
+/* ---------- 11 other light microscopes ---------- */
+function sceneLightscopes(T){const on=Math.floor(T/2.6)%4;
+  const Q=[["Brightfield","Stained cells on a bright background. Your everyday lab microscope.","act3"],["Darkfield","Bright cells on black. Thin, live cells such as spirochetes.","act3"],["Phase contrast","Live, unstained cells and their inside parts.","act3"],["Fluorescence","Glowing dyes or tagged antibodies light up target cells.","act3"]];
+  Q.forEach((q,i)=>{const x=12+(i%2)*394,y=12+Math.floor(i/2)*234,w=382,h=222;const lit=i===on;cardBox(x,y,w,h,lit,C.accent);
+    const fx=x+108,fy=y+111,R=90;
+    if(i===0)microField(fx,fy,R,()=>{gramMini(fx-20,fy-26,7,T);gramMini(fx+30,fy+30,7,T)},{key:"lq0"});
+    else if(i===1)microField(fx,fy,R,()=>{for(let k=0;k<6;k++){const X=fx-60+rnd(k)*120,Y=fy-60+rnd(k+3)*120;const a=rnd(k+7)*TAU;glow(X,Y,20,"#CFE6EE",.25);cellK("spirochete",X,Y,9,a,"#EAF4F7",{ph:T*5+k})}},{bg:"#05080A",key:"lq1"});
+    else if(i===2)microField(fx,fy,R,()=>{[[-30,-20,0],[30,10,1],[-10,40,2],[40,-40,3]].forEach(p=>{const X=fx+p[0],Y=fy+p[1];const b=.5+.4*Math.sin(T*.8+p[2]);ell(X,Y,22,17,p[2],null,"rgba(255,255,255,.55)",5);ell(X,Y,18,14,p[2],"#7F8A8A","#454D4D",2);circ(X-4,Y,5,"#5C6464");for(let k=0;k<5;k++)circ(X+6+rnd(k+p[2]*5)*8-4,Y-6+rnd(k+1)*12,1.6,"#B9C2C2");if(p[2]===1)ell(X+18+b*6,Y,9*b,7*b,0,"#7F8A8A","#454D4D",1.6)})},{bg:"#9AA3A3",key:"lq2"});
+    else microField(fx,fy,R,()=>{for(let k=0;k<9;k++){const X=fx-60+rnd(k*3)*120,Y=fy-60+rnd(k+5)*120;const a=rnd(k)*TAU;const pu=.7+.3*Math.sin(T*2+k);glow(X,Y,16,"#B8F060",.45*pu);cellK("slim",X,Y,10,a,"#D8FF8A")}},{bg:"#020403",key:"lq3"});
+    txt(x+214,y+40,q[0],{size:16,weight:700});wrapText(q[1],x+214,y+70,152,18,{size:13,color:C.ink});
+    txt(x+214,y+h-22,i===0?"dark on bright":i===1?"bright on black":i===2?"light and dark detail":"glows on black",{size:12,mono:true,color:C["ink-soft"]})})}
+
+/* ---------- 12 electron microscopes ---------- */
+function coil(x,y,w){ell(x,y,w/2,10,0,C.metal,mix(C.metal,C.ink,.4),1.4);for(let k=-3;k<=3;k++)line(x+k*w/9,y-9,x+k*w/9,y+9,hexA(C.panel,.35),1)}
+function sceneEM(T){
+  panelBox(12,12,388,456);title(26,32,"TEM: through a thin slice");
+  const ax=150;rr(ax-40,46,80,28,6);ctx.fillStyle=C.scope;ctx.fill();ctx.strokeStyle=C["scope-edge"];ctx.stroke();txt(ax,60,"electron gun",{size:12,weight:600,align:"center"});
+  rr(ax-50,74,100,250,4);ctx.strokeStyle=C["scope-edge"];ctx.lineWidth=1.2;ctx.setLineDash([4,4]);ctx.stroke();ctx.setLineDash([]);
+  for(let k=0;k<14;k++){const f=P(T*.9+k/14,1);const y=78+f*240;const spread=y<230?lerp(14,4,seg(y,120,230)):lerp(4,26,seg(y,240,320));circ(ax+Math.sin(k*2.3)*spread,y,2.4,C.electron)}
+  coil(ax,120,110);coil(ax,180,110);coil(ax,270,110);lead(ax+55,120,250,104,"magnetic lenses",{size:12});
+  rr(ax-46,226,92,6,2);ctx.fillStyle=hexA(C.bact,.8);ctx.fill();lead(ax+46,229,250,226,"ultra-thin slice",{size:12});
+  // screen with internal view
+  rr(52,332,196,124,8);ctx.fillStyle="#1A1F22";ctx.fill();const sx=150,sy=394;
+  circ(sx,sy,52,"#8C9396","#D9DEE0",3);circ(sx,sy,46,null,"#5E666A",2);circ(sx,sy,43,"#A9B0B3");for(let k=0;k<40;k++){const a=rnd(k)*TAU,d=Math.sqrt(rnd(k+40))*38;circ(sx+Math.cos(a)*d,sy+Math.sin(a)*d,1.8,"#30383C")}
+  ctx.beginPath();for(let k=0;k<30;k++){const a=k*.9,d=8+rnd(k)*10;const X=sx+Math.cos(a)*d,Y=sy+Math.sin(a)*d*.6;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle="#E6EBED";ctx.lineWidth=1;ctx.stroke();
+  lead(sx+48,sy-20,286,350,"wall layers",{size:12});lead(sx+20,sy+24,286,404,"ribosomes",{size:12});lead(sx+4,sy-2,286,440,"DNA area",{size:12});
+  // SEM
+  panelBox(412,12,376,456);title(426,32,"SEM: scanning the surface");
+  const bx=500;rr(bx-34,46,68,26,6);ctx.fillStyle=C.scope;ctx.fill();ctx.strokeStyle=C["scope-edge"];ctx.stroke();coil(bx,104,90);coil(bx,152,90);
+  const sc=P(T,7);const rows=14;const row=Math.floor(sc*rows),colf=(sc*rows)%1;const tx=bx-54+colf*108,ty=300+row*3;
+  line(bx,72,bx,170,hexA(C.electron,.8),2);line(bx,170,tx,ty,C.electron,2);glow(tx,ty,10,C.electron,.7);
+  const rodsS=[[476,312,.2],[520,318,-.3],[500,306,1.3]];
+  rodsS.forEach(r=>{ctx.save();ctx.translate(r[0],r[1]);ctx.rotate(r[2]);const g=ctx.createLinearGradient(0,-8,0,8);g.addColorStop(0,"#DDE3E6");g.addColorStop(1,"#5E666A");rr(-22,-8,44,16,8);ctx.fillStyle=g;ctx.fill();ctx.restore()});
+  rr(440,326,120,10,3);ctx.fillStyle=C.metal;ctx.fill();txt(500,350,"metal-coated specimen",{size:12,align:"center",color:C["ink-soft"]});
+  rr(560,236,22,36,4);ctx.fillStyle=C.scope;ctx.fill();ctx.strokeStyle=C["scope-edge"];ctx.stroke();txt(571,224,"detector",{size:12,align:"center",color:C["ink-soft"]});
+  // building image
+  const ix=612,iy=90,iw=160,ih=200;rr(ix,iy,iw,ih,6);ctx.fillStyle="#1A1F22";ctx.fill();
+  ctx.save();ctx.beginPath();ctx.rect(ix,iy,iw,ih*(row+colf)/rows);ctx.clip();
+  [[ix+50,iy+70,.3],[ix+110,iy+120,-.4],[ix+70,iy+150,1.2]].forEach(r=>{ctx.save();ctx.translate(r[0],r[1]);ctx.rotate(r[2]);const g=ctx.createLinearGradient(0,-16,0,16);g.addColorStop(0,"#F2F5F6");g.addColorStop(.6,"#8C9396");g.addColorStop(1,"#3A4044");rr(-46,-16,92,32,16);ctx.fillStyle=g;ctx.fill();ctx.restore()});ctx.restore();
+  line(ix,iy+ih*(row+colf)/rows,ix+iw,iy+ih*(row+colf)/rows,hexA(C.electron,.9),1.5);txt(ix+iw/2,iy+ih+16,"3D-looking surface image",{size:12.5,weight:700,align:"center"});
+  panelBox(426,380,350,76,{fill:hexA(C["panel-2"],.95)});txt(440,398,"Both: vacuum inside, dead specimens,",{size:12.5,weight:600});txt(440,418,"black-and-white images (colour added later).",{size:12.5,weight:600});txt(440,440,"Resolution far better than light.",{size:12.5,color:C["ink-soft"]});
+}
+
+/* ================= scenes: Part 4 staining + Part 5 shapes ================= */
+/* ---------- 13 smear and heat fix ---------- */
+function sceneSmear(T){
+  const L=15,t=P(T,L)*L;const st=Math.min(4,Math.floor(t/3)),u=(t%3)/3;
+  panelBox(12,12,776,40,{fill:hexA(C.panel,.6)});stepRow(22,20,756,["Drop of water","Add cells","Spread thin","Air dry","Heat fix"],st,C.act4);
+  panelBox(12,60,540,408);
+  const sw=380,sh=64;let sx=96,sy=196;
+  if(st===4){const sweep=Math.sin(u*TAU*1.5);sx=166+sweep*150;sy=318}
+  // plate and burner
+  if(st===1)plate(120,384,52,{n:16,seed:3,col:C.cloud,cr:5});
+  slideTop(sx,sy,sw,sh,{lab:"slide"});
+  if(st===4)burner(282,450,1,T);
+  const scx=sx+sw*.6,scy=sy+sh/2;
+  if(st===0){const f=seg(u,.1,.6);circ(scx,lerp(90,scy-8,f),6,hexA(C.electron,.6),C["glass-edge"],1);if(f>=1)ell(scx,scy,14,9,0,hexA(C.electron,.35),C["glass-edge"],1.2);bottle(scx,74,.7,hexA(C.electron,.5),"",{});}
+  else if(st===1){ell(scx,scy,14,9,0,hexA(C.electron,.35),C["glass-edge"],1.2);const path=[[160,370],[200,250],[scx-4,scy-2]];const p=along(path,smooth(seg(u,.05,.8)));loopTool(p[0],p[1],-.6,1,C.metal);if(u>.8)for(let k=0;k<6;k++)circ(scx-6+rnd(k)*12,scy-4+rnd(k+3)*8,1.6,C.bact)}
+  else if(st===2){const g=smooth(seg(u,0,.85));ell(scx,scy,14+g*62,9+g*15,0,hexA(C.electron,.3*(1-g*.3)),hexA(C["glass-edge"],.8),1.2);for(let k=0;k<26;k++){const a=rnd(k)*TAU,d=Math.sqrt(rnd(k+7));circ(scx+Math.cos(a)*d*(12+g*58),scy+Math.sin(a)*d*(7+g*13),1.6,C.bact)}
+    if(u<.9){const a=u*TAU*3;loopTool(scx+Math.cos(a)*30*g+4,scy+Math.sin(a)*8*g,-.6,1,C.metal)}}
+  else{ell(scx,scy,76,24,0,hexA(st===3?C.electron:C.ink,st===3?.25*(1-u):.06),hexA(C["glass-edge"],.6),1);for(let k=0;k<26;k++){const a=rnd(k)*TAU,d=Math.sqrt(rnd(k+7));circ(scx+Math.cos(a)*d*70,scy+Math.sin(a)*d*20,1.6,C.bact)}
+    if(st===3)for(let k=0;k<5;k++){const f=P(T*.6+k/5,1);wave(scx-50+k*25,scy-30-f*50,26,3,1.2,Math.PI/2,hexA(C["ink-soft"],.7*(1-f)),1.6,T*3)}}
+  const notes=["A small drop on a clean slide.","A sterile loop picks up a tiny bit of a colony.","Spread it into a thin, even film.","Let it dry completely in the air.","Pass it quickly through the flame 2 or 3 times."];
+  label(282,92,notes[st],{size:13.5,weight:700,align:"center",border:C.act4});
+  if(st===4)label(282,250,"Kills cells and sticks them to the glass",{size:12.5,weight:700,align:"center"});
+  // rinse test
+  panelBox(564,60,224,408);title(578,80,"Rinse test");
+  ctx.save();rr(566,62,220,404,8);ctx.clip();[[0,"Heat fixed","stay put",C.good],[1,"Not fixed","wash away",C.bad]].forEach(r=>{const y=104+r[0]*180;slideTop(586,y+56,180,40,{});
+    for(let k=0;k<6;k++){const f=P(T*.8+k/6,1);line(610+k*26,y+14+f*30,610+k*26,y+24+f*30,hexA(C.electron,.8),2)}
+    for(let k=0;k<14;k++){const bx=640+rnd(k)*110,by=y+68+rnd(k+3)*16;if(r[0]===0)circ(bx,by,2,C.bact);else{const f=P(T*.35+rnd(k+9),1);circ(bx+f*90,by+f*50,2,hexA(C.bact,1-f))}}
+    txt(586,y+118,r[1]+": cells "+r[2],{size:12.5,weight:700,color:r[3]})});ctx.restore();
+}
+
+/* ---------- 14 simple vs negative stain ---------- */
+function sceneSimple(T){
+  const L=8,t=P(T,L)*L;
+  [[12,"Basic dye (+)","Simple stain",0],[404,"Acidic dye (−)","Negative stain",1]].forEach(h=>{const x0=h[0],neg=h[3];panelBox(x0,12,384,456);title(x0+14,32,h[1]);
+    const cx=x0+192,cy=170,rx=86,ry=48;const prog=smooth(seg(t,.4,5.5));
+    ctx.save();rr(x0+10,44,364,240,8);ctx.clip();
+    if(neg){ctx.fillStyle=hexA(C["st-nig"],.55*prog);ctx.fillRect(x0+10,44,364,240)}
+    ell(cx,cy,rx,ry,0,neg?C.panel:mix(C.panel,C["st-mb"],.75*prog),C["ink-soft"],2);
+    for(let k=0;k<14;k++){const a=k/14*TAU;txt(cx+Math.cos(a)*(rx-12),cy+Math.sin(a)*(ry-10),"−",{size:14,weight:700,align:"center",color:C.ink})}
+    for(let k=0;k<16;k++){const a0=rnd(k*3+neg)*TAU;const sx=cx+Math.cos(a0)*170,sy=cy+Math.sin(a0)*110;const f=smooth(seg(t,rnd(k)*2.5,rnd(k)*2.5+2.5));
+      let X,Y;if(!neg){const a=a0;X=lerp(sx,cx+Math.cos(a)*(rx+6),f);Y=lerp(sy,cy+Math.sin(a)*(ry+6),f)}else{const a=a0;const near=lerp(.9,1.55+rnd(k+2)*.3,f);X=lerp(sx,cx+Math.cos(a)*rx*near*1.2,f);Y=lerp(sy,cy+Math.sin(a)*ry*near*1.4,f)}
+      const col=neg?C["st-nig"]:C["st-mb"];circ(X,Y,8,col,hexA("#10161A",.4),1);txt(X,Y+.5,neg?"−":"+",{size:13,weight:700,align:"center",color:"#FFFFFF"})}
+    ctx.restore();
+    label(cx,300,neg?"Pushed away: fills the background":"Pulled in: colours the cell",{size:12.5,weight:700,align:"center"});
+    const fx=x0+110,fy=384;
+    if(!neg)microField(fx,fy,66,()=>{for(let k=0;k<10;k++)cellK("rod",fx-46+rnd(k)*92,fy-46+rnd(k+4)*92,10,rnd(k+8)*TAU,C["st-mb"])},{key:"simp0",edge:4});
+    else microField(fx,fy,66,()=>{for(let k=0;k<10;k++){const X=fx-46+rnd(k)*92,Y=fy-46+rnd(k+4)*92,a=rnd(k+8)*TAU;rod(X,Y,20,8,a,"#F6F3EA","rgba(40,40,40,.35)",1)}},{bg:C["st-nig"],key:"simp1",edge:4});
+    txt(x0+196,370,h[2],{size:15,weight:700});wrapText(neg?"Dark background, clear cells. No heat fixing.":"Coloured cells on a bright background.",x0+196,394,170,17,{size:12.5,color:C["ink-soft"]})});
+}
+
+/* ---------- 15 Gram stain sequence ---------- */
+function gramCols(t){const cv=smooth(seg(t,.3,1.6));const io=smooth(seg(t,4.3,5.5));const dc=smooth(seg(t,8.5,10));const sf=smooth(seg(t,12.3,13.8));
+  const purple=mix(C["st-cv"],"#2A1240",io*.3);const pale="#E9E4E8";
+  const gp=mix(pale,purple,cv);const gn=dc>0?mix(mix(pale,purple,1-dc),C["st-saf"],sf):mix(pale,purple,cv);return [gp,gn,cv,io,dc,sf]}
+const GRAMPOS=[[-90,-60,"c",4],[40,-90,"c",9],[-30,40,"c",13],[100,30,"c",21],[-110,70,"r",.3],[0,-20,"r",1.4],[70,-30,"r",2.4],[50,90,"r",-.6],[-60,-110,"r",.9],[-130,0,"r",1.9],[130,-60,"r",.2],[-10,110,"c",7]];
+function gramFieldDraw(cx,cy,s,gp,gn){GRAMPOS.forEach(p=>{if(p[2]==="c")cellGroup("coccus","staph",cx+p[0],cy+p[1],s,gp,p[3],{n:7});else cellK("rod",cx+p[0],cy+p[1],s,p[3],gn)})}
+function sceneGram(T){
+  const L=16,t=P(T,L)*L;const st=Math.min(3,Math.floor(t/4));const [gp,gn]=gramCols(t);
+  panelBox(12,12,776,40,{fill:hexA(C.panel,.6)});stepRow(22,20,756,["Crystal violet","Gram's iodine","Decolorizer","Safranin"],st,C.act4);
+  panelBox(12,60,330,408);
+  const R=[["Primary stain","about 1 minute",C["st-cv"]],["Mordant","about 1 minute",C["st-iod"]],["Decolorizer","a few seconds",hexA(C.glass,.9)],["Counterstain","about 1 minute",C["st-saf"]]][st];
+  bottle(176,150,1,R[2],"",{});txt(176,92,["Crystal violet","Gram's iodine","Alcohol / acetone","Safranin"][st],{size:13,weight:700,align:"center"});
+  const u=(t%4)/4;for(let k=0;k<3;k++){const f=P(u*3+k/3,1);if(u<.7)circ(176,206+f*80,4,R[2],hexA(C.ink,.3),1)}
+  line(56,330,296,330,C.metal,5);line(56,350,296,350,C.metal,5);
+  slideTop(66,300,220,30,{});const pa=st===2?.35*(1-u):.75;rr(130,302,140,26,10);ctx.fillStyle=hexA(st===2?C.glass:R[2],pa);ctx.fill();
+  if(st===2){for(let k=0;k<4;k++){const f=P(T*1.5+k/4,1);circ(288+f*8,320+f*40,3,hexA(C["st-cv"],.6*(1-f)))}}
+  label(176,384,R[0],{size:13,weight:700,align:"center",border:C.act4});txt(176,410,R[1],{size:13,mono:true,align:"center",color:C["ink-soft"]});
+  if(st===2)txt(176,436,"then rinse right away",{size:12.5,weight:700,align:"center",color:C["warn-ink"]});else txt(176,436,"then rinse with water",{size:12.5,align:"center",color:C["ink-soft"]});
+  panelBox(354,60,434,408);title(368,80,"Under the microscope (1000x)");
+  const cx=571,cy=256;microField(cx,cy,160,()=>gramFieldDraw(cx,cy,12,gp,gn),{key:"gram"});
+  if(t>13.5){lead(cx-30,cy+40,420,440,"Gram-positive: purple",{size:12.5,border:C.gpos,align:"left"});lead(cx+70,cy-30,770,110,"Gram-negative: pink",{size:12.5,border:C.gneg,align:"right"})}
+  else if(t>9.6&&t<12.3)label(cx,440,"Rods have lost the purple: now colourless",{size:12.5,weight:700,align:"center"});
+}
+
+/* ---------- 16 why: wall cross-sections ---------- */
+function sceneGramWhy(T){
+  const L=16,t=P(T,L)*L;const st=Math.min(3,Math.floor(t/4));const [gp,gn,cv,io,dc,sf]=gramCols(t);
+  panelBox(12,12,776,40,{fill:hexA(C.panel,.6)});stepRow(22,20,756,["Crystal violet","Iodine","Alcohol","Safranin"],st,C.act4);
+  panelBox(12,60,384,408);title(26,80,"Gram-positive wall");panelBox(404,60,384,408);title(418,80,"Gram-negative wall");
+  // alcohol wash band
+  if(st===2){const f=P(T*.6,1);[[24,260],[416,260]].forEach(b=>{for(let k=0;k<5;k++)wave(b[0]+((f*260+k*52)%260),118,40,4,1,0,hexA(C.electron,.6),2,T*4)});txt(150,104,"alcohol",{size:12,weight:700,color:C.electron,align:"center"});txt(542,104,"alcohol",{size:12,weight:700,color:C.electron,align:"center"})}
+  // Gram-positive
+  const squeeze=smooth(seg(t,8.4,9.6));const pgH=lerp(140,114,squeeze);const gw=wallGpos(28,176,244,{pgH,rows:9});
+  txt(282,156,"Teichoic acid",{size:12,color:C["ink-soft"]});txt(282,204,"Thick",{size:12.5,weight:700});txt(282,220,"peptidoglycan",{size:12.5,weight:700});txt(282,236,"(many layers)",{size:12,color:C["ink-soft"]});txt(282,gw.memTop+10,"Membrane",{size:12,color:C["ink-soft"]});
+  if(squeeze>.3)label(150,gw.bottom+30,"Mesh dries and tightens: dye trapped",{size:12,weight:700,align:"center",a:squeeze});
+  for(let k=0;k<24;k++){const tx=36+rnd(k)*228,ty=lerp(gw.pgTop+8,gw.pgBot-8,rnd(k+30));const enter=smooth(seg(t,.2+rnd(k+2)*.8,1.4+rnd(k+2)*.8));const y=lerp(100,ty,enter);if(enter<=0)continue;
+    if(io>.05){cviComplex(tx,y,lerp(3.4,4.4,io))}else dyeDot(tx,y,C["dye-cv"],3.6)}
+  for(let k=0;k<10;k++){const f=seg(t,4.2+rnd(k+60)*.6,5.2+rnd(k+60)*.6);if(f>0&&f<1){circ(36+rnd(k+70)*228,lerp(100,gw.pgTop+20,f),2.4,C["dye-iod"])}}
+  if(sf>0)for(let k=0;k<8;k++){const f=smooth(seg(t,12.2+rnd(k)*.6,13.4+rnd(k)*.6));dyeDot(40+rnd(k+90)*220,lerp(100,gw.pgTop+4,f),C["dye-saf"],3,.9)}
+  // Gram-negative
+  const om=smooth(seg(t,8.2,9.4));const gn_=wallGneg(420,196,244,{omGone:om,gap:30});
+  withA(1-om*.7,()=>{txt(674,172,"LPS",{size:12,color:C["ink-soft"]});txt(674,200,"Outer",{size:12.5,weight:700});txt(674,216,"membrane",{size:12.5,weight:700})});txt(674,gn_.pgTop+2,"Thin",{size:12.5,weight:700});txt(674,gn_.pgTop+18,"peptidoglycan",{size:12.5,weight:700});txt(674,gn_.memTop+12,"Membrane",{size:12,color:C["ink-soft"]});
+  if(om>.3)label(542,gn_.bottom+30,"Outer membrane dissolves: dye washes out",{size:12,weight:700,align:"center",a:om});
+  for(let k=0;k<14;k++){const tx=428+rnd(k+5)*228,ty=lerp(gn_.omTop+24,gn_.memTop-6,rnd(k+40));const enter=smooth(seg(t,.2+rnd(k+3)*.8,1.4+rnd(k+3)*.8));const out=smooth(seg(t,8.6+rnd(k)*.8,10+rnd(k)*.8));
+    const y=out>0?lerp(ty,96,out):lerp(100,ty,enter);if(enter<=0)continue;const a=1-out;if(a<=0)continue;
+    if(io>.05)withA(a,()=>cviComplex(tx,y,lerp(3.4,4.4,io)));else dyeDot(tx,y,C["dye-cv"],3.6,a)}
+  if(sf>0)for(let k=0;k<14;k++){const ty=lerp(gn_.omTop+24,gn_.memTop-6,rnd(k+80));const f=smooth(seg(t,12.2+rnd(k)*.6,13.4+rnd(k)*.6));dyeDot(428+rnd(k+85)*228,lerp(100,ty,f),C["dye-saf"],3.6)}
+  // results
+  [[204,gp,"Gram-positive"],[596,gn,"Gram-negative"]].forEach((r,i)=>{const y=432;rr(r[0]-128,y-24,76,48,24);ctx.fillStyle=C.field;ctx.fill();ctx.strokeStyle=C["field-edge"];ctx.lineWidth=2;ctx.stroke();if(i===0)cellGroup("coccus","diplo",r[0]-90,y,22,r[1],2);else cellK("rod",r[0]-90,y,22,0,r[1]);
+    const word=t<.5?"no colour yet":i===0||t<9.5?"looks purple":t<12.8?"colourless":"looks pink";txt(r[0]-40,y,r[2]+": "+word,{size:13,weight:700})});
+}
+
+/* ---------- 17 Gram mistakes ---------- */
+const MIST=[["Correct","Purple cocci, pink rods",[1,1,1,1],"ok"],["Over-decolorized","Cocci look pink: false Gram-negative",[1,1,"long",1],"over"],["Iodine skipped","Everything washes out: all pink",[1,0,1,1],"noI"],["Old culture","Cocci mixed purple and pink: Gram-variable",[1,1,1,1],"old"],["Too thick or under-decolorized","Rods stay purple: false Gram-positive",[1,1,"short",1],"under"]];
+function mistCols(kind,i){const P_=C["st-cv"],K=C["st-saf"];if(kind==="ok")return [P_,K];if(kind==="over"||kind==="noI")return [K,K];if(kind==="old")return [rnd(i*7.3)<.55?K:P_,K];return [P_,mix(P_,K,.12)]}
+function sceneGramMist(T){const on=Math.floor(T/2.6)%5;
+  MIST.forEach((m,i)=>{const top=i<3;const w=252,h=222;const x=12+(top?i:i-3)*262,y=top?12:246;const lit=i===on;cardBox(x,y,w,h,lit,i===0?C.good:C.bad);
+    txt(x+14,y+22,m[0],{size:13.5,weight:700});if(i===0){circ(x+w-22,y+22,11,C.good);poly([[x+w-27,y+22],[x+w-23,y+26],[x+w-16,y+17]],onFill(),2.4)}
+    const fx=x+72,fy=y+104,R=58;
+    if(lit)glow(fx,fy,R+16,i===0?C.good:C.bad,.25+.15*Math.sin(T*3));
+    microField(fx,fy,R,()=>{for(let k=0;k<5;k++){const c=mistCols(m[3],k)[0];cellGroup("coccus","staph",fx-30+(k%2)*24-(k>3?8:0),fy-32+Math.floor(k/2)*16,7.5,c,k*3+1,{n:5})}
+      for(let k=0;k<6;k++)cellK("rod",fx+8+rnd(k+i)*38,fy+6+rnd(k+3)*38,7.5,rnd(k+5)*TAU,mistCols(m[3],k)[1])},{key:"mi"+i,edge:4});if(lit){const a=T*.9;circ(fx+Math.cos(a)*24,fy+Math.sin(a)*20,16,null,C.accent,2.2)}
+    wrapText(m[1],x+140,y+66,100,17,{size:12.5,color:C.ink});
+    const CXS=[0,52,104,180],CWS=[46,46,70,46];["CV","I","D","S"].forEach((sn,k)=>{const cx=x+14+CXS[k],cy=y+h-24;const v=m[2][k];const bad=v!==1;const pul=bad&&lit?.5+.5*Math.sin(T*6):0;
+      rr(cx,cy-12,CWS[k],24,12);ctx.fillStyle=bad?hexA(C.bad,.16+.2*pul):hexA(C.good,.14);ctx.fill();ctx.strokeStyle=bad?C.bad:C.good;ctx.lineWidth=bad?2:1.2;ctx.stroke();
+      txt(cx+CWS[k]/2,cy+.5,v===0?"no I":v==="long"?"D long":v==="short"?"D short":sn,{size:12,mono:true,weight:700,align:"center",color:C.ink})})});
+  const kx=536,ky=246;panelBox(kx,ky,252,222,{fill:hexA(C["panel-2"],.95)});title(kx+14,ky+22,"How labs catch this");
+  wrapText("Stain a known Gram-positive and a known Gram-negative control on the same slide. If the controls are the wrong colour, the stain is wrong, not the unknown.",kx+14,ky+48,224,18,{size:12.5,color:C.ink});
+  cellGroup("coccus","diplo",kx+40,ky+182,10,C["st-cv"],3);txt(kx+58,ky+182,"control +",{size:12,weight:600});cellK("rod",kx+150,ky+182,10,0,C["st-saf"]);txt(kx+168,ky+182,"control −",{size:12,weight:600});
+}
+
+/* ---------- 18 acid-fast ---------- */
+function sceneAcidFast(T){
+  const L=15,t=P(T,L)*L;const st=Math.min(2,Math.floor(t/5));const red=smooth(seg(t,.5,3.5)),wash=smooth(seg(t,5.6,7.8)),blue=smooth(seg(t,10.4,12.6));
+  panelBox(12,12,776,40,{fill:hexA(C.panel,.6)});stepRow(22,20,756,["Carbolfuchsin + heat","Acid-alcohol wash","Methylene blue"],st,C.act4);
+  panelBox(12,60,420,408);title(26,80,"Two walls, side by side");
+  // waxy wall
+  const x1=30,w1=180,yw=176;ctx.save();rr(x1,yw,w1,70,4);ctx.fillStyle=hexA(C.wax,.35);ctx.fill();ctx.clip();for(let r=0;r<7;r++)wave(x1+w1/2,yw+7+r*10,w1+20,3,4,0,C.wax,3,r);ctx.restore();
+  rr(x1,yw+74,w1,14,3);ctx.fillStyle=hexA(C.pg,.2);ctx.fill();pgMesh(x1+4,yw+76,w1-8,10,1,C.pg,{links:false});bilayer(x1,yw+92,w1,C.memb,18);
+  txt(x1+w1/2,yw-16,"Mycobacterium",{size:13,weight:700,align:"center"});
+  // ordinary wall
+  const x2=230,w2=180;rr(x2,yw+20,w2,54,4);ctx.fillStyle=hexA(C.pg,.16);ctx.fill();pgMesh(x2+4,yw+24,w2-8,46,4,C.pg);bilayer(x2,yw+78,w2,C.memb,18);
+  txt(x2+w2/2,yw-16,"Ordinary bacterium",{size:13,weight:700,align:"center"});
+  lead(x1+50,yw+40,x1+10,yw+142,"waxy mycolic acid",{size:12,align:"left"});
+  if(st===0)for(let k=0;k<6;k++){const f=P(T*.7+k/6,1);wave(40+k*66,yw-30-f*50,24,3,1.2,Math.PI/2,hexA(C["ink-soft"],.6*(1-f)),1.6,T*3)}
+  if(st===1){for(let k=0;k<4;k++)wave(40+((P(T*.5,1)*360+k*90)%360),124,40,4,1,0,hexA(C.electron,.6),2,T*4);txt(220,108,"acid-alcohol",{size:12,weight:700,color:C.electron,align:"center"})}
+  for(let k=0;k<14;k++){const f=smooth(seg(t,.3+rnd(k)*1.5,1.6+rnd(k)*1.5));if(f<=0)continue;dyeDot(x1+8+rnd(k+3)*(w1-16),lerp(100,yw+8+rnd(k+5)*56,f),C["dye-cf"],3.6)}
+  for(let k=0;k<10;k++){const f=smooth(seg(t,.3+rnd(k+20)*1.5,1.6+rnd(k+20)*1.5));const out=smooth(seg(t,5.8+rnd(k)*.8,7+rnd(k)*.8));if(f<=0||out>=1)continue;dyeDot(x2+8+rnd(k+23)*(w2-16),out>0?lerp(yw+26+rnd(k+25)*44,96,out):lerp(100,yw+26+rnd(k+25)*44,f),C["dye-cf"],3.6,1-out)}
+  for(let k=0;k<10;k++){const f=smooth(seg(t,10.3+rnd(k)*1.2,11.6+rnd(k)*1.2));if(f<=0)continue;dyeDot(x2+8+rnd(k+40)*(w2-16),lerp(100,yw+26+rnd(k+45)*44,f),C["dye-mb"],3.6)}
+  const afCol=mix("#E9E4E8",C["st-cf"],red),nonCol=mix(mix("#E9E4E8",C["st-cf"],red*(1-wash)),C["st-mb"],blue);
+  rr(x1+w1/2-46,yw+180,92,40,20);ctx.fillStyle=C.field;ctx.fill();rr(x2+w2/2-46,yw+180,92,40,20);ctx.fill();cellK("slim",x1+w1/2,yw+200,24,0,afCol);txt(x1+w1/2,yw+228,"acid-fast: red",{size:12.5,weight:700,align:"center"});
+  cellK("rod",x2+w2/2,yw+200,22,0,nonCol);txt(x2+w2/2,yw+228,t<10.5?(t<5.6?"red for now":"colourless"):"non-acid-fast: blue",{size:12.5,weight:700,align:"center"});
+  panelBox(444,60,344,408);title(458,80,"Sputum smear");
+  const cx=616,cy=262;microField(cx,cy,150,()=>{
+    [[-70,-60,1],[60,40,2],[-40,80,3],[80,-80,4]].forEach(p=>{const c=mix(mix("#E9E4E8",C["st-cf"],red*.6*(1-wash)),C["st-mb"],blue);hostSq(cx+p[0],cy+p[1],6,c,mix(c,"#10161A",.25),p[2])});
+    [[10,-30],[-100,20],[40,110],[100,0]].forEach((p,k)=>cellGroup("coccus","diplo",cx+p[0],cy+p[1],7,nonCol,k));
+    [[-10,10,1],[30,-100,2],[-80,-110,3],[90,80,4]].forEach(p=>cellGroup("slim","clump",cx+p[0],cy+p[1],10,afCol,p[2],{n:4}))},{key:"af"});
+  if(t>12.5)lead(cx-10,cy+10,cx+40,cy+150-6,"Acid-fast bacilli",{size:12.5,border:C["st-cf"]});
+}
+
+/* ---------- 19 endospore and capsule ---------- */
+function sceneSpores(T){
+  const L=15,t=P(T,L)*L;const st=Math.min(2,Math.floor(t/5));const g=smooth(seg(t,.4,3.4)),w=smooth(seg(t,5.4,7.6)),pk=smooth(seg(t,10.4,12.6));
+  panelBox(12,12,384,456);title(26,32,"Endospore stain");stepRow(24,46,360,["Green + steam","Water rinse","Safranin"],st,C.act4);
+  const cx=204,cy=262;const rodCol=mix(mix("#E9E4E8",C["st-mg"],g*(1-w)),C["st-saf"],pk),spCol=mix("#E9E4E8",C["st-mg"],g);
+  if(st===0)for(let k=0;k<5;k++){const f=P(T*.7+k/5,1);wave(90+k*56,140-f*40,22,3,1.2,Math.PI/2,hexA(C["ink-soft"],.6*(1-f)),1.6,T*3)}
+  microField(cx,cy,140,()=>{for(let k=0;k<16;k++){const X=cx-110+rnd(k*2)*220,Y=cy-110+rnd(k*2+1)*220,a=rnd(k+9)*TAU;cellK("rod",X,Y,13,a,rodCol,{len:2.6,spore:rnd(k+4)<.8?{pos:k%3===0?.95:.5,col:spCol}:null})}
+    for(let k=0;k<6;k++)cellK("spore",cx-100+rnd(k+40)*200,cy-100+rnd(k+50)*200,13,rnd(k)*3,spCol)},{key:"sp"});
+  txt(204,428,"Bacillus, Clostridium",{size:13,weight:700,align:"center"});txt(204,448,t>12.6?"green spores in pink cells":"",{size:12.5,align:"center",color:C["ink-soft"]});
+  panelBox(404,12,384,456);title(418,32,"Capsule stain (negative)");
+  const ink=smooth(seg(P(T,8)*8,.4,4.5));const fx=596,fy=262;
+  microField(fx,fy,140,()=>{ctx.fillStyle=hexA(C["st-nig"],.95*ink);ctx.fillRect(fx-140,fy-140,280,280);
+    for(let k=0;k<30;k++){const f=P(T*.25+rnd(k),1);circ(fx-130+rnd(k*3)*260,fy-140+f*280,1.6,hexA(C["st-nig"],.8*(1-ink*.6)))}
+    for(let k=0;k<8;k++){const X=fx-100+rnd(k*5)*200,Y=fy-100+rnd(k*5+2)*200,a=rnd(k+3)*TAU;ctx.save();ctx.translate(X,Y);ctx.rotate(a);ell(0,0,30,21,0,`rgba(246,243,234,${.25+.7*ink})`);ctx.restore();rod(X,Y,26,13,a,C["st-saf"],mix(C["st-saf"],"#10161A",.3),1)}},{key:"cap"});
+  if(ink>.7)lead(fx-100+rnd(0)*200+18,fy-100+rnd(2)*200,fx+60,fy+150-6,"Capsule = clear halo",{size:12.5,align:"left"});
+  txt(596,448,"Klebsiella, Streptococcus pneumoniae",{size:12.5,weight:700,align:"center"});
+}
+
+/* ---------- 20 shapes ---------- */
+function sceneShapes(T){const on=Math.floor(T/2.4)%6;
+  const SH=[["Coccus","Staphylococcus","gpos"],["Bacillus (rod)","E. coli","gneg"],["Coccobacillus","Haemophilus","gneg"],["Vibrio","Vibrio cholerae","gneg"],["Spirillum","Spirillum","gneg"],["Spirochete","Treponema, Borrelia","gneg"]];
+  SH.forEach((s,i)=>{const x=12+(i%3)*262,y=12+Math.floor(i/3)*234,w=252,h=222;const lit=i===on;cardBox(x,y,w,h,lit,C.accent);const cx=x+w/2,cy=y+92;const col=C[s[2]];const ed=mix(col,C.ink,.35);
+    if(i===0){circ(cx,cy,38+2*Math.sin(T*2),col,ed,2)}
+    else if(i===1)rod(cx,cy,150,46,Math.sin(T)*.08,col,ed,2);
+    else if(i===2)rod(cx,cy,72,50,Math.sin(T)*.1,col,ed,2);
+    else if(i===3){vibrioC(cx-10,cy+16,70,30,Math.sin(T)*.1,col,{});const ex=cx-10+Math.sin(.5)*70,ey=cy+16+70*.9-Math.cos(.5)*70;ctx.beginPath();ctx.moveTo(ex,ey);for(let k=1;k<=18;k++)ctx.lineTo(ex+k*3,ey+Math.sin(k*.9-T*10)*5);ctx.strokeStyle=ed;ctx.lineWidth=2;ctx.stroke()}
+    else if(i===4){wave(cx,cy,170,20,1.6,0,col,16,0);[-1,1].forEach(sd=>{for(let k=0;k<3;k++){ctx.beginPath();const sx=cx+sd*82,sy=cy+(sd<0?0:0);ctx.moveTo(sx,sy);for(let j=1;j<=8;j++)ctx.lineTo(sx+sd*j*3,sy-8+k*8+Math.sin(j+T*9+k)*2.5);ctx.strokeStyle=ed;ctx.lineWidth=1.4;ctx.stroke()}})}
+    else{const flex=Math.sin(T*1.3)*.12;wave(cx,cy,200,9,6,flex,col,7,-T*6);txt(cx,cy+30,"axial filaments inside",{size:12,align:"center",color:C["ink-soft"]})}
+    txt(cx,y+h-46,s[0],{size:15,weight:700,align:"center"});txt(cx,y+h-24,s[1],{size:12.5,align:"center",color:C["ink-soft"]})})}
+
+/* ---------- 21 arrangements ---------- */
+function genPos(kind){const G=[[[0,0]]];const add=a=>G.push(a);
+  if(kind==="diplo"){add([[-14,0],[14,0]])}
+  else if(kind==="strep"){for(let g=1;g<=3;g++){const n=1<<g;add(Array.from({length:n},(_,j)=>[(j-(n-1)/2)*27,0]))}}
+  else if(kind==="tetrad"){add([[-14,0],[14,0]]);add([[-14,-14],[-14,14],[14,-14],[14,14]])}
+  else if(kind==="sarcina"){add([[-14,0],[14,0]]);add([[-14,-14],[-14,14],[14,-14],[14,14]]);add([[-14,-14],[-2,-26],[-14,14],[-2,2],[14,-14],[26,-26],[14,14],[26,2]])}
+  else if(kind==="staph"){let prev=[[0,0]];for(let g=1;g<=4;g++){const nx=[];prev.forEach((p,j)=>{const a=rnd(g*17+j*3.1)*TAU;nx.push([p[0],p[1]]);nx.push([p[0]+Math.cos(a)*24,p[1]+Math.sin(a)*24])});const mx=nx.reduce((s,p)=>s+p[0],0)/nx.length,my=nx.reduce((s,p)=>s+p[1],0)/nx.length;nx.forEach(p=>{p[0]=clamp(p[0]-mx,-90,90);p[1]=clamp(p[1]-my,-50,50)});add(nx);prev=nx}}
+  return G}
+const ARR=[["Diplo-","pairs: 1 division","Neisseria","diplo"],["Strepto-","chains: 1 plane","Streptococcus","strep"],["Tetrad","squares: 2 planes","Micrococcus","tetrad"],["Sarcina","cubes of 8: 3 planes","Sarcina","sarcina"],["Staphylo-","clusters: random planes","Staphylococcus","staph"]];
+const ARRG={};ARR.forEach(a=>ARRG[a[3]]=genPos(a[3]));
+function sceneArrange(T){
+  ARR.forEach((a,i)=>{const x=12+(i%3)*262,y=12+Math.floor(i/3)*234,w=252,h=222;cardBox(x,y,w,h,false,C.accent);const cx=x+w/2,cy=y+92;
+    const G=ARRG[a[3]];const maxG=G.length-1;const per=1.5;const Lc=(maxG+2.2)*per;const t=P(T+i*.3,Lc)*Lc;const g=Math.min(maxG,Math.floor(t/per));const u=g<maxG?smooth(seg(t%per,0,.9)):1;const gN=Math.min(maxG,g+1);
+    const cur=G[g],nxt=G[gN];const show=g<maxG?nxt.map((p,j)=>{const par=cur[Math.min(cur.length-1,j>>1)]||cur[0];return [lerp(par[0],p[0],u),lerp(par[1],p[1],u),j%2===1&&a[3]==="sarcina"&&gN===3]}):cur.map((p,j)=>[p[0],p[1],j%2===1&&a[3]==="sarcina"&&g===3]);
+    show.filter(p=>p[2]).forEach(p=>circ(cx+p[0],cy+p[1],12.5,mix(C.gpos,C.panel,.45),mix(C.gpos,C.ink,.3),1.4));
+    show.filter(p=>!p[2]).forEach(p=>circ(cx+p[0],cy+p[1],12.5,C.gpos,mix(C.gpos,C.ink,.35),1.6));
+    if(g<maxG&&u>0&&u<.8){cur.forEach((p,j)=>{const c1=nxt[2*j],c2=nxt[2*j+1];if(!c1||!c2)return;const dx=c2[0]-c1[0],dy=c2[1]-c1[1];const L_=Math.hypot(dx,dy)||1;const nx_=-dy/L_,ny_=dx/L_;const px=cx+p[0]+dx/2*u,py=cy+p[1]+dy/2*u;line(px-nx_*16,py-ny_*16,px+nx_*16,py+ny_*16,C.accent,1.6,[3,3])})}
+    txt(cx,y+h-58,a[0],{size:15,weight:700,align:"center"});txt(cx,y+h-38,a[1],{size:12.5,align:"center",color:C["ink-soft"]});txt(cx,y+h-18,a[2],{size:12.5,align:"center",color:C["ink-soft"],weight:600})});
+  const x=536,y=246,w=252,h=222;cardBox(x,y,w,h,false,C.accent);title(x+14,y+22,"Rods (bacilli)");
+  const t=P(T,6)*6;const nC=t<1.5?1:t<3?2:4;
+  rod(x+60,y+64,44,16,0,C.gneg,mix(C.gneg,C.ink,.35),1.4);txt(x+130,y+64,"single",{size:12.5});
+  rod(x+38,y+112,40,16,0,C.gneg,mix(C.gneg,C.ink,.35),1.4);rod(x+82,y+112,40,16,0,C.gneg,mix(C.gneg,C.ink,.35),1.4);txt(x+130,y+112,"diplobacilli",{size:12.5});
+  for(let k=0;k<nC;k++)rod(x+24+k*46*(4/Math.max(4,nC)),y+162,40,16,0,C.gneg,mix(C.gneg,C.ink,.35),1.4);txt(x+14,y+196,"streptobacilli (chains)",{size:12.5});
+}
+
+/* ---------- 22 reading a slide ---------- */
+const READ=[["Gram-positive cocci in clusters","Think Staphylococcus",{tile:6,fill:.7,seed:2,groups:[{w:1,kind:"coccus",arr:"staph",col:()=>C["st-cv"],n:9}]}],
+ ["Gram-positive cocci in chains","Think Streptococcus",{tile:7,fill:.85,seed:4,groups:[{w:1,kind:"coccus",arr:"strep",col:()=>C["st-cv"],n:6}]}],
+ ["Gram-negative diplococci","Think Neisseria",{tile:4,fill:.7,seed:6,groups:[{w:1,kind:"bean",arr:"bean",sc:1.5,col:()=>C["st-saf"]}]}],
+ ["Gram-negative rods","Think E. coli and relatives",{tile:4,fill:.7,seed:7,groups:[{w:1,kind:"rod",arr:"single",col:()=>C["st-saf"]}]}]];
+function sceneRead(T){const on=Math.floor(T/3)%4;const tt=P(T,3)*3;
+  READ.forEach((r,i)=>{const x=12+(i%2)*394,y=12+Math.floor(i/2)*234,w=382,h=222;const lit=i===on;cardBox(x,y,w,h,lit,C.accent);
+    const fx=x+102,fy=y+111,R=88;microField(fx,fy,R,()=>layer("rd"+i,fx-R,fy-R,R*2,R*2,()=>smearDraw(r[2],10,fx,fy,R,0,0)),{key:"rd"+i,edge:4});
+    if(lit){const a=P(T*.5,1)*TAU;circ(fx+Math.cos(a)*30,fy+Math.sin(a)*24,26,null,C.accent,2.5)}
+    const full=r[0];const n=lit?Math.floor(seg(tt,.1,1.6)*full.length):full.length;txt(x+206,y+30,"REPORT",{size:12,mono:true,weight:700,color:C["ink-soft"]});
+    wrapText(full.slice(0,n),x+206,y+56,166,19,{size:14.5,weight:700});if(!lit||tt>1.7)wrapText(r[1],x+206,y+120,166,18,{size:13,color:C.accent});
+    const parts=full.split(" ");const gram=parts[0];chipText(x+206+44,y+h-28,gram,gram.indexOf("positive")>0?C["st-cv"]:C["st-saf"],"#FFFFFF")});
+}
+
+/* ---------- recap ---------- */
+function sceneRecap(T){
+  panelBox(12,12,380,456);title(26,32,"The classic stains");
+  const k=Math.floor(T/3)%4;const keys=["gram","af","spore","caps"];const names=["Gram stain","Acid-fast stain","Endospore stain","Capsule stain"];const sp=SMEAR[keys[k]];
+  const cx=202,cy=230,R=160;microField(cx,cy,R,()=>layer("rc"+k,cx-R,cy-R,R*2,R*2,()=>{if(sp.bg){ctx.fillStyle=sp.bg();ctx.fillRect(cx-R,cy-R,R*2,R*2)}smearDraw(sp,9,cx,cy,R,0,0)}),{key:"rc",edge:5});
+  {const a=T*.7;circ(cx+Math.cos(a)*70,cy+Math.sin(a*1.3)*60,34,null,hexA(C.accent,.85),2.5)}
+  label(cx,cy+R+26,names[k],{size:14,weight:700,align:"center",border:C.accent});
+  const parts=[["The microbial world","act1","Seven groups; µm and nm; Genus species"],["Discovering microbes","act2","Leeuwenhoek; swan-neck flask; Koch's postulates"],["Microscopes","act3","Ocular × objective; resolution 0.2 µm; oil; EM"],["Preparing and staining","act4","Smear, heat fix; Gram, acid-fast, spore, capsule"],["Shapes and arrangements","act5","Cocci, rods, spirals; diplo, strepto, staphylo"]];
+  const lit=Math.floor(P(T,12)*6);
+  parts.forEach((pt,i)=>{const x=404,y=12+i*92,w=384,h=84;const l=i<=lit;panelBox(x,y,w,h,{stroke:l?C[pt[1]]:C.rule,lw:l?2.5:1.2,fill:hexA(C.panel,l?.97:.6)});
+    ctx.save();ctx.globalAlpha=l?1:.45;badge(x+24,y+h/2,i+1,C[pt[1]],12);txt(x+46,y+28,pt[0],{size:14,weight:700});wrapText(pt[2],x+46,y+52,w-60,16,{size:12.5,color:C["ink-soft"]});ctx.restore()});
+}
+
+/* ---------------- loop ---------------- */
+let T=0,last=performance.now();
+const SCENES={map:sceneMap,groups:sceneGroups,size:sceneSize,names:sceneNames,leeuw:sceneLeeuw,pasteur:scenePasteur,koch:sceneKoch,
+  parts:sceneParts,mag:sceneMag,resol:sceneResol,oil:sceneOil,lightscopes:sceneLightscopes,em:sceneEM,
+  smear:sceneSmear,simple:sceneSimple,gram:sceneGram,gramwhy:sceneGramWhy,grammist:sceneGramMist,acidfast:sceneAcidFast,spores:sceneSpores,
+  shapes:sceneShapes,arrange:sceneArrange,read:sceneRead,recap:sceneRecap};
+function draw(){
+  ctx.setTransform(K,0,0,K,0,0);ctx.clearRect(0,0,W,H);ctx.globalAlpha=1;bg(C.ecf);
+  const s=STEPS[cur];
+  try{(SCENES[s.scene]||sceneRecap)(T)}catch(e){console.error(e)}
+  ctx.globalAlpha=1;
+}
+function frame(now){
+  const dt=Math.min(.05,(now-last)/1000);last=now;if(!paused)T+=dt*speed;
+  draw();
+  requestAnimationFrame(frame);
+}
+window.__setT=v=>{T=v;paused=true;draw()};
+window.__go=i=>go(i);
+window.__n=()=>STEPS.length;
+readColors();buildChain();fit();render();requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

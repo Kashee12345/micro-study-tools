@@ -1,0 +1,1154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Innate Immunity Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#1E7A4C;--accent-ink:#145A37;--accent-wash:#DDEFE4;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#2F7FC1;--act2:#7B5CC9;--act3:#D98A1C;--act4:#C4644F;--act5:#2E8A7A;--act6:#A04E8C;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#8A6D12;
+  /* innate immunity palette */
+  --ecf:#EEF3EF;--grid:#D3DED6;
+  --nuc:#5B3F94;--cyto:#F3E3EC;--cyto-edge:#B98AA5;--gran:#D7B3C8;
+  --eos:#D8553A;--baso:#3B2C7A;--mono-c:#CBD3E3;--mono-e:#6F7FA6;--lym:#4A2F86;--lym-c:#C9D8F0;
+  --rbc:#E9A39C;--rbc-edge:#B8564E;--plt:#8A6AB8;--plasma:#F2DFA0;--buffy:#F4F1EA;
+  --bact:#B9DDB9;--bact-edge:#3E7E4A;--gpos:#6A3FA0;--gneg:#C2457A;--capsule:#9CC59C;
+  --comp:#C9962E;--c3b:#D9A01B;--mac:#A04E8C;--ab:#2F6FD0;--mhc:#2F7FC1;
+  --tlr:#2E8A7A;--pamp:#C4644F;--ros:#E0563A;--lyso:#7B5CC9;--lyso-2:#DCD0F4;
+  --ifn:#1E9AA0;--cyt:#D98A1C;--hist:#B8901C;--perf:#C2392F;
+  --mucus:#DCE6B0;--mucus-edge:#86973A;--cilia:#4F6F94;
+  --skin:#EAC9A8;--skin-edge:#B9937A;--kerat:#E2C79A;--kerat-edge:#A07E4E;--derm:#F5E1D3;
+  --tissue:#F6E9DF;--tissue-edge:#D2B8A6;--vessel:#F0C4BD;--vessel-edge:#B05A4E;--endoth:#F7D8D2;
+  --fluid:#A8D2EE;--fluid-edge:#3C7FB0;--iron:#B4632A;--tf:#2E8A7A;
+  --virus:#7B5CC9;--worm:#D8B9A8;--worm-edge:#9A7260;--fib:#C9A27A;--scar:#E8D3BE;
+  --body:#E8D3C0;--body-edge:#B9937A;--rash:#D9534F;
+  --glow:#F2B33B;--heat:#E0563A;--cold:#2F7FC1;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A9EBC6;--accent-wash:#14301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5AA9E6;--act2:#A98BEF;--act3:#F2A93B;--act4:#E08A74;--act5:#5CC4B0;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#22302A;
+  --nuc:#B9A0EE;--cyto:#3A2A36;--cyto-edge:#C99AB8;--gran:#6E4A60;
+  --eos:#F08A6E;--baso:#9F8FF0;--mono-c:#2E3850;--mono-e:#9FB0D9;--lym:#B49BF0;--lym-c:#253650;
+  --rbc:#8A3E38;--rbc-edge:#E08A80;--plt:#B49BF0;--plasma:#4A4026;--buffy:#3A3A36;
+  --bact:#22402A;--bact-edge:#7FC48A;--gpos:#B48BF0;--gneg:#F08AB8;--capsule:#3E6A3E;
+  --comp:#E0B860;--c3b:#F2C14E;--mac:#D186C0;--ab:#6FA3F0;--mhc:#5AA9E6;
+  --tlr:#5CC4B0;--pamp:#E08A74;--ros:#F27A5E;--lyso:#A98BEF;--lyso-2:#3D3360;
+  --ifn:#5CC4C8;--cyt:#F2A93B;--hist:#E0BE48;--perf:#F07067;
+  --mucus:#3E4624;--mucus-edge:#C0D070;--cilia:#8FB1D9;
+  --skin:#5A4434;--skin-edge:#B9937A;--kerat:#6E5A3E;--kerat-edge:#C9A866;--derm:#3A2C26;
+  --tissue:#2A2220;--tissue-edge:#6A564C;--vessel:#4A2A28;--vessel-edge:#E08A7E;--endoth:#5A3632;
+  --fluid:#2C5A7A;--fluid-edge:#8FC8F0;--iron:#E39A5B;--tf:#5CC4B0;
+  --virus:#A98BEF;--worm:#6E5A50;--worm-edge:#C9A99A;--fib:#C9A27A;--scar:#4A3E30;
+  --body:#4A3C32;--body-edge:#B9937A;--rash:#F07067;
+  --glow:#F2B33B;--heat:#F27A5E;--cold:#5AA9E6;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A9EBC6;--accent-wash:#14301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5AA9E6;--act2:#A98BEF;--act3:#F2A93B;--act4:#E08A74;--act5:#5CC4B0;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#22302A;
+  --nuc:#B9A0EE;--cyto:#3A2A36;--cyto-edge:#C99AB8;--gran:#6E4A60;
+  --eos:#F08A6E;--baso:#9F8FF0;--mono-c:#2E3850;--mono-e:#9FB0D9;--lym:#B49BF0;--lym-c:#253650;
+  --rbc:#8A3E38;--rbc-edge:#E08A80;--plt:#B49BF0;--plasma:#4A4026;--buffy:#3A3A36;
+  --bact:#22402A;--bact-edge:#7FC48A;--gpos:#B48BF0;--gneg:#F08AB8;--capsule:#3E6A3E;
+  --comp:#E0B860;--c3b:#F2C14E;--mac:#D186C0;--ab:#6FA3F0;--mhc:#5AA9E6;
+  --tlr:#5CC4B0;--pamp:#E08A74;--ros:#F27A5E;--lyso:#A98BEF;--lyso-2:#3D3360;
+  --ifn:#5CC4C8;--cyt:#F2A93B;--hist:#E0BE48;--perf:#F07067;
+  --mucus:#3E4624;--mucus-edge:#C0D070;--cilia:#8FB1D9;
+  --skin:#5A4434;--skin-edge:#B9937A;--kerat:#6E5A3E;--kerat-edge:#C9A866;--derm:#3A2C26;
+  --tissue:#2A2220;--tissue-edge:#6A564C;--vessel:#4A2A28;--vessel-edge:#E08A7E;--endoth:#5A3632;
+  --fluid:#2C5A7A;--fluid-edge:#8FC8F0;--iron:#E39A5B;--tf:#5CC4B0;
+  --virus:#A98BEF;--worm:#6E5A50;--worm-edge:#C9A99A;--fib:#C9A27A;--scar:#4A3E30;
+  --body:#4A3C32;--body-edge:#B9937A;--rash:#F07067;
+  --glow:#F2B33B;--heat:#F27A5E;--cold:#5AA9E6;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1180px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:9px 14px;cursor:pointer;font-weight:500;font-size:15px}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 13px;cursor:pointer;font-size:14.5px}
+.tbtn:hover{border-color:var(--accent)}
+.tbtn:disabled{opacity:.45;cursor:default}
+.tbtn[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:10px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.btn:disabled{opacity:.45;cursor:default}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;min-width:0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%;touch-action:manipulation}
+.stagebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2)}
+.legend i.s{border-radius:2px}
+.legend i.ln{width:20px;height:0;border-radius:0;border:0;border-top:3px solid}
+.legend i.dl{width:20px;height:0;border-radius:0;border:0;border-top:3px dashed}
+.rounds{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.round{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 13px;cursor:pointer;font-size:14px}
+.round[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.round .ok{color:var(--gold-ink);margin-left:4px}
+.mode{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-soft)}
+.mode input{accent-color:var(--accent);width:18px;height:18px}
+.lvl-n{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.lvl-t{font-family:var(--serif);font-size:22px;font-weight:600;margin:4px 0 8px;line-height:1.25}
+.goal{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:15px}
+.goal b.h{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.msg{margin:10px 0 0;padding:10px 12px;border-radius:var(--r);font-size:15px;display:none}
+.msg.show{display:block}
+.msg.good{background:var(--good-wash);color:var(--ink);border:1px solid var(--good)}
+.msg.warn{background:var(--warn-wash);color:var(--ink);border:1px solid var(--warn)}
+.msg.info{background:var(--panel-2);color:var(--ink);border:1px solid var(--rule)}
+.stars{font-size:22px;letter-spacing:2px;color:var(--gold-ink)}
+.side h3{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+.side p,.side li{font-size:14.5px}
+.small{font-size:13px;color:var(--ink-soft)}
+.timer{font-family:var(--mono);font-size:18px;font-weight:600}
+.ctl{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ctl label{font-size:14.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.ctl output{font-family:var(--mono);font-weight:600;color:var(--accent-ink)}
+.ctl input[type=range]{accent-color:var(--accent);width:100%}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);font-family:var(--mono)}
+.readouts{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+.readouts th{text-align:left;font-weight:500;color:var(--ink-soft);padding:5px 6px 5px 0;border-top:1px solid var(--rule-soft)}
+.srhead th,.readouts caption.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0;border:0}
+.readouts td{padding:5px 0;border-top:1px solid var(--rule-soft);font-family:var(--mono);font-size:13.5px;text-align:right}
+.chal{list-style:none;padding:0;margin:6px 0}
+.chal li{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14px}
+.chal .ck{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-size:13px;font-family:var(--mono)}
+.chal li.done .ck{background:var(--good);border-color:var(--good);color:var(--on-accent)}
+.status{font-size:14.5px;padding:8px 10px;border-radius:var(--r);margin-top:8px;border:1px solid var(--rule);background:var(--panel-2)}
+.status.warn{background:var(--warn-wash);border-color:var(--warn)}
+.status.bad{background:var(--bad-wash);border-color:var(--bad)}
+.status.good{background:var(--good-wash);border-color:var(--good)}
+.trt{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.trt .tbtn{text-align:left;line-height:1.25}
+.sc-n{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.sc-title{font-family:var(--serif);font-size:22px;font-weight:600;margin:2px 0 6px}
+.story{font-size:15px}
+.story p{margin:0 0 8px}
+.qlab{font-weight:600;margin:12px 0 8px}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opt{text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:8px 0 0;font-size:14.5px;padding:8px 10px;border-radius:4px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--good-wash);border-left:4px solid var(--good)}
+.fb.no{background:var(--warn-wash);border-left:4px solid var(--warn)}
+.fb.hint{background:var(--gold-wash);border-left:4px solid var(--gold)}
+.qnav{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{min-width:30px;height:30px;border-radius:99px;border:1.5px solid var(--rule);display:inline-grid;place-items:center;font-family:var(--mono);font-size:12.5px;background:var(--panel-2);cursor:pointer;padding:0 8px}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.chip.done:not([aria-pressed="true"]){border-color:var(--good);background:var(--good-wash);color:var(--good)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+/* sorter */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:70px;padding:10px;border:1px solid var(--rule);border-radius:var(--r);background:var(--panel-2);margin-bottom:12px}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.bin{border:2px dashed var(--rule);border-radius:var(--r);min-height:170px;padding:8px;background:var(--panel);display:flex;flex-direction:column;gap:6px;cursor:pointer}
+.bin:hover,.bin.target{border-color:var(--accent);background:var(--accent-wash)}
+.binhead{display:block;width:100%;background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;text-align:left;cursor:pointer;border-radius:4px}
+.binhead:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.bin .bh{font-weight:700;font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;display:flex;gap:8px;align-items:center}
+.bin .bsub{display:block;font-size:13px;color:var(--ink-soft);margin:2px 0 4px}
+.bin .bitems{display:flex;flex-wrap:wrap;gap:6px}
+.tok{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:5px 10px 5px 5px;cursor:grab;touch-action:none;user-select:none;font-size:14.5px;line-height:1.25;text-align:left;font-family:var(--sans);color:var(--ink)}
+.tok svg{width:38px;height:38px;flex:0 0 auto;display:block}
+.tok:hover{border-color:var(--accent)}
+.tok.sel{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
+.tok.ok{border-color:var(--good);background:var(--good-wash)}
+.tok.no{border-color:var(--warn);background:var(--warn-wash)}
+.tok.hinted{box-shadow:0 0 0 3px var(--gold)}
+.tok .mk{font-family:var(--mono);font-weight:700}
+.tok{max-width:100%}.tok>span{min-width:0;overflow-wrap:anywhere;hyphens:auto}
+.tok.ghost{position:fixed;z-index:60;pointer-events:none;opacity:.92;box-shadow:0 10px 24px -8px rgba(0,0,0,.4)}
+.abbox{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:10px 12px;font-size:14.5px;margin-top:10px}
+footer{max-width:1180px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+sub,sup{line-height:0}
+[hidden]{display:none!important}
+select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:var(--r);padding:4px 6px}
+.radios{display:flex;gap:6px;flex-wrap:wrap}
+ol.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.item{display:flex;align-items:center;gap:10px;background:var(--panel);border:1.5px solid var(--rule);border-left:6px solid var(--act4);border-radius:var(--r);padding:7px 8px 7px 10px;touch-action:none;user-select:none;cursor:grab;transition:background .15s,border-color .15s}
+.item.drag{box-shadow:0 10px 24px -8px rgba(0,0,0,.4);cursor:grabbing;border-color:var(--accent);z-index:2;position:relative}
+.item .pos{font-family:var(--mono);font-size:13px;color:var(--ink-faint);width:20px;text-align:right;flex:0 0 auto}
+.item .grip{color:var(--ink-faint);font-size:18px;line-height:1;flex:0 0 auto}
+.item .txt{flex:1;font-size:15px;line-height:1.35}
+.item .mv{display:flex;flex-direction:column;gap:2px}
+.mv button{width:30px;height:24px;border:1px solid var(--rule);background:var(--panel-2);border-radius:4px;cursor:pointer;font-size:12px;padding:0;line-height:1}
+.mv button:hover{border-color:var(--accent)}
+.item.right{background:var(--good-wash);border-color:var(--good)}
+.item.off{background:var(--warn-wash);border-color:var(--warn)}
+.item.hinted{box-shadow:0 0 0 3px var(--gold)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid2{grid-template-columns:1fr}}
+.seg{display:inline-flex;gap:0;border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:12px}
+.seg button{border:0;border-right:1px solid var(--rule);background:var(--panel);padding:8px 14px;cursor:pointer;font-size:15px}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);font-weight:600}
+.calc{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center;font-size:14.5px;margin:8px 0}
+.calc input{font:inherit;font-family:var(--mono);background:var(--panel);color:var(--ink);border:1.5px solid var(--rule);border-radius:var(--r);padding:6px 8px;width:100%;min-width:0}
+.calc input:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.platebtns{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.formula{font-family:var(--mono);font-size:14px;background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 10px;margin:6px 0;overflow-wrap:anywhere}
+.cellbtns{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:10px 0}
+.cbtn{display:flex;align-items:center;gap:8px;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:6px 10px 6px 6px;cursor:pointer;font-size:14.5px;text-align:left}
+.cbtn:hover{border-color:var(--accent)}
+.cbtn svg{width:34px;height:34px;flex:0 0 auto}
+.cbtn:disabled{opacity:.5;cursor:default}
+.restab{width:100%;border-collapse:collapse;font-size:14.5px;margin:8px 0}
+.restab th,.restab td{padding:5px 6px;border-top:1px solid var(--rule-soft);text-align:left}
+.restab th{color:var(--ink-soft);font-weight:600}
+.restab td.n{font-family:var(--mono);text-align:right}
+.restab th.n{text-align:right}
+</style>
+<script src="micro-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">Microbiology &middot; Module 10 &middot; Innate immunity</div>
+    <h1>Innate Immunity Lab</h1>
+    <p class="sub">Run an infection and watch neutrophils fight it, control a fever with the body's thermostat, read blood smears and patient counts, and sort and order the steps. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+<main class="wrap" id="main">
+  <div class="tabs" role="tablist" aria-label="Lab activities">
+    <button class="tab" role="tab" aria-selected="true" data-tab="sim" id="tabbtn-sim" aria-controls="tab-sim" type="button">Part 1 &middot; Infection Simulator</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="fev" id="tabbtn-fev" aria-controls="tab-fev" type="button" tabindex="-1">Part 2 &middot; Fever Thermostat</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="case" id="tabbtn-case" aria-controls="tab-case" type="button" tabindex="-1">Part 3 &middot; Blood Smear Lab</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="sort" id="tabbtn-sort" aria-controls="tab-sort" type="button" tabindex="-1">Part 4 &middot; Sort and Order</button>
+  </div>
+
+  <!-- PART 1: infection simulator -->
+  <section id="tab-sim" role="tabpanel" aria-labelledby="tabbtn-sim">
+    <h2 class="gk-sr">Part 1: Infection Simulator</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvSim" role="img" aria-label="Tissue with bacteria and neutrophils, and graphs of their numbers."></canvas></div>
+        <div class="stagebar">
+          <button class="tbtn" id="mRun" type="button">Run</button>
+          <button class="tbtn" id="mReset" type="button">Reset tissue</button>
+          <label class="mode">Speed <select id="mSpeed"><option value="3" selected>1 s = 3 min</option><option value="6">1 s = 6 min</option><option value="1.5">1 s = 1.5 min</option></select></label>
+          <span class="timer" id="mClock">0 min</span>
+        </div>
+        <div class="legend">
+          <span><i style="background:var(--bact)"></i>Bacteria</span><span><i style="background:var(--cyto)"></i>Neutrophils</span><span><i class="s" style="background:var(--c3b)"></i>C3b (opsonin)</span><span><i style="background:var(--capsule)"></i>Capsule</span><span><i class="ln" style="border-top-color:var(--bact-edge)"></i>Bacteria count</span><span><i class="ln" style="border-top-color:var(--cyto-edge)"></i>Neutrophil count</span>
+        </div>
+      </div>
+      <aside class="card side" aria-live="polite">
+        <h3 style="margin-top:0">1. Choose the bacterium</h3>
+        <div class="radios" role="group" aria-label="Bacterium type">
+          <button class="tbtn" id="mGpos" type="button" aria-pressed="true">Gram-positive coccus</button>
+          <button class="tbtn" id="mGneg" type="button" aria-pressed="false">Gram-negative rod</button>
+        </div>
+        <div class="ctl"><label for="mDose">Starting bacteria <output id="mDoseOut">30</output></label><input type="range" id="mDose" min="10" max="80" step="10" value="30"></div>
+        <div class="radios" role="group" aria-label="Bacterium features">
+          <button class="tbtn" id="mCap" type="button" aria-pressed="false">Capsule</button>
+        </div>
+        <h3>2. Set the host</h3>
+        <div class="radios" role="group" aria-label="Host defences">
+          <button class="tbtn" id="mComp" type="button" aria-pressed="true">Complement</button>
+          <button class="tbtn" id="mAb" type="button" aria-pressed="false">Antibodies from a vaccine</button>
+        </div>
+        <div class="radios" role="group" aria-label="Blood neutrophil count" style="margin-top:8px">
+          <button class="tbtn" id="mNlow" type="button" aria-pressed="false">Neutrophils low</button>
+          <button class="tbtn" id="mNnorm" type="button" aria-pressed="true">Neutrophils normal</button>
+          <button class="tbtn" id="mNhigh" type="button" aria-pressed="false">Neutrophils high</button>
+        </div>
+        <p class="small" style="margin:6px 0">Changing a setting resets the tissue. Press Run to start.</p>
+        <table class="readouts"><caption class="sr">Tissue readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody id="mRead"></tbody></table>
+        <div class="status" id="mStatus" role="status"></div>
+        <h3>Challenges</h3>
+        <ul class="chal" id="mChal"></ul>
+        <p class="small" id="mChalStars"></p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 2: fever thermostat -->
+  <section id="tab-fev" role="tabpanel" aria-labelledby="tabbtn-fev" hidden>
+    <h2 class="gk-sr">Part 2: Fever Thermostat</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvFev" role="img" aria-label="Hypothalamus thermostat, body and temperature graph."></canvas></div>
+        <div class="stagebar">
+          <button class="tbtn" id="fRun" type="button">Run</button>
+          <button class="tbtn" id="fReset" type="button">Reset</button>
+          <label class="mode">Speed <select id="fSpeed"><option value="0.25" selected>1 s = 15 min</option><option value="0.5">1 s = 30 min</option><option value="0.1">1 s = 6 min</option></select></label>
+          <span class="timer" id="fClock">0:00 h</span>
+        </div>
+        <div class="legend">
+          <span><i class="dl" style="border-top-color:var(--warn)"></i>Set point</span><span><i class="ln" style="border-top-color:var(--heat)"></i>Body temperature</span><span><i class="s" style="background:var(--cold)"></i>Chill phase</span><span><i class="s" style="background:var(--rash)"></i>Body above set point</span>
+        </div>
+      </div>
+      <aside class="card side" aria-live="polite">
+        <h3 style="margin-top:0">1. Infection (pyrogens)</h3>
+        <div class="radios" role="group" aria-label="Infection level">
+          <button class="tbtn" id="fP0" type="button" aria-pressed="true">None</button>
+          <button class="tbtn" id="fP1" type="button" aria-pressed="false">Mild infection</button>
+          <button class="tbtn" id="fP2" type="button" aria-pressed="false">Severe infection</button>
+        </div>
+        <p class="small" style="margin:6px 0">Choosing None later is like the infection clearing.</p>
+        <h3>2. Treatment and surroundings</h3>
+        <div class="bar"><button class="btn" id="fDrug" type="button">Give an antipyretic</button></div>
+        <div class="radios" role="group" aria-label="Surroundings"><button class="tbtn" id="fHot" type="button" aria-pressed="false">Hot, humid room</button></div>
+        <table class="readouts"><caption class="sr">Fever readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody id="fRead"></tbody></table>
+        <div class="status" id="fStatus" role="status"></div>
+        <h3>Challenges</h3>
+        <ul class="chal" id="fChal"></ul>
+        <p class="small" id="fChalStars"></p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 3: blood smear lab -->
+  <section id="tab-case" role="tabpanel" aria-labelledby="tabbtn-case" hidden>
+    <h2 class="gk-sr">Part 3: Blood Smear Lab</h2>
+    <div class="seg" role="group" aria-label="Activity"><button type="button" id="cModeCases" aria-pressed="true">Patient cases</button><button type="button" id="cModeCount" aria-pressed="false">Count a smear</button></div>
+    <div id="casesWrap">
+      <div class="chips" id="cChips" role="group" aria-label="Choose a patient"></div>
+      <div class="grid" style="margin-top:12px">
+        <div class="card stage">
+          <div class="canvas-holder"><canvas id="cvCase" role="img" aria-label="Blood smear and lab panel."></canvas></div>
+          <div class="story" id="cStory" style="padding:12px 6px 2px"></div>
+        </div>
+        <aside class="card side" aria-live="polite">
+          <div class="sc-n" id="cN"></div>
+          <h3 class="sc-title" id="cT" style="text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:21px;color:var(--ink);margin:2px 0 6px"></h3>
+          <div class="qnav" id="cQnav" role="group" aria-label="Questions"></div>
+          <p class="qlab" id="cQ"></p>
+          <div class="opts" id="cOpts"></div>
+          <p class="fb" id="cFb"></p>
+          <div class="bar"><button class="tbtn" id="cHint" type="button">Hint</button><button class="tbtn" id="cShow" type="button">Show answer</button><button class="btn" id="cNext" type="button">Next question &rarr;</button></div>
+          <p class="calm">Wrong answers are fine here. Read why, then try again.</p>
+          <p class="small" id="cScore"></p>
+        </aside>
+      </div>
+    </div>
+    <div id="countWrap" hidden>
+      <div class="grid">
+        <div class="card stage">
+          <div class="canvas-holder"><canvas id="cvCount" role="img" aria-label="Microscope view of a blood smear."></canvas></div>
+          <p class="small" style="margin:8px 4px 0">Look at the white cell inside the black box. Then choose its type below.</p>
+          <div class="cellbtns" id="kBtns" role="group" aria-label="Cell type"></div>
+          <div class="msg" id="kMsg" role="status"></div>
+        </div>
+        <aside class="card side" aria-live="polite">
+          <div class="sc-n" id="kN">Smear 1</div>
+          <h3 class="sc-title" style="text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:21px;color:var(--ink);margin:2px 0 6px">Do a 20-cell differential</h3>
+          <div class="goal"><b class="h">Your job</b>Classify 20 white cells. Then read the percentages and decide what they suggest.</div>
+          <h3>Clues</h3>
+          <ul style="margin:4px 0 8px;padding-left:20px;font-size:14.5px">
+            <li><b>Neutrophil:</b> 3 to 5 lobes, pale granules</li>
+            <li><b>Lymphocyte:</b> small; round nucleus fills the cell</li>
+            <li><b>Monocyte:</b> biggest; kidney-shaped nucleus, grey-blue cytoplasm</li>
+            <li><b>Eosinophil:</b> 2 lobes, large orange-red granules</li>
+            <li><b>Basophil:</b> dark purple granules hide the nucleus</li>
+          </ul>
+          <div id="kResult"></div>
+          <div class="bar"><button class="tbtn" id="kNew" type="button">New smear</button></div>
+          <p class="small" id="kScore"></p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 4: sort and order -->
+  <section id="tab-sort" role="tabpanel" aria-labelledby="tabbtn-sort" hidden>
+    <h2 class="gk-sr">Part 4: Sort and Order</h2>
+    <div class="seg" role="group" aria-label="Game type"><button type="button" id="gSort" aria-pressed="true">Sort into groups</button><button type="button" id="gOrder" aria-pressed="false">Put in order</button></div>
+    <div id="sortWrap">
+      <div class="rounds" id="sRounds" role="group" aria-label="Sorting rounds"></div>
+      <div class="grid">
+        <div class="card">
+          <p class="small" style="margin-top:0">Tap a card, then tap a bin. Or drag the card into a bin.</p>
+          <div class="pool" id="sPool" role="group" aria-label="Cards to sort"></div>
+          <div class="bins" id="sBins"></div>
+        </div>
+        <aside class="card side" aria-live="polite">
+          <div class="lvl-n" id="sN"></div>
+          <h3 class="lvl-t" id="sT" style="text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:22px;color:var(--ink)"></h3>
+          <div class="goal"><b class="h">Your job</b><span id="sGoal"></span></div>
+          <div class="bar">
+            <button class="btn" id="sCheck" type="button">Check</button>
+            <button class="tbtn" id="sHint" type="button">Hint</button>
+            <button class="tbtn" id="sShow" type="button">Show answer</button>
+            <button class="tbtn" id="sReset" type="button">Start over</button>
+          </div>
+          <div class="bar"><label class="mode"><input type="checkbox" id="sRelaxed" checked> Relaxed mode (no timer)</label><span class="timer" id="sTimer" hidden>0:00</span></div>
+          <div class="msg" id="sMsg" role="status"></div>
+          <div class="abbox" id="sWhy"><b>Tip:</b> after checking, tap any card to read why it belongs where it does.</div>
+        </aside>
+      </div>
+    </div>
+    <div id="orderWrap" hidden>
+      <div class="rounds" id="qRounds" role="group" aria-label="Ordering rounds"></div>
+      <div class="grid2">
+        <div class="card stage">
+          <div class="canvas-holder"><canvas id="cvSeq" role="img" aria-label="Process picture"></canvas></div>
+          <div class="stagebar"><span class="caption" id="qCap"></span></div>
+        </div>
+        <div class="card">
+          <div class="lvl-n" id="qN"></div>
+          <h3 class="lvl-t" id="qT" style="text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:22px;color:var(--ink)"></h3>
+          <div class="goal"><b class="h">Your job</b><span id="qGoal"></span></div>
+          <p class="small">Drag cards to reorder them, or use the arrow buttons on each card.</p>
+          <ol class="list" id="qList"></ol>
+          <div class="bar">
+            <button class="btn" id="qCheck" type="button">Check</button>
+            <button class="tbtn" id="qPlay" type="button">Play my order</button>
+            <button class="tbtn" id="qHint" type="button">Hint</button>
+            <button class="tbtn" id="qShow" type="button">Show answer</button>
+            <button class="tbtn" id="qShuffle" type="button">Shuffle again</button>
+          </div>
+          <div class="bar"><label class="mode"><input type="checkbox" id="qRelaxed" checked> Relaxed mode (no timer)</label><span class="timer" id="qTimer" hidden>0:00</span></div>
+          <div class="msg" id="qMsg" role="status"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>Dr. Akash Garg &middot; Microbiology Study Tools &middot; Diagrams are simplified and not to scale. For learning only, not medical advice. CC BY-NC-SA 4.0<br>Learn the ideas first in the <a href="Innate-Walkthrough.html">Innate Immunity Walkthrough</a>. The infection and fever simulators are simple teaching models with rounded numbers (for example a 30-minute bacterial doubling time); real infections vary. Patients are fictional teaching examples, and normal ranges differ slightly between labs.</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "gold", "gold-wash", "gold-ink", "ecf", "grid", "nuc", "cyto", "cyto-edge", "gran", "eos", "baso", "mono-c", "mono-e", "lym", "lym-c", "rbc", "rbc-edge", "plt", "plasma", "buffy", "bact", "bact-edge", "gpos", "gneg", "capsule", "comp", "c3b", "mac", "ab", "mhc", "tlr", "pamp", "ros", "lyso", "lyso-2", "ifn", "cyt", "hist", "perf", "mucus", "mucus-edge", "cilia", "skin", "skin-edge", "kerat", "kerat-edge", "derm", "tissue", "tissue-edge", "vessel", "vessel-edge", "endoth", "fluid", "fluid-edge", "iron", "tf", "virus", "worm", "worm-edge", "fib", "scar", "body", "body-edge", "rash", "glow", "heat", "cold"];
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"left";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase(),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+function bodyFig(cx,top,s,o){o=o||{};ctx.save();ctx.translate(cx,top);ctx.scale(s,s);ctx.lineCap="round";ctx.lineJoin="round";
+  const col=o.col||C.body,ed=o.edge||C["body-edge"];
+  const limbs=[[-38,40,-80,175],[38,40,80,175],[-20,170,-28,330],[20,170,28,330]];
+  ctx.strokeStyle=ed;ctx.lineWidth=31;limbs.forEach(l=>{ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.stroke()});
+  ctx.strokeStyle=col;ctx.lineWidth=28;limbs.forEach(l=>{ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.stroke()});
+  rr(-45,26,90,155,22);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=ed;ctx.lineWidth=1.5;ctx.stroke();
+  ctx.fillStyle=col;ctx.fillRect(-11,8,22,22);circ(0,-12,26,col,ed,1.5);
+  ctx.restore()}
+function bp(cx,top,s,x,y){return [cx+x*s,top+y*s]}
+
+function gauge(x,y,r,v,v0,v1,o){o=o||{};const a0=Math.PI*.8,a1=Math.PI*2.2;ctx.lineCap="round";
+  ctx.beginPath();ctx.arc(x,y,r,a0,a1);ctx.strokeStyle=C.sunk;ctx.lineWidth=r*.18;ctx.stroke();
+  (o.zones||[]).forEach(z=>{ctx.beginPath();ctx.arc(x,y,r,a0+(a1-a0)*seg(z[0],v0,v1),a0+(a1-a0)*seg(z[1],v0,v1));ctx.strokeStyle=hexA(z[2],.75);ctx.lineWidth=r*.18;ctx.stroke()});
+  ctx.lineCap="butt";const a=a0+(a1-a0)*seg(v,v0,v1);line(x,y,x+Math.cos(a)*r*.82,y+Math.sin(a)*r*.82,C.ink,3);circ(x,y,4.5,C.ink);
+  if(o.title)txt(x,y+r*.42,o.title,{size:11.5,mono:true,weight:700,align:"center",color:C["ink-soft"]});
+  if(o.val)txt(x,y+r*.78,o.val,{size:14,mono:true,weight:700,align:"center",color:o.valCol||C.ink})}
+function thermo(x,y,h,f,o){o=o||{};rr(x-6,y,12,h,6);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();
+  const fh=(h-8)*clamp(f,0,1);rr(x-3,y+h-fh-2,6,fh+4,3);ctx.fillStyle=C.heat;ctx.fill();circ(x,y+h+6,9,C.heat,C["ink-soft"],1.4);
+  if(o.lab)txt(x,y+h+24,o.lab,{size:12,mono:true,weight:700,align:"center",color:o.labCol||C.ink})}
+function dna(x,y,w,h,t,col,o){o=o||{};const n=o.n||16;for(let i=0;i<=n;i++){const f=i/n;const X=x+f*w;const a=f*TAU*2+t;const y1=y+Math.sin(a)*h/2,y2=y-Math.sin(a)*h/2;line(X,y1,X,y2,hexA(col,.45),1.4)}
+  [0,Math.PI].forEach(ph=>{ctx.beginPath();for(let i=0;i<=60;i++){const f=i/60;const X=x+f*w,Y=y+Math.sin(f*TAU*2+t+ph)*h/2;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=2.4;ctx.stroke()})}
+function rna(x,y,w,t,col,lw){ctx.beginPath();for(let i=0;i<=40;i++){const f=i/40;const X=x+f*w,Y=y+Math.sin(f*TAU*2.5+t)*4;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=lw||2.2;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt"}
+function face(x,y,r,o){o=o||{};circ(x,y,r,C.skin,C["skin-edge"],1.6);
+  if(o.rash){ctx.save();ctx.globalAlpha*=o.rash;ctx.fillStyle=hexA(C.rash,.7);ctx.beginPath();ctx.ellipse(x-r*.42,y+r*.12,r*.3,r*.2,-.3,0,TAU);ctx.ellipse(x+r*.42,y+r*.12,r*.3,r*.2,.3,0,TAU);ctx.fill();rr(x-r*.14,y-r*.05,r*.28,r*.28,r*.1);ctx.fill();ctx.restore()}
+  if(o.puffy){ell(x-r*.35,y-r*.08,r*.2,r*.12*(1+o.puffy*.6),0,hexA(C["skin-edge"],.5));ell(x+r*.35,y-r*.08,r*.2,r*.12*(1+o.puffy*.6),0,hexA(C["skin-edge"],.5))}
+  circ(x-r*.35,y-r*.18,r*.08,C.ink);circ(x+r*.35,y-r*.18,r*.08,C.ink);ctx.beginPath();ctx.arc(x,y+r*.3,r*.25,.2*Math.PI,.8*Math.PI);ctx.strokeStyle=C.ink;ctx.lineWidth=1.6;ctx.stroke()}
+function timeBar(x,y,w,f,marks,o){o=o||{};rr(x,y,w,8,4);ctx.fillStyle=C.sunk;ctx.fill();rr(x,y,w*clamp(f,0,1),8,4);ctx.fillStyle=o.col||C.accent;ctx.fill();
+  (marks||[]).forEach(m=>{const X=x+w*m[0];line(X,y-3,X,y+11,C["ink-soft"],1.2);txt(X,y+22,m[1],{size:11.5,mono:true,align:m[0]<=0?"left":m[0]>=1?"right":"center",color:C["ink-soft"]})});
+  circ(x+w*clamp(f,0,1),y+4,6,o.col||C.accent,C.panel,2)}
+function stepRow(x,y,w,items,on,col,st){const n=items.length,gap=6,bw=(w-gap*(n-1))/n;items.forEach((s,i)=>{const X=x+i*(bw+gap);const lit=i===on,past=i<on;rr(X,y,bw,24,12);ctx.fillStyle=lit?(col||C.accent):past?hexA(col||C.accent,.18):hexA(C.panel,.9);ctx.fill();ctx.strokeStyle=lit||past?(col||C.accent):C.rule;ctx.lineWidth=1.3;ctx.stroke();
+  txt(X+bw/2,y+12.5,(i+1+(st||0))+" "+s,{size:12,weight:700,align:"center",color:lit?onFill():C.ink})})}
+
+/* ---- HIV teaching model (rounded, typical untreated course; ART started at year artStart) ---- */
+
+/* ================= innate immunity drawing kit ================= */
+function fillPoly(pts,fill,stroke,lw){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.2;ctx.lineJoin="round";ctx.stroke()}}
+function tick(x,y,s,col){ctx.save();ctx.strokeStyle=col||C.good;ctx.lineWidth=3;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(x-s,y);ctx.lineTo(x-s*.3,y+s*.7);ctx.lineTo(x+s,y-s*.7);ctx.stroke();ctx.restore()}
+function cross(x,y,s,col){ctx.save();ctx.lineCap="round";line(x-s,y-s,x+s,y+s,col||C.bad,3);line(x+s,y-s,x-s,y+s,col||C.bad,3);ctx.restore()}
+function diamond(x,y,s,col,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.beginPath();ctx.moveTo(x,y-s);ctx.lineTo(x+s,y);ctx.lineTo(x,y+s);ctx.lineTo(x-s,y);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.3);ctx.lineWidth=.8;ctx.stroke();ctx.restore()}
+function tri(x,y,s,col,ang,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.translate(x,y);ctx.rotate(ang||0);ctx.beginPath();ctx.moveTo(0,-s);ctx.lineTo(s*.9,s*.7);ctx.lineTo(-s*.9,s*.7);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.35);ctx.lineWidth=.8;ctx.stroke();ctx.restore()}
+function dotM(x,y,r,col,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x,y,r,col,hexA(C.ink,.25),.8);ctx.restore()}
+function graphBox(x,y,w,h,t){panelBox(x,y,w,h,{fill:hexA(C.panel,.95)});if(t)txt(x+10,y+14,t.toUpperCase(),{size:11.5,mono:true,weight:700,color:C["ink-soft"]})}
+/* granule speckle inside radius r */
+function granules(x,y,r,n,col,gr,seed){for(let k=0;k<n;k++){const a=rnd(k*2.1+seed)*TAU,d=Math.sqrt(rnd(k*3.7+seed+1))*r;circ(x+Math.cos(a)*d,y+Math.sin(a)*d,gr,col)}}
+/* multi-lobed nucleus: chain of lobes along a curve */
+function lobes(x,y,r,n,col,rot){ctx.save();ctx.translate(x,y);ctx.rotate(rot||0);const pts=[];for(let k=0;k<n;k++){const f=n===1?0:k/(n-1)-.5;pts.push([f*r*1.5,Math.sin((f+.5)*Math.PI)*-r*.35+r*.12])}
+  ctx.strokeStyle=col;ctx.lineWidth=r*.12;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();
+  pts.forEach((p,i)=>ell(p[0],p[1],r*.27,r*.23,(i-n/2)*.4,col,hexA(C.ink,.25),.8));ctx.restore()}
+function cellBody(x,y,r,fill,edge,o){if(o.blob){blobPath(x,y,r,o.seed||1,o.t||0,o.blob);ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=edge;ctx.lineWidth=1.6;ctx.stroke()}else circ(x,y,r,fill,edge,1.6)}
+/* neutrophil: pale cytoplasm, fine granules, 3-5 lobed nucleus */
+function neutro(x,y,r,o){o=o||{};withA(o.a,()=>{cellBody(x,y,r,C.cyto,C["cyto-edge"],o);granules(x,y,r*.85,Math.round(r*1.2),C.gran,Math.max(.8,r*.05),3);lobes(x,y-r*.05,r*.9,o.lobes||3,C.nuc,o.rot||0);if(o.ring)ctx.strokeStyle=o.ring})}
+function eosino(x,y,r,o){o=o||{};withA(o.a,()=>{cellBody(x,y,r,C.cyto,C["cyto-edge"],o);granules(x,y,r*.85,Math.round(r*1.6),C.eos,Math.max(1.2,r*.1),7);lobes(x,y-r*.05,r*.8,2,C.nuc,o.rot||0)})}
+function baso(x,y,r,o){o=o||{};withA(o.a,()=>{cellBody(x,y,r,mix(C.cyto,C.baso,.12),C["cyto-edge"],o);lobes(x,y,r*.7,2,hexA(C.nuc,.55),.6);granules(x,y,r*.85,Math.round(r*2),C.baso,Math.max(1.3,r*.11),11)})}
+/* mast cell in tissue: oval, round nucleus, dark granules; degran 0..1 releases histamine */
+function mast(x,y,r,o){o=o||{};const dg=o.degran||0;withA(o.a,()=>{ell(x,y,r*1.25,r,o.rot||0,mix(C.cyto,C.baso,.1),C["cyto-edge"],1.6);circ(x,y,r*.38,hexA(C.nuc,.75));granules(x,y,r*.9,Math.round(r*2*(1-dg*.7)),C.baso,Math.max(1.3,r*.1),5);
+  if(dg>0){for(let k=0;k<14;k++){const a=k/14*TAU+rnd(k)*.4,d=r*(1+dg*.9*(.6+rnd(k*3)*.6));circ(x+Math.cos(a)*d*1.15,y+Math.sin(a)*d,2.4,hexA(C.hist,1-seg(dg,.85,1)*.6))}}})}
+function kidneyN(x,y,r,col,rot){ctx.save();ctx.translate(x,y);ctx.rotate(rot||0);ctx.beginPath();ctx.moveTo(-r,0);ctx.bezierCurveTo(-r,-r*.95,r,-r*.95,r,0);ctx.bezierCurveTo(r,r*.55,r*.55,r*.7,r*.25,r*.35);ctx.bezierCurveTo(0,r*.1,-r*.2,r*.1,-r*.4,r*.4);ctx.bezierCurveTo(-r*.75,r*.75,-r,r*.4,-r,0);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.25);ctx.lineWidth=.8;ctx.stroke();ctx.restore()}
+function mono(x,y,r,o){o=o||{};withA(o.a,()=>{cellBody(x,y,r,C["mono-c"],C["mono-e"],o);granules(x,y,r*.8,6,hexA(C["mono-e"],.4),1,4);kidneyN(x,y-r*.08,r*.6,hexA(C.nuc,.85),o.rot||0)})}
+/* macrophage: big ruffled cell with pseudopods, vacuoles */
+function macro(x,y,r,o){o=o||{};const t=o.t||0;withA(o.a,()=>{ctx.beginPath();const N=72;for(let i=0;i<=N;i++){const a=i/N*TAU;let rad=r*(1+.08*Math.sin(a*3+t*1.3+(o.seed||0))+.05*Math.sin(a*7-t));const pp=Math.max(0,Math.cos(a*5+t*.4+(o.seed||0)));rad+=r*.32*Math.pow(pp,8);const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad*.86;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();ctx.fillStyle=C["mono-c"];ctx.fill();ctx.strokeStyle=C["mono-e"];ctx.lineWidth=1.8;ctx.stroke();
+  for(let k=0;k<5;k++){const a=k*1.3+.4,d=r*.55;circ(x+Math.cos(a)*d,y+Math.sin(a)*d*.8,r*.09,hexA(C.panel,.7),hexA(C["mono-e"],.7),1)}
+  kidneyN(x-r*.1,y,r*.42,hexA(C.nuc,.85),.3)})}
+function dendritic(x,y,r,o){o=o||{};const t=o.t||0;withA(o.a,()=>{const n=6;ctx.beginPath();for(let i=0;i<=n*8;i++){const a=i/(n*8)*TAU;const rad=r*(.55+1.1*Math.pow(Math.abs(Math.cos(a*n/2)),10)*(1+.12*Math.sin(t*1.4+i)));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();ctx.fillStyle=mix(C["mono-c"],C.panel,.2);ctx.fill();ctx.strokeStyle=C["mono-e"];ctx.lineWidth=1.6;ctx.lineJoin="round";ctx.stroke();kidneyN(x,y,r*.32,hexA(C.nuc,.8),1)})}
+/* lymphocyte (o.nk adds granules) */
+function lympho(x,y,r,o){o=o||{};withA(o.a,()=>{cellBody(x,y,r,C["lym-c"],C["mono-e"],o);circ(x-r*.05,y,r*.78,C.lym,hexA(C.ink,.25),.8);if(o.nk){granules(x+r*.55,y+r*.25,r*.25,6,C.perf,Math.max(1,r*.08),2)}})}
+function rbc(x,y,r,o){o=o||{};withA(o.a,()=>{if(o.edge){ell(x,y,r,r*.38,o.rot||0,C.rbc,C["rbc-edge"],1.2);return}circ(x,y,r,C.rbc,C["rbc-edge"],1.2);circ(x,y,r*.45,mix(C.rbc,C.panel,.45))})}
+function platelet(x,y,s){ell(x,y,s,s*.6,rnd(x)*3,C.plt,hexA(C.ink,.25),.8)}
+/* bacteria. coccus: o.col fill, o.cap capsule, o.c3b opsonin dots, o.ab antibodies, o.lys 0..1 */
+function coccus(x,y,r,o){o=o||{};withA(o.a,()=>{const ly=o.lys||0;
+  if(o.cap){circ(x,y,r*1.6,hexA(C.capsule,.55),mix(C.capsule,C.ink,.25),1.2);ctx.save();ctx.setLineDash([2,3]);circ(x,y,r*1.6,null,hexA(C["bact-edge"],.6),1);ctx.restore()}
+  if(ly>0){for(let k=0;k<6;k++){const a=k/6*TAU+.3,d=r*ly*1.4;ctx.save();ctx.globalAlpha*=1-ly*.7;ctx.beginPath();ctx.arc(x+Math.cos(a)*d,y+Math.sin(a)*d,r,a-.5,a+.5);ctx.strokeStyle=o.edge||C["bact-edge"];ctx.lineWidth=2;ctx.stroke();ctx.restore()}return}
+  circ(x,y,r,o.col||C.bact,o.edge||C["bact-edge"],1.6);
+  const n=o.c3b||0;for(let k=0;k<n;k++){const a=k/n*TAU+(o.rot||0);diamond(x+Math.cos(a)*(r+(o.cap?r*.6:0)+2),y+Math.sin(a)*(r+(o.cap?r*.6:0)+2),2.8,C.c3b)}
+  const m=o.ab||0;for(let k=0;k<m;k++){const a=k/m*TAU+.5;yAb(x+Math.cos(a)*(r+1),y+Math.sin(a)*(r+1),a,5,C.ab)}})}
+function rod(x,y,w,h,ang,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);withA(o.a,()=>{if(o.cap){rr(-w/2-h*.35,-h/2-h*.35,w+h*.7,h*1.7,h*.85);ctx.fillStyle=hexA(C.capsule,.55);ctx.fill()}
+  rr(-w/2,-h/2,w,h,h/2);ctx.fillStyle=o.col||C.bact;ctx.fill();ctx.strokeStyle=o.edge||C["bact-edge"];ctx.lineWidth=o.lw||1.6;ctx.stroke();
+  if(o.flag){ctx.beginPath();for(let i=0;i<=20;i++){const X=w/2+i*2,Y=Math.sin(i*.7+(o.t||0)*8)*3;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=o.edge||C["bact-edge"];ctx.lineWidth=1.2;ctx.stroke()}
+  const n=o.c3b||0;for(let k=0;k<n;k++){const f=(k+.5)/n;diamond(-w/2+f*w,(k%2?1:-1)*(h/2+3),2.8,C.c3b)}});ctx.restore()}
+/* antibody Y at (x,y) with stem pointing outward along a */
+function yAb(x,y,a,s,col){const bx=x+Math.cos(a)*s,by=y+Math.sin(a)*s;line(bx,by,x+Math.cos(a)*s*2,y+Math.sin(a)*s*2,col,2);line(bx,by,x+Math.cos(a-.6)*s*.2,y+Math.sin(a-.6)*s*.2,col,2);line(bx,by,x+Math.cos(a+.6)*s*.2,y+Math.sin(a+.6)*s*.2,col,2)}
+/* Y-shaped surface marker (MHC I) sticking out of a membrane at angle a */
+function flag(x,y,a,s,col){const x2=x+Math.cos(a)*s,y2=y+Math.sin(a)*s;line(x,y,x2,y2,col,2.4);circ(x2,y2,s*.32,col,hexA(C.ink,.3),.8)}
+/* complement membrane attack complex: ring pore */
+function macPore(x,y,r,a){withA(a,()=>{circ(x,y,r,null,C.mac,r*.45);circ(x,y,r*.55,C.ecf)})}
+/* virus particle */
+function virion(x,y,r,o){o=o||{};withA(o.a,()=>{for(let k=0;k<8;k++){const a=k/8*TAU+(o.t||0)*.3;line(x+Math.cos(a)*r,y+Math.sin(a)*r,x+Math.cos(a)*r*1.35,y+Math.sin(a)*r*1.35,C.virus,1.4)}circ(x,y,r,mix(C.virus,C.panel,.55),C.virus,1.6)})}
+/* small cytokine / signal particles */
+function cytok(x,y,s,col,a){diamond(x,y,s||3.5,col||C.cyt,a)}
+/* blood vessel running horizontally: wall top & bottom with endothelial cells; dil widens lumen; gaps opens junctions */
+function vesselH(x,y,w,h,o){o=o||{};const gp=o.gaps||0;rr(x,y,w,h,8);ctx.fillStyle=mix(C.vessel,C.panel,.25);ctx.fill();
+  const n=Math.max(3,Math.round(w/44));const cw=w/n;
+  [y,y+h-8].forEach((yy,row)=>{for(let k=0;k<n;k++){const X=x+k*cw+(row?cw/2:0)-(row?cw/2:0)+gp*3;const ww=cw-2-gp*6;if(ww<=4)continue;rr(X+1,yy,ww,8,4);ctx.fillStyle=C.endoth;ctx.fill();ctx.strokeStyle=C["vessel-edge"];ctx.lineWidth=1.2;ctx.stroke();ell(X+ww/2+1,yy+4,ww*.18,2.2,0,hexA(C.nuc,.6))}})}
+function heatWaves(x,y,s,t,col,a){withA(a,()=>{for(let k=0;k<3;k++){const p=P(t*.7+k/3,1);ctx.save();ctx.globalAlpha*=(1-p);ctx.beginPath();for(let i=0;i<=12;i++){const X=x+(k-1)*s*.7+Math.sin(i*.8+t*3)*s*.12,Y=y-p*s*1.4-i*s*.06;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col||C.heat;ctx.lineWidth=2;ctx.stroke();ctx.restore()}})}
+function drop(x,y,s,col){ctx.beginPath();ctx.moveTo(x,y-s);ctx.bezierCurveTo(x+s*.8,y-s*.1,x+s*.7,y+s*.75,x,y+s*.75);ctx.bezierCurveTo(x-s*.7,y+s*.75,x-s*.8,y-s*.1,x,y-s);ctx.fillStyle=col||C.fluid;ctx.fill();ctx.strokeStyle=C["fluid-edge"];ctx.lineWidth=1;ctx.stroke()}
+/* nucleus-in-cell generic tissue cell */
+function tCell(x,y,w,h,o){o=o||{};rr(x-w/2,y-h/2,w,h,Math.min(w,h)*.3);ctx.fillStyle=o.fill||C.tissue;ctx.fill();ctx.strokeStyle=o.edge||C["tissue-edge"];ctx.lineWidth=1.3;ctx.stroke();if(o.nuc!==false)ell(x,y+(o.ny||0),Math.min(w,h)*.22,Math.min(w,h)*.18,0,hexA(C.nuc,.55))}
+function phaseOf(T,L,stops){const p=P(T,L)*L;for(let i=0;i<stops.length;i++)if(p<stops[i])return i;return stops.length}
+const tt=(T,L)=>P(T,L)*L;
+function pillIcon(x,y,s,a){withA(a,()=>{ctx.save();ctx.translate(x,y);ctx.rotate(.6);rr(-s,-s*.45,s*2,s*.9,s*.45);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();ctx.beginPath();ctx.rect(-s,-s*.45,s,s*.9);ctx.save();rr(-s,-s*.45,s*2,s*.9,s*.45);ctx.clip();ctx.fillStyle=C.act1;ctx.fillRect(-s,-s*.45,s,s*.9);ctx.restore();ctx.restore()})}
+
+/* ================= shared lab helpers ================= */
+const $=s=>document.querySelector(s);
+const store={get(k){try{return JSON.parse(localStorage.getItem("mk-inn-"+k))}catch(e){return null}},set(k,v){try{localStorage.setItem("mk-inn-"+k,JSON.stringify(v))}catch(e){}}};
+function makeStage(id,W_,H_){const cv=document.getElementById(id);const st={cv,ctx:cv.getContext("2d"),W:W_,H:H_,K:1};
+  st.fit=()=>{const w=cv.parentElement.clientWidth;if(!w)return;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H_/W_)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H_/W_*dpr);st.K=cv.width/W_};return st}
+let W=800,H=440;
+function use(st){ctx=st.ctx;W=st.W;H=st.H;ctx.setTransform(st.K,0,0,st.K,0,0);ctx.clearRect(0,0,st.W,st.H);ctx.globalAlpha=1;bg(C.ecf)}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function fmt(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+function setMsg(id,t,c){const m=$(id);m.className="msg"+(t?" show "+c:"");m.innerHTML=t}
+function starStr(n){return `<span class="stars" aria-hidden="true">${"★".repeat(n)}${"☆".repeat(3-n)}</span><span class="gk-sr">${n} of 3 stars</span>`}
+function chalList(id,items,done){$(id).innerHTML=items.map((c,i)=>`<li class="${done[i]?"done":""}"><span class="ck" aria-hidden="true">${done[i]?"✓":i+1}</span><span>${c}<span class="gk-sr">${done[i]?" (done)":" (not yet)"}</span></span></li>`).join("")}
+function chalStars(n,tot){return n?`${n} of ${tot} done `+starStr(Math.min(3,n<2?1:n<tot?2:3)):"Try each challenge. Your progress is kept in this browser only."}
+function pressSet(ids,onId){ids.forEach(id=>$(id).setAttribute("aria-pressed",id===onId?"true":"false"))}
+function toggleP(id,on){$(id).setAttribute("aria-pressed",on?"true":"false")}
+function graphAxes(x,y,w,h,o){o=o||{};line(x,y+h,x+w,y+h,C["ink-soft"],1.3);line(x,y,x,y+h,C["ink-soft"],1.3);
+  (o.yt||[]).forEach(v=>{const Y=y+h-(v[0]-o.y0)/(o.y1-o.y0)*h;line(x,Y,x+w,Y,C["rule-soft"],1);txt(x-6,Y,v[1],{size:11.5,mono:true,align:"right",color:C["ink-soft"]})});
+  (o.xt||[]).forEach(v=>{const X=x+(v[0]-o.x0)/(o.x1-o.x0)*w;line(X,y+h,X,y+h+4,C["ink-soft"],1.2);txt(X,y+h+14,v[1],{size:11.5,mono:true,align:"center",color:C["ink-soft"]})});
+  if(o.title)txt(x,y-10,o.title.toUpperCase(),{size:11.5,mono:true,weight:700,color:C["ink-soft"]})}
+
+/* ================= PART 1: infection simulator ================= */
+const S1=makeStage("cvSim",800,440);
+const TX=10,TY=10,TW=460,TH=420,VY=386,MAXB=320,OVER=300,TMAX=360,NMAX=40;
+const NRATE=[.02,.35,.65],NCAP=[8,40,40],NNAME=["low (neutropenia)","normal","high"];
+const SM={gram:"pos",dose:30,cap:false,comp:true,ab:false,nlev:1,run:false,speed:3,t:0,B:[],N:[],hist:[],eaten:0,lysed:0,status:"",fx:[],acc:0,histT:0};
+const mChalDone=store.get("sim-chal")||[0,0,0,0,0];
+const M_CHAL=["Clear an infection with <b>complement on</b> and <b>normal</b> neutrophils.","Turn on the <b>capsule</b> (no antibodies) and watch the bacteria win.","Keep the capsule but add <b>antibodies from a vaccine</b>, and clear it.","With a <b>Gram-negative rod</b> and complement on, let the membrane attack complex lyse at least 20 bacteria.","Set neutrophils to <b>low</b> (neutropenia) and see even a capsule-free infection get away."];
+function mRand(a,b){return a+Math.random()*(b-a)}
+function mNewB(x,y,op){return {x:clamp(x,TX+14,TX+TW-14),y:clamp(y,TY+16,VY-14),div:30*mRand(.75,1.25),op:op||0,ang:Math.random()*Math.PI,alive:true}}
+function mReset(){SM.t=0;SM.B=[];SM.N=[];SM.hist=[];SM.eaten=0;SM.lysed=0;SM.status="";SM.fx=[];SM.acc=0;SM.histT=0;SM.run=false;
+  for(let i=0;i<SM.dose;i++){const a=Math.random()*TAU,d=Math.sqrt(Math.random())*55;const b=mNewB(240+Math.cos(a)*d*1.3,150+Math.sin(a)*d,0);b.div=mRand(2,30);SM.B.push(b)}
+  mRecord();$("#mRun").textContent="Run";mUI()}
+function liveN(){let n=0;for(const x of SM.N)if(!x.dead)n++;return n}
+function mRecord(){SM.hist.push([SM.t,SM.B.length,liveN()])}
+function attach(b){if(SM.cap&&!SM.ab)return SM.comp?.04:.03;if(SM.ab||b.op>.5)return 1.2;return .45}
+function mStep(dt){if(SM.status)return;SM.t+=dt;const t=SM.t;
+  if(SM.comp){for(const b of SM.B){b.op=Math.min(1,b.op+dt*(SM.cap?.02:.12))}}
+  if(SM.comp&&SM.gram==="neg"){const hz=(SM.cap?.006:.02)*(SM.ab?1.5:1)*dt;for(const b of SM.B){if(b.alive&&Math.random()<hz){b.alive=false;SM.lysed++;SM.fx.push({x:b.x,y:b.y,t0:t,k:"lys"})}}}
+  const born=[];for(const b of SM.B){if(!b.alive)continue;b.div-=dt;if(b.div<=0){b.div=30*mRand(.8,1.2);if(SM.B.length+born.length<MAXB){const a=Math.random()*TAU;born.push(mNewB(b.x+Math.cos(a)*9,b.y+Math.sin(a)*9,b.op*.5));b.op*=.5}}}
+  if(t>15&&liveN()<NCAP[SM.nlev]){SM.acc+=NRATE[SM.nlev]*(1+Math.min(SM.B.length,200)/40)*(SM.comp?1.8:1)*dt;while(SM.acc>=1){SM.acc-=1;if(liveN()<NCAP[SM.nlev])SM.N.push({x:mRand(TX+20,TX+TW-20),y:VY+14,busy:0,eaten:0,tgt:null,rt:0,dead:false,seed:Math.random()*9})}}
+  for(const n of SM.N){if(n.dead)continue;if(n.busy>0){n.busy-=dt;continue}
+    n.rt-=dt;if(!n.tgt||!n.tgt.alive||n.rt<=0){n.rt=1;let best=null,bd=1e9;for(const b of SM.B){if(!b.alive)continue;const d=(b.x-n.x)*(b.x-n.x)+(b.y-n.y)*(b.y-n.y);if(d<bd){bd=d;best=b}}n.tgt=best}
+    const b=n.tgt;if(!b){n.y=Math.max(TY+20,n.y-dt*4);continue}
+    const dx=b.x-n.x,dy=b.y-n.y,d=Math.hypot(dx,dy);
+    if(d>13){const v=Math.min(d-12,10*dt);n.x+=dx/d*v;n.y+=dy/d*v}
+    else if(Math.random()<attach(b)*dt){b.alive=false;SM.eaten++;n.eaten++;n.busy=3;SM.fx.push({x:b.x,y:b.y,t0:t,k:"eat"});if(n.eaten>=12){n.dead=true;n.deadT=t}}}
+  SM.B=SM.B.filter(b=>b.alive).concat(born);
+  SM.fx=SM.fx.filter(f=>t-f.t0<8);
+  if(t-SM.histT>=2){SM.histT=t;mRecord()}
+  if(SM.lysed>=20)mMark(3);
+  if(SM.B.length===0){SM.status="cleared";mRecord();mEnd()}else if(SM.B.length>=OVER){SM.status="over";mRecord();mEnd()}else if(t>=TMAX){SM.status="time";mRecord();mEnd()}}
+function mMark(i){if(!mChalDone[i]){mChalDone[i]=1;store.set("sim-chal",mChalDone);mChalUI()}}
+function mEnd(){SM.run=false;$("#mRun").textContent="Run";
+  if(SM.status==="cleared"){if(SM.comp&&SM.nlev===1&&!SM.cap)mMark(0);if(SM.cap&&SM.ab)mMark(2)}
+  if(SM.status==="over"){if(SM.cap&&!SM.ab)mMark(1);if(SM.nlev===0&&!SM.cap)mMark(4)}
+  mUI()}
+function mTick(dtReal){if(!SM.run)return;let simDt=dtReal*SM.speed;while(simDt>1e-9&&!SM.status){const d=Math.min(.25,simDt);mStep(d);simDt-=d}}
+function mChalUI(){chalList("#mChal",M_CHAL,mChalDone);$("#mChalStars").innerHTML=chalStars(mChalDone.reduce((a,b)=>a+b,0),5)}
+function mStatusText(){const n=liveN();
+  if(SM.status==="cleared")return [`<b>Cleared in ${Math.round(SM.t)} minutes.</b> Neutrophils ate ${SM.eaten} bacteria${SM.lysed?` and complement lysed ${SM.lysed}`:""}.`+(SM.cap&&SM.ab?" Antibodies stuck to the capsule and gave neutrophils a grip.":""),"good"];
+  if(SM.status==="over")return [`<b>Overwhelmed.</b> Bacteria multiplied faster than neutrophils could eat them. In a patient, the infection would spread.`+(SM.cap&&!SM.ab?" The capsule made the bacteria too slippery to grab.":SM.nlev===0?" With so few neutrophils, there were not enough phagocytes.":""),"bad"];
+  if(SM.status==="time")return ["<b>Still fighting after 6 hours.</b> A long standoff like this can turn into chronic inflammation.","warn"];
+  if(!SM.run&&SM.t===0)return ["Press <b>Run</b>. For the first 15 minutes, bacteria multiply while the alarm signals (cytokines"+(SM.comp?", C5a":"")+") go out.",""];
+  if(SM.t<15)return ["Bacteria are multiplying. The alarm is going out to the blood vessel.",""];
+  return [`${n} neutrophils are hunting.`+(SM.cap&&!SM.ab?" The capsule makes the bacteria hard to grab.":SM.comp&&!SM.cap?" C3b coats the bacteria, so they are grabbed fast.":"")+(SM.comp&&SM.gram==="neg"?" Complement is also punching holes in the Gram-negative rods.":""),SM.cap&&!SM.ab?"warn":""]}
+function mUI(){const rows=[["Time",Math.round(SM.t)+" min"],["Bacteria",String(SM.B.length)],["Neutrophils in tissue",String(liveN())],["Bacteria eaten",String(SM.eaten)],["Lysed by complement (MAC)",String(SM.lysed)],["Blood neutrophils",NNAME[SM.nlev]]];
+  $("#mRead").innerHTML=rows.map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td></tr>`).join("");
+  const [s,c]=mStatusText();const st=$("#mStatus");st.className="status"+(c?" "+c:"");st.innerHTML=s;$("#mClock").textContent=Math.round(SM.t)+" min"}
+function mCfg(){mReset()}
+$("#mRun").onclick=()=>{if(SM.status){mReset()}SM.run=!SM.run;$("#mRun").textContent=SM.run?"Pause":"Run";mUI()};
+$("#mReset").onclick=mReset;
+$("#mSpeed").onchange=e=>SM.speed=+e.target.value;
+$("#mGpos").onclick=()=>{SM.gram="pos";pressSet(["#mGpos","#mGneg"],"#mGpos");mCfg()};
+$("#mGneg").onclick=()=>{SM.gram="neg";pressSet(["#mGpos","#mGneg"],"#mGneg");mCfg()};
+$("#mDose").oninput=e=>{SM.dose=+e.target.value;$("#mDoseOut").textContent=SM.dose;mCfg()};
+$("#mCap").onclick=()=>{SM.cap=!SM.cap;toggleP("#mCap",SM.cap);mCfg()};
+$("#mComp").onclick=()=>{SM.comp=!SM.comp;toggleP("#mComp",SM.comp);mCfg()};
+$("#mAb").onclick=()=>{SM.ab=!SM.ab;toggleP("#mAb",SM.ab);mCfg()};
+[["#mNlow",0],["#mNnorm",1],["#mNhigh",2]].forEach(([id,l])=>$(id).onclick=()=>{SM.nlev=l;pressSet(["#mNlow","#mNnorm","#mNhigh"],id);mCfg()});
+function drawBact(b,T){const op=SM.comp&&b.op>.5&&!SM.cap;
+  if(SM.gram==="pos"){coccus(b.x,b.y,5,{col:mix(C.gpos,C.panel,.55),edge:C.gpos,cap:SM.cap})}
+  else rod(b.x,b.y,13,6,b.ang,{col:mix(C.gneg,C.panel,.55),edge:C.gneg,cap:SM.cap,lw:1.3});
+  if(op){diamond(b.x-6,b.y-6,2.4,C.c3b);diamond(b.x+6,b.y+5,2.4,C.c3b)}
+  if(SM.ab){const r=SM.cap?9:7;circ(b.x,b.y,r,null,C.ab,1.2)}}
+function drawSim(now){use(S1);const T=now/1000;
+  tissueBGL(TX,TY,TW,TH);
+  fillPoly([[234,TY],[248,TY],[243,96],[240,96]],C.fib,mix(C.fib,C.ink,.4),1.2);
+  vesselH(TX,VY,TW,TH-(VY-TY),{});rbcFlowL(TX,VY,TW,TH-(VY-TY),T);
+  if(SM.comp&&SM.t>8){for(let k=0;k<10;k++){const p=P(T*.3+k/10,1);cytok(TX+30+k*42,lerp(200,VY,p),3.2,C.cyt,.7*(1-p))}}
+  for(const n of SM.N)if(n.dead){const age=SM.t-n.deadT;circ(n.x,n.y,9,hexA(C.buffy,Math.max(.25,1-age/40)),hexA(C["cyto-edge"],.5),1)}
+  for(const b of SM.B)drawBact(b,T);
+  for(const f of SM.fx){const a=(SM.t-f.t0)/8;if(f.k==="lys"){for(let k=0;k<5;k++){const an=k/5*TAU;ctx.beginPath();ctx.arc(f.x+Math.cos(an)*a*8,f.y+Math.sin(an)*a*8,4,an-.6,an+.6);ctx.strokeStyle=hexA(C.mac,1-a);ctx.lineWidth=2;ctx.stroke()}}else circ(f.x,f.y,6*(1-a),hexA(C.glow,.6*(1-a)))}
+  SM.N.forEach((n,i)=>{if(!n.dead)neutro(n.x,n.y,11,{blob:.14,t:T,seed:n.seed})});
+  if(SM.status){const s={cleared:["Infection cleared",C.good],over:["Overwhelmed: infection spreading",C.bad],time:["Still fighting after 6 hours",C.warn]}[SM.status];label(TX+TW/2,TY+28,s[0],{size:15,weight:700,align:"center",border:s[1]})}
+  else if(!SM.run&&SM.t===0)label(TX+TW/2,TY+28,"Press Run to start the infection",{size:14,weight:700,align:"center",border:C.accent});
+  txt(TX+10,VY-8,"BLOOD VESSEL",{size:11,mono:true,weight:700,color:C["ink-soft"]});
+  const gx=520,gw=262;
+  panelBox(482,10,308,420,{fill:hexA(C.panel,.92)});
+  const xt=[[0,"0"],[60,"1 h"],[120,"2 h"],[180,"3 h"],[240,"4 h"],[300,"5 h"],[360,"6 h"]];
+  const tmax=Math.max(180,Math.ceil(SM.t/60)*60);const xts=xt.filter(v=>v[0]<=tmax);
+  graphAxes(gx,48,gw,160,{title:"Bacteria in tissue",y0:0,y1:320,x0:0,x1:tmax,yt:[[0,"0"],[100,"100"],[200,"200"],[300,"300"]],xt:xts});
+  const Y1=v=>48+160-v/320*160,X=v=>gx+v/tmax*gw;line(gx,Y1(OVER),gx+gw,Y1(OVER),C.bad,1.2,[4,4]);txt(gx+gw,Y1(OVER)-8,"overwhelmed",{size:11.5,align:"right",color:C.bad});
+  poly(SM.hist.map(h=>[X(h[0]),Y1(h[1])]).concat([[X(SM.t),Y1(SM.B.length)]]),C["bact-edge"],2.6);
+  graphAxes(gx,270,gw,130,{title:"Neutrophils in tissue",y0:0,y1:40,x0:0,x1:tmax,yt:[[0,"0"],[20,"20"],[40,"40"]],xt:xts});
+  const Y2=v=>270+130-v/40*130;poly(SM.hist.map(h=>[X(h[0]),Y2(h[2])]).concat([[X(SM.t),Y2(liveN())]]),C["cyto-edge"],2.6);
+  line(X(15),270,X(15),400,C.rule,1,[3,3]);txt(X(15)+4,282,"alarm",{size:11.5,color:C["ink-soft"]})}
+function tissueBGL(x,y,w,h){rr(x,y,w,h,6);ctx.fillStyle=C.tissue;ctx.fill();ctx.save();rr(x,y,w,h,6);ctx.clip();for(let k=0;k<70;k++){ell(x+rnd(k*1.7)*w,y+rnd(k*2.9+3)*h,14,9,rnd(k)*3,null,hexA(C["tissue-edge"],.35),1)}ctx.restore()}
+function rbcFlowL(x,y,w,h,T){ctx.save();rr(x,y+8,w,h-16,4);ctx.clip();for(let k=0;k<12;k++){const X=x+((rnd(k)*w+T*60*(0.8+rnd(k*3)*.4))%(w+30))-15,Y=y+h/2+(rnd(k*7+1)-.5)*(h-22);rbc(X,Y,6,{edge:k%3===0,rot:rnd(k)*2})}ctx.restore()}
+let simA11yLast="";
+function simA11y(){const b=SM.B.length,n=liveN();const st=SM.status==="cleared"?"infection cleared":SM.status==="over"?"overwhelmed":SM.run?"running":"paused";
+  const lab=`Infection simulator at ${Math.round(SM.t/10)*10} minutes, ${st}: about ${Math.round(b/10)*10} bacteria and ${n} neutrophils in the tissue.`;
+  const d=`Left: a patch of pink tissue with a splinter at the top and a red blood vessel along the bottom. ${SM.gram==="pos"?"Purple round Gram-positive":"Pink rod-shaped Gram-negative"} bacteria${SM.cap?" wrapped in pale green capsules":""} cluster near the splinter${SM.comp&&!SM.cap?", dotted with gold C3b tags":""}${SM.ab?", each ringed in blue antibodies":""}. Pale pink neutrophils come out of the vessel and crawl to the bacteria to swallow them. Right: two line graphs over time, bacteria count on top with a dashed 'overwhelmed' line at 300, and neutrophil count below. Now: ${b} bacteria, ${n} neutrophils, ${SM.eaten} eaten, ${SM.lysed} lysed by complement.`;
+  return [lab,d]}
+
+/* ================= PART 2: fever thermostat ================= */
+const S2=makeStage("cvFev",800,440);
+const FS={pyro:0,drugUntil:-1,drugs:[],hot:false,run:false,speed:.25,t:0,IL:0,SP:37,Tb:37,hist:[],histT:0,phase:"normal",seen:{},drugHot:false,done:false};
+const fChalDone=store.get("fev-chal")||[0,0,0,0];
+const F_CHAL=["Start an infection and catch the <b>chill phase</b>: shivering while the body is below the set point.","Reach a <b>plateau</b> with a body temperature of 39 °C or higher.","Bring on the <b>crisis</b>: lower the set point (clear the infection or give an antipyretic) and watch sweating start.","Show that <b>heat stress is not a fever</b>: in a hot room with no infection, give an antipyretic while the body is above 38.5 °C."];
+const PNAME=["none","mild","severe"];
+function fReset(){Object.assign(FS,{t:0,IL:0,dl:0,SP:37,Tb:37,hist:[[0,37,37]],histT:0,drugUntil:-1,drugs:[],run:false,phase:"normal",drugHot:false,done:false});$("#fRun").textContent="Run";fUI()}
+function fPhase(){const d=FS.SP-FS.Tb;if(d>.3)return "chill";if(d<-.3)return FS.hot?"hyper":"crisis";return FS.SP>37.6?"plateau":"normal"}
+function fStep(dt){if(FS.done)return;FS.t+=dt;const tgt=[0,1,2.2][FS.pyro];FS.IL+=(tgt-FS.IL)*dt/(tgt>FS.IL?.5:.8);
+  const drug=FS.t<FS.drugUntil;FS.dl+=((drug?1:0)-FS.dl)*Math.min(1,dt/.4);const pge=FS.IL*(1-.8*FS.dl);FS.SP=37+1.2*pge;
+  let drive=(FS.SP-FS.Tb)/.6;drive=clamp(drive,-(FS.hot?1:3),3);if(FS.hot)drive+=1.5;FS.Tb=Math.min(41.8,FS.Tb+drive*dt);
+  if(FS.t-FS.histT>=.1){FS.histT=FS.t;FS.hist.push([FS.t,FS.SP,FS.Tb])}
+  const ph=fPhase();FS.phase=ph;
+  if(ph==="chill"&&FS.pyro>0)fMark(0);if(ph==="plateau"&&FS.Tb>=38.9)fMark(1);if(ph==="crisis"&&FS.SP<FS.Tb-.3)fMark(2);
+  if(FS.t>=24){FS.done=true;FS.run=false;$("#fRun").textContent="Run"}}
+function fMark(i){if(!fChalDone[i]){fChalDone[i]=1;store.set("fev-chal",fChalDone);fChalUI()}}
+function fTick(dtReal){if(!FS.run)return;let s=dtReal*FS.speed;while(s>1e-9&&!FS.done){const d=Math.min(.02,s);fStep(d);s-=d}}
+function fChalUI(){chalList("#fChal",F_CHAL,fChalDone);$("#fChalStars").innerHTML=chalStars(fChalDone.reduce((a,b)=>a+b,0),4)}
+const toF=c=>(c*9/5+32).toFixed(1);
+function fStatus(){const ph=FS.phase;const drug=FS.t<FS.drugUntil;
+  if(FS.done)return ["<b>The day is over.</b> Press Reset to try again.",""];
+  if(!FS.run&&FS.t===0)return ["Choose an infection level or the hot room, then press <b>Run</b>.",""];
+  const m={chill:["<b>Chill phase.</b> Pyrogens raised the set point, so the body feels too cold. It shivers and narrows skin vessels to make and keep heat.","warn"],
+    plateau:["<b>Plateau.</b> Body temperature has reached the raised set point and stays there"+(FS.Tb>=38?": this is a fever.":"."),"warn"],
+    crisis:["<b>Crisis.</b> The set point dropped"+(drug?" (the antipyretic blocks prostaglandin E2)":" (fewer pyrogens)")+". The body is now too warm, so it sweats and flushes to cool down.","good"],
+    hyper:["<b>Hyperthermia, not fever.</b> The set point is "+FS.SP.toFixed(1)+" °C, but heat from the room is more than sweating can remove. An antipyretic cannot help, because the set point is not raised. Cooling is the fix.","bad"],
+    normal:["<b>Normal.</b> Body temperature matches a set point of about 37 °C.","good"]}[ph];
+  if(FS.Tb>=40.5)return ["<b>Danger:</b> body temperature is above 40.5 °C (105 °F). This can damage tissues. "+m[0].replace(/<b>|<\/b>/g,""),"bad"];
+  return m}
+function fUI(){const drug=FS.t<FS.drugUntil;const ph={chill:"Chill (shivering)",plateau:"Plateau",crisis:"Crisis (sweating)",hyper:"Hyperthermia",normal:"Normal"}[FS.phase];
+  const rows=[["Time",fmtH(FS.t)],["Pyrogens",PNAME[FS.pyro]],["Set point",FS.SP.toFixed(1)+" °C"],["Body temperature",FS.Tb.toFixed(1)+" °C ("+toF(FS.Tb)+" °F)"],["Phase",ph],["Antipyretic",drug?"working ("+fmtH(FS.drugUntil-FS.t)+" left)":"none"],["Microbes",FS.Tb>=38.5?"many grow more slowly":"grow normally"]];
+  $("#fRead").innerHTML=rows.map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td></tr>`).join("");
+  const [s,c]=fStatus();const st=$("#fStatus");st.className="status"+(c?" "+c:"");st.innerHTML=s;$("#fClock").textContent=fmtH(FS.t)}
+function fmtH(h){const m=Math.round(h*60);return Math.floor(m/60)+":"+String(m%60).padStart(2,"0")+" h"}
+$("#fRun").onclick=()=>{if(FS.done)fReset();FS.run=!FS.run;$("#fRun").textContent=FS.run?"Pause":"Run";fUI()};
+$("#fReset").onclick=fReset;$("#fSpeed").onchange=e=>FS.speed=+e.target.value;
+[["#fP0",0],["#fP1",1],["#fP2",2]].forEach(([id,l])=>$(id).onclick=()=>{FS.pyro=l;pressSet(["#fP0","#fP1","#fP2"],id);if(FS.t===0){fReset()}fUI()});
+$("#fDrug").onclick=()=>{FS.drugUntil=FS.t+4;FS.drugs.push(FS.t);if(FS.hot&&FS.pyro===0&&FS.Tb>38.5){FS.drugHot=true;fMark(3)}if(FS.t===0&&!FS.run){FS.run=true;$("#fRun").textContent="Pause"}fUI()};
+$("#fHot").onclick=()=>{FS.hot=!FS.hot;toggleP("#fHot",FS.hot);fUI()};
+function bars(x,y,lab,v,col,note){txt(x,y,lab,{size:12,weight:600});rr(x,y+8,110,9,4);ctx.fillStyle=C.sunk;ctx.fill();rr(x,y+8,110*clamp(v,0,1),9,4);ctx.fillStyle=col;ctx.fill();if(note)txt(x+116,y+12,note,{size:11.5,color:C["ink-soft"]})}
+function drawFev(now){use(S2);const T=now/1000;const ph=FS.phase,drug=FS.t<FS.drugUntil;
+  panelBox(10,10,310,420,{fill:hexA(C.panel,.92)});
+  gauge(84,92,52,FS.SP,36,42,{zones:[[36,37.5,C.good],[38,40.5,C.warn],[40.5,42,C.bad]],title:"SET POINT",val:FS.SP.toFixed(1)+" °C"});
+  txt(84,28,"HYPOTHALAMUS",{size:11.5,mono:true,weight:700,align:"center",color:C["ink-soft"]});
+  bars(160,40,"Pyrogens",FS.pyro/2,C.pamp,PNAME[FS.pyro]);bars(160,78,"IL-1, IL-6, TNF",FS.IL/2.2,C.cyt);bars(160,116,"Prostaglandin E2",FS.IL*(1-.8*FS.dl)/2.2,C.act6,drug?"blocked":"");
+    const shiver=ph==="chill"?Math.sin(T*45)*2.2:0;const skin=ph==="chill"?mix(C.body,C.cold,.25):(ph==="crisis"||ph==="hyper")?mix(C.body,C.rash,.35):C.body;
+  ctx.save();ctx.translate(110,400);ctx.scale(1,1+.012*Math.sin(T*2.4));ctx.translate(-110,-400);bodyFig(110+shiver,232,.5,{col:skin});ctx.restore();for(let k=0;k<3;k++){const p=P(T*.5+k/3,1);if(FS.IL>.05)cytok(lerp(160,270,p),150+k*6,3.5,C.cyt,FS.IL/2.2*(1-p))}
+  if(ph==="chill"){for(let k=0;k<4;k++){ctx.beginPath();for(let i=0;i<=10;i++){const xx=(k<2?52:168)-(k%2)*8+Math.sin(i+T*24)*2.5,yy=262+(k%2)*24+i*3.4;i?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy)}ctx.strokeStyle=C.cold;ctx.lineWidth=1.8;ctx.stroke()}label(110,416,"Shivering",{size:12.5,weight:700,align:"center",border:C.cold})}
+  if(ph==="crisis"||ph==="hyper"){for(let k=0;k<6;k++){const p=P(T*.7+k/6,1);drop(84+(k%3)*24+(k>2?6:0),248+(k>2?40:0)+p*34,4.5,hexA(C.fluid,1-p))}label(110,416,ph==="hyper"?"Sweating, but still heating":"Sweating, flushed",{size:12.5,weight:700,align:"center",border:C.rash})}
+  if(FS.hot){heatWaves(40,214,26,T,C.heat,1);heatWaves(186,214,26,T+.5,C.heat,1);txt(40,170,"hot room",{size:11.5,align:"center",color:C["warn-ink"]})}
+  thermo(268,214,150,(FS.Tb-35)/7,{lab:FS.Tb.toFixed(1)+" °C"});
+  const gx=380,gw=392,gy=46,gh=330;panelBox(330,10,460,420,{fill:hexA(C.panel,.92)});
+  const X=h=>gx+h/24*gw,Y=v=>gy+gh-(v-36)/6*gh;
+  let run=null;const H_=FS.hist;for(let i=0;i<H_.length;i++){const r_=H_[i];const d=r_[1]-r_[2];const k=d>.3?1:d<-.3?-1:0;if(run&&(k!==run[0]||i===H_.length-1)){ctx.fillStyle=run[0]>0?hexA(C.cold,.15):hexA(C.rash,.15);ctx.fillRect(X(run[1]),gy,Math.max(1,X(r_[0])-X(run[1])),gh);run=null}if(k&&!run)run=[k,r_[0]]}
+  graphAxes(gx,gy,gw,gh,{title:"Temperature (°C) over 24 hours",y0:36,y1:42,x0:0,x1:24,yt:[[36,"36"],[37,"37"],[38,"38"],[39,"39"],[40,"40"],[41,"41"],[42,"42"]],xt:[[0,"0 h"],[6,"6"],[12,"12"],[18,"18"],[24,"24 h"]]});
+  line(gx,Y(38),gx+gw,Y(38),C["ink-soft"],1.2,[3,4]);txt(gx+gw-4,Y(38)-8,"38 °C fever",{size:11.5,align:"right",color:C["ink-soft"]});
+  line(gx,Y(40.5),gx+gw,Y(40.5),C.bad,1.2,[3,4]);txt(gx+gw-4,Y(40.5)-8,"40.5 °C danger",{size:11.5,align:"right",color:C.bad});
+  poly(H_.map(r_=>[X(r_[0]),Y(r_[1])]).concat([[X(FS.t),Y(FS.SP)]]),C.warn,2.4,[8,5]);
+  poly(H_.map(r_=>[X(r_[0]),Y(r_[2])]).concat([[X(FS.t),Y(FS.Tb)]]),C.heat,3);circ(X(FS.t),Y(FS.Tb),5.5,C.heat,C.panel,2);
+  FS.drugs.forEach(d=>{pillIcon(X(d),gy+gh-10,6,1)});
+  const nm={chill:"Chill phase",plateau:"Plateau",crisis:"Crisis",hyper:"Hyperthermia",normal:"Normal"}[ph];
+  label(gx+gw/2,gy+gh+44,nm+": set point "+FS.SP.toFixed(1)+" °C, body "+FS.Tb.toFixed(1)+" °C",{size:13,weight:700,align:"center",border:ph==="chill"?C.cold:ph==="normal"?C.good:ph==="plateau"?C.warn:C.rash})}
+function fevA11y(){const ph={chill:"chill phase, shivering",plateau:"plateau",crisis:"crisis, sweating",hyper:"hyperthermia from heat stress",normal:"normal"}[FS.phase];
+  const lab=`Fever thermostat at ${fmtH(FS.t)}: set point ${FS.SP.toFixed(1)} degrees, body ${FS.Tb.toFixed(1)} degrees Celsius, ${ph}.`;
+  const d=`Left: a dial labelled Set point shows the hypothalamus setting, three bars show pyrogen, cytokine and prostaglandin E2 levels, a person figure ${FS.phase==="chill"?"shivers with blue wavy lines":FS.phase==="crisis"||FS.phase==="hyper"?"is flushed with blue sweat drops":"stands calmly"}${FS.hot?" with red heat waves from a hot room":""}, and a thermometer reads ${FS.Tb.toFixed(1)} degrees. Right: a graph from 36 to 42 degrees over 24 hours with a dashed orange set-point line and a solid red body-temperature line; blue shading marks times the body was below the set point and pink shading marks times it was above.`;
+  return [lab,d]}
+
+/* ================= PART 3: blood smear lab ================= */
+const CELLN={N:"Neutrophil",L:"Lymphocyte",M:"Monocyte",E:"Eosinophil",B:"Basophil"};
+const CELLF={N:"3 to 5 lobes and pale granules",L:"small, with a round nucleus that fills most of the cell",M:"the biggest, with a kidney-shaped nucleus and grey-blue cytoplasm",E:"2 lobes and large orange-red granules",B:"dark purple granules that hide the nucleus"};
+function idQ(k,extraHint){const all=["N","L","M","E","B"].filter(x=>x!==k);const pick=[all[0],all[1],all[2]];
+  return {q:"What type of white cell is inside the black box?",hint:extraHint||"Look at the nucleus shape first, then the colour of the granules.",opts:[[CELLN[k],1,`Yes. A ${CELLN[k].toLowerCase()} has ${CELLF[k]}.`]].concat(pick.map(x=>[CELLN[x],0,`A ${CELLN[x].toLowerCase()} has ${CELLF[x]}. This cell has ${CELLF[k]}, so it is a ${CELLN[k].toLowerCase()}.`]))}}
+const CASES=[
+{name:"Patient 1",title:"Maria, 34: cough and high fever",cell:"N",wbc:16800,diff:[84,10,4,1,1],temp:39.1,hr:108,
+ story:`<p>Maria has had a cough with thick yellow sputum and chills for two days. Her chest X-ray shows a patch of <b>pneumonia</b> in one lung.</p><p>Her blood count is shown on the right. The smear shows many cells like the one in the box.</p>`,
+ qs:[idQ("N"),
+  {q:"What does her blood count most suggest?",hint:"Which cell type is far above its normal band, and which kind of infection usually causes that?",opts:[
+   ["An acute bacterial infection: high white count with neutrophilia",1,"Right. Neutrophils are the first responders to bacteria, and the bone marrow releases many more."],
+   ["A parasitic worm infection",0,"Worms raise eosinophils. Maria's eosinophils are normal; her neutrophils are high."],
+   ["A typical viral infection",0,"Many viral infections raise lymphocytes. Maria's lymphocytes are low and her neutrophils are high."],
+   ["A normal result",0,"Her total count (16,800) and neutrophils (84%) are both above normal."]]},
+  {q:"Her neutrophils must leave the blood to reach her lung tissue. Which step lets them squeeze between the cells of the vessel wall?",hint:"It is the step after rolling and adhesion.",opts:[
+   ["Diapedesis",1,"Yes. In diapedesis, neutrophils squeeze between endothelial cells into the tissue."],
+   ["Opsonization",0,"Opsonization coats microbes so they are easier to grab. It does not move neutrophils out of vessels."],
+   ["Margination",0,"Margination is moving to the vessel wall. Squeezing through the wall is diapedesis."],
+   ["Exocytosis",0,"Exocytosis is the last step of phagocytosis: pushing debris out of the cell."]]}]},
+{name:"Patient 2",title:"Daniel, 41: belly pain after a trip",cell:"E",wbc:9800,diff:[52,28,6,13,1],temp:37,hr:78,
+ story:`<p>Daniel returned from a long trip with belly cramps and an itchy rash. A stool test finds the eggs of a <b>parasitic worm</b>.</p><p>His total white count is normal, but one cell type stands out.</p>`,
+ qs:[idQ("E","Look at the colour of the granules: pale, orange-red, or dark purple?"),
+  {q:"What does his differential count show?",hint:"Compare each dot with its shaded normal band.",opts:[
+   ["Eosinophilia: eosinophils are high, which fits a worm infection or allergy",1,"Yes. 13% is well above the 1 to 4% range. Eosinophils rise with helminths and allergies."],
+   ["Neutrophilia from a bacterial infection",0,"His neutrophils are in the normal range. It is the eosinophils that are high."],
+   ["Neutropenia",0,"Neutropenia means too few neutrophils. His neutrophils are normal."],
+   ["Lymphocytosis from a viral infection",0,"His lymphocytes are within the normal range."]]},
+  {q:"Why can't neutrophils simply eat the worms?",hint:"Compare the size of a worm with the size of a white cell.",opts:[
+   ["Worms are far too large to engulf, so eosinophils attack them from outside by releasing toxic granules",1,"Right. Phagocytosis only works on things smaller than the phagocyte."],
+   ["Worms have capsules that block C3b",0,"Capsules are a bacterial trick. The real problem is size."],
+   ["Neutrophils cannot leave the blood",0,"Neutrophils leave the blood easily. Worms are simply too big to swallow."],
+   ["Worms are not foreign, so the body ignores them",0,"Worms are foreign, and the body does respond, mainly with eosinophils."]]}]},
+{name:"Patient 3",title:"Aisha, 22: sore throat and tired for a week",cell:"L",wbc:11500,diff:[35,55,8,1,1],temp:38.2,hr:90,
+ story:`<p>Aisha has a sore throat, swollen neck glands and has felt very tired for a week. Her doctor suspects a <b>viral infection</b>.</p><p>Many of the white cells on her smear look like the one in the box.</p>`,
+ qs:[idQ("L","Is the nucleus round and taking up most of the cell?"),
+  {q:"What does her differential count most suggest?",hint:"Which dot is above its band?",opts:[
+   ["Lymphocytosis, which many viral infections cause",1,"Yes. 55% lymphocytes is above the 20 to 40% range. Viral infections often raise lymphocytes."],
+   ["Neutrophilia from a bacterial infection",0,"Her neutrophils are low, not high. Lymphocytes are high."],
+   ["Eosinophilia from worms",0,"Her eosinophils are normal."],
+   ["Complement deficiency",0,"A differential count does not measure complement. It shows high lymphocytes."]]},
+  {q:"Her infected throat cells release a signal that protects nearby cells from the virus. What is it?",hint:"It puts neighbouring cells into an antiviral state.",opts:[
+   ["Interferon alpha and beta",1,"Right. Infected cells release interferons; neighbours switch on antiviral proteins."],
+   ["Histamine",0,"Histamine widens and loosens blood vessels. It does not protect cells from viruses."],
+   ["C3b",0,"C3b is a complement opsonin that tags microbes for phagocytes."],
+   ["Lysozyme",0,"Lysozyme breaks bacterial cell walls. Viruses have no peptidoglycan."]]}]},
+{name:"Patient 4",title:"Robert, 58: fever during chemotherapy",cell:"M",wbc:1400,diff:[18,62,15,4,1],temp:38.6,hr:112,
+ story:`<p>Robert is having <b>chemotherapy</b> for cancer. Chemotherapy slows cell division in the bone marrow. Tonight he has a fever and chills.</p><p>His total white count is very low. The cell in the box is one of the few he has.</p>`,
+ qs:[idQ("M","Is this cell bigger than the others, with a kidney-shaped nucleus?"),
+  {q:"Why is a fever an emergency for Robert?",hint:"Work out his actual number of neutrophils: 18% of 1,400.",opts:[
+   ["He has very few neutrophils (neutropenia), so bacteria can spread quickly with few phagocytes to stop them",1,"Yes. 18% of 1,400 is only about 250 neutrophils per µL. Patients with neutropenia and fever need urgent care."],
+   ["His fever will damage the chemotherapy drugs",0,"The danger is infection with too few neutrophils, not damage to the drugs."],
+   ["His lymphocyte percentage is high, which causes fever",0,"The lymphocyte percentage looks high only because neutrophils are so few. The problem is neutropenia."],
+   ["Fever is always dangerous in adults",0,"Many fevers are safe. Robert's is urgent because he has neutropenia."]]},
+  {q:"When Robert's monocytes leave the blood and enter tissue, what do they become?",hint:"These are the large, long-lived tissue eaters.",opts:[
+   ["Macrophages",1,"Right. Monocytes mature into macrophages in tissues."],
+   ["Neutrophils",0,"Neutrophils come from their own line in the marrow. Monocytes become macrophages."],
+   ["Mast cells",0,"Mast cells are a separate tissue cell type. Monocytes become macrophages."],
+   ["NK cells",0,"NK cells are lymphocytes. Monocytes become macrophages."]]}]},
+{name:"Patient 5",title:"Grace, 27: repeated skin abscesses",cell:"N",special:"ate",wbc:8900,diff:[62,28,6,3,1],temp:37.8,hr:84,
+ story:`<p>Since childhood, Grace has had repeated abscesses and infections with bacteria such as <i>Staphylococcus aureus</i>. Her blood counts are normal.</p><p>In the box is one of her neutrophils with bacteria still alive inside it, hours after it swallowed them.</p>`,
+ qs:[idQ("N","Ignore the small rods inside it. Look at the lobed nucleus."),
+  {q:"Her neutrophils swallow bacteria normally but cannot kill them. Which step of phagocytosis fails?",hint:"The bacteria are already inside the cell.",opts:[
+   ["Killing inside the phagolysosome",1,"Yes. Engulfment works, but the bacteria survive inside, so killing is the broken step."],
+   ["Chemotaxis",0,"Her neutrophils reach the bacteria and swallow them, so chemotaxis works."],
+   ["Attachment",0,"They attach and engulf normally. Killing fails."],
+   ["Diapedesis",0,"Her neutrophils reach the tissue; the problem comes after engulfment."]]},
+  {q:"Tests show her neutrophils cannot make an oxidative burst. Which chemicals are missing?",hint:"The burst makes toxic forms of oxygen and a bleach-like chemical.",opts:[
+   ["Superoxide, hydrogen peroxide and hypochlorite",1,"Right. This is chronic granulomatous disease: without these, many bacteria survive inside phagocytes."],
+   ["Histamine and prostaglandins",0,"These drive inflammation. The oxidative burst makes toxic oxygen chemicals."],
+   ["C3a and C5a",0,"These are complement pieces that trigger inflammation."],
+   ["Interferons",0,"Interferons fight viruses by warning neighbouring cells."]]}]},
+{name:"Patient 6",title:"Kevin, 19: a second bout of meningitis",cell:"B",wbc:14200,diff:[80,13,5,1,1],temp:39.4,hr:116,
+ story:`<p>Kevin has meningitis caused by <i>Neisseria meningitidis</i>, a <b>Gram-negative</b> diplococcus, for the second time in three years. Tests show he cannot make complement protein <b>C6</b>.</p><p>The cell in the box is a rarer type; practise spotting it.</p>`,
+ qs:[idQ("B","Can you see the nucleus clearly, or is it hidden by dark granules?"),
+  {q:"Without C6, which job of complement is lost?",hint:"C6 is one of the late pieces, C5b to C9.",opts:[
+   ["Building the membrane attack complex, so complement cannot burst bacteria",1,"Yes. C5b to C9 form the MAC. Without C6 the pore cannot form."],
+   ["Opsonization with C3b",0,"C3b is made earlier, so opsonization still works."],
+   ["Making C3a and C5a for inflammation",0,"These come from earlier steps, so they are still made."],
+   ["Starting the classical pathway",0,"The classical pathway starts with C1. C6 acts at the end."]]},
+  {q:"Why are people missing C5 to C9 especially prone to Neisseria infections?",hint:"Think about which bacteria the MAC damages most.",opts:[
+   ["The MAC works best on Gram-negative bacteria such as Neisseria, so losing it removes a key defence",1,"Right. The MAC punches through the Gram-negative outer membrane; thick Gram-positive walls resist it anyway."],
+   ["Neisseria is Gram-positive",0,"Neisseria is Gram-negative, which is exactly why the MAC matters for it."],
+   ["Neisseria only infects people with neutropenia",0,"Kevin's neutrophils are high. His problem is the missing late complement proteins."],
+   ["C6 is needed to make antibodies",0,"Antibodies come from B cells. C6 is part of the MAC."]]}]}];
+let cI=0,cQ=0;const cSolved=store.get("cases")||{};const cTried={};
+function cChips(){const b=$("#cChips");b.innerHTML="";CASES.forEach((c,i)=>{const nq=c.qs.length;const n=[...Array(nq).keys()].filter(q=>cSolved[i+"-"+q]).length;const x=document.createElement("button");x.type="button";x.className="chip"+(n===nq?" done":"");x.setAttribute("aria-pressed",i===cI?"true":"false");x.textContent=(i+1)+(n===nq?" ✓":"");x.setAttribute("aria-label",(i+1)+", "+c.title+(n===nq?", solved":", "+n+" of "+nq+" answered"));x.onclick=()=>{cI=i;cQ=0;cLoad()};b.appendChild(x)})}
+function cLoad(){const c=CASES[cI];$("#cN").textContent=c.name+" of "+CASES.length;$("#cT").textContent=c.title;$("#cStory").innerHTML=c.story;cChips();cQLoad();a11yKey=""}
+function shuffleStable(a,seed){return a.map((x,i)=>[x,rnd(seed*13+i*3.7)]).sort((p,q)=>p[1]-q[1]).map(p=>p[0])}
+function cQLoad(){const c=CASES[cI],q=c.qs[cQ];const nav=$("#cQnav");nav.innerHTML="";c.qs.forEach((x,i)=>{const b=document.createElement("button");b.type="button";b.className="chip"+(cSolved[cI+"-"+i]?" done":"");b.setAttribute("aria-pressed",i===cQ?"true":"false");b.textContent="Q"+(i+1);b.setAttribute("aria-label","Q"+(i+1)+", question "+(i+1)+(cSolved[cI+"-"+i]?", answered":""));b.onclick=()=>{cQ=i;cQLoad()};nav.appendChild(b)});
+  $("#cQ").textContent=q.q;const fb=$("#cFb");fb.className="fb";fb.textContent="";const box=$("#cOpts");box.innerHTML="";const key=cI+"-"+cQ;
+  shuffleStable(q.opts,cI*7+cQ).forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];b.onclick=()=>{box.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));
+    if(o[1]){b.classList.add("right");fb.className="fb show ok";fb.textContent="✓ "+o[2];if(!cSolved[key]){cSolved[key]=cTried[key]?1:2;store.set("cases",cSolved)}cChips();cQnavDone();cScore()}else{cTried[key]=1;b.classList.add("wrong");fb.className="fb show no";fb.textContent="Not quite. "+o[2]}};box.appendChild(b)});
+  $("#cNext").textContent=cQ<c.qs.length-1?"Next question →":cI<CASES.length-1?"Next patient →":"Back to patient 1";cScore()}
+function cQnavDone(){[...$("#cQnav").children].forEach((b,i)=>b.classList.toggle("done",!!cSolved[cI+"-"+i]))}
+function cScore(){const vals=Object.values(cSolved);const tot=CASES.reduce((a,c)=>a+c.qs.length,0);const first=vals.filter(v=>v===2).length;$("#cScore").textContent=vals.length?`Answered ${vals.length} of ${tot} questions, ${first} on the first try.`:"Pick an answer. Every option explains itself."}
+$("#cHint").onclick=()=>{const fb=$("#cFb");fb.className="fb show hint";fb.textContent="Hint: "+CASES[cI].qs[cQ].hint};
+$("#cShow").onclick=()=>{const q=CASES[cI].qs[cQ];const ans=q.opts.find(o=>o[1]);$("#cOpts").querySelectorAll(".opt").forEach(b=>{if(b.textContent===ans[0])b.classList.add("right")});const fb=$("#cFb");fb.className="fb show ok";fb.textContent="Answer: "+ans[0]+". "+ans[2];cTried[cI+"-"+cQ]=1};
+$("#cNext").onclick=()=>{if(cQ<CASES[cI].qs.length-1){cQ++;cQLoad()}else{cI=(cI+1)%CASES.length;cQ=0;cLoad()}};
+const S3=makeStage("cvCase",800,320);
+function smearField(cx,cy,R,seed,center,others,T,o){o=o||{};ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,TAU);ctx.clip();ctx.fillStyle=mix(C.panel,C.rbc,.08);ctx.fillRect(cx-R,cy-R,2*R,2*R);
+  const occ=[[cx,cy,o.cr||40]].concat(others.map(w=>[w[1],w[2],26]));
+  for(let k=0;k<110;k++){const X=cx-R+rnd(k*1.9+seed)*2*R,Y=cy-R+rnd(k*3.3+1+seed)*2*R;if(occ.some(p=>Math.hypot(p[0]-X,p[1]-Y)<p[2]))continue;rbc(X,Y,o.rr||11)}
+  others.forEach(w=>wbcDraw(w[0],w[1],w[2],15));
+  for(let k=0;k<6;k++)platelet(cx-R+rnd(k*7.7+seed)*2*R,cy-R+rnd(k*5.1+seed)*2*R,3);
+  wbcDraw(center,cx,cy,o.size||28,o.special,T);ctx.restore();circ(cx,cy,R,null,C["ink-soft"],3);const s=(o.size||28)+10;rr(cx-s,cy-s,2*s,2*s,6);ctx.strokeStyle=C.ink;ctx.lineWidth=2.5;ctx.stroke()}
+function wbcDraw(k,x,y,r,special,T){if(k==="N")neutro(x,y,r,{lobes:r>20?4:3,rot:(x*7)%2});else if(k==="L")lympho(x,y,r*.72,{});else if(k==="M")mono(x,y,r*1.12,{rot:(y*3)%2});else if(k==="E")eosino(x,y,r,{});else baso(x,y,r,{});
+  if(special==="ate"){for(let q=0;q<3;q++){circ(x-r*.35+q*r*.3,y+r*.45,r*.18,hexA(C.panel,.6),C["cyto-edge"],1);rod(x-r*.35+q*r*.3,y+r*.45,r*.24,r*.1,q+(T||0)*.5,{lw:1})}}}
+function diffPanel(x,y,w,c){const rows=[["Neutrophils",50,70],["Lymphocytes",20,40],["Monocytes",2,8],["Eosinophils",1,4],["Basophils",.5,1]];const x0=x+120,w0=w-170;
+  for(let v=0;v<=100;v+=50){const X=x0+v/100*w0;line(X,y-12,X,y+5*30-10,C["rule-soft"],1);txt(X,y+5*30,v+"%",{size:11.5,mono:true,align:"center",color:C["ink-soft"]})}
+  rows.forEach((r_,i)=>{const Y=y+i*30;txt(x,Y,r_[0],{size:12.5,weight:600});rr(x0,Y-6,w0,12,6);ctx.fillStyle=C.sunk;ctx.fill();const b0=x0+r_[1]/100*w0,b1=Math.max(b0+4,x0+r_[2]/100*w0);rr(b0,Y-6,b1-b0,12,4);ctx.fillStyle=hexA(C.good,.45);ctx.fill();
+    const v=c.diff[i];const out=v>r_[2]||v<r_[1];circ(x0+v/100*w0,Y,6.5,out?C.warn:C.good,C.panel,2);txt(x0+w0+12,Y,v+"%",{size:12.5,mono:true,weight:700,color:out?C["warn-ink"]:C.ink})})}
+function drawCase(now){use(S3);const T=now/1000;const c=CASES[cI];
+  panelBox(8,8,304,304);title(20,26,"Blood smear");
+  smearField(160,166,130,cI*17,c.cell,[["N",80,96],["L",230,230],["N",86,240]].filter((w,i)=>!(c.cell==="L"&&i===1)),T,{special:c.special,size:30});
+  panelBox(322,8,470,304);title(336,26,"Lab panel");
+  const hi=c.temp>=38,hrHi=c.hr>100;txt(336,52,"Temperature",{size:12.5,color:C["ink-soft"]});txt(440,52,c.temp.toFixed(1)+" °C",{size:13.5,mono:true,weight:700,color:hi?C["warn-ink"]:C.ink});
+  txt(560,52,"Heart rate",{size:12.5,color:C["ink-soft"]});txt(640,52,c.hr+" per min",{size:13.5,mono:true,weight:700,color:hrHi?C["warn-ink"]:C.ink});
+  const lo=c.wbc<4500,hw=c.wbc>11000;txt(336,82,"White cells",{size:12.5,color:C["ink-soft"]});txt(440,82,c.wbc.toLocaleString("en-US")+" per µL",{size:13.5,mono:true,weight:700,color:lo||hw?C["warn-ink"]:C.ink});
+  if(lo||hw)chipL(612,82,lo?"LOW":"HIGH",C.warn);txt(440,100,"normal 4,500 to 11,000",{size:11.5,color:C["ink-soft"]});
+  line(336,112,780,112,C.rule,1);txt(336,126,"DIFFERENTIAL (dot = patient, band = normal)",{size:11.5,mono:true,weight:700,color:C["ink-soft"]});
+  diffPanel(336,150,450,c)}
+function caseA11y(){const c=CASES[cI];const lab=`${c.title}: blood smear and lab panel.`;
+  const d=`Left: a round microscope view of pink red blood cells with a few white cells; a black box marks one large white cell in the centre${c.special==="ate"?" that has small bacteria inside it":""}. Right: temperature ${c.temp} degrees Celsius, heart rate ${c.hr} per minute, white cells ${c.wbc} per microlitre${c.wbc>11000?" (high)":c.wbc<4500?" (low)":" (normal)"}, and a differential chart: neutrophils ${c.diff[0]}%, lymphocytes ${c.diff[1]}%, monocytes ${c.diff[2]}%, eosinophils ${c.diff[3]}%, basophils ${c.diff[4]}%, each shown as a dot against a shaded normal band.`;return [lab,d]}
+
+/* ---- count a smear ---- */
+const KSCEN=[["Healthy adult",{N:11,L:6,M:1,E:1,B:1},"Every type is in its normal band: about 50 to 70% neutrophils, 20 to 40% lymphocytes."],["Bacterial infection",{N:17,L:2,M:1,E:0,B:0},"Neutrophils are far above 70%: neutrophilia, typical of an acute bacterial infection."],["Worm infection or allergy",{N:10,L:5,M:1,E:4,B:0},"Eosinophils are about 20%, far above 1 to 4%: eosinophilia, typical of worms or allergy."],["Viral infection",{N:7,L:11,M:2,E:0,B:0},"Lymphocytes are above 40%: lymphocytosis, common in viral infections."]];
+const K={sc:0,list:[],i:0,ans:[],smear:1,done:false,interp:false,best:store.get("count")||0};
+const S5=makeStage("cvCount",800,360);
+const CICON={N:`<circle cx="24" cy="24" r="20" fill="var(--cyto)" stroke="var(--cyto-edge)" stroke-width="2"/><circle cx="15" cy="25" r="5" fill="var(--nuc)"/><circle cx="24" cy="21" r="5" fill="var(--nuc)"/><circle cx="33" cy="25" r="5" fill="var(--nuc)"/>`,
+ L:`<circle cx="24" cy="24" r="16" fill="var(--lym-c)" stroke="var(--mono-e)" stroke-width="2"/><circle cx="23" cy="24" r="13" fill="var(--lym)"/>`,
+ M:`<circle cx="24" cy="24" r="21" fill="var(--mono-c)" stroke="var(--mono-e)" stroke-width="2"/><path d="M12 22 C12 10 36 10 36 22 C36 28 31 30 28 27 C25 24 21 24 18 28 C15 31 12 28 12 22Z" fill="var(--nuc)"/>`,
+ E:`<circle cx="24" cy="24" r="20" fill="var(--cyto)" stroke="var(--cyto-edge)" stroke-width="2"/>${[[14,14],[22,12],[32,16],[12,30],[20,34],[30,34],[36,26],[26,28]].map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="var(--eos)"/>`).join("")}<circle cx="18" cy="23" r="5.5" fill="var(--nuc)"/><circle cx="30" cy="23" r="5.5" fill="var(--nuc)"/>`,
+ B:`<circle cx="24" cy="24" r="20" fill="var(--cyto)" stroke="var(--cyto-edge)" stroke-width="2"/>${[[14,16],[22,12],[31,15],[12,26],[19,22],[27,22],[35,25],[16,33],[24,30],[31,33],[24,38]].map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3.4" fill="var(--baso)"/>`).join("")}`};
+function kNew(first){K.sc=Math.floor(Math.random()*KSCEN.length);const comp=KSCEN[K.sc][1];let l=[];Object.keys(comp).forEach(k=>{for(let i=0;i<comp[k];i++)l.push(k)});K.list=shuffle(l);K.i=0;K.ans=[];K.done=false;K.interp=false;if(!first)K.smear++;
+  $("#kN").textContent="Smear "+K.smear+" · cell 1 of 20";$("#kResult").innerHTML="";setMsg("#kMsg","","");kBtnsUI();a11yKey=""}
+function kBtnsUI(){const b=$("#kBtns");b.innerHTML="";["N","L","M","E","B"].forEach(k=>{const x=document.createElement("button");x.type="button";x.className="cbtn";x.disabled=K.done;x.innerHTML=`<svg viewBox="0 0 48 48" aria-hidden="true">${CICON[k]}</svg><span>${CELLN[k]}</span>`;x.onclick=()=>kAnswer(k);b.appendChild(x)})}
+function kAnswer(k){if(K.done)return;const tr=K.list[K.i];K.ans.push(k);const n=K.i+1;
+  if(k===tr)setMsg("#kMsg",`✓ Cell ${n}: yes, a ${CELLN[tr].toLowerCase()} (${CELLF[tr]}).`,"good");else setMsg("#kMsg",`Not quite. Cell ${n} was a ${CELLN[tr].toLowerCase()}: ${CELLF[tr]}. A ${CELLN[k].toLowerCase()} has ${CELLF[k]}.`,"warn");
+  K.i++;a11yKey="";if(K.i>=20){K.done=true;kBtnsUI();kResults()}else $("#kN").textContent="Smear "+K.smear+" · cell "+(K.i+1)+" of 20"}
+function kResults(){const right=K.ans.filter((a,i)=>a===K.list[i]).length;const st=right>=19?3:right>=15?2:1;if(st>K.best){K.best=st;store.set("count",st)}
+  const tc={N:0,L:0,M:0,E:0,B:0},yc={N:0,L:0,M:0,E:0,B:0};K.list.forEach(k=>tc[k]++);K.ans.forEach(k=>yc[k]++);
+  const rows=["N","L","M","E","B"].map(k=>`<tr><th scope="row">${CELLN[k]}s</th><td class="n">${yc[k]}</td><td class="n">${tc[k]}</td><td class="n">${tc[k]*5}%</td></tr>`).join("");
+  $("#kN").textContent="Smear "+K.smear+" · done";
+  $("#kResult").innerHTML=`<div class="msg show good">${starStr(st)} You classified <b>${right} of 20</b> correctly.</div><table class="restab"><caption class="gk-sr">Smear results</caption><thead><tr><th scope="col">Type</th><th scope="col" class="n">You counted</th><th scope="col" class="n">Actual</th><th scope="col" class="n">Actual %</th></tr></thead><tbody>${rows}</tbody></table>
+  <p class="qlab">Using the actual percentages, what does this smear suggest?</p><div class="opts" id="kInt"></div><p class="fb" id="kFb"></p>`;
+  const box=$("#kInt");KSCEN.forEach((s,i)=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=s[0];b.onclick=()=>{box.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));const fb=$("#kFb");if(i===K.sc){b.classList.add("right");fb.className="fb show ok";fb.textContent="✓ "+s[2]}else{b.classList.add("wrong");fb.className="fb show no";fb.textContent="Not quite. "+(i===0?"At least one type is outside its normal band here.":"For "+s[0].toLowerCase()+", you would expect: "+s[2].split(":")[0].toLowerCase()+". Compare the table with the normal ranges.")}};box.appendChild(b)});
+  $("#kScore").textContent="Best: "+K.best+" of 3 stars."}
+$("#kNew").onclick=()=>kNew(false);
+function drawCount(now){use(S5);const T=now/1000;
+  panelBox(8,8,560,344);title(20,26,"Microscope view (oil immersion)");
+  const cur=K.done?null:K.list[K.i];
+  if(cur){const others=[[K.list[(K.i+1)%20],110,100],[K.list[(K.i+2)%20],460,270]];smearField(288,186,150,K.smear*31+K.i*7,cur,others,T,{size:34,cr:48})}
+  else{ctx.save();ctx.beginPath();ctx.arc(288,186,150,0,TAU);ctx.clip();ctx.fillStyle=mix(C.panel,C.rbc,.08);ctx.fillRect(138,36,300,300);for(let k=0;k<70;k++)rbc(138+rnd(k*1.9)*300,36+rnd(k*3.3)*300,11);ctx.restore();circ(288,186,150,null,C["ink-soft"],3);label(288,186,"20 cells counted",{size:15,weight:700,align:"center",border:C.accent})}
+  panelBox(578,8,214,344);title(590,26,"Your tally");
+  const yc={N:0,L:0,M:0,E:0,B:0};K.ans.forEach(k=>yc[k]++);
+  ["N","L","M","E","B"].forEach((k,i)=>{const y=62+i*52;wbcDraw(k,604,y,13);txt(624,y-8,CELLN[k],{size:12.5,weight:600});rr(624,y+3,150,10,5);ctx.fillStyle=C.sunk;ctx.fill();rr(624,y+3,150*yc[k]/20,10,5);ctx.fillStyle=C.accent;ctx.fill();txt(780,y-8,String(yc[k]),{size:12.5,mono:true,weight:700,align:"right"})});
+  txt(590,336,"Counted: "+K.ans.length+" of 20",{size:12.5,weight:600})}
+function countA11y(){const cur=K.done?null:K.list[K.i];const lab=cur?`Smear ${K.smear}, cell ${K.i+1} of 20 in the black box.`:`Smear ${K.smear}: 20 cells counted.`;
+  const d=cur?`A round microscope view full of pale pink red blood cells. In the centre, a black box frames one white cell: ${{N:"a cell with a nucleus split into several purple lobes and fine pale granules",L:"a small cell whose round dark purple nucleus fills almost all of it, with a thin pale blue rim",M:"a large cell with grey-blue cytoplasm and a kidney-shaped purple nucleus",E:"a cell with a two-lobed purple nucleus and many large orange-red granules",B:"a cell packed with dark purple granules that hide its nucleus"}[cur]}. On the right, a tally shows how many of each type you have counted so far.`:"The microscope view shows only red blood cells and a label saying 20 cells counted. The tally on the right shows your counts for each type.";
+  return [lab,d]}
+let cMode="cases";
+$("#cModeCases").onclick=()=>{pressSet(["#cModeCases","#cModeCount"],"#cModeCases");$("#casesWrap").hidden=false;$("#countWrap").hidden=true;cMode="cases";S3.fit();a11yKey=""};
+$("#cModeCount").onclick=()=>{pressSet(["#cModeCases","#cModeCount"],"#cModeCount");$("#casesWrap").hidden=true;$("#countWrap").hidden=false;cMode="count";S5.fit();a11yKey=""};
+
+/* ================= PART 4a: sort into groups ================= */
+const YAB=`<path d="M24 44 V26 M24 26 L12 10 M24 26 L36 10" stroke="var(--ab)" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+const SICON={N:CICON.N,E:CICON.E,B:CICON.B,L:CICON.L,ab:YAB,
+ nk:`<circle cx="24" cy="24" r="16" fill="var(--lym-c)" stroke="var(--mono-e)" stroke-width="2"/><circle cx="22" cy="24" r="12" fill="var(--lym)"/><circle cx="34" cy="30" r="2.6" fill="var(--perf)"/><circle cx="36" cy="22" r="2.6" fill="var(--perf)"/>`,
+ mac:`<path d="M6 24 C4 10 16 4 24 8 C30 2 44 8 42 18 C48 26 40 40 30 38 C24 46 8 42 10 32 C2 30 4 26 6 24Z" fill="var(--mono-c)" stroke="var(--mono-e)" stroke-width="2"/><path d="M16 22 C16 14 32 14 32 22 C32 26 28 27 26 25 C24 23 21 23 19 26 C17 28 16 26 16 22Z" fill="var(--nuc)"/>`,
+ dc:`<path d="M24 4 L28 18 L44 12 L32 24 L44 38 L28 30 L24 44 L20 30 L4 38 L16 24 L4 12 L20 18Z" fill="var(--mono-c)" stroke="var(--mono-e)" stroke-width="2" stroke-linejoin="round"/><circle cx="24" cy="24" r="5" fill="var(--nuc)"/>`,
+ skin:`<rect x="4" y="8" width="40" height="8" rx="3" fill="var(--kerat)" stroke="var(--kerat-edge)" stroke-width="1.5"/><rect x="4" y="19" width="40" height="8" rx="3" fill="var(--kerat)" stroke="var(--kerat-edge)" stroke-width="1.5"/><rect x="4" y="30" width="40" height="10" rx="3" fill="var(--derm)" stroke="var(--tissue-edge)" stroke-width="1.5"/>`,
+ chem:`<path d="M18 6 h12 M20 6 v12 L8 40 h32 L28 18 V6" fill="var(--fluid)" stroke="var(--fluid-edge)" stroke-width="2.4" stroke-linejoin="round"/><text x="24" y="36" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)" font-family="sans-serif">pH</text>`,
+ micro:`<rect x="6" y="10" width="16" height="8" rx="4" fill="var(--act1)"/><circle cx="34" cy="14" r="5" fill="var(--act5)"/><rect x="24" y="26" width="16" height="8" rx="4" fill="var(--gold)"/><circle cx="12" cy="32" r="5" fill="var(--act5)"/><circle cx="22" cy="40" r="4" fill="var(--act1)"/>`,
+ ops:`<circle cx="24" cy="24" r="12" fill="var(--bact)" stroke="var(--bact-edge)" stroke-width="2"/>${[0,1,2,3,4,5].map(k=>{const a=k/6*6.283;return `<rect x="${(24+Math.cos(a)*17-3).toFixed(1)}" y="${(24+Math.sin(a)*17-3).toFixed(1)}" width="6" height="6" transform="rotate(45 ${(24+Math.cos(a)*17).toFixed(1)} ${(24+Math.sin(a)*17).toFixed(1)})" fill="var(--c3b)"/>`}).join("")}`,
+ infl:`<path d="M10 40 C10 28 18 26 16 14 C24 20 26 26 26 30 C28 24 30 20 30 14 C40 22 40 34 36 40Z" fill="var(--cyt)" stroke="var(--warn)" stroke-width="2" stroke-linejoin="round"/>`,
+ lys:`<circle cx="24" cy="24" r="16" fill="none" stroke="var(--mac)" stroke-width="7"/><circle cx="24" cy="24" r="7" fill="var(--panel)"/>`,
+ q:`<circle cx="24" cy="24" r="18" fill="var(--panel-2)" stroke="var(--ink-soft)" stroke-width="2"/><text x="24" y="31" text-anchor="middle" font-size="22" font-weight="700" fill="var(--ink-soft)" font-family="sans-serif">?</text>`};
+const SROUNDS=[
+ {name:"Round 1 · Innate or adaptive",tok:"q",title:"Which arm of immunity?",goal:"Sort each feature into innate or adaptive immunity. Ask: is it fast and broad with no memory, or slow at first, specific, and with memory?",
+  bins:[["I","Innate","Fast, broad, no memory","N"],["A","Adaptive","Specific, with memory","ab"]],
+  items:[["Neutrophils","I","Neutrophils are innate phagocytes."],["Skin and mucous membranes","I","Barriers are the first line of innate defence."],["Complement","I","Complement is an innate plasma protein system (the classical pathway can be triggered by antibodies)."],["Fever","I","Fever is an innate response to pyrogens."],["NK cells","I","NK cells are lymphocytes, but they are innate: they check for missing MHC I without memory."],["Interferon alpha and beta","I","Interferons from infected cells are an innate antiviral defence."],["Antibodies","A","Antibodies are made by B cells: adaptive."],["T cells","A","T cells are adaptive lymphocytes."],["Memory of a past infection","A","Only adaptive immunity has memory."],["Responds within minutes","I","Innate defences are ready to act at once."],["Takes about a week the first time","A","A first adaptive response takes days to build."],["Recognizes broad patterns like LPS","I","Toll-like receptors on innate cells bind shared patterns (PAMPs)."]]},
+ {name:"Round 2 · Line of defence",tok:"q",title:"First, second or third line?",goal:"Sort each defence. First line: barriers at body surfaces. Second line: innate cells and chemicals inside the body. Third line: adaptive immunity.",
+  bins:[["1","First line","Barriers at the surface","skin"],["2","Second line","Innate, inside the body","N"],["3","Third line","Adaptive immunity","ab"]],
+  items:[["Intact skin","1","Skin is a physical barrier: first line."],["Mucociliary escalator","1","It sweeps microbes out before they get in: first line."],["Stomach acid","1","A chemical barrier at a body surface: first line."],["Lysozyme in tears","1","A chemical barrier on the eye: first line."],["Normal microbiota","1","Resident microbes block pathogens at surfaces: first line."],["Neutrophils eating bacteria","2","Phagocytes inside the tissues are the second line."],["Fever","2","Fever is a body-wide innate response: second line."],["Complement","2","Complement acts inside the body: second line."],["Inflammation","2","Inflammation is an innate response inside tissue: second line."],["NK cells killing infected cells","2","NK cells are innate: second line."],["Antibodies","3","Antibodies are adaptive: third line."],["Cytotoxic T cells","3","T cells are adaptive: third line."]]},
+ {name:"Round 3 · Cell to job",tok:"q",title:"Match each clue to its cell",goal:"Sort each clue to the innate cell it describes.",
+  bins:[["N","Neutrophil","Lobed nucleus","N"],["E","Eosinophil","Orange-red granules","E"],["B","Basophil or mast cell","Dark granules","B"],["M","Macrophage","Big tissue eater","mac"],["D","Dendritic cell","Long arms","dc"],["K","NK cell","Natural killer","nk"]],
+  items:[["First phagocyte to arrive","N","Neutrophils arrive within hours."],["Main cell in pus","N","Pus is mostly dead neutrophils."],["Attacks parasitic worms","E","Eosinophils release toxic granules onto worms."],["Two lobes, orange-red granules","E","That is how an eosinophil looks on a stained smear."],["Releases histamine","B","Basophils and mast cells store histamine."],["Granules hide the nucleus","B","Basophils are packed with dark purple-blue granules."],["Develops from a monocyte","M","Monocytes become macrophages in tissue."],["Long-lived; can form granulomas","M","Macrophages wall off persistent microbes in granulomas."],["Carries microbe pieces to lymph nodes","D","Dendritic cells link innate and adaptive immunity."],["Catches microbes in skin and mucosa","D","Dendritic cells sit at surfaces with long arms."],["Kills cells missing MHC I","K","That is the NK cell's missing-self check."],["Uses perforin and granzymes","K","NK cells kill by perforin and granzymes, causing apoptosis."]]},
+ {name:"Round 4 · Complement outcome",tok:"q",title:"Opsonize, inflame or lyse?",goal:"Sort each complement piece or event into its main outcome.",
+  bins:[["O","Opsonization","Tag for eating","ops"],["I","Inflammation","Call and alarm","infl"],["C","Cytolysis","Punch a hole","lys"]],
+  items:[["C3b coats the bacterium","O","C3b is the main complement opsonin."],["Phagocytes grab C3b-tagged microbes","O","Phagocytes have receptors for C3b."],["Faster engulfment","O","Opsonized microbes are eaten faster."],["C3a","I","C3a is a small piece that triggers mast cells."],["C5a calls neutrophils","I","C5a is strongly chemotactic."],["Mast cells release histamine","I","C3a and C5a make mast cells degranulate."],["C5b to C9","C","These late pieces form the membrane attack complex."],["Membrane attack complex","C","The MAC is a ring-shaped pore."],["Water rushes in and the cell bursts","C","That is cytolysis."],["Works best on Gram-negative bacteria","C","The MAC punches through the outer membrane."]]},
+ {name:"Round 5 · Type of barrier",tok:"q",title:"Physical, chemical or microbial?",goal:"Sort each first-line defence: a physical barrier or movement, a chemical, or the normal microbiota.",
+  bins:[["P","Physical","Walls, movement, flushing","skin"],["C","Chemical","Enzymes, acid, proteins","chem"],["M","Microbial","Normal microbiota","micro"]],
+  items:[["Keratin-filled outer skin","P","A tough physical layer."],["Shedding of skin cells","P","Shedding physically removes microbes."],["Mucus and beating cilia","P","The escalator physically traps and moves microbes."],["Tears washing the eye","P","Flushing is a physical action (tears also carry lysozyme)."],["Urine flow","P","Flushing the urethra is physical."],["Lysozyme","C","An enzyme that breaks peptidoglycan."],["Stomach acid","C","Very low pH destroys microbes."],["Defensins","C","Antimicrobial peptides that punch holes."],["Transferrin and lactoferrin","C","Iron-binding proteins starve bacteria of iron."],["Sebum and low skin pH","C","Fatty acids keep skin slightly acidic."],["Resident bacteria fill the space","M","Competitive exclusion by the microbiota."],["Bacteriocins from gut bacteria","M","Made by the microbiota, so they count as a microbial defence."]]}];
+let sR=0,sSel=null,sChecks=0,sHints=0,sSolved=false,sT0=0;const sBest=store.get("sort")||{};
+function draggable(el,{onTap,targetSel,onDrop,canDrag}){let sx=0,sy=0,down=false,ghost=null,pid=null,lastT=null;
+  el.addEventListener("pointerdown",e=>{if(canDrag&&!canDrag())return;down=true;sx=e.clientX;sy=e.clientY;pid=e.pointerId;try{el.setPointerCapture(pid)}catch(_){}});
+  el.addEventListener("pointermove",e=>{if(!down)return;if(!ghost&&Math.hypot(e.clientX-sx,e.clientY-sy)>7){ghost=el.cloneNode(true);ghost.classList.add("ghost");ghost.removeAttribute("id");ghost.setAttribute("aria-hidden","true");ghost.style.width=el.offsetWidth+"px";document.body.appendChild(ghost)}
+    if(ghost){ghost.style.left=(e.clientX-20)+"px";ghost.style.top=(e.clientY-20)+"px";const t=document.elementFromPoint(e.clientX,e.clientY);const tg=t&&t.closest(targetSel);if(lastT&&lastT!==tg)lastT.classList.remove("target");if(tg)tg.classList.add("target");lastT=tg}});
+  const end=e=>{if(!down)return;down=false;if(lastT)lastT.classList.remove("target");
+    if(ghost){ghost.remove();ghost=null;const t=document.elementFromPoint(e.clientX,e.clientY);const tg=t&&t.closest(targetSel);if(tg)onDrop(tg)}else if(e.type==="pointerup")onTap();lastT=null};
+  el.addEventListener("pointerup",end);el.addEventListener("pointercancel",end);
+  el.addEventListener("click",e=>{if(e.detail===0)onTap()})}
+function sItem(id){return SROUNDS[sR].items[id]}
+function sRounds(){const box=$("#sRounds");box.innerHTML="";SROUNDS.forEach((r,i)=>{const b=document.createElement("button");b.type="button";b.className="round";b.setAttribute("aria-pressed",i===sR?"true":"false");b.innerHTML=r.name+(sBest[i]?`<span class="ok" aria-hidden="true">${"★".repeat(sBest[i])}</span><span class="gk-sr">, ${sBest[i]} stars</span>`:"");b.onclick=()=>{sR=i;sNew()};box.appendChild(b)})}
+function sTok(i){const it=sItem(i);const el=document.createElement("button");el.type="button";el.className="tok";el.dataset.i=i;
+  el.innerHTML=`<svg viewBox="0 0 48 48" aria-hidden="true">${SICON[SROUNDS[sR].tok]}</svg><span>${it[0]}</span><span class="mk" aria-hidden="true"></span><span class="gk-sr st"></span>`;
+  draggable(el,{targetSel:".bin,#sPool",canDrag:()=>!sSolved,onTap:()=>sTap(el),onDrop:tg=>sPlace(el,tg)});return el}
+function sTap(el){const it=sItem(+el.dataset.i);if(el.classList.contains("no")&&!sSolved)$("#sWhy").innerHTML=`<b>Clue · ${it[0]}:</b> look again at the bin descriptions. ${SROUNDS[sR].goal.split(". ").slice(1).join(". ")}`;else if(el.classList.contains("ok")||sSolved)$("#sWhy").innerHTML=`<b>${it[0]}:</b> ${it[2]}`;if(sSolved)return;
+  document.querySelectorAll("#tab-sort .tok.sel").forEach(x=>x.classList.remove("sel"));if(sSel===el){sSel=null;return}sSel=el;el.classList.add("sel")}
+function sPlace(el,tg){if(sSolved)return;const dest=tg.id==="sPool"?$("#sPool"):tg.querySelector(".bitems");dest.appendChild(el);el.classList.remove("sel","ok","no","hinted");el.querySelector(".mk").textContent="";const b=el.closest(".bin");el.querySelector(".st").textContent=b?" (in "+b.dataset.name+")":"";sSel=null;try{el.focus()}catch(_){}}
+function sNew(){const r=SROUNDS[sR];sSel=null;sChecks=0;sHints=0;sSolved=false;sT0=performance.now();
+  const bins=$("#sBins");bins.innerHTML="";r.bins.forEach(b=>{const d=document.createElement("div");d.className="bin";d.dataset.bin=b[0];d.dataset.name=b[1];d.setAttribute("role","group");d.setAttribute("aria-label",b[1]+" bin");
+    d.innerHTML=`<button type="button" class="binhead"><span class="bh"><svg width="22" height="22" viewBox="0 0 48 48" aria-hidden="true">${SICON[b[3]]}</svg>${b[1]}</span><span class="bsub">${b[2]}</span><span class="gk-sr"> Place the selected card here.</span></button><span class="bitems"></span>`;
+    d.addEventListener("click",e=>{if(sSel&&!e.target.closest(".tok"))sPlace(sSel,d)});bins.appendChild(d)});
+  const pool=$("#sPool");pool.innerHTML="";shuffle(r.items.map((x,i)=>i)).forEach(i=>pool.appendChild(sTok(i)));
+  $("#sN").textContent=r.name+" · "+r.items.length+" cards";$("#sT").textContent=r.title;$("#sGoal").textContent=r.goal;setMsg("#sMsg","","");$("#sWhy").innerHTML="<b>Tip:</b> after checking, tap any card to read why it belongs where it does.";sRounds()}
+$("#sPool").addEventListener("click",e=>{if(sSel&&!e.target.closest(".tok")&&sSel.parentElement!==$("#sPool"))sPlace(sSel,$("#sPool"))});
+function sWhere(el){const b=el.closest(".bin");return b?b.dataset.bin:null}
+$("#sCheck").onclick=()=>{if(sSolved)return;const toks=[...document.querySelectorAll("#tab-sort .tok")];const un=toks.filter(t=>!sWhere(t));
+  if(un.length){setMsg("#sMsg",`Place all the cards first. ${un.length} still in the tray.`,"warn");return}
+  sChecks++;let n=0;toks.forEach(t=>{const ok=sWhere(t)===sItem(+t.dataset.i)[1];t.classList.toggle("ok",ok);t.classList.toggle("no",!ok);t.querySelector(".mk").textContent=ok?"✓":"✕";const b=t.closest(".bin");t.querySelector(".st").textContent=" (in "+b.dataset.name+", "+(ok?"correct":"not quite")+")";if(ok)n++});
+  if(n===toks.length){sSolved=true;const el=(performance.now()-sT0)/1000;const st=sHints===0&&sChecks===1?3:sHints<=2&&sChecks<=3?2:1;if(!sBest[sR]||st>sBest[sR])sBest[sR]=st;store.set("sort",sBest);sRounds();
+    setMsg("#sMsg",`${starStr(st)}<br><b>All sorted!</b> ${$("#sRelaxed").checked?"":"Time "+fmt(el)+". "}Tap any card to read why.${sR<SROUNDS.length-1?' <button class="tbtn" id="sNextR" type="button">Next round →</button>':""}`,"good");const nb=$("#sNextR");if(nb)nb.onclick=()=>{sR++;sNew()}}
+  else setMsg("#sMsg",`<b>${n} of ${toks.length}</b> are right. Tap a ✕ card for a clue, move it, and check again.`,"warn")};
+$("#sHint").onclick=()=>{if(sSolved)return;const toks=[...document.querySelectorAll("#tab-sort .tok")];const t=toks.find(t=>sWhere(t)!==sItem(+t.dataset.i)[1]);if(!t)return;sHints++;const it=sItem(+t.dataset.i);
+  sPlace(t,document.querySelector(`#sBins .bin[data-bin="${it[1]}"]`));t.classList.add("hinted");$("#sWhy").innerHTML=`<b>Hint · ${it[0]}:</b> ${it[2]}`};
+$("#sShow").onclick=()=>{[...document.querySelectorAll("#tab-sort .tok")].forEach(t=>{const it=sItem(+t.dataset.i);sPlace(t,document.querySelector(`#sBins .bin[data-bin="${it[1]}"]`));t.classList.add("ok");t.querySelector(".mk").textContent="✓"});
+  sSolved=true;setMsg("#sMsg","Here is the answer. Tap any card to read why, then press <b>Start over</b> to try it yourself.","info")};
+$("#sReset").onclick=sNew;$("#sRelaxed").onchange=e=>{$("#sTimer").hidden=e.target.checked;sT0=performance.now()};
+function sTimerTick(){if(!$("#sRelaxed").checked&&!sSolved)$("#sTimer").textContent=fmt((performance.now()-sT0)/1000)}
+
+/* ================= PART 4b: put in order ================= */
+const QROUNDS=[
+ {id:"phago",name:"Phagocytosis",goal:"Put the steps of phagocytosis in order, from sensing the microbe to dumping the debris.",
+  cards:[["Chemotaxis: crawl toward chemical signals","Chemotaxis","chemo"],["Recognition and attachment: receptors bind PAMPs or opsonins","Attach","attach"],["Engulfment: pseudopods wrap around the microbe","Engulf","engulf"],["A phagosome forms around the microbe","Phagosome","phagosome"],["Lysosomes fuse to make a phagolysosome","Fuse","fuse"],["Killing: enzymes, acid and the oxidative burst","Kill","kill"],["Exocytosis: debris is pushed out","Exocytosis","exo"]]},
+ {id:"inflam",name:"From splinter to neutrophil",goal:"A splinter brings bacteria into the skin. Put the events in order until a neutrophil reaches them.",
+  cards:[["Mast cells release histamine","Histamine","hist"],["Vessels widen and become leaky","Vessels","dilate"],["Margination: neutrophils move to the vessel wall","Margination","margin"],["Rolling, then firm adhesion to the wall","Roll and stick","roll"],["Diapedesis: squeezing out between wall cells","Diapedesis","diaped"],["Chemotaxis to the bacteria","Chemotaxis","chemo"]]},
+ {id:"fever",name:"The course of a fever",goal:"Put the events of a fever in order, from bacteria to recovery.",
+  cards:[["Bacteria release LPS (an exogenous pyrogen)","LPS","lps"],["Macrophages release IL-1, IL-6 and TNF-alpha","Cytokines","il1"],["The hypothalamus makes prostaglandin E2","PGE2","pge"],["The set point rises: chills and shivering","Chill","chill"],["Plateau at the new, higher temperature","Plateau","plateau"],["Pyrogens fall: crisis with sweating","Crisis","sweat"]]},
+ {id:"comp",name:"Classical complement pathway",goal:"Put the classical pathway in order, from antibody to membrane attack complex.",
+  cards:[["Antibodies bind to the microbe","Antibody","abbind"],["C1 binds the antibodies","C1","c1"],["C4 and C2 are split: a C3 convertase forms","C3 convertase","conv"],["C3 is split into C3a and C3b","Split C3","c3split"],["C3b helps split C5","C5","c5"],["C5b to C9 form the membrane attack complex","MAC","mac"]]},
+ {id:"nk",name:"An NK cell at work",goal:"Put the NK cell's steps in order, from touching a cell to killing it.",
+  cards:[["The NK cell touches a body cell","Touch","touch"],["It checks the cell for MHC I","Check","check"],["It finds MHC I missing","Missing","missing"],["It releases perforin and granzymes","Perforin","perforin"],["The target cell dies by apoptosis","Apoptosis","apop"]]}];
+const S4=makeStage("cvSeq",640,400);
+let qR=0,qChecks=0,qHints=0,qSolved=false,qStart=0,qPlay=null;const qRes=store.get("seq")||{};
+const qList=$("#qList");
+function qRoundsUI(){const box=$("#qRounds");box.innerHTML="";QROUNDS.forEach((r,i)=>{const b=document.createElement("button");b.type="button";b.className="round";b.setAttribute("aria-pressed",i===qR?"true":"false");
+  b.innerHTML=`Round ${i+1}: ${r.name}`+(qRes[r.id]?`<span class="ok" aria-hidden="true">${"★".repeat(qRes[r.id])}</span><span class="gk-sr">, ${qRes[r.id]} stars</span>`:"");b.onclick=()=>{qR=i;qNew()};box.appendChild(b)})}
+function qItem(i){const r=QROUNDS[qR];const li=document.createElement("li");li.className="item";li.dataset.i=i;const txt_=r.cards[i][0];
+  li.innerHTML=`<span class="pos"></span><span class="grip" aria-hidden="true">⋮⋮</span><span class="txt">${txt_}</span><span class="mk qmk"></span><span class="mv"><button type="button" aria-label="Move up: ${txt_}">▲</button><button type="button" aria-label="Move down: ${txt_}">▼</button></span>`;
+  const [up,dn]=li.querySelectorAll(".mv button");
+  up.onclick=()=>{const p=li.previousElementSibling;if(p&&!qSolved){qList.insertBefore(li,p);qChanged();up.focus()}};
+  dn.onclick=()=>{const n=li.nextElementSibling;if(n&&!qSolved){qList.insertBefore(n,li);qChanged();dn.focus()}};
+  let dragging=false;
+  li.addEventListener("pointerdown",e=>{if(e.target.closest("button")||qSolved)return;dragging=true;li.classList.add("drag");try{li.setPointerCapture(e.pointerId)}catch(_){}});
+  li.addEventListener("pointermove",e=>{if(!dragging)return;const kids=[...qList.children];const me=kids.indexOf(li);
+    for(let k=0;k<kids.length;k++){const el=kids[k];if(el===li)continue;const rc=el.getBoundingClientRect();if(e.clientY>rc.top&&e.clientY<rc.bottom){const mid=rc.top+rc.height/2;
+      if(k>me&&e.clientY>mid){qList.insertBefore(el,li);qChanged()}else if(k<me&&e.clientY<mid){qList.insertBefore(el,li.nextElementSibling);qChanged()}break}}});
+  const end=()=>{if(!dragging)return;dragging=false;li.classList.remove("drag")};li.addEventListener("pointerup",end);li.addEventListener("pointercancel",end);return li}
+function qRenum(){[...qList.children].forEach((li,i)=>li.querySelector(".pos").textContent=i+1)}
+function qChanged(){qRenum();[...qList.children].forEach(li=>{li.classList.remove("right","off","hinted");li.querySelector(".qmk").innerHTML=""});qPlay=null;a11yKey=""}
+const qOrder=()=>[...qList.children].map(li=>+li.dataset.i);
+function qNew(){const r=QROUNDS[qR];const n=r.cards.length;let o;do{o=shuffle([...Array(n).keys()])}while(o.filter((c,i)=>c===i).length>1);qList.innerHTML="";o.forEach(i=>qList.appendChild(qItem(i)));
+  qChecks=0;qHints=0;qSolved=false;qStart=performance.now();qPlay=null;$("#qN").textContent=`Round ${qR+1} of ${QROUNDS.length} · ${n} cards`;$("#qT").textContent=r.name;$("#qGoal").textContent=r.goal;
+  setMsg("#qMsg","","");qRenum();qRoundsUI();a11yKey=""}
+$("#qCheck").onclick=()=>{if(qSolved)return;qChecks++;const o=qOrder();let n=0;[...qList.children].forEach((li,i)=>{const ok=o[i]===i;if(ok)n++;li.classList.toggle("right",ok);li.classList.toggle("off",!ok);li.querySelector(".qmk").innerHTML=ok?`<span aria-hidden="true">✓</span><span class="gk-sr">, in the right spot</span>`:`<span aria-hidden="true">✗</span><span class="gk-sr">, not yet</span>`});
+  if(n===o.length)qWin();else setMsg("#qMsg",`<b>${n} of ${o.length}</b> cards are in the right spot (marked ✓ with a green border; the others are marked ✗). Ask yourself: what has to happen before this step can happen? Press <b>Play my order</b> to see where it gets stuck.`,"warn")};
+$("#qHint").onclick=()=>{if(qSolved)return;const o=qOrder();const i=o.findIndex((c,k)=>c!==k);if(i<0)return;qHints++;const li=qList.querySelector(`[data-i="${i}"]`);qList.insertBefore(li,qList.children[i]);qChanged();li.classList.add("hinted");
+  setMsg("#qMsg",`Hint: step ${i+1} is <b>${QROUNDS[qR].cards[i][0]}</b>.`,"info")};
+$("#qShuffle").onclick=qNew;
+$("#qShow").onclick=()=>{const r=QROUNDS[qR];qList.innerHTML="";r.cards.forEach((c,i)=>{const li=qItem(i);li.classList.add("right");qList.appendChild(li)});qRenum();qSolved=true;qHints+=9;
+  setMsg("#qMsg","Here is the correct order. Watch it play, then press <b>Shuffle again</b> and try it yourself.","info");qStartPlay()};
+function qWin(){qSolved=true;const r=QROUNDS[qR];const el=(performance.now()-qStart)/1000;const stars=qHints===0&&qChecks<=2?3:qHints<=2?2:1;if(!qRes[r.id]||stars>qRes[r.id])qRes[r.id]=stars;store.set("seq",qRes);
+  setMsg("#qMsg",`${starStr(stars)} <b>In order! ${stars} of 3 stars.</b> ${$("#qRelaxed").checked?"":"Time "+fmt(el)+". "}Checks: ${qChecks}. Hints: ${Math.min(qHints,9)}. Watch it play in the picture.`+(qR<QROUNDS.length-1?` <button class="tbtn" id="qNextR" type="button">Next round &rarr;</button>`:""),"good");
+  const nb=$("#qNextR");if(nb)nb.onclick=()=>{qR++;qNew()};qRoundsUI();qStartPlay()}
+$("#qRelaxed").onchange=e=>{$("#qTimer").hidden=e.target.checked;qStart=performance.now()};
+const QDUR=1.3;
+function qStartPlay(){const o=qOrder();const fail=o.findIndex((c,i)=>c!==i);qPlay={o,fail,t0:performance.now()};a11yKey=""}
+$("#qPlay").onclick=qStartPlay;
+function qStageNow(now){if(!qPlay)return {k:0,stuck:-1,p:0};const t=(now-qPlay.t0)/1000;const upto=qPlay.fail<0?qPlay.o.length:qPlay.fail;const k=Math.min(upto,Math.floor(t/QDUR)+1);const p=clamp((t-(k-1)*QDUR)/QDUR,0,1);
+  return {k,stuck:(qPlay.fail>=0&&t>upto*QDUR)?qPlay.fail:-1,p}}
+function chip0(x,y,t_,col){chipText(x,y,t_,col||C.comp)}
+function seqIcon(key,x,y,T){
+  switch(key){
+  case"chemo":neutro(x-16,y,12,{blob:.15,t:T,seed:1});arrow(x-2,y,x+12,y,C.cyt,1.6);coccus(x+22,y,5,{});break;
+  case"attach":neutro(x-10,y,15,{});coccus(x+12,y,6,{c3b:4});break;
+  case"engulf":neutro(x-8,y,15,{});ctx.beginPath();ctx.arc(x+12,y,10,Math.PI*.6,Math.PI*1.4,true);ctx.strokeStyle=C["cyto-edge"];ctx.lineWidth=6;ctx.stroke();coccus(x+12,y,5,{});break;
+  case"phagosome":ell(x,y,30,20,0,C.cyto,C["cyto-edge"],1.4);circ(x+4,y,10,hexA(C.panel,.5),C["cyto-edge"],1.4);coccus(x+4,y,5,{});break;
+  case"fuse":ell(x,y,30,20,0,C.cyto,C["cyto-edge"],1.4);circ(x,y,11,hexA(C["lyso-2"],.9),C.lyso,1.8);coccus(x,y,5,{});circ(x+20,y-8,5,mix(C.lyso,C.panel,.5),C.lyso,1);break;
+  case"kill":ell(x,y,30,20,0,C.cyto,C["cyto-edge"],1.4);circ(x,y,11,hexA(C["lyso-2"],.9),C.lyso,1.8);for(let k=0;k<5;k++){const a=k*1.3+T*3;diamond(x+Math.cos(a)*6,y+Math.sin(a)*6,2.4,C.ros)}break;
+  case"exo":ell(x-8,y,26,18,0,C.cyto,C["cyto-edge"],1.4);for(let k=0;k<3;k++)circ(x+22+k*6,y-4+k*4,2.4,C["bact-edge"]);break;
+  case"hist":mast(x,y,12,{degran:.5+.3*Math.sin(T*2)});break;
+  case"dilate":vesselH(x-30,y-14,60,28,{gaps:.5});break;
+  case"margin":vesselH(x-30,y-16,60,32,{});neutro(x,y+6,7,{});break;
+  case"roll":line(x-30,y+10,x+30,y+10,C["vessel-edge"],3);neutro(x+Math.sin(T*2)*8,y,9,{rot:T*3});break;
+  case"diaped":line(x-30,y,x-4,y,C["vessel-edge"],3);line(x+4,y,x+30,y,C["vessel-edge"],3);ctx.save();ctx.translate(x,y);ctx.scale(.5,1.4);neutro(0,0,9,{});ctx.restore();break;
+  case"lps":rod(x-8,y,30,14,0,{col:mix(C.gneg,C.panel,.6),edge:C.gneg});poly([[x+12,y-12],[x+18,y-6],[x+12,y],[x+18,y+6]],C.pamp,2);break;
+  case"il1":macro(x-8,y,14,{t:T});for(let k=0;k<3;k++)cytok(x+14+k*5,y-8+k*8,3.5,C.cyt);break;
+  case"pge":ell(x,y,22,15,0,mix(C.act6,C.panel,.7),C.act6,1.4);txt(x,y,"PGE2",{size:11,weight:700,align:"center"});break;
+  case"chill":thermo(x-12,y-26,34,.45);for(let k=0;k<3;k++)line(x+4+k*6,y-10,x+6+k*6,y+10,C.cold,1.6);break;
+  case"plateau":thermo(x-12,y-26,34,.8);line(x+2,y-8,x+26,y-8,C.heat,2);break;
+  case"sweat":for(let k=0;k<3;k++)drop(x-10+k*10,y-4+(k%2)*8,5);break;
+  case"abbind":coccus(x,y,9,{ab:3});break;
+  case"c1":coccus(x-10,y,8,{ab:2});chip0(x+14,y,"C1");break;
+  case"conv":chip0(x,y,"C3 conv.");break;
+  case"c3split":diamond(x-10,y-4,5,C.cyt);diamond(x+10,y+4,6,C.c3b);break;
+  case"c5":chip0(x,y,"C5");break;
+  case"mac":macPore(x,y,10,1);break;
+  case"touch":lympho(x-12,y,9,{nk:true});circ(x+14,y,13,mix(C.tissue,C.skin,.4),C["tissue-edge"],1.2);break;
+  case"check":circ(x,y,14,mix(C.tissue,C.skin,.4),C["tissue-edge"],1.2);for(let k=0;k<5;k++){const a=k/5*TAU;flag(x+Math.cos(a)*14,y+Math.sin(a)*14,a,6,C.mhc)}break;
+  case"missing":circ(x,y,14,mix(C.tissue,C.skin,.4),C["tissue-edge"],1.2);virion(x,y,4,{});txt(x+22,y-10,"?",{size:14,weight:700});break;
+  case"perforin":lympho(x-12,y,9,{nk:true});for(let k=0;k<3;k++)circ(x+2+k*6,y-3+k*3,2.4,C.perf);circ(x+20,y,9,mix(C.tissue,C.skin,.4),C["tissue-edge"],1.2);break;
+  case"apop":for(let k=0;k<5;k++){const a=k/5*TAU;circ(x+Math.cos(a)*10,y+Math.sin(a)*10,5,mix(C.tissue,C.skin,.4),C["tissue-edge"],1)}break}}
+function drawSeq(now){use(S4);const T=now/1000;const r=QROUNDS[qR];const st=qStageNow(now);const n=r.cards.length;
+  title(16,20,"How the steps connect");const cx=320,cy=212,rx=232,ry=138;
+  const pos=r.cards.map((c,i)=>{const a=-Math.PI/2+i/n*TAU;return [cx+Math.cos(a)*rx,cy+Math.sin(a)*ry]});
+  ctx.save();ctx.setLineDash([5,5]);ctx.beginPath();ctx.ellipse(cx,cy,rx,ry,0,0,TAU);ctx.strokeStyle=C.rule;ctx.lineWidth=2;ctx.stroke();ctx.restore();
+  pos.forEach((p,i)=>{const lit=qPlay&&i<st.k;const cur=qPlay&&i===st.k-1;rr(p[0]-54,p[1]-38,108,76,12);ctx.fillStyle=lit?hexA(C.accent,.15):hexA(C.panel,.95);ctx.fill();ctx.strokeStyle=cur?C.accent:lit?hexA(C.accent,.7):C.rule;ctx.lineWidth=cur?3:1.4;ctx.stroke();
+    const ci=qPlay?qPlay.o[i]:i;const card=r.cards[ci];
+    if(qPlay&&i<st.k){seqIcon(card[2],p[0],p[1]-8,T);txt(p[0],p[1]+27,(i+1)+" "+card[1],{size:12,weight:700,align:"center"})}
+    else{txt(p[0],p[1]-4,String(i+1),{size:22,weight:700,align:"center",color:C["ink-soft"]});txt(p[0],p[1]+24,qPlay?"":"step "+(i+1),{size:12,align:"center",color:C["ink-soft"]})}
+    if(qPlay&&st.stuck===i){rr(p[0]-54,p[1]-38,108,76,12);ctx.strokeStyle=C.warn;ctx.lineWidth=3;ctx.stroke();cross(p[0]+42,p[1]-26,6,C.warn)}});
+  if(st.stuck>=0){const card=r.cards[qPlay.o[st.stuck]][1];label(cx,cy,`Stuck at step ${st.stuck+1}: "${card}" can't happen yet`,{size:12.5,weight:700,align:"center",border:C.warn})}
+  else if(qPlay&&st.k>=n)label(cx,cy,"The whole process played in order",{size:12.5,weight:700,align:"center",border:C.good});
+  else if(!qPlay)label(cx,cy,"Arrange the cards, then press Play my order",{size:12.5,weight:600,align:"center"});
+  const cap=!qPlay?"Arrange the cards, then press Play my order to watch it happen.":st.stuck>=0?`Playing stopped at card ${st.stuck+1}: it does not fit there yet.`:st.k>=n?"The whole process played in order.":st.k<1?"Playing...":`Playing step ${st.k}: ${r.cards[qPlay.o[st.k-1]][0]}`;
+  if($("#qCap").textContent!==cap){$("#qCap").textContent=cap;S4.cv.setAttribute("aria-label",r.name+" picture. "+cap)}}
+function seqA11y(){const r=QROUNDS[qR];const st=qStageNow(performance.now());const lab=r.name+" picture. "+$("#qCap").textContent;
+  const d=`A dashed oval links ${r.cards.length} rounded boxes, one per step, going clockwise from the top. `+(!qPlay?"The boxes show only step numbers until you press Play my order.":`As your order plays, each box lights green with a small drawing and a short name: ${qPlay.o.slice(0,st.k).map((c,i)=>(i+1)+" "+r.cards[c][1]).join(", ")}.`+(st.stuck>=0?` The box for step ${st.stuck+1} is outlined in orange with an X, because that card cannot happen yet.`:""));return [lab,d]}
+$("#gSort").onclick=()=>{pressSet(["#gSort","#gOrder"],"#gSort");$("#sortWrap").hidden=false;$("#orderWrap").hidden=true;curGame="sort";a11yKey=""};
+$("#gOrder").onclick=()=>{pressSet(["#gSort","#gOrder"],"#gOrder");$("#sortWrap").hidden=true;$("#orderWrap").hidden=false;curGame="order";S4.fit();a11yKey=""};
+let curGame="sort";
+
+/* ---------------- accessibility: live canvas labels and picture descriptions ---------------- */
+let a11yKey="",a11yT=0;
+function a11yCur(){if(curTab==="sim")return {cv:"#cvSim",f:simA11y};if(curTab==="fev")return {cv:"#cvFev",f:fevA11y};if(curTab==="case")return cMode==="cases"?{cv:"#cvCase",f:caseA11y}:{cv:"#cvCount",f:countA11y};if(curGame==="order")return {cv:"#cvSeq",f:seqA11y};return null}
+function a11yTick(){const n=performance.now();if(n-a11yT<500)return;a11yT=n;const a=a11yCur();
+  if(!a){if(a11yKey!=="sortgame"){a11yKey="sortgame";if(window.gkDescribe)window.gkDescribe("This part has no picture. Sort cards appear as buttons with small icons; use Tab and Enter to pick a card and then a bin.")}return}
+  const [lab,d]=a.f();const key=curTab+"|"+a.cv+"|"+lab;if(key===a11yKey)return;a11yKey=key;
+  const cv=$(a.cv);if(lab)cv.setAttribute("aria-label",lab);if(window.gkDescribe)window.gkDescribe(d);
+  const box=document.getElementById("gk-desc");const h=cv.closest(".canvas-holder");if(box&&h&&h.nextElementSibling!==box)h.after(box);if(box)cv.setAttribute("aria-describedby","gk-desc")}
+/* ---------------- tabs / theme / loop ---------------- */
+let curTab="sim";const TABS=["sim","fev","case","sort"];
+function setTab(k,focus){curTab=k;document.querySelectorAll(".tab").forEach(x=>{const on=x.dataset.tab===k;x.setAttribute("aria-selected",on?"true":"false");x.tabIndex=on?0:-1;if(on&&focus)x.focus()});TABS.forEach(t=>$("#tab-"+t).hidden=t!==k);a11yKey="";fitAll()}
+document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>setTab(t.dataset.tab);t.addEventListener("keydown",e=>{const i=TABS.indexOf(t.dataset.tab);if(e.key==="ArrowRight"){e.preventDefault();setTab(TABS[(i+1)%4],true)}if(e.key==="ArrowLeft"){e.preventDefault();setTab(TABS[(i+3)%4],true)}})});
+function fitAll(){[S1,S2,S3,S4,S5].forEach(s=>s.fit())}
+window.addEventListener("resize",fitAll);
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+let last=performance.now(),rdT=0;
+function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;
+  try{if(curTab==="sim"){mTick(dt);rdT+=dt;if(rdT>.25){rdT=0;mUI()}drawSim(now)}else if(curTab==="fev"){fTick(dt);rdT+=dt;if(rdT>.25){rdT=0;fUI()}drawFev(now)}else if(curTab==="case"){if(cMode==="cases")drawCase(now);else drawCount(now)}else{sTimerTick();if(curGame==="order"){drawSeq(now);if(!$("#qRelaxed").checked&&!qSolved)$("#qTimer").textContent=fmt((performance.now()-qStart)/1000)}}}catch(err){console.error(err)}
+  try{a11yTick()}catch(err){console.error(err)}
+  requestAnimationFrame(frame)}
+window.__lab={tab:k=>setTab(k),
+  sim:(o,run)=>{o=o||{};if(o.gram)$(o.gram==="neg"?"#mGneg":"#mGpos").click();if(o.cap!=null&&o.cap!==SM.cap)$("#mCap").click();if(o.comp!=null&&o.comp!==SM.comp)$("#mComp").click();if(o.ab!=null&&o.ab!==SM.ab)$("#mAb").click();if(o.n!=null)$(["#mNlow","#mNnorm","#mNhigh"][o.n]).click();if(o.dose){SM.dose=o.dose}mReset();let t=0;while(t<(run||0)&&!SM.status){mStep(.25);t+=.25}mUI();return {t:SM.t,B:SM.B.length,N:liveN(),eaten:SM.eaten,lysed:SM.lysed,status:SM.status}},
+  fev:(steps)=>{if(FS.hot)$("#fHot").click();fReset();(steps||[]).forEach(s=>{if(s[0]==="p")$(["#fP0","#fP1","#fP2"][s[1]]).click();else if(s[0]==="drug")$("#fDrug").click();else if(s[0]==="hot")$("#fHot").click();else if(s[0]==="run"){let t=0;while(t<s[1]&&!FS.done){fStep(.02);t+=.02}}});fUI();return {t:FS.t,SP:FS.SP,Tb:FS.Tb,phase:FS.phase,chal:fChalDone.slice()}},
+  caseGo:(i,q)=>{$("#cModeCases").click();cI=i;cQ=q||0;cLoad()},count:(n,right)=>{$("#cModeCount").click();for(let k=0;k<(n||0);k++){if(K.done)break;kAnswer(right===false?(K.list[K.i]==="N"?"L":"N"):K.list[K.i])}},
+  sortRound:i=>{$("#gSort").click();sR=i;sNew()},sortShow:()=>$("#sShow").click(),order:i=>{$("#gOrder").click();qR=i;qNew()},orderShow:()=>$("#qShow").click()};
+readColors();mReset();mChalUI();fReset();fChalUI();cLoad();kNew(true);sNew();qNew();setTab("sim");requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

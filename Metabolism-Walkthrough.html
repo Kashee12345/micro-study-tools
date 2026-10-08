@@ -1,0 +1,1512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microbial Metabolism Walkthrough</title>
+<meta name="description" content="Step-by-step animated walkthrough of microbial metabolism: ATP, redox, enzymes, glycolysis, the Krebs cycle, electron transport, fermentation and biochemical tests.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#1E7A4C;--accent-ink:#145A37;--accent-wash:#DDEFE4;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#7B5CC9;--act2:#D98A1C;--act3:#C4644F;--act4:#2E8A7A;--act5:#A04E8C;--act6:#4F6F94;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#8A6D12;
+  --ecf:#F1F4EF;--grid:#DCE3DD;
+  --gpos:#6B3FA0;--gneg:#C2407A;
+  --cyto:#E3F0E6;--cell-edge:#5E8F70;--mem:#E2C77A;--mem-edge:#A88B3A;
+  --atp:#C9A227;--atp-edge:#8A6D12;--adp:#E6D48A;--pi:#D98A1C;
+  --nadh:#5B4FC9;--fad:#2E8A7A;--elec:#1E9FD6;--hplus:#E0701E;--o2:#C2392F;--h2o:#5AA9E6;--co2:#7D8B93;
+  --carb:#4F6F94;--pyr:#A04E8C;--acoa:#7B5CC9;--lac:#D98A1C;--eth:#5E7A2A;--acid:#C4644F;--gas:#9FB7C4;
+  --enz:#2E8A7A;--sub:#D98A1C;--inh:#A9372F;--prod:#7B5CC9;--allo:#B03A8C;--paba:#D98A1C;--sulfa:#A9372F;
+  --fat:#EED48E;--fat-edge:#B9993F;--amino:#C4644F;--nh3:#8A6FB0;
+  --sun:#F2B33B;--chl:#3E9C5A;--sulf:#C9B21E;--nitr:#4F6F94;--heat:#E0563A;--glow:#F2B33B;--cold:#3F8FD0;
+  --glass:#E4ECF0;--glass-edge:#8FA3AE;--pr-red:#C8323C;--pr-yel:#E3BE22;--pr-pink:#D63C78;
+  --cit-grn:#3E8E4E;--cit-blue:#2B57B0;--ure-peach:#F2B27A;--ure-pink:#E0388A;--kov:#C42A3A;--vp-red:#B83A3A;--vp-neg:#C9A27A;--ox-purp:#4A2A8A;
+  --yeast:#E6D3A3;--yeast-edge:#A88A4F;--colony:#F2EBD9;--food:#F4EAD8;--food-edge:#B9A07A;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#16301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#F2A93B;--act3:#E08A74;--act4:#5CC4B0;--act5:#D186C0;--act6:#8FB1D9;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#22302A;
+  --gpos:#B79AF0;--gneg:#F08FB8;
+  --cyto:#1C2E24;--cell-edge:#7FBF98;--mem:#6E5E2E;--mem-edge:#D9BC64;
+  --atp:#E0BE48;--atp-edge:#F2D77A;--adp:#6E5E2E;--pi:#F2A93B;
+  --nadh:#A398F0;--fad:#5CC4B0;--elec:#5CC8F0;--hplus:#F59A50;--o2:#E8706A;--h2o:#7FBFEE;--co2:#A3B2BA;
+  --carb:#8FB1D9;--pyr:#D186C0;--acoa:#A98BEF;--lac:#F2A93B;--eth:#A3C95A;--acid:#E08A74;--gas:#7A929E;
+  --enz:#5CC4B0;--sub:#F2A93B;--inh:#E07067;--prod:#A98BEF;--allo:#E07AC4;--paba:#F2A93B;--sulfa:#E07067;
+  --fat:#7A6630;--fat-edge:#D9BC64;--amino:#E08A74;--nh3:#B9A2E8;
+  --sun:#F2B33B;--chl:#6BC26E;--sulf:#E0CC48;--nitr:#8FB1D9;--heat:#F27A5E;--glow:#F2B33B;--cold:#6FB3EE;
+  --glass:#22303A;--glass-edge:#7F95A2;--pr-red:#E0525A;--pr-yel:#E8C84A;--pr-pink:#EE6AA0;
+  --cit-grn:#5CB06C;--cit-blue:#5A8BE0;--ure-peach:#E0A070;--ure-pink:#F070AE;--kov:#E8505E;--vp-red:#E0605E;--vp-neg:#B9926A;--ox-purp:#9A7AE0;
+  --yeast:#5A4A2E;--yeast-edge:#D9BC7A;--colony:#3A352A;--food:#3A3226;--food-edge:#B9A07A;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#16301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#F2A93B;--act3:#E08A74;--act4:#5CC4B0;--act5:#D186C0;--act6:#8FB1D9;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#22302A;
+  --gpos:#B79AF0;--gneg:#F08FB8;
+  --cyto:#1C2E24;--cell-edge:#7FBF98;--mem:#6E5E2E;--mem-edge:#D9BC64;
+  --atp:#E0BE48;--atp-edge:#F2D77A;--adp:#6E5E2E;--pi:#F2A93B;
+  --nadh:#A398F0;--fad:#5CC4B0;--elec:#5CC8F0;--hplus:#F59A50;--o2:#E8706A;--h2o:#7FBFEE;--co2:#A3B2BA;
+  --carb:#8FB1D9;--pyr:#D186C0;--acoa:#A98BEF;--lac:#F2A93B;--eth:#A3C95A;--acid:#E08A74;--gas:#7A929E;
+  --enz:#5CC4B0;--sub:#F2A93B;--inh:#E07067;--prod:#A98BEF;--allo:#E07AC4;--paba:#F2A93B;--sulfa:#E07067;
+  --fat:#7A6630;--fat-edge:#D9BC64;--amino:#E08A74;--nh3:#B9A2E8;
+  --sun:#F2B33B;--chl:#6BC26E;--sulf:#E0CC48;--nitr:#8FB1D9;--heat:#F27A5E;--glow:#F2B33B;--cold:#6FB3EE;
+  --glass:#22303A;--glass-edge:#7F95A2;--pr-red:#E0525A;--pr-yel:#E8C84A;--pr-pink:#EE6AA0;
+  --cit-grn:#5CB06C;--cit-blue:#5A8BE0;--ure-peach:#E0A070;--ure-pink:#F070AE;--kov:#E8505E;--vp-red:#E0605E;--vp-neg:#B9926A;--ox-purp:#9A7AE0;
+  --yeast:#5A4A2E;--yeast-edge:#D9BC7A;--colony:#3A352A;--food:#3A3226;--food-edge:#B9A07A;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1240px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:7px 12px;cursor:pointer;font-size:14px}
+.tbtn:hover{border-color:var(--accent)}
+.wrap{max-width:1240px;margin:0 auto;padding:16px}
+.chain{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.actgrp{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:8px 10px;display:flex;flex-direction:column;gap:6px;flex:1 1 150px}
+.actgrp .an{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.actgrp .an i{width:10px;height:10px;border-radius:50%;display:inline-block;flex:0 0 auto}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--rule);background:var(--panel-2);font-family:var(--mono);font-size:13px;cursor:pointer;display:grid;place-items:center;padding:0}
+.dot:hover{border-color:var(--accent)}
+.dot.cur{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.dot.done:not(.cur){background:var(--good-wash);border-color:var(--good);color:var(--good)}
+.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);min-width:0}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%}
+.stagebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.stagebar input[type=range]{accent-color:var(--accent);width:110px}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2);flex:0 0 auto}
+.legend i.s{border-radius:2px}
+.legend i.d{border-radius:1px;transform:rotate(45deg);width:9px;height:9px}
+.legend i.r{border-radius:3px;width:14px}
+.legend i.l{width:18px;height:4px;border-radius:2px;border:0}
+.legend i.t{width:0;height:0;border-radius:0;border:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid;background:none!important}
+.legend i.dl{width:18px;height:0;border-radius:0;border:0;border-top:2px dashed;background:none!important}
+.legend i.y{width:12px;height:12px;border:0;border-radius:0;background:none!important;position:relative}
+.legend i.y::before{content:"Y";position:absolute;left:0;top:-4px;font:700 14px var(--sans);color:var(--yc)}
+.explain{padding:18px 20px}
+.stepno{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.actchip{padding:1px 8px 1px 6px;border-radius:99px;color:var(--ink);font-size:11px;border:1.5px solid var(--c,var(--accent));background:var(--panel);display:inline-flex;align-items:center;gap:5px}.actchip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c,var(--accent))}
+h2{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.25;margin:6px 0 10px}
+.body p{margin:0 0 10px}
+.body ol,.body ul{margin:0 0 10px;padding-left:22px}
+.body li{margin-bottom:4px}
+.body .tx{border-left:3px solid var(--accent);padding:2px 0 2px 10px;color:var(--ink)}
+.analogy{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:12px 0}
+.analogy b{display:block;font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.analogy p{margin:0}
+.terms{margin:12px 0 0;padding:0}
+.terms div{display:grid;grid-template-columns:minmax(110px,34%) 1fr;gap:10px;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14.5px}
+.terms dt{font-weight:600}
+.terms dd{margin:0;color:var(--ink-soft)}
+.check{margin-top:16px;border:1px solid var(--rule);border-radius:var(--r);padding:14px;background:var(--panel-2)}
+.check h3{margin:0 0 6px;font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
+.check .q{font-weight:600;margin:0 0 10px}
+.opt{display:block;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;margin:0 0 8px;cursor:pointer;font-size:15px;line-height:1.4}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:6px 0 0;font-size:14.5px}
+.fb.ok{color:var(--good)}
+.fb.no{color:var(--warn-ink)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+.nav{display:flex;align-items:center;gap:12px;margin-top:14px}
+.navbtn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:11px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.navbtn.sec{background:var(--panel);color:var(--ink);border:1px solid var(--rule)}
+.navbtn:disabled{opacity:.4;cursor:default}
+.prog{flex:1;height:8px;background:var(--sunk);border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+footer{max-width:1240px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+sub,sup{line-height:0}
+</style>
+<script src="micro-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">Microbiology &middot; Module 4 &middot; Microbial metabolism</div>
+    <h1>Microbial Metabolism Walkthrough</h1>
+    <p class="sub">How microbes pull energy out of food, how enzymes make it happen, and how the lab uses those reactions to name an unknown bacterium. Go at your own pace. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+
+<div class="wrap">
+  <nav class="chain" id="chain" aria-label="Steps"></nav>
+  <div class="grid">
+    <section class="card stage" aria-label="Animation">
+      <div class="canvas-holder"><canvas id="stage" role="img" aria-label=""></canvas></div>
+      <div class="stagebar">
+        <button class="tbtn" id="pauseBtn" type="button">Pause</button>
+        <button class="tbtn" id="replayBtn" type="button">Replay</button>
+        <label>Speed <input type="range" id="speed" min="0.25" max="1.75" step="0.25" value="1"></label>
+        <span class="caption" id="caption"></span>
+      </div>
+      <div class="legend" id="legend"></div>
+    </section>
+    <section class="card explain" aria-live="polite">
+      <div class="stepno" id="stepno"></div>
+      <h2 id="title"></h2>
+      <div class="body" id="body"></div>
+      <div class="analogy" id="analogy"><b>Think of it like this</b><p></p></div>
+      <dl class="terms" id="terms"></dl>
+      <div class="check" id="check">
+        <h3>Quick check</h3>
+        <p class="q" id="q"></p>
+        <div id="opts"></div>
+        <p class="fb" id="fb"></p>
+        <p class="calm">Wrong answers are fine here. Read why, then try again.</p>
+      </div>
+      <div class="nav">
+        <button class="navbtn sec" id="prev" type="button">&larr; Back</button>
+        <div class="prog"><i id="progbar"></i></div>
+        <button class="navbtn" id="next" type="button">Next &rarr;</button>
+      </div>
+    </section>
+  </div>
+</div>
+<footer>Dr. Akash Garg &middot; Microbiology Study Tools &middot; Diagrams are simplified and not to scale. For learning only, not medical advice. CC BY-NC-SA 4.0<br>Use the left and right arrow keys to move between steps. Practice next in the <a href="Metabolism-Lab.html">Metabolism Lab</a>. Molecules, enzymes and cells are drawn as large cartoons, and reactions that take milliseconds or a full day of incubation are slowed down or sped up so you can watch them. ATP counts are the classic textbook maximums; real cells usually make somewhat less.</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "gold", "gold-wash", "gold-ink", "ecf", "grid", "gpos", "gneg", "cyto", "cell-edge", "mem", "mem-edge", "atp", "atp-edge", "adp", "pi", "nadh", "fad", "elec", "hplus", "o2", "h2o", "co2", "carb", "pyr", "acoa", "lac", "eth", "acid", "gas", "enz", "sub", "inh", "prod", "allo", "paba", "sulfa", "fat", "fat-edge", "amino", "nh3", "sun", "chl", "sulf", "nitr", "heat", "glow", "cold", "glass", "glass-edge", "pr-red", "pr-yel", "pr-pink", "cit-grn", "cit-blue", "ure-peach", "ure-pink", "kov", "vp-red", "vp-neg", "ox-purp", "yeast", "yeast-edge", "colony", "food", "food-edge"];
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"left";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase(),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+
+/* ================= metabolism drawing kit ================= */
+function bead(x,y,r,col,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);circ(x,y,r,col,mix(col,C.ink,.45),1.2);circ(x-r*.3,y-r*.32,r*.32,hexA(C.panel,.45));
+  if(o.t){ctx.font=`700 ${Math.max(9,Math.round(r*.95))}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(o.t,x,y+.5)}ctx.restore()}
+/* n beads in a row centred on x; returns total width */
+function chainH(x,y,n,r,col,o){o=o||{};const g=r*1.75;const w=(n-1)*g;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  if(n>1)line(x-w/2,y,x+w/2,y,mix(col,C.ink,.45),Math.max(2,r*.4));
+  for(let i=0;i<n;i++)bead(x-w/2+i*g,y+(o.wave?Math.sin(i*1.3+(o.t||0)*3)*o.wave:0),r,o.cols?o.cols[i]:col);
+  if(o.lab)txt(x,y+r+12,o.lab,{size:o.ls||12,weight:600,align:"center",color:o.lc||C["ink-soft"]});ctx.restore();return w+2*r}
+/* glucose: a ring of six carbon beads */
+function ringMol(x,y,R,n,col,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const pts=[];for(let i=0;i<n;i++){const a=-Math.PI/2+i/n*TAU+(o.rot||0);pts.push([x+Math.cos(a)*R,y+Math.sin(a)*R])}
+  ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();ctx.strokeStyle=mix(col,C.ink,.45);ctx.lineWidth=Math.max(2,R*.14);ctx.stroke();
+  pts.forEach(p=>bead(p[0],p[1],R*.36,col));if(o.lab)txt(x,y+R+R*.36+12,o.lab,{size:o.ls||12,weight:600,align:"center",color:C["ink-soft"]});
+  if(o.mid)txt(x,y,o.mid,{size:Math.max(11,R*.5),mono:true,weight:700,align:"center",color:C.ink});ctx.restore()}
+/* ATP as a gold coin; o.adp draws the paler ADP coin */
+function atpCoin(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ctx.translate(x,y);ctx.scale(o.flip==null?1:Math.max(.08,Math.abs(o.flip)),1);
+  if(o.glow)glow(0,0,r*2.2,C.atp,.5*o.glow);
+  const col=o.adp?C.adp:C.atp;circ(0,0,r,col,C["atp-edge"],1.6);circ(0,0,r*.76,null,hexA(C["atp-edge"],.7),1.1);
+  if(r>=8){ctx.font=`700 ${Math.max(8,Math.round(r*.62))}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=isDark()&&!o.adp?"#1A1405":(isDark()?C.ink:"#3A2C00");ctx.fillText(o.adp?"ADP":"ATP",0,.5)}
+  ctx.restore()}
+function pDot(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);if(o.glow)glow(x,y,r*2.4,C.glow,.6*o.glow);circ(x,y,r,C.pi,mix(C.pi,C.ink,.45),1.3);
+  ctx.font=`700 ${Math.round(r*1.05)}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText("P",x,y+.5);ctx.restore()}
+/* structural ATP: adenine (two rings), ribose, phosphate tail. returns x of each phosphate */
+function atpMol(x,y,s,nP,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const hexP=(cx,cy,r,n,rot)=>{ctx.beginPath();for(let i=0;i<n;i++){const a=rot+i/n*TAU;const X=cx+Math.cos(a)*r,Y=cy+Math.sin(a)*r;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()};
+  hexP(x-62*s,y-26*s,15*s,6,Math.PI/6);ctx.fillStyle=mix(C.carb,C.panel,.55);ctx.fill();ctx.strokeStyle=C.carb;ctx.lineWidth=1.6;ctx.stroke();
+  hexP(x-40*s,y-30*s,12*s,5,Math.PI);ctx.fillStyle=mix(C.carb,C.panel,.55);ctx.fill();ctx.stroke();
+  txt(x-56*s,y-50*s,"adenine",{size:12,align:"center",color:C["ink-soft"]});
+  line(x-34*s,y-20*s,x-26*s,y-6*s,C.carb,2);hexP(x-18*s,y+4*s,14*s,5,-Math.PI/2);ctx.fillStyle=mix(C.acoa,C.panel,.6);ctx.fill();ctx.strokeStyle=C.acoa;ctx.lineWidth=1.6;ctx.stroke();
+  txt(x-18*s,y+30*s,"ribose",{size:12,align:"center",color:C["ink-soft"]});
+  const xs=[];let px=x-4*s;for(let i=0;i<nP;i++){const cx=x+16*s+i*30*s;const bond=i===nP-1&&o.hotBond;line(px,y+4*s,cx-11*s,y+4*s,bond?C.heat:mix(C.pi,C.ink,.4),bond?3.5:2.4);
+    if(bond&&o.hotBond>0)glow((px+cx-11*s)/2,y+4*s,18*s,C.glow,.7*o.hotBond);pDot(cx,y+4*s,11*s);xs.push(cx);px=cx+11*s}
+  ctx.restore();return xs}
+/* electron carriers drawn as taxis. kind "nad" or "fad". full = reduced form carrying electrons */
+function taxi(x,y,s,kind,full,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ctx.translate(x,y);ctx.scale(s,s);
+  const col=kind==="fad"?C.fad:kind==="nadp"?C.chl:C.nadh;const w=kind==="fad"?44:kind==="nadp"?60:52,h=20;
+  rr(-w/2,-h/2,w,h,7);ctx.fillStyle=full?col:mix(col,C.panel,.78);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=2/s;ctx.stroke();
+  rr(-w/2+10,-h/2-11,w-22,12,5);ctx.fillStyle=full?mix(col,C.panel,.25):mix(col,C.panel,.85);ctx.fill();ctx.stroke();
+  circ(-w/2+11,h/2,5,C.ink);circ(w/2-11,h/2,5,C.ink);circ(-w/2+11,h/2,2,C.panel);circ(w/2-11,h/2,2,C.panel);
+  const t=kind==="fad"?(full?"FADH₂":"FAD"):kind==="nadp"?(full?"NADPH":"NADP⁺"):(full?"NADH":"NAD⁺");ctx.font=`700 12px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=full?onFill():C.ink;ctx.fillText(t,0,1);
+  if(full&&o.e!==false){const tt=o.t||0;for(let k=0;k<2;k++){const ex=-6+k*12,ey=-h/2-17+Math.sin(tt*6+k*2)*1.5;glow(ex,ey,8,C.elec,.5);circ(ex,ey,3.6,C.elec,mix(C.elec,C.ink,.4),1/s)}}
+  ctx.restore()}
+function elec(x,y,r,a){r=r||4;ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);glow(x,y,r*2.6,C.elec,.55);circ(x,y,r,C.elec,mix(C.elec,C.ink,.4),1);ctx.restore()}
+function hplus(x,y,r,a){r=r||6;ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x,y,r,C.hplus,mix(C.hplus,C.ink,.4),1);
+  if(r>=5){ctx.strokeStyle=onFill();ctx.lineWidth=Math.max(1.4,r*.28);ctx.beginPath();ctx.moveTo(x-r*.5,y);ctx.lineTo(x+r*.5,y);ctx.moveTo(x,y-r*.5);ctx.lineTo(x,y+r*.5);ctx.stroke()}ctx.restore()}
+function o2mol(x,y,s,a){s=s||1;ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x-5*s,y,6.5*s,C.o2,mix(C.o2,C.ink,.4),1);circ(x+5*s,y,6.5*s,C.o2,mix(C.o2,C.ink,.4),1);ctx.restore()}
+function h2o(x,y,s,a){s=s||1;ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x-7*s,y+4*s,4*s,C.h2o,mix(C.h2o,C.ink,.4),1);circ(x+7*s,y+4*s,4*s,C.h2o,mix(C.h2o,C.ink,.4),1);circ(x,y,6.5*s,C.o2,mix(C.o2,C.ink,.4),1);ctx.restore()}
+function co2(x,y,s,a){s=s||1;ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x-9*s,y,5*s,C.o2,mix(C.o2,C.ink,.4),1);circ(x+9*s,y,5*s,C.o2,mix(C.o2,C.ink,.4),1);circ(x,y,6*s,C.co2,mix(C.co2,C.ink,.4),1);ctx.restore()}
+function bubble(x,y,r,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x,y,r,hexA(C.panel,.35),hexA(C.ink,.55),1.1);circ(x-r*.35,y-r*.35,r*.25,hexA("#ffffff",.7));ctx.restore()}
+/* lipid bilayer across [x,x+w]; top heads at y, bottom heads at y+th */
+function membraneH(x,y,w,o){o=o||{};const th=o.th||34,step=o.step||10,r=o.r||4.2;ctx.save();
+  ctx.fillStyle=hexA(C.mem,.35);ctx.fillRect(x,y,w,th);
+  for(let X=x+step/2;X<x+w;X+=step){line(X-1.5,y+r,X-1.5,y+th/2-1,C["mem-edge"],1);line(X+1.5,y+r,X+1.5,y+th/2-1,C["mem-edge"],1);line(X-1.5,y+th-r,X-1.5,y+th/2+1,C["mem-edge"],1);line(X+1.5,y+th-r,X+1.5,y+th/2+1,C["mem-edge"],1);
+    circ(X,y+r,r,C.mem,C["mem-edge"],1);circ(X,y+th-r,r,C.mem,C["mem-edge"],1)}ctx.restore();return th}
+function protBlob(x,y,w,h,col,lab,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);if(o.glow)glow(x,y,Math.max(w,h)*.9,C.glow,.55*o.glow);
+  rr(x-w/2,y-h/2,w,h,Math.min(w,h)*.4);ctx.fillStyle=mix(col,C.panel,.35);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke();
+  if(lab){ctx.font=`700 ${o.ls||12}px ${o.mono===false?FONT:MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=C.ink;ctx.fillText(lab,x,y+.5)}ctx.restore()}
+/* ATP synthase: channel in membrane (cy = membrane middle), knob hangs below into the cytoplasm */
+function synthase(x,cy,s,rot,o){o=o||{};ctx.save();ctx.translate(x,cy);ctx.scale(s,s);
+  rr(-22,-22,44,44,10);ctx.fillStyle=mix(C.enz,C.panel,.35);ctx.fill();ctx.strokeStyle=C.enz;ctx.lineWidth=2;ctx.stroke();
+  for(let k=0;k<6;k++){const a=rot+k/6*TAU;const X=Math.cos(a)*14;line(X,-16,X,16,hexA(C.enz,.4+.5*(Math.sin(a)>0?1:0)),3)}
+  rr(-5,18,10,30,3);ctx.fillStyle=C.enz;ctx.fill();
+  for(let k=0;k<6;k++){const a=rot*1+k/6*TAU;circ(Math.cos(a)*16,64+Math.sin(a)*7,10,mix(C.enz,C.panel,k%2?.2:.5),C.enz,1.5)}
+  circ(0,64,8,C.enz);
+  if(o.lab!==false)txt(0,96,"ATP synthase",{size:12/s>11?12:12,weight:700,align:"center",color:C.ink});ctx.restore()}
+/* enzyme with a V-shaped active site on top.  o.distort 0..1 (denatured), o.allo 0..1 (allosteric shape change), o.alloSite draws the side pocket */
+function enzymePath(r,o){o=o||{};const N=90;const d=o.distort||0,al=o.allo||0;ctx.beginPath();
+  for(let i=0;i<=N;i++){const a=-Math.PI/2+i/N*TAU;let da=Math.atan2(Math.sin(a+Math.PI/2),Math.cos(a+Math.PI/2));let rad=r;
+    const half=.42*(1-al*.45);if(Math.abs(da)<half){rad=r*(1-.45*(1-al*.55)*(1-Math.abs(da)/half)*(1-d*.8))}
+    if(o.alloSite){const db=Math.atan2(Math.sin(a-Math.PI*.25),Math.cos(a-Math.PI*.25));if(Math.abs(db)<.3)rad=Math.min(rad,r*(1-.22*(1-Math.abs(db)/.3)))}
+    rad*=1+d*(.16*Math.sin(a*3+1.3)+.1*Math.sin(a*5+.4))+al*.05*Math.sin(a*2);
+    const X=Math.cos(a)*rad,Y=Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function enzyme(x,y,s,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(o.rot||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const r=34*s;const col=o.col||C.enz;
+  if(o.glow)glow(0,0,r*1.7,C.glow,.5*o.glow);
+  enzymePath(r,o);ctx.fillStyle=mix(col,C.panel,.45);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=2.2;ctx.stroke();
+  if(o.lab){ctx.font=`700 ${Math.max(11,Math.round(12*Math.min(1.2,s)))}px ${FONT}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=C.ink;ctx.fillText(o.lab,0,r*.18)}
+  ctx.restore()}
+/* substrate wedge that fits the active site. (x,y) = enzyme centre when bound; dy shifts it away */
+function wedge(x,y,s,col,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(o.rot||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const k=s;
+  const half=o.half;ctx.beginPath();
+  if(half==="L"){ctx.moveTo(-14*k,-31*k);ctx.lineTo(-1*k,-31*k);ctx.lineTo(-1*k,-20*k);ctx.closePath()}
+  else if(half==="R"){ctx.moveTo(1*k,-31*k);ctx.lineTo(14*k,-31*k);ctx.lineTo(1*k,-20*k);ctx.closePath()}
+  else{ctx.moveTo(-14*k,-31*k);ctx.lineTo(14*k,-31*k);ctx.lineTo(0,-19*k);ctx.closePath()}
+  ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=mix(col,C.ink,.45);ctx.lineWidth=1.3;ctx.stroke();
+  // top cap: substrate round, inhibitor square
+  const capY=-31*k;if(!half){if(o.cap==="sq"){rr(-11*k,capY-14*k,22*k,15*k,2);ctx.fillStyle=col;ctx.fill();ctx.stroke()}else{ctx.beginPath();ctx.arc(0,capY,11*k,Math.PI,0);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.stroke()}}
+  else{ctx.beginPath();if(half==="L"){ctx.arc(-1*k,capY,11*k,Math.PI,Math.PI*1.5);ctx.lineTo(-1*k,capY)}else{ctx.arc(1*k,capY,11*k,Math.PI*1.5,TAU);ctx.lineTo(1*k,capY)}ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.stroke()}
+  if(o.lab){ctx.restore();ctx.save();label(x,y-50*k,o.lab,{size:o.ls||11.5,weight:700,align:"center",color:C.ink});}
+  ctx.restore()}
+/* allosteric inhibitor: small diamond that docks at the side pocket (angle -45deg from top-right) */
+function alloDock(x,y,s){return [x+Math.cos(-Math.PI*.25)*34*s,y+Math.sin(-Math.PI*.25)*34*s]}
+/* microbes */
+function bact(x,y,ang,s,a,o){o=o||{};s=s||8;ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=a==null?1:clamp(a,0,1);
+  const L=s*1.6,Hh=s*.75;rr(-L,-Hh,L*2,Hh*2,Hh);ctx.fillStyle=o.col||C.gneg;ctx.fill();ctx.strokeStyle=hexA(C.ink,.45);ctx.lineWidth=1;ctx.stroke();
+  if(o.flag){ctx.strokeStyle=hexA(o.col||C.gneg,.8);ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(L,0);for(let k=1;k<=7;k++)ctx.lineTo(L+k*3,Math.sin(k*1.6+(o.t||0)*8)*2.5);ctx.stroke()}
+  ctx.restore()}
+function coccus(x,y,r,col,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x,y,r,col||C.gpos,hexA(C.ink,.45),1);circ(x-r*.3,y-r*.3,r*.3,hexA(C.panel,.35));ctx.restore()}
+function yeastC(x,y,s,bud,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ell(0,0,s,s*.8,0,C.yeast,C["yeast-edge"],1.5);circ(-s*.15,0,s*.28,hexA(C["yeast-edge"],.6));
+  if(bud>0)ell(s*(.82+bud*.32),-s*.1,s*.5*bud,s*.42*bud,0,C.yeast,C["yeast-edge"],1.4);ctx.restore()}
+/* big cell outline (rounded rod) used as a stage */
+function cellRod(x,y,w,h,o){o=o||{};rr(x,y,w,h,h/2);ctx.fillStyle=o.fill||C.cyto;ctx.fill();ctx.strokeStyle=o.edge||C["cell-edge"];ctx.lineWidth=o.lw||3;ctx.stroke();
+  if(o.wall){rr(x-5,y-5,w+10,h+10,h/2+5);ctx.strokeStyle=hexA(o.wall,.7);ctx.lineWidth=3;ctx.stroke()}}
+/* test tube. (x,y) = top centre */
+function tube(x,y,o){o=o||{};const w=o.w||26,h=o.h||112;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const lev=o.level==null?.72:o.level;const top=y+h*(1-lev);
+  const path=()=>{ctx.beginPath();ctx.moveTo(x-w/2,y);ctx.lineTo(x-w/2,y+h-w/2);ctx.arc(x,y+h-w/2,w/2,Math.PI,0,true);ctx.lineTo(x+w/2,y);};
+  path();ctx.fillStyle=C.glass;ctx.fill();
+  ctx.save();path();ctx.clip();
+  if(o.slant){ctx.beginPath();ctx.moveTo(x-w/2,y+h*.38);ctx.lineTo(x+w/2,y+h*.62);ctx.lineTo(x+w/2,y+h);ctx.lineTo(x-w/2,y+h);ctx.closePath();ctx.fillStyle=o.fill||C["pr-red"];ctx.fill();
+    if(o.streak){ctx.strokeStyle=hexA(C.colony==null?"#fff":C.colony,.95);ctx.lineWidth=2;ctx.beginPath();for(let i=0;i<=8;i++){const f=i/8;const X=x-w/2+3+f*(w-6),Y=y+h*.38+f*h*.24+3+Math.sin(i*2.1)*1.5;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.stroke()}}
+  else{ctx.fillStyle=o.fill||C["pr-red"];ctx.fillRect(x-w/2,top,w,h);
+    if(o.turbid){for(let i=0;i<o.turbid*40;i++){circ(x-w/2+3+rnd(i*3+1)*(w-6),top+4+rnd(i*7+2)*(y+h-top-6),1,hexA(C.ink,.22))}}
+    if(o.ring){ctx.fillStyle=o.ring;ctx.fillRect(x-w/2,top,w,o.ringH||9)}}
+  if(o.durham){const dw=w*.36,dh=h*.42,dx=x-dw/2,dy=y+h-dh-w*.35;ctx.fillStyle=hexA(C.panel,.25);ctx.fillRect(dx,dy,dw,dh);ctx.strokeStyle=hexA(C.ink,.6);ctx.lineWidth=1.2;
+    ctx.beginPath();ctx.moveTo(dx,dy+dh);ctx.lineTo(dx,dy+dw/2);ctx.arc(dx+dw/2,dy+dw/2,dw/2,Math.PI,0);ctx.lineTo(dx+dw,dy+dh);ctx.stroke();
+    if(o.gas>0){const gh=(dh-3)*clamp(o.gas,0,1);ctx.save();ctx.beginPath();ctx.moveTo(dx+1,dy+dw/2);ctx.arc(dx+dw/2,dy+dw/2,dw/2-1,Math.PI,0);ctx.lineTo(dx+dw-1,dy+Math.max(dw/2,gh));ctx.lineTo(dx+1,dy+Math.max(dw/2,gh));ctx.closePath();ctx.fillStyle=hexA("#ffffff",isDark()?.55:.92);ctx.fill();ctx.restore();
+      if(gh>dw/2)ctx.fillStyle=hexA("#ffffff",isDark()?.55:.92),ctx.fillRect(dx+1,dy+dw/2,dw-2,gh-dw/2);
+      if(o.rise!=null)for(let k=0;k<3;k++){const p=P(o.rise+k*.33,1);bubble(dx+dw/2+Math.sin(k*2+p*6)*2,dy+dh-p*(dh-gh),1.8,1-p)}}}
+  ctx.restore();
+  path();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.8;ctx.stroke();line(x-w/2+4,y+6,x-w/2+4,y+h-w/2,hexA("#ffffff",.5),2);
+  if(o.cap){rr(x-w/2-3,y-12,w+6,14,3);ctx.fillStyle=o.cap;ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.lineWidth=1;ctx.stroke()}
+  if(o.lab)txt(x,y+h+14,o.lab,{size:o.ls||12,weight:700,align:"center",color:o.lc||C.ink});
+  if(o.lab2)txt(x,y+h+30,o.lab2,{size:o.ls2||11.5,weight:500,align:"center",color:C["ink-soft"]});
+  ctx.restore()}
+/* axes for small graphs: returns mapping helpers */
+function axes(x,y,w,h,o){o=o||{};line(x,y,x,y+h,C.ink,1.4);line(x,y+h,x+w,y+h,C.ink,1.4);
+  if(o.xl)txt(x+w/2,y+h+(o.xlo||16),o.xl,{size:12,weight:600,align:"center",color:C["ink-soft"]});
+  if(o.yl){ctx.save();ctx.translate(x-(o.ylo||14),y+h/2);ctx.rotate(-Math.PI/2);txt(0,0,o.yl,{size:12,weight:600,align:"center",color:C["ink-soft"]});ctx.restore()}
+  return {X:v=>x+w*v,Y:v=>y+h-h*v}}
+/* pathway roadmap strip: on = index lit */
+const ROAD=["Glycolysis","Transition","Krebs cycle","Electron transport"];
+function roadmap(x,y,w,on,o){o=o||{};const items=o.items||ROAD;const n=items.length,gap=14,bw=(w-gap*(n-1))/n;
+  items.forEach((s,i)=>{const X=x+i*(bw+gap);const lit=i===on;rr(X,y,bw,24,12);ctx.fillStyle=lit?C.accent:hexA(C.panel,.9);ctx.fill();ctx.strokeStyle=lit?C.accent:C.rule;ctx.lineWidth=1.3;ctx.stroke();
+    txt(X+bw/2,y+12.5,s,{size:12,weight:700,align:"center",color:lit?onFill():C["ink-soft"]});if(i<n-1)arrow(X+bw+2,y+12,X+bw+gap-1,y+12,C["ink-soft"],1.3)})}
+/* tally: icons with counts. items [[kind,n,label]] */
+function tallyIcon(kind,x,y,s){s=s||1;if(kind==="atp")atpCoin(x,y,11*s);else if(kind==="nadh")taxi(x,y+3,.55*s,"nad",true,{e:false});else if(kind==="fadh")taxi(x,y+3,.55*s,"fad",true,{e:false});else if(kind==="co2")co2(x,y,.9*s);else if(kind==="adp")atpCoin(x,y,11*s,{adp:true});else if(kind==="h2o")h2o(x,y,.9*s)}
+function tally(x,y,items,o){o=o||{};let X=x;items.forEach(it=>{tallyIcon(it[0],X+16,y,o.s);const t=(it[1]>0&&o.sign?"+":"")+it[1]+(it[2]?" "+it[2]:"");txt(X+34,y,t,{size:o.size||13,mono:true,weight:700,color:it[3]||C.ink});X+=40+ctx.measureText(t).width+(o.gap||14)})}
+function sunIcon(x,y,r,t){glow(x,y,r*2.4,C.sun,.45);circ(x,y,r,C.sun,mix(C.sun,C.ink,.3),1.5);for(let k=0;k<10;k++){const a=k/10*TAU+(t||0)*.4;line(x+Math.cos(a)*r*1.3,y+Math.sin(a)*r*1.3,x+Math.cos(a)*r*1.75,y+Math.sin(a)*r*1.75,C.sun,2.4)}}
+function headPanel(x,y,w,h,t,col,o){o=o||{};panelBox(x,y,w,h,{stroke:col||C.rule,lw:col?2:1.2,fill:o.fill});if(t)title(x+12,y+18,t,o.tc||C["ink-soft"])}
+function okBadge(x,y,ok,t){const col=ok?C.good:C.bad;label(x,y,(ok?"✓ ":"✗ ")+t,{size:12.5,weight:700,align:"center",color:col,border:col})}
+
+
+/* ---------------- step content ---------------- */
+const ACTS={1:{name:"Part 1 · Energy basics",col:"act1"},
+            2:{name:"Part 2 · Enzymes",col:"act2"},
+            3:{name:"Part 3 · Glycolysis and Krebs",col:"act4"},
+            4:{name:"Part 4 · Electron transport",col:"act6"},
+            5:{name:"Part 5 · Fermentation",col:"act3"},
+            6:{name:"Part 6 · Other fuels and light",col:"act5"},
+            7:{name:"Part 7 · Metabolism in the lab",col:"gold"}};
+const NACT=7;
+const STEPS=[
+{act:0,scene:"map",desc:"On the left, a large rounded green bacterium fills a panel. A ring of six blue beads, glucose, slides in from the left edge, splits into two smaller three-bead pyruvates, and the pieces head either to a turning wheel and a membrane strip along the top edge (labelled O2 present) or, on alternate rounds, to a fermentation box that turns them into orange lactic acid (labelled No O2). Gold ATP coins pop out and a counter in the corner climbs to 38 on the oxygen round but only 2 on the no-oxygen round. On the right, seven numbered cards light up one by one: Energy basics, Enzymes, Glycolysis and Krebs, Electron transport, Fermentation, Other fuels and light, and Metabolism in the lab.",
+ title:"The big picture: how microbes run on food",
+ body:`<p>Every microbe needs two things to live: <b>energy</b> to do work and <b>building blocks</b> to make new cells. <b>Metabolism</b> is the set of chemical reactions that gets both from food.</p>
+ <p>A bacterium that breathes oxygen can squeeze up to 38 ATP (the cell's energy coin) out of one sugar molecule. Without oxygen, many microbes switch to <b>fermentation</b> and get only 2. Those choices also leave behind products, such as acids and gases, that the lab uses to <b>identify</b> the microbe.</p>
+ <p>This walkthrough has seven parts:</p>
+ <ol><li><b>Energy basics:</b> catabolism, anabolism, ATP, and electron carriers.</li><li><b>Enzymes:</b> active sites, cofactors, temperature and pH, and inhibitors such as sulfa drugs.</li><li><b>Glycolysis and Krebs:</b> taking glucose apart.</li><li><b>Electron transport:</b> the proton pump and ATP synthase, aerobic and anaerobic respiration.</li><li><b>Fermentation:</b> lactic acid, alcohol and mixed acids.</li><li><b>Other fuels and light:</b> fats, proteins and photosynthesis.</li><li><b>Metabolism in the lab:</b> sugar tubes, catalase, oxidase, citrate, urease and IMViC.</li></ol>`,
+ analogy:"A power plant that can burn fuel two ways. With plenty of air it burns everything cleanly and makes lots of power. Short on air, it smolders, makes a little power and leaves smoky leftovers behind. The leftovers tell you how it was running.",
+ terms:[["Metabolism","All the chemical reactions in a cell."],["ATP","Adenosine triphosphate, the molecule cells use to pay for work."]],
+ check:null,caption:"One glucose enters a bacterium: with oxygen it yields up to 38 ATP, without oxygen fermentation yields 2.",
+ legend:[["carb","Glucose (6 carbons)"],["pyr","Pyruvate"],["atp","ATP coin"],["lac","Fermentation product"],["accent","Current part","s"]]},
+
+/* ---------- Part 1 ---------- */
+{act:1,scene:"catab",desc:"Two panels sit side by side. In the left panel, labelled Catabolism: breaking down, a chain of six blue beads shakes and snaps apart; the beads fly outward as small grey and red carbon dioxide molecules, a warm orange glow marks heat escaping, and two gold ATP coins rise out of the break. The coins slide across the gap between the panels along an arrow labelled ATP carries the energy. In the right panel, labelled Anabolism: building up, loose coloured beads (amino acids) drift together and click into a chain, a protein; each arriving gold ATP coin fades to a paler ADP coin as the chain grows.",
+ title:"Catabolism and anabolism",
+ body:`<p><b>Metabolism</b> has two halves that work together.</p>
+ <p><b>Catabolism</b> breaks big molecules, such as glucose, into smaller ones and <b>releases energy</b>. Some of that energy is caught in <b>ATP</b>; the rest escapes as heat.</p>
+ <p><b>Anabolism</b> builds big molecules, such as proteins, DNA and cell wall, from small ones. It <b>uses energy</b>, and the cell pays for it with ATP.</p>
+ <p class="tx">Memory trick: <b>c</b>atabolism <b>c</b>uts; <b>a</b>nabolism <b>a</b>ssembles. ATP links the two.</p>`,
+ analogy:"Tearing down an old shed and selling the scrap brings in cash (catabolism). The cash pays the crew that builds a new shed (anabolism). ATP is the cash passed between them.",
+ terms:[["Metabolism","All the chemical reactions in a cell."],["Catabolism","Breaking molecules down; releases energy."],["Anabolism","Building molecules up (biosynthesis); uses energy."]],
+ check:{q:"A bacterium links amino acids together to build a new enzyme. Which half of metabolism is this?",opts:[
+  ["Anabolism, which uses energy from ATP",1,"Yes. Joining small molecules into a bigger one is building, so it is anabolism, and it costs ATP."],
+  ["Catabolism, which releases energy",0,"Catabolism breaks molecules apart. Linking amino acids into a protein builds something bigger."],
+  ["Fermentation",0,"Fermentation is a way to break down sugar without oxygen. Making a protein is a building reaction."],
+  ["Glycolysis",0,"Glycolysis splits glucose, so it is catabolism. Linking amino acids is anabolism."]]},
+ caption:"Catabolism breaks food down and releases energy as ATP; anabolism spends that ATP to build cell parts.",
+ legend:[["carb","Food molecule"],["co2","CO₂ (waste)"],["atp","ATP"],["adp","ADP (spent)"],["amino","Amino acids → protein"]]},
+
+{act:1,scene:"atp",desc:"On the left, a large ATP molecule is drawn as two blue linked rings (adenine), a purple five-sided ribose sugar, and a tail of three orange circles marked P. The bond to the last phosphate glows red; then the last P breaks away and drifts off, the molecule is relabelled ADP, and a yellow burst of energy travels to a small bacterium whose tail (flagellum) spins faster. Then the loose P slides back on, the label returns to ATP and the cycle repeats. On the right, a circular diagram shows ATP at the top and ADP plus P at the bottom, with a downward arrow labelled energy released for work and an upward arrow labelled energy from food breakdown; a gold coin travels around the loop. Three chips below list the three ways to make ATP.",
+ title:"ATP: the energy coin",
+ body:`<p><b>ATP</b> (adenosine triphosphate) is the cell's energy coin. It is built from <b>adenine</b>, a sugar called <b>ribose</b>, and a tail of <b>three phosphate groups</b>.</p>
+ <p>The bond holding the last phosphate stores usable energy. When the cell breaks it, ATP becomes <b>ADP</b> (adenosine diphosphate) plus a free phosphate (P<sub>i</sub>). The released energy powers work: building molecules, spinning the flagellum, and pumping nutrients in.</p>
+ <p>Catabolism recharges ADP back to ATP by adding a phosphate, called <b>phosphorylation</b>. Cells do this three ways: <b>substrate-level phosphorylation</b> (a phosphate passed directly from a fuel molecule), <b>oxidative phosphorylation</b> (powered by the electron transport chain), and <b>photophosphorylation</b> (powered by light).</p>`,
+ analogy:"A rechargeable battery. ATP is the charged battery; ADP is the drained one. Breaking down food is the charger, and the cell swaps batteries thousands of times a second.",
+ terms:[["ATP","Adenosine triphosphate: adenine + ribose + 3 phosphates."],["ADP","Adenosine diphosphate: ATP after one phosphate is removed."],["Phosphorylation","Adding a phosphate group; turns ADP back into ATP."],["Substrate-level phosphorylation","A phosphate handed straight from a fuel molecule to ADP."]],
+ check:{q:"What happens when a cell 'spends' an ATP?",opts:[
+  ["The last phosphate is removed, leaving ADP and releasing energy",1,"Right. Breaking off the third phosphate releases the energy, and ADP plus a phosphate is left to be recharged."],
+  ["ATP gains a fourth phosphate",0,"Adding a phosphate stores energy, it does not spend it. And ATP has three phosphates, not four."],
+  ["ATP is turned back into glucose",0,"Glucose is fuel that is broken down to make ATP. Spending ATP gives ADP and a phosphate."],
+  ["The adenine breaks off",0,"The energy-releasing bond is the one to the last phosphate, not the adenine."]]},
+ caption:"Breaking off the last phosphate turns ATP into ADP and releases energy for work; food breakdown recharges it.",
+ legend:[["carb","Adenine"],["acoa","Ribose"],["pi","Phosphate (P)"],["atp","ATP coin"],["heat","High-energy bond","l"]]},
+
+{act:1,scene:"redox",desc:"Across the top, a chain of blue beads labelled food molecule gives off two small cyan electron dots. A pale empty taxi labelled NAD+ drives up, the two electrons jump onto its roof, and it turns solid violet with the new label NADH. The full taxi drives right to a blue-grey box labelled electron transport chain, drops the cyan electrons into it, turns pale again (NAD+), and drives back along a lower road to collect more. Under the food molecule a tag says Oxidized: lost electrons; under the taxi a tag says Reduced: gained electrons. A second, smaller teal taxi below does the same thing, changing from FAD to FADH2. A label along the bottom reads OIL RIG: Oxidation Is Loss, Reduction Is Gain.",
+ title:"Redox and electron carriers",
+ body:`<p>The energy in food is held in its <b>electrons</b>. Cells move electrons in <b>redox reactions</b>. <b>Oxidation</b> is losing electrons; <b>reduction</b> is gaining them. They always happen as a pair: one molecule's loss is another's gain.</p>
+ <p>In cells, electrons usually move together with a hydrogen ion (as hydrogen atoms). <b>Electron carriers</b> pick them up. <b>NAD⁺</b> takes two electrons and a hydrogen ion and becomes <b>NADH</b>. <b>FAD</b> takes two electrons and two hydrogen ions and becomes <b>FADH₂</b>.</p>
+ <p>Loaded carriers deliver their electrons, then return empty to pick up more. A cell has only a small supply of carriers, so they <b>must be recycled</b>. Keep this in mind: it is the reason fermentation exists.</p>
+ <p class="tx">Memory trick: <b>OIL RIG</b>. Oxidation Is Loss, Reduction Is Gain (of electrons).</p>`,
+ analogy:"NAD⁺ is an empty taxi. It picks up electron passengers at the food molecule (becoming NADH, a full taxi), drops them off at the electron transport chain, and drives back empty for the next fare.",
+ terms:[["Oxidation","Losing electrons (often with hydrogen)."],["Reduction","Gaining electrons (often with hydrogen)."],["NAD⁺ / NADH","Electron carrier: empty (oxidized) / loaded (reduced)."],["FAD / FADH₂","A second electron carrier used in the Krebs cycle."]],
+ check:{q:"When NAD⁺ picks up electrons and becomes NADH, NAD⁺ has been...",opts:[
+  ["Reduced, because it gained electrons",1,"Yes. Gaining electrons is reduction (RIG). The food molecule that gave them up was oxidized."],
+  ["Oxidized, because it gained electrons",0,"Oxidation is loss of electrons (OIL). Gaining them is reduction."],
+  ["Phosphorylated",0,"Phosphorylation means adding a phosphate group. NAD⁺ gained electrons and hydrogen, not a phosphate."],
+  ["Denatured",0,"Denaturing is when a protein loses its shape. NAD⁺ is a carrier that just picked up electrons."]]},
+ caption:"Food is oxidized (loses electrons); NAD⁺ and FAD are reduced to NADH and FADH₂ and carry the electrons away.",
+ legend:[["carb","Food molecule"],["elec","Electron (e⁻)"],["nadh","NAD⁺ → NADH"],["fad","FAD → FADH₂"]]},
+
+/* ---------- Part 2 ---------- */
+{act:2,scene:"enzyme",desc:"On the left, a large teal enzyme shaped like a ball with a V-shaped notch on top floats in place. An orange wedge-shaped substrate drifts down and fits snugly into the notch (labelled active site), the pair glows (enzyme-substrate complex), and then the wedge splits into two purple halves (products) that float away, leaving the enzyme unchanged and ready for the next substrate. On the right, an energy graph shows a dashed grey hill that is tall (no enzyme) and a solid green hill that is much lower (with enzyme), both starting high on the left and ending lower on the right. A ball rolls along the low green path and over its small hump; a double-headed arrow marks the height of each hump as activation energy.",
+ title:"Enzymes: the active site and activation energy",
+ body:`<p><b>Enzymes</b> are proteins that act as <b>catalysts</b>: they speed up reactions without being used up. Most enzyme names end in <b>-ase</b> (lipase, protease, catalase).</p>
+ <p>Each enzyme has an <b>active site</b>, a pocket shaped to fit its <b>substrate</b>. The substrate binds and forms an <b>enzyme-substrate complex</b>; the reaction happens; the <b>products</b> leave; and the unchanged enzyme grabs the next substrate. This shape match makes each enzyme <b>specific</b> for one reaction or a few.</p>
+ <p>Every reaction needs a starting push called <b>activation energy</b>. Enzymes <b>lower</b> it, so the reaction can run thousands of times faster at body or room temperature. They do not change what the products are or how much energy the reaction releases overall.</p>`,
+ analogy:"Getting from one valley to the next. Without an enzyme the trail goes over a high peak and few hikers make it. The enzyme opens a low pass, so many more get across each minute. The two valleys stay exactly where they were.",
+ terms:[["Enzyme","A protein catalyst; speeds a reaction and is not used up."],["Active site","The pocket where the substrate binds."],["Substrate","The molecule an enzyme acts on."],["Activation energy","The energy push needed to start a reaction."]],
+ check:{q:"What does an enzyme change about a reaction?",opts:[
+  ["It lowers the activation energy, so the reaction runs faster",1,"Right. A lower hill means far more molecules react each second."],
+  ["It changes which products are made",0,"The products are the same with or without the enzyme. It only changes the speed."],
+  ["It is used up as the reaction runs",0,"Enzymes are catalysts. They come out unchanged and can be used again and again."],
+  ["It adds energy to the reaction",0,"An enzyme does not supply energy. It lowers the energy barrier that must be crossed."]]},
+ caption:"Substrate fits the active site, products are released, and the enzyme lowers the activation energy hill.",
+ legend:[["enz","Enzyme"],["sub","Substrate"],["prod","Products"],["accent","With enzyme","l"],["ink-soft","Without enzyme","dl"]]},
+
+{act:2,scene:"cofactor",desc:"In the centre, a teal enzyme labelled apoenzyme has a crooked, half-closed notch on top, and an orange substrate wedge bounces off it without fitting. From the left, a small grey sphere labelled Mg2+ (cofactor) slides in and docks into the enzyme's side; the notch opens into the proper V shape and the label changes to holoenzyme, active. Now the substrate wedge drops in, glows, and splits into products. On the right, a panel lists vitamins and the coenzymes made from them: niacin to NAD+, riboflavin to FAD, pantothenic acid to coenzyme A, with small coloured chips; on the left a panel lists metal cofactors: magnesium, iron, zinc and copper.",
+ title:"Cofactors and coenzymes",
+ body:`<p>Many enzymes are not complete on their own. The protein part, the <b>apoenzyme</b>, is inactive until it joins a helper. Together they form the active <b>holoenzyme</b>.</p>
+ <p>A <b>cofactor</b> is an <b>inorganic</b> helper, usually a metal ion such as <b>magnesium (Mg²⁺)</b>, iron, zinc or copper. A <b>coenzyme</b> is an <b>organic</b> helper. Many coenzymes are made from <b>vitamins</b>: <b>NAD⁺</b> comes from niacin (vitamin B₃), <b>FAD</b> from riboflavin (vitamin B₂), and <b>coenzyme A</b> from pantothenic acid (vitamin B₅).</p>
+ <p>Coenzymes often carry something from one reaction to the next, the way NAD⁺ carries electrons. This is one reason vitamins matter: without them, key enzymes stall.</p>`,
+ analogy:"A power drill without a drill bit spins but cannot drill. The drill is the apoenzyme; the bit is the cofactor or coenzyme. Snap the bit in and you have a working tool, the holoenzyme.",
+ terms:[["Apoenzyme","The protein part of an enzyme, inactive alone."],["Holoenzyme","Apoenzyme + its helper = the active enzyme."],["Cofactor","Inorganic helper, usually a metal ion (Mg²⁺, Fe, Zn)."],["Coenzyme","Organic helper, often made from a vitamin (NAD⁺, FAD)."]],
+ check:{q:"NAD⁺ is made from the vitamin niacin and helps many enzymes by carrying electrons. NAD⁺ is a...",opts:[
+  ["Coenzyme",1,"Yes. It is an organic helper made from a vitamin, which is what a coenzyme is."],
+  ["Cofactor (metal ion)",0,"In this sense cofactors are inorganic, usually metal ions such as Mg²⁺. NAD⁺ is an organic molecule made from a vitamin."],
+  ["Apoenzyme",0,"The apoenzyme is the protein part of the enzyme. NAD⁺ is the helper that joins it."],
+  ["Activation energy",0,"Activation energy is the push a reaction needs, not a molecule."]]},
+ caption:"An inactive apoenzyme becomes an active holoenzyme when its cofactor or coenzyme binds.",
+ legend:[["enz","Enzyme (protein)"],["co2","Metal cofactor (Mg²⁺)"],["sub","Substrate"],["prod","Products"]]},
+
+{act:2,scene:"temp",desc:"Across the top, three teal enzymes sit in a row with thermometers: on the left, a blue cold one barely moves and substrates drift by slowly (labelled cold: slow); in the middle, at 37 degrees, substrates pop in and out of its notch quickly (labelled optimum: fast); on the right, a red hot one has a wobbly, melted outline and a closed notch, and substrates bounce off (labelled too hot: denatured). Below, two graphs. The left graph plots reaction rate against temperature: the curve rises to a peak at about 37 degrees and then drops steeply; a marker dot slides along the curve. The right graph plots rate against pH: a hill-shaped curve peaks near pH 7, with a marker dot that slides back and forth.",
+ title:"Temperature and pH",
+ body:`<p>An enzyme works only if it keeps its shape. Each enzyme has an <b>optimum temperature</b> and an <b>optimum pH</b> where it is fastest. Many enzymes of microbes that infect people work best near body temperature (37 °C) and near neutral pH (about 7).</p>
+ <p><b>Cold</b> slows molecules down, so they bump into each other less and the rate falls, but the enzyme is not harmed. <b>Too hot</b>, or <b>too acidic or basic</b>, breaks the weak bonds that fold the protein. The active site warps and the enzyme is <b>denatured</b>. Denaturing is usually permanent: cooling it back down does not fix it.</p>
+ <p class="tx">This is why heat (boiling, autoclaving) and strong acids kill microbes, and why a refrigerator slows spoilage without sterilizing food. Microbes that live in hot springs have enzymes with much higher optimum temperatures.</p>`,
+ analogy:"A chocolate key. In the freezer it is stiff and slow to use; at room temperature it turns the lock; left on a hot dashboard it melts, and no amount of cooling makes it fit the lock again.",
+ terms:[["Optimum temperature","The temperature at which an enzyme works fastest."],["Optimum pH","The pH at which an enzyme works fastest."],["Denaturation","Loss of a protein's shape (and function) from heat, acid or base."]],
+ check:{q:"Food in a refrigerator still spoils, just slowly. Why?",opts:[
+  ["Cold slows microbial enzymes but does not denature them",1,"Right. The enzymes are still intact, just slow. Warm them up and they speed up again."],
+  ["Cold denatures enzymes permanently",0,"Heat, not cold, denatures enzymes. Cold only slows them down."],
+  ["Cold kills all bacteria within a day",0,"Most bacteria survive refrigeration. Their growth just slows."],
+  ["Cold raises the optimum temperature",0,"The optimum is a fixed property of each enzyme. Cold simply moves the enzyme away from it."]]},
+ caption:"Enzymes are fastest at their optimum temperature and pH; cold slows them, while heat or extreme pH denatures them.",
+ legend:[["cold","Cold","s"],["enz","Optimum"],["heat","Too hot (denatured)","s"],["accent","Rate curve","l"]]},
+
+{act:2,scene:"sulfa",desc:"Two side-by-side panels. Left panel, labelled Normal: a teal enzyme catches orange PABA wedges in its notch, and each one turns into a purple folic acid chip that flows down an arrow to a pink bacterium, which divides in two. Right panel, labelled With a sulfa drug: red sulfa wedges with square tops, shaped almost like PABA, crowd around a matching enzyme and sit in its notch; orange PABA wedges bump off; no folic acid comes out, a red X sits on the arrow, and the bacterium below stays single and faded with the label Growth stops. A strip along the bottom shows a person icon labelled Human cells: get folate from food, no target enzyme.",
+ title:"Competitive inhibition: how sulfa drugs work",
+ body:`<p>An <b>inhibitor</b> slows or stops an enzyme. A <b>competitive inhibitor</b> looks like the substrate and fits into the <b>active site</b>, blocking the real substrate. The two compete: if there is much more substrate than inhibitor, the substrate can win the active site back.</p>
+ <p><b>Sulfa drugs (sulfonamides)</b> are the classic example. Many bacteria must make their own <b>folic acid</b>, starting from a molecule called <b>PABA</b> (para-aminobenzoic acid). Sulfa drugs look so much like PABA that they jam the enzyme that uses it. Without folic acid the bacteria cannot make new DNA and RNA bases, so they <b>stop growing</b> (the drug is bacteriostatic).</p>
+ <p class="tx">Why it spares us: human cells do not make folic acid from PABA. We get folate from food, so we do not have the enzyme sulfa drugs block. That difference is <b>selective toxicity</b>.</p>`,
+ analogy:"Musical chairs where an impostor who looks like a real player keeps grabbing the chair. The real player is left standing. Pack the room with real players and they win most of the chairs back.",
+ terms:[["Competitive inhibitor","Look-alike molecule that blocks the active site."],["PABA","The bacterial starting material for folic acid."],["Sulfonamide","Sulfa drug; a PABA look-alike that blocks folic acid synthesis."],["Selective toxicity","Harming the microbe more than the host."]],
+ check:{q:"Why do sulfa drugs stop many bacteria but not harm human cells this way?",opts:[
+  ["Humans get folate from food and lack the enzyme that sulfa drugs block",1,"Yes. The target is a bacterial enzyme in folic acid synthesis that our cells do not have."],
+  ["Sulfa drugs break bacterial cell walls",0,"That describes penicillins. Sulfa drugs block folic acid synthesis by mimicking PABA."],
+  ["Sulfa drugs bind an allosteric site",0,"Sulfa drugs are competitive inhibitors: they sit in the active site in place of PABA."],
+  ["Human cells destroy sulfa drugs on contact",0,"That is not the reason. Our cells simply do not use this pathway."]]},
+ caption:"Sulfa drugs mimic PABA and occupy the active site, so bacteria cannot make folic acid and stop growing.",
+ legend:[["enz","Enzyme"],["paba","PABA (substrate)"],["sulfa","Sulfa drug (inhibitor)","s"],["prod","Folic acid"],["gneg","Bacterium"]]},
+
+{act:2,scene:"feedback",desc:"Left panel, labelled Noncompetitive inhibitor: a teal enzyme has a V notch on top and a small pocket on its upper right side. A magenta diamond, the inhibitor, docks in the side pocket, and the enzyme's top notch squeezes into a different, rounder shape; an orange substrate wedge now bounces off. The diamond leaves, the notch reopens and the substrate fits again. Right panel, labelled Feedback inhibition: a row of four molecules A, B, C and D (end product) is joined by three enzymes 1, 2 and 3. Molecules flow left to right and pile up as purple D's in a bin. As the pile grows, D's travel back along a curved dashed arrow and dock on enzyme 1, which turns grey; its label changes to Enzyme 1 switched off and a tag above the row changes from Pathway running to Pathway paused, and the flow stops. As the pile is used up, the D's let go and the line restarts.",
+ title:"Noncompetitive and feedback inhibition",
+ body:`<p>A <b>noncompetitive inhibitor</b> does not use the active site. It binds another spot, the <b>allosteric site</b>, and changes the enzyme's shape so the active site no longer fits. Adding more substrate does not help.</p>
+ <p>Cells use this on purpose. In <b>feedback inhibition</b> (end-product inhibition), the <b>end product</b> of a pathway binds the allosteric site of the <b>first enzyme</b> in that pathway. When plenty of end product has built up, the whole assembly line pauses, so the cell does not waste energy and materials. As the product is used up, it lets go and the line starts again.</p>
+ <p class="tx">Example: when a bacterium has made enough of the amino acid isoleucine, isoleucine shuts off the first enzyme of its own pathway.</p>`,
+ analogy:"A thermostat. When the room is warm enough (plenty of end product), it switches the furnace off at the start of the line. When the room cools (product used up), the furnace turns back on.",
+ terms:[["Noncompetitive inhibitor","Binds the allosteric site and reshapes the active site."],["Allosteric site","A spot on an enzyme other than the active site."],["Feedback inhibition","The end product switches off the first enzyme of its pathway."]],
+ check:{q:"A bacterium has made plenty of the amino acid isoleucine. Isoleucine binds the first enzyme of its own pathway and shuts it off. This is...",opts:[
+  ["Feedback inhibition",1,"Right. The end product turns off the first enzyme, pausing the whole pathway until more is needed."],
+  ["Competitive inhibition by a drug",0,"Here the cell's own end product is the inhibitor, and it acts at the allosteric site of the first enzyme."],
+  ["Denaturation",0,"Denaturing destroys an enzyme's shape permanently. Feedback inhibition is reversible control."],
+  ["Fermentation",0,"Fermentation regenerates NAD⁺ without oxygen. This is about switching a pathway off."]]},
+ caption:"An inhibitor at the allosteric site reshapes the active site; in feedback inhibition the end product shuts off the first enzyme.",
+ legend:[["enz","Enzyme"],["sub","Substrate"],["allo","Allosteric inhibitor","d"],["prod","End product D"]]},
+
+/* ---------- Part 3 ---------- */
+{act:3,scene:"glyco",desc:"A pathway strip across the top lists Glycolysis, Transition, Krebs cycle and Electron transport, with Glycolysis highlighted. Below, inside the pale green cytoplasm of a bacterium, a ring of six blue beads (glucose) sits on the left. Two gold ATP coins fly in and stick to it, turning pale (ADP) as they are spent; this is labelled Investment: spend 2 ATP. The ring then splits into two chains of three beads. Each chain moves right, and as it moves it releases two gold ATP coins and loads one pale taxi into a violet NADH taxi; this is labelled Payoff. Each chain ends as a magenta pyruvate. A scoreboard in the lower right counts ATP spent 2, ATP made 4, net ATP plus 2, and NADH plus 2.",
+ title:"Glycolysis: splitting glucose",
+ body:`<p>Now the main energy story: <b>cellular respiration</b> of glucose. It has four stages: <b>glycolysis</b>, the <b>transition step</b>, the <b>Krebs cycle</b> and the <b>electron transport chain</b>.</p>
+ <p><b>Glycolysis</b> ("sugar splitting") happens in the <b>cytoplasm</b> and does <b>not need oxygen</b>. Through ten enzyme steps it splits one <b>glucose</b> (6 carbons) into <b>two pyruvate</b> molecules (3 carbons each).</p>
+ <p>First the cell <b>invests 2 ATP</b> to prime the glucose. Then each 3-carbon half pays back 2 ATP and loads 1 NADH. Total: 4 ATP made − 2 spent = <b>net 2 ATP</b>, plus <b>2 NADH</b>. These ATP are made by <b>substrate-level phosphorylation</b>.</p>`,
+ analogy:"Spending $2 on a ticket that pays out $4: you finish $2 ahead, plus two coupons (the NADH) you can cash in later.",
+ terms:[["Glycolysis","Glucose (6C) → 2 pyruvate (3C), in the cytoplasm."],["Pyruvate","The 3-carbon product of glycolysis."],["Net yield","2 ATP and 2 NADH per glucose."]],
+ check:{q:"A cell runs glycolysis on one glucose. What is the net gain?",opts:[
+  ["2 ATP and 2 NADH",1,"Yes. 4 ATP are made but 2 were invested, and 2 NAD⁺ are loaded into NADH."],
+  ["4 ATP",0,"4 is the gross amount. Subtract the 2 ATP invested at the start: net 2."],
+  ["38 ATP",0,"38 is the maximum for complete aerobic respiration, not glycolysis alone."],
+  ["2 ATP and no electron carriers",0,"Glycolysis also loads 2 NADH, which matter a lot later."]]},
+ caption:"Glycolysis invests 2 ATP, splits glucose, and pays back 4 ATP and 2 NADH: net 2 ATP, 2 NADH, 2 pyruvate.",
+ legend:[["carb","Glucose (6C)"],["pyr","Pyruvate (3C)"],["atp","ATP"],["adp","ADP (spent)"],["nadh","NADH"]]},
+
+{act:3,scene:"transition",desc:"The pathway strip at the top highlights Transition. Two magenta three-bead pyruvates enter from the left, one above the other. Each passes through a gate in the middle: one bead breaks off and floats upward as a grey and red CO2 molecule, a pale NAD+ taxi below turns into a violet NADH taxi, and a green tag labelled CoA clips onto the remaining two-bead piece, which turns purple and is labelled acetyl-CoA. The acetyl-CoA pieces roll right toward a small wheel labelled Krebs cycle. A note says: bacteria, in the cytoplasm; yeasts and other eukaryotes, inside mitochondria. A counter shows per glucose 2 CO2, 2 NADH, 2 acetyl-CoA.",
+ title:"The transition step: pyruvate to acetyl-CoA",
+ body:`<p>If the cell will keep respiring, each pyruvate goes through the <b>transition step</b> (pyruvate oxidation). In bacteria it happens in the cytoplasm; in yeasts and other eukaryotes it happens inside the <b>mitochondria</b>.</p>
+ <p>One carbon is removed and leaves as <b>CO₂</b>. Electrons are passed to NAD⁺, making <b>NADH</b>. The 2-carbon piece left (an acetyl group) is attached to <b>coenzyme A</b>, forming <b>acetyl-CoA</b>.</p>
+ <p>One glucose made two pyruvates, so this happens twice: <b>2 CO₂, 2 NADH and 2 acetyl-CoA</b> per glucose.</p>`,
+ analogy:"Getting a package ready to ship: trim off one piece (CO₂), keep the receipt (NADH), and stick a shipping label on the rest (coenzyme A) so the Krebs cycle will accept it.",
+ terms:[["Transition step","Pyruvate (3C) → acetyl-CoA (2C) + CO₂."],["Acetyl-CoA","A 2-carbon acetyl group carried by coenzyme A."],["Decarboxylation","Removing a carbon as CO₂."]],
+ check:{q:"Where does the CO₂ released in the transition step come from?",opts:[
+  ["A carbon removed from pyruvate",1,"Right. Pyruvate has 3 carbons; one leaves as CO₂, and 2 stay as the acetyl group."],
+  ["The oxygen gas the cell takes in",0,"O₂ is used at the very end of the electron transport chain, where it becomes water. The CO₂ carbon comes from the food."],
+  ["ATP",0,"ATP is not broken down into CO₂ here. The carbon comes from pyruvate."],
+  ["NADH",0,"NADH carries electrons, not the carbon that leaves as CO₂."]]},
+ caption:"Each pyruvate loses one carbon as CO₂, loads one NADH, and becomes acetyl-CoA: twice per glucose.",
+ legend:[["pyr","Pyruvate (3C)"],["acoa","Acetyl-CoA (2C)"],["co2","CO₂"],["nadh","NADH"]]},
+
+{act:3,scene:"krebs",desc:"The pathway strip highlights Krebs cycle. A large wheel fills the centre. A purple two-bead acetyl group enters at the top and joins a four-bead oxaloacetate to make a six-bead citric acid. The beads ride clockwise around the wheel. At set points around the wheel, small icons fly off to a counter panel on the right: a grey and red CO2 twice (the ring shrinks from six beads to five to four), a violet NADH taxi three times, a teal FADH2 taxi once, and a gold ATP coin once. The ring returns to four beads (oxaloacetate) at the top, ready for the next acetyl group. A counter on the right shows Turn 1 of 2, then Turn 2 of 2, and totals per glucose: 4 CO2, 6 NADH, 2 FADH2, 2 ATP.",
+ title:"The Krebs cycle",
+ body:`<p>Acetyl-CoA enters the <b>Krebs cycle</b> (citric acid cycle). Its 2 carbons join a 4-carbon molecule, <b>oxaloacetate</b>, to form 6-carbon <b>citric acid</b>. A loop of enzyme steps then strips it back down to oxaloacetate, ready to go again.</p>
+ <p>Each turn releases <b>2 CO₂</b>, loads <b>3 NADH</b> and <b>1 FADH₂</b>, and makes <b>1 ATP</b> (by substrate-level phosphorylation). One glucose gives two acetyl-CoA, so the cycle turns <b>twice</b>: 4 CO₂, 6 NADH, 2 FADH₂ and 2 ATP per glucose.</p>
+ <p>By this point every carbon of the original glucose has left as CO₂. Very little ATP has been made so far; most of glucose's energy is now held in the electrons on NADH and FADH₂.</p>`,
+ analogy:"A merry-go-round. A 2-carbon rider climbs on, the ride goes around once, two carbons leave as CO₂ exhaust, and the electron carriers fill up along the way. The ride itself (oxaloacetate) is never used up.",
+ terms:[["Krebs cycle","Citric acid cycle; strips acetyl groups to CO₂ and loads carriers."],["Oxaloacetate","4-carbon molecule that starts and ends each turn."],["Per glucose","2 turns: 4 CO₂, 6 NADH, 2 FADH₂, 2 ATP."]],
+ check:{q:"Per glucose, the Krebs cycle turns twice. Why?",opts:[
+  ["Glycolysis made two pyruvates, which give two acetyl-CoA",1,"Yes. Each acetyl-CoA feeds one turn of the cycle."],
+  ["Each turn needs two O₂ molecules",0,"The Krebs cycle does not use O₂ directly. O₂ is used at the end of the electron transport chain."],
+  ["Each turn makes only half an ATP",0,"Each turn makes 1 ATP. The cycle turns twice because there are two acetyl-CoA."],
+  ["FADH₂ must pass through twice",0,"The number of turns is set by how many acetyl-CoA arrive, which is two."]]},
+ caption:"Each turn of the Krebs cycle releases 2 CO₂ and loads 3 NADH, 1 FADH₂, plus 1 ATP; it turns twice per glucose.",
+ legend:[["acoa","Acetyl group (2C)"],["carb","Oxaloacetate / citrate"],["co2","CO₂"],["nadh","NADH"],["fad","FADH₂"],["atp","ATP"]]},
+
+/* ---------- Part 4 ---------- */
+{act:4,scene:"etc",desc:"A wide yellow lipid bilayer runs across the middle, labelled bacterial plasma membrane, with Outside the cell above and Cytoplasm below. Four carriers sit in the membrane, labelled 1, Q (a small round quinone), 3 and 4. A violet NADH taxi drives in from the lower left and drops two cyan electrons into the first complex; the electrons hop from complex to complex toward the right. Each time they pass through a pumping complex, an orange H+ ion is pushed up through the membrane to the outside, where H+ ions collect. At the last complex, a red O2 molecule below picks up the electrons and H+ and becomes water. A small staircase graph in the upper right shows the electrons stepping down in energy from NADH to O2.",
+ title:"The electron transport chain",
+ body:`<p>The <b>electron transport chain (ETC)</b> is a series of carrier molecules built into a membrane. In <b>bacteria</b> it sits in the <b>plasma membrane</b>; in eukaryotes it sits in the inner membrane of the mitochondria. The carriers include flavoproteins, quinones and iron-containing proteins called <b>cytochromes</b>.</p>
+ <p>NADH and FADH₂ hand their electrons to the first carriers. The electrons hop from carrier to carrier, <b>stepping down in energy</b> each time. Some carriers use that energy to <b>pump hydrogen ions (H⁺, protons)</b> out across the membrane.</p>
+ <p>At the end, the electrons must go somewhere. In <b>aerobic respiration</b> the <b>final electron acceptor</b> is <b>oxygen (O₂)</b>, which takes the electrons plus H⁺ and becomes <b>water</b>. If nothing takes the electrons, the whole chain backs up and stops.</p>`,
+ analogy:"A bucket brigade down a staircase. Each person passes the bucket (the electrons) one step down, and every handoff powers a small pump that pushes water up behind a dam.",
+ terms:[["Electron transport chain","Membrane carriers that pass electrons and pump H⁺."],["Cytochromes","Iron-containing carrier proteins in the chain."],["Final electron acceptor","The molecule that takes electrons at the end (O₂ in aerobic respiration)."]],
+ check:{q:"In aerobic respiration, what happens to O₂?",opts:[
+  ["It accepts electrons at the end of the chain and becomes water",1,"Right. O₂ is the final electron acceptor; with H⁺ it forms H₂O."],
+  ["It is released as CO₂",0,"The carbon in CO₂ comes from food, removed in the transition step and Krebs cycle. O₂ ends up in water."],
+  ["It becomes part of glucose",0,"That is closer to photosynthesis, which builds sugar from CO₂. In respiration, O₂ becomes water."],
+  ["It pumps protons across the membrane",0,"The carrier proteins pump protons. O₂ waits at the end to take the electrons."]]},
+ caption:"Electrons from NADH hop down the chain, pumping H⁺ out of the cell; O₂ takes them at the end and becomes water.",
+ legend:[["mem","Membrane"],["nadh","NADH"],["elec","Electron"],["hplus","H⁺ (proton)"],["o2","O₂ → H₂O"]]},
+
+{act:4,scene:"chemi",desc:"The same yellow membrane runs across the scene with many orange H+ ions crowded above it, outside the cell, and few below in the cytoplasm. A teal ATP synthase sits in the membrane on the right: a channel in the membrane with a stalk and a round knob hanging down into the cytoplasm. H+ ions stream down through the channel one after another, the knob spins, and below it pale ADP coins plus orange P circles join and come out as gold ATP coins that pile up in a counter. On the left, the electron transport chain keeps pumping H+ up. A gauge labelled proton motive force shows the needle high in the green zone, and a small bacterium in a corner spins its flagellum using the same force.",
+ title:"Chemiosmosis and ATP synthase",
+ body:`<p>Pumping H⁺ out makes the outside of the membrane crowded with protons (more positive and more acidic). This difference across the membrane is stored energy called the <b>proton motive force</b>. The H⁺ "want" to flow back in.</p>
+ <p>The main open door is <b>ATP synthase</b>. As H⁺ rush through it, part of the enzyme spins like a turbine and snaps a phosphate onto ADP, making ATP. Making ATP this way is <b>chemiosmosis</b>. Together, the ETC plus chemiosmosis is called <b>oxidative phosphorylation</b>.</p>
+ <p>This is where most of a respiring cell's ATP comes from. Bacteria also use the proton motive force directly to <b>spin their flagella</b> and to pull some nutrients into the cell.</p>`,
+ analogy:"A hydroelectric dam. The electron transport chain pumps water uphill behind the dam. ATP synthase is the turbine: as the water rushes back down through it, it spins and makes electricity (ATP).",
+ terms:[["Proton motive force","Stored energy from the H⁺ difference across a membrane."],["ATP synthase","Membrane enzyme that uses H⁺ flow to make ATP."],["Chemiosmosis","Making ATP using a proton gradient."],["Oxidative phosphorylation","ATP made by the ETC + chemiosmosis."]],
+ check:{q:"A chemical makes a bacterial membrane leaky to H⁺. What happens to the ATP made by ATP synthase?",opts:[
+  ["It drops, because protons leak back in without passing through ATP synthase",1,"Yes. The gradient runs down through the leak instead of spinning the turbine, so little ATP is made."],
+  ["It rises, because protons move faster",0,"Protons moving through a leak do no work. Only flow through ATP synthase makes ATP."],
+  ["Nothing changes",0,"ATP synthase depends on the proton gradient. If the membrane leaks, the gradient collapses."],
+  ["Glycolysis stops immediately",0,"Glycolysis happens in the cytoplasm and does not need the proton gradient. It can keep making its 2 ATP."]]},
+ caption:"H⁺ flowing back through ATP synthase spins it and joins ADP and phosphate into ATP: chemiosmosis.",
+ legend:[["hplus","H⁺"],["enz","ATP synthase"],["adp","ADP + P"],["atp","ATP"],["mem","Membrane"]]},
+
+{act:4,scene:"anaer",desc:"Two panels, each with a short membrane strip and an electron chain. In the left panel, labelled Aerobic respiration, cyan electrons travel along the chain and drop a long way down to a red O2 molecule, which becomes water; many orange H+ ions are pumped up and a tall stack of gold ATP coins appears below. In the right panel, labelled Anaerobic respiration, the electrons travel a shorter drop and land on a blue nitrate molecule, NO3 minus, which becomes nitrite, NO2 minus; on alternate rounds the acceptor is a yellow sulfate, SO4 2 minus, which becomes hydrogen sulfide, H2S, shown with a wavy smell line. Fewer H+ ions are pumped and a shorter ATP stack appears. In each panel a downward arrow marks the electrons' energy drop: labelled big energy drop on the aerobic side and smaller drop on the anaerobic side.",
+ title:"Aerobic vs anaerobic respiration",
+ body:`<p><b>Aerobic respiration</b> uses <b>O₂</b> as the final electron acceptor. <b>Anaerobic respiration</b> still uses an electron transport chain, but the final acceptor is a different inorganic molecule, such as <b>nitrate (NO₃⁻)</b>, <b>sulfate (SO₄²⁻)</b> or carbonate.</p>
+ <p>Some bacteria, including <i>E. coli</i> and <i>Pseudomonas</i>, can reduce <b>nitrate</b> to <b>nitrite (NO₂⁻)</b>, and some carry it on to nitrogen gas, when oxygen runs out. Sulfate-reducing bacteria such as <i>Desulfovibrio</i> turn sulfate into <b>hydrogen sulfide (H₂S)</b>, the rotten-egg smell of mud and swamps.</p>
+ <p>These acceptors pull on electrons less strongly than O₂, so less energy is released, fewer protons are pumped and <b>less ATP</b> is made. Anaerobic respiration gives more ATP than fermentation but less than aerobic respiration.</p>`,
+ analogy:"Dropping a bucket into a deep well (O₂) versus a shallow ditch (nitrate or sulfate). The deeper the drop, the more energy you can catch on the way down.",
+ terms:[["Aerobic respiration","Final electron acceptor is O₂."],["Anaerobic respiration","Uses an ETC with an inorganic acceptor other than O₂ (NO₃⁻, SO₄²⁻)."],["Nitrate reduction","Nitrate → nitrite (or N₂); a common lab test."]],
+ check:{q:"What makes a process anaerobic respiration rather than fermentation?",opts:[
+  ["It uses an electron transport chain with an inorganic final acceptor, such as nitrate",1,"Right. Anaerobic respiration still has an ETC; it just ends at nitrate, sulfate or carbonate instead of O₂."],
+  ["It makes ethanol",0,"Ethanol is a fermentation product. Anaerobic respiration uses an electron transport chain."],
+  ["It needs O₂",0,"Using O₂ as the final acceptor is aerobic respiration."],
+  ["It uses only glycolysis",0,"Glycolysis plus a step to recycle NAD⁺ is fermentation. Anaerobic respiration also runs an ETC."]]},
+ caption:"Aerobic respiration ends at O₂; anaerobic respiration ends at nitrate or sulfate and makes less ATP.",
+ legend:[["o2","O₂"],["nitr","Nitrate (NO₃⁻)"],["sulf","Sulfate (SO₄²⁻)"],["elec","Electron"],["atp","ATP"]]},
+
+{act:4,scene:"yield",desc:"On the left, a stacked bar labelled Aerobic, one glucose builds up from the bottom in coloured blocks: Glycolysis 2 ATP, Glycolysis 2 NADH worth 6, Transition 2 NADH worth 6, Krebs 2 ATP, Krebs 6 NADH worth 18, and Krebs 2 FADH2 worth 4, reaching a total marked up to 38 ATP. On the right, a bar chart compares three bars as they grow: Aerobic respiration up to 38, Anaerobic respiration shown as a shaded range between 2 and 38 labelled varies, and Fermentation 2. Gold coins rain into each bar while a counter above each one ticks up.",
+ title:"ATP yields compared",
+ body:`<p>Add it all up for one glucose, using the classic textbook counts for prokaryotes (each NADH ≈ 3 ATP and each FADH₂ ≈ 2 ATP through the ETC):</p>
+ <ul><li>Glycolysis: 2 ATP + 2 NADH (→ 6 ATP)</li><li>Transition step: 2 NADH (→ 6 ATP)</li><li>Krebs cycle: 2 ATP + 6 NADH (→ 18 ATP) + 2 FADH₂ (→ 4 ATP)</li></ul>
+ <p><b>Aerobic respiration</b>: up to <b>38 ATP</b> in a prokaryote (about 36 in eukaryotic cells, which spend some energy moving molecules into mitochondria; real cells usually make less). <b>Anaerobic respiration</b>: fewer, somewhere between 2 and 38, depending on the organism and acceptor. <b>Fermentation</b>: just <b>2 ATP</b>, all from glycolysis.</p>`,
+ analogy:"Squeezing an orange. Fermentation takes one sip; aerobic respiration juices the whole thing. That is why a fermenting microbe must use far more sugar to grow the same amount.",
+ terms:[["Aerobic yield","Up to 38 ATP per glucose (prokaryotes)."],["Anaerobic respiration yield","Between 2 and 38; depends on the acceptor."],["Fermentation yield","2 ATP per glucose."]],
+ check:{q:"Yeast in bread dough has no oxygen and ferments glucose. About how much ATP does it get per glucose?",opts:[
+  ["2 ATP",1,"Yes. Fermentation keeps only glycolysis's net 2 ATP."],
+  ["38 ATP",0,"38 needs the Krebs cycle and an electron transport chain ending at O₂. Fermentation uses neither."],
+  ["36 ATP",0,"About 36 is the eukaryote figure for aerobic respiration. Without oxygen, fermenting yeast get 2."],
+  ["0 ATP",0,"Fermentation still runs glycolysis, which makes a net 2 ATP."]]},
+ caption:"Per glucose: aerobic respiration up to 38 ATP, anaerobic respiration fewer, fermentation only 2.",
+ legend:[["act4","Glycolysis","s"],["act2","Transition","s"],["act1","Krebs cycle","s"],["atp","ATP"],["lac","Fermentation"]]},
+
+/* ---------- Part 5 ---------- */
+{act:5,scene:"ferm",desc:"Two panels with matching parts. Each has a glycolysis machine box with a gold ATP coin output and a parking lot of electron-carrier taxis below it, and a gauge showing how many empty NAD+ taxis are left. Left panel, labelled No acceptor, no fermentation: pale NAD+ taxis enter the machine and come out as violet NADH, but they have nowhere to go and pile up in the lot; the NAD+ gauge falls to zero, the machine flashes a red label Glycolysis stops, and the ATP coins stop. Right panel, labelled Fermentation: the NADH taxis drive to a magenta pyruvate, drop their cyan electrons on it, turning it into orange lactic acid, and come back pale as NAD+; the gauge stays steady and ATP coins keep popping out, 2 per glucose.",
+ title:"Why ferment? Recycling NAD⁺",
+ body:`<p>Without oxygen or another final acceptor, the electron transport chain stops. NADH has nowhere to unload. Soon every carrier is full (NADH) and there is <b>no NAD⁺ left</b>. Glycolysis needs NAD⁺, so it would stop too, and the cell would make <b>no ATP at all</b>.</p>
+ <p><b>Fermentation</b> solves this. NADH dumps its electrons onto <b>pyruvate</b> (or a molecule made from it), turning it into a waste product such as lactic acid or ethanol. That <b>regenerates NAD⁺</b>, so glycolysis keeps running and keeps making its 2 ATP.</p>
+ <p>Fermentation does not use oxygen, the Krebs cycle or an ETC. Its <b>final electron acceptor is an organic molecule</b> made inside the cell. The fermentation step itself makes no extra ATP.</p>`,
+ analogy:"A parking lot with no exit. Full taxis (NADH) pile up until there is no empty taxi left to pick up passengers at glycolysis. Fermentation opens a side gate: passengers get dropped at the pyruvate stop and the taxis are free again.",
+ terms:[["Fermentation","Glycolysis + a step that regenerates NAD⁺ by reducing pyruvate."],["NAD⁺ regeneration","Turning NADH back into NAD⁺ so glycolysis can continue."],["Organic final acceptor","Pyruvate or a molecule made from it takes the electrons."]],
+ check:{q:"What is the main job of the fermentation step after glycolysis?",opts:[
+  ["To regenerate NAD⁺ so glycolysis can keep making ATP",1,"Right. The cell gets its ATP from glycolysis; fermentation just frees up the NAD⁺."],
+  ["To make 36 extra ATP",0,"The fermentation step makes no extra ATP. The only ATP comes from glycolysis (2)."],
+  ["To make oxygen",0,"Fermentation happens without oxygen and does not make it."],
+  ["To make more NADH",0,"It does the opposite: it turns NADH back into NAD⁺."]]},
+ caption:"Without an electron acceptor NADH piles up and glycolysis stalls; fermentation hands electrons to pyruvate and frees NAD⁺.",
+ legend:[["nadh","NADH (full)"],["pyr","Pyruvate"],["lac","Lactic acid"],["atp","ATP"],["bad","Stalled","s"]]},
+
+{act:5,scene:"lacalc",desc:"Two horizontal tracks. Top track, labelled Lactic acid fermentation: a magenta three-bead pyruvate meets a violet NADH taxi, takes its cyan electrons, and turns into an orange three-bead lactic acid; the taxi leaves pale as NAD+. At the end of the track, small purple chains of round cocci (Streptococcus) and rods (Lactobacillus) sit beside a cup of yogurt, a wedge of cheese and a jar of pickles. Bottom track, labelled Alcohol fermentation: a pyruvate first releases a grey CO2 that floats up as bubbles, becoming a two-bead acetaldehyde, then takes electrons from NADH and becomes a green ethanol. At the end, oval budding yeast cells sit beside a loaf of bread that slowly rises as bubbles fill it, and a glass of fizzing liquid.",
+ title:"Lactic acid and alcohol fermentation",
+ body:`<p>In <b>lactic acid fermentation</b>, NADH reduces pyruvate directly to <b>lactic acid</b> (lactate). Bacteria such as <i>Streptococcus</i> and <i>Lactobacillus</i> do this. The acid sours and thickens milk into <b>yogurt</b> and <b>cheese</b>, and preserves <b>sauerkraut</b>, <b>pickles</b> and kimchi. In the mouth, lactic acid from <i>Streptococcus mutans</i> helps cause tooth decay.</p>
+ <p>In <b>alcohol fermentation</b>, pyruvate first loses a CO₂ to become acetaldehyde, which NADH then reduces to <b>ethanol</b>. Yeasts such as <i>Saccharomyces cerevisiae</i> do this. The <b>CO₂</b> makes bread rise and beer fizz; the <b>ethanol</b> makes beer and wine (in bread it bakes off).</p>
+ <p>Both make the same 2 ATP per glucose. Only the waste product differs.</p>`,
+ analogy:"Two trash bins for the same leftovers. The lactic bin keeps all three carbons together. The alcohol bin lets one carbon escape as gas first, then bags the rest as ethanol.",
+ terms:[["Lactic acid fermentation","Pyruvate → lactic acid; Streptococcus, Lactobacillus."],["Alcohol fermentation","Pyruvate → CO₂ + ethanol; yeast (Saccharomyces)."],["Homolactic","Making only lactic acid."]],
+ check:{q:"Why does bread dough rise?",opts:[
+  ["Yeast release CO₂ gas during alcohol fermentation",1,"Yes. The CO₂ bubbles get trapped in the dough and puff it up."],
+  ["Lactic acid expands when warm",0,"Lactic acid is not a gas. The rise comes from CO₂ made by yeast."],
+  ["Ethanol vapor inflates the dough",0,"Ethanol is made, but the gas that raises dough is CO₂; the ethanol bakes off."],
+  ["Yeast make oxygen",0,"Fermenting yeast do not make oxygen. They make CO₂ and ethanol."]]},
+ caption:"Lactic acid bacteria turn pyruvate into lactic acid; yeast turn it into CO₂ and ethanol. Both regenerate NAD⁺.",
+ legend:[["pyr","Pyruvate"],["lac","Lactic acid"],["eth","Ethanol"],["co2","CO₂ gas"],["nadh","NADH → NAD⁺"]]},
+
+{act:5,scene:"mixed",desc:"On the left, a big flask holds pink rod-shaped E. coli. Pyruvate beads inside burst into a spray of labelled products: lactic, acetic, succinic and formic acid, ethanol, and CO2 and H2 gas bubbles rising to the top. A pH meter beside it drops to about 4.4 and below. Under the flask, a test tube labelled methyl red turns red, marked MR positive. On the right, a second flask holds Enterobacter. Its pyruvate turns mostly into a neutral product labelled acetoin and 2,3-butanediol, with fewer acids; its pH meter stays near 6. Its methyl red tube stays yellow (MR negative), while a second tube labelled VP turns red (VP positive).",
+ title:"Mixed-acid and butanediol fermentation",
+ body:`<p>Many bacteria make a whole mix of products. In <b>mixed-acid fermentation</b>, <i>E. coli</i> and relatives such as <i>Salmonella</i> make lactic, acetic, succinic and formic acids plus ethanol, and they split formic acid into <b>CO₂ and H₂ gas</b>. So much acid is made that the pH drops to about 4.4 or lower.</p>
+ <p><i>Enterobacter</i> and <i>Klebsiella</i> use <b>butanediol fermentation</b> instead: fewer acids and more of a neutral product (2,3-butanediol, made by way of <b>acetoin</b>), so the pH does not fall as far.</p>
+ <p>The lab uses this difference. The <b>methyl red (MR) test</b> turns red when strong acid is present (mixed-acid fermenters). The <b>Voges-Proskauer (VP) test</b> detects acetoin (butanediol fermenters). Other fermentations matter too: <i>Propionibacterium</i> makes propionic acid and CO₂, which give <b>Swiss cheese</b> its flavor and holes.</p>`,
+ analogy:"Two kitchens with the same groceries. One makes a very sour soup (mixed acids, MR positive). The other makes a milder dish with a special ingredient you can test for (acetoin, VP positive).",
+ terms:[["Mixed-acid fermentation","Several acids + ethanol + CO₂ + H₂; pH drops low (E. coli)."],["Methyl red (MR) test","Red = strong acid from mixed-acid fermentation."],["Voges-Proskauer (VP) test","Red = acetoin, from butanediol fermentation."]],
+ check:{q:"A gram-negative rod turns the methyl red test red and is VP negative. Which kind of fermentation does it use?",opts:[
+  ["Mixed-acid fermentation, as E. coli does",1,"Right. Lots of acid makes MR positive, and without acetoin the VP test stays negative."],
+  ["Butanediol fermentation, as Enterobacter does",0,"Butanediol fermenters make acetoin, so they are VP positive and usually MR negative."],
+  ["Alcohol fermentation by yeast",0,"Yeast are fungi, not gram-negative rods, and the MR and VP tests are used on bacteria."],
+  ["No fermentation at all",0,"A red MR test shows strong acid was made, so the organism did ferment."]]},
+ caption:"Mixed-acid fermenters drop the pH low (MR positive); butanediol fermenters make acetoin (VP positive).",
+ legend:[["gneg","E. coli"],["acid","Acids"],["eth","Ethanol"],["gas","CO₂ + H₂ gas"],["pr-red","Red = positive","s"]]},
+
+/* ---------- Part 6 ---------- */
+{act:6,scene:"fuels",desc:"A central column shows the energy pathway as stacked boxes: Glycolysis at the top, then Acetyl-CoA, then a Krebs cycle wheel, then Electron transport. On the left, a yellow fat molecule with a glycerol head and three wavy fatty acid tails is cut by scissors labelled lipase. The glycerol slides into Glycolysis, and each tail is chopped into two-carbon pieces (labelled beta-oxidation) that drop into Acetyl-CoA. On the right, a long chain of red amino acid beads, a protein, sits outside the cell wall; scissors labelled protease (released outside the cell) cut it into single amino acids that pass in. Each loses a small purple NH3 tag (deamination), which floats away labelled ammonia raises pH, and the rest enters the Krebs cycle.",
+ title:"Fats and proteins as fuel",
+ body:`<p>Microbes can burn more than sugar. They feed other fuels into the same central pathways.</p>
+ <p><b>Lipids:</b> enzymes called <b>lipases</b> split fats into <b>glycerol</b> and <b>fatty acids</b>. Glycerol enters glycolysis. Fatty acids are chopped two carbons at a time (<b>beta-oxidation</b>) into acetyl-CoA, which enters the Krebs cycle.</p>
+ <p><b>Proteins</b> are too big to enter a cell, so bacteria release <b>proteases</b> outside the cell to cut them into <b>amino acids</b>. Inside, the amino group is removed (<b>deamination</b>) and leaves as <b>ammonia (NH₃)</b>; the carbon skeleton enters the Krebs cycle. Ammonia raises the pH, which is why protein breakdown can turn some test media alkaline.</p>`,
+ analogy:"A recycling center with one furnace. Paper, plastic and metal arrive on different trucks, but after sorting they all feed into the same furnace (glycolysis and the Krebs cycle).",
+ terms:[["Lipase","Enzyme that splits fats into glycerol and fatty acids."],["Beta-oxidation","Chopping fatty acids into 2-carbon acetyl-CoA pieces."],["Protease","Enzyme that cuts proteins into amino acids."],["Deamination","Removing the amino group, releasing ammonia."]],
+ check:{q:"After a bacterium deaminates amino acids, what is released that raises the pH of the medium?",opts:[
+  ["Ammonia (NH₃)",1,"Yes. Ammonia is a base, so it pushes the pH up."],
+  ["Lactic acid",0,"Lactic acid lowers the pH. It comes from fermenting sugar, not from deamination."],
+  ["Glycerol",0,"Glycerol comes from fats and is neutral."],
+  ["Acetyl-CoA",0,"Acetyl-CoA feeds the Krebs cycle inside the cell; it does not change the medium's pH."]]},
+ caption:"Lipases and proteases break fats and proteins into pieces that enter glycolysis and the Krebs cycle.",
+ legend:[["fat","Fat (glycerol + fatty acids)"],["amino","Amino acids"],["nh3","NH₃ (ammonia)"],["acoa","Acetyl-CoA"]]},
+
+{act:6,scene:"photo",desc:"On the left, a large blue-green cyanobacterium cell has stacked green membrane folds (thylakoids) inside. A sun in the top left corner sends yellow rays into it. Water molecules split at the membranes and red O2 bubbles float up and out of the cell; gold ATP coins and green NADPH taxis appear. They travel to a green wheel labelled Calvin-Benson cycle, which takes in grey CO2 molecules from outside and sends out a chain of blue beads labelled sugar. On the right, a smaller panel labelled Anoxygenic shows a purple sulfur bacterium in sunlight taking in H2S and storing yellow sulfur granules, with a label that says no O2 released.",
+ title:"Photosynthesis in microbes",
+ body:`<p>Some microbes make their own food from light. In the <b>light-dependent reactions</b>, chlorophyll captures light energy and uses it to make <b>ATP</b> (photophosphorylation) and the electron carrier <b>NADPH</b>.</p>
+ <p>In the <b>light-independent reactions</b>, the <b>Calvin-Benson cycle</b>, that ATP and NADPH are spent to build sugar from <b>CO₂</b>. Turning CO₂ into sugar is called <b>carbon fixation</b>.</p>
+ <p><b>Cyanobacteria</b>, algae and plants split water to replace their electrons and release <b>oxygen</b>: <b>oxygenic</b> photosynthesis. Ancient cyanobacteria made much of the oxygen in Earth's air. <b>Purple and green sulfur bacteria</b> use <b>H₂S</b> instead of water, so they release <b>sulfur, not oxygen</b>: <b>anoxygenic</b> photosynthesis.</p>`,
+ analogy:"A solar-powered factory. The solar panels (light reactions) charge batteries (ATP and NADPH), and the assembly line (Calvin-Benson cycle) uses that charge to build sugar from CO₂ pulled out of the air.",
+ terms:[["Light-dependent reactions","Light → ATP and NADPH (water split, O₂ released in oxygenic species)."],["Calvin-Benson cycle","Uses ATP and NADPH to fix CO₂ into sugar."],["Oxygenic / anoxygenic","Releases O₂ (cyanobacteria) / does not (sulfur bacteria)."]],
+ check:{q:"Purple sulfur bacteria do photosynthesis but release no O₂. Why?",opts:[
+  ["They use H₂S instead of water as their electron source",1,"Right. Splitting H₂S leaves sulfur behind instead of oxygen."],
+  ["They do not use light",0,"They do use light. The difference is where their electrons come from."],
+  ["They do not fix CO₂",0,"They still fix CO₂ into sugar. They just do not split water."],
+  ["They ferment instead",0,"Fermentation breaks down sugar without light. These bacteria are photosynthetic."]]},
+ caption:"Light makes ATP and NADPH; the Calvin-Benson cycle uses them to fix CO₂ into sugar. Cyanobacteria release O₂.",
+ legend:[["sun","Light"],["chl","Chlorophyll membranes"],["o2","O₂"],["co2","CO₂"],["sulf","Sulfur (anoxygenic)"]]},
+
+/* ---------- Part 7 ---------- */
+{act:7,scene:"tubes",desc:"Three test tubes of red phenol red broth stand side by side, each with a small upside-down Durham tube inside, and an incubation clock above them runs from 0 to 24 hours. As the hours pass, the broth in all three becomes cloudy with growth. The left tube stays red, labelled negative: sugar not fermented. The middle tube turns yellow, labelled A: acid. The right tube turns yellow and a white gas bubble grows at the top of its Durham tube, labelled A/G: acid and gas. A key on the right shows red equals neutral, yellow equals acid, bubble equals gas, and deep pink equals alkaline from peptone use.",
+ title:"Sugar fermentation tubes",
+ body:`<p>Labs identify bacteria partly by what they can eat and what they make. A <b>carbohydrate fermentation tube</b> holds broth with one sugar (glucose, lactose, sucrose or mannitol), the pH indicator <b>phenol red</b>, and a tiny upside-down <b>Durham tube</b> that traps gas.</p>
+ <p>After about 18 to 24 hours at 35 to 37 °C: <b>red</b> (unchanged) means the sugar was <b>not fermented</b>; <b>yellow</b> means <b>acid</b> was made; a <b>bubble</b> in the Durham tube means <b>gas</b> was made too. Results are written <b>A</b> (acid), <b>A/G</b> (acid and gas) or <b>–</b>. A deep <b>pink</b> means the bacteria used the peptone in the broth instead, releasing ammonia (alkaline).</p>
+ <p class="tx">Example: <i>E. coli</i> ferments lactose with acid and gas. <i>Salmonella</i>, <i>Proteus</i> and <i>Pseudomonas</i> do not ferment lactose. This helps separate common gut bacteria from some pathogens.</p>`,
+ analogy:"A pool test strip that changes color when the water turns acidic, plus a tiny upside-down cup that catches any bubbles.",
+ terms:[["Phenol red","pH indicator: red near neutral, yellow in acid, pink when alkaline."],["Durham tube","Small inverted tube that traps gas."],["A/G","Acid and gas: the sugar was fermented and gas was made."]],
+ check:{q:"After 24 hours, a lactose tube is yellow with a bubble in the Durham tube. How do you record it?",opts:[
+  ["A/G: lactose fermented with acid and gas",1,"Yes. Yellow means acid; the bubble means gas."],
+  ["Negative",0,"A negative tube stays red with no bubble. Yellow shows acid was made."],
+  ["A: acid only",0,"There is a bubble in the Durham tube, so gas was made too: A/G."],
+  ["Alkaline",0,"Alkaline shows as deep pink. Yellow is acid."]]},
+ caption:"Phenol red stays red (no fermentation), turns yellow (acid), and a Durham tube bubble shows gas.",
+ legend:[["pr-red","Red: not fermented","s"],["pr-yel","Yellow: acid","s"],["gas","Bubble: gas"],["pr-pink","Pink: alkaline","s"]]},
+
+{act:7,scene:"catox",desc:"The left panel, labelled Catalase test, shows two glass slides, each with a creamy colony smear. A dropper drips hydrogen peroxide onto both. On the top slide, labelled Staphylococcus, many white bubbles fizz up and grow: catalase positive. On the bottom slide, labelled Streptococcus, the drop just sits flat: catalase negative. The equation 2 H2O2 to 2 H2O plus O2 appears beneath. The right panel, labelled Oxidase test, shows two white reagent strips; a swab smears a colony on each. The top strip, labelled Pseudomonas, turns dark purple within a few seconds, with a timer counting: oxidase positive. The bottom strip, labelled E. coli, stays pale: oxidase negative. A note says purple means cytochrome c oxidase is present.",
+ title:"Catalase and oxidase tests",
+ body:`<p>Two quick tests read a microbe's respiration enzymes.</p>
+ <p><b>Catalase</b> breaks down toxic <b>hydrogen peroxide</b>: 2 H₂O₂ → 2 H₂O + O₂. Drop H₂O₂ on a colony: <b>bubbles</b> (oxygen) mean catalase positive. This separates <b><i>Staphylococcus</i> (positive)</b> from <b><i>Streptococcus</i> (negative)</b>, two gram-positive cocci that can look alike.</p>
+ <p><b>Oxidase</b> detects <b>cytochrome c oxidase</b>, an enzyme at the end of some electron transport chains. Rub a colony on an oxidase reagent strip: a <b>dark purple</b> color within about 10 to 30 seconds means positive. <i>Pseudomonas</i> and <i>Neisseria</i> are oxidase positive; <i>E. coli</i> and the other enteric bacteria are oxidase negative.</p>`,
+ analogy:"Catalase is a fizz test, like peroxide bubbling on a scrape. Oxidase is a color test for one specific part of the electron transport chain.",
+ terms:[["Catalase","Enzyme that breaks H₂O₂ into water and O₂ (bubbles)."],["Oxidase test","Purple = cytochrome c oxidase present."],["Cytochrome c oxidase","Final enzyme in some electron transport chains."]],
+ check:{q:"Gram-positive cocci in clusters bubble strongly when H₂O₂ is added. Which genus fits best?",opts:[
+  ["Staphylococcus",1,"Right. Staphylococci are catalase positive and grow in grape-like clusters."],
+  ["Streptococcus",0,"Streptococci are catalase negative (no bubbles) and grow in chains or pairs."],
+  ["Escherichia",0,"E. coli is a gram-negative rod, not a gram-positive coccus."],
+  ["Pseudomonas",0,"Pseudomonas is a gram-negative rod. The useful test for it is oxidase."]]},
+ caption:"Catalase: bubbles in H₂O₂ (Staphylococcus +, Streptococcus −). Oxidase: purple strip (Pseudomonas +, E. coli −).",
+ legend:[["gas","O₂ bubbles"],["ox-purp","Oxidase positive","s"],["gpos","Gram-positive cocci"],["gneg","Gram-negative rods"]]},
+
+{act:7,scene:"imvic",desc:"The top row shows two pairs of tubes. A green Simmons citrate slant with a growth streak turns deep blue on the positive side (labelled citrate positive, grew on citrate) while its partner stays green. A peach urea broth turns hot pink on the positive side, labelled Proteus, urease positive: urea to ammonia, while its partner stays peach. The bottom half shows an IMViC panel with two rows of four tubes each, labelled Indole, Methyl red, Voges-Proskauer, Citrate. The tubes change colour one column at a time. Row one, E. coli: indole shows a red ring at the top, methyl red turns red, VP stays pale, citrate stays green, giving plus plus minus minus. Row two, Enterobacter aerogenes: indole shows a yellow ring, methyl red stays yellow, VP turns red, citrate turns blue, giving minus minus plus plus.",
+ title:"Citrate, urease and the IMViC tests",
+ body:`<p><b>Citrate test:</b> Simmons citrate agar has citrate as its <b>only carbon source</b> and the indicator bromthymol blue. Bacteria that can use citrate grow and make the medium alkaline, turning it from <b>green to blue</b>.</p>
+ <p><b>Urease test:</b> urea broth or agar holds urea plus phenol red. <b>Urease</b> splits urea into <b>ammonia</b> and CO₂; the ammonia raises the pH and turns the medium <b>hot pink</b>. <i>Proteus</i> is strongly and quickly urease positive, and so is <i>Helicobacter pylori</i>.</p>
+ <p><b>IMViC</b> is a set of four tests that separates gram-negative gut rods: <b>I</b>ndole (red ring after Kovacs reagent: the amino acid tryptophan was broken down), <b>M</b>ethyl red, <b>V</b>oges-Proskauer, and <b>C</b>itrate (the small "i" is just for sound). <i>E. coli</i> is typically <b>+ + – –</b>; <i>Enterobacter aerogenes</i> is <b>– – + +</b>.</p>`,
+ analogy:"A fingerprint card. One test alone is a smudge; four tests read together make a pattern that points to one suspect.",
+ terms:[["Citrate utilization","Growth on citrate alone; medium turns blue."],["Urease","Enzyme that splits urea into ammonia; medium turns pink."],["IMViC","Indole, Methyl red, Voges-Proskauer, Citrate."]],
+ check:{q:"An unknown gram-negative rod turns urea agar hot pink within a few hours. Which is the most likely?",opts:[
+  ["Proteus",1,"Yes. Proteus makes a lot of urease quickly, so the medium turns pink fast."],
+  ["Escherichia coli",0,"E. coli is urease negative, so the medium stays yellow-peach."],
+  ["Enterobacter aerogenes",0,"Enterobacter aerogenes is usually urease negative. A fast, strong pink points to Proteus."],
+  ["Streptococcus",0,"Streptococcus is a gram-positive coccus, and the question describes a gram-negative rod."]]},
+ caption:"Citrate turns blue, urease turns pink, and the IMViC pattern separates E. coli (+ + − −) from Enterobacter (− − + +).",
+ legend:[["cit-blue","Citrate positive","s"],["ure-pink","Urease positive","s"],["kov","Red = positive (I, MR, VP)","s"],["pr-yel","Yellow = negative (MR)","s"]]},
+
+/* ---------- Finish ---------- */
+{act:0,scene:"recap",desc:"On the left, a summary diagram: one blue glucose ring at the top flows down an arrow into Glycolysis (2 ATP, 2 NADH). From there the path forks. One branch, labelled O2 or another acceptor, goes through Transition and Krebs into the electron transport chain and ends in a stack of up to 38 gold ATP coins. The other branch, labelled no acceptor, goes to Fermentation with orange lactic acid, green ethanol and gas bubbles, ending with 2 ATP. On the right, seven numbered cards light up in turn with a one-line summary of each part of the walkthrough.",
+ title:"Recap: one glucose, many paths",
+ body:`<p>You followed the energy in food all the way to ATP, and then saw how the lab reads it. In short:</p>
+ <ol><li><b>Energy basics:</b> catabolism releases energy, anabolism spends it; ATP is the coin; NAD⁺ and FAD carry electrons.</li>
+ <li><b>Enzymes:</b> lower activation energy; need the right shape, temperature and pH; blocked by competitive inhibitors (sulfa drugs vs PABA) or noncompetitive and feedback inhibitors.</li>
+ <li><b>Glycolysis and Krebs:</b> glucose → 2 pyruvate (net 2 ATP, 2 NADH) → acetyl-CoA → Krebs cycle (CO₂, NADH, FADH₂, ATP).</li>
+ <li><b>Electron transport:</b> electrons pump H⁺; ATP synthase uses the proton motive force; O₂ (aerobic) or nitrate or sulfate (anaerobic) takes the electrons. Up to 38 ATP.</li>
+ <li><b>Fermentation:</b> regenerates NAD⁺; lactic acid, alcohol, mixed acids; 2 ATP.</li>
+ <li><b>Other fuels and light:</b> lipases and proteases feed the same pathways; photosynthesis builds sugar from CO₂.</li>
+ <li><b>In the lab:</b> phenol red sugar tubes, catalase, oxidase, citrate, urease and IMViC turn metabolism into an ID.</li></ol>
+ <p>Next, try the <a href="Metabolism-Lab.html">Metabolism Lab</a>: run the cell energy and enzyme simulators, identify unknown bacteria at the test bench, and sort the ideas.</p>`,
+ analogy:"The same fuel can be burned completely in a furnace (respiration) or just enough to keep a candle lit (fermentation). What is left in the ashtray tells a detective which one happened.",
+ terms:[["Key numbers","Aerobic up to 38 ATP; fermentation 2; glycolysis net 2 ATP + 2 NADH."],["Final electron acceptors","O₂ (aerobic), NO₃⁻ or SO₄²⁻ (anaerobic), organic molecule (fermentation)."]],
+ check:null,caption:"Glucose → glycolysis, then either respiration (up to 38 ATP) or fermentation (2 ATP): seven parts in review.",
+ legend:[["act1","Energy","s"],["act2","Enzymes","s"],["act4","Glycolysis & Krebs","s"],["act6","Electron transport","s"],["act3","Fermentation","s"],["act5","Other fuels","s"],["gold","Lab tests","s"]]}
+];
+
+/* ---------------- DOM ---------------- */
+const $=s=>document.querySelector(s);
+const chainEl=$("#chain");
+const done=new Set();
+let cur=0;
+function buildChain(){
+  chainEl.innerHTML="";
+  const groups=[[0,"Start","accent",[0]]];
+  for(let a=1;a<=NACT;a++)groups.push([a,ACTS[a].name,ACTS[a].col,[]]);
+  groups.push([NACT+1,"Finish","accent",[STEPS.length-1]]);
+  STEPS.forEach((s,i)=>{if(s.act>0)groups[s.act][3].push(i)});
+  groups.forEach(g=>{
+    const d=document.createElement("div");d.className="actgrp";
+    if(g[0]===0||g[0]===NACT+1)d.style.flex="0 0 auto";
+    d.innerHTML=`<div class="an"><i style="background:var(--${g[2]})"></i>${g[1]}</div>`;
+    const dots=document.createElement("div");dots.className="dots";
+    g[3].forEach(i=>{const b=document.createElement("button");b.type="button";b.className="dot";b.textContent=i===0?"★":(i===STEPS.length-1?"✓":i);
+      b.setAttribute("aria-label",(i===0?"Start":i===STEPS.length-1?"Finish":"Step "+i)+": "+STEPS[i].title);b.onclick=()=>go(i);b.dataset.i=i;dots.appendChild(b)});
+    d.appendChild(dots);chainEl.appendChild(d);
+  });
+}
+function refreshDots(){document.querySelectorAll(".dot").forEach(b=>{const i=+b.dataset.i;b.classList.toggle("cur",i===cur);b.classList.toggle("done",done.has(i));if(i===cur)b.setAttribute("aria-current","step");else b.removeAttribute("aria-current")})}
+function legendHTML(l){const v="--"+l[0];const sh=l[2]||"c";
+  if(sh==="dl")return `<span><i class="dl" style="border-top-color:var(${v})"></i>${l[1]}</span>`;
+  if(sh==="t")return `<span><i class="t" style="border-bottom-color:var(${v})"></i>${l[1]}</span>`;
+  if(sh==="y")return `<span><i class="y" style="--yc:var(${v})"></i>${l[1]}</span>`;
+  return `<span><i class="${sh}" style="background:var(${v})"></i>${l[1]}</span>`}
+function render(){
+  const s=STEPS[cur];
+  const a=ACTS[s.act];
+  $("#stepno").innerHTML=(s.act?`<span class="actchip" style="--c:var(--${a.col})">${a.name}</span>`:"")+
+    (cur>0&&cur<STEPS.length-1?`<span>Step ${cur} of ${STEPS.length-2}</span>`:"");
+  $("#title").textContent=s.title;
+  $("#body").innerHTML=s.body;
+  $("#analogy p").textContent=s.analogy;
+  $("#terms").innerHTML=s.terms.map(t=>`<div><dt>${t[0]}</dt><dd>${t[1]}</dd></div>`).join("");
+  $("#caption").textContent=s.caption;
+  cv.setAttribute("aria-label","Animation: "+s.caption);if(window.gkDescribe)window.gkDescribe(s.desc);
+  $("#legend").innerHTML=(s.legend||[]).map(legendHTML).join("");
+  const ck=$("#check");
+  if(!s.check){ck.style.display="none"}else{
+    ck.style.display="";
+    $("#q").textContent=s.check.q;
+    const fb=$("#fb");fb.textContent="";fb.className="fb";
+    const box=$("#opts");box.innerHTML="";
+    s.check.opts.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];
+      b.onclick=()=>{box.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));
+        if(o[1]){b.classList.add("right");fb.className="fb ok";fb.textContent="✓ "+o[2];done.add(cur);refreshDots()}
+        else{b.classList.add("wrong");fb.className="fb no";fb.textContent="Not quite. "+o[2]}};
+      box.appendChild(b)});
+  }
+  $("#prev").disabled=cur===0;
+  $("#next").textContent=cur===STEPS.length-1?"Start over":"Next →";
+  $("#progbar").style.width=(cur/(STEPS.length-1)*100)+"%";
+  refreshDots();
+}
+function go(i){cur=Math.max(0,Math.min(STEPS.length-1,i));T=0;render();}
+$("#prev").onclick=()=>go(cur-1);
+$("#next").onclick=()=>go(cur===STEPS.length-1?0:cur+1);
+document.addEventListener("keydown",e=>{if(e.target.tagName==="INPUT"||e.altKey||e.ctrlKey||e.metaKey)return;if(e.key==="ArrowRight")go(cur+1);if(e.key==="ArrowLeft")go(cur-1)});
+let paused=false;
+$("#pauseBtn").onclick=()=>{paused=!paused;$("#pauseBtn").textContent=paused?"Play":"Pause"};
+$("#replayBtn").onclick=()=>{T=0};
+let speed=1;$("#speed").oninput=e=>speed=+e.target.value;
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";
+  r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+
+/* ---------------- canvas ---------------- */
+const W=800,H=480;
+const cv=document.getElementById("stage");ctx=cv.getContext("2d");
+let K=1;
+function fit(){const w=cv.parentElement.clientWidth;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);K=cv.width/W}
+window.addEventListener("resize",fit);
+
+
+/* ================= scenes: start + Part 1 + Part 2 ================= */
+function diamond(x,y,s,col,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.beginPath();ctx.moveTo(x,y-s);ctx.lineTo(x+s,y);ctx.lineTo(x,y+s);ctx.lineTo(x-s,y);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.lineWidth=1.2;ctx.stroke();ctx.restore()}
+function gaugeH(x,y,w,f,col,lab,val){rr(x,y,w,12,6);ctx.fillStyle=C.sunk;ctx.fill();rr(x,y,Math.max(12,w*clamp(f,0,1)),12,6);ctx.fillStyle=col;ctx.fill();
+  if(lab)txt(x,y-10,lab,{size:12,weight:700,color:C["ink-soft"]});if(val)txt(x+w,y-10,val,{size:12,mono:true,weight:700,align:"right"})}
+function thermoIcon(x,y,h,f,col){rr(x-5,y,10,h,5);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.3;ctx.stroke();const fh=(h-6)*clamp(f,0,1);rr(x-2.5,y+h-fh-2,5,fh+4,2.5);ctx.fillStyle=col;ctx.fill();circ(x,y+h+5,7.5,col,C["ink-soft"],1.3)}
+const PARTS=[["Energy basics","act1","Catabolism, anabolism, ATP, electron carriers"],["Enzymes","act2","Active site, cofactors, temperature, pH, inhibitors"],["Glycolysis and Krebs","act4","Glucose → pyruvate → acetyl-CoA → CO₂"],["Electron transport","act6","Proton pump, ATP synthase, O₂ or nitrate"],["Fermentation","act3","Recycling NAD⁺: lactic acid, alcohol, mixed acids"],["Other fuels and light","act5","Fats, proteins, photosynthesis"],["Metabolism in the lab","gold","Sugar tubes, catalase, oxidase, IMViC"]];
+function partCards(T,x,y,w,sum){const lit=Math.floor(P(T,14)*8);const h=60,g=6;
+  PARTS.forEach((pt,i)=>{const Y=y+i*(h+g);const l=i<=lit;panelBox(x,Y,w,h,{stroke:l?C[pt[1]]:C.rule,lw:l?2.5:1.2,fill:hexA(C.panel,l?.97:.6)});
+    ctx.save();ctx.globalAlpha=l?1:.5;badge(x+22,Y+h/2,i+1,C[pt[1]],12);txt(x+44,Y+20,pt[0],{size:14,weight:700});wrapText(sum?sum[i]:pt[2],x+44,Y+41,w-54,15,{size:12.5,color:C["ink-soft"]});ctx.restore()})}
+
+/* ---------- start map ---------- */
+function sceneMap(T){
+  panelBox(12,12,380,456);title(24,32,"One glucose, two ways");
+  const L=9,t=P(T,L)*L,aer=Math.floor(T/L)%2===0;
+  label(370,32,aer?"O₂ present":"No O₂",{size:12.5,weight:700,align:"right",color:aer?C.good:C.warn,border:aer?C.good:C.warn});
+  cellRod(30,62,344,252,{});
+  txt(52,300,"Bacterium (cytoplasm)",{size:12,weight:600,color:C["ink-soft"]});
+  // glucose in
+  const gx=lerp(-10,96,smooth(seg(t,0,1.2)));
+  if(t<1.6)ringMol(gx,190,26,6,C.carb,{a:1-seg(t,1.3,1.6)});
+  label(96,96,"Glycolysis",{size:12.5,weight:700,align:"center",border:t>1&&t<2.6?C.act4:null});
+  // two pyruvates
+  const sp=smooth(seg(t,1.3,2.1));
+  const targets=aer?[[230,170],[230,210]]:[[230,170],[230,210]];
+  for(let k=0;k<2;k++){const y0=190+(k?22:-22)*sp;const mv=smooth(seg(t,2.4,3.8));const x=lerp(110,targets[k][0],mv),y=lerp(y0,targets[k][1],mv);
+    const a=t<1.3?0:(aer?1-seg(t,3.6,4.2):1);let col=C.pyr;if(!aer&&t>4)col=C.lac;
+    const fx=aer?x:x+smooth(seg(t,4.2,6))*80;if(a>0)chainH(fx,y,3,7,col,{a})}
+  if(t>1.5&&t<3)label(110,250,"2 pyruvate",{size:12,weight:600,align:"center"});
+  if(aer){const wa=seg(t,2.6,3.2);withA(wa,()=>{const r=34,cx=232,cy=190;ctx.save();ctx.strokeStyle=C.act4;ctx.lineWidth=5;ctx.setLineDash([12,8]);ctx.lineDashOffset=-T*30;ctx.beginPath();ctx.arc(cx,cy,r,0,TAU);ctx.stroke();ctx.restore();txt(cx,cy+r+14,"Krebs cycle",{size:12,weight:700,align:"center"});
+      for(let k=0;k<3;k++){const p=P(T*.9+k*.33,1);co2(cx+20+p*40,cy-30-p*40,.8,(1-p)*seg(t,3.2,3.6))}});
+    // ETC strip along top inside cell
+    withA(seg(t,3.6,4.2),()=>{rr(150,72,200,18,9);ctx.fillStyle=hexA(C.mem,.8);ctx.fill();ctx.strokeStyle=C["mem-edge"];ctx.lineWidth=1.2;ctx.stroke();txt(250,103,"electron transport",{size:12,weight:600,align:"center",color:C["ink-soft"]});
+      for(let k=0;k<4;k++){const p=P(T*1.2+k*.25,1);hplus(170+k*48,80-p*30,4.5,1-p)}});}
+  else{withA(seg(t,2.6,3.2),()=>{panelBox(200,150,110,80,{stroke:C.act3,lw:2});txt(255,166,"Fermentation",{size:12,weight:700,align:"center"});txt(255,218,"lactic acid",{size:12,weight:600,align:"center",color:C.ink})})}
+  // ATP counter
+  const target=aer?38:2;const made=t<2?0:t<2.6?2:aer?Math.round(2+36*smooth(seg(t,3.8,7.6))):2;
+  panelBox(30,330,344,126,{fill:hexA(C.panel,.95)});title(44,350,"ATP from this glucose");txt(358,350,String(made),{size:22,mono:true,weight:700,align:"right",color:C["atp-edge"]});
+  for(let i=0;i<made;i++){const col=i%13,row=Math.floor(i/13);const cx=52+col*24,cy=380+row*24;const born=i<2?2+i*.15:3.8+(i-2)/36*3.8;const ap=seg(t,born,born+.25);atpCoin(cx,cy-(1-ap)*14,9.5,{a:ap})}
+  if(!aer&&t>2.6)txt(200,404,"Only 2 ATP without oxygen",{size:12.5,weight:600,color:C["ink-soft"]});
+  // right: parts
+  partCards(T,404,12,384);
+}
+
+/* ---------- Part 1 ---------- */
+function sceneCatab(T){
+  const L=7,t=P(T,L)*L;
+  headPanel(12,52,360,408,"Catabolism: breaking down",C.act3);headPanel(428,52,360,408,"Anabolism: building up",C.act4);
+  label(400,26,"ATP carries the energy",{size:13,weight:700,align:"center",border:C.atp});
+  // left: glucose chain breaks
+  const br=smooth(seg(t,1,2.2));const cx=192,cy=200;
+  if(br<1){const sh=t>.4&&t<1.1?Math.sin(T*60)*2:0;chainH(cx+sh,cy,6,12,C.carb,{a:1-br*.9,lab:t<1?"Glucose (big molecule)":""})}
+  for(let i=0;i<6;i++){if(br<=0)break;const an=-Math.PI/2+(i-2.5)*.5+(i%2?.2:-.2);const d=br*110*(.7+rnd(i)*.4);co2(cx+Math.cos(an)*d*1.1,cy+Math.sin(an)*d*.9+br*60,1,br*(1-seg(t,5.5,6.6)))}
+  if(br>.3)withA(br*(1-seg(t,5.5,6.6)),()=>{label(cx,cy+130,"Small pieces: CO₂ + H₂O",{size:12.5,weight:600,align:"center"});glow(cx,cy,90*br,C.heat,.25);txt(cx+110,cy+70,"heat",{size:12,weight:700,color:C.heat})});
+  txt(30,440,"Big → small. Releases energy.",{size:13,weight:700,color:C.ink});
+  // ATP coins travel
+  for(let k=0;k<2;k++){const st=1.8+k*.35;const p=seg(t,st,st+2.4);if(t<st)continue;const pts=[[cx,cy],[330,120+k*24],[470,120+k*24],[560+k*60,250]];const [x,y]=along(pts,ease(p));
+    const spent=seg(t,st+2.6,st+3.2);atpCoin(x,y,13,{adp:spent>.5,glow:p<1?.6:0,a:1-seg(t,6.2,6.9)})}
+  arrow(380,120,420,120,C.atp,3);
+  // right: amino acids assemble
+  const cols=[C.amino,C.act2,C.act4,C.act1,C.act6,C.amino];const asm=smooth(seg(t,3.8,5.4));
+  for(let i=0;i<6;i++){const fx=500+i*40,fy=310;const sx=470+rnd(i*3)*280,sy=150+rnd(i*5+1)*120;const x=lerp(sx+Math.sin(T*1.5+i)*6,fx,asm),y=lerp(sy+Math.cos(T*1.3+i)*6,fy,asm);
+    if(i&&asm>.98)line(x-40,y,x,y,mix(C.amino,C.ink,.4),3);bead(x,y,12,cols[i],{a:1-seg(t,6.4,6.95)})}
+  if(asm>.95)withA(1-seg(t,6.4,6.95),()=>label(600,348,"Protein (big molecule)",{size:12.5,weight:600,align:"center"}));
+  else txt(600,118,"Amino acids (small)",{size:12.5,weight:600,align:"center",color:C["ink-soft"]});
+  txt(446,440,"Small → big. Uses energy (ATP → ADP).",{size:13,weight:700,color:C.ink});
+}
+
+function sceneAtp(T){
+  const L=7,t=P(T,L)*L;
+  headPanel(12,12,450,456,"The ATP molecule");headPanel(474,12,314,456,"The ATP cycle");
+  const hot=seg(t,.4,1.6)*(1-seg(t,1.6,1.8));const off=t>=1.7&&t<5;
+  const xs=atpMol(212,222,1.45,off?2:3,{hotBond:t<1.8?hot:0});
+  label(212,74,off?"ADP + P":"ATP",{size:20,weight:700,align:"center",color:off?C["ink-soft"]:C["atp-edge"]});
+  if(t<1.7)label(212,106,"adenosine triphosphate: 3 phosphates",{size:12,weight:500,align:"center",color:C["ink-soft"]});
+  else if(off)label(212,106,"adenosine diphosphate + free phosphate",{size:12,weight:500,align:"center",color:C["ink-soft"]});
+  // flying phosphate
+  const px0=212+16*1.45+2*30*1.45,py0=222+4*1.45;
+  if(off){const out=smooth(seg(t,1.7,2.4)),back=smooth(seg(t,4,5));const px=px0+out*60-back*60,py=py0+out*50-back*50;pDot(px,py,11*1.45,{glow:back>0?back:0});
+    if(back>0)label(px,py+36,"food energy recharges it",{size:12,weight:600,align:"center",a:back*(1-seg(t,4.8,5))})}
+  if(t>1.6&&t<3.2){const p=seg(t,1.7,3);const [bx,by]=along([[px0,py0],[260,300],[220,380]],p);glow(bx,by,26,C.glow,.8*(1-p*.3));txt(bx+24,by,"energy",{size:12,weight:700,color:C.gold})}
+  // bacterium doing work
+  const fast=t>2.8&&t<4.6;bact(180,400,0,22,1,{flag:true,t:T*(fast?2.6:.6),col:C.gneg});label(180,440,fast?"flagellum spins: work done":"waiting for energy",{size:12,weight:600,align:"center",border:fast?C.good:null});
+  // cycle diagram
+  const cx=631,top=110,bot=300;atpCoin(cx,top,30,{});atpCoin(cx-22,bot,24,{adp:true});pDot(cx+28,bot,13);txt(cx,bot+44,"ADP + P",{size:13,weight:700,align:"center"});
+  ctx.save();ctx.lineWidth=3;ctx.strokeStyle=C.act3;ctx.beginPath();ctx.arc(cx,(top+bot)/2,82,-Math.PI*.38,Math.PI*.38);ctx.stroke();ctx.strokeStyle=C.act4;ctx.beginPath();ctx.arc(cx,(top+bot)/2,82,Math.PI*.62,Math.PI*1.38);ctx.stroke();ctx.restore();
+  arrow(cx+82*Math.cos(Math.PI*.32),(top+bot)/2+82*Math.sin(Math.PI*.32),cx+82*Math.cos(Math.PI*.38),(top+bot)/2+82*Math.sin(Math.PI*.38),C.act3,3);
+  arrow(cx+82*Math.cos(Math.PI*1.32),(top+bot)/2+82*Math.sin(Math.PI*1.32),cx+82*Math.cos(Math.PI*1.38),(top+bot)/2+82*Math.sin(Math.PI*1.38),C.act4,3);
+  label(cx+118,(top+bot)/2,"energy out",{size:12,weight:700,align:"center",color:C.ink,border:C.act3});label(cx+118,(top+bot)/2+22,"(work)",{size:12,align:"center",color:C["ink-soft"]});
+  label(cx-118,(top+bot)/2,"energy in",{size:12,weight:700,align:"center",color:C.ink,border:C.act4});label(cx-118,(top+bot)/2+22,"(from food)",{size:12,align:"center",color:C["ink-soft"]});
+  const a=P(T,4)*TAU-Math.PI/2;const mc=(top+bot)/2;const isAtp=Math.sin(a)<0;atpCoin(cx+Math.cos(a)*58,mc+Math.sin(a)*58,10,{adp:Math.cos(a)>0?Math.sin(a)>0:Math.sin(a)>0});
+  title(488,372,"Three ways to make ATP");
+  ["Substrate-level phosphorylation","Oxidative phosphorylation (ETC)","Photophosphorylation (light)"].forEach((s,i)=>{const on=Math.floor(P(T,9)*3)===i;label(492,398+i*24,s,{size:12,weight:600,border:on?C.accent:null})});
+}
+
+function sceneRedox(T){
+  const L=7,t=P(T,L)*L;
+  panelBox(12,12,776,456,{fill:hexA(C.panel,.5)});
+  // roads
+  line(150,200,600,200,C.rule,10);line(150,280,600,280,C.rule,10);line(150,200,600,200,C.panel,1.5,[10,10]);line(150,280,600,280,C.panel,1.5,[10,10]);
+  // food molecule
+  const ox=seg(t,.5,1.2);chainH(110,110,6,11,mix(C.carb,C.panel,ox*.45),{lab:"Food molecule"});
+  label(110,160,ox>.5?"Oxidized: lost electrons":"has energy-rich electrons",{size:12,weight:700,align:"center",border:ox>.5?C.act3:null});
+  // ETC box
+  protBlob(690,200,140,70,C.act6,null);txt(690,190,"Electron",{size:12.5,weight:700,align:"center"});txt(690,208,"transport chain",{size:12.5,weight:700,align:"center"});
+  // taxi motion
+  let x,y,full;
+  if(t<1.2){x=150;y=200;full=t>1}else if(t<3.2){x=lerp(150,600,ease(seg(t,1.2,3.2)));y=200;full=true}else if(t<3.9){x=600;y=200;full=t<3.6}else if(t<4.4){x=600;y=lerp(200,280,smooth(seg(t,3.9,4.4)));full=false}
+  else if(t<6.4){x=lerp(600,150,ease(seg(t,4.4,6.4)));y=280;full=false}else{x=150;y=lerp(280,200,smooth(seg(t,6.4,7)));full=false}
+  taxi(x,y,1.3,"nad",full,{t:T});
+  if(full&&x<480)label(x,y+34,"Reduced: gained electrons",{size:12,weight:700,align:"center",border:C.nadh});
+  // electrons jumping
+  for(let k=0;k<2;k++){if(t>.5&&t<1.1){const p=seg(t,.5+k*.1,1.05);const [ex,ey]=along([[100+k*20,110],[120+k*20,140],[142+k*16,178]],p);elec(ex,ey,4.5)}
+    if(t>3.3&&t<3.9){const p=seg(t,3.3+k*.08,3.85);elec(lerp(592+k*16,650+k*20,p),lerp(178,200,p),4.5,1-seg(p,.8,1))}}
+  txt(375,180,"loaded taxi: NADH",{size:12,weight:600,align:"center",color:C["ink-soft"]});txt(375,302,"empty taxi returns: NAD⁺",{size:12,weight:600,align:"center",color:C["ink-soft"]});
+  // FAD row
+  const t2=P(T+2.5,L)*L;line(150,400,600,400,C.rule,8);
+  chainH(80,400,4,8,C.acoa,{lab:"Krebs cycle step"});
+  let fx,ff;if(t2<1.2){fx=150;ff=t2>1}else if(t2<3.2){fx=lerp(150,600,ease(seg(t2,1.2,3.2)));ff=true}else if(t2<3.9){fx=600;ff=t2<3.6}else{fx=lerp(600,150,ease(seg(t2,3.9,7)));ff=false}
+  taxi(fx,400,1,"fad",ff,{t:T});if(t2>.5&&t2<1.1)for(let k=0;k<2;k++){const p=seg(t2,.5+k*.1,1.05);elec(lerp(76+k*10,145+k*12,p),lerp(400,378,p),3.6)}
+  protBlob(690,400,110,40,C.act6,"ETC");txt(375,428,"FAD → FADH₂ (a second, smaller carrier)",{size:12,weight:600,align:"center",color:C["ink-soft"]});
+  label(400,452,"OIL RIG: Oxidation Is Loss, Reduction Is Gain",{size:12,weight:700,align:"center",border:C.accent});
+  title(24,32,"Electron carriers shuttle electrons");
+}
+
+/* ---------- Part 2 ---------- */
+function sceneEnzyme(T){
+  const L=5.5,t=P(T,L)*L;headPanel(12,12,410,456,"Substrate → active site → products");
+  const ex=210,ey=290,s=2.2;
+  const bind=seg(t,1.4,2.5),split=t>2.5;
+  enzyme(ex,ey,s,{glow:bind>0&&!split?.8:0,lab:"Enzyme"});
+  if(!split){const dy=lerp(-150,0,ease(seg(t,0,1.4)));wedge(ex+Math.sin(T*2)*(1-seg(t,0,1.4))*8,ey+dy,s,C.sub);if(t<1.2)label(ex+80,ey+dy-60,"Substrate",{size:12.5,weight:700,align:"left"})}
+  else{const p=ease(seg(t,2.5,4));const a=1-seg(t,4.4,5.2);wedge(ex-p*90,ey-p*110,s,C.prod,{half:"L",rot:-p*.6,a});wedge(ex+p*90,ey-p*110,s,C.prod,{half:"R",rot:p*.6,a});
+    if(p>.4)label(ex,ey-215,"Products released",{size:12.5,weight:700,align:"center",a})}
+  if(bind>0&&!split)label(ex,ey+108,"Enzyme-substrate complex",{size:12.5,weight:700,align:"center",border:C.glow});
+  else if(split&&t>3.4)label(ex,ey+108,"Enzyme unchanged, ready again",{size:12.5,weight:700,align:"center",border:C.good});
+  lead(ex+40,ey-60,ex+120,ey-120,"Active site",{size:12.5});
+  // energy diagram
+  headPanel(434,12,354,456,"Activation energy");const ax=470,ay=70,aw=290,ah=300;axes(ax,ay,aw,ah,{xl:"Reaction progress →",yl:"Energy",xlo:18});
+  const f=(u,pk)=>lerp(.5,.18,smooth(u))+pk*gauss(u,.45,.11);
+  plotFn(u=>f(u,.48),0,1,ax,ay,aw,ah,0,1,C["ink-soft"],2.4,[7,5]);plotFn(u=>f(u,.2),0,1,ax,ay,aw,ah,0,1,C.accent,3);
+  const Y=v=>ay+ah-v*ah;
+  const u=P(T,4);const bx=ax+aw*u,by=Y(f(u,.2))-9;circ(bx,by,8,C.sub,mix(C.sub,C.ink,.4),1.4);
+  const pkx=ax+aw*.45;line(ax+10,Y(.5),pkx+40,Y(.5),C["rule"],1,[4,4]);
+  arrow(pkx-18,Y(.5),pkx-18,Y(f(.45,.48))+4,C["ink-soft"],1.6);arrow(pkx+18,Y(.5),pkx+18,Y(f(.45,.2))+4,C.accent,1.6);
+  label(pkx+28,Y(f(.45,.48))-14,"Without enzyme",{size:12,weight:700,align:"left",color:C["ink-soft"]});
+  label(pkx+30,Y(f(.45,.2))-6,"With enzyme",{size:12,weight:700,align:"left",color:C.accent});
+  txt(ax+8,Y(.5)-14,"Reactants",{size:12,weight:600});txt(ax+aw-4,Y(.18)+16,"Products",{size:12,weight:600,align:"right"});
+  wrapText("The arrows show activation energy: the enzyme makes the hump smaller.",452,420,320,16,{size:12.5,color:C["ink-soft"]});
+}
+
+function sceneCofactor(T){
+  const L=8,t=P(T,L)*L;const ex=400,ey=270,s=2;
+  const dock=smooth(seg(t,1.6,2.8));const alloV=1-dock;
+  const mgx=lerp(150,ex-34*s-8,ease(seg(t,1.4,2.8))),mgy=lerp(330,ey+10,ease(seg(t,1.4,2.8)));
+  enzyme(ex,ey,s,{allo:alloV*.95,glow:t>4.4&&t<5.4?.8:0});
+  circ(mgx,mgy,13,C.co2,mix(C.co2,C.ink,.4),1.5);txt(mgx,mgy,"Mg²⁺",{size:11,mono:true,weight:700,align:"center",color:onFill()});
+  if(t<1.4)label(mgx,mgy+28,"cofactor",{size:12,weight:600,align:"center"});
+  // substrate behaviour
+  if(t<1.6){const p=P(t,1.6);const dy=-150+Math.sin(p*Math.PI)*110;wedge(ex+30*Math.sin(p*Math.PI),ey+dy,s,C.sub);if(p>.3&&p<.8)label(ex+110,ey-70,"does not fit",{size:12.5,weight:700,align:"left",border:C.warn})}
+  else if(t<4.4){const p=ease(seg(t,3,4.4));wedge(ex,ey+lerp(-150,0,p),s,C.sub)}
+  else if(t<5.4)wedge(ex,ey,s,C.sub);
+  else{const p=ease(seg(t,5.4,6.6)),a=1-seg(t,6.8,7.6);wedge(ex-p*80,ey-p*100,s,C.prod,{half:"L",rot:-p*.5,a});wedge(ex+p*80,ey-p*100,s,C.prod,{half:"R",rot:p*.5,a})}
+  const act=dock>.9;label(ex,ey+100,act?"Holoenzyme: active":"Apoenzyme: inactive",{size:13,weight:700,align:"center",border:act?C.good:C.warn});
+  label(ex,ey+128,act?"apoenzyme + cofactor":"protein part alone",{size:12,align:"center",color:C["ink-soft"]});
+  // side panels
+  headPanel(12,12,214,190,"Cofactors (inorganic)");[["Mg²⁺","magnesium"],["Fe²⁺","iron"],["Zn²⁺","zinc"],["Cu²⁺","copper"]].forEach((m,i)=>{const y=52+i*36;circ(40,y,12,C.co2,mix(C.co2,C.ink,.4),1.2);txt(40,y,m[0],{size:10.5,mono:true,weight:700,align:"center",color:onFill()});txt(62,y,m[1],{size:13,weight:600})});
+  headPanel(560,12,228,190,"Coenzymes (from vitamins)");[["Niacin (B₃)","NAD⁺",C.nadh],["Riboflavin (B₂)","FAD",C.fad],["Pantothenic acid (B₅)","CoA",C.acoa]].forEach((v,i)=>{const y=56+i*46;txt(574,y,v[0],{size:12.5,weight:600});arrow(574,y+18,604,y+18,C["ink-soft"],1.4);chipL(612,y+18,v[1],v[2])});
+  label(400,450,"Apoenzyme + cofactor or coenzyme = holoenzyme",{size:13,weight:700,align:"center",border:C.accent});
+}
+
+function sceneTemp(T){
+  const mini=(x,lab,col,period,distort,tval)=>{headPanel(x,12,252,206,null,col);const ex=x+140,ey=128,s=1.15;
+    thermoIcon(x+28,40,120,tval/70,col);txt(x+28,186,tval+" °C",{size:12,mono:true,weight:700,align:"center"});
+    enzyme(ex,ey,s,{distort,glow:0});
+    const p=P(T,period);if(distort>0){const q=P(T,1.6);wedge(ex+Math.sin(q*TAU)*40,ey-44+Math.abs(Math.sin(q*Math.PI))*-8,s,C.sub)}
+    else{const dy=p<.4?lerp(-70,0,ease(p/.4)):p<.6?0:0;if(p<.6)wedge(ex,ey+dy,s,C.sub);else{const q=ease((p-.6)/.4);wedge(ex-q*40,ey-q*60,s,C.prod,{half:"L",a:1-q});wedge(ex+q*40,ey-q*60,s,C.prod,{half:"R",a:1-q})}}
+    label(x+140,200,lab,{size:12.5,weight:700,align:"center",border:col})};
+  mini(12,"Cold: slow",C.cold,6,0,5);mini(274,"Optimum: fast",C.good,1.4,0,37);mini(536,"Too hot: denatured",C.heat,1,.9,60);
+  // graphs
+  const rT=v=>v<=37?Math.exp((v-37)/11):Math.max(0,1-Math.pow((v-37)/14,2));
+  headPanel(12,230,382,238,"Rate vs temperature");axes(56,262,310,160,{xl:"Temperature (°C)",yl:"Rate",xlo:30});
+  plotFn(rT,0,70,56,262,310,160,0,1.05,C.accent,3);[0,20,37,50,70].forEach(v=>{const X=56+310*v/70;line(X,422,X,427,C.ink,1);txt(X,436,String(v),{size:11.5,mono:true,align:"center",color:C["ink-soft"]})});
+  const tv=35+30*Math.sin(T*.7);const mx=56+310*clamp(tv,0,70)/70,my=262+160-rT(tv)/1.05*160;circ(mx,my,7,tv>48?C.heat:tv<20?C.cold:C.good,C.panel,2);
+  label(56+310*37/70,252,"optimum ~37 °C",{size:12,weight:600,align:"center"});
+  const rP=v=>gauss(v,7,1.3);headPanel(406,230,382,238,"Rate vs pH");axes(450,262,310,160,{xl:"pH",yl:"Rate",xlo:30});
+  plotFn(rP,2,12,450,262,310,160,0,1.05,C.accent,3);[2,4,7,10,12].forEach(v=>{const X=450+310*(v-2)/10;line(X,422,X,427,C.ink,1);txt(X,436,String(v),{size:11.5,mono:true,align:"center",color:C["ink-soft"]})});
+  const pv=7+4*Math.sin(T*.55);const px=450+310*(pv-2)/10,py=262+160-rP(pv)/1.05*160;circ(px,py,7,Math.abs(pv-7)>2.4?C.heat:C.good,C.panel,2);
+  label(450+310*.5,252,"optimum ~pH 7",{size:12,weight:600,align:"center"});
+}
+
+function sceneSulfa(T){
+  const L=5,t=P(T,L)*L;
+  headPanel(12,12,384,338,"Normal: PABA → folic acid",C.good);headPanel(404,12,384,338,"With a sulfa drug",C.bad);
+  // left
+  const ex=200,ey=165,s=1.3;enzyme(ex,ey,s,{glow:t>1&&t<1.8?.7:0});
+  if(t<1.8){const p=ease(seg(t,0,1));wedge(ex-60+60*p,ey-70+70*p,s,C.paba);if(t<.9)label(ex-110,ey-60,"PABA",{size:12.5,weight:700,align:"center"})}
+  else{const p=ease(seg(t,1.8,3.4));const y=lerp(ey-20,262,p);withA(1-seg(t,3.2,3.6),()=>{rr(ex-34,y-10,68,20,8);ctx.fillStyle=C.prod;ctx.fill();txt(ex,y,"folic acid",{size:11.5,weight:700,align:"center",color:onFill()})})}
+  arrow(ex,222,ex,268,C["ink-soft"],1.6);txt(ex+44,245,"DNA and RNA bases",{size:12,weight:600,color:C["ink-soft"]});
+  const dv=smooth(seg(t,3.4,4.6));bact(ex-dv*28,298,0,14,1,{col:C.gneg});bact(ex+dv*28,298,0,14,1,{col:C.gneg});
+  label(ex,330,dv>.5?"Bacterium divides":"Bacterium grows",{size:12,weight:700,align:"center",border:C.good});
+  // right
+  const rx=596;enzyme(rx,ey,s,{});wedge(rx,ey,s,C.sulfa,{cap:"sq"});
+  [[rx+125,ey+20],[rx-125,ey+40],[rx+140,ey-40]].forEach((q,k)=>wedge(q[0]+Math.sin(T*1.3+k)*6,q[1]+30+Math.cos(T+k*2)*5,.85,C.sulfa,{cap:"sq",rot:Math.sin(T+k)*.3}));
+  const bp=P(T,2.6);const pdy=-72+Math.sin(bp*Math.PI)*36;wedge(rx-50+bp*30,ey+pdy,s*.9,C.paba,{rot:-.3});
+  label(rx-120,ey-60,"PABA bumps off",{size:12,weight:600,align:"center"});lead(rx+14,ey-40,rx+96,ey-104,"Sulfa drug in the site",{size:12,align:"center"});
+  arrow(rx,222,rx,268,C.rule,1.6);const xx=rx,xy=245;line(xx-12,xy-12,xx+12,xy+12,C.bad,4);line(xx+12,xy-12,xx-12,xy+12,C.bad,4);txt(rx+22,245,"no folic acid",{size:12,weight:700,color:C.bad});
+  bact(rx,298,0,14,.45,{col:C.gneg});label(rx,330,"Growth stops",{size:12,weight:700,align:"center",border:C.bad});
+  // bottom strip
+  headPanel(12,362,776,106,null);const hx=56,hy=412;circ(hx,hy-24,13,C.amino,mix(C.amino,C.ink,.4),1.4);rr(hx-16,hy-8,32,40,10);ctx.fillStyle=C.amino;ctx.fill();
+  txt(96,394,"Human cells get folate (folic acid) from food.",{size:14,weight:700});
+  wrapText("We have no enzyme that turns PABA into folic acid, so sulfa drugs have no target in our cells. This is selective toxicity.",96,420,670,18,{size:13,color:C["ink-soft"]});
+}
+
+function sceneFeedback(T){
+  // left: noncompetitive
+  headPanel(12,12,330,456,"Noncompetitive inhibitor");const ex=177,ey=270,s=1.8;const L=9,t=P(T,L)*L;
+  const on=smooth(seg(t,3,4))*(1-smooth(seg(t,6.5,7.5)));
+  enzyme(ex,ey,s,{allo:on,alloSite:true});
+  const [dx,dy]=alloDock(ex,ey,s);
+  if(t>2.6&&t<8){const a=seg(t,2.6,3),b=seg(t,6.5,7.5);const x=lerp(dx+70,dx+10,ease(seg(t,2.6,3.6)))+b*60,y=lerp(dy-60,dy-8,ease(seg(t,2.6,3.6)))-b*50;diamond(x,y,12,C.allo,a*(1-b))}
+  if(t<2.4){const p=ease(seg(t,0,1.2));wedge(ex,ey+lerp(-140,0,p)-seg(t,1.6,2.4)*150,s,C.sub)}
+  else if(t>4.2&&t<6.4){const p=P(t-4.2,2.2);wedge(ex+Math.sin(p*Math.PI)*24,ey-140+Math.sin(p*Math.PI)*70,s,C.sub);label(ex-80,ey-150,"no fit",{size:12.5,weight:700,align:"center",border:C.warn})}
+  else if(t>7.6){const p=ease(seg(t,7.6,8.6));wedge(ex,ey+lerp(-140,0,p),s,C.sub)}
+  lead(dx+6,dy-2,316,dy-70,"allosteric site",{size:12,align:"right"});
+  label(ex,ey+130,on>.5?"Active site changed shape":"Active site open",{size:12.5,weight:700,align:"center",border:on>.5?C.warn:C.good});
+  wrapText("More substrate cannot push this inhibitor out.",30,440,300,16,{size:12.5,color:C["ink-soft"]});
+  // right: feedback pathway
+  headPanel(352,12,436,456,"Feedback inhibition");
+  const L2=12,u=P(T+3,L2)*L2;const pile=u<5?Math.min(6,u*1.3):u<8.5?6-(u-5)*1.4:Math.max(0,6-3.5*1.4)-(u-8.5)*.2;const off=u>5.6&&u<9.6;
+  const nodes=[[392,"A"],[512,"B"],[632,"C"],[748,"D"]],y=150;
+  nodes.forEach((n,i)=>{bead(n[0],y,16,i===3?C.prod:C.carb,{t:n[1]});if(i<3){const mx=(n[0]+nodes[i+1][0])/2;arrow(n[0]+20,y,nodes[i+1][0]-20,y,C["ink-soft"],1.5);enzyme(mx,y+50,.55,{col:i===0&&off?C.co2:C.enz});txt(mx,y+50+4,String(i+1),{size:12,mono:true,weight:700,align:"center"})}});
+  
+  if(!off)for(let k=0;k<3;k++){const p=P(T*.5+k/3,1);const x=lerp(392,748,p);bead(x,y-28,6,mix(C.carb,C.prod,p))}
+  // bin
+  panelBox(660,260,120,150,{fill:hexA(C.panel,.95)});txt(720,276,"End product D",{size:12,weight:700,align:"center"});
+  const n=Math.max(0,Math.round(pile));for(let i=0;i<n;i++){bead(684+(i%3)*24,390-Math.floor(i/3)*24,10,C.prod)}
+  arrow(720,412,720,446,C["ink-soft"],1.5);txt(720,458,"used by the cell",{size:12,align:"center",color:C["ink-soft"]});
+  // D travelling back
+  const pts=[[660,300],[560,290],[470,250],[458,y+64]];
+  if(u>4.5&&u<5.6){const [bx,by]=along(pts,ease(seg(u,4.5,5.6)));bead(bx,by,9,C.prod)}
+  ctx.save();ctx.setLineDash([5,5]);ctx.strokeStyle=hexA(C.prod,.6);ctx.lineWidth=1.8;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();ctx.restore();
+  if(off)bead(466,y+38,8,C.prod);label(452,y+92,off?"Enzyme 1 switched off":"Enzyme 1 on",{size:12.5,weight:700,align:"center",border:off?C.bad:C.good});
+  label(570,y-58,off?"Pathway paused":"Pathway running",{size:12.5,weight:700,align:"center",border:off?C.bad:C.good});
+  wrapText("When D piles up it switches off enzyme 1. When D is used up, it lets go and the line restarts.",372,380,270,16,{size:12.5,color:C["ink-soft"]});
+}
+
+
+/* ================= scenes: Part 3 + Part 4 ================= */
+function gaugeArc(x,y,r,f,lab,val){const a0=Math.PI*.8,a1=Math.PI*2.2;ctx.lineCap="round";ctx.beginPath();ctx.arc(x,y,r,a0,a1);ctx.strokeStyle=C.sunk;ctx.lineWidth=r*.2;ctx.stroke();
+  ctx.beginPath();ctx.arc(x,y,r,a0,a0+(a1-a0)*clamp(f,0,1));ctx.strokeStyle=C.hplus;ctx.stroke();ctx.lineCap="butt";const a=a0+(a1-a0)*clamp(f,0,1);line(x,y,x+Math.cos(a)*r*.8,y+Math.sin(a)*r*.8,C.ink,3);circ(x,y,4,C.ink);
+  if(lab)txt(x,y+r*.8,lab,{size:12,weight:700,align:"center",color:C["ink-soft"]});if(val)txt(x,y+r*.8+16,val,{size:12.5,mono:true,weight:700,align:"center"})}
+function cytoBg(x,y,w,h,lab){rr(x,y,w,h,14);ctx.fillStyle=hexA(C.cyto,.9);ctx.fill();ctx.strokeStyle=C["cell-edge"];ctx.lineWidth=2;ctx.stroke();if(lab)title(x+14,y+18,lab,C["ink-soft"])}
+
+function sceneGlyco(T){
+  roadmap(20,12,760,0);cytoBg(12,48,776,420,"Cytoplasm (no oxygen needed)");
+  const L=11,t=P(T,L)*L;
+  // glucose
+  const gin=seg(t,0,.8);if(t<3)ringMol(lerp(40,120,ease(gin)),230,32,6,C.carb,{a:gin*(1-seg(t,2.6,3)),lab:t<2.6?"Glucose (6C)":""});
+  // investment ATP
+  for(let k=0;k<2;k++){const st=.9+k*.4;if(t<st)continue;const p=ease(seg(t,st,st+.8));const spent=t>st+.8;const x=lerp(70+k*40,110+k*24,p),y=lerp(430,200+k*60,p);
+    const dx=spent?ease(seg(t,st+1,st+1.9)):0;atpCoin(x+dx*120,y+dx*(440-y),12,{adp:spent,a:1-seg(t,8,9)})}
+  label(40,90,"1  Investment: spend 2 ATP",{size:13,weight:700,align:"left",border:t>.9&&t<3?C.act4:null});
+  // split + payoff
+  const sp=ease(seg(t,2.6,3.4)),mv=ease(seg(t,3.4,7.2));
+  for(let k=0;k<2;k++){if(t<2.6)break;const y=lerp(230,k?320:150,sp);const x=lerp(130,300,sp)+mv*250;const pyr=t>7.2;
+    chainH(x,y,3,10,pyr?C.pyr:C.carb);if(t>3.2)txt(x,y-22,pyr?"Pyruvate (3C)":"3-carbon half",{size:12,weight:600,align:"center",color:C["ink-soft"]});
+    // NADH taxi under each half
+    const ld=t>5.1;taxi(x,y+42,.9,"nad",ld,{t:T,a:1-seg(t,10,10.8)});
+    for(let j=0;j<2;j++){const st=4.4+j*1.3;if(t<st)continue;const p=ease(seg(t,st,st+1));const cx0=300+(st-3.4)/3.8*250;const dx=lerp(cx0,330+k*120+j*40,p),dy=lerp(y,440,p);atpCoin(dx,dy,12,{glow:p<1?.6:0,a:1-seg(t,10,10.8)})}}
+  label(480,90,"2  Payoff: each half makes 2 ATP + 1 NADH",{size:13,weight:700,align:"center",border:t>3.4&&t<7.2?C.act4:null});
+  // scoreboard
+  panelBox(604,330,176,128,{fill:hexA(C.panel,.95)});title(616,348,"Score per glucose");
+  const rows=[["ATP spent","−2",t>2],["ATP made","+4",t>6.5],["Net ATP","+2",t>7.2],["NADH","+2",t>5.2]];
+  rows.forEach((r,i)=>{const y=372+i*22;txt(616,y,r[0],{size:13,weight:600,color:r[2]?C.ink:C["ink-faint"]});txt(768,y,r[2]?r[1]:"…",{size:13.5,mono:true,weight:700,align:"right",color:i===2&&r[2]?C.good:C.ink})});
+  if(t>7.4)label(450,250,"2 pyruvate",{size:12.5,weight:700,align:"center",a:seg(t,7.4,7.8)});
+}
+
+function sceneTransition(T){
+  roadmap(20,12,760,1);cytoBg(12,48,776,420,"");const L=8,t=P(T,L)*L;
+  // gate
+  ctx.save();ctx.setLineDash([6,6]);line(330,70,330,420,C.act2,2.2,[6,6]);ctx.restore();label(330,66,"Pyruvate oxidation",{size:12.5,weight:700,align:"center",border:C.act2});
+  const rows=[170,320];
+  rows.forEach((y,k)=>{const inn=ease(seg(t,0,1.8));const x0=lerp(60,320,inn);
+    const pop=seg(t,2,3);const lost=t>2;const tag=seg(t,3.2,4);const go=ease(seg(t,4.4,6.6));const x=x0+go*330;const y2=lerp(y,245,go);
+    if(t<2)chainH(x0,y,3,11,C.pyr);else{chainH(x+10,y2,2,11,tag>.5?C.acoa:C.pyr,{a:1-seg(t,7,7.8)});
+      if(tag>0)withA(tag*(1-seg(t,7,7.8)),()=>{rr(x+30,y2-10,36,20,6);ctx.fillStyle=C.good;ctx.fill();txt(x+48,y2,"CoA",{size:11.5,mono:true,weight:700,align:"center",color:onFill()})});
+      if(pop<1||t<4.4)co2(x0-11+pop*20,y-pop*50,1.1,1-seg(t,3.6,4.2))}
+    if(t<2.4)txt(x0,y-24,"Pyruvate (3C)",{size:12,weight:600,align:"center",color:C["ink-soft"]});
+    else if(t<4.4){txt(x0+30,y-24,tag>.5?"Acetyl-CoA (2C)":"acetyl group",{size:12,weight:700,align:"center",color:C.ink});if(t<3.8)label(x0-40,y-44,"CO₂",{size:12,weight:700,align:"center",a:pop})}
+    taxi(372,y+58,1,"nad",t>2.6,{t:T})});
+  // krebs wheel
+  const cx=690,cy=245,r=52;ctx.save();ctx.strokeStyle=C.act4;ctx.lineWidth=6;ctx.setLineDash([14,9]);ctx.lineDashOffset=-T*25;ctx.beginPath();ctx.arc(cx,cy,r,0,TAU);ctx.stroke();ctx.restore();
+  txt(cx,cy-6,"Krebs",{size:13,weight:700,align:"center"});txt(cx,cy+12,"cycle",{size:13,weight:700,align:"center"});
+  panelBox(540,346,240,112,{fill:hexA(C.panel,.95)});title(552,364,"Per glucose (×2)");
+  tally(548,394,[["co2",2],["nadh",2]],{size:13.5});chainH(574,432,2,7,C.acoa);txt(602,432,"2 acetyl-CoA",{size:13.5,mono:true,weight:700});
+  wrapText("Bacteria: in the cytoplasm. Yeasts and other eukaryotes: inside mitochondria.",28,436,480,16,{size:12.5,color:C["ink-soft"]});
+}
+
+function sceneKrebs(T){
+  roadmap(20,12,760,2);const L=16,tt=P(T,L)*L;const turn=tt<8?0:1,t=(tt%8)/8;
+  const cx=300,cy=270,R=150;
+  ctx.save();ctx.strokeStyle=hexA(C.act4,.35);ctx.lineWidth=26;ctx.beginPath();ctx.arc(cx,cy,R,0,TAU);ctx.stroke();ctx.restore();
+  for(let k=0;k<12;k++){const a=k/12*TAU+T*.15;arrow(cx+Math.cos(a)*R,cy+Math.sin(a)*R,cx+Math.cos(a+.12)*R,cy+Math.sin(a+.12)*R,hexA(C.act4,.8),1.6)}
+  txt(cx,cy-10,"Krebs cycle",{size:16,weight:700,align:"center"});txt(cx,cy+12,"(citric acid cycle)",{size:12.5,align:"center",color:C["ink-soft"]});
+  const EV=[[.14,"co2"],[.22,"nadh"],[.34,"co2"],[.42,"nadh"],[.55,"atp"],[.68,"fadh"],[.84,"nadh"]];
+  // rider
+  const ang=-Math.PI/2+lerp(0,TAU,seg(t,.06,.97));const nC=t<.14?6:t<.34?5:4;
+  if(t<.06){const p=ease(seg(t,0,.06));chainH(cx,lerp(60,cy-R-34,p),2,8,C.acoa);ringMol(cx,cy-R,16,4,C.carb,{})}
+  else{const rx=cx+Math.cos(ang)*R,ry=cy+Math.sin(ang)*R;ringMol(rx,ry,nC===4?16:18,nC,t<.1?C.acoa:C.carb,{});}
+  const nm=t<.06?"Acetyl (2C) joins oxaloacetate (4C)":t<.14?"Citric acid (6C)":t<.34?"5-carbon molecule":t<.95?"4-carbon molecules":"Oxaloacetate (4C) again";
+  label(cx,58,nm,{size:13,weight:700,align:"center",border:C.act4});
+  // events
+  const counts={co2:0,nadh:0,fadh:0,atp:0};const rowY={co2:150,nadh:218,fadh:286,atp:354};
+  for(let k2=0;k2<=turn;k2++)EV.forEach(e=>{const at=k2*8+(.06+e[0]*.91)*8;if(tt>=at+1.1)counts[e[1]]++;
+    else if(tt>=at){const p=ease(seg(tt,at,at+1.1));const a=-Math.PI/2+e[0]*TAU;const sx=cx+Math.cos(a)*(R+30),sy=cy+Math.sin(a)*(R+30);tallyIcon(e[1],lerp(sx,600,p),lerp(sy,rowY[e[1]],p),1.2)}});
+  panelBox(560,60,228,400,{fill:hexA(C.panel,.95)});title(574,82,"Turn "+(turn+1)+" of 2");
+  [["co2","CO₂",4],["nadh","NADH",6],["fadh","FADH₂",2],["atp","ATP",2]].forEach(r=>{const y=rowY[r[0]];tallyIcon(r[0],600,y,1.2);txt(640,y,r[1],{size:13.5,weight:700});txt(774,y,counts[r[0]]+" / "+r[2],{size:14,mono:true,weight:700,align:"right"})});
+  wrapText("Each turn: 2 CO₂, 3 NADH, 1 FADH₂, 1 ATP. Two turns per glucose.",574,400,200,17,{size:12.5,color:C["ink-soft"]});
+}
+
+function sceneEtc(T){
+  roadmap(20,12,760,3);const my=226,th=40;
+  rr(12,46,776,my-46,0);ctx.fillStyle=hexA(C.panel,.4);ctx.fill();
+  title(24,62,"Outside the cell");title(24,456,"Cytoplasm (inside)");
+  membraneH(12,my,776,{th});label(704,my+th+16,"bacterial plasma membrane",{size:12,weight:600,align:"center"});
+  const cx=[140,270,400,540],labs=["1","Q","3","4"];
+  cx.forEach((x,i)=>{if(i===1){circ(x,my+th/2,13,mix(C.act2,C.panel,.3),C.act2,2);txt(x,my+th/2,"Q",{size:12,mono:true,weight:700,align:"center"})}else protBlob(x,my+th/2,54,74,C.act6,labs[i])});
+  txt(340,my+th+60,"1 flavoprotein · Q quinone · 3 and 4 cytochromes",{size:12,weight:600,align:"center",color:C["ink-soft"]});
+  // static H+ cloud outside
+  for(let i=0;i<16;i++){const x=40+rnd(i*3)*560,y=90+rnd(i*7+1)*110;hplus(x+Math.sin(T+i)*4,y+Math.cos(T*.8+i)*4,6)}
+  const L=6,t=P(T,L)*L;
+  // NADH taxi
+  const tin=ease(seg(t,0,.8));const tx=lerp(-30,100,tin)-ease(seg(t,1.2,2.2))*140;taxi(tx,330,1.1,"nad",t<.9,{t:T});
+  // electrons
+  const pts=[[110,312],[140,my+th/2],[270,my+th/2],[400,my+th/2],[540,my+th/2],[600,330]];
+  for(let k=0;k<2;k++){const p=seg(t,.8+k*.12,4.6+k*.12);if(p>0&&p<1){const [x,y]=along(pts,p);elec(x,y+k*6-3,5)}}
+  // pumps
+  [[0,1.4],[2,2.9],[3,3.8]].forEach(pp=>{const x=cx[pp[0]];const p=seg(t,pp[1],pp[1]+1);if(p>0&&p<1)hplus(x+(pp[0]===0?0:6),lerp(my+th+40,my-50,ease(p)),6.5);
+    if(p>0&&p<1)arrow(x+22,my+th+20,x+22,my-12,hexA(C.hplus,.7),1.6)});
+  // O2 -> H2O
+  const w=seg(t,4.6,5.2);if(w<1)o2mol(610,340,1.4,1);else h2o(610,340,1.4);
+  label(610,374,w<1?"O₂: final electron acceptor":"H₂O formed",{size:12.5,weight:700,align:"center",border:C.o2});
+  txt(610,398,"O₂ + e⁻ + H⁺ → H₂O",{size:12,mono:true,align:"center",color:C["ink-soft"]});
+  if(t<2.2)label(100,372,t<1?"NADH drops off electrons":"NAD⁺ returns",{size:12,weight:600,align:"center"});
+  // staircase inset
+  panelBox(630,52,158,160,{fill:hexA(C.panel,.95)});title(642,70,"Electron energy");
+  const steps=[[650,90,"NADH"],[680,120,""],[710,150,""],[740,180,"O₂"]];steps.forEach((s,i)=>{line(s[0],s[1],s[0]+30,s[1],C.ink,2);if(i<3)line(s[0]+30,s[1],s[0]+30,steps[i+1][1],C.rule,1,[3,3]);if(s[2])txt(s[0]+(i?34:-4),s[1]+(i?0:-10),s[2],{size:11.5,mono:true,weight:700,align:i?"left":"left"})});
+  const pe=seg(t,.8,4.6);const si=Math.min(3,Math.floor(pe*4));elec(steps[si][0]+15,steps[si][1]-6,4.5);
+}
+
+function sceneChemi(T){
+  const my=200,th=40;rr(12,12,776,my-12,0);ctx.fillStyle=hexA(C.panel,.4);ctx.fill();
+  title(24,30,"Outside: many H⁺");title(24,456,"Cytoplasm: few H⁺");membraneH(12,my,776,{th});
+  for(let i=0;i<28;i++){const x=30+rnd(i*3)*580,y=48+rnd(i*7+1)*140;hplus(x+Math.sin(T*1.2+i)*4,y+Math.cos(T+i)*4,6)}
+  for(let i=0;i<4;i++){const x=60+rnd(i*11+3)*380,y=280+rnd(i*5+2)*60;hplus(x,y,6)}
+  // ETC pumping on left
+  [110,200].forEach((x,i)=>{protBlob(x,my+th/2,50,70,C.act6,i?"3":"1");const p=P(T*.8+i*.5,1);hplus(x,lerp(my+th+40,my-30,p),6,1-seg(p,.85,1))});
+  txt(155,my+th+70,"electron transport chain",{size:12,weight:600,align:"center",color:C["ink-soft"]});
+  // synthase
+  const sx=480,rot=T*4;synthase(sx,my+th/2,1.4,rot,{lab:false});label(sx+92,my+th/2+84,"ATP synthase",{size:13,weight:700,align:"left",border:C.enz});
+  for(let k=0;k<5;k++){const p=P(T*.9+k/5,1);const y=lerp(my-50,my+th+28,p);hplus(sx+Math.sin(p*9+k)*3,y,6,p<.9?1:1-(p-.9)*10)}
+  arrow(sx-40,my-60,sx-14,my-14,C.hplus,2);txt(sx-44,my-74,"H⁺ flow in",{size:12,weight:700,align:"center",color:C.ink});
+  // ADP + P -> ATP
+  const kx=sx,ky=my+th/2+64*1.4;const L=1.6,u=P(T,L);
+  atpCoin(lerp(kx-140,kx-40,ease(seg(u,0,.45))),ky+30,11,{adp:true,a:1-seg(u,.45,.55)});pDot(lerp(kx-140,kx-40,ease(seg(u,0,.45))),ky+56,8,{a:1-seg(u,.45,.55)});
+  atpCoin(lerp(kx+30,kx+140,ease(seg(u,.5,1))),lerp(ky,ky+60,ease(seg(u,.5,1))),12,{glow:.5,a:seg(u,.5,.6)});
+  txt(kx-140,ky+84,"ADP + P",{size:12.5,weight:700,align:"center"});
+  const made=Math.floor(T/L)%100;panelBox(640,370,140,86,{fill:hexA(C.panel,.95)});title(652,388,"ATP made");txt(710,424,String(made),{size:26,mono:true,weight:700,align:"center",color:C["atp-edge"]});
+  // PMF gauge
+  panelBox(640,22,140,150,{fill:hexA(C.panel,.95)});gaugeArc(710,90,44,.82+.04*Math.sin(T*2),"proton motive","force: high");
+  // flagellum
+  bact(70,420,0,16,1,{flag:true,t:T*2,col:C.gneg});wrapText("The same force also spins the flagellum.",118,414,190,16,{size:12,color:C["ink-soft"]});
+}
+
+function ionMol(x,y,col,n,lab,s,a){s=s||1;ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);for(let k=0;k<n;k++){const an=-Math.PI/2+k/n*TAU;circ(x+Math.cos(an)*11*s,y+Math.sin(an)*11*s,5*s,C.o2,mix(C.o2,C.ink,.4),1)}circ(x,y,8*s,col,mix(col,C.ink,.4),1.2);
+  if(lab)label(x,y+28*s,lab,{size:12.5,weight:700,align:"center"});ctx.restore()}
+function sceneAnaer(T){
+  const L=6,t=P(T,L)*L,alt=Math.floor(T/L)%2===1;
+  const panel=(x0,aer)=>{headPanel(x0,12,384,456,aer?"Aerobic respiration":"Anaerobic respiration",aer?C.o2:C.nitr);
+    const my=96;membraneH(x0+12,my,360,{th:30});[x0+70,x0+170,x0+270].forEach((x,i)=>protBlob(x,my+15,40,56,C.act6,null));
+    const pumps=aer?3:2;for(let i=0;i<pumps;i++){const x=x0+70+i*100;const p=P(T*.8+i*.3,1);hplus(x+16,lerp(my+60,my-24,p),5.5,1-seg(p,.85,1))}
+    for(let i=0;i<(aer?9:5);i++)hplus(x0+40+rnd(i*5+(aer?1:2))*300,52+rnd(i*3)*30,5);
+    const dropY=aer?330:240;const pts=[[x0+40,my+15],[x0+300,my+15],[x0+300,dropY-20]];
+    for(let k=0;k<2;k++){const p=seg(t,.3+k*.12,3.5+k*.12);if(p>0&&p<1){const [ex,ey]=along(pts,p);elec(ex+k*6,ey,5)}}
+    arrow(x0+250,my+40,x0+250,dropY-10,C["ink-soft"],2);txt(x0+238,(my+dropY)/2,aer?"big energy drop":"smaller drop",{size:12,weight:700,align:"right",color:C["ink-soft"]});
+    const done=seg(t,3.6,4.2);
+    if(aer){if(done<1)o2mol(x0+300,dropY,1.6);else h2o(x0+300,dropY,1.6);label(x0+300,dropY+30,done<1?"O₂":"H₂O",{size:13,weight:700,align:"center"})}
+    else if(!alt){ionMol(x0+300,dropY,C.nitr,done<1?3:2,done<1?"Nitrate NO₃⁻":"Nitrite NO₂⁻",1.2)}
+    else{ionMol(x0+300,dropY,C.sulf,done<1?4:0,done<1?"Sulfate SO₄²⁻":"H₂S (rotten egg)",1.2);if(done>=1){for(let k=0;k<3;k++){const yy=dropY-30-k*8;ctx.beginPath();for(let i=0;i<=20;i++){const xx=x0+270+i*3;i?ctx.lineTo(xx,yy+Math.sin(i*.8+T*4)*3):ctx.moveTo(xx,yy)}ctx.strokeStyle=hexA(C.sulf,.8);ctx.lineWidth=1.6;ctx.stroke()}}}
+    const n=aer?12:6;title(x0+18,aer?388:330,aer?"More ATP":"Less ATP");for(let i=0;i<n;i++){const cx=x0+40+(i%6)*30,cy=(aer?414:356)+Math.floor(i/6)*28;atpCoin(cx,cy,11,{a:seg(t,4+i*.08,4.3+i*.08)})}
+    txt(x0+18,my-28,aer?"3 pumping steps":"fewer pumping steps",{size:12,weight:600,color:C["ink-soft"]});
+    if(!aer)wrapText(alt?"Sulfate reducers (Desulfovibrio) make H₂S.":"E. coli and Pseudomonas can reduce nitrate when O₂ runs out.",x0+18,410,350,16,{size:12.5,color:C["ink-soft"]})};
+  panel(12,true);panel(404,false);
+}
+
+function sceneYield(T){
+  const L=13,t=P(T,L)*L;
+  headPanel(12,12,320,456,"Aerobic, one glucose");
+  const segs=[[2,"Glycolysis: 2 ATP",C.act4,.35],[6,"Glycolysis: 2 NADH → 6",C.act4,.6],[6,"Transition: 2 NADH → 6",C.act2,.5],[2,"Krebs: 2 ATP",C.act1,.35],[18,"Krebs: 6 NADH → 18",C.act1,.55],[4,"Krebs: 2 FADH₂ → 4",C.act1,.75]];
+  const bx=40,bw=70,base=440,k=9.4;let acc=0;
+  segs.forEach((s,i)=>{const g=seg(t,.3+i*1.1,1.2+i*1.1);if(g<=0){acc+=s[0];return}const h=s[0]*k*g;const y=base-acc*k-h;rr(bx,y,bw,h,2);ctx.fillStyle=mix(s[2],C.panel,1-s[3]);ctx.fill();ctx.strokeStyle=s[2];ctx.lineWidth=1.4;ctx.stroke();
+    withA(g,()=>txt(bx+bw+10,base-acc*k-s[0]*k/2,s[1],{size:12,weight:600,color:C.ink}));acc+=s[0]});
+  const tot=Math.round(segs.reduce((a,s,i)=>a+s[0]*seg(t,.3+i*1.1,1.2+i*1.1),0));label(bx+bw/2,base-tot*k-16,(tot>=38?"up to ":"")+tot+" ATP",{size:13,weight:700,align:"center",border:C.atp});
+  // comparison
+  headPanel(344,12,444,456,"Compare per glucose");const b0=420,sc=8.2;axes(380,100,390,320,{});
+  const g=smooth(seg(t,1,8));const bars=[["Aerobic",38*g,C.atp,"up to 38"],["Anaerobic",null,C.nitr,"2 to 38"],["Fermentation",2*smooth(seg(t,1,2)),C.lac,"2"]];
+  bars.forEach((b,i)=>{const x=410+i*125,w=80;if(b[1]==null){const hi=38*g,lo=2;rr(x,b0-hi*sc,w,hi*sc,3);ctx.fillStyle=hexA(b[2],.18);ctx.fill();ctx.save();ctx.setLineDash([5,4]);ctx.strokeStyle=b[2];ctx.lineWidth=1.6;ctx.stroke();ctx.restore();
+      rr(x,b0-lo*sc,w,lo*sc,2);ctx.fillStyle=b[2];ctx.fill();label(x+w/2,b0-hi*sc-16,"varies: "+b[3],{size:12.5,weight:700,align:"center"})}
+    else{rr(x,b0-b[1]*sc,w,b[1]*sc,3);ctx.fillStyle=hexA(b[2],.75);ctx.fill();ctx.strokeStyle=b[2];ctx.lineWidth=1.5;ctx.stroke();label(x+w/2,b0-b[1]*sc-16,(i===0?"up to "+Math.round(b[1]):b[3])+" ATP",{size:13,weight:700,align:"center"})}
+    txt(x+w/2,b0+16,b[0],{size:12.5,weight:700,align:"center"});
+    const p=P(T*.8+i*.3,1);atpCoin(x+w/2+Math.sin(i+T)*12,lerp(70,b0-(b[1]==null?38*g:b[1])*sc-34,p),8,{a:1-seg(p,.8,1)})});
+  txt(560,456,"Fermentation keeps only glycolysis's 2 ATP",{size:12,weight:600,align:"center",color:C["ink-soft"]});
+}
+
+
+/* ================= scenes: Part 5 + 6 + 7 + recap ================= */
+function machine(x,y,w,h,lab,on,stopped){panelBox(x,y,w,h,{stroke:stopped?C.bad:C.act4,lw:2.2,fill:hexA(C.panel,.95)});
+  for(let k=0;k<2;k++){const gx=x+26+k*30,gy=y+h/2;ctx.save();ctx.translate(gx,gy);ctx.rotate((on?performance.now()/400:0)*(k?-1:1));for(let i=0;i<8;i++){const a=i/8*TAU;line(0,0,Math.cos(a)*11,Math.sin(a)*11,C["ink-soft"],3)}circ(0,0,7,C.panel,C["ink-soft"],2);ctx.restore()}
+  txt(x+w-10,y+h/2,lab,{size:13,weight:700,align:"right"})}
+function sceneFerm(T){
+  const L=11,t=P(T,L)*L;
+  const panel=(x0,ferm)=>{headPanel(x0,12,384,456,ferm?"Fermentation: NAD⁺ recycled":"No acceptor, no fermentation",ferm?C.good:C.bad);
+    const done=ferm?0:Math.min(6,Math.floor(seg(t,.3,7.5)*7));const stopped=!ferm&&done>=6;
+    machine(x0+52,52,180,64,"Glycolysis",!stopped,stopped);
+    ringMol(x0+30,84,12,6,C.carb,{a:stopped?.3:1});
+    // ATP output
+    if(!stopped){const p=P(T*.9,1);atpCoin(lerp(x0+240,x0+330,p),84-Math.sin(p*Math.PI)*20,11,{a:1-seg(p,.8,1)})}
+    else label(x0+300,84,"Glycolysis stops",{size:12.5,weight:700,align:"center",border:C.bad});
+    txt(x0+300,124,stopped?"no ATP":"2 ATP per glucose",{size:12,weight:700,align:"center",color:stopped?C.bad:C.ink});
+    // taxis
+    if(!ferm){const left=6-done;for(let i=0;i<left;i++)taxi(x0+46+(i%3)*58,200+Math.floor(i/3)*34,.85,"nad",false);
+      for(let i=0;i<done;i++)taxi(x0+226+(i%3)*54,270+Math.floor(i/3)*36,.85,"nad",true,{t:T});
+      txt(x0+100,170,"empty NAD⁺",{size:12,weight:600,align:"center",color:C["ink-soft"]});txt(x0+280,220,"full NADH, nowhere to unload",{size:12,weight:600,align:"center",color:C["ink-soft"]});
+      if(done<6){const p=P(seg(t,.3,7.5)*7,1);const [x,y]=along([[x0+100,200],[x0+130,130],[x0+200,140],[x0+260,262]],p);taxi(x,y,.85,"nad",p>.45,{t:T})}
+      gaugeH(x0+30,432,320,(6-done)/6,C.nadh,"NAD⁺ available",(6-done)+" of 6");}
+    else{for(let i=0;i<4;i++)taxi(x0+46+(i%2)*58,200+Math.floor(i/2)*34,.85,"nad",false);
+      const route=[[x0+100,250],[x0+120,140],[x0+220,140],[x0+290,240],[x0+290,330],[x0+180,320],[x0+100,250]];
+      for(let k=0;k<2;k++){const p=P(T*.22+k*.5,1);const [x,y]=along(route,p);taxi(x,y,.85,"nad",p>.3&&p<.66,{t:T})}
+      const q=P(T*.22,1);const pyx=x0+300,pyy=362;chainH(pyx,pyy,3,8,q>.6&&q<.9?C.lac:C.pyr);label(pyx,pyy+24,q>.6&&q<.9?"lactic acid":"pyruvate",{size:12,weight:700,align:"center"});
+      if(q>.58&&q<.66){const p=seg(q,.58,.66);elec(lerp(x0+290,pyx,p),lerp(320,pyy,p),4.5)}
+      gaugeH(x0+30,432,320,4/6+.1*Math.sin(T*1.4),C.nadh,"NAD⁺ available","steady");}
+  };
+  panel(12,false);panel(404,true);
+}
+
+function foodYogurt(x,y){rr(x-18,y-14,36,34,5);ctx.fillStyle=C.food;ctx.fill();ctx.strokeStyle=C["food-edge"];ctx.lineWidth=1.4;ctx.stroke();ell(x,y-14,18,5,0,C.panel,C["food-edge"],1.2);txt(x,y+32,"yogurt",{size:12,align:"center",color:C["ink-soft"]})}
+function foodCheese(x,y){ctx.beginPath();ctx.moveTo(x-22,y+18);ctx.lineTo(x+22,y+18);ctx.lineTo(x+22,y-4);ctx.lineTo(x-22,y+6);ctx.closePath();ctx.fillStyle=C.fat;ctx.fill();ctx.strokeStyle=C["fat-edge"];ctx.lineWidth=1.4;ctx.stroke();circ(x+6,y+10,3,mix(C.fat,C.ink,.25));circ(x-8,y+12,2.4,mix(C.fat,C.ink,.25));txt(x,y+32,"cheese",{size:12,align:"center",color:C["ink-soft"]})}
+function foodJar(x,y){rr(x-16,y-18,32,38,6);ctx.fillStyle=hexA(C.chl,.25);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.4;ctx.stroke();rr(x-14,y-24,28,7,2);ctx.fillStyle=C.co2;ctx.fill();ell(x-5,y+2,4,12,.2,C.chl);ell(x+6,y+4,4,11,-.2,C.chl);txt(x,y+32,"pickles",{size:12,align:"center",color:C["ink-soft"]})}
+function sceneLacalc(T){
+  const L=6,t=P(T,L)*L;
+  headPanel(12,12,776,222,"Lactic acid fermentation",C.lac);headPanel(12,246,776,222,"Alcohol fermentation",C.eth);
+  // top
+  const mv=ease(seg(t,0,1.4)),go=ease(seg(t,2.6,4));const x=lerp(70,250,mv)+go*170;const conv=t>2.2;
+  chainH(x,110,3,11,conv?C.lac:C.pyr);txt(x,86,conv?"Lactic acid":"Pyruvate",{size:12.5,weight:700,align:"center"});
+  const tx=lerp(150,240,ease(seg(t,.6,1.6)))-ease(seg(t,2.6,3.6))*90;taxi(tx,164,1,"nad",t<2.1,{t:T});
+  if(t>1.6&&t<2.2)for(let k=0;k<2;k++){const p=seg(t,1.6+k*.08,2.15);elec(lerp(tx-6+k*12,250,p),lerp(140,118,p),4.5)}
+  // organisms + foods
+  for(let i=0;i<6;i++)coccus(500+i*15,76+Math.sin(i*1.2)*3,6.5,C.gpos);txt(545,100,"Streptococcus",{size:12,weight:600,align:"center",color:C["ink-soft"]});
+  for(let i=0;i<3;i++)bact(488+i*34,140,0,7,1,{col:C.gpos});txt(545,166,"Lactobacillus",{size:12,weight:600,align:"center",color:C["ink-soft"]});
+  foodYogurt(640,120);foodCheese(700,122);foodJar(752,120);
+  // bottom
+  const b=t;const bx=lerp(70,190,ease(seg(b,0,1)));const lost=b>1.4;const bx2=bx+ease(seg(b,1.6,2.6))*130+ease(seg(b,3.6,4.6))*130;const eth=b>3.3;
+  chainH(bx2,350,lost?2:3,11,eth?C.eth:lost?C.acoa:C.pyr);txt(bx2,326,eth?"Ethanol":lost?"Acetaldehyde":"Pyruvate",{size:12.5,weight:700,align:"center"});
+  if(b>1.2){const p=ease(seg(b,1.2,2.6));co2(190+10,350-p*70,1.1,1-seg(b,2.8,3.2));if(p>.3&&b<3)label(230,300,"CO₂ released",{size:12,weight:700,align:"left"})}
+  const t2x=lerp(240,320,ease(seg(b,1.8,2.8)))-ease(seg(b,3.6,4.4))*90;taxi(t2x,404,1,"nad",b<3.3,{t:T});
+  if(b>2.8&&b<3.3)for(let k=0;k<2;k++){const p=seg(b,2.8+k*.08,3.25);elec(lerp(t2x-6+k*12,320,p),lerp(380,356,p),4.5)}
+  for(let i=0;i<3;i++)yeastC(500+i*40,330+(i%2)*14,13,.4+.4*Math.sin(T+i));txt(540,374,"Yeast (Saccharomyces)",{size:12,weight:600,align:"center",color:C["ink-soft"]});
+  const rise=.6+.4*P(T,6);ctx.save();ctx.translate(670,380);ctx.scale(1,rise);ell(0,-10,46,30,0,C.food,C["food-edge"],1.6);ctx.restore();for(let i=0;i<6;i++){circ(650+rnd(i)*40,380-10*rise-rnd(i+3)*20*rise,2.5,hexA(C.panel,.8),C["food-edge"],.8)}
+  txt(670,428,"bread rises (CO₂)",{size:12,align:"center",color:C["ink-soft"]});
+  rr(735,320,30,60,4);ctx.fillStyle=hexA(C.atp,.5);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.4;ctx.stroke();for(let k=0;k<4;k++){const p=P(T*.8+k*.25,1);bubble(742+k*5,375-p*50,2.2,1-p)}txt(750,400,"beer,",{size:12,align:"center",color:C["ink-soft"]});txt(750,416,"wine",{size:12,align:"center",color:C["ink-soft"]});
+  label(400,452,"Both regenerate NAD⁺ and make 2 ATP per glucose",{size:12.5,weight:700,align:"center",border:C.accent});
+}
+
+function flask(x,y,fill){ctx.beginPath();ctx.moveTo(x-12,y);ctx.lineTo(x-12,y+50);ctx.lineTo(x-60,y+150);ctx.quadraticCurveTo(x-64,y+162,x-50,y+162);ctx.lineTo(x+50,y+162);ctx.quadraticCurveTo(x+64,y+162,x+60,y+150);ctx.lineTo(x+12,y+50);ctx.lineTo(x+12,y);ctx.closePath();
+  ctx.fillStyle=C.glass;ctx.fill();ctx.save();ctx.clip();ctx.fillStyle=fill;ctx.fillRect(x-70,y+80,140,90);ctx.restore();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke()}
+function phMeter(x,y,h,ph){rr(x-10,y,20,h,6);const g=ctx.createLinearGradient(0,y,0,y+h);g.addColorStop(0,C["cit-blue"]);g.addColorStop(.5,C.good);g.addColorStop(1,C["pr-red"]);ctx.fillStyle=g;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.2;ctx.stroke();
+  [8,6,4].forEach(v=>{const Y=y+h-(v-3)/6*h;line(x+10,Y,x+16,Y,C.ink,1);txt(x+19,Y,String(v),{size:11.5,mono:true,color:C["ink-soft"]})});const Y=y+h-(ph-3)/6*h;ctx.beginPath();ctx.moveTo(x-12,Y);ctx.lineTo(x-24,Y-7);ctx.lineTo(x-24,Y+7);ctx.closePath();ctx.fillStyle=C.ink;ctx.fill();
+  txt(x,y-12,"pH "+ph.toFixed(1),{size:12,mono:true,weight:700,align:"center"})}
+function sceneMixed(T){
+  const L=8,t=P(T,L)*L;const f=smooth(seg(t,.6,4));
+  const panel=(x0,ecoli)=>{headPanel(x0,12,384,456,ecoli?"E. coli: mixed acids":"Enterobacter: butanediol",ecoli?C.gneg:C.act6);
+    flask(x0+100,50,mix(C.cyto,ecoli?C.acid:C.gas,f*.5));
+    for(let i=0;i<5;i++)bact(x0+70+rnd(i*3+(ecoli?0:7))*60,170+rnd(i*5+1)*30,rnd(i)*3,7,1,{col:C.gneg});
+    for(let k=0;k<4;k++){const p=P(T*.7+k*.25,1);bubble(x0+80+k*12,200-p*130,3,f*(1-p))}
+    const prods=ecoli?[["lactic acid",C.acid],["acetic acid",C.acid],["succinic acid",C.acid],["formic acid",C.acid],["ethanol",C.eth],["CO₂ + H₂ gas",C.gas]]:[["acetoin",C.act6],["2,3-butanediol",C.act6],["some acids",C.acid],["ethanol",C.eth],["CO₂ gas",C.gas]];
+    prods.forEach((p,i)=>{const a=seg(t,.6+i*.4,1+i*.4);withA(a,()=>{rr(x0+176,64+i*28-10,118,20,10);ctx.fillStyle=hexA(p[1],.25);ctx.fill();ctx.strokeStyle=p[1];ctx.lineWidth=1.2;ctx.stroke();txt(x0+235,64+i*28,p[0],{size:12,weight:600,align:"center"})})});
+    phMeter(x0+340,70,170,lerp(7,ecoli?4.2:6.2,f));
+    const mr=seg(t,4.4,5.4);tube(x0+90,270,{w:28,h:110,fill:mix(C["pr-yel"],C["pr-red"],ecoli?mr:0),lab:"Methyl red",lab2:ecoli?(mr>.5?"red: MR +":""):(mr>.5?"yellow: MR −":"")});
+    const vp=seg(t,5.2,6.2);tube(x0+210,270,{w:28,h:110,fill:mix(C.food,ecoli?C["vp-neg"]:C["vp-red"],vp),lab:"Voges-Proskauer",lab2:vp>.5?(ecoli?"no red: VP −":"red: VP +"):""});
+    if(t>6.2)label(x0+300,330,ecoli?"MR +, VP −":"MR −, VP +",{size:13,weight:700,align:"center",border:ecoli?C.gneg:C.act6});
+    wrapText(ecoli?"Lots of acid: pH falls to about 4.4 or lower.":"Neutral products: pH stays higher.",x0+274,372,104,16,{size:12,color:C["ink-soft"]})};
+  panel(12,true);panel(404,false);
+}
+
+function scissors(x,y,s,open,col){ctx.save();ctx.translate(x,y);ctx.scale(s,s);const a=.25+open*.35;ctx.strokeStyle=col||C.ink;ctx.lineWidth=3;ctx.lineCap="round";
+  ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(26*Math.cos(a),-26*Math.sin(a));ctx.moveTo(0,0);ctx.lineTo(26*Math.cos(a),26*Math.sin(a));ctx.stroke();circ(-8,-6,5,null,col||C.ink,2.4);circ(-8,6,5,null,col||C.ink,2.4);ctx.lineCap="butt";ctx.restore()}
+function sceneFuels(T){
+  const L=9,t=P(T,L)*L;
+  // central column
+  const cx=400;panelBox(cx-80,40,160,44,{stroke:C.act4,lw:2});txt(cx,62,"Glycolysis",{size:14,weight:700,align:"center"});
+  arrow(cx,86,cx,136,C["ink-soft"],2);panelBox(cx-80,140,160,44,{stroke:C.acoa,lw:2});txt(cx,162,"Acetyl-CoA",{size:14,weight:700,align:"center"});
+  arrow(cx,186,cx,226,C["ink-soft"],2);ctx.save();ctx.strokeStyle=C.act4;ctx.lineWidth=6;ctx.setLineDash([12,8]);ctx.lineDashOffset=-T*25;ctx.beginPath();ctx.arc(cx,280,50,0,TAU);ctx.stroke();ctx.restore();txt(cx,280,"Krebs cycle",{size:13,weight:700,align:"center"});
+  arrow(cx,332,cx,382,C["ink-soft"],2);panelBox(cx-90,386,180,44,{stroke:C.act6,lw:2});txt(cx,408,"Electron transport → ATP",{size:13,weight:700,align:"center"});
+  // fat
+  headPanel(12,12,290,456,"Lipids",C["fat-edge"]);
+  const cut=seg(t,1,1.6);const gx=60,gy=140;rr(gx-14,gy-40,28,90,8);ctx.fillStyle=C.fat;ctx.fill();ctx.strokeStyle=C["fat-edge"];ctx.lineWidth=1.6;ctx.stroke();txt(gx,gy+64,"glycerol",{size:12,weight:600,align:"center"});
+  const gm=ease(seg(t,1.8,3.4));if(gm>0){withA(1-seg(t,3.4,3.8),()=>{rr(lerp(gx,cx-90,gm)-10,lerp(gy,62,gm)-14,20,28,6);ctx.fillStyle=C.fat;ctx.fill()})}
+  for(let k=0;k<3;k++){const y=gy-28+k*28;const off=cut*30;const chop=seg(t,2.6+k*.5,3.4+k*.5);const len=Math.round(8*(1-chop));
+    const pts=[];for(let i=0;i<=len;i++)pts.push([gx+20+off+i*16,y+Math.sin(i*1.4+T*2)*4]);if(pts.length>1)poly(pts,C["fat-edge"],5);pts.forEach(p=>circ(p[0],p[1],3.5,C.fat,C["fat-edge"],1));
+    if(chop>0&&chop<1){const p=chop;const [x,yy]=along([[gx+150,y],[260,120],[cx-80,162]],p);chainH(x,yy,2,5,C.acoa)}}
+  scissors(gx+22,gy-80,1.1,Math.abs(Math.sin(T*3)),C.ink);label(gx+90,gy-84,"lipase",{size:12.5,weight:700,align:"left"});
+  label(150,300,"fatty acids → beta-oxidation",{size:12,weight:600,align:"center"});txt(150,322,"2 carbons at a time → acetyl-CoA",{size:12,align:"center",color:C["ink-soft"]});
+  // protein
+  headPanel(498,12,290,456,"Proteins",C.amino);line(560,40,560,460,C["cell-edge"],4);txt(568,452,"cell",{size:12,color:C["ink-soft"]});txt(700,452,"outside",{size:12,align:"center",color:C["ink-soft"]});
+  const pc=seg(t,1,1.8);const n=8;for(let i=0;i<n;i++){const x0=600+i*22,y0=110;const leave=seg(t,2+i*.35,3.4+i*.35);if(leave>=1)continue;const sp=pc*(i-3.5)*6;
+    if(leave<=0)bead(x0+sp,y0+Math.sin(i+T)*2,8,C.amino);else{const [x,y]=along([[x0+sp,y0],[575,200],[540,240],[cx+52,280]],ease(leave));bead(x,y,7,C.amino);if(leave>.45&&leave<.75){const q=seg(leave,.45,.75);withA(1-q,()=>{rr(x+6,y-30-q*40,30,16,5);ctx.fillStyle=C.nh3;ctx.fill();txt(x+21,y-22-q*40,"NH₃",{size:10.5,weight:700,align:"center",color:onFill()})})}}}
+  if(pc<1)for(let i=0;i<n-1;i++)line(600+i*22,110,622+i*22,110,mix(C.amino,C.ink,.4),2);
+  scissors(690,70,1,Math.abs(Math.sin(T*3+1)),C.ink);label(720,58,"protease",{size:12.5,weight:700,align:"left"});txt(690,148,"(released outside the cell)",{size:12,align:"center",color:C["ink-soft"]});
+  label(660,250,"deamination",{size:12.5,weight:700,align:"center"});label(660,300,"NH₃ (ammonia) raises pH",{size:12,weight:600,align:"center",border:C.nh3});
+}
+
+function scenePhoto(T){
+  headPanel(12,12,530,456,"Oxygenic: cyanobacteria",C.chl);headPanel(554,12,234,456,"Anoxygenic",C.gpos);
+  sunIcon(56,62,20,T);
+  for(let k=0;k<5;k++){const p=P(T*.8+k*.2,1);const x0=80+k*12,y0=82;withA((1-p)*.9,()=>{glow(lerp(x0,x0+90+k*40,p),lerp(y0,y0+70+k*10,p),9,C.sun,.7);circ(lerp(x0,x0+90+k*40,p),lerp(y0,y0+70+k*10,p),3,C.sun)})}
+  rr(60,130,450,240,110);ctx.fillStyle=hexA(C.chl,.18);ctx.fill();ctx.strokeStyle=C.chl;ctx.lineWidth=3;ctx.stroke();
+  for(let k=0;k<4;k++){ctx.beginPath();for(let i=0;i<=40;i++){const x=110+i*6,y=170+k*45+Math.sin(i*.5)*5;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.strokeStyle=C.chl;ctx.lineWidth=4;ctx.stroke()}
+  txt(230,388,"thylakoid membranes (chlorophyll)",{size:12,weight:600,align:"center",color:C["ink-soft"]});
+  // water split -> O2
+  for(let k=0;k<3;k++){const p=P(T*.5+k/3,1);const x=150+k*60;if(p<.3)h2o(x,250,1,1);else{const q=seg(p,.3,1);o2mol(x,lerp(240,60,q),1,1-seg(q,.85,1))}}
+  label(210,108,"O₂ released",{size:12.5,weight:700,align:"center",border:C.o2});txt(150,280,"H₂O split",{size:12,weight:600,align:"center"});
+  // ATP + NADPH to Calvin
+  const wx=410,wy=250;ctx.save();ctx.strokeStyle=C.chl;ctx.lineWidth=6;ctx.setLineDash([12,8]);ctx.lineDashOffset=-T*25;ctx.beginPath();ctx.arc(wx,wy,50,0,TAU);ctx.stroke();ctx.restore();
+  txt(wx,wy-8,"Calvin-Benson",{size:12,weight:700,align:"center"});txt(wx,wy+8,"cycle",{size:12,weight:700,align:"center"});
+  for(let k=0;k<2;k++){const p=P(T*.4+k*.5,1);const x=lerp(260,wx-50,p),y=wy-20+k*40;if(k)atpCoin(x,y,10,{a:1-seg(p,.85,1)});else{taxi(x,y,.7,"nadp",true,{e:false,a:1-seg(p,.85,1)})}}
+  txt(300,214,"ATP + NADPH",{size:12,weight:700,align:"center"});
+  for(let k=0;k<3;k++){const p=P(T*.35+k/3,1);co2(lerp(530,wx+50,p),lerp(180+k*20,wy,p),1,1-seg(p,.85,1))}label(500,150,"CO₂ in",{size:12.5,weight:700,align:"center"});
+  const sp=P(T*.3,1);chainH(lerp(wx,wx+40,sp),lerp(wy+60,wy+120,sp),4,6,C.carb,{a:1-seg(sp,.85,1)});label(wx+70,wy+100,"sugar",{size:12.5,weight:700,align:"left"});
+  wrapText("Light makes ATP and NADPH; the Calvin-Benson cycle spends them to fix CO₂ into sugar.",30,420,490,16,{size:12.5,color:C["ink-soft"]});
+  // anoxygenic
+  sunIcon(600,62,14,T);rr(590,140,170,100,50);ctx.fillStyle=hexA(C.gpos,.25);ctx.fill();ctx.strokeStyle=C.gpos;ctx.lineWidth=2.5;ctx.stroke();
+  for(let i=0;i<5;i++)circ(620+i*28,190+Math.sin(i)*12,6+rnd(i)*3,C.sulf,mix(C.sulf,C.ink,.4),1);
+  for(let k=0;k<2;k++){const p=P(T*.4+k*.5,1);withA(1-seg(p,.8,1),()=>{const x=lerp(640+k*60,660+k*40,p),y=lerp(330,250,p);circ(x,y,7,C.sulf,mix(C.sulf,C.ink,.4),1);circ(x-7,y+6,3.5,C.h2o);circ(x+7,y+6,3.5,C.h2o)})}
+  label(670,356,"H₂S in",{size:12.5,weight:700,align:"center"});txt(675,128,"sulfur granules inside",{size:12,weight:600,align:"center",color:C["ink-soft"]});
+  label(670,392,"No O₂ released",{size:13,weight:700,align:"center",border:C.bad});wrapText("Purple and green sulfur bacteria use H₂S instead of water.",570,420,205,16,{size:12,color:C["ink-soft"]});
+}
+
+function sceneTubes(T){
+  const L=10,t=P(T,L)*L;const hrs=24*seg(t,.4,7);
+  title(24,30,"Incubation at 35 to 37 °C");rr(220,24,340,10,5);ctx.fillStyle=C.sunk;ctx.fill();rr(220,24,340*hrs/24,10,5);ctx.fillStyle=C.accent;ctx.fill();txt(580,30,Math.round(hrs)+" h",{size:14,mono:true,weight:700});
+  const g=seg(hrs,2,20);
+  const defs=[[130,0,0,"–","Not fermented (red)"],[280,1,0,"A","Acid (yellow)"],[430,1,1,"A/G","Acid + gas"]];
+  defs.forEach(d=>{const col=mix(C["pr-red"],C["pr-yel"],d[1]*smooth(seg(hrs,6,18)));tube(d[0],80,{w:58,h:270,level:.86,fill:col,durham:true,gas:d[2]*seg(hrs,10,22),rise:d[2]&&hrs>8&&hrs<23?T:null,turbid:g,cap:C.co2});
+    label(d[0],380,d[3],{size:18,weight:700,align:"center",border:d[1]?C["pr-yel"]:C["pr-red"],a:seg(t,7,7.5)});txt(d[0],412,d[4],{size:12.5,weight:600,align:"center",a:1});
+    if(d[2]&&hrs>14)lead(d[0]+10,108,d[0]+58,72,"gas bubble",{size:12,align:"left"})});
+  headPanel(574,64,214,330,"Reading phenol red");
+  [["pr-red","Red","no acid: not fermented"],["pr-yel","Yellow","acid: fermented"],["gas","Bubble","gas made (CO₂, H₂)"],["pr-pink","Deep pink","alkaline: peptone used"]].forEach((k,i)=>{const y=110+i*66;if(k[0]==="gas")bubble(598,y,10);else{rr(588,y-12,20,24,4);ctx.fillStyle=C[k[0]];ctx.fill()}txt(618,y-8,k[1],{size:13.5,weight:700});txt(618,y+12,k[2],{size:12,color:C["ink-soft"]})});
+  wrapText("Each tube holds one sugar (glucose, lactose, sucrose or mannitol).",30,440,520,16,{size:12.5,color:C["ink-soft"]});
+}
+
+function sceneCatox(T){
+  const L=7,t=P(T,L)*L;
+  headPanel(12,12,384,456,"Catalase test");headPanel(404,12,384,456,"Oxidase test");
+  const slide=(y,lab,pos)=>{rr(40,y,300,70,6);ctx.fillStyle=hexA(C.glass,.9);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.5;ctx.stroke();ell(190,y+35,54,16,0,C.colony,C["food-edge"],1.2);
+    txt(48,y+88,lab,{size:12.5,weight:700});const drop=seg(t,1,1.4);if(drop>0)ell(190,y+30,40*drop,12*drop,0,hexA(C.h2o,.35),hexA(C.h2o,.8),1);
+    if(pos&&t>1.4){const f=seg(t,1.4,3.5);for(let i=0;i<Math.round(f*26);i++){const r=3+rnd(i)*5;const x=150+rnd(i*3)*80,yy=y+30-rnd(i*5)*28*f-Math.sin(T*3+i)*2;bubble(x,yy,r,.95)}}
+    if(t>3)okBadge(300,y-12,pos,pos?"Catalase +":"Catalase −")};
+  slide(80,"Staphylococcus",true);slide(250,"Streptococcus",false);
+  const dy=lerp(20,60,ease(seg(t,0,.8)))-seg(t,1.6,2.4)*40;[80,250].forEach(y0=>{rr(178,y0+dy-70,24,46,8);ctx.fillStyle=hexA(C.h2o,.4);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.4;ctx.stroke();rr(176,y0+dy-86,28,18,6);ctx.fillStyle=C.co2;ctx.fill()});
+  txt(212,40,"H₂O₂",{size:12,weight:700});
+  label(204,390,"2 H₂O₂ → 2 H₂O + O₂ (bubbles)",{size:13,weight:700,align:"center",border:C.accent});
+  wrapText("Separates two look-alike gram-positive cocci.",30,430,350,16,{size:12.5,color:C["ink-soft"]});
+  // oxidase
+  const strip=(y,lab,pos)=>{const sw=seg(t,.8,1.8);const col=pos?mix("#F5F2EA",C["ox-purp"],seg(t,1.8,3)):"#F5F2EA";rr(450,y,250,62,6);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.5;ctx.stroke();
+    txt(452,y-12,lab,{size:12.5,weight:700});const sx=lerp(470,640,sw);ctx.save();ctx.translate(sx,y+30);ctx.rotate(-.7);rr(-3,-60,6,60,3);ctx.fillStyle=C["food-edge"];ctx.fill();ell(0,0,7,10,0,C.colony,C["food-edge"],1.2);ctx.restore();
+    if(t>3)okBadge(700,y-12,pos,pos?"Oxidase +":"Oxidase −")};
+  strip(84,"Pseudomonas",true);strip(254,"E. coli",false);
+  const secs=Math.round(30*seg(t,1.8,3.2));txt(760,180,secs+" s",{size:13,mono:true,weight:700,align:"right"});
+  label(596,390,"Purple = cytochrome c oxidase",{size:13,weight:700,align:"center",border:C["ox-purp"]});
+  wrapText("Pseudomonas and Neisseria are positive; E. coli and other enteric bacteria are negative.",420,430,360,16,{size:12.5,color:C["ink-soft"]});
+}
+
+function sceneImvic(T){
+  const L=11,t=P(T,L)*L;
+  headPanel(12,12,776,200,"Citrate and urease");
+  const c=seg(t,.5,2);tube(70,50,{w:30,h:110,slant:true,fill:mix(C["cit-grn"],C["cit-blue"],c),streak:true,cap:C.co2,lab:"Citrate"});tube(130,50,{w:30,h:110,slant:true,fill:C["cit-grn"],cap:C.co2,lab:"Citrate"});
+  txt(178,90,c>.5?"Blue: grew on citrate (+)":"Green → blue?",{size:12.5,weight:700});txt(178,112,"Partner tube stays green (−)",{size:12,color:C["ink-soft"]});
+  const u=seg(t,1,2.6);tube(470,50,{w:30,h:110,fill:mix(C["ure-peach"],C["ure-pink"],u),cap:C.co2,lab:"Urea"});tube(530,50,{w:30,h:110,fill:C["ure-peach"],cap:C.co2,lab:"Urea"});
+  txt(578,90,u>.5?"Hot pink: urease + (Proteus)":"Peach → pink?",{size:12.5,weight:700});txt(578,112,"urea → ammonia, pH rises",{size:12,color:C["ink-soft"]});txt(578,132,"Partner stays peach (−)",{size:12,color:C["ink-soft"]});
+  headPanel(12,224,776,244,"IMViC");
+  const cols=["Indole","Methyl red","Voges-Proskauer","Citrate"],xs=[280,390,500,610];cols.forEach((c,i)=>txt(xs[i],254,c,{size:12.5,weight:700,align:"center"}));
+  const rows=[["E. coli",[1,1,0,0],280],["Enterobacter aerogenes",[0,0,1,1],378]];
+  rows.forEach(r=>{txt(30,r[2]+40,r[0],{size:13.5,weight:700});let str=[];
+    r[1].forEach((pos,i)=>{const rv=seg(t,3+i*1.4,3.8+i*1.4);const x=xs[i],y=r[2];let o={w:22,h:76,level:.8,cap:C.co2};
+      if(i===0){o.fill=C.food;o.ring=rv>0?mix(C.food,pos?C.kov:C["pr-yel"],rv):null;o.ringH=10}
+      else if(i===1)o.fill=mix(C.food,pos?C["pr-red"]:C["pr-yel"],rv);
+      else if(i===2)o.fill=mix(C.food,pos?C["vp-red"]:C["vp-neg"],rv);
+      else{o.slant=true;o.fill=mix(C["cit-grn"],pos?C["cit-blue"]:C["cit-grn"],rv);o.streak=pos}
+      tube(x,y,o);if(rv>.5){txt(x+24,y+40,pos?"+":"−",{size:18,weight:700,color:pos?C.good:C["ink-soft"]});str.push(pos?"+":"−")}});
+    if(str.length)label(720,r[2]+40,str.join(" "),{size:16,weight:700,align:"center",border:C.accent,mono:true})});
+}
+
+/* ---------- recap ---------- */
+function sceneRecap(T){
+  panelBox(12,12,380,456);title(24,32,"One glucose, many paths");
+  ringMol(200,70,18,6,C.carb,{});arrow(200,96,200,126,C["ink-soft"],2);
+  panelBox(110,128,180,46,{stroke:C.act4,lw:2});txt(200,144,"Glycolysis",{size:13.5,weight:700,align:"center"});txt(200,162,"net 2 ATP, 2 NADH",{size:12,align:"center",color:C["ink-soft"]});
+  arrow(170,176,100,228,C.act6,2);arrow(230,176,300,228,C.act3,2);txt(84,206,"O₂ or other acceptor",{size:12,weight:600,align:"center"});txt(318,206,"no acceptor",{size:12,weight:600,align:"center"});
+  panelBox(28,232,150,110,{stroke:C.act6,lw:2});["Transition","Krebs cycle","Electron transport"].forEach((s,i)=>txt(103,252+i*22,s,{size:12.5,weight:600,align:"center"}));txt(103,326,"respiration",{size:12,weight:700,align:"center",color:C["ink-soft"]});
+  panelBox(222,232,150,110,{stroke:C.act3,lw:2});txt(297,252,"Fermentation",{size:12.5,weight:700,align:"center"});chainH(270,282,3,6,C.lac);chainH(325,282,2,6,C.eth);for(let k=0;k<3;k++){const p=P(T*.6+k/3,1);bubble(250+k*24,320-p*18,3,1-p)}txt(297,326,"recycles NAD⁺",{size:12,weight:700,align:"center",color:C["ink-soft"]});
+  const n=Math.floor(P(T,6)*38)+1;for(let i=0;i<Math.min(n,38);i++){atpCoin(40+(i%10)*14,370+Math.floor(i/10)*16,6.5,{})}txt(103,446,"up to 38 ATP",{size:13,weight:700,align:"center"});
+  atpCoin(280,380,10,{});atpCoin(304,380,10,{});txt(297,412,"2 ATP",{size:13,weight:700,align:"center"});
+  partCards(T,404,12,384,["ATP is the coin; NAD⁺ and FAD carry electrons","Lower activation energy; shape, heat, pH, inhibitors","Glucose → 2 pyruvate → acetyl-CoA → CO₂","H⁺ gradient drives ATP synthase; O₂ or nitrate","Regenerates NAD⁺; acids, alcohol, gas; 2 ATP","Lipases, proteases; light fixes CO₂ into sugar","Phenol red, catalase, oxidase, citrate, urease, IMViC"]);
+}
+
+const SCENES={map:sceneMap,catab:sceneCatab,atp:sceneAtp,redox:sceneRedox,enzyme:sceneEnzyme,cofactor:sceneCofactor,temp:sceneTemp,sulfa:sceneSulfa,feedback:sceneFeedback,
+  glyco:sceneGlyco,transition:sceneTransition,krebs:sceneKrebs,etc:sceneEtc,chemi:sceneChemi,anaer:sceneAnaer,yield:sceneYield,
+  ferm:sceneFerm,lacalc:sceneLacalc,mixed:sceneMixed,fuels:sceneFuels,photo:scenePhoto,tubes:sceneTubes,catox:sceneCatox,imvic:sceneImvic,recap:sceneRecap};
+
+/* ---------------- loop ---------------- */
+let T=0,last=performance.now();
+function draw(){
+  ctx.setTransform(K,0,0,K,0,0);ctx.clearRect(0,0,W,H);ctx.globalAlpha=1;bg(C.ecf);
+  const s=STEPS[cur];
+  try{(SCENES[s.scene]||sceneRecap)(T)}catch(e){console.error(e)}
+  ctx.globalAlpha=1;
+}
+function frame(now){
+  const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;if(!paused)T+=dt*speed;
+  draw();
+  requestAnimationFrame(frame);
+}
+window.__setT=v=>{T=v;paused=true;draw()};
+window.__go=i=>go(i);
+window.__n=()=>STEPS.length;
+readColors();buildChain();fit();render();requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

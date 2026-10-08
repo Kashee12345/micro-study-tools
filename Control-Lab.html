@@ -1,0 +1,1117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Controlling Microbial Growth Lab</title>
+<meta name="description" content="Death-curve simulator, virtual autoclave, sterilization troubleshooting scenarios and sorting games for controlling microbial growth.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#1E7A4C;--accent-ink:#145A37;--accent-wash:#DDEFE5;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#7B5CC9;--act2:#C4644F;--act3:#D98A1C;--act4:#2F7FC1;--act5:#2E8A7A;--act6:#A04E8C;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#8A6D12;
+  /* microbe control palette */
+  --ecf:#EEF3EF;--bench:#E6ECE8;--grid:#D3DED7;
+  --bact:#3E8E41;--spore:#9A6A12;--spore-coat:#E9D3A0;--myco:#8A5A9E;--env:#B03A8C;--nonenv:#3F6DB3;--prion:#A9372F;--cyst:#5E7A2A;--fungus:#C77A12;--dead:#8B9094;
+  --gpos:#6B3FA0;--gneg:#D0457A;
+  --steam:#4F8FCB;--air:#8C969D;--heat:#E0563A;--cold:#2F7FC1;--uv:#7B5CC9;--ion:#C9A227;
+  --alc:#2E8A7A;--chlor:#7E9A2A;--iod:#8A4A1C;--phen:#A04E8C;--quat:#2F7FC1;--metal:#6E7F8C;--ald:#D98A1C;--perox:#1E9C7A;--gas:#5E6E7A;
+  --membrane:#C9A227;--protein:#C4644F;--dna:#2F6FD0;
+  --water:#CFE5F1;--agar:#EAD9A2;--agar-edge:#B9A160;--glass:#DCE8EE;--glass-edge:#7F99A6;
+  --steel:#C9D1D6;--steel-edge:#7A8790;--tape:#EFE3C2;--tape-ink:#3A2E1E;--bi-pass:#6B3FA0;--bi-fail:#D9B514;
+  --skin:#EAC9A8;--skin-edge:#B9937A;--body:#E9DCCB;--body-edge:#A88B6A;--soil:#B98A5A;
+  --milk:#F7F3E8;--food:#E8B86A;--organic:#9A5A3A;--glow:#F2B33B;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#15301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#E08A74;--act3:#F2A93B;--act4:#5AA9E6;--act5:#5CC4B0;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#141B1A;--bench:#1A2220;--grid:#26332F;
+  --bact:#6BC26E;--spore:#E0B050;--spore-coat:#5A4A2A;--myco:#C29AD6;--env:#E07AC4;--nonenv:#7FA6E6;--prion:#E07067;--cyst:#A3C95A;--fungus:#E0A050;--dead:#6F767B;
+  --gpos:#B08AE8;--gneg:#F08AB0;
+  --steam:#8FC0EC;--air:#7E8A92;--heat:#F27A5E;--cold:#5AA9E6;--uv:#A98BEF;--ion:#E0BE48;
+  --alc:#5CC4B0;--chlor:#B5CF5A;--iod:#D9925A;--phen:#D186C0;--quat:#5AA9E6;--metal:#A9B7C2;--ald:#F2A93B;--perox:#4FD0A8;--gas:#9AAAB6;
+  --membrane:#E0BE48;--protein:#E08A74;--dna:#6FA3F0;
+  --water:#1F3A4A;--agar:#4A4030;--agar-edge:#9C8A5A;--glass:#1E2C34;--glass-edge:#7F99A6;
+  --steel:#3A464E;--steel-edge:#8A98A2;--tape:#D9CDA8;--tape-ink:#2A2014;--bi-pass:#B08AE8;--bi-fail:#E8CC3A;
+  --skin:#5A4434;--skin-edge:#B9937A;--body:#3E3528;--body-edge:#B39773;--soil:#7A5A3A;
+  --milk:#3A3830;--food:#9A7A40;--organic:#C98A6A;--glow:#F2B33B;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#15301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#E08A74;--act3:#F2A93B;--act4:#5AA9E6;--act5:#5CC4B0;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#141B1A;--bench:#1A2220;--grid:#26332F;
+  --bact:#6BC26E;--spore:#E0B050;--spore-coat:#5A4A2A;--myco:#C29AD6;--env:#E07AC4;--nonenv:#7FA6E6;--prion:#E07067;--cyst:#A3C95A;--fungus:#E0A050;--dead:#6F767B;
+  --gpos:#B08AE8;--gneg:#F08AB0;
+  --steam:#8FC0EC;--air:#7E8A92;--heat:#F27A5E;--cold:#5AA9E6;--uv:#A98BEF;--ion:#E0BE48;
+  --alc:#5CC4B0;--chlor:#B5CF5A;--iod:#D9925A;--phen:#D186C0;--quat:#5AA9E6;--metal:#A9B7C2;--ald:#F2A93B;--perox:#4FD0A8;--gas:#9AAAB6;
+  --membrane:#E0BE48;--protein:#E08A74;--dna:#6FA3F0;
+  --water:#1F3A4A;--agar:#4A4030;--agar-edge:#9C8A5A;--glass:#1E2C34;--glass-edge:#7F99A6;
+  --steel:#3A464E;--steel-edge:#8A98A2;--tape:#D9CDA8;--tape-ink:#2A2014;--bi-pass:#B08AE8;--bi-fail:#E8CC3A;
+  --skin:#5A4434;--skin-edge:#B9937A;--body:#3E3528;--body-edge:#B39773;--soil:#7A5A3A;
+  --milk:#3A3830;--food:#9A7A40;--organic:#C98A6A;--glow:#F2B33B;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1180px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:9px 14px;cursor:pointer;font-weight:500;font-size:15px}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 13px;cursor:pointer;font-size:14.5px}
+.tbtn:hover{border-color:var(--accent)}
+.tbtn:disabled{opacity:.45;cursor:default}
+.tbtn[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:10px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.btn:disabled{opacity:.45;cursor:default}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;min-width:0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid,.grid2{grid-template-columns:1fr}}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%;touch-action:manipulation}
+.stagebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2)}
+.legend i.s{border-radius:2px}
+.legend i.ln{width:20px;height:0;border-radius:0;border:0;border-top:3px solid}
+.legend i.t{width:0;height:0;border-radius:0;border:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid;background:none!important}
+.rounds{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.round{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 13px;cursor:pointer;font-size:14px}
+.round[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.round .ok{color:var(--gold-ink);margin-left:4px}
+.mode{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-soft)}
+.mode input{accent-color:var(--accent);width:18px;height:18px}
+.lvl-n{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.lvl-t{font-family:var(--serif);font-size:22px;font-weight:600;margin:4px 0 8px;line-height:1.25}
+.goal{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:15px}
+.goal b.h{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.msg{margin:10px 0 0;padding:10px 12px;border-radius:var(--r);font-size:15px;display:none}
+.msg.show{display:block}
+.msg.good{background:var(--good-wash);color:var(--ink);border:1px solid var(--good)}
+.msg.warn{background:var(--warn-wash);color:var(--ink);border:1px solid var(--warn)}
+.msg.info{background:var(--panel-2);color:var(--ink);border:1px solid var(--rule)}
+.stars{font-size:22px;letter-spacing:2px;color:var(--gold-ink)}
+.side h3{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+.side p,.side li{font-size:14.5px}
+.side ul{padding-left:18px;margin:6px 0}
+.small{font-size:13px;color:var(--ink-soft)}
+.typebtns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.typebtn{background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 0;cursor:pointer;font-family:var(--mono);font-weight:600;font-size:15px}
+.typebtn:hover{border-color:var(--accent)}
+.typebtn.right{border-color:var(--good);background:var(--good-wash)}
+.typebtn.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.typebtn:disabled{cursor:default}
+.prog{height:8px;background:var(--sunk);border-radius:99px;overflow:hidden;margin:6px 0 10px}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.timer{font-family:var(--mono);font-size:18px;font-weight:600}
+/* bags */
+.bags{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0 4px}
+.bag{position:relative;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:6px 4px 4px;cursor:grab;touch-action:none;user-select:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--mono);font-weight:700;font-size:14px}
+.bag svg{width:34px;height:44px;display:block}
+.bag.sel{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
+.bag.ok{border-color:var(--good);background:var(--good-wash)}
+.bag.no{border-color:var(--warn);background:var(--warn-wash)}
+.bag .mk{position:absolute;top:3px;right:5px;font-size:13px}
+.bag.ghost{position:fixed;z-index:50;pointer-events:none;opacity:.9;box-shadow:0 10px 24px -8px rgba(0,0,0,.4)}
+.droptarget{outline:3px dashed var(--accent);outline-offset:-3px}
+.abbox{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:10px 12px;font-size:14.5px;margin-top:10px}
+/* sim */
+.ctl{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ctl label{font-size:14.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.ctl output{font-family:var(--mono);font-weight:600;color:var(--accent-ink)}
+.ctl input[type=range]{accent-color:var(--accent);width:100%}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-faint);font-family:var(--mono)}
+.readouts{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+.readouts th{text-align:left;font-weight:500;color:var(--ink-soft);padding:5px 6px 5px 0;border-top:1px solid var(--rule-soft)}
+.srhead th,.srhead td,.readouts caption.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0;border:0}
+.readouts td{padding:5px 0;border-top:1px solid var(--rule-soft);font-family:var(--mono);font-size:13.5px;text-align:right;white-space:nowrap}
+.chal{list-style:none;padding:0;margin:6px 0}
+.chal li{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14px}
+.chal .ck{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-size:13px;font-family:var(--mono)}
+.chal li.done .ck{background:var(--good);border-color:var(--good);color:var(--on-accent)}
+.status{font-size:14.5px;padding:8px 10px;border-radius:var(--r);margin-top:8px;border:1px solid var(--rule);background:var(--panel-2)}
+.status.warn{background:var(--warn-wash);border-color:var(--warn)}
+.status.bad{background:var(--bad-wash);border-color:var(--bad)}
+.status.good{background:var(--good-wash);border-color:var(--good)}
+/* sequencer */
+ol.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.item{display:flex;align-items:center;gap:10px;background:var(--panel);border:1.5px solid var(--rule);border-left:6px solid var(--act4);border-radius:var(--r);padding:7px 8px 7px 10px;touch-action:none;user-select:none;cursor:grab;transition:background .15s,border-color .15s}
+.item.drag{box-shadow:0 10px 24px -8px rgba(0,0,0,.4);cursor:grabbing;border-color:var(--accent);z-index:2;position:relative}
+.item .pos{font-family:var(--mono);font-size:13px;color:var(--ink-faint);width:20px;text-align:right;flex:0 0 auto}
+.item .grip{color:var(--ink-faint);font-size:18px;line-height:1;flex:0 0 auto}
+.item .txt{flex:1;font-size:15px;line-height:1.35}
+.item .mv{display:flex;flex-direction:column;gap:2px}
+.mv button{width:30px;height:24px;border:1px solid var(--rule);background:var(--panel-2);border-radius:4px;cursor:pointer;font-size:12px;padding:0;line-height:1}
+.mv button:hover{border-color:var(--accent)}
+.item.right{background:var(--good-wash);border-color:var(--good)}
+.item.off{background:var(--warn-wash);border-color:var(--warn)}
+.item.hinted{box-shadow:0 0 0 3px var(--gold)}
+.sc-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.sc-n{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.sc-title{font-family:var(--serif);font-size:22px;font-weight:600;margin:2px 0 6px}
+.qlab{font-weight:600;margin:12px 0 8px}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opt{text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:8px 0 0;font-size:14.5px;padding:8px 10px;border-radius:4px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--good-wash);border-left:4px solid var(--good)}
+.fb.no{background:var(--warn-wash);border-left:4px solid var(--warn)}
+.explain{margin-top:14px;padding:12px 14px;background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;display:none}
+.explain.show{display:block}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-family:var(--mono);font-size:12.5px;background:var(--panel-2);cursor:pointer;padding:0}
+.chip.cur{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.chip.done{border-color:var(--good);background:var(--good-wash);color:var(--good)}
+.chip.done.cur{background:var(--accent);color:var(--on-accent)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+.subtabs{display:flex;gap:6px;margin:0 0 12px;flex-wrap:wrap}
+footer{max-width:1180px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+kbd{font-family:var(--mono);font-size:12.5px;border:1px solid var(--rule);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--panel-2)}
+sub,sup{line-height:0}
+[hidden]{display:none!important}
+/* heart lab */
+.sbank{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-top:10px}
+.sbtn{background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:7px 9px;cursor:pointer;font-size:14px;text-align:left;line-height:1.25}
+.sbtn:hover{border-color:var(--accent)}
+.sbtn.done{border-color:var(--good);background:var(--good-wash)}
+.sbtn.no{border-color:var(--warn);background:var(--warn-wash)}
+.sbtn.hint{box-shadow:0 0 0 3px var(--gold)}
+.paint{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.paint button{display:inline-flex;align-items:center;gap:8px}
+.paint i{width:16px;height:16px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.25)}
+.rhythms{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.rhythms .tbtn{text-align:left;font-size:14px;line-height:1.25}
+.mopts{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0}
+.slwrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 4px 0}
+.slwrap input[type=range]{flex:1 1 260px;accent-color:var(--accent)}
+.slwrap output{font-family:var(--mono);font-weight:600;min-width:72px}
+.qcard{margin-top:12px;border:1px solid var(--rule);border-radius:var(--r);padding:12px 14px;background:var(--panel-2)}
+.qcard h3{margin-top:0}
+.scen{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
+.big{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1.1}
+select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:var(--r);padding:4px 6px}
+/* genetics case lab */
+.gtgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.gtgrid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.gbtn{font-family:var(--mono);font-weight:600;font-size:15px;padding:8px 4px;text-align:center}
+.gbtn sup{font-size:10.5px;line-height:0}
+.modes{display:grid;grid-template-columns:1fr;gap:6px}
+.modes .tbtn{text-align:left;line-height:1.3}
+.modes .tbtn small{display:block;font-size:12.5px;color:var(--ink-soft);font-weight:500}
+.modes .tbtn[aria-pressed="true"] small{color:var(--accent-ink)}
+.kidbtns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0}
+.kidbtns .btn{padding:10px 6px;font-size:14.5px}
+.readouts td.l{font-family:var(--sans);text-align:left;white-space:normal}
+.readouts thead th{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;border-top:0}
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.case{grid-template-columns:1fr}}
+.casechips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.casechip{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 12px;cursor:pointer;font-size:14px}
+.casechip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.casechip .ok{color:var(--good);margin-left:4px;font-weight:700}
+.story{font-size:15.5px;margin:0 0 8px}
+.qblock{border-top:1px solid var(--rule-soft);padding-top:8px;margin-top:10px}
+.hintbox{margin:8px 0 0;padding:8px 10px;border-radius:4px;background:var(--gold-wash);border-left:4px solid var(--gold);font-size:14.5px}
+.meter{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--ink-soft);margin-bottom:6px}
+.meter b{color:var(--ink);font-family:var(--mono)}
+/* sort game */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:10px;border:1.5px dashed var(--rule);border-radius:var(--r);background:var(--panel-2);margin:8px 0 12px}
+.scard{background:var(--panel);border:1.5px solid var(--rule);border-left:5px solid var(--accent);border-radius:var(--r);padding:8px 10px;cursor:grab;font-size:14.5px;line-height:1.3;text-align:left;touch-action:none;user-select:none;max-width:100%}
+.scard:hover{border-color:var(--accent)}
+.scard[aria-pressed="true"]{box-shadow:0 0 0 3px var(--accent);border-color:var(--accent)}
+.scard.ghost{position:fixed;z-index:60;pointer-events:none;opacity:.92;box-shadow:0 10px 24px -8px rgba(0,0,0,.45)}
+.scard.placed{cursor:default;border-left-color:var(--good);background:var(--good-wash);font-size:13.5px;padding:6px 8px}
+.scard.hinted{box-shadow:0 0 0 3px var(--gold)}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.bin{border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);padding:8px;display:flex;flex-direction:column;gap:6px;min-height:150px}
+.bin.over{outline:3px dashed var(--accent);outline-offset:-3px}
+.bin.hintbin{box-shadow:0 0 0 3px var(--gold)}
+.binhead{display:flex;align-items:center;gap:8px;width:100%;background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:6px;cursor:pointer;font-weight:600;font-size:14.5px;text-align:left;line-height:1.25}
+.binhead:hover{border-color:var(--accent)}
+.binhead svg{width:56px;height:46px;flex:0 0 auto}
+.binitems{display:flex;flex-direction:column;gap:5px}
+.sortbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:4px 0 8px}
+.sorthead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h2.sec{font-family:var(--serif);font-size:21px;margin:2px 0 6px;font-weight:600}
+.sim-note{font-size:13.5px;color:var(--ink-soft);margin:6px 0 0}
+.readouts td{padding-left:10px}
+.methods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.methods .tbtn{text-align:left;line-height:1.25;font-size:14px}
+.seg3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.seg3 .tbtn,.seg4 .tbtn{font-size:13.5px;line-height:1.2;padding:8px 6px}
+.seg4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.verdict{font-weight:700}
+</style>
+<script src="micro-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">Microbiology &middot; Module 7 &middot; Controlling microbial growth</div>
+    <h1>Controlling Microbial Growth Lab</h1>
+    <p class="sub">Kill microbes on a live death-curve graph, run a virtual autoclave, solve sterilization mysteries, and sort methods. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+<div class="wrap">
+  <div class="tabs" role="tablist" aria-label="Lab parts">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="tab-sim" data-tab="sim" id="tabbtn-sim" type="button">Part 1 &middot; Death Curve Simulator</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-ac" data-tab="ac" id="tabbtn-ac" type="button" tabindex="-1">Part 2 &middot; Autoclave Bench</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-cases" data-tab="cases" id="tabbtn-cases" type="button" tabindex="-1">Part 3 &middot; What Went Wrong?</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-sort" data-tab="sort" id="tabbtn-sort" type="button" tabindex="-1">Part 4 &middot; Sort It Out</button>
+  </div>
+
+  <!-- PART 1: death curve simulator -->
+  <section id="tab-sim" role="tabpanel" aria-labelledby="tabbtn-sim">
+    <h2 class="gk-sr">Part 1: Death Curve Simulator</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvSim" role="img" aria-label="Death curve simulator."></canvas></div>
+        <div class="stagebar"><span class="caption" id="simCap"></span></div>
+        <div class="legend">
+          <span><i style="background:var(--bact)"></i>Alive</span>
+          <span><i style="background:var(--dead)"></i>Killed</span>
+          <span><i style="background:var(--spore)"></i>Endospore</span>
+          <span><i class="ln" style="border-top-color:var(--accent)"></i>Survivors (this run)</span>
+          <span><i class="ln" style="border-top-color:var(--ink-soft);border-top-style:dashed"></i>Previous run / 10⁻⁶ line</span>
+        </div>
+        <p class="sim-note">The graph is a log scale: each grid line is ten times fewer survivors. The flask shows 100 dots on an ordinary scale, so it empties long before the graph does. That is why we use log graphs.</p>
+      </div>
+      <aside class="card side" aria-label="Simulator controls">
+        <h3 id="mLab">1. Method</h3>
+        <div class="methods" id="simMethods" role="group" aria-labelledby="mLab"></div>
+        <div class="ctl"><label for="simLevel"><span id="simLevelName">Temperature</span> <output id="simLevelOut" for="simLevel"></output></label>
+          <input type="range" id="simLevel" min="0" max="100" step="1" value="50"><div class="ticks" aria-hidden="true"><span id="simLo"></span><span id="simHi"></span></div></div>
+        <h3 id="oLab">2. Microbe</h3>
+        <div class="seg4" id="simOrg" role="group" aria-labelledby="oLab"></div>
+        <label class="mode" style="margin-top:8px"><input type="checkbox" id="simSpores"> Endospores present (1 in every 1,000 cells)</label>
+        <div class="ctl"><label for="simN0">Starting count <output id="simN0Out" for="simN0"></output></label>
+          <input type="range" id="simN0" min="2" max="9" step="1" value="6"></div>
+        <h3 id="gLab">3. Organic load (blood, soil)</h3>
+        <div class="seg3" id="simOrgLoad" role="group" aria-labelledby="gLab"></div>
+        <h3 id="tLab">4. Graph length</h3>
+        <div class="seg3" id="simTmax" role="group" aria-labelledby="tLab"></div>
+        <div class="bar">
+          <button class="btn" type="button" id="simRun">Run treatment</button>
+          <button class="tbtn" type="button" id="simReset">Reset</button>
+        </div>
+        <table class="readouts" id="simRead"><caption class="sr">Death curve readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody></tbody></table>
+        <div class="status" id="simStatus" role="status"></div>
+        <h3>Challenges</h3>
+        <ul class="chal" id="simChal"></ul>
+        <p class="small">A teaching model with rounded D-values. Real values depend on the exact microbe, product and conditions.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 2: autoclave bench -->
+  <section id="tab-ac" role="tabpanel" aria-labelledby="tabbtn-ac" hidden>
+    <h2 class="gk-sr">Part 2: Autoclave Bench</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvAC" role="img" aria-label="Autoclave chamber."></canvas></div>
+        <div class="stagebar"><span class="caption" id="acCap"></span></div>
+        <div class="legend">
+          <span><i style="background:var(--steam)"></i>Steam</span>
+          <span><i style="background:var(--air)"></i>Air</span>
+          <span><i class="ln" style="border-top-color:var(--heat)"></i>Chamber temperature</span>
+          <span><i class="ln" style="border-top-color:var(--cold)"></i>Pack centre temperature</span>
+          <span><i class="s" style="background:var(--bi-pass)"></i>Spore test: no growth</span>
+          <span><i class="s" style="background:var(--bi-fail)"></i>Spore test: growth</span>
+        </div>
+      </div>
+      <aside class="card side" aria-label="Autoclave controls">
+        <div class="ctl"><label for="acTemp">Temperature <output id="acTempOut" for="acTemp"></output></label>
+          <input type="range" id="acTemp" min="100" max="134" step="1" value="121"><div class="ticks" aria-hidden="true"><span>100 °C</span><span>121</span><span>134 °C</span></div></div>
+        <div class="ctl"><label for="acTime">Hold time <output id="acTimeOut" for="acTime"></output></label>
+          <input type="range" id="acTime" min="1" max="60" step="1" value="15"><div class="ticks" aria-hidden="true"><span>1 min</span><span>60 min</span></div></div>
+        <h3 id="airLab">Air removal</h3>
+        <div class="seg3" id="acAir" role="group" aria-labelledby="airLab"></div>
+        <h3 id="packLab">Load packing</h3>
+        <div class="seg3" id="acPack" role="group" aria-labelledby="packLab"></div>
+        <div class="bar">
+          <button class="btn" type="button" id="acRun">Run cycle</button>
+          <button class="tbtn" type="button" id="acReset">Reset</button>
+        </div>
+        <table class="readouts" id="acRead"><caption class="sr">Autoclave readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody></tbody></table>
+        <div class="status" id="acStatus" role="status"></div>
+        <h3>Challenges</h3>
+        <ul class="chal" id="acChal"></ul>
+        <p class="small">A teaching model. Real cycles follow the autoclave maker's validated settings and your facility's policy.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 3: what went wrong -->
+  <section id="tab-cases" role="tabpanel" aria-labelledby="tabbtn-cases" hidden>
+    <h2 class="gk-sr">Part 3: What Went Wrong?</h2>
+    <div class="casechips" id="caseChips" role="group" aria-label="Choose a scenario"></div>
+    <div class="meter"><span>Scenario <b id="cN">1</b> of <b id="cT">7</b></span><span>Questions solved <b id="cSolved">0</b></span><span>First try <b id="cFirst">0</b></span></div>
+    <div class="case">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvCase" role="img" aria-label="Scenario picture."></canvas></div>
+        <div class="legend" id="caseLegend"></div>
+      </div>
+      <div class="card">
+        <div class="sc-n" id="cWho"></div>
+        <h2 class="sc-title" id="cTitle"></h2>
+        <p class="story" id="cStory"></p>
+        <div id="cQs"></div>
+        <div class="bar" style="margin-top:12px">
+          <button class="tbtn" id="cHint" type="button">Hint</button>
+          <button class="tbtn" id="cShow" type="button">Show answer</button>
+          <button class="tbtn" id="cPrev" type="button">&larr; Previous</button>
+          <button class="btn" id="cNext" type="button">Next scenario &rarr;</button>
+        </div>
+        <div class="hintbox" id="cHintBox" role="status" hidden></div>
+        <div class="explain" id="cExp"></div>
+        <p class="calm">Wrong answers are fine here. Each one tells you why.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 4: sorting game -->
+  <section id="tab-sort" role="tabpanel" aria-labelledby="tabbtn-sort" hidden>
+    <h2 class="gk-sr">Part 4: Sort It Out</h2>
+    <div class="rounds" id="sRounds" role="group" aria-label="Rounds"></div>
+    <div class="card">
+      <div class="sorthead">
+        <div><div class="lvl-n" id="sN"></div><h2 class="sec" id="sTitle"></h2></div>
+        <div class="sortbar">
+          <label class="mode"><input type="checkbox" id="sRelaxed" checked> Relaxed mode (no timer)</label>
+          <span class="timer" id="sTimer" hidden>0:00</span>
+          <span class="stars" id="sStars" role="img" aria-label="Stars appear when the round is done"></span>
+        </div>
+      </div>
+      <p class="goal"><b class="h">Your job</b><span id="sGoal"></span></p>
+      <p class="small">Drag a card onto a box, or tap a card and then tap the box's name. Cards are buttons, so Tab and Enter work too.</p>
+      <div class="pool" id="sPool" aria-label="Cards to sort"></div>
+      <div class="bins" id="sBins"></div>
+      <div class="bar">
+        <button class="tbtn" id="sHint" type="button">Hint</button>
+        <button class="tbtn" id="sShow" type="button">Show answer</button>
+        <button class="tbtn" id="sShuffle" type="button">Start round over</button>
+        <button class="btn" id="sNext" type="button">Next round &rarr;</button>
+      </div>
+      <div class="msg" id="sMsg" role="status"></div>
+      <p class="small" id="sBest"></p>
+    </div>
+  </section>
+</div>
+<footer>Dr. Akash Garg &middot; Microbiology Study Tools &middot; Diagrams are simplified and not to scale. For learning only, not medical advice. CC BY-NC-SA 4.0<br>Pair with the <a href="Control-Walkthrough.html">Controlling Microbial Growth Walkthrough</a>. The scenarios are fictional. The simulators are simple teaching models with rounded D-values, times and temperatures; always follow product labels and your facility's policy.</footer>
+
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "gold", "gold-wash", "gold-ink", "ecf", "bench", "grid", "bact", "spore", "spore-coat", "myco", "env", "nonenv", "prion", "cyst", "fungus", "dead", "gpos", "gneg", "steam", "air", "heat", "cold", "uv", "ion", "alc", "chlor", "iod", "phen", "quat", "metal", "ald", "perox", "gas", "membrane", "protein", "dna", "water", "agar", "agar-edge", "glass", "glass-edge", "steel", "steel-edge", "tape", "tape-ink", "bi-pass", "bi-fail", "skin", "skin-edge", "body", "body-edge", "soil", "milk", "food", "organic", "glow"];
+/* ================= drawing kit (shared by both pages) ================= */
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"center";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase().replace(/Μ/g,"µ").replace(/µM/g,"µm"),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+
+/* ================= microbe drawing helpers ================= */
+function bact(x,y,ang,s,a,o){o=o||{};s=s||8;ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=a==null?1:clamp(a,0,1);
+  const L=s*1.6*(o.shrink?1-o.shrink*.25:1),Hh=s*.75*(o.shrink?1-o.shrink*.35:1);const col=o.dead?C.dead:(o.col||C.bact);
+  if(o.wax){rr(-L-s*.32,-Hh-s*.32,L*2+s*.64,Hh*2+s*.64,Hh+s*.32);ctx.fillStyle=hexA(col,.28);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke()}
+  if(o.wall){rr(-L-s*.2,-Hh-s*.2,L*2+s*.4,Hh*2+s*.4,Hh+s*.2);ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1.2;ctx.stroke()}
+  rr(-L,-Hh,L*2,Hh*2,Hh);ctx.fillStyle=col;ctx.fill();
+  if(o.dead){ctx.strokeStyle=hexA(C.ink,.55);ctx.setLineDash([3,2]);ctx.lineWidth=1.2;ctx.stroke();ctx.setLineDash([]);
+    ctx.strokeStyle=hexA(C.panel,.9);ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(-L*.2,-Hh);ctx.lineTo(0,-Hh*.2);ctx.lineTo(-L*.15,Hh*.3);ctx.lineTo(L*.05,Hh);ctx.stroke()}
+  else{ctx.strokeStyle=hexA(C.ink,.45);ctx.lineWidth=1;ctx.stroke();line(-L*.55,0,L*.55,0,hexA(C.panel,.55),1.2)}
+  if(o.flag&&!o.dead){ctx.strokeStyle=hexA(col,.85);ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(L,0);for(let k=1;k<=6;k++)ctx.lineTo(L+k*3,Math.sin(k*1.6+(o.t||0)*8)*2.5);ctx.stroke()}
+  if(o.sporeIn){ell(L*.55,0,s*.42,s*.34,0,C.spore,C.ink,1)}
+  ctx.restore()}
+function spore(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.spore;
+  ell(x,y,s*1.15,s*.8,o.ang||0,o.dead?hexA(C.dead,.35):C["spore-coat"],col,s*.28);
+  ell(x,y,s*.62,s*.4,o.ang||0,col);
+  if(o.dead){line(x-s*.6,y-s*.5,x+s*.6,y+s*.5,hexA(C.ink,.5),1.2)}
+  ctx.restore()}
+function envVirus(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.env;const t=o.t||0;const br=o.broken||0;
+  for(let k=0;k<12;k++){const an=k/12*TAU+t*.3;const d=r+br*r*.8*rnd(k);const X=x+Math.cos(an)*d,Y=y+Math.sin(an)*d;line(X,Y,X+Math.cos(an)*r*.38,Y+Math.sin(an)*r*.38,col,1.3);circ(X+Math.cos(an)*r*.45,Y+Math.sin(an)*r*.45,r*.13,col)}
+  if(br>0){ctx.setLineDash([4,3])}
+  circ(x,y,r,hexA(col,.25),col,1.8);ctx.setLineDash([]);
+  ctx.beginPath();for(let k=0;k<=6;k++){const an=k/6*TAU;const X=x+Math.cos(an)*r*.55,Y=y+Math.sin(an)*r*.55;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();ctx.fillStyle=col;ctx.fill();
+  ctx.restore()}
+function nakedVirus(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.nonenv;
+  ctx.beginPath();for(let k=0;k<=6;k++){const an=k/6*TAU+Math.PI/6;const X=x+Math.cos(an)*r,Y=y+Math.sin(an)*r;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1.2;ctx.stroke();
+  for(let k=0;k<6;k++){const an=k/6*TAU+Math.PI/6;line(x,y,x+Math.cos(an)*r,y+Math.sin(an)*r,hexA(C.panel,.6),1)}
+  ctx.restore()}
+function prion(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.prion;const t=o.t||0;
+  ctx.beginPath();for(let i=0;i<=30;i++){const f=i/30;const X=x-s+f*2*s;const Y=y+Math.sin(f*TAU*2.5+t)*s*.35+(i%6<3?-s*.18:s*.18);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}
+  ctx.strokeStyle=col;ctx.lineWidth=s*.28;ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();
+  ctx.beginPath();for(let i=0;i<=20;i++){const f=i/20;const X=x-s*.8+f*1.6*s;const Y=y+s*.55+Math.sin(f*TAU*2+t+1)*s*.25;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.lineWidth=s*.22;ctx.stroke();ctx.lineCap="butt";
+  ctx.restore()}
+function cyst(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.cyst;
+  circ(x,y,r,hexA(col,.25),col,r*.28);circ(x-r*.25,y-r*.1,r*.18,col);circ(x+r*.25,y+r*.15,r*.18,col);ctx.restore()}
+function yeast(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.fungus;
+  ell(x,y,s,s*.82,0,col,hexA(C.ink,.45),1);ell(x+s*.95,y-s*.45,s*.48,s*.4,0,col,hexA(C.ink,.45),1);circ(x-s*.2,y,s*.3,hexA(C.panel,.4));ctx.restore()}
+function microbe(kind,x,y,s,o){o=o||{};
+  if(kind==="bact")bact(x,y,o.ang||0,s,o.a,o);else if(kind==="spore")spore(x,y,s*.9,o);else if(kind==="myco")bact(x,y,o.ang||0,s,o.a,Object.assign({col:C.myco,wax:true},o));
+  else if(kind==="env")envVirus(x,y,s*.9,o);else if(kind==="nonenv")nakedVirus(x,y,s*.85,o);else if(kind==="prion")prion(x,y,s,o);else if(kind==="cyst")cyst(x,y,s,o);else if(kind==="yeast")yeast(x,y,s*.8,o)}
+/* flame for Bunsen burners */
+function flame(x,y,s,t){ctx.save();const fl=1+.08*Math.sin(t*17)+.05*Math.sin(t*29);
+  ctx.beginPath();ctx.moveTo(x-s*.5,y);ctx.bezierCurveTo(x-s*.6,y-s*1.2*fl,x-s*.1,y-s*1.6*fl,x,y-s*2.4*fl);ctx.bezierCurveTo(x+s*.1,y-s*1.6*fl,x+s*.6,y-s*1.2*fl,x+s*.5,y);ctx.closePath();
+  ctx.fillStyle=hexA(C.heat,.85);ctx.fill();
+  ctx.beginPath();ctx.moveTo(x-s*.25,y);ctx.bezierCurveTo(x-s*.3,y-s*.8,x,y-s*1.1*fl,x,y-s*1.4*fl);ctx.bezierCurveTo(x,y-s*1.1*fl,x+s*.3,y-s*.8,x+s*.25,y);ctx.closePath();ctx.fillStyle=hexA(C.steam,.9);ctx.fill();ctx.restore()}
+function burner(x,y,t){rr(x-9,y-40,18,40,3);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=1.3;ctx.stroke();rr(x-24,y-4,48,8,3);ctx.fill();ctx.stroke();flame(x,y-40,14,t)}
+function heatWaves(x,y,w,h,t,col,n){n=n||5;for(let i=0;i<n;i++){const X=x+(i+.5)*w/n;const p=P(t*.8+i*.23,1);ctx.save();ctx.globalAlpha*=Math.sin(p*Math.PI)*.85;ctx.beginPath();for(let k=0;k<=12;k++){const f=k/12;const Y=y-f*h-p*h*.4;const X2=X+Math.sin(f*TAU+t*3+i)*5;k?ctx.lineTo(X2,Y):ctx.moveTo(X2,Y)}ctx.strokeStyle=col||C.heat;ctx.lineWidth=2.2;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt";ctx.restore()}}
+function snow(x,y,w,h,t,n){for(let i=0;i<(n||10);i++){const X=x+rnd(i*3)*w+Math.sin(t+i)*6;const Y=y+P(t*.12+rnd(i*7),1)*h;const r=3+rnd(i)*2;ctx.save();ctx.translate(X,Y);ctx.rotate(t*.5+i);for(let k=0;k<3;k++){ctx.rotate(Math.PI/3);line(-r,0,r,0,C.cold,1.4)}ctx.restore()}}
+function thermo(x,y,h,f,col,lab){rr(x-6,y,12,h,6);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.3;ctx.stroke();
+  const fh=(h-8)*clamp(f,0,1);rr(x-3,y+h-4-fh,6,fh+4,3);ctx.fillStyle=col||C.heat;ctx.fill();circ(x,y+h+6,9,col||C.heat,C["ink-soft"],1.3);
+  if(lab)txt(x+14,y+h*.15,lab,{size:12.5,mono:true,weight:700})}
+function gaugeDial(x,y,r,f,lab,val,col){circ(x,y,r,C.panel,C["ink-soft"],1.6);const a0=Math.PI*.75,a1=Math.PI*2.25;
+  ctx.beginPath();ctx.arc(x,y,r-5,a0,a1);ctx.strokeStyle=C["rule"];ctx.lineWidth=4;ctx.stroke();ctx.beginPath();ctx.arc(x,y,r-5,a0,a0+(a1-a0)*clamp(f,0,1));ctx.strokeStyle=col||C.steam;ctx.stroke();
+  const a=a0+(a1-a0)*clamp(f,0,1);line(x,y,x+Math.cos(a)*(r-9),y+Math.sin(a)*(r-9),C.ink,2.2);circ(x,y,3,C.ink);
+  if(val)txt(x,y+r*.5,val,{size:11.5,mono:true,weight:700,align:"center"});if(lab)txt(x,y+r+11,lab,{size:12,weight:600,align:"center",color:C["ink-soft"]})}
+function clock(x,y,r,f,col){circ(x,y,r,C.panel,C["ink-soft"],1.4);if(f>0){ctx.beginPath();ctx.moveTo(x,y);ctx.arc(x,y,r-3,-Math.PI/2,-Math.PI/2+TAU*clamp(f,0,1));ctx.closePath();ctx.fillStyle=hexA(col||C.accent,.45);ctx.fill()}
+  const a=-Math.PI/2+TAU*f;line(x,y,x+Math.cos(a)*(r-3),y+Math.sin(a)*(r-3),C.ink,1.8)}
+function petri(x,y,r,o){o=o||{};ell(x,y+4,r,r*.42,0,hexA(C.ink,.12));ell(x,y,r,r*.42,0,C.agar,C["agar-edge"],1.5);if(o.lawn){ctx.save();ell(x,y,r-4,r*.42-3,0);ctx.clip();ctx.globalAlpha*=o.lawn;
+  for(let i=0;i<160;i++){const a=rnd(i)*TAU,d=Math.sqrt(rnd(i+9))*(r-4);circ(x+Math.cos(a)*d,y+Math.sin(a)*d*.42,1.6,hexA(o.col||C.bact,.6))}ctx.restore()}
+  ell(x,y,r+2,r*.42+2,0,null,hexA(C["glass-edge"],.8),1.3)}
+function tube(x,y,w,h,fill,o){o=o||{};ctx.save();rr(x-w/2,y,w,h,w/2);ctx.fillStyle=hexA(C.glass,.6);ctx.fill();
+  if(fill!=null){ctx.save();rr(x-w/2,y,w,h,w/2);ctx.clip();ctx.fillStyle=o.col||C.water;ctx.fillRect(x-w/2,y+h*(1-fill),w,h*fill);
+    if(o.cloudy){for(let i=0;i<26;i++)circ(x-w/2+rnd(i+(o.seed||0))*w,y+h*(1-fill)+rnd(i*3+1)*h*fill,1.4,hexA(C.ink,.35*o.cloudy))}ctx.restore()}
+  rr(x-w/2,y,w,h,w/2);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.5;ctx.stroke();if(o.cap){rr(x-w/2-2,y-8,w+4,12,3);ctx.fillStyle=o.cap;ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.stroke()}ctx.restore()}
+function flask(x,y,s,fill,col){ctx.save();ctx.beginPath();ctx.moveTo(x-s*.18,y-s);ctx.lineTo(x-s*.18,y-s*.55);ctx.lineTo(x-s*.55,y);ctx.lineTo(x+s*.55,y);ctx.lineTo(x+s*.18,y-s*.55);ctx.lineTo(x+s*.18,y-s);ctx.closePath();
+  ctx.fillStyle=hexA(C.glass,.55);ctx.fill();ctx.save();ctx.clip();const fy=y-s*fill;ctx.fillStyle=col||C.water;ctx.fillRect(x-s,fy,2*s,s);ctx.restore();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.8;ctx.stroke();ctx.restore()}
+function handShape(x,y,s,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(o.rot||0);ctx.scale(s*(o.flip?-1:1),s);const col=o.glove?C.steam:C.skin,ed=o.glove?C["glass-edge"]:C["skin-edge"];
+  rr(-22,-6,44,46,12);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=ed;ctx.lineWidth=1.4/s;ctx.stroke();
+  const fx=[-17,-6,5,16],fl=[30,36,34,26];fx.forEach((f,i)=>{rr(f-4.5,-6-fl[i],9,fl[i]+6,4.5);ctx.fillStyle=col;ctx.fill();ctx.stroke()});
+  ctx.beginPath();ctx.moveTo(-22,22);ctx.quadraticCurveTo(-40,10,-36,-6);ctx.lineTo(-29,-8);ctx.quadraticCurveTo(-30,6,-20,12);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.stroke();
+  ctx.restore()}
+function bottle(x,y,s,col,lab){ctx.save();rr(x-s*.45,y-s*1.4,s*.9,s*1.4,s*.15);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();
+  ctx.save();rr(x-s*.45,y-s*1.4,s*.9,s*1.4,s*.15);ctx.clip();ctx.fillStyle=hexA(col,.55);ctx.fillRect(x-s*.45,y-s*.95,s*.9,s*.95);ctx.restore();
+  rr(x-s*.18,y-s*1.75,s*.36,s*.38,3);ctx.fillStyle=col;ctx.fill();if(lab){rr(x-s*.38,y-s*.85,s*.76,s*.42,3);ctx.fillStyle=C.panel;ctx.fill();txt(x,y-s*.64,lab,{size:Math.max(10.5,s*.2),weight:700,mono:true,align:"center"})}ctx.restore()}
+function sprayBottle(x,y,s,col,t,spray){bottle(x,y,s,col);ctx.save();rr(x-s*.25,y-s*2.05,s*.6,s*.32,4);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.stroke();
+  if(spray>0){for(let i=0;i<14;i++){const f=P(t*1.6+i/14,1);const a=-.35+rnd(i)*.7;const d=f*s*2.2;circ(x+s*.4+Math.cos(a)*d,y-s*1.9+Math.sin(a)*d+f*f*s*.8,1.8,hexA(col,(1-f)*spray))}}ctx.restore()}
+/* exponent label like 10^6 using superscripts */
+const SUPD={"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","-":"⁻"};
+function ten(n){return "10"+String(n).split("").map(c=>SUPD[c]||c).join("")}
+function fmtN(n){if(n>=1)return Math.round(n).toLocaleString("en-US");return n.toPrecision(1)}
+/* log-scale graph frame. returns mapping helpers */
+function logFrame(x,y,w,h,lo,hi,tmax,o){o=o||{};panelBox(x-46,y-32,w+60,h+(o.noX?48:66),{fill:hexA(C.panel,.94)});
+  if(o.title)txt(x-38,y-18,o.title,{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  const Y=v=>y+h-(clamp(v,lo,hi)-lo)/(hi-lo)*h,X=t=>x+w*clamp(t/tmax,0,1);
+  for(let e=lo;e<=hi;e+=(o.step||2)){line(x,Y(e),x+w,Y(e),hexA(C.rule,.7),1);txt(x-6,Y(e),ten(e),{size:11.5,mono:true,align:"right",color:C["ink-soft"]})}
+  line(x,y,x,y+h,C["ink-soft"],1.4);line(x,y+h,x+w,y+h,C["ink-soft"],1.4);
+  if(!o.noX){const nt=o.xt||4;for(let i=0;i<=nt;i++){const t=tmax*i/nt;txt(X(t),y+h+12,(o.xfmt?o.xfmt(t):Math.round(t)),{size:11.5,mono:true,align:"center",color:C["ink-soft"]})}
+    txt(x+w/2,y+h+28,o.xlab||"Time (minutes)",{size:12,align:"center",color:C["ink-soft"],weight:600})}
+  return {X,Y}}
+
+/* ---------------- lab helpers ---------------- */
+const $=s=>document.querySelector(s);
+function makeStage(id,W,H){const cv=document.getElementById(id);const st={cv,ctx:cv.getContext("2d"),W,H,K:1};
+  st.fit=()=>{const w=cv.parentElement.clientWidth;if(!w)return;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);st.K=cv.width/W};return st}
+function use(st){ctx=st.ctx;ctx.setTransform(st.K,0,0,st.K,0,0);ctx.clearRect(0,0,st.W,st.H);ctx.globalAlpha=1;bg(C.ecf)}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function fmt(s){s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+const store={get:k=>{try{return localStorage.getItem("ctl-lab-"+k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem("ctl-lab-"+k,v)}catch(e){}}};
+function fmtMin(m){if(!isFinite(m))return "never";if(m<1/60)return "< 1 s";if(m<1)return Math.round(m*60)+" s";if(m<120)return (m<10?m.toFixed(1):Math.round(m))+" min";return (m/60).toFixed(1)+" h"}
+function segBtns(el,items,cur,onPick){el.innerHTML="";items.forEach(it=>{const b=document.createElement("button");b.type="button";b.className="tbtn";b.innerHTML=it[1];b.setAttribute("aria-pressed",String(it[0]===cur()));b.onclick=()=>{onPick(it[0]);el.querySelectorAll("button").forEach((x,i)=>x.setAttribute("aria-pressed",String(items[i][0]===cur())))};el.appendChild(b)})}
+function chalUI(el,list,done){el.innerHTML=list.map((c,i)=>`<li class="${done.has(i)?"done":""}"><span class="ck" aria-hidden="true">${done.has(i)?"✓":i+1}</span><span>${c}${done.has(i)?'<span class="gk-sr"> (done)</span>':""}</span></li>`).join("")}
+
+/* ================= PART 1: death curve simulator ================= */
+const S1=makeStage("cvSim",800,500);
+const METHODS={
+  moist:{name:"Moist heat (steam)",short:"Moist heat",lvl:"Temperature",unit:" °C",min:60,max:134,step:1,def:121,col:"steam",heat:true},
+  dry:{name:"Dry heat (oven)",short:"Dry heat",lvl:"Temperature",unit:" °C",min:100,max:200,step:1,def:160,col:"heat",heat:true},
+  alc:{name:"Alcohol",short:"Alcohol",lvl:"Alcohol strength",unit:"%",min:10,max:100,step:1,def:70,col:"alc"},
+  bleach:{name:"Bleach (chlorine)",short:"Bleach",lvl:"Chlorine",unit:" ppm",min:100,max:6000,step:100,def:1000,col:"chlor"},
+  quat:{name:"Quat",short:"Quat",lvl:"Strength (label = 100%)",unit:"%",min:25,max:200,step:5,def:100,col:"quat"},
+  glut:{name:"Glutaraldehyde",short:"Glutaraldehyde",lvl:"Strength (label = 100%)",unit:"%",min:25,max:200,step:5,def:100,col:"ald"}};
+const ORGS=[["env","Enveloped virus"],["veg","Vegetative bacteria"],["nonenv","Non-enveloped virus"],["myco","Mycobacteria"]];
+const ORGF={heat:{env:.5,veg:1,nonenv:3,myco:2},alc:{env:.5,veg:1,nonenv:20,myco:5},bleach:{env:.5,veg:1,nonenv:2,myco:10},quat:{env:.5,veg:1,nonenv:Infinity,myco:Infinity},glut:{env:.5,veg:1,nonenv:1,myco:10}};
+const LOADF={heat:[1,1.3,2],alc:[1,1.5,3],bleach:[1,3,10],quat:[1,3,8],glut:[1,1.5,3]};
+const LOADS=[[0,"None"],[1,"Light"],[2,"Heavy"]];
+const TMAXES=[[15,"15 min"],[60,"60 min"],[180,"3 hours"]];
+function famOf(m){return METHODS[m].heat?"heat":m}
+function alcEff(L){return L<30?0:L<=70?(L-30)/40:L<=90?1:lerp(1,.02,(L-90)/10)}
+function baseD(m,L){switch(m){case "moist":return .5*Math.pow(10,(65-L)/7);case "dry":return Math.pow(10,(120-L)/25);
+  case "alc":{const e=alcEff(L);return e<=0?Infinity:.1/e}case "bleach":return .05*1000/L;case "quat":{const s=L/100;return .3/(s*s)}case "glut":return .2/(L/100)}return Infinity}
+function sporeD(m,L){switch(m){case "moist":return 1.5*Math.pow(10,(121-L)/10);case "dry":return 6*Math.pow(10,(160-L)/20);case "bleach":return 2*5000/L;case "glut":return 40/(L/100)}return Infinity}
+function simParams(s){s=s||SIM;const f=famOf(s.method);const lf=LOADF[f][s.load];const Dv=baseD(s.method,s.level)*ORGF[f][s.org]*lf;const Ds=sporeD(s.method,s.level)*lf;
+  const N0=Math.pow(10,s.n0);const l0s=s.spores?s.n0-3:-Infinity;const l0v=s.spores?Math.log10(N0-N0/1000):s.n0;return {Dv,Ds,l0v,l0s}}
+function logN(p,t){const lv=isFinite(p.Dv)?p.l0v-t/p.Dv:p.l0v;const ls=p.l0s===-Infinity?-Infinity:(isFinite(p.Ds)?p.l0s-t/p.Ds:p.l0s);const mx=Math.max(lv,ls),mn=Math.min(lv,ls);return mn===-Infinity?mx:mx+Math.log10(1+Math.pow(10,mn-mx))}
+function timeTo(p,target){if(logN(p,1e7)>target)return Infinity;let a=0,b=1e7;for(let i=0;i<80;i++){const m=(a+b)/2;if(logN(p,m)>target)a=m;else b=m}return b}
+const SIM={method:"moist",level:121,org:"veg",spores:true,n0:6,load:0,tmax:60,t:0,running:false,ran:false,prev:null,done:new Set()};
+const SIMCH=["Reach the 10⁻⁶ line with endospores present.","Boil it: moist heat at 100 °C or lower with endospores present. Run the full graph. Do spores survive?","Find the alcohol strength that kills fastest, then run it.","Run bleach with a heavy organic load and watch the D-value grow.","Find a microbe that a quat cannot kill, and run it."];
+function simLevelUI(){const M=METHODS[SIM.method];const r=$("#simLevel");r.min=M.min;r.max=M.max;r.step=M.step;r.value=SIM.level;$("#simLevelName").textContent=M.lvl;$("#simLevelOut").textContent=SIM.level+M.unit;$("#simLo").textContent=M.min+M.unit;$("#simHi").textContent=M.max+M.unit;r.setAttribute("aria-valuetext",SIM.level+M.unit)}
+function simChanged(){SIM.running=false;SIM.t=0;SIM.ran=false;$("#simRun").textContent="Run treatment";simLevelUI();simRead();a11yKey=""}
+function simUI(){
+  segBtns($("#simMethods"),Object.keys(METHODS).map(k=>[k,METHODS[k].name]),()=>SIM.method,k=>{SIM.method=k;SIM.level=METHODS[k].def;simChanged()});
+  segBtns($("#simOrg"),ORGS,()=>SIM.org,k=>{SIM.org=k;simChanged()});
+  segBtns($("#simOrgLoad"),LOADS,()=>SIM.load,k=>{SIM.load=k;simChanged()});
+  segBtns($("#simTmax"),TMAXES,()=>SIM.tmax,k=>{SIM.tmax=k;simChanged()});
+  $("#simSpores").checked=SIM.spores;$("#simN0").value=SIM.n0;$("#simN0Out").textContent=ten(SIM.n0)+" cells";simLevelUI();simRead();simChal()}
+$("#simLevel").oninput=e=>{SIM.level=+e.target.value;simChanged()};
+$("#simSpores").onchange=e=>{SIM.spores=e.target.checked;simChanged()};
+$("#simN0").oninput=e=>{SIM.n0=+e.target.value;$("#simN0Out").textContent=ten(SIM.n0)+" cells";$("#simN0").setAttribute("aria-valuetext",ten(SIM.n0)+" cells");simChanged()};
+$("#simRun").onclick=()=>{if(SIM.running){SIM.running=false;$("#simRun").textContent="Resume";return}if(SIM.t>=SIM.tmax){SIM.t=0}SIM.running=true;SIM.ran=true;$("#simRun").textContent="Pause";simRead()};
+$("#simReset").onclick=()=>{simChanged()};
+function orgName(){return ORGS.find(o=>o[0]===SIM.org)[1].toLowerCase()}
+function survText(l){return l>=0?fmtN(Math.pow(10,l)):l<-12?"< 1 (below 10⁻¹²)":"< 1 ("+ten(Math.round(l))+" chance)"}
+function simVerdict(p){const M=METHODS[SIM.method];
+  if(!isFinite(p.Dv))return ["bad",`No kill: ${M.short.toLowerCase()} at this setting cannot kill ${orgName()}. The line stays flat.`];
+  if(SIM.spores&&!isFinite(p.Ds))return ["warn",`Kills the ${orgName()}, but the endospores survive. The curve flattens into a "tail": not sterile.`];
+  if(!SIM.ran)return ["",`Press Run treatment to start the clock.`];
+  const tS=timeTo(p,-6),t1=timeTo(p,0);
+  if(SIM.t>=tS)return ["good",`Sterility assurance level (10⁻⁶) reached at ${fmtMin(tS)}.`];
+  if(SIM.t>=t1)return ["warn",`Fewer than 1 survivor expected, but not yet to the 1-in-a-million standard.`];
+  if(SIM.t>=SIM.tmax)return ["warn",`About ${survText(logN(p,SIM.t))} still alive after ${fmtMin(SIM.tmax)}.`];
+  return ["",`Treating... ${fmtMin(SIM.t)} so far.`]}
+function simRead(){const p=simParams();const fD=d=>isFinite(d)?fmtMin(d):"no kill";const rows=[[`D-value (${orgName()})`,fD(p.Dv)]];if(SIM.spores)rows.push(["D-value (endospores)",fD(p.Ds)]);
+  rows.push(["Time to 1 survivor",fmtMin(timeTo(p,0))],["Time to 10⁻⁶ (sterile)",fmtMin(timeTo(p,-6))],["Survivors now",survText(logN(p,SIM.t))]);
+  $("#simRead tbody").innerHTML=rows.map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td></tr>`).join("");
+  const v=simVerdict(p);const st=$("#simStatus");st.className="status "+v[0];st.innerHTML=`<span class="verdict">${v[0]==="good"?"✓ ":v[0]==="bad"?"✗ ":v[0]==="warn"?"! ":""}</span>${v[1]}`;
+  const M=METHODS[SIM.method];$("#simCap").textContent=`${M.name} at ${SIM.level}${M.unit} on ${ten(SIM.n0)} ${orgName()}${SIM.spores?" with endospores":""}, ${["no","light","heavy"][SIM.load]} organic load.`}
+function simChal(){const p=simParams();const tS=timeTo(p,-6);const done=SIM.done;const full=SIM.t>=SIM.tmax;
+  if(SIM.spores&&SIM.ran&&SIM.t>=tS)done.add(0);
+  if(SIM.method==="moist"&&SIM.level<=100&&SIM.spores&&full&&logN(p,SIM.t)>0)done.add(1);
+  if(SIM.method==="alc"&&SIM.level>=65&&SIM.level<=90&&SIM.ran)done.add(2);
+  if(SIM.method==="bleach"&&SIM.load===2&&SIM.ran)done.add(3);
+  if(SIM.method==="quat"&&!isFinite(p.Dv)&&SIM.ran)done.add(4);
+  const key=[...done].join(",");if(key!==SIM.chKey){SIM.chKey=key;chalUI($("#simChal"),SIMCH,done)}}
+function simStep(dt){if(!SIM.running)return;SIM.t=Math.min(SIM.tmax,SIM.t+dt*SIM.tmax/12);if(SIM.t>=SIM.tmax){SIM.running=false;$("#simRun").textContent="Run again";SIM.prev={method:SIM.method,level:SIM.level,org:SIM.org,spores:SIM.spores,n0:SIM.n0,load:SIM.load}}}
+const ORGCOL={env:"env",veg:"bact",nonenv:"nonenv",myco:"myco"};
+function drawSim(now){use(S1);const t=now/1000;const M=METHODS[SIM.method];const p=simParams();const col=C[M.col];
+  // left: vessel
+  panelBox(12,12,300,476);title(26,32,M.short+" · "+SIM.level+M.unit,null);
+  const vx=34,vy=60,vw=256,vh=280;
+  if(M.heat){rr(vx,vy,vw,vh,24);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=2;ctx.stroke();rr(vx+12,vy+12,vw-24,vh-24,16);ctx.fillStyle=hexA(SIM.method==="moist"?C.steam:C.heat,.14);ctx.fill();
+    if(SIM.running||SIM.t>0){ctx.save();rr(vx+12,vy+12,vw-24,vh-24,16);ctx.clip();if(SIM.method==="moist"){for(let k=0;k<14;k++){const f=P(t*.4+k/14,1);circ(vx+30+rnd(k)*(vw-60),vy+vh-30-f*(vh-60),4+f*5,hexA(C.steam,.5*(1-f)))}}else heatWaves(vx+20,vy+vh-10,vw-40,vh-40,t,C.heat,6);ctx.restore()}}
+  else{ctx.beginPath();ctx.moveTo(vx+10,vy);ctx.lineTo(vx+20,vy+vh);ctx.lineTo(vx+vw-20,vy+vh);ctx.lineTo(vx+vw-10,vy);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2.5;ctx.stroke();
+    ctx.save();ctx.beginPath();ctx.moveTo(vx+12,vy+30);ctx.lineTo(vx+21,vy+vh-2);ctx.lineTo(vx+vw-21,vy+vh-2);ctx.lineTo(vx+vw-12,vy+30);ctx.closePath();ctx.fillStyle=hexA(col,.22);ctx.fill();ctx.clip();
+    if(SIM.running){for(let k=0;k<20;k++){const a=t*.8+k*1.3;circ(vx+vw/2+Math.cos(a)*(40+rnd(k)*80),vy+160+Math.sin(a*1.3)*(60+rnd(k+3)*50),2.5,hexA(col,.7))}}ctx.restore()}
+  // organic load
+  const nb=[0,3,7][SIM.load];for(let k=0;k<nb;k++){blobPath(vx+50+rnd(k+40)*(vw-100),vy+70+rnd(k+50)*(vh-110),16+rnd(k)*10,k,t*.3,.1);ctx.fillStyle=hexA(C.organic,.45);ctx.fill()}
+  // 100 dots
+  const lv=isFinite(p.Dv)?p.l0v-SIM.t/p.Dv:p.l0v;const alive=Math.round(100*Math.pow(10,lv-p.l0v));const oc=C[ORGCOL[SIM.org]];
+  for(let i=0;i<100;i++){const r=Math.floor(i/10),c=i%10;const X=vx+vw/2-76+c*17,Y=vy+60+r*17;const d=i>=alive;circ(X,Y,5.2,d?hexA(C.dead,.75):oc,d?null:hexA(C.ink,.4),.8);if(d){line(X-3,Y-3,X+3,Y+3,hexA(C.panel,.8),1.2)}}
+  if(SIM.spores){const sd=!isFinite(p.Ds)?false:(SIM.t/p.Ds>2);for(let k=0;k<3;k++)spore(vx+vw/2-40+k*40,vy+vh-36,8,{dead:sd});txt(vx+vw/2,vy+vh-14,"endospores (1 in 1,000)",{size:12,align:"center",weight:600})}
+  // readouts under vessel
+  const ln=logN(p,SIM.t);
+  txt(26,370,"Time",{size:12.5,weight:600,color:C["ink-soft"]});txt(296,370,(SIM.t===0?"0 min":fmtMin(SIM.t)),{size:14,mono:true,weight:700,align:"right"});
+  txt(26,396,"Alive",{size:12.5,weight:600,color:C["ink-soft"]});txt(296,396,ln>=0?fmtN(Math.pow(10,ln)):"< 1",{size:14,mono:true,weight:700,align:"right"});
+  txt(26,422,"Log count",{size:12.5,weight:600,color:C["ink-soft"]});txt(296,422,ln<-12?"< "+ten(-12):ten(Math.round(ln)),{size:14,mono:true,weight:700,align:"right"});
+  timeBarL(26,446,270,SIM.t/SIM.tmax);txt(26,470,"100 dots = start (ordinary scale)",{size:12,color:C["ink-soft"]});
+  // graph
+  const gx=380,gy=52,gw=392,gh=360;const G=logFrame(gx,gy,gw,gh,-8,10,SIM.tmax,{title:"Survivors (log scale)",step:2,xt:SIM.tmax===15?3:4,xlab:"Time (minutes)"});
+  line(gx,G.Y(-6),gx+gw,G.Y(-6),C["ink-soft"],1.6,[6,5]);label(gx+gw-4,G.Y(-6)-12,"sterility assurance 10⁻⁶",{size:12,weight:600,align:"right"});
+  line(gx,G.Y(0),gx+gw,G.Y(0),hexA(C["ink-soft"],.7),1.2,[2,4]);label(gx+gw-4,G.Y(0)-12,"1 survivor",{size:12,weight:600,align:"right"});
+  if(SIM.prev){const pp=simParams(SIM.prev);plotFn(tt=>logN(pp,tt),0,SIM.tmax,gx,gy,gw,gh,-8,10,C["ink-soft"],2,[6,4])}
+  plotFn(tt=>logN(p,tt),0,SIM.tmax,gx,gy,gw,gh,-8,10,hexA(C.accent,.25),3);
+  if(SIM.t>0){plotFn(tt=>logN(p,tt),0,SIM.tmax,gx,gy,gw,gh,-8,10,C.accent,3.5,[],SIM.t);circ(G.X(SIM.t),G.Y(ln),6,C.accent,C.panel,2)}
+  else circ(G.X(0),G.Y(ln),6,C.accent,C.panel,2);
+  // D bracket for first log drop when finite and visible
+  if(isFinite(p.Dv)&&p.Dv<SIM.tmax*.5&&p.Dv>SIM.tmax*.02){const x0=G.X(0),x1=G.X(p.Dv),y0=G.Y(logN(p,0)),y1=G.Y(logN(p,p.Dv));line(x0,y0,x1,y0,C.heat,1.6);line(x1,y0,x1,y1,C.heat,1.6);txt(x1+5,(y0+y1)/2,"D",{size:12.5,mono:true,weight:700,color:C.heat})}
+  if(!isFinite(p.Dv))label(gx+gw/2,G.Y(p.l0v)-18,"flat: no kill",{size:13,weight:700,border:C.bad});
+  else if(SIM.spores&&!isFinite(p.Ds)&&SIM.t>p.Dv*(p.l0v-p.l0s+1))label(gx+gw/2,G.Y(p.l0s)-18,"spore tail: endospores survive",{size:13,weight:700,border:C.warn});
+}
+function timeBarL(x,y,w,f){rr(x,y,w,8,4);ctx.fillStyle=C.sunk;ctx.fill();rr(x,y,Math.max(8,w*clamp(f,0,1)),8,4);ctx.fillStyle=C.accent;ctx.fill()}
+function simA11y(){const p=simParams();const M=METHODS[SIM.method];const ln=logN(p,SIM.t);
+  const lab=`${M.name} at ${SIM.level}${M.unit}. Time ${(SIM.t===0?"0 min":fmtMin(SIM.t))}. Survivors about 10 to the power ${Math.round(ln)}. D-value ${fmtMin(p.Dv)}.`;
+  const d=`Left: a ${M.heat?"heated chamber":"beaker of chemical"} holds a grid of 100 dots standing for the starting ${orgName()}; ${Math.round(100*Math.pow(10,(isFinite(p.Dv)?p.l0v-SIM.t/p.Dv:p.l0v)-p.l0v))} are still coloured and the rest are grey.${SIM.spores?" Three brown endospores sit at the bottom.":""}${SIM.load?" Brown blobs of organic matter float in it.":""} Right: a log graph of survivors from 10 to the 10th down to 10 to the minus 8 over ${fmtMin(SIM.tmax)}. The green line ${!isFinite(p.Dv)?"stays flat":"falls"} and is now at about 10 to the ${Math.round(ln)}. A dashed line marks the one-in-a-million sterility level${SIM.prev?", and a grey dashed line shows your previous run":""}.`;
+  return [lab,d]}
+
+/* ================= PART 2: autoclave bench ================= */
+const S2=makeStage("cvAC",800,480);
+const AIRS=[["none","None (air left in)"],["grav","Gravity"],["vac","Vacuum"]];
+const PACKS=[["loose","Loose"],["mod","Moderate"],["tight","Crammed"]];
+const AC={temp:121,hold:15,air:"grav",pack:"loose",run:null,t:0,phase:"idle",incub:0,done:new Set(),res:null};
+function acSimulate(o){const dt=.02;const heat=3,end=heat+o.hold,cool=2;const capOff={none:{loose:5,mod:0,tight:0},grav:{loose:0,mod:0,tight:8},vac:{loose:0,mod:0,tight:0}};
+  const tau={loose:1.5,mod:3.5,tight:7}[o.pack]*{vac:.6,grav:1,none:1.5}[o.air];const chMax=o.air==="none"?o.temp-12:o.temp;
+  let tc=25,F=0,tape=0;const ch=[],ce=[];let maxC=25;
+  for(let t=0;t<=end+cool+1e-9;t+=dt){let tch=t<heat?25+(chMax-25)*t/heat:t<=end?chMax:Math.max(80,chMax-(t-end)*15);
+    let cap=tch-capOff[o.air][o.pack];if(o.air==="none"&&o.pack!=="loose")cap=Math.min(cap,o.pack==="mod"?100:95);
+    tc+=(Math.min(tch,cap)-tc)*dt/tau;if(t>end)tc=Math.min(tc,tch);
+    F+=Math.pow(10,(tc-121)/10)*dt;if(tch>=118)tape+=dt;maxC=Math.max(maxC,tc);ch.push([t,tch]);ce.push([t,tc])}
+  const logRed=F/1.5;return {ch,ce,total:end+cool,logRed,pass:logRed>=6,tape:tape>=1,maxC,chMax,tau}}
+function acUI(){segBtns($("#acAir"),AIRS,()=>AC.air,k=>{AC.air=k;acChanged()});segBtns($("#acPack"),PACKS,()=>AC.pack,k=>{AC.pack=k;acChanged()});
+  $("#acTemp").value=AC.temp;$("#acTime").value=AC.hold;acOut();acRead();acChalUI()}
+function acOut(){$("#acTempOut").textContent=AC.temp+" °C";$("#acTimeOut").textContent=AC.hold+" min";$("#acTemp").setAttribute("aria-valuetext",AC.temp+" degrees Celsius");$("#acTime").setAttribute("aria-valuetext",AC.hold+" minutes")}
+function acChanged(){AC.phase="idle";AC.t=0;AC.run=null;AC.res=null;$("#acRun").textContent="Run cycle";acOut();acRead();a11yKey=""}
+$("#acTemp").oninput=e=>{AC.temp=+e.target.value;acChanged()};$("#acTime").oninput=e=>{AC.hold=+e.target.value;acChanged()};
+$("#acRun").onclick=()=>{AC.run=acSimulate(AC);AC.t=0;AC.phase="run";AC.res=null;AC.incub=0;$("#acRun").textContent="Run again";acRead()};
+$("#acReset").onclick=()=>{AC.temp=121;AC.hold=15;AC.air="grav";AC.pack="loose";acUI();acChanged()};
+const ACCH=["Pass the spore test with a loose load at 121 °C.","Make the tape change but the spore test fail.","Pass the spore test with a crammed load.","Show that 100 °C for 60 minutes fails the spore test.","Pass the spore test with a hold time of 5 minutes or less."];
+function acChalUI(){chalUI($("#acChal"),ACCH,AC.done)}
+function acCheck(){const r=AC.res;if(!r)return;if(r.pass&&AC.pack==="loose"&&AC.temp===121)AC.done.add(0);if(r.tape&&!r.pass)AC.done.add(1);if(r.pass&&AC.pack==="tight")AC.done.add(2);
+  if(AC.temp<=100&&AC.hold>=60&&!r.pass)AC.done.add(3);if(r.pass&&AC.hold<=5)AC.done.add(4);acChalUI()}
+function acRead(){const r=AC.res;const rows=[["Chamber setting",AC.temp+" °C for "+AC.hold+" min"]];
+  if(AC.phase==="run"&&AC.run){const i=Math.min(AC.run.ce.length-1,Math.round(AC.t/.02));rows.push(["Chamber now",Math.round(AC.run.ch[i][1])+" °C"],["Pack centre now",Math.round(AC.run.ce[i][1])+" °C"])}
+  if(r){rows.push(["Hottest pack centre",Math.round(r.maxC)+" °C"],["Spore kill at centre",r.logRed>=20?"more than 20 logs":r.logRed.toFixed(1)+" logs"],["Indicator tape",r.tape?"changed":"no change"],["Spore test (needs 6 logs)",r.pass?"no growth: pass":"growth: FAIL"])}
+  $("#acRead tbody").innerHTML=rows.map(x=>`<tr><th scope="row">${x[0]}</th><td>${x[1]}</td></tr>`).join("");
+  const st=$("#acStatus");let cls="",msg="Set the cycle and press Run cycle.";
+  if(AC.phase==="run")msg="Cycle running: steam is heating the chamber.";if(AC.phase==="incub")msg="Cycle done. Incubating the spore test (24-48 hours, sped up)...";
+  if(r){if(r.pass){cls="good";msg=`✓ Pass. The spores at the pack centre were killed (${r.logRed>=20?"over 20":r.logRed.toFixed(1)} logs).`+(r.logRed<12?" For full sterility assurance (12 logs) a real load would run longer.":"")}
+    else{cls="bad";const why=[];if(AC.air==="none")why.push("air was never removed, so the steam-air mix stayed cooler");if(AC.pack==="tight"&&AC.air!=="vac")why.push("the crammed pack trapped an air pocket");if(AC.temp<115)why.push("the temperature was too low for endospores");if(!why.length)why.push("the hold time was too short for heat to reach and kill the centre");
+      msg=`✗ Spore test failed: the centre reached only ${Math.round(r.maxC)} °C and got ${r.logRed.toFixed(1)} of the 6 logs needed. Likely cause: ${why.join("; ")}.`+(r.tape?" The tape still changed, because it only sees the outside.":"")}}
+  st.className="status "+cls;st.textContent=msg;
+  $("#acCap").textContent=`${AC.temp} °C, hold ${AC.hold} min, ${AIRS.find(a=>a[0]===AC.air)[1].toLowerCase()} air removal, ${PACKS.find(p=>p[0]===AC.pack)[1].toLowerCase()} load.`}
+let acRdT=0;
+function acStep(dt){if(AC.phase==="run"&&AC.run){AC.t+=dt*Math.max(2,AC.run.total/6);if(AC.t>=AC.run.total){AC.t=AC.run.total;AC.phase="incub";AC.incub=0;acRead()}}
+  else if(AC.phase==="incub"){AC.incub+=dt/2.2;if(AC.incub>=1){AC.phase="done";AC.res=AC.run;acRead();acCheck()}}
+  acRdT+=dt;if(acRdT>.4&&AC.phase==="run"){acRdT=0;acRead()}}
+function drawAC(now){use(S2);const t=now/1000;const R=AC.run;const idx=R?Math.min(R.ce.length-1,Math.round(AC.t/.02)):0;
+  const tch=R&&AC.phase!=="idle"?R.ch[idx][1]:25,tce=R&&AC.phase!=="idle"?R.ce[idx][1]:25;const prog=R?AC.t/R.total:0;
+  panelBox(12,12,500,300);title(26,32,"Autoclave chamber");
+  const cx=34,cy=50,cw=380,ch=240;rr(cx,cy,cw,ch,32);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=2.5;ctx.stroke();
+  rr(cx+14,cy+14,cw-28,ch-28,24);ctx.fillStyle=hexA(C.panel,.6);ctx.fill();
+  // air vs steam
+  const running=AC.phase!=="idle";const airLeft=!running?1:AC.air==="vac"?1-smooth(clamp(AC.t/1.2,0,1)):AC.air==="grav"?1-smooth(clamp(AC.t/3,0,1)):.55;
+  ctx.save();rr(cx+14,cy+14,cw-28,ch-28,24);ctx.clip();
+  if(running){const sl=cy+14+(ch-28)*(AC.air==="none"?1:1-airLeft);ctx.fillStyle=hexA(C.steam,.2*(tch-25)/96);ctx.fillRect(cx,cy,cw,ch);
+    if(AC.air!=="none"){ctx.fillStyle=hexA(C.air,.35);ctx.fillRect(cx,sl,cw,cy+ch-sl)}
+    for(let k=0;k<20;k++){const f=P(t*.5+k/20,1);circ(cx+30+rnd(k)*(cw-60),cy+24+f*(ch-50),3+rnd(k+1)*3,hexA(C.steam,.7*(1-f)))}
+    if(AC.air==="none")for(let k=0;k<16;k++){circ(cx+30+rnd(k+60)*(cw-60),cy+30+rnd(k+70)*(ch-60)+Math.sin(t+k)*4,3.5,hexA(C.air,.8))}}
+  else{ctx.fillStyle=hexA(C.air,.25);ctx.fillRect(cx,cy,cw,ch)}
+  ctx.restore();
+  if(running&&AC.phase==="run")arrow(cx+cw-60,cy-8,cx+cw-60,cy+30,C.steam,3);
+  rr(cx+40,cy+ch-6,40,18,3);ctx.fillStyle=C["steel-edge"];ctx.fill();if(running&&airLeft>.05&&AC.air!=="none")for(let k=0;k<3;k++){const f=P(t+k/3,1);circ(cx+60,cy+ch+4+f*14,3,hexA(C.air,1-f))}
+  // pack
+  const n={loose:3,mod:5,tight:8}[AC.pack];const px=cx+70,py=cy+90,pw=240,ph=90;rr(px,py,pw,ph,8);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.6;ctx.stroke();
+  for(let k=0;k<n;k++){const w=(pw-20)/n;rr(px+10+k*w,py+10,w-(AC.pack==="tight"?2:AC.pack==="mod"?8:24),ph-20,3);ctx.fillStyle=hexA(C.steel,.95);ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=1;ctx.stroke()}
+  const pocket=(AC.pack==="tight"&&AC.air!=="vac")||(AC.air==="none"&&AC.pack!=="loose");if(pocket||!running){const a=running?.8:.5;ell(px+pw/2,py+ph/2,running?46:30,running?24:16,0,hexA(C.air,a),C.air,1.5);txt(px+pw/2,py+ph/2,"air",{size:12.5,weight:700,align:"center"})}
+  // tape and spore vial marker
+  const tapeF=R&&AC.phase!=="idle"?clamp(R.ch.slice(0,idx+1).filter(q=>q[1]>=118).length*.02/1,0,1):0;
+  rr(px+pw/2-50,py-6,100,12,2);ctx.fillStyle=C.tape;ctx.fill();for(let k=0;k<6;k++){rr(px+pw/2-46+k*16,py-4,9,8,1);ctx.fillStyle=hexA(C["tape-ink"],.12+tapeF*.88);ctx.fill()}
+  circ(px+pw/2+60,py+ph/2,6,C["bi-pass"],C.ink,1);lead(px+pw/2+60,py+ph/2,px+pw+30,py+ph+30,"spore vial inside",{align:"left"});
+  label(px+pw/2,py+ph+22,"centre "+Math.round(tce)+" °C",{size:12.5,mono:true,weight:700,border:tce>=121?C.good:running?C.warn:null});
+  // gauges
+  gaugeDial(462,84,26,clamp((tch-20)/120,0,1),Math.round(tch)+" °C",null,C.heat);txt(462,138,"temperature",{size:12,align:"center",color:C["ink-soft"]});
+  const psi=AC.air==="none"?Math.max(0,(AC.temp-100)*.75):Math.max(0,(tch-100)*.72);gaugeDial(462,190,26,clamp(psi/32,0,1),Math.round(running?psi:0)+" psi",null,C.steam);txt(462,244,"pressure",{size:12,align:"center",color:C["ink-soft"]});
+  if(R&&running){timeBarL(34,298,380,prog)}
+  // graph
+  panelBox(522,12,266,300);title(536,32,"Temperature (°C)");
+  const gx=560,gy=52,gw=212,gh=210;const tmaxG=R?R.total:AC.hold+5;const Y=v=>gy+gh-(clamp(v,20,140)-20)/120*gh,X=tt=>gx+gw*tt/tmaxG;
+  [20,60,100,121,140].forEach(v=>{line(gx,Y(v),gx+gw,Y(v),hexA(C.rule,v===121?1:.6),v===121?1.6:1,v===121?[5,4]:[]);txt(gx-6,Y(v),String(v),{size:11.5,mono:true,align:"right",color:v===121?C.ink:C["ink-soft"]})});
+  line(gx,gy,gx,gy+gh,C["ink-soft"],1.4);line(gx,gy+gh,gx+gw,gy+gh,C["ink-soft"],1.4);txt(gx+gw/2,gy+gh+14,"cycle time: "+fmtMin(tmaxG),{size:12,align:"center",color:C["ink-soft"]});
+  if(R&&running){const draw2=(arr,col,dash)=>{ctx.beginPath();for(let i=0;i<=idx;i+=3){const q=arr[i];i?ctx.lineTo(X(q[0]),Y(q[1])):ctx.moveTo(X(q[0]),Y(q[1]))}ctx.strokeStyle=col;ctx.lineWidth=3;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])};
+    draw2(R.ch,C.heat);draw2(R.ce,C.cold,[6,3]);txt(gx+4,gy+gh+30,"chamber",{size:12,weight:700,color:C.heat});txt(gx+gw-4,gy+gh+30,"pack centre",{size:12,weight:700,color:C.cold,align:"right"})}
+  // results
+  panelBox(12,322,776,166);title(26,342,"Results");
+  txt(30,374,"Indicator tape (outside of pack)",{size:13,weight:600});rr(30,390,150,22,3);ctx.fillStyle=C.tape;ctx.fill();for(let k=0;k<7;k++){rr(36+k*20,394,12,14,2);ctx.fillStyle=hexA(C["tape-ink"],.12+tapeF*.88);ctx.fill()}
+  txt(30,434,AC.phase==="idle"?"not run yet":tapeF>=1?"stripes dark: outside got hot":"stripes pale: not hot enough",{size:12.5,weight:700,color:tapeF>=1?C.good:C["ink-soft"]});
+  txt(300,374,"Spore test (centre of pack)",{size:13,weight:600});
+  // incubator
+  rr(300,388,110,84,8);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=1.5;ctx.stroke();txt(355,462,"56 °C incubator",{size:11.5,align:"center",weight:600});
+  const res=AC.res;const inc=AC.phase==="incub"?AC.incub:AC.phase==="done"?1:0;const vc=res&&!res.pass?mix(C["bi-pass"],C["bi-fail"],1):AC.phase==="incub"&&R&&!R.pass?mix(C["bi-pass"],C["bi-fail"],smooth(inc)):C["bi-pass"];
+  tube(355,396,22,52,.72,{col:vc,cap:C.panel});
+  if(AC.phase==="incub"){clock(440,420,16,inc,C.accent);txt(462,420,"incubating...",{size:12.5})}
+  if(res){txt(440,410,res.pass?"Purple: no growth":"Yellow: spores grew",{size:13.5,weight:700,color:res.pass?C.good:C.bad});txt(440,432,res.pass?"PASS: centre was sterilized":"FAIL: load not sterile",{size:13,weight:700})}
+  // key ideas
+  txt(620,374,"Remember",{size:13,weight:700});wrapText("Tape shows heat on the outside. Only the spore test proves the centre was sterilized.",620,396,160,16,{size:12.5});
+}
+function acA11y(){const R=AC.run;const idx=R?Math.min(R.ce.length-1,Math.round(AC.t/.02)):0;const tce=R&&AC.phase!=="idle"?Math.round(R.ce[idx][1]):25;
+  const lab=`Autoclave at ${AC.temp} °C, hold ${AC.hold} minutes, ${AC.air} air removal, ${AC.pack} load. ${AC.phase==="idle"?"Not running.":AC.phase==="run"?"Running, pack centre "+tce+" °C.":AC.phase==="incub"?"Incubating spore test.":"Result: spore test "+(AC.res.pass?"passed":"failed")+"."}`;
+  const d=`A steel chamber holds one wrapped pack of ${AC.pack==="tight"?"eight crammed":AC.pack==="mod"?"five":"three loosely spaced"} instruments, with indicator tape on top and a spore vial inside. ${AC.phase==="idle"?"Grey air fills the chamber.":AC.air==="none"?"Blue steam mixes with grey air that is never removed.":"Blue steam enters at the top and grey air leaves through the drain at the bottom."}${(AC.pack==="tight"&&AC.air!=="vac")||(AC.air==="none"&&AC.pack!=="loose")?" A grey air pocket stays in the middle of the pack.":""} A graph on the right plots the chamber temperature in red and the pack centre in dashed blue against a dashed 121 degree line. Below, the tape stripes are ${AC.res?(AC.res.tape?"dark":"pale"):"pale"} and the spore vial is ${AC.res?(AC.res.pass?"purple, meaning no growth":"yellow, meaning growth"):"purple, not yet tested"}.`;
+  return [lab,d]}
+
+/* ================= PART 3: what went wrong ================= */
+const S3=makeStage("cvCase",560,420);
+const CASES=[
+{name:"Tape vs spores",who:"Hospital sterile processing",title:"The tape changed, but the spores grew",kind:"tape",
+ story:"Sam, a sterile processing technician, ran a full tray of surgical instruments at 121 °C for 30 minutes. To fit everything, the tray was crammed tight with extra towels packed around it. The tape on the outside turned dark. Two days later, the spore test vial from the centre of the tray turned yellow.",
+ legend:[["tape","Indicator tape","s"],["air","Trapped air"],["bi-fail","Spore test: growth","s"]],
+ qs:[{q:"What does the dark tape tell you?",hint:"Where on the pack is the tape?",opts:[
+   ["Only that the outside of the pack got hot",1,"Right. Chemical indicator tape shows heat exposure on the surface. It cannot tell you what happened in the centre."],
+   ["That the tray is sterile",0,"Tape alone does not prove sterility. The spore test, which did fail, is the better proof."],
+   ["That the spores in the centre were killed",0,"The tape was on the outside. The spore vial in the centre grew, so the centre was not sterilized."],
+   ["That the autoclave never got hot",0,"The tape did change, so the outside got hot. The problem was inside the pack."]]},
+  {q:"Why did the spores in the centre survive?",hint:"What must touch every surface for an autoclave to work?",opts:[
+   ["Air was trapped in the crammed pack, so steam could not reach and heat the centre",1,"Yes. Air pockets keep steam out. Without steam condensing on them, the inner items stay cooler than 121 °C."],
+   ["121 °C cannot kill Geobacillus spores",0,"A proper cycle at 121 °C does kill these spores. That is why they are used as the test."],
+   ["30 minutes is always too short",0,"30 minutes is plenty for a properly packed load. The steam just could not get in."],
+   ["The tape was faulty",0,"The tape did its job. It simply cannot see inside the pack."]]},
+  {q:"What should happen next?",hint:"Can these instruments be trusted?",opts:[
+   ["Do not use the tray; repack it loosely, run it again and repeat the spore test",1,"Correct. A failed biological indicator means the load is not sterile. Fix the packing and retest."],
+   ["Use the instruments, because the tape passed",0,"The spore test failed, so the instruments may carry live spores."],
+   ["Wipe the instruments with alcohol and use them",0,"Alcohol does not kill endospores."],
+   ["Boil the tray for 10 minutes",0,"Boiling does not reliably kill endospores."]]}],
+ exp:"Steam sterilizes only what it touches. Pack loosely, leave space between items, and use the right wrapping. Tape shows the outside got hot; the spore test in the hardest-to-reach spot proves sterility."},
+{name:"Boiled tools",who:"Small clinic",title:"Boiled, but not sterile",kind:"boil",
+ story:"In a small clinic, reusable instruments were cleaned and then boiled in water for 10 minutes before a minor skin procedure. The patient later developed a wound infection. The lab grew a spore-forming, Gram-positive rod: a Clostridium species.",
+ legend:[["spore","Endospore"],["dead","Killed cell"],["gpos","Gram-positive rods","s"]],
+ qs:[{q:"Why did the Clostridium survive the boiling?",hint:"What special structure can Clostridium make?",opts:[
+   ["Its endospores can survive 100 °C",1,"Yes. Boiling kills vegetative cells and most viruses, but endospores can survive it."],
+   ["Boiling does not kill any bacteria",0,"Boiling kills most vegetative bacteria. Endospores are the exception."],
+   ["The water spread more bacteria onto the tools",0,"Boiling water is not the source. The spores were already on the tools and survived."],
+   ["Ten minutes of boiling sterilizes everything",0,"Boiling is disinfection, not sterilization. Endospores can survive."]]},
+  {q:"What should the clinic use instead?",hint:"Steam under pressure.",opts:[
+   ["An autoclave: 121 °C at 15 psi for at least 15 minutes",1,"Right. Pressurized steam reaches 121 °C, which kills endospores."],
+   ["Boil for 2 more minutes",0,"A few more minutes at 100 °C still may not kill endospores."],
+   ["Dip the tools in 70% alcohol",0,"Alcohol does not kill endospores."],
+   ["Refrigerate the tools between patients",0,"Cold only slows growth. It does not kill spores."]]}],
+ exp:"Items that enter sterile tissue must be sterilized, not just disinfected. Clean first, then autoclave (or use a validated chemical sterilant for heat-sensitive items)."},
+{name:"95% alcohol",who:"Teaching lab",title:"The bench that never got clean",kind:"alcohol",
+ story:"Jordan sprayed a lab bench with 95% alcohol and wiped it dry right away with a paper towel. A swab of the bench, grown on an agar plate overnight, still showed many colonies.",
+ legend:[["alc","Alcohol spray"],["bact","Colonies"],["agar","Agar plate","s"]],
+ qs:[{q:"What went wrong?",hint:"Think about the strength and the timing.",opts:[
+   ["The alcohol was too strong (it works best near 70%), and it was wiped off before its contact time",1,"Yes. Alcohol needs some water to denature proteins, and it must stay wet long enough to work."],
+   ["Alcohol never kills bacteria",0,"Alcohol at about 70% kills vegetative bacteria quickly. The strength and timing were the problem."],
+   ["The agar plate was contaminated",0,"Possible, but the more likely cause is how the alcohol was used."],
+   ["95% is stronger, so the bench must have been extra dirty",0,"Stronger is not better for alcohol. 95% works worse than 70%."]]},
+  {q:"Which change would help the most?",hint:"Contact time is on every label.",opts:[
+   ["Use 70% alcohol and leave the bench wet for the full contact time",1,"Right. The right strength plus enough wet time gives the best kill."],
+   ["Use 100% alcohol",0,"Pure alcohol evaporates even faster and works worse."],
+   ["Spray less alcohol",0,"Less alcohol dries even sooner."],
+   ["Dry the bench with a fan",0,"Drying it faster shortens the contact time."]]}],
+ exp:"Every disinfectant has a strength and a contact time. For alcohol, about 70% works best, and the surface should stay wet until the contact time is reached."},
+{name:"Blood spill",who:"Emergency department",title:"Bleach on a blood spill",kind:"spill",
+ story:"Riley poured diluted bleach straight onto a large blood spill on the floor and mopped everything up together one minute later. A surface test of the area afterward still found live bacteria.",
+ legend:[["organic","Blood and organic matter","s"],["chlor","Chlorine"],["bact","Bacteria"]],
+ qs:[{q:"Why did the bleach not work well?",hint:"What does organic matter do to chlorine?",opts:[
+   ["The blood used up the chlorine and shielded the bacteria",1,"Yes. Organic matter reacts with chlorine and hides microbes, so less is left to kill them. One minute was also too short."],
+   ["Bleach does not work on floors",0,"Bleach works on hard floors once they are clean and it stays wet long enough."],
+   ["Bleach must be mixed with ammonia to work",0,"Never mix bleach with ammonia: it makes a toxic gas. The problem was the organic load."],
+   ["Blood makes bleach stronger",0,"It is the opposite. Organic matter weakens bleach."]]},
+  {q:"What is the right order?",hint:"Clean, then disinfect.",opts:[
+   ["Wear PPE, absorb and clean up the blood, then apply disinfectant for its full contact time",1,"Right. Removing the organic matter first lets the disinfectant reach the microbes."],
+   ["Disinfect first and mop it all up right away",0,"That is what failed here. The blood used up the bleach and it was not left long enough."],
+   ["Mop with plain water only",0,"Water removes some material but does not kill blood-borne pathogens."],
+   ["Spray alcohol and walk away",0,"Alcohol evaporates fast and is also weakened by organic matter."]]}],
+ exp:"Clean first, then disinfect. Organic matter protects microbes and uses up chemicals like chlorine. Follow the product's contact time and never mix bleach with ammonia or acids."},
+{name:"0.22 µm filter",who:"Research lab",title:"Filtered, but is it sterile?",kind:"filter",
+ story:"Priya needed a heat-sensitive vitamin solution to be free of microbes. She passed it through a 0.22 µm membrane filter. No bacteria grew from the filtered solution, but a later test showed a virus was still present.",
+ legend:[["bact","Bacteria"],["env","Virus"],["water","Solution","s"]],
+ qs:[{q:"How did the virus get through?",hint:"Compare the sizes.",opts:[
+   ["The virus is smaller than the 0.22 µm pores, so it passed through",1,"Yes. Most viruses are far smaller than 0.22 µm. These filters hold back bacteria, not every virus."],
+   ["The filter was too fine",0,"A finer filter would catch more. The problem is that the pores are bigger than the virus."],
+   ["Filtration kills bacteria but not viruses",0,"Filtration does not kill anything. It removes by size."],
+   ["The virus grew on the filter",0,"Viruses cannot grow outside living cells. It simply passed through."]]},
+  {q:"Why use filtration at all for this solution?",hint:"What would heat do to vitamins?",opts:[
+   ["Heat would damage the vitamins; filtration removes bacteria without heat",1,"Right. Filtration is the method of choice for heat-sensitive liquids."],
+   ["Filtration kills endospores",0,"Filtration removes spores by size; it does not kill anything."],
+   ["Autoclaves cannot hold liquids",0,"Autoclaves sterilize many liquids. These vitamins just cannot take the heat."],
+   ["Filtration is the only sterilization method",0,"There are many methods. Filtration fits heat-sensitive liquids."]]}],
+ exp:"Membrane filters (0.22 µm) remove bacteria and fungi from heat-sensitive liquids, but many viruses pass through. Choose the method by what must be removed and what the product can handle."},
+{name:"UV overnight",who:"Biosafety cabinet",title:"The UV lamp ran all night",kind:"uv",
+ story:"Alex left the UV lamp on in a biosafety cabinet overnight. Inside were a capped plastic flask of broth culture and a box of pipette tips. In the morning, the flask culture was still growing, and a swab of the work surface under the box grew bacteria.",
+ legend:[["uv","UV light"],["bact","Survivors"],["dead","Killed"]],
+ qs:[{q:"Why did these microbes survive?",hint:"Where did the UV light actually reach?",opts:[
+   ["UV does not pass through plastic, and it cannot reach shadows",1,"Yes. UV acts only on surfaces it hits directly. The flask wall and the box blocked it."],
+   ["UV needs daylight to work",0,"UV lamps work in the dark. Light simply has to reach the microbes."],
+   ["The lamp needed a few more hours",0,"More time would not help cells that UV never reaches."],
+   ["UV does not affect DNA",0,"UV damages DNA. It just could not reach these cells."]]},
+  {q:"How does UV kill the microbes it does reach?",hint:"Look at the DNA bases.",opts:[
+   ["It links neighbouring thymine bases into thymine dimers",1,"Right. Dimers block DNA copying, so the cell cannot divide."],
+   ["It boils the water inside the cell",0,"UV lamps do not heat cells enough to boil them."],
+   ["It filters cells out of the air",0,"That is HEPA filtration, not UV."],
+   ["It dissolves the cell membrane",0,"UV mainly damages nucleic acids."]]}],
+ exp:"UV is a surface and air method. It does not penetrate plastic, glass, paper or cloudy liquid, and it misses shadows. Disinfect surfaces chemically, and never rely on UV alone."},
+{name:"C. diff room",who:"Hospital unit",title:"Same room, same infection",kind:"cdiff",
+ story:"A patient with Clostridioides difficile diarrhea went home. The room was wiped with a quat disinfectant, and staff used alcohol hand rub when leaving. A week later, the next patient in that room developed C. difficile infection.",
+ legend:[["spore","C. difficile endospores"],["quat","Quat"],["water","Soap and water","s"]],
+ qs:[{q:"Why did the quat cleaning fail?",hint:"What form does C. difficile survive in?",opts:[
+   ["Quats do not kill endospores",1,"Yes. C. difficile spreads as endospores, which survive quats."],
+   ["Quats are too strong for hospital rooms",0,"Quats are widely used. They simply cannot kill spores."],
+   ["Quats work only on skin",0,"Quats are surface disinfectants; they are not used on skin."],
+   ["The room needed to air out longer",0,"Airing out does not kill spores on surfaces."]]},
+  {q:"Which product should be used on the surfaces?",hint:"It must be sporicidal.",opts:[
+   ["A sporicidal disinfectant, such as a bleach solution",1,"Right. Strong chlorine solutions (or other registered sporicides) kill C. difficile spores."],
+   ["A double-strength quat",0,"Stronger quats still do not kill spores."],
+   ["70% alcohol",0,"Alcohol does not kill endospores."],
+   ["A quick UV pass",0,"UV may help as an extra step, but it misses shadows and is not a replacement for a sporicide."]]},
+  {q:"What hand hygiene should staff use after caring for this patient?",hint:"Kill or remove?",opts:[
+   ["Wash with soap and water to physically remove the spores",1,"Yes. Alcohol rub does not kill spores; scrubbing and rinsing wash them away."],
+   ["Alcohol rub twice",0,"Alcohol does not kill spores, no matter how many times."],
+   ["Gloves only, no hand hygiene",0,"Gloves help, but hands get contaminated when gloves come off."],
+   ["Hand lotion",0,"Lotion does not remove spores."]]}],
+ exp:"Know what each product misses. Quats and alcohol do not kill endospores. For C. difficile, use a sporicide on surfaces and soap and water on hands."}
+];
+const CS={i:0,solved:{},first:{},wrong:{},shown:{}};
+function csKey(i,q){return i+"-"+q}
+function caseMeta(){const c=CASES[CS.i];
+  $("#cSolved").textContent=Object.keys(CS.solved).length+" of "+CASES.reduce((s,k)=>s+k.qs.length,0);$("#cFirst").textContent=Object.keys(CS.first).length;
+  $("#caseChips").querySelectorAll("button").forEach((b,i)=>{const done=CASES[i].qs.every((q,j)=>CS.solved[csKey(i,j)]);if(done&&!b.querySelector(".ok"))b.insertAdjacentHTML("beforeend",'<span class="ok" aria-label="solved">✓</span>')});
+  const all=c.qs.every((q,j)=>CS.solved[csKey(CS.i,j)]);const ex=$("#cExp");ex.className="explain"+(all?" show":"");ex.innerHTML=all?`<b>Lesson.</b> ${c.exp}`:""}
+function caseUI(){const c=CASES[CS.i];
+  $("#caseChips").innerHTML=CASES.map((k,i)=>`<button type="button" class="casechip" aria-pressed="${i===CS.i}" data-i="${i}">${i+1}. ${k.name}${k.qs.every((q,j)=>CS.solved[csKey(i,j)])?'<span class="ok" aria-label="solved">✓</span>':""}</button>`).join("");
+  $("#caseChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{CS.i=+b.dataset.i;caseUI();a11yKey=""});
+  $("#cN").textContent=CS.i+1;$("#cT").textContent=CASES.length;
+  $("#cWho").textContent=`Scenario ${CS.i+1} · ${c.who}`;$("#cTitle").textContent=c.title;$("#cStory").textContent=c.story;
+  $("#caseLegend").innerHTML=c.legend.map(l=>`<span><i class="${l[2]||""}" style="background:var(--${l[0]})"></i>${l[1]}</span>`).join("");
+  const box=$("#cQs");box.innerHTML="";let open=true;
+  c.qs.forEach((q,j)=>{const k=csKey(CS.i,j);const d=document.createElement("div");d.className="qblock";if(!open)d.hidden=true;
+    d.innerHTML=`<p class="qlab">${j+1}. ${q.q}</p><div class="opts"></div><div class="fb" role="status"></div>`;
+    const ob=d.querySelector(".opts"),fb=d.querySelector(".fb");
+    q.opts.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];
+      if(CS.solved[k]&&o[1])b.classList.add("right");
+      b.onclick=()=>{if(o[1]){b.classList.add("right");fb.className="fb show ok";fb.textContent="✓ "+o[2];if(!CS.solved[k]){CS.solved[k]=1;if(!CS.wrong[k]&&!CS.shown[k])CS.first[k]=1}
+          $("#cHintBox").hidden=true;const nx=d.nextElementSibling;if(nx)nx.hidden=false;caseMeta()}
+        else{b.classList.add("wrong");CS.wrong[k]=1;fb.className="fb show no";fb.textContent="Not quite. "+o[2]}};
+      ob.appendChild(b)});
+    box.appendChild(d);if(!CS.solved[k])open=false});
+  caseMeta();
+  $("#cPrev").disabled=CS.i===0;$("#cNext").textContent=CS.i===CASES.length-1?"Back to scenario 1 →":"Next scenario →";$("#cHintBox").hidden=true}
+$("#cHint").onclick=()=>{const c=CASES[CS.i];const j=c.qs.findIndex((q,j)=>!CS.solved[csKey(CS.i,j)]);const hb=$("#cHintBox");hb.hidden=false;hb.textContent=j<0?"All questions here are solved. Try the next scenario.":"Hint for question "+(j+1)+": "+c.qs[j].hint};
+$("#cShow").onclick=()=>{const c=CASES[CS.i];c.qs.forEach((q,j)=>{const k=csKey(CS.i,j);if(!CS.solved[k]){CS.shown[k]=1;CS.solved[k]=1}});caseUI();
+  $("#cQs").querySelectorAll(".qblock").forEach((d,j)=>{const fb=d.querySelector(".fb");fb.className="fb show ok";fb.textContent="✓ "+c.qs[j].opts.find(o=>o[1])[2]})};
+$("#cPrev").onclick=()=>{if(CS.i>0){CS.i--;caseUI()}};$("#cNext").onclick=()=>{CS.i=(CS.i+1)%CASES.length;caseUI()};
+function plateRes(x,y,r,n,col,t,lab){ell(x,y+4,r,r*.5,0,hexA(C.ink,.12));ell(x,y,r,r*.5,0,C.agar,C["agar-edge"],1.5);for(let i=0;i<n;i++){const a=rnd(i+3)*TAU,d=Math.sqrt(rnd(i+11))*(r-8);circ(x+Math.cos(a)*d,y+Math.sin(a)*d*.5,3+rnd(i)*2.5,col||C.bact,hexA(C.ink,.3),.8)}
+  if(lab)txt(x,y+r*.5+16,lab,{size:12.5,weight:700,align:"center"})}
+function drawCase(now){use(S3);const c=CASES[CS.i];const t=now/1000;
+  panelBox(10,10,540,270);panelBox(10,290,540,120,{fill:hexA(C.panel,.95)});txt(22,308,"LAB RESULT",{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  txt(22,28,c.who.toUpperCase(),{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  switch(c.kind){
+  case "tape":{rr(40,50,340,210,28);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=2.5;ctx.stroke();rr(54,64,312,182,20);ctx.fillStyle=hexA(C.steam,.2);ctx.fill();
+    for(let k=0;k<14;k++){const f=P(t*.5+k/14,1);circ(70+rnd(k)*280,70+f*170,3+rnd(k)*3,hexA(C.steam,.6*(1-f)))}
+    rr(90,110,240,100,8);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.6;ctx.stroke();for(let k=0;k<9;k++){rr(98+k*25.5,118,23,84,3);ctx.fillStyle=hexA(C.steel,.95);ctx.fill()}
+    ell(210,160,50+Math.sin(t*2)*3,26,0,hexA(C.air,.85),C.air,1.5);txt(210,160,"air pocket",{size:12.5,weight:700,align:"center"});
+    rr(160,104,100,12,2);ctx.fillStyle=C.tape;ctx.fill();for(let k=0;k<6;k++){rr(164+k*16,106,9,8,1);ctx.fillStyle=C["tape-ink"];ctx.fill()}
+    txt(400,90,"121 °C, 30 min",{size:13,mono:true,weight:700});txt(400,116,"crammed tray",{size:12.5});txt(400,136,"+ extra towels",{size:12.5});
+    txt(30,334,"Tape (outside):",{size:13,weight:600});rr(150,325,110,18,2);ctx.fillStyle=C.tape;ctx.fill();for(let k=0;k<6;k++){rr(154+k*18,328,11,12,1);ctx.fillStyle=C["tape-ink"];ctx.fill()}txt(270,334,"changed ✓",{size:13,weight:700,color:C.good});
+    txt(30,384,"Spore test (centre):",{size:13,weight:600});tube(200,366,18,36,.75,{col:C["bi-fail"],cap:C.panel});txt(222,384,"yellow: GROWTH",{size:13,weight:700,color:C.bad});break}
+  case "boil":{const px=200,py=200;rr(px-130,py-110,260,140,12);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=2;ctx.stroke();rr(px-120,py-96,240,116,8);ctx.fillStyle=hexA(C.water,.9);ctx.fill();
+    for(let k=0;k<12;k++){const f=P(t*1.2+k/12,1);circ(px-110+rnd(k)*220,py+14-f*104,2+f*3,null,hexA(C.panel,.9*(1-f)),1.4)}
+    ctx.save();ctx.translate(px,py-50);ctx.rotate(-.1);rr(-80,-4,140,8,4);ctx.fillStyle=C["steel-edge"];ctx.fill();ctx.restore();
+    [[-60,-56],[0,-40],[60,-62],[-30,-10],[50,-14]].forEach((q,i)=>{if(i%2)bact(px+q[0],py+q[1],i,7,1,{dead:true});else spore(px+q[0],py+q[1],7)});
+    burner(px,py+70,t);txt(400,80,"100 °C",{size:14,mono:true,weight:700});txt(400,104,"10 minutes",{size:13});lead(px+60,py-62,400,150,"endospores survive",{align:"left",border:C.spore});
+    txt(30,340,"Wound culture:",{size:13,weight:600});plateRes(220,350,44,0);for(let i=0;i<8;i++){const a=rnd(i)*TAU,d=rnd(i+2)*30;bact(220+Math.cos(a)*d,350+Math.sin(a)*d*.5,rnd(i+5)*3,5,1,{col:C.gpos,sporeIn:i%3===0})}
+    txt(290,340,"Gram-positive rods",{size:13,weight:700});txt(290,362,"with endospores: Clostridium",{size:12.5});break}
+  case "alcohol":{rr(30,200,500,24,4);ctx.fillStyle=C.bench;ctx.fill();ctx.strokeStyle=C.rule;ctx.lineWidth=1.2;ctx.stroke();
+    sprayBottle(80,190,46,C.alc,t,1);txt(80,200-46*.64,"95%",{size:11.5,mono:true,weight:700,align:"center"});
+    const wx=200+((t*60)%260);rr(wx-30,178,60,22,4);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.stroke();txt(wx,189,"towel",{size:11.5,align:"center"});
+    for(let k=0;k<8;k++)bact(170+k*44,194,0,6,1,{t});for(let k=0;k<6;k++){const f=P(t*.8+k/6,1);circ(150+k*60,190-f*60,2.5,hexA(C.alc,1-f))}
+    clock(400,90,22,.05,C.alc);txt(400,126,"wet for 2 s",{size:12.5,align:"center",weight:700,color:C.bad});clock(490,90,22,1,C.good);txt(490,126,"label: 1 min",{size:12.5,align:"center",weight:600});
+    txt(30,350,"Swab of the bench:",{size:13,weight:600});plateRes(250,350,46,26,C.bact);txt(320,350,"many colonies grew",{size:13,weight:700,color:C.bad});break}
+  case "spill":{rr(30,210,500,40,4);ctx.fillStyle=C.bench;ctx.fill();
+    blobPath(260,196,62,2,t*.2,.12);ctx.save();ctx.scale(1,1);ctx.fillStyle=hexA(C.organic,.75);ctx.fill();ctx.restore();
+    for(let k=0;k<6;k++)bact(200+k*24,195+Math.sin(k)*14,k,6,1,{t});
+    bottle(80,190,46,C.chlor,"BLEACH");for(let k=0;k<12;k++){const f=P(t*.5+k/12,1);const x=lerp(110,180+rnd(k)*160,f),y=lerp(120,190+rnd(k+3)*30,f);if(f<.92)circ(x,y,3,C.chlor)}
+    txt(400,80,"poured on, mopped",{size:13,weight:600});txt(400,100,"after 1 minute",{size:13,weight:600});lead(320,190,420,140,"chlorine used up",{align:"left"});
+    txt(30,350,"Surface test:",{size:13,weight:600});plateRes(220,350,44,14,C.bact);txt(290,350,"live bacteria found",{size:13,weight:700,color:C.bad});break}
+  case "filter":{rr(60,50,300,90,6);ctx.fillStyle=hexA(C.water,.8);ctx.fill();rr(54,140,312,12,2);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();for(let k=0;k<26;k++){rr(58+k*11.8,142,3,8,1);ctx.fillStyle=hexA(C.water,.95);ctx.fill()}
+    rr(60,152,300,110,6);ctx.fillStyle=hexA(C.water,.5);ctx.fill();for(let k=0;k<7;k++)bact(80+k*40,132,0,7,1,{t});
+    for(let k=0;k<8;k++){const f=P(t*.25+k/8,1);envVirus(80+rnd(k)*260,lerp(60,255,f),4,{t})}
+    txt(400,70,"0.22 µm filter",{size:13,mono:true,weight:700});lead(240,132,400,110,"bacteria held back",{align:"left"});lead(300,220,400,220,"virus passes",{align:"left"});
+    txt(30,340,"Bacteria culture:",{size:13,weight:600});plateRes(210,350,36,0);txt(260,340,"no growth",{size:13,weight:700,color:C.good});
+    txt(30,384,"Virus test:",{size:13,weight:600});txt(260,384,"virus present",{size:13,weight:700,color:C.bad});break}
+  case "uv":{rr(40,46,360,220,8);ctx.fillStyle=hexA(C.glass,.4);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=2;ctx.stroke();rr(120,56,200,14,6);ctx.fillStyle=C.uv;ctx.fill();
+    rr(50,240,340,12,2);ctx.fillStyle=C.steel;ctx.fill();
+    rr(100,170,50,70,10);ctx.fillStyle=hexA(C.glass,.7);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.stroke();rr(112,160,26,14,3);ctx.fillStyle=C.panel;ctx.fill();ctx.stroke();ctx.save();rr(102,200,46,38,8);ctx.clip();ctx.fillStyle=hexA(C.food,.6);ctx.fillRect(100,200,50,40);ctx.restore();bact(125,220,0,5,1,{t});
+    rr(260,190,70,50,4);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.stroke();txt(295,215,"tips",{size:12,align:"center"});bact(345,234,0,5,1,{t});
+    ctx.save();ctx.beginPath();ctx.moveTo(330,190);ctx.lineTo(385,240);ctx.lineTo(330,240);ctx.closePath();ctx.fillStyle=hexA(C.ink,.12);ctx.fill();ctx.restore();
+    for(let k=0;k<10;k++){const x0=130+k*20;const f=P(t+k/10,1);let end=238;if(x0>=100&&x0<=150)end=160;if(x0>=260&&x0<=330)end=190;line(x0,70,x0,70+f*(end-70),hexA(C.uv,.55),2)}
+    bact(200,234,0,5,1,{dead:true});bact(230,234,0,5,1,{dead:true});
+    txt(410,100,"UV on all night",{size:13,weight:700});lead(125,220,420,180,"inside plastic: alive",{align:"left"});lead(345,234,420,250,"in shadow: alive",{align:"left"});
+    txt(30,350,"Flask broth:",{size:13,weight:600});tube(150,322,22,56,.7,{col:hexA(C.food,.7),cloudy:1});txt(176,350,"cloudy",{size:13,weight:700,color:C.bad});
+    txt(260,350,"Swab under box:",{size:13,weight:600});plateRes(450,350,36,12,C.bact);break}
+  case "cdiff":{// bed and rail
+    rr(60,150,260,60,10);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.6;ctx.stroke();rr(60,130,40,40,8);ctx.fill();ctx.stroke();line(60,120,320,120,C["steel-edge"],5);line(80,120,80,150,C["steel-edge"],4);line(300,120,300,150,C["steel-edge"],4);line(80,210,80,250,C["ink-soft"],4);line(300,210,300,250,C["ink-soft"],4);
+    for(let k=0;k<6;k++)spore(110+k*36,117,6);for(let k=0;k<8;k++){const f=P(t*.6+k/8,1);circ(lerp(380,110+(k%6)*36,f),lerp(60,112,f),3,hexA(C.quat,1-f*.4))}
+    sprayBottle(400,110,40,C.quat,t,1);txt(400,130,"quat wipe",{size:12.5,align:"center",weight:600});lead(146,117,200,70,"spores survive",{align:"center",border:C.spore});
+    handShape(450,240,.7,{});txt(450,274,"alcohol rub",{size:12.5,align:"center"});
+    txt(30,340,"Next patient's stool test:",{size:13,weight:600});txt(230,340,"C. difficile toxin: positive",{size:13,weight:700,color:C.bad});
+    txt(30,380,"Spores found on the bed rail:",{size:13,weight:600});for(let k=0;k<4;k++)spore(270+k*22,380,6);break}
+  }
+}
+function caseA11y(){const c=CASES[CS.i];const D={tape:"An autoclave holds a tightly crammed instrument tray with a grey air pocket in its centre. Dark-striped tape sits on the outside. The lab result panel shows the tape changed, but the spore test vial from the centre is yellow, meaning growth.",
+  boil:"A pot of boiling water over a flame holds instruments. Grey killed bacteria float next to brown endospores that are still intact, labelled endospores survive. The lab result shows a culture plate of purple Gram-positive rods, some holding spores, labelled Clostridium.",
+  alcohol:"A spray bottle labelled 95 percent mists a bench while a towel wipes it right away. One clock shows the bench was wet for only 2 seconds, next to a clock for the 1-minute label contact time. The lab result shows an agar plate with many green colonies.",
+  spill:"A brown pool of blood on the floor has green bacteria in it. Yellow-green chlorine dots from a bleach bottle fall onto it and disappear, labelled chlorine used up. The lab result says live bacteria were found.",
+  filter:"Liquid with green bacteria and small pink viruses passes through a 0.22 micrometre filter. Bacteria pile up on top; viruses pass into the liquid below. The results: no bacterial growth, but the virus test is positive.",
+  uv:"A biosafety cabinet with a purple UV lamp on top. Its rays stop at a capped plastic flask and at a box of pipette tips, which casts a shadow. Bacteria on the open surface are grey; one inside the flask and one in the shadow are green. Results: the flask broth is cloudy and the swab plate grew colonies.",
+  cdiff:"A hospital bed rail has brown endospores on it. Blue quat drops from a spray bottle land on them, but the spores stay intact. A hand labelled alcohol rub is shown. Results: the next patient's C. difficile toxin test is positive and spores were found on the rail."}[c.kind];
+  return [`Scenario ${CS.i+1}: ${c.title}.`,D]}
+
+/* ================= PART 4: sort it out ================= */
+const SROUNDS=[
+{name:"How it works",goal:"Put each method in the box for how it controls microbes.",
+ bins:[["mem","Damages the membrane"],["pro","Denatures proteins"],["dna","Damages DNA"],["rem","Removes (does not kill)"]],
+ cards:[["Quats (benzalkonium chloride)","mem","Positively charged detergents that disrupt the cell membrane."],["Chlorhexidine skin scrub","mem","Chlorhexidine damages membranes so cells leak."],
+  ["Autoclave steam","pro","Moist heat unfolds and clumps proteins."],["Boiling water","pro","Moist heat at 100 °C denatures proteins (but spores survive)."],["Silver ions","pro","Heavy metals bind to proteins and wreck them."],
+  ["UV light","dna","UV links thymine bases into dimers."],["Gamma rays","dna","Ionizing radiation breaks DNA strands."],
+  ["0.22 µm membrane filter","rem","Filters hold back bacteria by size; nothing is killed."],["HEPA air filter","rem","HEPA traps particles from air; nothing is killed."],["Scrubbing with plain soap and water","rem","Degerming: scrubbing and rinsing wash microbes away."]]},
+{name:"-cidal or -static?",goal:"Does each method kill microbes, or only stop them from growing?",
+ bins:[["cide","Kills (-cidal)"],["stat","Stops growth (-static)"]],
+ cards:[["Autoclave","cide","Steam at 121 °C kills all microbes, spores too."],["Incineration","cide","Burning destroys microbes completely."],["Bleach at label strength","cide","Chlorine oxidizes and kills microbes."],["70% alcohol","cide","Alcohol denatures proteins and kills vegetative cells."],["Glutaraldehyde","cide","Cross-linking kills, even spores with long contact."],
+  ["Refrigerator (4 °C)","stat","Cold slows growth; warm the food and microbes grow again."],["Freeze-drying a culture","stat","Lyophilization keeps microbes alive but not growing."],["Salt-curing jerky","stat","Osmotic pressure pulls water out and stops growth."],["Sugar in jam","stat","High sugar stops growth by osmotic pressure."],["Drying (desiccation)","stat","Without water microbes cannot grow, but many survive."]]},
+{name:"Sterilize, disinfect or antiseptic?",goal:"Which job does each method or product do?",
+ bins:[["ster","Sterilizes"],["dis","Disinfects objects"],["anti","Antiseptic (living tissue)"]],
+ cards:[["Autoclave, 121 °C, 15 psi, 15+ min","ster","Kills everything, endospores included."],["Ethylene oxide gas","ster","A gas sterilant for heat-sensitive plastics."],["Gamma irradiation of syringes","ster","Penetrating radiation sterilizes sealed supplies."],["Hot air oven, 170 °C for 1 h","ster","Dry heat with enough time sterilizes glassware."],
+  ["Bleach on a countertop","dis","A chemical on a nonliving surface: disinfection."],["Quat wipe on a bed rail","dis","Surface disinfectant; does not kill spores."],["Boiling instruments for 10 min","dis","Kills most microbes but not all spores: disinfection."],
+  ["Povidone-iodine before surgery","anti","Iodine on skin is an antiseptic."],["Chlorhexidine surgical scrub","anti","Used on skin, so it is an antiseptic."],["Alcohol-based hand rub","anti","Used on hands (living tissue): antiseptic."]]},
+{name:"How tough is it?",goal:"Place each microbe on the resistance ladder: top, middle or bottom.",
+ bins:[["top","Top: hardest to kill"],["mid","Middle"],["low","Bottom: easiest to kill"]],
+ cards:[["Prions","top","Misfolded proteins with no DNA; the hardest of all."],["Clostridioides difficile endospores","top","Endospores sit near the top of the ladder."],["Bacillus endospores","top","Thick spore coats and little water make them very tough."],
+  ["Mycobacterium tuberculosis","mid","Waxy cell walls resist many disinfectants."],["Norovirus (non-enveloped)","mid","No envelope; a tough protein shell."],["Giardia cysts","mid","Protozoan cysts have resistant walls."],
+  ["Staphylococcus aureus","low","A vegetative bacterium: killed by most disinfectants."],["Candida yeast","low","Vegetative fungi are fairly easy to kill."],["Influenza virus (enveloped)","low","The fatty envelope breaks easily."],["HIV (enveloped)","low","Enveloped viruses are the easiest to destroy."]]}];
+function binSVG(k){const s=b=>`<svg viewBox="0 0 56 46" aria-hidden="true" focusable="false">${b}</svg>`;
+  const rod=(x,y,col,dead)=>`<rect x="${x-9}" y="${y-5}" width="18" height="10" rx="5" fill="${dead?"var(--dead)":col||"var(--bact)"}" stroke="var(--ink)" stroke-opacity=".4"/>`;
+  switch(k){
+    case "mem":return s(`<g fill="var(--membrane)">${[0,1,2,3,4,5,6].map(i=>i===3?"":`<circle cx="${6+i*7.4}" cy="16" r="3"/><circle cx="${6+i*7.4}" cy="30" r="3"/>`).join("")}</g><circle cx="28" cy="23" r="2.5" fill="var(--dna)"/><circle cx="31" cy="38" r="2" fill="var(--dna)"/>`);
+    case "pro":return s(`<path d="M6 30 C12 10 20 40 28 20 S44 30 50 14" fill="none" stroke="var(--protein)" stroke-width="3"/><path d="M4 40 Q16 34 28 40 T52 40" fill="none" stroke="var(--protein)" stroke-width="2" stroke-dasharray="3 2"/>`);
+    case "dna":return s(`<g stroke="var(--dna)" stroke-width="2.5"><line x1="4" y1="14" x2="24" y2="14"/><line x1="4" y1="32" x2="24" y2="32"/><line x1="32" y1="14" x2="52" y2="14"/><line x1="32" y1="32" x2="52" y2="32"/></g><g stroke="var(--dna)" stroke-opacity=".5">${[8,14,20,36,42,48].map(x=>`<line x1="${x}" y1="14" x2="${x}" y2="32"/>`).join("")}</g><path d="M26 6 L30 23 L26 40" stroke="var(--bad)" stroke-width="2" fill="none"/>`);
+    case "rem":return s(`<rect x="4" y="22" width="48" height="5" fill="var(--panel)" stroke="var(--ink-soft)"/>${rod(16,15)}${rod(38,15)}<circle cx="20" cy="36" r="2" fill="var(--steam)"/><circle cx="34" cy="40" r="2" fill="var(--steam)"/>`);
+    case "cide":return s(`${rod(28,23,null,true)}<path d="M24 16 L29 23 L25 30" stroke="var(--panel)" stroke-width="1.6" fill="none"/>`);
+    case "stat":return s(`${rod(18,23)}<rect x="36" y="13" width="4" height="20" fill="var(--cold)"/><rect x="44" y="13" width="4" height="20" fill="var(--cold)"/>`);
+    case "ster":return s(`<rect x="6" y="6" width="44" height="34" rx="9" fill="var(--steel)" stroke="var(--steel-edge)"/><circle cx="28" cy="23" r="10" fill="var(--panel)" stroke="var(--steel-edge)"/><circle cx="24" cy="21" r="2" fill="var(--steam)"/><circle cx="31" cy="25" r="2.5" fill="var(--steam)"/>`);
+    case "dis":return s(`<rect x="4" y="32" width="48" height="8" fill="var(--bench)" stroke="var(--rule)"/><rect x="8" y="12" width="12" height="18" rx="2" fill="var(--alc)"/><rect x="10" y="7" width="8" height="5" fill="var(--panel)" stroke="var(--ink-soft)"/>${rod(38,26,null,true)}`);
+    case "anti":return s(`<rect x="4" y="12" width="48" height="24" rx="12" fill="var(--skin)" stroke="var(--skin-edge)"/><ellipse cx="28" cy="24" rx="14" ry="7" fill="var(--iod)" fill-opacity=".7"/>`);
+    case "top":return s(`<path d="M10 4 V44 M46 4 V44 M10 12 H46 M10 24 H46 M10 36 H46" stroke="var(--ink-soft)" stroke-width="2"/><ellipse cx="28" cy="8" rx="6" ry="4" fill="var(--spore-coat)" stroke="var(--spore)" stroke-width="2"/>`);
+    case "mid":return s(`<path d="M10 4 V44 M46 4 V44 M10 12 H46 M10 24 H46 M10 36 H46" stroke="var(--ink-soft)" stroke-width="2"/><rect x="20" y="15" width="16" height="7" rx="3.5" fill="var(--myco)"/>`);
+    case "low":return s(`<path d="M10 4 V44 M46 4 V44 M10 12 H46 M10 24 H46 M10 36 H46" stroke="var(--ink-soft)" stroke-width="2"/><circle cx="28" cy="30" r="4" fill="var(--env)"/>`);
+  }return s("")}
+const SG={r:0,placed:{},mist:0,sel:null,t0:0,timer:null,hint:null,doneRounds:{}};
+function sRoundsUI(){$("#sRounds").innerHTML=SROUNDS.map((r,i)=>`<button type="button" class="round" aria-pressed="${i===SG.r}" data-i="${i}">Round ${i+1}: ${r.name}${SG.doneRounds[i]?`<span class="ok" aria-label="${SG.doneRounds[i]} stars">${"★".repeat(SG.doneRounds[i])}</span>`:""}</button>`).join("");
+  $("#sRounds").querySelectorAll("button").forEach(b=>b.onclick=()=>sLoad(+b.dataset.i))}
+function sLoad(i){SG.r=i;SG.placed={};SG.mist=0;SG.sel=null;SG.hint=null;SG.t0=Date.now();const R=SROUNDS[i];SG.order=shuffle(R.cards.map((c,k)=>k));
+  $("#sN").textContent=`Round ${i+1} of ${SROUNDS.length}`;$("#sTitle").textContent=R.name;$("#sGoal").textContent=R.goal;
+  const bins=$("#sBins");bins.innerHTML="";R.bins.forEach(b=>{const d=document.createElement("div");d.className="bin";d.dataset.k=b[0];
+    d.innerHTML=`<button type="button" class="binhead" data-k="${b[0]}">${binSVG(b[0])}<span>${b[1]}</span></button><div class="binitems"></div>`;
+    d.querySelector(".binhead").onclick=()=>{if(SG.sel!=null)sDrop(SG.sel,b[0]);else sMsg("info","Pick a card first, then tap a box.")};bins.appendChild(d)});
+  const best=store.get("best-"+i);$("#sBest").textContent=best?`Best for this round: ${"★".repeat(+best)}`:"";
+  $("#sMsg").className="msg";sRoundsUI();sRender();sTimerUI()}
+function sRender(){const R=SROUNDS[SG.r];const pool=$("#sPool");pool.innerHTML="";
+  SG.order.forEach(k=>{if(SG.placed[k])return;const c=R.cards[k];const b=document.createElement("button");b.type="button";b.className="scard"+(SG.hint===k?" hinted":"");b.textContent=c[0];b.dataset.k=k;
+    b.setAttribute("aria-pressed",SG.sel===k);b.onclick=e=>{if(b.dataset.dragged){delete b.dataset.dragged;return}SG.sel=SG.sel===k?null:k;sRender();const nb=pool.querySelector(`[data-k="${k}"]`);if(nb)nb.focus()};
+    b.addEventListener("pointerdown",e=>sDragStart(e,b,k));pool.appendChild(b)});
+  if(!pool.children.length)pool.innerHTML='<span class="small">All cards sorted.</span>';
+  document.querySelectorAll("#sBins .bin").forEach(d=>{const items=d.querySelector(".binitems");items.innerHTML="";d.classList.toggle("hintbin",SG.hint!=null&&R.cards[SG.hint][1]===d.dataset.k);
+    R.cards.forEach((c,k)=>{if(SG.placed[k]&&c[1]===d.dataset.k){const s=document.createElement("div");s.className="scard placed";s.textContent="✓ "+c[0];items.appendChild(s)}})});
+  const n=Object.keys(SG.placed).length,tot=R.cards.length;$("#sStars").textContent=n===tot?"★".repeat(sStars())+"☆".repeat(3-sStars()):"";$("#sStars").setAttribute("aria-label",n===tot?sStars()+" of 3 stars":"Stars appear when the round is done")}
+function sStars(){return SG.mist===0?3:SG.mist<=2?2:1}
+function sMsg(cls,t){const m=$("#sMsg");m.className="msg show "+cls;m.textContent=t}
+function sDrop(k,bin){const R=SROUNDS[SG.r];const c=R.cards[k];SG.sel=null;SG.hint=null;
+  if(c[1]===bin){SG.placed[k]=1;sMsg("good","✓ "+c[0]+": "+c[2])}else{SG.mist++;const nm=R.bins.find(b=>b[0]===bin)[1];sMsg("warn",`Not quite. "${c[0]}" does not go in ${nm}. Hint: ${c[2].split(":")[0].split(".")[0]}.`)}
+  sRender();if(Object.keys(SG.placed).length===R.cards.length)sFinish();else{const f=$("#sPool .scard");if(f&&document.activeElement===document.body)f.focus()}}
+function sFinish(){const st=sStars();SG.doneRounds[SG.r]=Math.max(SG.doneRounds[SG.r]||0,st);const best=+(store.get("best-"+SG.r)||0);if(st>best)store.set("best-"+SG.r,st);
+  const tm=!$("#sRelaxed").checked?` Time: ${fmt((Date.now()-SG.t0)/1000)}.`:"";sMsg("good",`Round complete with ${SG.mist} ${SG.mist===1?"mistake":"mistakes"}: ${st} of 3 stars.${tm} `+(SG.r<SROUNDS.length-1?"Press Next round when you are ready.":"That was the last round. Well done."));sRoundsUI();sRender()}
+/* drag: a ghost follows the pointer; drop on a bin */
+let drag=null;
+function sDragStart(e,b,k){if(e.button>0)return;const r=b.getBoundingClientRect();drag={k,b,sx:e.clientX,sy:e.clientY,dx:e.clientX-r.left,dy:e.clientY-r.top,g:null,over:null,id:e.pointerId};
+  window.addEventListener("pointermove",sDragMove);window.addEventListener("pointerup",sDragEnd);window.addEventListener("pointercancel",sDragEnd)}
+function sDragMove(e){if(!drag||e.pointerId!==drag.id)return;if(!drag.g){if(Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)<6)return;const g=drag.b.cloneNode(true);g.classList.add("ghost");g.removeAttribute("id");g.setAttribute("aria-hidden","true");g.tabIndex=-1;g.style.width=drag.b.offsetWidth+"px";document.body.appendChild(g);drag.g=g;drag.b.style.opacity=".35"}
+  e.preventDefault();drag.g.style.left=(e.clientX-drag.dx)+"px";drag.g.style.top=(e.clientY-drag.dy)+"px";
+  const el=document.elementFromPoint(e.clientX,e.clientY);const bin=el&&el.closest?el.closest(".bin"):null;document.querySelectorAll(".bin.over").forEach(x=>x!==bin&&x.classList.remove("over"));if(bin)bin.classList.add("over");drag.over=bin}
+function sDragEnd(e){if(!drag)return;window.removeEventListener("pointermove",sDragMove);window.removeEventListener("pointerup",sDragEnd);window.removeEventListener("pointercancel",sDragEnd);
+  const d=drag;drag=null;document.querySelectorAll(".bin.over").forEach(x=>x.classList.remove("over"));if(!d.g)return;d.g.remove();d.b.style.opacity="";d.b.dataset.dragged="1";
+  if(d.over)sDrop(d.k,d.over.dataset.k);else sRender()}
+$("#sHint").onclick=()=>{const R=SROUNDS[SG.r];const k=SG.sel!=null?SG.sel:SG.order.find(k=>!SG.placed[k]);if(k==null){sMsg("info","Everything is sorted.");return}SG.hint=k;
+  const bn=R.bins.find(b=>b[0]===R.cards[k][1])[1];sMsg("info",`Hint: "${R.cards[k][0]}" goes in the glowing box (${bn}).`);sRender()};
+$("#sShow").onclick=()=>{const R=SROUNDS[SG.r];R.cards.forEach((c,k)=>SG.placed[k]=1);SG.mist=Math.max(SG.mist,3);sMsg("info","All cards placed. Read each box to see why they belong there.");sRender();sFinish()};
+$("#sShuffle").onclick=()=>sLoad(SG.r);$("#sNext").onclick=()=>sLoad((SG.r+1)%SROUNDS.length);
+function sTimerUI(){const relaxed=$("#sRelaxed").checked;$("#sTimer").hidden=relaxed;clearInterval(SG.timer);if(!relaxed){SG.timer=setInterval(()=>{if(Object.keys(SG.placed).length<SROUNDS[SG.r].cards.length)$("#sTimer").textContent=fmt((Date.now()-SG.t0)/1000)},500)}}
+$("#sRelaxed").onchange=()=>{SG.t0=Date.now();sTimerUI()};
+/* ---------------- accessibility: live labels and picture descriptions ---------------- */
+function sortA11y(){const R=SROUNDS[SG.r];const n=Object.keys(SG.placed).length;
+  return [null,`Round ${SG.r+1}, ${R.name}. ${n} of ${R.cards.length} cards sorted. Each box has a small drawing: `+R.bins.map(b=>b[1]).join(", ")+`. Cards still to sort: `+(SG.order.filter(k=>!SG.placed[k]).map(k=>R.cards[k][0]).join(", ")||"none")+"."]}
+const A11Y={sim:{cv:"#cvSim",f:simA11y},ac:{cv:"#cvAC",f:acA11y},cases:{cv:"#cvCase",f:caseA11y},sort:{cv:null,f:sortA11y}};
+let a11yKey="",a11yT=0;
+function a11yTick(){if((++a11yT)%20)return;const a=A11Y[curTab];const [lab,d]=a.f();const key=curTab+"|"+lab+"|"+d;if(key===a11yKey)return;a11yKey=key;
+  if(a.cv&&lab)$(a.cv).setAttribute("aria-label",lab);if(window.gkDescribe)window.gkDescribe(d);
+  const box=document.getElementById("gk-desc");if(box){const host=a.cv?$(a.cv).closest(".canvas-holder"):$("#sPool");if(host&&host.nextElementSibling!==box)host.after(box);if(a.cv)$(a.cv).setAttribute("aria-describedby","gk-desc")}}
+
+/* ---------------- tabs / theme / loop ---------------- */
+let curTab="sim";
+const TABS=["sim","ac","cases","sort"];
+function showTab(k,focus){curTab=k;document.querySelectorAll(".tab").forEach(x=>{const on=x.dataset.tab===k;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;if(on&&focus)x.focus()});
+  TABS.forEach(t=>$("#tab-"+t).hidden=t!==k);fitAll();a11yKey="";a11yT=19}
+document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>showTab(t.dataset.tab);t.onkeydown=e=>{const i=TABS.indexOf(t.dataset.tab);
+  if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();showTab(TABS[(i+(e.key==="ArrowRight"?1:TABS.length-1))%TABS.length],true)}
+  if(e.key==="Home"){e.preventDefault();showTab(TABS[0],true)}if(e.key==="End"){e.preventDefault();showTab(TABS[TABS.length-1],true)}}});
+function fitAll(){[S1,S2,S3].forEach(s=>s.fit())}
+window.addEventListener("resize",fitAll);
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+let last=performance.now(),rdT=0;
+function frame(now){const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;
+  try{if(curTab==="sim"){simStep(dt);drawSim(now);rdT+=dt;if(rdT>.25){rdT=0;if(SIM.running||SIM.t>0)simRead();simChal()}}
+    else if(curTab==="ac"){acStep(dt);drawAC(now)}else if(curTab==="cases")drawCase(now)}catch(err){console.error(err)}
+  try{a11yTick()}catch(err){console.error(err)}
+  requestAnimationFrame(frame)}
+/* test hooks */
+window.__cl={tab:k=>showTab(k),sim:o=>{Object.assign(SIM,o);simUI();simChanged()},simRun:sec=>{SIM.running=true;SIM.ran=true;for(let i=0;i<sec*50;i++)simStep(.02);simRead();simChal()},
+  simState:()=>{const p=simParams();return {Dv:p.Dv,Ds:p.Ds,t:SIM.t,logN:logN(p,SIM.t),tSAL:timeTo(p,-6),done:[...SIM.done]}},
+  ac:o=>{Object.assign(AC,o);acUI();acChanged()},acRun:()=>{$("#acRun").click();for(let i=0;i<4000&&AC.phase!=="done";i++)acStep(.02);return {pass:AC.res.pass,logRed:AC.res.logRed,tape:AC.res.tape,maxC:AC.res.maxC,done:[...AC.done]}},
+  caseGo:i=>{CS.i=i;caseUI()},caseShow:()=>$("#cShow").click(),sortGo:i=>sLoad(i),sortShow:()=>$("#sShow").click(),sortDrop:(k,b)=>sDrop(k,b),sortState:()=>({r:SG.r,placed:Object.keys(SG.placed).length,mist:SG.mist,order:SG.order})};
+readColors();simUI();acUI();caseUI();sLoad(0);fitAll();requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

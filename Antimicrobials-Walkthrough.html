@@ -1,0 +1,1642 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Antimicrobial Drugs Walkthrough</title>
+<meta name="description" content="Step-by-step animated walkthrough of antimicrobial drugs: history, selective toxicity, spectrum, drug targets, antifungals and antivirals, susceptibility testing, and how resistance arises and spreads.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#1E7A4C;--accent-ink:#145A37;--accent-wash:#DDEFE5;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#7B5CC9;--act2:#C4644F;--act3:#D98A1C;--act4:#2F7FC1;--act5:#2E8A7A;--act6:#A04E8C;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#8A6D12;
+  /* microbe control palette */
+  --ecf:#EEF3EF;--bench:#E6ECE8;--grid:#D3DED7;
+  --bact:#3E8E41;--spore:#9A6A12;--spore-coat:#E9D3A0;--myco:#8A5A9E;--env:#B03A8C;--nonenv:#3F6DB3;--prion:#A9372F;--cyst:#5E7A2A;--fungus:#C77A12;--dead:#8B9094;
+  --gpos:#6B3FA0;--gneg:#D0457A;
+  --steam:#4F8FCB;--air:#8C969D;--heat:#E0563A;--cold:#2F7FC1;--uv:#7B5CC9;--ion:#C9A227;
+  --alc:#2E8A7A;--chlor:#7E9A2A;--iod:#8A4A1C;--phen:#A04E8C;--quat:#2F7FC1;--metal:#6E7F8C;--ald:#D98A1C;--perox:#1E9C7A;--gas:#5E6E7A;
+  --membrane:#C9A227;--protein:#C4644F;--dna:#2F6FD0;
+  --water:#CFE5F1;--agar:#EAD9A2;--agar-edge:#B9A160;--glass:#DCE8EE;--glass-edge:#7F99A6;
+  --steel:#C9D1D6;--steel-edge:#7A8790;--tape:#EFE3C2;--tape-ink:#3A2E1E;--bi-pass:#6B3FA0;--bi-fail:#D9B514;
+  --skin:#EAC9A8;--skin-edge:#B9937A;--body:#E9DCCB;--body-edge:#A88B6A;--soil:#B98A5A;
+  --milk:#F7F3E8;--food:#E8B86A;--organic:#9A5A3A;--glow:#F2B33B;
+  /* antimicrobials palette */
+  --act7:#5E7F1A;--pg:#A8782A;--pbp:#2F7FC1;--drug:#C4382F;--r30:#4F7FAA;--r50:#2F5F8A;--mrna:#2E8A7A;--trna:#D98A1C;--sus:#3F6DB3;--res:#B5301F;--plasmid:#D98A1C;--ergo:#C9A227;--chol:#8C969D;--lawn:#C2AE6E;--lawn-dot:#9A8650;--zone:#EFE2B4;--pus:#E9DFA8;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#15301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#E08A74;--act3:#F2A93B;--act4:#5AA9E6;--act5:#5CC4B0;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#141B1A;--bench:#1A2220;--grid:#26332F;
+  --bact:#6BC26E;--spore:#E0B050;--spore-coat:#5A4A2A;--myco:#C29AD6;--env:#E07AC4;--nonenv:#7FA6E6;--prion:#E07067;--cyst:#A3C95A;--fungus:#E0A050;--dead:#6F767B;
+  --gpos:#B08AE8;--gneg:#F08AB0;
+  --steam:#8FC0EC;--air:#7E8A92;--heat:#F27A5E;--cold:#5AA9E6;--uv:#A98BEF;--ion:#E0BE48;
+  --alc:#5CC4B0;--chlor:#B5CF5A;--iod:#D9925A;--phen:#D186C0;--quat:#5AA9E6;--metal:#A9B7C2;--ald:#F2A93B;--perox:#4FD0A8;--gas:#9AAAB6;
+  --membrane:#E0BE48;--protein:#E08A74;--dna:#6FA3F0;
+  --water:#1F3A4A;--agar:#4A4030;--agar-edge:#9C8A5A;--glass:#1E2C34;--glass-edge:#7F99A6;
+  --steel:#3A464E;--steel-edge:#8A98A2;--tape:#D9CDA8;--tape-ink:#2A2014;--bi-pass:#B08AE8;--bi-fail:#E8CC3A;
+  --skin:#5A4434;--skin-edge:#B9937A;--body:#3E3528;--body-edge:#B39773;--soil:#7A5A3A;
+  --milk:#3A3830;--food:#9A7A40;--organic:#C98A6A;--glow:#F2B33B;
+  --act7:#A3C95A;--pg:#D9AE5E;--pbp:#5AA9E6;--drug:#F27A6E;--r30:#8FB8DE;--r50:#6F9FCC;--mrna:#5CC4B0;--trna:#F2A93B;--sus:#7FA6E6;--res:#F07A62;--plasmid:#F2A93B;--ergo:#E0BE48;--chol:#A9B7C2;--lawn:#7E7048;--lawn-dot:#A8955E;--zone:#3A3226;--pus:#5A5232;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#15301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#E08A74;--act3:#F2A93B;--act4:#5AA9E6;--act5:#5CC4B0;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#141B1A;--bench:#1A2220;--grid:#26332F;
+  --bact:#6BC26E;--spore:#E0B050;--spore-coat:#5A4A2A;--myco:#C29AD6;--env:#E07AC4;--nonenv:#7FA6E6;--prion:#E07067;--cyst:#A3C95A;--fungus:#E0A050;--dead:#6F767B;
+  --gpos:#B08AE8;--gneg:#F08AB0;
+  --steam:#8FC0EC;--air:#7E8A92;--heat:#F27A5E;--cold:#5AA9E6;--uv:#A98BEF;--ion:#E0BE48;
+  --alc:#5CC4B0;--chlor:#B5CF5A;--iod:#D9925A;--phen:#D186C0;--quat:#5AA9E6;--metal:#A9B7C2;--ald:#F2A93B;--perox:#4FD0A8;--gas:#9AAAB6;
+  --membrane:#E0BE48;--protein:#E08A74;--dna:#6FA3F0;
+  --water:#1F3A4A;--agar:#4A4030;--agar-edge:#9C8A5A;--glass:#1E2C34;--glass-edge:#7F99A6;
+  --steel:#3A464E;--steel-edge:#8A98A2;--tape:#D9CDA8;--tape-ink:#2A2014;--bi-pass:#B08AE8;--bi-fail:#E8CC3A;
+  --skin:#5A4434;--skin-edge:#B9937A;--body:#3E3528;--body-edge:#B39773;--soil:#7A5A3A;
+  --milk:#3A3830;--food:#9A7A40;--organic:#C98A6A;--glow:#F2B33B;
+  --act7:#A3C95A;--pg:#D9AE5E;--pbp:#5AA9E6;--drug:#F27A6E;--r30:#8FB8DE;--r50:#6F9FCC;--mrna:#5CC4B0;--trna:#F2A93B;--sus:#7FA6E6;--res:#F07A62;--plasmid:#F2A93B;--ergo:#E0BE48;--chol:#A9B7C2;--lawn:#7E7048;--lawn-dot:#A8955E;--zone:#3A3226;--pus:#5A5232;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1240px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:7px 12px;cursor:pointer;font-size:14px}
+.tbtn:hover{border-color:var(--accent)}
+.wrap{max-width:1240px;margin:0 auto;padding:16px}
+.chain{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.actgrp{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:8px 10px;display:flex;flex-direction:column;gap:6px;flex:1 1 150px}
+.actgrp .an{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.actgrp .an i{width:10px;height:10px;border-radius:50%;display:inline-block;flex:0 0 auto}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--rule);background:var(--panel-2);font-family:var(--mono);font-size:13px;cursor:pointer;display:grid;place-items:center;padding:0}
+.dot:hover{border-color:var(--accent)}
+.dot.cur{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.dot.done:not(.cur){background:var(--good-wash);border-color:var(--good);color:var(--good)}
+.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);min-width:0}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%}
+.stagebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.stagebar input[type=range]{accent-color:var(--accent);width:110px}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2);flex:0 0 auto}
+.legend i.s{border-radius:2px}
+.legend i.d{border-radius:1px;transform:rotate(45deg);width:9px;height:9px}
+.legend i.r{border-radius:3px;width:14px}
+.legend i.l{width:18px;height:4px;border-radius:2px;border:0}
+.legend i.t{width:0;height:0;border-radius:0;border:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid;background:none!important}
+.legend i.dl{width:18px;height:0;border-radius:0;border:0;border-top:2px dashed;background:none!important}
+.legend i.y{width:12px;height:12px;border:0;border-radius:0;background:none!important;position:relative}
+.legend i.y::before{content:"Y";position:absolute;left:0;top:-4px;font:700 14px var(--sans);color:var(--yc)}
+.explain{padding:18px 20px}
+.stepno{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.actchip{padding:1px 8px 1px 6px;border-radius:99px;color:var(--ink);font-size:11px;border:1.5px solid var(--c,var(--accent));background:var(--panel);display:inline-flex;align-items:center;gap:5px}.actchip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c,var(--accent))}
+h2{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.25;margin:6px 0 10px}
+.body p{margin:0 0 10px}
+.body ol,.body ul{margin:0 0 10px;padding-left:22px}
+.body li{margin-bottom:4px}
+.body .tx{border-left:3px solid var(--accent);padding:2px 0 2px 10px;color:var(--ink)}
+.analogy{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:12px 0}
+.analogy b{display:block;font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.analogy p{margin:0}
+.terms{margin:12px 0 0;padding:0}
+.terms div{display:grid;grid-template-columns:minmax(110px,34%) 1fr;gap:10px;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14.5px}
+.terms dt{font-weight:600}
+.terms dd{margin:0;color:var(--ink-soft)}
+.check{margin-top:16px;border:1px solid var(--rule);border-radius:var(--r);padding:14px;background:var(--panel-2)}
+.check h3{margin:0 0 6px;font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
+.check .q{font-weight:600;margin:0 0 10px}
+.opt{display:block;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;margin:0 0 8px;cursor:pointer;font-size:15px;line-height:1.4}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:6px 0 0;font-size:14.5px}
+.fb.ok{color:var(--good)}
+.fb.no{color:var(--warn-ink)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+.nav{display:flex;align-items:center;gap:12px;margin-top:14px}
+.navbtn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:11px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.navbtn.sec{background:var(--panel);color:var(--ink);border:1px solid var(--rule)}
+.navbtn:disabled{opacity:.4;cursor:default}
+.prog{flex:1;height:8px;background:var(--sunk);border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+footer{max-width:1240px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+sub,sup{line-height:0}
+</style>
+<script src="micro-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">Microbiology &middot; Module 8 &middot; Antimicrobial drugs and resistance</div>
+    <h1>Antimicrobial Drugs Walkthrough</h1>
+    <p class="sub">How antibiotics and other antimicrobial drugs find targets in microbes but not in us, how the lab tests them, and how microbes fight back. Go at your own pace. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+
+<div class="wrap">
+  <nav class="chain" id="chain" aria-label="Steps"></nav>
+  <div class="grid">
+    <section class="card stage" aria-label="Animation">
+      <div class="canvas-holder"><canvas id="stage" role="img" aria-label=""></canvas></div>
+      <div class="stagebar">
+        <button class="tbtn" id="pauseBtn" type="button">Pause</button>
+        <button class="tbtn" id="replayBtn" type="button">Replay</button>
+        <label>Speed <input type="range" id="speed" min="0.25" max="1.75" step="0.25" value="1"></label>
+        <span class="caption" id="caption"></span>
+      </div>
+      <div class="legend" id="legend"></div>
+    </section>
+    <section class="card explain" aria-live="polite">
+      <div class="stepno" id="stepno"></div>
+      <h2 id="title"></h2>
+      <div class="body" id="body"></div>
+      <div class="analogy" id="analogy"><b>Think of it like this</b><p></p></div>
+      <dl class="terms" id="terms"></dl>
+      <div class="check" id="check">
+        <h3>Quick check</h3>
+        <p class="q" id="q"></p>
+        <div id="opts"></div>
+        <p class="fb" id="fb"></p>
+        <p class="calm">Wrong answers are fine here. Read why, then try again.</p>
+      </div>
+      <div class="nav">
+        <button class="navbtn sec" id="prev" type="button">&larr; Back</button>
+        <div class="prog"><i id="progbar"></i></div>
+        <button class="navbtn" id="next" type="button">Next &rarr;</button>
+      </div>
+    </section>
+  </div>
+</div>
+<footer>Dr. Akash Garg &middot; Microbiology Study Tools &middot; Diagrams are simplified and not to scale. For learning only, not medical advice. CC BY-NC-SA 4.0<br>Use the left and right arrow keys to move between steps. Practice next in the <a href="Antimicrobials-Lab.html">Antimicrobial Drugs Lab</a>. Drugs are named by class only; this page gives no doses. Molecules, ribosomes and cells are drawn as simple shapes, and processes that take hours are sped up so you can watch them. Always follow the prescriber and the label.</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "gold", "gold-wash", "gold-ink", "ecf", "bench", "grid", "bact", "spore", "spore-coat", "myco", "env", "nonenv", "prion", "cyst", "fungus", "dead", "gpos", "gneg", "steam", "air", "heat", "cold", "uv", "ion", "alc", "chlor", "iod", "phen", "quat", "metal", "ald", "perox", "gas", "membrane", "protein", "dna", "water", "agar", "agar-edge", "glass", "glass-edge", "steel", "steel-edge", "tape", "tape-ink", "bi-pass", "bi-fail", "skin", "skin-edge", "body", "body-edge", "soil", "milk", "food", "organic", "glow", "act7", "pg", "pbp", "drug", "r30", "r50", "mrna", "trna", "sus", "res", "plasmid", "ergo", "chol", "lawn", "lawn-dot", "zone", "pus"];
+/* ================= drawing kit (shared by both pages) ================= */
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"center";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase().replace(/Μ/g,"µ").replace(/µM/g,"µm"),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+
+/* ================= microbe drawing helpers ================= */
+function bact(x,y,ang,s,a,o){o=o||{};s=s||8;ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=a==null?1:clamp(a,0,1);
+  const L=s*1.6*(o.shrink?1-o.shrink*.25:1),Hh=s*.75*(o.shrink?1-o.shrink*.35:1);const col=o.dead?C.dead:(o.col||C.bact);
+  if(o.wax){rr(-L-s*.32,-Hh-s*.32,L*2+s*.64,Hh*2+s*.64,Hh+s*.32);ctx.fillStyle=hexA(col,.28);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke()}
+  if(o.wall){rr(-L-s*.2,-Hh-s*.2,L*2+s*.4,Hh*2+s*.4,Hh+s*.2);ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1.2;ctx.stroke()}
+  rr(-L,-Hh,L*2,Hh*2,Hh);ctx.fillStyle=col;ctx.fill();
+  if(o.dead){ctx.strokeStyle=hexA(C.ink,.55);ctx.setLineDash([3,2]);ctx.lineWidth=1.2;ctx.stroke();ctx.setLineDash([]);
+    ctx.strokeStyle=hexA(C.panel,.9);ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(-L*.2,-Hh);ctx.lineTo(0,-Hh*.2);ctx.lineTo(-L*.15,Hh*.3);ctx.lineTo(L*.05,Hh);ctx.stroke()}
+  else{ctx.strokeStyle=hexA(C.ink,.45);ctx.lineWidth=1;ctx.stroke();line(-L*.55,0,L*.55,0,hexA(C.panel,.55),1.2)}
+  if(o.flag&&!o.dead){ctx.strokeStyle=hexA(col,.85);ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(L,0);for(let k=1;k<=6;k++)ctx.lineTo(L+k*3,Math.sin(k*1.6+(o.t||0)*8)*2.5);ctx.stroke()}
+  if(o.sporeIn){ell(L*.55,0,s*.42,s*.34,0,C.spore,C.ink,1)}
+  ctx.restore()}
+function spore(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.spore;
+  ell(x,y,s*1.15,s*.8,o.ang||0,o.dead?hexA(C.dead,.35):C["spore-coat"],col,s*.28);
+  ell(x,y,s*.62,s*.4,o.ang||0,col);
+  if(o.dead){line(x-s*.6,y-s*.5,x+s*.6,y+s*.5,hexA(C.ink,.5),1.2)}
+  ctx.restore()}
+function envVirus(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.env;const t=o.t||0;const br=o.broken||0;
+  for(let k=0;k<12;k++){const an=k/12*TAU+t*.3;const d=r+br*r*.8*rnd(k);const X=x+Math.cos(an)*d,Y=y+Math.sin(an)*d;line(X,Y,X+Math.cos(an)*r*.38,Y+Math.sin(an)*r*.38,col,1.3);circ(X+Math.cos(an)*r*.45,Y+Math.sin(an)*r*.45,r*.13,col)}
+  if(br>0){ctx.setLineDash([4,3])}
+  circ(x,y,r,hexA(col,.25),col,1.8);ctx.setLineDash([]);
+  ctx.beginPath();for(let k=0;k<=6;k++){const an=k/6*TAU;const X=x+Math.cos(an)*r*.55,Y=y+Math.sin(an)*r*.55;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();ctx.fillStyle=col;ctx.fill();
+  ctx.restore()}
+function nakedVirus(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.nonenv;
+  ctx.beginPath();for(let k=0;k<=6;k++){const an=k/6*TAU+Math.PI/6;const X=x+Math.cos(an)*r,Y=y+Math.sin(an)*r;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1.2;ctx.stroke();
+  for(let k=0;k<6;k++){const an=k/6*TAU+Math.PI/6;line(x,y,x+Math.cos(an)*r,y+Math.sin(an)*r,hexA(C.panel,.6),1)}
+  ctx.restore()}
+function prion(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.prion;const t=o.t||0;
+  ctx.beginPath();for(let i=0;i<=30;i++){const f=i/30;const X=x-s+f*2*s;const Y=y+Math.sin(f*TAU*2.5+t)*s*.35+(i%6<3?-s*.18:s*.18);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}
+  ctx.strokeStyle=col;ctx.lineWidth=s*.28;ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();
+  ctx.beginPath();for(let i=0;i<=20;i++){const f=i/20;const X=x-s*.8+f*1.6*s;const Y=y+s*.55+Math.sin(f*TAU*2+t+1)*s*.25;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.lineWidth=s*.22;ctx.stroke();ctx.lineCap="butt";
+  ctx.restore()}
+function cyst(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.cyst;
+  circ(x,y,r,hexA(col,.25),col,r*.28);circ(x-r*.25,y-r*.1,r*.18,col);circ(x+r*.25,y+r*.15,r*.18,col);ctx.restore()}
+function yeast(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.fungus;
+  ell(x,y,s,s*.82,0,col,hexA(C.ink,.45),1);ell(x+s*.95,y-s*.45,s*.48,s*.4,0,col,hexA(C.ink,.45),1);circ(x-s*.2,y,s*.3,hexA(C.panel,.4));ctx.restore()}
+function microbe(kind,x,y,s,o){o=o||{};
+  if(kind==="bact")bact(x,y,o.ang||0,s,o.a,o);else if(kind==="spore")spore(x,y,s*.9,o);else if(kind==="myco")bact(x,y,o.ang||0,s,o.a,Object.assign({col:C.myco,wax:true},o));
+  else if(kind==="env")envVirus(x,y,s*.9,o);else if(kind==="nonenv")nakedVirus(x,y,s*.85,o);else if(kind==="prion")prion(x,y,s,o);else if(kind==="cyst")cyst(x,y,s,o);else if(kind==="yeast")yeast(x,y,s*.8,o)}
+/* flame for Bunsen burners */
+function flame(x,y,s,t){ctx.save();const fl=1+.08*Math.sin(t*17)+.05*Math.sin(t*29);
+  ctx.beginPath();ctx.moveTo(x-s*.5,y);ctx.bezierCurveTo(x-s*.6,y-s*1.2*fl,x-s*.1,y-s*1.6*fl,x,y-s*2.4*fl);ctx.bezierCurveTo(x+s*.1,y-s*1.6*fl,x+s*.6,y-s*1.2*fl,x+s*.5,y);ctx.closePath();
+  ctx.fillStyle=hexA(C.heat,.85);ctx.fill();
+  ctx.beginPath();ctx.moveTo(x-s*.25,y);ctx.bezierCurveTo(x-s*.3,y-s*.8,x,y-s*1.1*fl,x,y-s*1.4*fl);ctx.bezierCurveTo(x,y-s*1.1*fl,x+s*.3,y-s*.8,x+s*.25,y);ctx.closePath();ctx.fillStyle=hexA(C.steam,.9);ctx.fill();ctx.restore()}
+function burner(x,y,t){rr(x-9,y-40,18,40,3);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=1.3;ctx.stroke();rr(x-24,y-4,48,8,3);ctx.fill();ctx.stroke();flame(x,y-40,14,t)}
+function heatWaves(x,y,w,h,t,col,n){n=n||5;for(let i=0;i<n;i++){const X=x+(i+.5)*w/n;const p=P(t*.8+i*.23,1);ctx.save();ctx.globalAlpha*=Math.sin(p*Math.PI)*.85;ctx.beginPath();for(let k=0;k<=12;k++){const f=k/12;const Y=y-f*h-p*h*.4;const X2=X+Math.sin(f*TAU+t*3+i)*5;k?ctx.lineTo(X2,Y):ctx.moveTo(X2,Y)}ctx.strokeStyle=col||C.heat;ctx.lineWidth=2.2;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt";ctx.restore()}}
+function snow(x,y,w,h,t,n){for(let i=0;i<(n||10);i++){const X=x+rnd(i*3)*w+Math.sin(t+i)*6;const Y=y+P(t*.12+rnd(i*7),1)*h;const r=3+rnd(i)*2;ctx.save();ctx.translate(X,Y);ctx.rotate(t*.5+i);for(let k=0;k<3;k++){ctx.rotate(Math.PI/3);line(-r,0,r,0,C.cold,1.4)}ctx.restore()}}
+function thermo(x,y,h,f,col,lab){rr(x-6,y,12,h,6);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.3;ctx.stroke();
+  const fh=(h-8)*clamp(f,0,1);rr(x-3,y+h-4-fh,6,fh+4,3);ctx.fillStyle=col||C.heat;ctx.fill();circ(x,y+h+6,9,col||C.heat,C["ink-soft"],1.3);
+  if(lab)txt(x+14,y+h*.15,lab,{size:12.5,mono:true,weight:700})}
+function gaugeDial(x,y,r,f,lab,val,col){circ(x,y,r,C.panel,C["ink-soft"],1.6);const a0=Math.PI*.75,a1=Math.PI*2.25;
+  ctx.beginPath();ctx.arc(x,y,r-5,a0,a1);ctx.strokeStyle=C["rule"];ctx.lineWidth=4;ctx.stroke();ctx.beginPath();ctx.arc(x,y,r-5,a0,a0+(a1-a0)*clamp(f,0,1));ctx.strokeStyle=col||C.steam;ctx.stroke();
+  const a=a0+(a1-a0)*clamp(f,0,1);line(x,y,x+Math.cos(a)*(r-9),y+Math.sin(a)*(r-9),C.ink,2.2);circ(x,y,3,C.ink);
+  if(val)txt(x,y+r*.5,val,{size:11.5,mono:true,weight:700,align:"center"});if(lab)txt(x,y+r+11,lab,{size:12,weight:600,align:"center",color:C["ink-soft"]})}
+function clock(x,y,r,f,col){circ(x,y,r,C.panel,C["ink-soft"],1.4);if(f>0){ctx.beginPath();ctx.moveTo(x,y);ctx.arc(x,y,r-3,-Math.PI/2,-Math.PI/2+TAU*clamp(f,0,1));ctx.closePath();ctx.fillStyle=hexA(col||C.accent,.45);ctx.fill()}
+  const a=-Math.PI/2+TAU*f;line(x,y,x+Math.cos(a)*(r-3),y+Math.sin(a)*(r-3),C.ink,1.8)}
+function petri(x,y,r,o){o=o||{};ell(x,y+4,r,r*.42,0,hexA(C.ink,.12));ell(x,y,r,r*.42,0,C.agar,C["agar-edge"],1.5);if(o.lawn){ctx.save();ell(x,y,r-4,r*.42-3,0);ctx.clip();ctx.globalAlpha*=o.lawn;
+  for(let i=0;i<160;i++){const a=rnd(i)*TAU,d=Math.sqrt(rnd(i+9))*(r-4);circ(x+Math.cos(a)*d,y+Math.sin(a)*d*.42,1.6,hexA(o.col||C.bact,.6))}ctx.restore()}
+  ell(x,y,r+2,r*.42+2,0,null,hexA(C["glass-edge"],.8),1.3)}
+function tube(x,y,w,h,fill,o){o=o||{};ctx.save();rr(x-w/2,y,w,h,w/2);ctx.fillStyle=hexA(C.glass,.6);ctx.fill();
+  if(fill!=null){ctx.save();rr(x-w/2,y,w,h,w/2);ctx.clip();ctx.fillStyle=o.col||C.water;ctx.fillRect(x-w/2,y+h*(1-fill),w,h*fill);
+    if(o.cloudy){for(let i=0;i<26;i++)circ(x-w/2+rnd(i+(o.seed||0))*w,y+h*(1-fill)+rnd(i*3+1)*h*fill,1.4,hexA(C.ink,.35*o.cloudy))}ctx.restore()}
+  rr(x-w/2,y,w,h,w/2);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.5;ctx.stroke();if(o.cap){rr(x-w/2-2,y-8,w+4,12,3);ctx.fillStyle=o.cap;ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.stroke()}ctx.restore()}
+function flask(x,y,s,fill,col){ctx.save();ctx.beginPath();ctx.moveTo(x-s*.18,y-s);ctx.lineTo(x-s*.18,y-s*.55);ctx.lineTo(x-s*.55,y);ctx.lineTo(x+s*.55,y);ctx.lineTo(x+s*.18,y-s*.55);ctx.lineTo(x+s*.18,y-s);ctx.closePath();
+  ctx.fillStyle=hexA(C.glass,.55);ctx.fill();ctx.save();ctx.clip();const fy=y-s*fill;ctx.fillStyle=col||C.water;ctx.fillRect(x-s,fy,2*s,s);ctx.restore();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.8;ctx.stroke();ctx.restore()}
+function handShape(x,y,s,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(o.rot||0);ctx.scale(s*(o.flip?-1:1),s);const col=o.glove?C.steam:C.skin,ed=o.glove?C["glass-edge"]:C["skin-edge"];
+  rr(-22,-6,44,46,12);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=ed;ctx.lineWidth=1.4/s;ctx.stroke();
+  const fx=[-17,-6,5,16],fl=[30,36,34,26];fx.forEach((f,i)=>{rr(f-4.5,-6-fl[i],9,fl[i]+6,4.5);ctx.fillStyle=col;ctx.fill();ctx.stroke()});
+  ctx.beginPath();ctx.moveTo(-22,22);ctx.quadraticCurveTo(-40,10,-36,-6);ctx.lineTo(-29,-8);ctx.quadraticCurveTo(-30,6,-20,12);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.stroke();
+  ctx.restore()}
+function bottle(x,y,s,col,lab){ctx.save();rr(x-s*.45,y-s*1.4,s*.9,s*1.4,s*.15);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();
+  ctx.save();rr(x-s*.45,y-s*1.4,s*.9,s*1.4,s*.15);ctx.clip();ctx.fillStyle=hexA(col,.55);ctx.fillRect(x-s*.45,y-s*.95,s*.9,s*.95);ctx.restore();
+  rr(x-s*.18,y-s*1.75,s*.36,s*.38,3);ctx.fillStyle=col;ctx.fill();if(lab){rr(x-s*.38,y-s*.85,s*.76,s*.42,3);ctx.fillStyle=C.panel;ctx.fill();txt(x,y-s*.64,lab,{size:Math.max(10.5,s*.2),weight:700,mono:true,align:"center"})}ctx.restore()}
+function sprayBottle(x,y,s,col,t,spray){bottle(x,y,s,col);ctx.save();rr(x-s*.25,y-s*2.05,s*.6,s*.32,4);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.stroke();
+  if(spray>0){for(let i=0;i<14;i++){const f=P(t*1.6+i/14,1);const a=-.35+rnd(i)*.7;const d=f*s*2.2;circ(x+s*.4+Math.cos(a)*d,y-s*1.9+Math.sin(a)*d+f*f*s*.8,1.8,hexA(col,(1-f)*spray))}}ctx.restore()}
+/* exponent label like 10^6 using superscripts */
+const SUPD={"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","-":"⁻"};
+function ten(n){return "10"+String(n).split("").map(c=>SUPD[c]||c).join("")}
+function fmtN(n){if(n>=1)return Math.round(n).toLocaleString("en-US");return n.toPrecision(1)}
+/* log-scale graph frame. returns mapping helpers */
+function logFrame(x,y,w,h,lo,hi,tmax,o){o=o||{};panelBox(x-46,y-32,w+60,h+(o.noX?48:66),{fill:hexA(C.panel,.94)});
+  if(o.title)txt(x-38,y-18,o.title,{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  const Y=v=>y+h-(clamp(v,lo,hi)-lo)/(hi-lo)*h,X=t=>x+w*clamp(t/tmax,0,1);
+  for(let e=lo;e<=hi;e+=(o.step||2)){line(x,Y(e),x+w,Y(e),hexA(C.rule,.7),1);txt(x-6,Y(e),ten(e),{size:11.5,mono:true,align:"right",color:C["ink-soft"]})}
+  line(x,y,x,y+h,C["ink-soft"],1.4);line(x,y+h,x+w,y+h,C["ink-soft"],1.4);
+  if(!o.noX){const nt=o.xt||4;for(let i=0;i<=nt;i++){const t=tmax*i/nt;txt(X(t),y+h+12,(o.xfmt?o.xfmt(t):Math.round(t)),{size:11.5,mono:true,align:"center",color:C["ink-soft"]})}
+    txt(x+w/2,y+h+28,o.xlab||"Time (minutes)",{size:12,align:"center",color:C["ink-soft"],weight:600})}
+  return {X,Y}}
+
+/* ================= antimicrobial drawing helpers ================= */
+function hexPath(x,y,r,rot){ctx.beginPath();for(let k=0;k<=6;k++){const a=k/6*TAU+(rot||0);const X=x+Math.cos(a)*r,Y=y+Math.sin(a)*r;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function ngon(x,y,r,n,rot){ctx.beginPath();for(let k=0;k<=n;k++){const a=k/n*TAU+(rot||0);const X=x+Math.cos(a)*r,Y=y+Math.sin(a)*r;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function fillStroke(f,s,lw){if(f){ctx.fillStyle=f;ctx.fill()}if(s){ctx.strokeStyle=s;ctx.lineWidth=lw||1.4;ctx.stroke()}}
+/* drug class colours (all are theme tokens) */
+const DRUGCOL={bl:"drug",van:"phen",amg:"ald",tet:"gold",mac:"alc",clin:"perox",chl:"iod",pmx:"nonenv",fq:"uv",rif:"heat",sul:"phen",tmp:"chlor",azole:"ald",polyene:"gold",ech:"alc",nuc:"uv",ni:"perox",pi:"drug",rti:"uv",fus:"alc",unc:"iod",lzd:"chlor"};
+function dcol(k){return C[DRUGCOL[k]||"drug"]}
+/* simple molecule tokens, one shape per drug class so classes look different */
+function drugMol(kind,x,y,s,o){o=o||{};s=s||10;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ctx.translate(x,y);ctx.rotate(o.rot||0);
+  const col=o.col||dcol(kind),ed=hexA(C.ink,.55);
+  switch(kind){
+    case "bl":rr(-s*1.1,-s*.5,s,s,1.5);fillStroke(col,ed,1.2);ngon(s*.35,0,s*.62,5,Math.PI);fillStroke(hexA(col,.55),ed,1.2);break;
+    case "van":ctx.beginPath();ctx.moveTo(-s*1.2,-s*.9);ctx.quadraticCurveTo(-s*1.3,s*1.1,0,s*1.05);ctx.quadraticCurveTo(s*1.3,s*1.1,s*1.2,-s*.9);ctx.lineTo(s*.6,-s*.9);ctx.quadraticCurveTo(s*.6,s*.45,0,s*.45);ctx.quadraticCurveTo(-s*.6,s*.45,-s*.6,-s*.9);ctx.closePath();fillStroke(col,ed,1.2);break;
+    case "amg":for(let k=0;k<3;k++){hexPath(-s*1.1+k*s*1.1,(k%2?-1:1)*s*.25,s*.55,0);fillStroke(k===1?hexA(col,.6):col,ed,1.1)}break;
+    case "tet":for(let k=0;k<4;k++){hexPath(-s*1.35+k*s*.9,0,s*.52,Math.PI/6);fillStroke(k%2?hexA(col,.7):col,ed,1.1)}break;
+    case "mac":circ(0,0,s*.95,hexA(col,.25),col,s*.32);hexPath(s*.95,-s*.7,s*.38,0);fillStroke(col,ed,1);hexPath(-s*.95,s*.7,s*.38,0);fillStroke(col,ed,1);break;
+    case "clin":hexPath(-s*.4,0,s*.55,0);fillStroke(col,ed,1.1);ngon(s*.55,0,s*.48,5,0);fillStroke(hexA(col,.6),ed,1.1);break;
+    case "chl":hexPath(-s*.3,0,s*.6,Math.PI/6);fillStroke(col,ed,1.1);line(s*.3,0,s*1.2,-s*.4,col,2.4);line(s*1.2,-s*.4,s*1.5,s*.2,col,2.4);break;
+    case "pmx":for(let k=0;k<7;k++){const a=k/7*TAU;circ(Math.cos(a)*s*.7,Math.sin(a)*s*.7,s*.3,col,ed,.8)}ctx.beginPath();ctx.moveTo(s*.9,0);for(let k=1;k<=6;k++)ctx.lineTo(s*.9+k*s*.32,(k%2?-1:1)*s*.2);ctx.strokeStyle=C.membrane;ctx.lineWidth=2.2;ctx.stroke();break;
+    case "fq":hexPath(-s*.45,0,s*.55,Math.PI/6);fillStroke(col,ed,1.1);hexPath(s*.5,0,s*.55,Math.PI/6);fillStroke(hexA(col,.6),ed,1.1);circ(s*1.2,s*.4,s*.22,C.ink);break;
+    case "rif":ctx.beginPath();ctx.ellipse(0,0,s*1.1,s*.75,0,0,TAU);ctx.strokeStyle=col;ctx.lineWidth=s*.38;ctx.stroke();hexPath(0,0,s*.4,0);fillStroke(col,ed,1);break;
+    case "sul":hexPath(-s*.2,0,s*.6,Math.PI/6);fillStroke(col,ed,1.1);circ(s*.85,0,s*.36,hexA(col,.6),ed,1);ctx.font=`700 ${Math.round(s*.6)}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=C.ink;ctx.fillText("S",s*.85,1);break;
+    case "tmp":hexPath(-s*.75,0,s*.5,0);fillStroke(col,ed,1.1);line(-s*.25,0,s*.25,0,col,2.4);hexPath(s*.75,0,s*.5,0);fillStroke(hexA(col,.6),ed,1.1);break;
+    case "azole":ngon(0,0,s*.65,5,-Math.PI/2);fillStroke(col,ed,1.2);line(s*.6,0,s*1.25,0,col,2.4);hexPath(s*1.7,0,s*.45,0);fillStroke(hexA(col,.6),ed,1);break;
+    case "polyene":ctx.beginPath();for(let k=0;k<=10;k++){const X=-s*1.6+k*s*.32,Y=(k%2?-1:1)*s*.18;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=s*.34;ctx.lineJoin="round";ctx.stroke();break;
+    case "ech":circ(0,0,s*.75,hexA(col,.3),col,s*.28);ctx.beginPath();ctx.moveTo(s*.75,0);for(let k=1;k<=5;k++)ctx.lineTo(s*.75+k*s*.3,(k%2?-1:1)*s*.18);ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke();break;
+    case "nuc":ngon(-s*.3,s*.2,s*.5,5,-Math.PI/2);fillStroke(col,ed,1.1);hexPath(s*.5,-s*.35,s*.45,0);fillStroke(hexA(col,.6),ed,1.1);break;
+    case "ni":ngon(0,0,s*.7,6,0);fillStroke(col,ed,1.2);line(-s*.7,0,-s*1.2,-s*.4,col,2.2);break;
+    case "pi":rr(-s*1.1,-s*.35,s*2.2,s*.7,s*.35);fillStroke(col,ed,1.1);hexPath(-s*.5,0,s*.28,0);fillStroke(C.panel,null);break;
+    case "fus":rr(-s*.4,-s*1.0,s*.8,s*2,s*.4);fillStroke(col,ed,1.1);break;
+    case "unc":circ(0,0,s*.65,col,ed,1.2);line(-s*.65,0,-s*1.1,0,col,2.4);break;
+    case "lzd":ngon(-s*.3,0,s*.55,5,0);fillStroke(col,ed,1.1);hexPath(s*.6,0,s*.45,0);fillStroke(hexA(col,.6),ed,1.1);break;
+    default:circ(0,0,s*.7,col,ed,1.2)}
+  ctx.restore()}
+/* bacterial rod with drawn envelope. o.gram "pos"|"neg"; o.bulge 0..1 (weak wall bulging), o.burst 0..1 */
+function rodCell(x,y,w,h,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ctx.translate(x,y);ctx.rotate(o.rot||0);
+  const g=o.gram||"pos";const wallC=g==="pos"?C.gpos:C.gneg;const burst=o.burst||0;
+  if(burst>0){// leaking contents
+    for(let k=0;k<14;k++){const a=rnd(k+3)*TAU;const d=(w*.3+burst*w*.6)*rnd(k+9);circ(Math.cos(a)*d,Math.sin(a)*d*.7,2.4,hexA(C.dna,.6*(1-burst*.6)))}}
+  const bw=g==="pos"?6:3;
+  if(g==="neg"){rr(-w/2-5,-h/2-5,w+10,h+10,h/2+5);ctx.strokeStyle=wallC;ctx.lineWidth=2.4;ctx.setLineDash(burst>0?[6,5]:[]);ctx.stroke();ctx.setLineDash([])}
+  rr(-w/2,-h/2,w,h,h/2);ctx.fillStyle=hexA(o.dead?C.dead:wallC,o.dead?.5:.28);ctx.fill();ctx.strokeStyle=o.dead?C.dead:wallC;ctx.lineWidth=bw;
+  if(burst>0)ctx.setLineDash([10,6]);ctx.stroke();ctx.setLineDash([]);
+  const iw=w-bw*2-4,ih=h-bw*2-4;rr(-iw/2,-ih/2,iw,ih,ih/2);ctx.fillStyle=o.dead?hexA(C.dead,.35):hexA(o.cyto||C.water,.95);ctx.fill();ctx.strokeStyle=C.membrane;ctx.lineWidth=1.8;ctx.stroke();
+  if(o.bulge){ctx.beginPath();ctx.arc(0,-h/2,h*.32*o.bulge,Math.PI,0);ctx.fillStyle=hexA(C.water,.95);ctx.fill();ctx.strokeStyle=C.membrane;ctx.lineWidth=1.8;ctx.stroke()}
+  if(!o.dead&&!o.noDNA){ctx.beginPath();for(let k=0;k<=24;k++){const f=k/24;const X=-iw*.3+f*iw*.6,Y=Math.sin(f*TAU*2+(o.t||0))*ih*.18;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=hexA(C.dna,.85);ctx.lineWidth=1.6;ctx.stroke()}
+  ctx.restore()}
+/* coccus */
+function coccus(x,y,r,col,o){o=o||{};circ(x,y,r,o.dead?C.dead:col,hexA(C.ink,.45),1);if(!o.dead)circ(x-r*.3,y-r*.3,r*.3,hexA(C.panel,.35))}
+/* human cell (no cell wall, 80S ribosomes) */
+function humanCell(x,y,r,t,o){o=o||{};blobPath(x,y,r,o.seed||1.3,t||0,.05);ctx.fillStyle=C.body;ctx.fill();ctx.strokeStyle=C["body-edge"];ctx.lineWidth=2;ctx.stroke();
+  circ(x+r*.12,y-r*.05,r*.34,hexA(C.r50,.35),C["body-edge"],1.5);circ(x+r*.18,y-r*.1,r*.1,hexA(C.r50,.6))}
+/* ribosomes. o.big for 80S, o.lab to draw subunit labels */
+function ribosome(x,y,s,o){o=o||{};const big=!!o.big;const c50=big?mix(C.r50,C.body,.25):C.r50,c30=big?mix(C.r30,C.body,.25):C.r30;
+  ell(x,y-s*.42,s*1.05*(big?1.15:1),s*.62*(big?1.1:1),0,c50,hexA(C.ink,.5),1.3);ell(x,y+s*.42,s*.85*(big?1.15:1),s*.42*(big?1.1:1),0,c30,hexA(C.ink,.5),1.3);
+  if(o.lab){txt(x,y-s*.45,big?"60S":"50S",{size:12,weight:700,mono:true,align:"center",color:onFill()});txt(x,y+s*.45,big?"40S":"30S",{size:12,weight:700,mono:true,align:"center",color:onFill()})}}
+function mrna(x1,x2,y,t,col){ctx.beginPath();for(let X=x1;X<=x2;X+=4){const Y=y+Math.sin((X+t*30)/9)*2;X===x1?ctx.moveTo(X,Y):ctx.lineTo(X,Y)}ctx.strokeStyle=col||C.mrna;ctx.lineWidth=3;ctx.stroke()}
+function trnaShape(x,y,s,col,aaCol){ctx.save();ctx.translate(x,y);rr(-s*.35,-s*1.3,s*.7,s*1.3,s*.2);ctx.fillStyle=col||C.trna;ctx.fill();ctx.strokeStyle=hexA(C.ink,.45);ctx.lineWidth=1;ctx.stroke();
+  if(aaCol!==null)circ(0,-s*1.55,s*.32,aaCol||C.protein,hexA(C.ink,.4),1);ctx.restore()}
+/* top-view agar plate. zones: [{x,y,r}] in px; lawn 0..1 */
+function plateTop(x,y,r,lawn,zones,o){o=o||{};circ(x,y,r+5,hexA(C.glass,.8),C["glass-edge"],2);circ(x,y,r,o.agar||C.agar,C["agar-edge"],1.2);
+  if(lawn>0){ctx.save();ctx.beginPath();ctx.arc(x,y,r-2,0,TAU);ctx.clip();ctx.globalAlpha*=clamp(lawn,0,1);ctx.fillStyle=C.lawn;ctx.fillRect(x-r,y-r,2*r,2*r);
+    const n=Math.round(r*r/40);for(let i=0;i<n;i++){const a=rnd(i*1.7)*TAU,d=Math.sqrt(rnd(i*2.3+1))*r;circ(x+Math.cos(a)*d,y+Math.sin(a)*d,1.3,C["lawn-dot"])}
+    ctx.globalAlpha=1;(zones||[]).forEach(z=>{if(z.r>0){circ(z.x,z.y,z.r,C.zone);circ(z.x,z.y,z.r,null,hexA(C["lawn-dot"],.9),1.2)}});ctx.restore()}}
+function disk(x,y,lab,o){o=o||{};circ(x,y,o.r||9,C.panel,o.sel?C.accent:C["ink-soft"],o.sel?2.6:1.3);if(lab)txt(x,y+.5,lab,{size:o.fs||10.5,weight:700,mono:true,align:"center"})}
+/* ruler drawn along a line, pxmm pixels per mm */
+function rulerMM(x1,y1,x2,y2,pxmm,o){o=o||{};const L=Math.hypot(x2-x1,y2-y1),a=Math.atan2(y2-y1,x2-x1);ctx.save();ctx.translate(x1,y1);ctx.rotate(a);
+  rr(-6,-1,L+12,22,3);ctx.fillStyle=hexA(o.bg||C.tape,.94);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.2;ctx.stroke();
+  const n=Math.floor(L/pxmm);for(let i=0;i<=n;i++){const X=i*pxmm;const big=i%10===0,mid=i%5===0;line(X,-1,X,big?12:mid?9:5,C["tape-ink"],big?1.4:1)
+    if(big&&o.labels!==false){ctx.font=`700 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=C["tape-ink"];ctx.fillText(String(i),X,15.5)}}
+  ctx.restore()}
+function dnaHelix(x,y,w,amp,t,col,o){o=o||{};const c=col||C.dna;const brk=o.breakAt;for(let s=0;s<2;s++){ctx.beginPath();let pen=false;for(let X=0;X<=w;X+=3){const Y=y+Math.sin(X/14+t+s*Math.PI)*amp;if(brk!=null&&Math.abs(X-brk)<(o.gap||0)){pen=false;continue}pen?ctx.lineTo(x+X,Y):(ctx.moveTo(x+X,Y),pen=true)}ctx.strokeStyle=c;ctx.lineWidth=2.4;ctx.stroke()}
+  for(let X=6;X<w;X+=12){if(brk!=null&&Math.abs(X-brk)<(o.gap||0))continue;const a=Math.sin(X/14+t)*amp;line(x+X,y+a,x+X,y-a,hexA(c,.45),1.4)}}
+function protozoan(x,y,s,t,o){o=o||{};const col=o.dead?C.dead:C.cyst;blobPath(x,y,s,2.1,t,.1);ctx.fillStyle=hexA(col,.35);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke();circ(x-s*.2,y,s*.28,hexA(col,.7));
+  if(!o.dead){ctx.beginPath();ctx.moveTo(x+s,y);for(let k=1;k<=8;k++)ctx.lineTo(x+s+k*4,y+Math.sin(k*1.1+t*8)*4);ctx.strokeStyle=col;ctx.lineWidth=1.6;ctx.stroke()}}
+function helminth(x,y,s,t,o){o=o||{};const col=o.dead?C.dead:C.soil;ctx.beginPath();for(let k=0;k<=30;k++){const f=k/30;const X=x-s+f*2*s,Y=y+Math.sin(f*TAU*1.2+(o.still?0:t*2.4))*s*.18;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}
+  ctx.strokeStyle=col;ctx.lineWidth=s*.16;ctx.lineCap="round";ctx.stroke();ctx.strokeStyle=hexA(C.panel,.4);ctx.lineWidth=s*.04;ctx.stroke();ctx.lineCap="butt"}
+function capsulePill(x,y,s,col,rot){ctx.save();ctx.translate(x,y);ctx.rotate(rot||0);rr(-s,-s*.42,s*2,s*.84,s*.42);ctx.fillStyle=C.panel;ctx.fill();ctx.save();rr(-s,-s*.42,s*2,s*.84,s*.42);ctx.clip();ctx.fillStyle=col;ctx.fillRect(-s,-s,s,2*s);ctx.restore();ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1.2;rr(-s,-s*.42,s*2,s*.84,s*.42);ctx.stroke();ctx.restore()}
+function crossMark(x,y,s,col){line(x-s,y-s,x+s,y+s,col||C.bad,3);line(x-s,y+s,x+s,y-s,col||C.bad,3)}
+function checkMark(x,y,s,col){poly([[x-s,y],[x-s*.3,y+s*.7],[x+s,y-s*.7]],col||C.good,3)}
+/* a pore/plug "blocked" sign */
+function blockSign(x,y,r,col){circ(x,y,r,hexA(C.panel,.85),col||C.bad,2.5);line(x-r*.7,y+r*.7,x+r*.7,y-r*.7,col||C.bad,2.5)}
+
+/* ---------------- step content ---------------- */
+const ACTS={1:{name:"Part 1 · The basics",col:"act1"},
+            2:{name:"Part 2 · Cell wall",col:"act2"},
+            3:{name:"Part 3 · Ribosomes",col:"act3"},
+            4:{name:"Part 4 · Membrane, DNA, folate",col:"act4"},
+            5:{name:"Part 5 · Fungi, viruses, parasites",col:"act5"},
+            6:{name:"Part 6 · Testing",col:"act6"},
+            7:{name:"Part 7 · Resistance",col:"act7"}};
+const NACT=7;
+const STEPS=[
+{act:0,scene:"map",desc:"On the left, one large rod-shaped bacterium is drawn in cross-section with five labelled targets around it: the cell wall, the ribosomes, the cell membrane, the DNA, and the folic acid pathway. Every two seconds a different target glows, and a small coloured drug shape flies in from the edge and lands on it. On the right, seven numbered cards for the seven parts of this walkthrough light up one at a time with a coloured border.",
+ title:"The big picture: hit the microbe, spare the patient",
+ body:`<p>An <b>antimicrobial drug</b> is a medicine that kills microbes or stops them from growing <b>inside the body</b>. An <b>antibiotic</b> is the classic example: it was first made by one microbe to fight others. Today many are made or changed in the lab.</p>
+ <p>The trick is to find a part of the microbe that <b>we do not have</b>. Bacteria have five big targets: the <b>cell wall</b>, their small <b>70S ribosomes</b>, the <b>cell membrane</b>, the enzymes that copy <b>DNA and RNA</b>, and the <b>folic acid</b> pathway.</p>
+ <p>This walkthrough has seven parts:</p>
+ <ol><li><b>The basics:</b> history, selective toxicity, spectrum, kill or hold.</li><li><b>Cell wall drugs.</b></li><li><b>Ribosome drugs.</b></li><li><b>Membrane, DNA and folate drugs.</b></li><li><b>Fungi, viruses and parasites.</b></li><li><b>Testing:</b> how the lab picks a drug.</li><li><b>Resistance:</b> how microbes fight back and how we slow them down.</li></ol>`,
+ analogy:"A key that only fits one lock. A good antimicrobial is shaped for a lock the microbe has and your cells do not, so it opens (or jams) the microbe's door and leaves yours alone.",
+ terms:[["Antimicrobial drug","A medicine that kills or slows microbes in the body."],["Antibiotic","An antibacterial drug, first found as a substance one microbe makes against others."],["Drug target","The part of the microbe the drug sticks to and blocks."]],
+ check:null,caption:"Five targets in a bacterium. Each drug class hits one of them.",
+ legend:[["gneg","Bacterial envelope"],["r50","Ribosome"],["dna","DNA"],["drug","Drug"],["accent","Current part","s"]]},
+
+/* ---------- Part 1 ---------- */
+{act:1,scene:"history",desc:"Three panels along a timeline. In the first, labelled 1910, a small bullet shape with the word Salvarsan flies past a tan human cell and hits a pink spiral-shaped bacterium, which turns grey. In the second, labelled 1928, a top-down agar plate holds a fuzzy blue-green mould colony; a clear ring spreads out around it and the yellow bacterial colonies nearest the mould fade away while the far ones stay. In the third, labelled 1930s, a red bottle labelled sulfa sits beside bacteria that stop dividing. A dot moves along the timeline at the bottom from 1910 to the 1940s, where a label reads penicillin mass-produced.",
+ title:"Magic bullets, mould and sulfa",
+ body:`<p>In 1910 <b>Paul Ehrlich</b> dreamed of a <b>"magic bullet"</b>: a chemical that would hit a germ and nothing else. His team found <b>Salvarsan</b>, an arsenic compound that treated <b>syphilis</b>. It was toxic, but it proved the idea could work.</p>
+ <p>In 1928 <b>Alexander Fleming</b> noticed that a <b>Penicillium</b> mould growing on a plate of <b>Staphylococcus</b> had a clear ring around it where the bacteria had died. The mould made <b>penicillin</b>. In the early 1940s other scientists purified it and it was mass-produced, saving many lives in World War II.</p>
+ <p>In the 1930s <b>Gerhard Domagk</b> showed that a red dye called Prontosil cured streptococcal infections in mice. It led to the <b>sulfa drugs</b>, the first widely used synthetic (lab-made) antibacterials.</p>`,
+ analogy:"Fleming's plate was like noticing that weeds never grow near one plant in your garden, then asking what that plant is putting into the soil.",
+ terms:[["Magic bullet","Ehrlich's idea of a drug that kills a microbe without harming the patient."],["Penicillin","The first antibiotic found from a mould (Penicillium); it blocks bacterial cell walls."],["Sulfa drugs","Synthetic antibacterials that block the folic acid pathway."]],
+ check:{q:"What did Fleming actually see on his plate in 1928?",opts:[
+  ["A clear zone of dead bacteria around a mould colony",1,"Yes. The Penicillium mould released penicillin, which killed the Staphylococcus colonies near it."],
+  ["Bacteria growing faster next to the mould",0,"It was the opposite. Bacteria near the mould died, leaving a clear ring."],
+  ["A virus killing the bacteria",0,"Viruses that kill bacteria exist (phages), but Fleming's clear zone came from a mould."],
+  ["A red dye that stopped bacteria",0,"That was the sulfa story (Prontosil), a few years later and in a different lab."]]},
+ caption:"Three milestones: Ehrlich's magic bullet, Fleming's mould plate, and the first sulfa drug.",
+ legend:[["gneg","Spiral bacterium"],["fungus","Penicillium mould"],["lawn","Bacterial colonies"],["drug","Drug"]]},
+
+{act:1,scene:"selective",desc:"On the left, a bacterium with a thick purple wall sits beside a larger tan human cell that has no wall. Red drug shapes drift in from the left. The ones that reach the bacterium lock onto its wall, the wall turns dashed and the bacterium bursts and turns grey. The ones that reach the human cell bounce off with a small tick mark and the cell stays healthy. On the right, a graph shows two S-shaped curves along a drug level axis: a green curve for patients helped and a red curve for patients harmed. A shaded green band between them marks the safety window. The picture switches every few seconds between a drug with a wide window, labelled high therapeutic index, and one with a narrow window, labelled low therapeutic index.",
+ title:"Selective toxicity and the therapeutic index",
+ body:`<p><b>Selective toxicity</b> means a drug harms the microbe much more than the patient. It works best when the target exists only in the microbe. Human cells have <b>no cell wall</b>, so penicillin, which attacks bacterial walls, is very safe for most people.</p>
+ <p>No drug is perfectly safe. The <b>therapeutic index (TI)</b> compares the amount that harms the patient with the amount that treats the infection: <b>TI = toxic dose ÷ effective dose</b>.</p>
+ <p>A <b>high TI</b> means a wide safety window. A <b>low TI</b> means the helpful and harmful amounts are close together, so the drug must be watched closely, sometimes with blood levels.</p>
+ <p>Selective toxicity is easy for bacteria (very different cells) and harder for fungi, protozoa and worms, which are eukaryotes like us. Viruses are hardest, because they use our own cell machinery.</p>`,
+ analogy:"Weed killer on a lawn. A good one kills dandelions but not grass. If the grass starts browning at nearly the same strength that kills the weeds, that product has a narrow safety window.",
+ terms:[["Selective toxicity","Harming the microbe while doing little harm to the host."],["Therapeutic index","Toxic dose divided by effective dose; bigger means safer."],["Toxicity","Harm a drug does to the patient's own cells or organs."]],
+ check:{q:"Why is it harder to make safe antifungal drugs than antibacterial drugs?",opts:[
+  ["Fungal cells are eukaryotic, like ours, so they share more targets with us",1,"Right. Fungi have 80S ribosomes, a nucleus and membranes much like ours, so there are fewer targets that only the fungus has."],
+  ["Fungi are smaller than bacteria",0,"Most fungal cells are larger than bacteria. The problem is how similar they are to our cells, not their size."],
+  ["Fungi have no cell membrane",0,"Fungi do have a membrane. It contains ergosterol instead of cholesterol, which is one of the few differences drugs can use."],
+  ["Fungi have a peptidoglycan cell wall",0,"Fungal walls are made of chitin and glucans, not peptidoglycan. That is why penicillin does nothing to fungi."]]},
+ caption:"The drug locks onto the bacterial wall but has nothing to grab on the human cell. A high therapeutic index means a wide safety window.",
+ legend:[["gpos","Bacterial wall"],["body","Human cell"],["drug","Drug"],["good","Helped","l"],["bad","Harmed","l"]]},
+
+{act:1,scene:"spectrum",desc:"A chart with five columns of drawn microbes: purple Gram-positive cocci, pink Gram-negative rods, waxy mycobacteria, tiny chlamydias inside a host cell, and tiny rickettsias. Four rows list drugs. For each row in turn, a coloured bar sweeps across and fills the columns that drug can reach: isoniazid fills only mycobacteria, penicillin G fills mainly Gram-positives, streptomycin fills Gram-negatives and mycobacteria, and tetracycline fills Gram-positives, Gram-negatives, chlamydias and rickettsias. Tags on the right say narrow or broad.",
+ title:"Spectrum: narrow or broad",
+ body:`<p>The <b>spectrum of activity</b> is the range of microbes a drug can affect.</p>
+ <p>A <b>narrow-spectrum</b> drug hits only a few kinds of microbes, such as mainly Gram-positive bacteria. A <b>broad-spectrum</b> drug hits many kinds, including both Gram-positive and Gram-negative bacteria.</p>
+ <p>Broad drugs are handy when we do not yet know the cause, such as in a very sick patient. But once the lab names the microbe, a narrow drug is usually better: it spares the helpful microbes in your body and puts less pressure on bacteria to become resistant.</p>
+ <p>Gram-negative bacteria are harder to reach because their <b>outer membrane</b> keeps many drugs out. Drugs must slip in through small protein channels called <b>porins</b>.</p>`,
+ analogy:"A fishing net. A narrow net catches only the fish you want. A wide trawl net catches everything in the area, including fish you needed to leave in the sea.",
+ terms:[["Narrow spectrum","Works against a small range of microbes."],["Broad spectrum","Works against many kinds of microbes, often Gram-positive and Gram-negative."],["Porin","A protein channel in the Gram-negative outer membrane that lets small molecules in."]],
+ check:{q:"A culture shows the infection is caused by one Gram-positive bacterium that is susceptible to many drugs. Which choice fits best?",opts:[
+  ["A narrow-spectrum drug that works on that bacterium",1,"Yes. Once the cause is known, a narrow drug treats it while sparing normal microbiota and lowering resistance pressure."],
+  ["The broadest drug available, to be safe",0,"Broad drugs kill many helpful microbes too and push more resistance. They are for when the cause is unknown."],
+  ["Two broad-spectrum drugs together",0,"That adds side effects and resistance pressure without any benefit here."],
+  ["An antiviral drug",0,"The cause is a bacterium. Antivirals do not act on bacteria."]]},
+ caption:"Narrow-spectrum drugs reach a few kinds of microbes; broad-spectrum drugs reach many.",
+ legend:[["gpos","Gram-positive"],["gneg","Gram-negative"],["myco","Mycobacteria"],["accent","Reached by the drug","s"]]},
+
+{act:1,scene:"superinf",desc:"Two panels show the inside of the large intestine as a long tan band. On the left, labelled Before, many differently coloured normal bacteria fill the space, with two brown oval endospores of C. difficile and one orange yeast sitting quietly among them. On the right, labelled After a broad-spectrum antibiotic, red drug shapes drift through and the normal bacteria turn grey and fade. With the competition gone, the brown spores open into rods that multiply and release small yellow toxin dots toward the gut wall, which turns orange. The orange yeast buds into more and more yeast cells.",
+ title:"Superinfection: when the good microbes are lost",
+ body:`<p>Your gut, skin, mouth and vagina carry <b>normal microbiota</b>, helpful microbes that take up space and food so harmful ones cannot settle in. This is called <b>microbial antagonism</b>.</p>
+ <p>A broad-spectrum antibiotic kills many of these helpers. Microbes that survive the drug can then overgrow. This new infection is a <b>superinfection</b>.</p>
+ <ul><li><b>Clostridioides difficile</b> (C. diff) forms endospores that survive antibiotics. With the normal gut bacteria gone, it grows and releases toxins, causing watery diarrhea and inflamed colon.</li>
+ <li><b>Candida</b> yeast is a fungus, so antibacterial drugs do not touch it. It can overgrow in the mouth (thrush) or vagina (yeast infection).</li></ul>`,
+ analogy:"Clearing a whole garden bed to get rid of one weed. The flowers are gone too, and the toughest weeds move into the empty soil first.",
+ terms:[["Normal microbiota","Microbes that normally live on and in us without causing disease."],["Superinfection","A new infection by microbes that overgrow after the drug kills the normal microbiota."],["C. difficile","A spore-forming gut bacterium that causes antibiotic-associated diarrhea."]],
+ check:{q:"Why can Candida overgrow while a patient takes an antibacterial drug?",opts:[
+  ["Candida is a fungus, so the drug does not affect it, but it kills the bacteria that kept Candida in check",1,"Exactly. The drug removes Candida's competitors, and Candida itself has no bacterial targets."],
+  ["The antibiotic feeds Candida",0,"Antibiotics are not food for yeast. The overgrowth comes from losing the competing bacteria."],
+  ["Candida turns into bacteria",0,"Fungi and bacteria are different kinds of cells. One cannot turn into the other."],
+  ["The antibiotic weakens the patient's skin",0,"The main reason is loss of the normal bacteria that compete with the yeast."]]},
+ caption:"Broad-spectrum drugs wipe out helpful microbes, letting C. difficile and Candida overgrow.",
+ legend:[["bact","Normal microbiota"],["spore","C. difficile spore"],["fungus","Candida yeast"],["gold","Toxin"],["dead","Killed"]]},
+
+{act:1,scene:"cidal",desc:"At the top, a graph shows living bacteria on a log scale over time. A drug is added at a dashed line. A grey line with no drug keeps rising. A blue line, labelled bacteriostatic, stays flat. A red line, labelled bactericidal, drops steeply. Below the graph, two scenes play. On the left, a bacterium sits still with a blue pause sign, and a large round white blood cell creeps up, wraps around it and swallows it. On the right, a bacterium hit by the drug cracks, leaks blue contents and turns grey.",
+ title:"Bactericidal or bacteriostatic?",
+ body:`<p>A <b>bactericidal</b> drug kills bacteria. The number of living cells falls. Penicillins, vancomycin, aminoglycosides and fluoroquinolones usually act this way.</p>
+ <p>A <b>bacteriostatic</b> drug stops bacteria from growing but does not kill them directly. The <b>immune system</b> then has to clear the stalled cells. Tetracyclines, macrolides and clindamycin usually act this way.</p>
+ <p>For most infections in healthy people, either kind works. A <b>cidal</b> drug is preferred when the immune system is weak, or in places the immune system reaches poorly, such as heart valves (endocarditis) or the brain coverings (meningitis).</p>
+ <p>The label is not fixed: some drugs are static at low levels and cidal at high levels, or cidal for one microbe and static for another.</p>`,
+ analogy:"A static drug is a referee who freezes the players so the security guards (your white blood cells) can walk them out. A cidal drug removes the players itself.",
+ terms:[["Bactericidal","Kills bacteria; the count falls."],["Bacteriostatic","Stops growth; the immune system must clear the bacteria."],["Phagocyte","A white blood cell that swallows and digests microbes."]],
+ check:{q:"A patient's immune system is very weak after chemotherapy. Which kind of antibacterial is usually preferred?",opts:[
+  ["Bactericidal",1,"Yes. A static drug relies on the immune system to finish the job, and this patient's immune system cannot do that well."],
+  ["Bacteriostatic",0,"Static drugs only pause bacteria. Without a strong immune system, they may regrow when the drug level drops."],
+  ["Either one; the immune system does not matter",0,"It does matter. Static drugs depend on the immune system to clear the paused cells."],
+  ["An antiviral",0,"This is about treating bacteria. Antivirals do not work on bacteria."]]},
+ caption:"Static drugs pause growth so white blood cells can clear the bacteria. Cidal drugs kill the bacteria directly.",
+ legend:[["dead","No drug","l"],["cold","Bacteriostatic","l"],["bad","Bactericidal","l"],["panel","White blood cell"]]},
+
+/* ---------- Part 2 ---------- */
+{act:2,scene:"betalactam",desc:"Top left, labelled Normal: a mesh of horizontal brown sugar chains, and a blue enzyme shaped like an open mouth, the PBP, slides along adding short vertical cross-links between the chains. Top right, labelled With penicillin: red penicillin shapes drift in and stick inside the blue enzymes, which turn grey; the cross-links stop being made and gaps open in the mesh. At the bottom, on the left, a normal rod-shaped bacterium grows and pinches into two. On the right, a bacterium with the weak wall grows, a bubble of cell membrane bulges out of a gap in its wall, water arrows rush in and the cell bursts and turns grey.",
+ title:"Beta-lactams: stop the cross-links, burst the cell",
+ body:`<p>The bacterial cell wall is made of <b>peptidoglycan</b>: long sugar chains tied together by short peptide <b>cross-links</b>, like a mesh bag around the cell. It keeps the cell from bursting, because water is always pushing in.</p>
+ <p>Enzymes called <b>penicillin-binding proteins (PBPs)</b> build the cross-links. <b>Beta-lactam</b> drugs, such as penicillin, look like the end of the peptide the PBP grabs. The PBP grabs the drug instead and gets stuck.</p>
+ <p>Without new cross-links, a <b>growing</b> cell makes weak spots in its wall. Water rushes in and the cell bursts. This is <b>osmotic lysis</b>, so beta-lactams are <b>bactericidal</b>, and they work best on actively growing cells.</p>
+ <p>Human cells have no peptidoglycan and no PBPs, which is why these drugs are so selective.</p>`,
+ analogy:"Building a brick wall while a trickster keeps handing the bricklayer fake bricks that glue his trowel shut. The wall goes up with holes, and the next push of water breaks through.",
+ terms:[["Peptidoglycan","The mesh of sugar chains and peptide cross-links in the bacterial wall."],["PBP","Penicillin-binding protein; an enzyme that builds peptidoglycan cross-links."],["Beta-lactam ring","The four-sided ring at the heart of penicillins and related drugs."],["Osmotic lysis","Bursting of a cell as water flows in through a weak wall."]],
+ check:{q:"Why do beta-lactams work best on bacteria that are actively growing?",opts:[
+  ["Only growing cells are building new wall, so only they make weak spots",1,"Right. The drug blocks wall building. A cell that is not making new wall has no new weak spots to burst through."],
+  ["Growing cells have no cell wall at all",0,"Growing cells do have walls; they are adding to them, and that new wall is what the drug spoils."],
+  ["Beta-lactams attack DNA, which only copies during growth",0,"Beta-lactams act on the cell wall (PBPs), not on DNA."],
+  ["Resting cells always carry resistance genes",0,"Resting cells are not resistant because of their genes; they just are not building new wall at that moment."]]},
+ caption:"Penicillin jams the PBP enzymes, so new wall has no cross-links. Water bursts the growing cell.",
+ legend:[["pg","Peptidoglycan"],["pbp","PBP enzyme"],["drug","Beta-lactam"],["water","Water","s"]]},
+
+{act:2,scene:"family",desc:"On the left, four rows show the beta-lactam family. Each row has a molecule drawn as a red square ring, which pulses, joined to a different side ring, and a bar showing its reach from Gram-positive to Gram-negative. Penicillins have a short bar, cephalosporins a longer bar with marks for older and newer generations, carbapenems a full bar, and monobactams a bar on the Gram-negative side only. On the right, a cross-section of a Gram-negative envelope shows a pink outer membrane with open porin channels. A carbapenem shape slips through a porin and reaches a blue PBP below, while a natural penicillin shape bounces off the outer membrane.",
+ title:"The beta-lactam family",
+ body:`<p>All these drugs share the same <b>beta-lactam ring</b>, the four-sided ring you see pulsing. They differ in the side groups, which change what they can reach and what can destroy them.</p>
+ <ul><li><b>Penicillins</b>: natural penicillin works mainly on Gram-positives. Lab-changed (semisynthetic) penicillins reach more Gram-negatives, or resist the enzymes that break penicillin.</li>
+ <li><b>Cephalosporins</b>: grouped in <b>generations</b>; later generations generally reach more Gram-negative bacteria.</li>
+ <li><b>Carbapenems</b>: very broad, saved as a "last line" for serious resistant infections.</li>
+ <li><b>Monobactams</b>: work only on Gram-negative bacteria.</li></ul>
+ <p>To reach the PBPs of a Gram-negative bacterium, a drug must pass the <b>outer membrane</b> through porins. Broad drugs are good at this.</p>`,
+ analogy:"One master key blank (the ring) cut in different ways. Each cut opens a different set of doors in the building.",
+ terms:[["Cephalosporins","Beta-lactams grouped in generations; later ones reach more Gram-negatives."],["Carbapenems","Very broad beta-lactams kept for serious, resistant infections."],["Semisynthetic","A natural drug changed in the lab to work better."]],
+ check:{q:"What do penicillins, cephalosporins and carbapenems all have in common?",opts:[
+  ["The beta-lactam ring, which blocks PBPs and cell wall cross-linking",1,"Yes. That shared ring is why they all target the same step: wall cross-linking by PBPs."],
+  ["They all block the 30S ribosome",0,"Ribosome drugs are a different group (aminoglycosides, tetracyclines). Beta-lactams act on the wall."],
+  ["They all work only on Gram-positive bacteria",0,"Their reach varies. Carbapenems and later cephalosporins work well on many Gram-negatives."],
+  ["They are all antifungal drugs",0,"Fungi have no peptidoglycan, so beta-lactams do nothing to them."]]},
+ caption:"One shared ring, different side groups. Broad beta-lactams pass the Gram-negative outer membrane through porins.",
+ legend:[["drug","Beta-lactam ring"],["gneg","Outer membrane"],["pbp","PBP"],["gpos","Gram-positive reach","s"]]},
+
+{act:2,scene:"vanco",desc:"On the left, labelled Gram-positive, a thick purple wall is being built from new building blocks, each drawn as a short chain ending in two small beads labelled D-Ala D-Ala. Large magenta cup-shaped vancomycin molecules drop onto those bead ends and cap them, so the blue builder enzyme cannot link them into the wall, and gaps stay open. On the right, labelled Gram-negative, the same cup-shaped molecules bump against a pink outer membrane with small porins and bounce away because they are too big to fit through. A label says too big for porins.",
+ title:"Vancomycin and other wall blockers",
+ body:`<p><b>Vancomycin</b> is a large molecule that grabs the ends of the new wall building blocks (two units called <b>D-alanine-D-alanine</b>). With those ends covered, the blocks cannot be linked into the wall. The cell wall weakens and the bacterium dies.</p>
+ <p>Vancomycin is too big to pass through the porins of the Gram-negative outer membrane, so it works on <b>Gram-positive</b> bacteria only. It is important for serious <b>MRSA</b> infections (given into a vein) and for C. difficile (given by mouth, so it stays in the gut).</p>
+ <p>Other drugs also attack wall building: <b>bacitracin</b> (in skin ointments) blocks the carrier that moves building blocks out of the cell, and <b>isoniazid</b> blocks <b>mycolic acid</b>, the waxy wall layer of the tuberculosis bacterium.</p>`,
+ analogy:"Putting caps on the ends of every Lego brick. The bricks are there, but none of them can click into the wall.",
+ terms:[["Vancomycin","A large wall-blocking drug for Gram-positive bacteria such as MRSA."],["D-Ala-D-Ala","The two-unit end of a new wall building block; vancomycin's target."],["Isoniazid","A drug that blocks mycolic acid in the tuberculosis wall."]],
+ check:{q:"Why does vancomycin not work on E. coli, a Gram-negative bacterium?",opts:[
+  ["It is too large to get through the outer membrane",1,"Right. The outer membrane only lets small molecules in through porins. Vancomycin is too big."],
+  ["E. coli has no peptidoglycan",0,"E. coli does have a thin peptidoglycan layer. The drug just cannot reach it past the outer membrane."],
+  ["E. coli has 80S ribosomes",0,"Bacteria have 70S ribosomes, and vancomycin does not act on ribosomes anyway."],
+  ["Vancomycin only works on viruses",0,"Vancomycin is an antibacterial. It has no effect on viruses."]]},
+ caption:"Vancomycin caps the wall building blocks in Gram-positives but is too big to pass the Gram-negative outer membrane.",
+ legend:[["gpos","Gram-positive wall"],["phen","Vancomycin"],["gneg","Outer membrane"],["pbp","Builder enzyme"]]},
+
+/* ---------- Part 3 ---------- */
+{act:3,scene:"ribo",desc:"On the left, labelled Bacterium 70S, a ribosome drawn as a large blue 50S top piece over a smaller 30S bottom piece moves along a wavy green mRNA strand. Orange tRNA shapes carrying red bead amino acids enter, drop their bead onto a growing chain of beads that snakes out of the top, and leave. On the right, labelled Human 80S, a larger ribosome with 60S and 40S pieces does the same inside a tan human cell. A drug shape flies at each: it sticks to the 70S ribosome and bounces off the 80S. A small bean-shaped mitochondrion inside the human cell holds tiny 70S-like ribosomes, with a note that some drugs can affect them.",
+ title:"Ribosomes: 70S in bacteria, 80S in us",
+ body:`<p>Every cell builds proteins on <b>ribosomes</b>. The ribosome reads <b>mRNA</b> and joins amino acids brought by <b>tRNA</b> into a chain.</p>
+ <p>Bacterial ribosomes are <b>70S</b>, made of a small <b>30S</b> and a large <b>50S</b> subunit. Our ribosomes are <b>80S</b> (40S plus 60S). Because the shapes differ, drugs can jam bacterial ribosomes and mostly leave ours alone.</p>
+ <p>"S" stands for Svedberg units, a measure of how fast a particle settles in a spinning centrifuge. The numbers do not simply add up, because shape matters too.</p>
+ <p>Our <b>mitochondria</b> have ribosomes much like bacterial ones (they likely came from ancient bacteria). That is one reason some ribosome drugs cause side effects.</p>`,
+ analogy:"Two printers that read the same document but take different cartridges. A jammed cartridge stops one printer and does not fit in the other.",
+ terms:[["70S ribosome","The bacterial ribosome, built from 30S and 50S subunits."],["80S ribosome","The ribosome in human cell cytoplasm, built from 40S and 60S subunits."],["Translation","Building a protein from mRNA on a ribosome."]],
+ check:{q:"A drug blocks the 50S subunit. Why are human cells mostly spared?",opts:[
+  ["Human cytoplasmic ribosomes are 80S, with a 60S large subunit instead of 50S",1,"Yes. The drug fits the bacterial 50S shape, not our 60S subunit."],
+  ["Human cells do not make proteins",0,"All living cells make proteins. Ours just use differently shaped ribosomes."],
+  ["Human ribosomes are in the cell wall",0,"Human cells have no cell wall, and ribosomes are in the cytoplasm or on the ER."],
+  ["Human cells have 30S ribosomes",0,"30S is the small bacterial subunit. Ours is 40S."]]},
+ caption:"Bacterial 70S ribosomes differ in shape from our 80S ribosomes, so drugs can jam theirs.",
+ legend:[["r50","Large subunit"],["r30","Small subunit"],["mrna","mRNA"],["trna","tRNA"],["protein","Amino acid"]]},
+
+{act:3,scene:"ribo30",desc:"Two panels, each with a bacterial ribosome reading a green mRNA strand. Left, labelled Aminoglycosides: orange hexagon-chain drug shapes bind the lower 30S piece. tRNAs keep coming, but now some carry the wrong amino acid, drawn as red beads with an x, so the growing chain becomes a tangled, misfolded mix; a few tangled proteins drift to the membrane and poke holes in it. A tag reads misreading, cidal. Right, labelled Tetracyclines: a gold four-ring drug shape sits in the 30S where tRNAs dock. Each incoming tRNA bumps against it and bounces away, and the protein chain stops growing. A tag reads blocked tRNA, static.",
+ title:"Drugs that hit the 30S subunit",
+ body:`<p><b>Aminoglycosides</b> (such as gentamicin and streptomycin) bind the <b>30S</b> subunit and make the ribosome <b>misread</b> the mRNA. Wrong amino acids go in, and the cell fills with faulty proteins, some of which damage its membrane. They are <b>bactericidal</b>. They can harm the <b>kidneys</b> and the <b>inner ear</b> (hearing and balance), so they are used with care.</p>
+ <p><b>Tetracyclines</b> (such as doxycycline) also bind the 30S subunit, but they block the spot where new <b>tRNA</b> docks, so the chain cannot grow. They are <b>bacteriostatic</b> and broad-spectrum. They can stain developing teeth, so they are generally avoided in pregnancy and young children, and they make skin sunburn more easily.</p>`,
+ analogy:"An aminoglycoside makes the factory reader mistake words, so the workers build broken parts. A tetracycline stands in the loading bay so no new parts can be delivered at all.",
+ terms:[["Aminoglycosides","30S drugs that cause misreading of mRNA; bactericidal."],["Tetracyclines","30S drugs that block tRNA docking; broad and bacteriostatic."],["Misreading","Putting the wrong amino acid into a protein chain."]],
+ check:{q:"A patient on a long course of an aminoglycoside should be watched for which side effects?",opts:[
+  ["Hearing or balance problems and kidney damage",1,"Yes. Aminoglycosides can harm the inner ear and the kidneys, so levels and kidney function are often monitored."],
+  ["Tooth staining",0,"Tooth staining is linked to tetracyclines, the other 30S drug group."],
+  ["Orange tears and urine",0,"That harmless colour change comes from rifampin, an RNA polymerase blocker."],
+  ["None; aminoglycosides cannot affect human cells",0,"They are selective, but at higher levels they do affect the ear and kidney."]]},
+ caption:"Aminoglycosides cause misreading and faulty proteins (cidal). Tetracyclines block tRNA docking (static).",
+ legend:[["ald","Aminoglycoside"],["gold","Tetracycline"],["r30","30S subunit"],["bad","Wrong amino acid"]]},
+
+{act:3,scene:"ribo50",desc:"Three panels, each with a bacterial ribosome on a green mRNA. In the first, labelled Macrolides, a teal ring-shaped drug sits in the tunnel in the top 50S piece, and the bead chain trying to leave through the tunnel stops and bunches up. In the second, labelled Clindamycin, a green ring shape binds at nearly the same place with the same result, and a small note warns of C. difficile risk. In the third, labelled Chloramphenicol, a brown drug shape sits between two tRNAs; a spark tries to join their amino acids but fizzles, so no new link forms.",
+ title:"Drugs that hit the 50S subunit",
+ body:`<p><b>Macrolides</b> (such as erythromycin and azithromycin) bind the <b>50S</b> subunit and block the <b>exit tunnel</b>, so the new protein cannot move out. They are often used for respiratory infections and for people allergic to penicillin. Mostly <b>bacteriostatic</b>.</p>
+ <p><b>Clindamycin</b> binds near the same site and works in a similar way. It is useful against many anaerobes and Gram-positives, but it is strongly linked to <b>C. difficile</b> superinfection.</p>
+ <p><b>Chloramphenicol</b> blocks the step where the 50S subunit joins one amino acid to the next (forming the <b>peptide bond</b>). It is broad, but rarely used now because it can cause serious bone-marrow damage.</p>
+ <p>Newer drugs such as <b>oxazolidinones</b> (linezolid) also bind the 50S subunit and help treat MRSA and VRE.</p>`,
+ analogy:"A protein chain leaving the ribosome is like toothpaste leaving the tube. A macrolide is a cap screwed on the end. Chloramphenicol is a broken glue gun, so no two pieces can be stuck together.",
+ terms:[["Macrolides","50S drugs that block the protein exit tunnel; often used if penicillin allergy."],["Clindamycin","50S drug for anaerobes and Gram-positives; high C. difficile risk."],["Chloramphenicol","50S drug that blocks peptide bond formation; rarely used due to bone-marrow toxicity."]],
+ check:{q:"Which pair of drugs both act on the 50S ribosomal subunit?",opts:[
+  ["Macrolides and clindamycin",1,"Yes. Both bind the 50S subunit near the exit tunnel."],
+  ["Aminoglycosides and tetracyclines",0,"Those two act on the 30S subunit."],
+  ["Penicillin and vancomycin",0,"Those block cell wall building, not ribosomes."],
+  ["Rifampin and fluoroquinolones",0,"Those block RNA and DNA enzymes, not ribosomes."]]},
+ caption:"Macrolides and clindamycin plug the exit tunnel; chloramphenicol stops peptide bonds from forming.",
+ legend:[["alc","Macrolide"],["perox","Clindamycin"],["iod","Chloramphenicol"],["r50","50S subunit"]]},
+
+/* ---------- Part 4 ---------- */
+{act:4,scene:"membrane",desc:"A close-up of a Gram-negative envelope fills the left side: a pink outer membrane with negatively charged heads, a thin brown peptidoglycan layer, and a gold inner membrane, with blue dots of cell contents below. Blue bead-ring polymyxin molecules with gold fatty tails drift down, stick to the outer membrane heads with small plus and minus signs, and push their tails in. Gaps open in both membranes and blue dots leak out through them. On the right, a Gram-positive cell with a thick purple wall and no outer membrane is shown with polymyxin molecules drifting past it without effect, and a tag reads little effect.",
+ title:"Membrane drugs: polymyxins",
+ body:`<p><b>Polymyxins</b> (polymyxin B and colistin) act like a detergent. They are positively charged and stick to the negatively charged <b>lipopolysaccharide (LPS)</b> of the Gram-negative outer membrane. Their fatty tail then pushes into the membranes and opens gaps. The cell contents leak out and the bacterium dies (<b>bactericidal</b>).</p>
+ <p>They work mainly on <b>Gram-negative</b> bacteria. Because cell membranes in our kidneys and nerves are not that different, polymyxins can be toxic. Polymyxin B is common in skin creams and eye drops, and colistin is kept as a <b>last-resort</b> drug for highly resistant Gram-negative infections.</p>
+ <p>Membrane drugs are less selective than wall drugs, because every cell, including ours, has a membrane.</p>`,
+ analogy:"Dish soap on a greasy pan. It grabs the grease and breaks it apart. Polymyxins do this to the fatty membranes of Gram-negative bacteria.",
+ terms:[["Polymyxins","Detergent-like drugs that disrupt Gram-negative membranes."],["LPS","Lipopolysaccharide, a negatively charged molecule in the Gram-negative outer membrane."],["Last-resort drug","A drug saved for infections nothing else can treat."]],
+ check:{q:"Why are polymyxins mostly used on the skin or saved for last-resort use?",opts:[
+  ["They can damage human kidney and nerve cells",1,"Right. Membranes are found in every cell, so selective toxicity is lower and side effects are more likely."],
+  ["They only work on viruses",0,"Polymyxins are antibacterial. They act on Gram-negative bacterial membranes."],
+  ["They are too weak to kill anything",0,"They are bactericidal. The concern is toxicity, not weakness."],
+  ["They only work on Gram-positive bacteria",0,"It is the opposite: they act mainly on Gram-negatives, which have the LPS they stick to."]]},
+ caption:"Polymyxins stick to the Gram-negative outer membrane and punch holes so contents leak out.",
+ legend:[["nonenv","Polymyxin"],["gneg","Outer membrane (LPS)"],["membrane","Inner membrane"],["dna","Cell contents"]]},
+
+{act:4,scene:"nucleic",desc:"Two panels. Left, labelled Fluoroquinolones: a blue DNA double helix is being copied, and a green enzyme, DNA gyrase, sits on a twisted loop ahead of the copying fork, cutting and rejoining the strands to relieve the twist. Purple two-ring drug shapes arrive and lock the gyrase onto the DNA while it is cut; the cut ends stay open, red break marks appear and copying stops. Right, labelled Rifampin: a teal RNA polymerase slides along DNA spinning out a green mRNA strand. An orange ring-shaped rifampin drug plugs the polymerase, the mRNA stops growing, and an orange urine cup icon appears with the note harmless orange colour.",
+ title:"Drugs that block DNA and RNA enzymes",
+ body:`<p><b>Fluoroquinolones</b> (such as ciprofloxacin and levofloxacin) block <b>DNA gyrase</b> (and a related enzyme, topoisomerase IV). Gyrase cuts and rejoins DNA to undo the twisting that builds up during copying. The drug traps the enzyme while the DNA is cut, so the strands stay broken and the cell dies (<b>bactericidal</b>). They are broad but can harm tendons and nerves, so they are not first choice for simple infections.</p>
+ <p><b>Rifampin</b> (rifampicin) blocks bacterial <b>RNA polymerase</b>, so the cell cannot make mRNA. It is a key drug for <b>tuberculosis</b>, always given with other drugs. It turns tears, sweat and urine <b>orange-red</b>, which is harmless but surprising.</p>
+ <p>Our cells use different versions of these enzymes, which is the source of selective toxicity.</p>`,
+ analogy:"Gyrase is a worker who cuts a tangled garden hose, untwists it and tapes it back. The drug freezes the worker after the cut, so the hose stays in pieces. Rifampin locks the photocopier before the first copy comes out.",
+ terms:[["DNA gyrase","A bacterial topoisomerase that cuts and rejoins DNA to relieve twisting."],["Fluoroquinolones","Drugs that trap DNA gyrase, leaving broken DNA."],["Rifampin","Blocks bacterial RNA polymerase; key for tuberculosis."]],
+ check:{q:"A patient starting tuberculosis treatment notices orange urine. What is the most likely cause?",opts:[
+  ["Rifampin, which harmlessly colours body fluids orange-red",1,"Yes. This is an expected, harmless effect of rifampin. Patients should be told in advance."],
+  ["Kidney failure from the drug",0,"Orange colour from rifampin is a dye effect, not a sign of kidney damage by itself."],
+  ["The tuberculosis bacteria are orange",0,"The bacteria are not the cause. The colour comes from the drug."],
+  ["A fluoroquinolone side effect",0,"Fluoroquinolones do not colour urine orange. This is classic for rifampin."]]},
+ caption:"Fluoroquinolones trap DNA gyrase so DNA stays broken. Rifampin blocks RNA polymerase so no mRNA is made.",
+ legend:[["dna","DNA"],["uv","Fluoroquinolone"],["heat","Rifampin"],["mrna","mRNA"],["bad","DNA break"]]},
+
+{act:4,scene:"folate",desc:"A bacterial assembly line runs left to right inside a pale bacterium. Small hexagon PABA pieces ride a conveyor into Enzyme 1, come out as dihydrofolic acid, pass Enzyme 2, come out as tetrahydrofolic acid, and finally become blue DNA building blocks. Every few seconds, magenta sulfa shapes that look almost like PABA slip into Enzyme 1 and fill it, so PABA piles up and the line stalls. Then an olive trimethoprim shape plugs Enzyme 2 too. Below, a tan human cell takes in folic acid from a food bowl icon and makes its DNA building blocks without needing Enzyme 1.",
+ title:"Metabolic antagonists: blocking folic acid",
+ body:`<p>Bacteria must <b>make their own folic acid</b>. They need it to make the building blocks of DNA and RNA. They start with a small molecule called <b>PABA</b> and use a chain of enzymes.</p>
+ <p><b>Sulfonamides</b> (sulfa drugs) look so much like PABA that they fill the active site of the first enzyme. This is <b>competitive inhibition</b>: the drug competes with the real substrate. <b>Trimethoprim</b> blocks a later enzyme in the same pathway.</p>
+ <p>Together, <b>trimethoprim-sulfamethoxazole</b> blocks two steps in a row. The two drugs work better together than either alone, which is called <b>synergy</b>. The pair is often used for urinary tract infections.</p>
+ <p>Humans <b>get folic acid from food</b> and do not have the first enzyme, so sulfa drugs do not block our cells this way.</p>`,
+ analogy:"A fake key that fits the lock but will not turn. While it sits in the lock, the real key (PABA) cannot get in, and the door stays shut.",
+ terms:[["Metabolic antagonist","A drug that blocks a step in a microbe's metabolism."],["Competitive inhibition","A look-alike molecule fills an enzyme's active site so the real substrate cannot bind."],["Synergy","Two drugs together work better than either alone."],["PABA","Para-aminobenzoic acid, the starting molecule bacteria use to make folic acid."]],
+ check:{q:"Why do sulfa drugs not block folic acid production in human cells?",opts:[
+  ["Humans get folic acid from food and lack the enzyme the drug blocks",1,"Yes. The target pathway step simply is not used in our cells."],
+  ["Humans do not need folic acid",0,"We do need folic acid (folate). We just get it from our diet."],
+  ["Sulfa drugs cannot enter the body",0,"They are absorbed and reach many tissues. The selectivity comes from the missing target."],
+  ["Human cells are protected by a cell wall",0,"Human cells have no cell wall. The reason is the missing enzyme."]]},
+ caption:"Sulfa drugs mimic PABA and jam the first enzyme; trimethoprim jams a later one. Human cells take folic acid from food.",
+ legend:[["gold","PABA"],["phen","Sulfonamide"],["chlor","Trimethoprim"],["dna","DNA building blocks"],["body","Human cell"]]},
+
+/* ---------- Part 5 ---------- */
+{act:5,scene:"antifungal",desc:"A large orange oval yeast cell sits on the left with a thick outer wall of criss-crossed glucan strands and a gold membrane studded with small gold ergosterol bars. Three callout boxes take turns. In Azoles, a pentagon drug blocks an enzyme and new gold ergosterol bars stop appearing, so the membrane turns patchy. In Polyenes, long gold rod drugs bind the ergosterol bars and line up into a ring-shaped pore, and small dots leak out. In Echinocandins, a ring drug with a tail blocks the glucan-making enzyme and the wall strands thin and break. On the right, a strip of human membrane shows grey cholesterol bars, and a few polyene rods stick to them, labelled why polyenes can be toxic.",
+ title:"Antifungal drugs",
+ body:`<p>Fungi are eukaryotes like us, so there are few safe targets. Drugs aim at two things fungi have that we do not.</p>
+ <ul><li><b>Ergosterol</b>: fungal membranes use ergosterol where ours use cholesterol.
+  <ul><li><b>Azoles</b> (such as fluconazole) block an enzyme that makes ergosterol, so the membrane becomes weak and leaky.</li>
+  <li><b>Polyenes</b> (amphotericin B, nystatin) bind ergosterol and form <b>pores</b>. Ions leak out and the cell dies. They bind cholesterol a little too, so amphotericin B can harm the kidneys.</li></ul></li>
+ <li><b>The fungal cell wall</b>: <b>echinocandins</b> block the enzyme that makes <b>beta-glucan</b>, a key wall sugar.</li></ul>
+ <p>Antibacterial drugs do nothing to fungi, and antifungals do nothing to bacteria.</p>`,
+ analogy:"The fungal membrane is a wall built with special gold bricks (ergosterol). Azoles shut down the brick factory; polyenes pull the gold bricks out and leave holes. Our walls use plain grey bricks (cholesterol), so we are mostly spared.",
+ terms:[["Ergosterol","The sterol in fungal membranes; the main antifungal target."],["Azoles","Antifungals that stop ergosterol from being made."],["Polyenes","Antifungals that bind ergosterol and punch pores."],["Echinocandins","Antifungals that block beta-glucan in the fungal wall."]],
+ check:{q:"Amphotericin B binds ergosterol. Why can it still harm human kidneys?",opts:[
+  ["It also binds cholesterol in human membranes a little",1,"Right. Cholesterol and ergosterol are similar, so some binding to our cells happens, especially in the kidney."],
+  ["Human cells are made of ergosterol",0,"Human membranes use cholesterol, not ergosterol. The two are similar, which is the problem."],
+  ["It blocks human 80S ribosomes",0,"Amphotericin B acts on membranes, not ribosomes."],
+  ["It turns into an antibiotic in the kidney",0,"It does not change into another drug. The toxicity comes from binding cholesterol."]]},
+ caption:"Azoles stop ergosterol from being made, polyenes punch pores through it, and echinocandins weaken the fungal wall.",
+ legend:[["fungus","Yeast cell"],["ergo","Ergosterol"],["chol","Cholesterol (human)"],["ald","Azole"],["alc","Echinocandin"]]},
+
+{act:5,scene:"antiviral",desc:"A tan host cell fills the centre, with a pink virus following a loop of numbered steps around and through it: 1 attach and enter at the top left, 2 uncoat inside, 3 copy the genome near the nucleus, 4 assemble and cut proteins, and 5 bud out and be released at the top right. A highlight moves from step to step. At each step a different drug shape appears with a red block sign: an entry blocker at the door, an uncoating blocker, a nucleoside look-alike that stops the copied strand short, a protease blocker that leaves proteins uncut, and a neuraminidase blocker that leaves new viruses stuck to the cell surface. A red pill labelled antibiotic floats by in the corner with a note: no target here.",
+ title:"Antiviral drugs",
+ body:`<p>Viruses use <b>our</b> cells to copy themselves, so antiviral drugs must block steps that belong only to the virus. Most antivirals work on just one virus or one family.</p>
+ <ul><li><b>Entry blockers</b> stop a virus from attaching or fusing (some HIV drugs).</li>
+ <li><b>Uncoating blockers</b>, such as amantadine for influenza A (most flu strains are now resistant to it).</li>
+ <li><b>Nucleoside analogs</b>, such as acyclovir for herpes viruses. They look like DNA building blocks, get put into the viral DNA, and stop the strand from growing.</li>
+ <li><b>Reverse transcriptase inhibitors</b> block HIV from turning its RNA into DNA.</li>
+ <li><b>Protease inhibitors</b> stop the virus from cutting its long protein into working pieces (HIV, hepatitis C).</li>
+ <li><b>Neuraminidase inhibitors</b>, such as oseltamivir, trap new flu viruses on the cell surface so they cannot spread.</li></ul>
+ <p><b>Antibiotics do not work on viruses</b>: viruses have no cell wall, no ribosomes of their own and no folic acid pathway.</p>`,
+ analogy:"A virus is a burglar who uses your own kitchen to cook. The only safe places to stop him are the tools he brought himself: his lock-pick, his own recipe card, his scissors and his getaway door.",
+ terms:[["Nucleoside analog","A look-alike DNA or RNA building block that stops the viral genome from being copied."],["Reverse transcriptase","The HIV enzyme that copies RNA into DNA."],["Protease inhibitor","Blocks the viral enzyme that cuts proteins into working parts."],["Neuraminidase inhibitor","Stops new influenza viruses from being released."]],
+ check:{q:"Why will an antibiotic not help a cold caused by a virus?",opts:[
+  ["Viruses lack the bacterial targets antibiotics hit, like cell walls and 70S ribosomes",1,"Yes. Antibiotics have nothing to grab on a virus, but they still kill helpful bacteria and push resistance."],
+  ["The virus is too small for the antibiotic to see",0,"Size is not the issue. The virus simply has no cell wall, ribosomes or folate pathway to block."],
+  ["Antibiotics only work after 10 days",0,"Timing is not the problem. Antibiotics have no target in viruses at any time."],
+  ["Viruses are always resistant through plasmids",0,"Viruses do not carry R plasmids. They just lack antibiotic targets."]]},
+ caption:"Each antiviral blocks one step of the viral life cycle: entry, uncoating, genome copying, protein cutting or release.",
+ legend:[["env","Virus"],["body","Host cell"],["bad","Blocked step"],["uv","Nucleoside analog"]]},
+
+{act:5,scene:"antiparasite",desc:"Two panels. Left, labelled Protozoa: round red blood cells drift past, two of them holding small olive malaria parasites. A drug shape enters and the parasites shrink and turn grey. A small olive Giardia-like cell with a flagellum swims nearby, and a drug labelled metronidazole stops it. Right, labelled Helminths: a long brown worm wriggles along a pink gut band; a drug shape touches it, the worm slows, goes stiff and still, and is carried away to the right by the flow, labelled paralysed and passed.",
+ title:"Antiparasitic drugs, briefly",
+ body:`<p><b>Protozoa</b> and <b>helminths</b> (worms) are eukaryotes, so, as with fungi, few targets are truly unique.</p>
+ <ul><li><b>Antimalarials</b>: drugs such as artemisinin combinations and chloroquine kill malaria parasites while they live inside red blood cells.</li>
+ <li><b>Metronidazole</b> becomes active only inside cells that live without oxygen and then damages their DNA. It treats protozoa such as <b>Giardia</b> and <b>Trichomonas</b>, and also <b>anaerobic bacteria</b>, including C. difficile.</li>
+ <li><b>Antihelminthics</b>: some paralyse worms (for example ivermectin and praziquantel) so they are passed out of the body; others (albendazole, mebendazole) block the worm's microtubules so it cannot take in glucose and starves.</li></ul>`,
+ analogy:"For many worms, the drug does not need to destroy them. It is like cutting the climbing rope: once they lose their grip, the gut's flow carries them out.",
+ terms:[["Helminth","A parasitic worm."],["Metronidazole","Acts on protozoa and anaerobic bacteria after being activated in low oxygen."],["Antimalarial","A drug that kills malaria parasites, often inside red blood cells."]],
+ check:{q:"Metronidazole can treat both Giardia and C. difficile. What do they have in common?",opts:[
+  ["Both live without oxygen, which activates the drug inside them",1,"Yes. Metronidazole is switched on in low-oxygen cells, then damages their DNA."],
+  ["Both are viruses",0,"Giardia is a protozoan and C. difficile is a bacterium. Neither is a virus."],
+  ["Both have ergosterol",0,"Ergosterol is a fungal membrane sterol. It is not why metronidazole works here."],
+  ["Both are worms",0,"Neither is a worm. They share low-oxygen metabolism."]]},
+ caption:"Antimalarials kill parasites inside red blood cells; many worm drugs paralyse worms so the body passes them.",
+ legend:[["cyst","Protozoan"],["soil","Worm"],["protein","Red blood cell"],["dead","Killed or paralysed"]]},
+
+/* ---------- Part 6 ---------- */
+{act:6,scene:"kirby",desc:"A top-down agar plate takes up the left side. First a swab zigzags across it in three directions, laying down a tan lawn. Then six labelled paper disks drop onto the plate. A clock fills to show about 18 hours of incubation, and the tan lawn grows everywhere except round clear rings around some disks; one disk has no ring at all. A yellow ruler slides across the biggest ring and its width is read in millimetres. On the right, a chart shows a bar for that drug split into three coloured parts, R for resistant, I for intermediate and S for susceptible, and a marker lands in the S part.",
+ title:"Kirby-Bauer disk diffusion",
+ body:`<p>The <b>Kirby-Bauer test</b> (disk diffusion) shows which drugs work on a patient's bacterium.</p>
+ <ol><li>Spread a set amount of bacteria evenly over a <b>Mueller-Hinton agar</b> plate to make a <b>lawn</b>.</li>
+ <li>Press on paper <b>disks</b>, each soaked with one drug.</li>
+ <li>Incubate overnight (about 16 to 18 hours). Each drug spreads out into the agar, and where it is strong enough, the bacteria cannot grow: a clear <b>zone of inhibition</b>.</li>
+ <li>Measure each zone's <b>diameter in millimetres</b> and look it up on a standard chart for that drug.</li></ol>
+ <p>The chart sorts the result into <b>S (susceptible)</b>, <b>I (intermediate)</b> or <b>R (resistant)</b>. Compare zones only with the chart, not with each other: drugs spread at different speeds, so a small zone can still mean susceptible for one drug.</p>`,
+ analogy:"Drops of food colouring on a paper towel. Each spreads out from its drop, and where it reaches, the paper changes. On the plate, the drug spreads out and wherever it reaches strongly, no bacteria grow.",
+ terms:[["Zone of inhibition","The clear area around a disk where bacteria could not grow."],["Mueller-Hinton agar","The standard medium for disk diffusion tests."],["S / I / R","Susceptible, intermediate or resistant, read from the chart for each drug."]],
+ check:{q:"Drug A gives a 15 mm zone and drug B gives a 25 mm zone on the same plate. What can you conclude?",opts:[
+  ["Nothing yet; each zone must be checked against that drug's own chart",1,"Right. Drugs diffuse at different rates, so each has its own S/I/R cut-offs. Drug A might still be susceptible."],
+  ["Drug B is always the better choice",0,"Not necessarily. Zone sizes cannot be compared between different drugs without the chart."],
+  ["Drug A is resistant because its zone is smaller",0,"A 15 mm zone could be susceptible for some drugs. Use the chart."],
+  ["Both drugs failed",0,"Both made clear zones, so both inhibited growth to some degree. The chart tells you if it is enough."]]},
+ caption:"Drugs spread from paper disks. Measure each clear zone in millimetres and read S, I or R from that drug's chart.",
+ legend:[["lawn","Bacterial lawn"],["zone","Zone of inhibition"],["tape","Ruler"],["good","Susceptible","s"],["bad","Resistant","s"]]},
+
+{act:6,scene:"mic",desc:"Top left, a row of eight test tubes holds the same bacteria with two-fold falling drug levels from 64 down to 0.5, plus a no-drug growth control. Over the incubation the low-drug tubes on the right turn cloudy, while the high-drug tubes on the left stay clear. An arrow marks the lowest clear tube as the MIC. Bottom left, a loop takes a drop from each clear tube onto small agar plates: plates from the highest levels stay empty, while the plate from the tube at the MIC grows colonies; the lowest level with no colonies is marked MBC. On the right, a plate with a long strip on it shows a clear teardrop zone that narrows toward the strip's low end, and a pointer reads the MIC where the zone edge meets the strip's printed scale.",
+ title:"MIC, MBC and the E-test",
+ body:`<p>A <b>broth dilution</b> test gives a number instead of a zone. Tubes or wells hold the same bacteria with the drug in <b>two-fold</b> steps (64, 32, 16, 8...).</p>
+ <p>The <b>minimum inhibitory concentration (MIC)</b> is the <b>lowest</b> drug level with <b>no visible growth</b> (the liquid stays clear). A lower MIC means less drug is needed to stop that bacterium.</p>
+ <p>Clear tubes may hold bacteria that are stopped but still alive. Plating them onto drug-free agar tells us the <b>minimum bactericidal concentration (MBC)</b>: the lowest level that actually <b>kills</b> the bacteria, so nothing grows on the plate. If the MBC is close to the MIC, the drug is acting as cidal; if it is much higher, the drug is acting as static.</p>
+ <p>The <b>E-test</b> puts a gradient of drug on a plastic strip laid on a lawn. The MIC is read where the teardrop-shaped zone meets the scale printed on the strip.</p>`,
+ analogy:"Adding less and less salt to soup until you can taste it. The MIC is the smallest amount of drug that still does the job.",
+ terms:[["MIC","Minimum inhibitory concentration: lowest drug level with no visible growth."],["MBC","Minimum bactericidal concentration: lowest drug level that kills the bacteria."],["E-test","A strip with a drug gradient; the MIC is read where the zone meets the strip."]],
+ check:{q:"Tubes with 16, 8 and 4 units of drug are clear; tubes with 2, 1 and 0.5 are cloudy. What is the MIC?",opts:[
+  ["4",1,"Yes. The MIC is the lowest concentration with no visible growth, and 4 is the lowest clear tube."],
+  ["16",0,"16 is clear, but the MIC is the lowest clear level, and 8 and 4 are also clear."],
+  ["2",0,"The 2 tube is cloudy, which means the bacteria grew there. The MIC must be a clear tube."],
+  ["0.5",0,"That tube is cloudy. Cloudy means growth, so it cannot be the MIC."]]},
+ caption:"The MIC is the lowest drug level with no growth. Plating clear tubes finds the MBC, the lowest level that kills.",
+ legend:[["water","Clear broth","s"],["food","Cloudy broth (growth)","s"],["bact","Colonies"],["accent","MIC / MBC marker","s"]]},
+
+/* ---------- Part 7 ---------- */
+{act:7,scene:"resist1",desc:"Two panels. Left, labelled Enzyme destroys the drug: a green scissor-shaped beta-lactamase enzyme snaps at red penicillin shapes and the square ring of each one breaks open and turns grey. A gold clavulanic acid decoy then enters, the enzyme grabs it and gets stuck, and a new penicillin passes by safely. Right, labelled Target changed: a blue normal PBP accepts a red drug shape and is jammed, while beside it a purple PBP2a enzyme with a differently shaped mouth lets the drug bounce off and keeps adding cross-links to a brown wall mesh. A tag reads MRSA.",
+ title:"Resistance, part 1: destroy the drug or change the target",
+ body:`<p><b>Antimicrobial resistance</b> means a microbe can survive a drug that used to stop it. There are five main ways. Here are the first two.</p>
+ <p><b>1. Enzymes that destroy or change the drug.</b> <b>Beta-lactamases</b> (penicillinases) cut the beta-lactam ring, so the drug no longer fits its PBP target. Some beta-lactam drugs are paired with a <b>beta-lactamase inhibitor</b> such as clavulanic acid, which ties up the enzyme. Other enzymes add chemical groups to aminoglycosides so they cannot bind.</p>
+ <p><b>2. A changed target.</b> <b>MRSA</b> (methicillin-resistant Staphylococcus aureus) carries a gene for a different PBP, <b>PBP2a</b>, which beta-lactams cannot grab. PBP2a keeps building the wall, so almost all beta-lactams fail. Other examples: changed ribosomes that macrolides cannot bind, and changed DNA gyrase that ignores fluoroquinolones.</p>`,
+ analogy:"Two ways to beat a lock-picker: shred his picks before he reaches the door (enzyme), or change the lock so his picks no longer fit (target change).",
+ terms:[["Beta-lactamase","A bacterial enzyme that breaks the beta-lactam ring."],["Beta-lactamase inhibitor","A partner drug, such as clavulanic acid, that ties up beta-lactamase."],["PBP2a","The changed PBP in MRSA that beta-lactams cannot block."],["MRSA","Methicillin-resistant Staphylococcus aureus."]],
+ check:{q:"Why does adding clavulanic acid help amoxicillin work against some bacteria?",opts:[
+  ["It ties up beta-lactamase so the amoxicillin is not destroyed",1,"Yes. The inhibitor acts as a decoy that blocks the enzyme, protecting the beta-lactam ring."],
+  ["It changes MRSA's PBP2a back to normal",0,"Clavulanic acid blocks beta-lactamase enzymes. It does not fix PBP2a, so MRSA stays resistant."],
+  ["It kills the bacteria by itself through the ribosome",0,"Clavulanic acid has little antibacterial activity alone; its job is to block the enzyme."],
+  ["It makes the bacteria grow faster so the drug works better",0,"It works by blocking beta-lactamase, not by changing growth speed."]]},
+ caption:"Beta-lactamase cuts the drug's ring; an inhibitor can protect it. MRSA's PBP2a has a shape the drug cannot block.",
+ legend:[["accent","Beta-lactamase"],["drug","Beta-lactam"],["gold","Clavulanic acid"],["gpos","PBP2a"],["pbp","Normal PBP"]]},
+
+{act:7,scene:"resist2",desc:"Three panels. In Efflux pump, a teal pump sits in a bacterium's membrane; gold drug shapes that get inside are grabbed and pushed straight back out with arrows. In Reduced permeability, a pink outer membrane has its porin channels closing one by one; red drug shapes that used to slip through now bounce off. In Bypass, a conveyor line inside a bacterium is blocked by a magenta sulfa drug at Enzyme 1, but a dashed detour arrow lets ready-made folic acid from outside skip the blocked step, so DNA building blocks keep coming.",
+ title:"Resistance, part 2: pump it out, keep it out, go around it",
+ body:`<p><b>3. Efflux pumps.</b> Proteins in the membrane pump the drug back out as fast as it comes in, so it never builds up. Some pumps push out many different drugs, giving <b>multidrug resistance</b>. Tetracycline resistance is often due to pumps.</p>
+ <p><b>4. Reduced permeability.</b> Gram-negative bacteria can make fewer or narrower <b>porins</b>, so less drug gets in. Loss of porins helps some bacteria resist carbapenems.</p>
+ <p><b>5. Metabolic bypass.</b> The bacterium finds a way around the blocked step, for example by taking in ready-made folic acid or making a different version of the enzyme that the drug cannot block. This is common with sulfa drugs and trimethoprim.</p>
+ <p>One bacterium can combine several of these at once.</p>`,
+ analogy:"Bailing water out of a leaky boat faster than it comes in (efflux), patching the holes (permeability), or taking a different road around a closed bridge (bypass).",
+ terms:[["Efflux pump","A membrane protein that pumps drugs out of the cell."],["Reduced permeability","Fewer or narrower entry channels so the drug cannot get in."],["Metabolic bypass","Using another route or enzyme to get around the blocked step."]],
+ check:{q:"A Gram-negative bacterium stops making a porin and becomes resistant to a carbapenem. Which mechanism is this?",opts:[
+  ["Reduced permeability",1,"Right. With fewer porins, less drug passes the outer membrane to reach the PBPs."],
+  ["Efflux pump",0,"Pumps push drug out after it enters. Losing a porin keeps the drug from getting in at all."],
+  ["Enzymatic destruction",0,"That would need an enzyme like a carbapenemase. Here the change is in the entry channel."],
+  ["Metabolic bypass",0,"Bypass means going around a blocked pathway step. Carbapenems block the wall, and the change here is the porin."]]},
+ caption:"Pumps push the drug out, lost porins keep it out, and a bypass lets the cell go around the blocked step.",
+ legend:[["alc","Efflux pump"],["gneg","Outer membrane"],["drug","Drug"],["phen","Sulfa drug"],["accent","Bypass route","s"]]},
+
+{act:7,scene:"spread",desc:"Left panel, labelled Selection: about forty blue susceptible bacteria and two red resistant mutants with a shield outline fill a circle. A red drug wash sweeps through and the blue cells turn grey and vanish, leaving the red ones. The red cells then divide again and again until the circle is full of red resistant cells. A small bar under it shows the percent resistant rising from near zero to nearly 100. Right panel, labelled Sharing genes: a donor bacterium holding a small orange plasmid ring reaches a thin pilus over to a blue recipient. A copy of the orange ring slides across the pilus into the recipient, which then gets a red shield outline. Two small icons below show the other ways genes move: a loose DNA fragment being taken in, and a phage carrying DNA.",
+ title:"How resistance arises and spreads",
+ body:`<p><b>Mutation plus selection.</b> In a huge population, a few bacteria carry a random <b>mutation</b> that lets them survive a drug. The drug does not cause the mutation. It just kills the others, so the resistant ones are <b>selected</b> and take over. Every use of an antibiotic, needed or not, puts this pressure on bacteria.</p>
+ <p><b>Horizontal gene transfer.</b> Resistance genes often sit on <b>R plasmids</b> (resistance plasmids), small DNA rings that can carry several resistance genes at once. A bacterium can pass a copy to another through a <b>pilus</b> (<b>conjugation</b>), even to a different species. Bacteria can also take up loose DNA (<b>transformation</b>) or get genes carried by a phage (<b>transduction</b>).</p>
+ <p>This is why resistance can spread fast in hospitals, farms and communities.</p>`,
+ analogy:"Selection is like spraying weed killer on a lawn: the few weeds that survive seed the next lawn. Plasmid sharing is like passing the answer key around the class.",
+ terms:[["Selection","The drug kills susceptible cells, leaving resistant ones to multiply."],["R plasmid","A plasmid carrying one or more resistance genes."],["Conjugation","Transfer of a plasmid from one bacterium to another through a pilus."],["Horizontal gene transfer","Passing genes between living cells rather than parent to offspring."]],
+ check:{q:"Which statement about antibiotics and resistance is correct?",opts:[
+  ["Antibiotics select resistant bacteria that were already there; they do not create the mutations",1,"Yes. The mutations arise randomly. The drug removes the competition, so the resistant ones take over."],
+  ["Antibiotics teach bacteria to become resistant",0,"Bacteria do not learn. Random mutations or gained genes make some resistant; the drug selects them."],
+  ["The patient's body becomes resistant to the antibiotic",0,"It is the bacteria that become resistant, not the person."],
+  ["Resistance genes can only pass from parent to daughter cells",0,"R plasmids can move between living bacteria, even between species, by conjugation."]]},
+ caption:"Drugs select resistant mutants, and R plasmids pass resistance genes between bacteria through a pilus.",
+ legend:[["sus","Susceptible"],["res","Resistant"],["plasmid","R plasmid"],["drug","Drug"]]},
+
+{act:7,scene:"superbugs",desc:"Five cards side by side, each with a drawn organism and red drug shapes bouncing off a shield around it. MRSA shows purple cocci in grape-like clusters and the note resists beta-lactams, PBP2a. VRE shows purple cocci in pairs and short chains and the note resists vancomycin. CRE shows pink rods and the note carbapenemase, resists carbapenems. ESBL shows pink rods with a scissors icon and the note breaks penicillins and most cephalosporins. MDR-TB shows thin red rods on a blue background, as in an acid-fast stain, and the note resists isoniazid and rifampin. A highlight moves from card to card.",
+ title:"Superbugs",
+ body:`<p>Some bacteria resist so many drugs that infections become hard or nearly impossible to treat. Health agencies watch these closely:</p>
+ <ul><li><b>MRSA</b>: Staphylococcus aureus with <b>PBP2a</b>; resists nearly all beta-lactams.</li>
+ <li><b>VRE</b>: vancomycin-resistant <b>Enterococcus</b>; changes its wall-block ends so vancomycin cannot grab them.</li>
+ <li><b>CRE</b>: carbapenem-resistant <b>Enterobacterales</b> (such as Klebsiella and E. coli), often making <b>carbapenemase</b> enzymes. Few drugs are left.</li>
+ <li><b>ESBL</b> producers: Gram-negatives with <b>extended-spectrum beta-lactamases</b> that break down penicillins and most cephalosporins.</li>
+ <li><b>MDR-TB</b>: Mycobacterium tuberculosis resistant to at least <b>isoniazid and rifampin</b>. <b>XDR-TB</b> resists even more.</li></ul>
+ <p>Most of these spread in health care settings, so <b>hand hygiene</b> and contact precautions matter as much as drug choice.</p>`,
+ analogy:"A burglar who has collected a key for almost every lock in the building. The fewer locks left that he cannot open, the harder he is to stop.",
+ terms:[["VRE","Vancomycin-resistant Enterococcus."],["CRE","Carbapenem-resistant Enterobacterales, often with carbapenemase enzymes."],["ESBL","Extended-spectrum beta-lactamase; breaks down penicillins and most cephalosporins."],["MDR-TB","Tuberculosis resistant to at least isoniazid and rifampin."]],
+ check:{q:"A Klebsiella from a urine culture makes an enzyme that destroys carbapenems. What is it called?",opts:[
+  ["CRE (carbapenem-resistant Enterobacterales)",1,"Yes. Klebsiella is an Enterobacterales member, and a carbapenemase makes it carbapenem-resistant."],
+  ["MRSA",0,"MRSA is Staphylococcus aureus, a Gram-positive coccus, and it resists through PBP2a."],
+  ["VRE",0,"VRE is Enterococcus that resists vancomycin, not Klebsiella."],
+  ["MDR-TB",0,"MDR-TB is Mycobacterium tuberculosis that resists isoniazid and rifampin."]]},
+ caption:"MRSA, VRE, CRE, ESBL producers and MDR-TB resist many drugs; prevention and careful drug use are key.",
+ legend:[["gpos","Gram-positive"],["gneg","Gram-negative"],["drug","Drug"],["res","Resistant shield"]]},
+
+{act:7,scene:"steward",desc:"Three panels. In No antibiotics for viruses, red antibiotic shapes fly past a pink cold virus without touching it, but turn green gut bacteria grey on the way. In Take it as prescribed, two small graphs: in the top one, labelled stopped early, the bacteria count falls, then climbs back up after the dosing bar ends, with red resistant cells making up more of it; in the bottom one, labelled full course, the count falls to zero and stays there. In Narrow when you can, a narrow drug hits only one purple Gram-positive bacterium among many green helpful ones, which stay alive. A row of small icons along the bottom shows washing hands, a vaccine, a no-sharing sign and a test tube for culture first.",
+ title:"Stewardship: using antimicrobials wisely",
+ body:`<p><b>Antimicrobial stewardship</b> means using the right drug, only when needed, for the right length of time. Every person and every health worker plays a part:</p>
+ <ul><li><b>No antibiotics for viruses</b> such as colds and most sore throats. They cannot help, and they still kill helpful bacteria and push resistance.</li>
+ <li><b>Take the drug exactly as prescribed</b>, for the full time your prescriber chose. Do not stop early on your own, skip doses, save leftovers or share them. Low or patchy drug levels let tougher survivors regrow.</li>
+ <li><b>Narrow is better when the cause is known.</b> Get cultures before starting when possible, then switch from broad to narrow (de-escalate) once results arrive.</li>
+ <li><b>Prevent infections</b>: hand hygiene, vaccines, clean technique and isolating resistant organisms mean fewer antibiotics are needed at all.</li></ul>`,
+ analogy:"Antibiotics are a shared resource, like a town's water supply. If everyone wastes a little, the whole town runs short when it really counts.",
+ terms:[["Antimicrobial stewardship","Programs and habits that make sure antimicrobials are used only when needed and correctly."],["De-escalation","Switching from a broad drug to a narrower one once culture results are known."],["Adherence","Taking a medicine exactly as prescribed."]],
+ check:{q:"A friend offers you their leftover antibiotics for your cold. What is the best answer?",opts:[
+  ["Decline: colds are viral, and leftover antibiotics should not be shared",1,"Right. Antibiotics do not treat viruses, and using someone else's leftovers adds side effects and resistance pressure with no benefit."],
+  ["Take them, since any antibiotic helps any infection",0,"Antibiotics only act on bacteria, and each drug only on certain bacteria. They cannot help a cold."],
+  ["Take half the pills so you do not waste them",0,"A partial course of the wrong drug for a viral illness gives no benefit and helps select resistant bacteria."],
+  ["Save them for the next time you feel sick",0,"Saving leftovers encourages self-treatment without a diagnosis. Return or safely discard them."]]},
+ caption:"Use antibiotics only for bacterial infections, take them as prescribed, and choose narrow drugs when the cause is known.",
+ legend:[["env","Virus"],["bact","Helpful bacteria"],["res","Resistant survivors"],["drug","Antibiotic"]]},
+
+{act:0,scene:"recap",desc:"A summary board. On the left, the same large bacterium from the start is drawn with drug shapes stuck to all five targets: the wall, the ribosomes, the membrane, the DNA and the folic acid pathway, each labelled with drug classes. On the right, seven summary cards light up one after another, each numbered and coloured for its part: The basics, Cell wall, Ribosomes, Membrane DNA and folate, Fungi viruses and parasites, Testing, and Resistance, each with a one-line reminder.",
+ title:"Recap: targets, tests and resistance",
+ body:`<p>You have seen how antimicrobial drugs work, from the first magic bullets to modern superbugs. The key ideas:</p>
+ <ul><li><b>Selective toxicity:</b> hit something the microbe has and we do not. Bacteria are easiest; fungi, parasites and especially viruses are harder.</li>
+ <li><b>Targets:</b> wall (beta-lactams, vancomycin), 70S ribosome (30S: aminoglycosides, tetracyclines; 50S: macrolides, clindamycin, chloramphenicol), membrane (polymyxins), DNA and RNA enzymes (fluoroquinolones, rifampin), folic acid (sulfonamides, trimethoprim).</li>
+ <li><b>Testing:</b> Kirby-Bauer zones read as S, I or R; MIC and MBC from dilutions; E-test strips.</li>
+ <li><b>Resistance:</b> enzymes, changed targets, pumps, closed porins and bypasses, spread by selection and by R plasmids.</li>
+ <li><b>Stewardship:</b> no antibiotics for viruses, take them as prescribed, go narrow when you can, and prevent infections.</li></ul>
+ <p>Next, try the lab: run a Kirby-Bauer plate, read an MIC tray, watch resistance get selected, and pick the right drug for each case.</p>`,
+ analogy:"A good antimicrobial plan is like a good locksmith's toolkit: the right tool for each lock, used carefully, so the locks do not all get changed against you.",
+ terms:[["Five bacterial targets","Cell wall, 70S ribosome, membrane, nucleic acid synthesis, folic acid synthesis."],["Five resistance routes","Destroy the drug, change the target, pump it out, keep it out, bypass the step."]],
+ check:null,caption:"Five targets, three test methods, five resistance routes, and one shared job: stewardship.",
+ legend:[["act1","Basics"],["act2","Wall"],["act3","Ribosomes"],["act4","Membrane, DNA, folate"],["act5","Other microbes"],["act6","Testing"],["act7","Resistance"]]}
+];
+/* ---------------- DOM ---------------- */
+const $=s=>document.querySelector(s);
+const chainEl=$("#chain");
+const done=new Set();
+let cur=0;
+function buildChain(){
+  chainEl.innerHTML="";
+  const groups=[[0,"Start","accent",[0]]];
+  for(let a=1;a<=NACT;a++)groups.push([a,ACTS[a].name,ACTS[a].col,[]]);
+  groups.push([NACT+1,"Finish","accent",[STEPS.length-1]]);
+  STEPS.forEach((s,i)=>{if(s.act>0)groups[s.act][3].push(i)});
+  groups.forEach(g=>{
+    const d=document.createElement("div");d.className="actgrp";
+    if(g[0]===0||g[0]===NACT+1)d.style.flex="0 0 auto";
+    d.innerHTML=`<div class="an"><i style="background:var(--${g[2]})"></i>${g[1]}</div>`;
+    const dots=document.createElement("div");dots.className="dots";
+    g[3].forEach(i=>{const b=document.createElement("button");b.type="button";b.className="dot";b.textContent=i===0?"★":(i===STEPS.length-1?"✓":i);
+      b.setAttribute("aria-label",(i===0?"Start":i===STEPS.length-1?"Finish":"Step "+i)+": "+STEPS[i].title);b.onclick=()=>go(i);b.dataset.i=i;dots.appendChild(b)});
+    d.appendChild(dots);chainEl.appendChild(d);
+  });
+}
+function refreshDots(){document.querySelectorAll(".dot").forEach(b=>{const i=+b.dataset.i;b.classList.toggle("cur",i===cur);b.classList.toggle("done",done.has(i));if(i===cur)b.setAttribute("aria-current","step");else b.removeAttribute("aria-current")})}
+function legendHTML(l){const v="--"+l[0];const sh=l[2]||"c";
+  if(sh==="dl")return `<span><i class="dl" style="border-top-color:var(${v})"></i>${l[1]}</span>`;
+  if(sh==="t")return `<span><i class="t" style="border-bottom-color:var(${v})"></i>${l[1]}</span>`;
+  if(sh==="y")return `<span><i class="y" style="--yc:var(${v})"></i>${l[1]}</span>`;
+  return `<span><i class="${sh}" style="background:var(${v})"></i>${l[1]}</span>`}
+function render(){
+  const s=STEPS[cur];
+  const a=ACTS[s.act];
+  $("#stepno").innerHTML=(s.act?`<span class="actchip" style="--c:var(--${a.col})">${a.name}</span>`:"")+
+    (cur>0&&cur<STEPS.length-1?`<span>Step ${cur} of ${STEPS.length-2}</span>`:"");
+  $("#title").textContent=s.title;
+  $("#body").innerHTML=s.body;
+  $("#analogy p").textContent=s.analogy;
+  $("#terms").innerHTML=s.terms.map(t=>`<div><dt>${t[0]}</dt><dd>${t[1]}</dd></div>`).join("");
+  $("#caption").textContent=s.caption;
+  cv.setAttribute("aria-label","Animation: "+s.caption);if(window.gkDescribe)window.gkDescribe(s.desc);
+  $("#legend").innerHTML=(s.legend||[]).map(legendHTML).join("");
+  const ck=$("#check");
+  if(!s.check){ck.style.display="none"}else{
+    ck.style.display="";
+    $("#q").textContent=s.check.q;
+    const fb=$("#fb");fb.textContent="";fb.className="fb";
+    const box=$("#opts");box.innerHTML="";
+    s.check.opts.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];
+      b.onclick=()=>{box.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));
+        if(o[1]){b.classList.add("right");fb.className="fb ok";fb.textContent="✓ "+o[2];done.add(cur);refreshDots()}
+        else{b.classList.add("wrong");fb.className="fb no";fb.textContent="Not quite. "+o[2]}};
+      box.appendChild(b)});
+  }
+  $("#prev").disabled=cur===0;
+  $("#next").textContent=cur===STEPS.length-1?"Start over":"Next →";
+  $("#progbar").style.width=(cur/(STEPS.length-1)*100)+"%";
+  refreshDots();
+}
+function go(i){cur=Math.max(0,Math.min(STEPS.length-1,i));T=0;render();}
+$("#prev").onclick=()=>go(cur-1);
+$("#next").onclick=()=>go(cur===STEPS.length-1?0:cur+1);
+document.addEventListener("keydown",e=>{if(e.target.tagName==="INPUT"||e.altKey||e.ctrlKey||e.metaKey)return;if(e.key==="ArrowRight")go(cur+1);if(e.key==="ArrowLeft")go(cur-1)});
+let paused=false;
+$("#pauseBtn").onclick=()=>{paused=!paused;$("#pauseBtn").textContent=paused?"Play":"Pause"};
+$("#replayBtn").onclick=()=>{T=0};
+let speed=1;$("#speed").oninput=e=>speed=+e.target.value;
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";
+  r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+
+/* ---------------- canvas ---------------- */
+const W=800,H=480;
+const cv=document.getElementById("stage");ctx=cv.getContext("2d");
+let K=1;
+function fit(){const w=cv.parentElement.clientWidth;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);K=cv.width/W}
+window.addEventListener("resize",fit);
+
+/* ================= shared scene pieces ================= */
+/* big bacterium with the five classic drug targets */
+const TARGETS=[{k:"wall",name:"Cell wall",dx:-40,dy:-92,lx:-40,ly:-150,mol:"bl"},{k:"ribo",name:"70S ribosomes",dx:-95,dy:40,lx:-120,ly:150,mol:"amg"},
+  {k:"mem",name:"Cell membrane",dx:138,dy:-30,lx:130,ly:-150,mol:"pmx"},{k:"dna",name:"DNA and RNA enzymes",dx:10,dy:-10,lx:60,ly:150,mol:"fq"},{k:"fol",name:"Folic acid pathway",dx:85,dy:48,lx:110,ly:122,mol:"sul"}];
+function bigBug(cx,cy,T,hl,o){o=o||{};const w=300,h=170;
+  rr(cx-w/2-8,cy-h/2-8,w+16,h+16,h/2+8);ctx.strokeStyle=C.gneg;ctx.lineWidth=3;ctx.stroke();
+  rr(cx-w/2,cy-h/2,w,h,h/2);ctx.fillStyle=hexA(C.pg,.25);ctx.fill();ctx.strokeStyle=C.pg;ctx.lineWidth=5;ctx.setLineDash([7,3]);ctx.stroke();ctx.setLineDash([]);
+  rr(cx-w/2+8,cy-h/2+8,w-16,h-16,h/2-8);ctx.fillStyle=hexA(C.water,.95);ctx.fill();ctx.strokeStyle=C.membrane;ctx.lineWidth=2.5;ctx.stroke();
+  dnaHelix(cx-60,cy-10,140,9,T*.8,C.dna);
+  [[-95,40],[-60,55],[-110,0],[20,50],[-20,-50],[50,-48]].forEach((q,i)=>ribosome(cx+q[0],cy+q[1],8,{}));
+  // folate mini line
+  const fx=cx+60,fy=cy+48;line(fx,fy,fx+55,fy,C["ink-soft"],1.4);[0,1,2].forEach(i=>{const X=fx+((T*20+i*20)%55);hexPath(X,fy,4,0);fillStroke(C.gold,null)});rr(fx+20,fy-8,14,16,3);fillStroke(C.pbp,null);
+  TARGETS.forEach((tg,i)=>{const on=hl===i||o.all;const px=cx+tg.dx,py=cy+tg.dy;
+    if(on){pulseRing(px,py,26,C.accent,P(T,1.2));circ(px,py,22,null,C.accent,2.5)}
+    if(!o.noLabels){const lx=cx+tg.lx,ly=cy+tg.ly;line(px,py,lx,ly+(ly<cy?10:-10),hexA(C["ink-soft"],.9),1.2);label(lx,ly,tg.name,{size:12.5,weight:on?700:600,border:on?C.accent:null})}});}
+
+/* ================= start map ================= */
+function sceneMap(T){
+  panelBox(12,12,392,456);title(26,32,"Five targets in a bacterium");
+  const L=2.2,hl=Math.floor(T/L)%5,p=P(T,L);
+  bigBug(208,250,T,hl);
+  const tg=TARGETS[hl];const tx=208+tg.dx,ty=250+tg.dy;const sx=hl%2?30:390,sy=hl<2?60:440;
+  const f=smooth(seg(p,.05,.6));drugMol(tg.mol,lerp(sx,tx,f),lerp(sy,ty,f),9,{rot:T*2*(1-f)});
+  const parts=[["The basics","act1","History, selective toxicity, spectrum"],["Cell wall","act2","Beta-lactams and vancomycin"],["Ribosomes","act3","30S and 50S drugs"],["Membrane, DNA, folate","act4","Polymyxins, quinolones, rifampin, sulfa"],["Fungi, viruses, parasites","act5","Ergosterol, viral steps, worms"],["Testing","act6","Kirby-Bauer, MIC, E-test"],["Resistance","act7","Five routes, spread, stewardship"]];
+  const lit=Math.floor(P(T,16)*8);
+  parts.forEach((pt,i)=>{const x=412,y=12+i*65.5,w=376,h=59;const l=i===lit%7;panelBox(x,y,w,h,{stroke:l?C[pt[1]]:C.rule,lw:l?2.6:1.2,fill:hexA(C.panel,l?.98:.7)});
+    badge(x+22,y+h/2,i+1,C[pt[1]],12);txt(x+44,y+20,pt[0],{size:14,weight:700});txt(x+44,y+40,pt[2],{size:12.5,color:C["ink-soft"]})});
+}
+
+/* ================= Part 1 ================= */
+function spiral(x,y,len,col,t){ctx.beginPath();for(let i=0;i<=40;i++){const f=i/40;const X=x-len/2+f*len,Y=y+Math.sin(f*TAU*3+t)*7;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=5;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt"}
+function mould(x,y,r,t){for(let k=0;k<26;k++){const a=k/26*TAU+rnd(k)*.2;const l=r*(.9+rnd(k+3)*.5);line(x+Math.cos(a)*r*.4,y+Math.sin(a)*r*.4,x+Math.cos(a)*l,y+Math.sin(a)*l,hexA(C.alc,.85),1.4)}
+  circ(x,y,r*.75,hexA(C.alc,.55),C.alc,1.5);for(let k=0;k<9;k++){const a=rnd(k+7)*TAU,d=rnd(k+2)*r*.5;circ(x+Math.cos(a)*d,y+Math.sin(a)*d,3,hexA(C.panel,.6))}}
+function sceneHistory(T){
+  const L=12,p=P(T,L);
+  // panel 1: Ehrlich
+  panelBox(12,12,252,368);title(26,32,"1910 · Ehrlich");txt(26,52,"the magic bullet",{size:12.5,color:C["ink-soft"]});
+  const q=P(T,4);humanCell(95,150,46,T);txt(95,212,"human cell",{size:12,align:"center",color:C["ink-soft"]});
+  const hit=q>.62;spiral(190,262,90,hit?C.dead:C.gneg,hit?0:T*3);txt(190,292,"syphilis spirochete",{size:12,align:"center",color:C["ink-soft"]});
+  const path=[[30,330],[110,300],[170,264]];const bp=along(path,smooth(seg(q,.05,.62)));
+  if(!hit||q<.75){ctx.save();ctx.translate(bp[0],bp[1]);ctx.rotate(-.45);rr(-14,-6,22,12,6);ctx.fillStyle=C.drug;ctx.fill();ctx.beginPath();ctx.moveTo(8,-6);ctx.lineTo(16,0);ctx.lineTo(8,6);ctx.closePath();ctx.fill();ctx.restore()}
+  if(hit)pulseRing(190,262,40,C.drug,seg(q,.62,1));
+  label(132,348,"Salvarsan: first targeted drug",{size:12,weight:600});
+  // panel 2: Fleming
+  panelBox(274,12,252,368);title(288,32,"1928 · Fleming");txt(288,52,"mould on a Staphylococcus plate",{size:12.5,color:C["ink-soft"]});
+  const px=400,py=200,R=100;circ(px,py,R+4,hexA(C.glass,.8),C["glass-edge"],2);circ(px,py,R,C.agar,C["agar-edge"],1.2);
+  const halo=55*smooth(seg(p,.1,.6));const mx=372,my=180;if(halo>0)circ(mx,my,halo+14,hexA(C.zone,.9),hexA(C["agar-edge"],.6),1);
+  for(let i=0;i<22;i++){const a=rnd(i+1)*TAU,d=20+Math.sqrt(rnd(i+5))*(R-30);const X=px+Math.cos(a)*d,Y=py+Math.sin(a)*d;const dd=Math.hypot(X-mx,Y-my);if(dd<26)continue;
+    const killed=dd<halo+14;circ(X,Y,7,killed?hexA(C.dead,.35):C.lawn,killed?hexA(C.dead,.5):C["lawn-dot"],1.2)}
+  mould(mx,my,18,T);lead(mx+14,my-14,470,96,"Penicillium",{size:12});
+  if(halo>20)lead(mx-halo*.7,my+halo*.7,300,322,"clear zone",{size:12});
+  label(400,348,"penicillin is discovered",{size:12,weight:600});
+  // panel 3: Domagk
+  panelBox(536,12,252,368);title(550,32,"1930s · Domagk");txt(550,52,"a red dye becomes a drug",{size:12.5,color:C["ink-soft"]});
+  bottle(600,190,46,C.drug,"sulfa");
+  const dropF=seg(p,.15,.35);if(dropF>0&&dropF<1)circ(600,lerp(130,250,dropF),5,C.drug);
+  const stopped=p>.35;for(let i=0;i<4;i++){const x=640+(i%2)*80,y=250+Math.floor(i/2)*70;const div=stopped?0:smooth(P(T*.5+i*.3,1));
+    if(div>.5){bact(x-12*div,y,0,9,1,{col:C.gpos});bact(x+12*div,y,0,9,1,{col:C.gpos})}else bact(x,y,0,9,1,{col:C.gpos});
+    if(stopped){rr(x+18,y-20,4,12,1);ctx.fillStyle=C.cold;ctx.fill();rr(x+25,y-20,4,12,1);ctx.fill()}}
+  txt(700,214,stopped?"growth stops":"dividing",{size:12.5,weight:700,align:"center",color:stopped?C.cold:C.ink});
+  label(662,348,"first sulfa drug (Prontosil)",{size:12,weight:600});
+  // timeline
+  panelBox(12,390,776,78);const x0=60,x1=740;const yr=y=>x0+(y-1905)*(x1-x0)/(1950-1905);line(x0,428,x1,428,C["ink-soft"],2);
+  [[1910,"Salvarsan"],[1928,"penicillin seen"],[1935,"sulfa drug"],[1943,"penicillin mass-produced"]].forEach(m=>{const X=yr(m[0]);circ(X,428,6,C.panel,C.ink,1.5);txt(X,410,String(m[0]),{size:12,mono:true,weight:700,align:"center"});txt(X,450,m[1],{size:12,align:"center",color:C["ink-soft"]})});
+  const my2=lerp(1905,1950,p);circ(yr(my2),428,8,C.accent);
+}
+
+function sceneSelective(T){
+  const L=8,p=P(T,L);
+  panelBox(12,12,444,456);title(26,32,"Same drug, two cells");
+  const burst=smooth(seg(p,.55,.8));const bx=135,by=220;
+  rodCell(bx,by,160,84,{gram:"pos",burst,dead:burst>.6,t:T});txt(bx,by+70,"bacterium: has a wall",{size:12.5,weight:600,align:"center"});
+  humanCell(335,230,78,T);txt(335,330,"human cell: no wall",{size:12.5,weight:600,align:"center"});
+  for(let i=0;i<8;i++){const toB=i%2===0;const st=(i*.06);const f=seg(p,st,st+.42);if(f<=0)continue;
+    const sx=30+rnd(i)*40,sy=60+rnd(i+4)*340;let tx,ty;
+    if(toB){const a=-Math.PI/2+(i/8)*Math.PI*1.4;tx=bx+Math.cos(a)*88;ty=by+Math.sin(a)*48;const e=smooth(f);if(burst<.9)drugMol("bl",lerp(sx,tx,e),lerp(sy,ty,e),7,{a:1-burst})}
+    else{const a=Math.PI+(i/8)*1.6;tx=335+Math.cos(a)*84;ty=230+Math.sin(a)*84;const e=smooth(Math.min(1,f*1.6));let X=lerp(sx+80,tx,e),Y=lerp(sy,ty,e);
+      if(f>.62){const b=(f-.62)/.38;X=tx-b*70;Y=ty+(i%4-1.5)*b*30}drugMol("bl",X,Y,7,{a:1-seg(f,.8,1)});if(f>.6&&f<.8)checkMark(tx+14,ty-14,6)}}
+  if(burst>.2)label(bx,by-70,"wall fails, cell bursts",{size:12.5,weight:700,border:C.drug});
+  wrapText("The drug's target, the cell wall, is only in the bacterium.",30,420,400,17,{size:12.5});
+  // therapeutic index graph
+  panelBox(464,12,324,456);title(478,32,"Therapeutic index");
+  const mode=Math.floor(T/L)%2;const gx=500,gy=80,gw=264,gh=220;
+  line(gx,gy+gh,gx+gw,gy+gh,C["ink-soft"],1.4);line(gx,gy,gx,gy+gh,C["ink-soft"],1.4);
+  txt(gx+gw/2,gy+gh+16,"Drug level (higher →)",{size:12,align:"center",color:C["ink-soft"],weight:600});
+  ctx.save();ctx.translate(gx-16,gy+gh/2);ctx.rotate(-Math.PI/2);txt(0,0,"% of patients",{size:12,align:"center",color:C["ink-soft"],weight:600});ctx.restore();
+  const eff=.28,tox=mode===0?.78:.42;const sig=(x,m)=>1/(1+Math.exp(-(x-m)*22));
+  const X=v=>gx+v*gw,Y=v=>gy+gh-v*gh;
+  ctx.fillStyle=hexA(C.good,.16);ctx.fillRect(X(eff),gy,X(tox)-X(eff),gh);
+  plotFn(x=>sig(x,eff),0,1,gx,gy,gw,gh,0,1,C.good,3);plotFn(x=>sig(x,tox),0,1,gx,gy,gw,gh,0,1,C.bad,3,[6,4]);
+  txt(X(eff)-4,Y(.95),"helped",{size:12,weight:700,align:"right",color:C.good});txt(X(tox)+6,Y(.88),"harmed",{size:12,weight:700,color:C.bad});
+  arrow(X(eff)+4,Y(.5),X(tox)-4,Y(.5),C.ink,1.6);arrow(X(tox)-4,Y(.5),X(eff)+4,Y(.5),C.ink,1.6);label((X(eff)+X(tox))/2,Y(.5)-16,"safety window",{size:12,weight:700});
+  const cur=lerp(.05,.95,P(T,4));line(X(cur),gy,X(cur),gy+gh,hexA(C.ink,.35),1,[3,3]);
+  label(626,336,mode===0?"High therapeutic index":"Low therapeutic index",{size:13.5,weight:700,border:mode===0?C.good:C.bad});
+  txt(626,362,mode===0?"wide window: safer":"narrow window: watch levels",{size:12.5,align:"center"});
+  panelBox(484,384,284,64,{fill:hexA(C["panel-2"],.95)});txt(626,404,"TI = toxic dose ÷ effective dose",{size:13,weight:700,align:"center",mono:true});
+  txt(626,428,"bigger TI = bigger safety margin",{size:12.5,align:"center",color:C["ink-soft"]});
+}
+
+function sceneSpectrum(T){
+  const cols=[["Gram-positive","gpos"],["Gram-negative","gneg"],["Mycobacteria","myco"],["Chlamydias","act5"],["Rickettsias","act2"]];
+  const rows=[["Isoniazid","narrow",[0,0,1,0,0]],["Penicillin G","narrow",[1,0,0,0,0]],["Streptomycin","medium",[0,1,1,0,0]],["Tetracycline","broad",[1,1,0,1,1]]];
+  panelBox(12,12,776,456);title(26,32,"Spectrum of activity");
+  const cx=i=>232+i*112;
+  cols.forEach((c,i)=>{const x=cx(i);panelBox(x-52,46,104,92,{fill:hexA(C["panel-2"],.9)});
+    if(i===0){[[-10,-6],[4,-10],[12,4],[-4,6],[-16,8],[8,16]].forEach(q=>coccus(x+q[0],82+q[1],7,C.gpos))}
+    else if(i===1){bact(x-12,78,.3,7,1,{col:C.gneg});bact(x+14,92,-.4,7,1,{col:C.gneg})}
+    else if(i===2){bact(x-10,80,.2,6,1,{col:C.myco,wax:true});bact(x+14,94,-.3,6,1,{col:C.myco,wax:true})}
+    else{blobPath(x,88,30,i,T*.5,.06);ctx.fillStyle=C.body;ctx.fill();ctx.strokeStyle=C["body-edge"];ctx.lineWidth=1.4;ctx.stroke();
+      for(let k=0;k<7;k++){const a=k/7*TAU+T*.3,d=8+rnd(k)*12;if(i===3)circ(x+Math.cos(a)*d,88+Math.sin(a)*d,3,C[c[1]]);else bact(x+Math.cos(a)*d,88+Math.sin(a)*d,a,2.6,1,{col:C[c[1]]})}}
+    txt(x,126,c[0],{size:12,weight:700,align:"center"})});
+  const L=2.6,act=Math.floor(T/L)%5;const p=P(T,L);
+  rows.forEach((r,j)=>{const y=168+j*72;const on=j===act;
+    panelBox(24,y-26,150,58,{stroke:on?C.accent:C.rule,lw:on?2.4:1.2});txt(36,y-6,r[0],{size:14,weight:700});
+    chipL(36,y+16,r[1],r[1]==="broad"?C.act4:r[1]==="narrow"?C.act1:C.act3);
+    cols.forEach((c,i)=>{const x=cx(i);rr(x-52,y-26,104,58,6);ctx.fillStyle=hexA(C.panel,.8);ctx.fill();ctx.strokeStyle=C["rule-soft"];ctx.lineWidth=1;ctx.stroke();
+      if(r[2][i]){let f=j<act?1:j===act?smooth(seg(p,i*.12,i*.12+.25)):(act===4?1:0);if(act===4)f=1;
+        if(f>0){rr(x-48,y-22,96*f,50,5);ctx.fillStyle=hexA(C.accent,.3);ctx.fill();if(f>.9){checkMark(x-6,y+2,8,C.good);}}}
+      else if(j<act||act===4||(j===act&&p>.6)){txt(x,y+2,"–",{size:16,align:"center",color:C["ink-faint"]})}});
+  });
+  line(232,462,680,462,C["ink-soft"],1.2);txt(220,462,"narrow",{size:12,weight:700,align:"right",color:C.act1});txt(692,462,"broad",{size:12,weight:700,color:C.act4});
+}
+
+function gutBand(x,y,w,h,inflamed){rr(x,y,w,h,14);ctx.fillStyle=hexA(C.body,.5);ctx.fill();const ec=inflamed?mix(C["body-edge"],C.warn,inflamed):C["body-edge"];
+  ctx.fillStyle=ec;for(let i=0;i<Math.floor(w/22);i++){const X=x+11+i*22;ctx.beginPath();ctx.arc(X,y,9,0,Math.PI);ctx.fill();ctx.beginPath();ctx.arc(X,y+h,9,Math.PI,TAU);ctx.fill()}}
+const FLORA=Array.from({length:30},(_,i)=>({x:rnd(i*3+1),y:rnd(i*5+2),k:i%3,a:rnd(i)*3}));
+function drawFlora(x,y,w,h,T,kill){FLORA.forEach((f,i)=>{const X=x+16+f.x*(w-32),Y=y+20+f.y*(h-40);const dead=kill>(.1+rnd(i+9)*.8);const a=dead?1-seg(kill,.85,1):1;
+  if(f.k===0)bact(X,Y,f.a+Math.sin(T+i)*.1,6,a,{col:C.bact,dead});else if(f.k===1)withA(a,()=>coccus(X,Y,5,C.act4,{dead}));else bact(X,Y,f.a,5,a,{col:C.act1,dead})})}
+function sceneSuperinf(T){
+  panelBox(12,12,296,456);title(26,32,"Before");
+  gutBand(28,90,264,300,0);drawFlora(28,90,264,300,T,0);spore(110,210,8);spore(220,320,8);yeast(170,150,9);
+  txt(160,420,"normal microbiota keep",{size:12.5,align:"center"});txt(160,438,"C. diff and Candida in check",{size:12.5,align:"center"});
+  panelBox(316,12,472,456);title(330,32,"After a broad-spectrum antibiotic");
+  const L=12,p=P(T,L);const kill=smooth(seg(p,.05,.35));const grow=seg(p,.35,.95);
+  gutBand(332,90,440,300,smooth(seg(p,.6,.9)));drawFlora(332,90,440,300,T,kill);
+  for(let i=0;i<9;i++){const f=seg(p,i*.03,i*.03+.3);if(f>0&&f<1)drugMol("bl",332+f*440,110+rnd(i)*260,7,{a:Math.sin(f*Math.PI)})}
+  // C. diff spores germinate and divide
+  const nC=grow>0?Math.min(14,Math.floor(2*Math.pow(2,grow*3))):0;
+  if(grow<=0){spore(450,210,8);spore(640,320,8)}
+  for(let i=0;i<nC;i++){const X=420+rnd(i*7+1)*300,Y=130+rnd(i*11+2)*220;bact(X,Y,rnd(i)*3,7,1,{col:C.spore,flag:true,t:T})}
+  if(grow>.3){for(let i=0;i<12;i++){const f=P(T*.6+i/12,1);const sx=420+rnd(i*3)*300,sy=150+rnd(i*5)*200;const ty=i%2?92:388;ctx.save();ctx.globalAlpha*=Math.sin(f*Math.PI);ngon(sx,lerp(sy,ty,f),4,3,-Math.PI/2);ctx.fillStyle=C.gold;ctx.fill();ctx.restore()}
+    label(560,60,"C. diff toxins hit the gut wall",{size:12.5,weight:700,border:C.gold})}
+  const nY=1+Math.floor(grow*6);for(let i=0;i<nY;i++)yeast(370+i*30+(i%2)*8,360-(i%3)*18,8);
+  if(grow>.2)txt(470,405,"Candida overgrows",{size:12.5,weight:700});
+  txt(550,438,kill<.5?"the drug kills helpful bacteria":"survivors move into the empty space",{size:13,weight:700,align:"center"});
+}
+
+function phagocyte(x,y,r,t,wrap){blobPath(x,y,r,4.2,t,.09+.05*wrap);ctx.fillStyle=hexA(C.panel,.95);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=2;ctx.stroke();
+  circ(x-r*.25,y-r*.15,r*.22,hexA(C.act1,.45));circ(x+r*.05,y-r*.3,r*.18,hexA(C.act1,.45));circ(x+r*.15,y+r*.05,r*.18,hexA(C.act1,.45))}
+function sceneCidal(T){
+  const L=10,now=P(T,L)*L;
+  const G=logFrame(110,52,620,140,3,9,10,{title:"Living bacteria (log scale)",xlab:"Time (hours)",step:2,xt:5});
+  line(G.X(2),52,G.X(2),192,C["ink-soft"],1.2,[5,4]);txt(G.X(2)+6,62,"drug added",{size:12,weight:600,color:C["ink-soft"]});
+  plotFn(t=>Math.min(8.7,6+t*.45),0,10,110,52,620,140,3,9,C.dead,3,[],now);
+  plotFn(t=>t<2?6+t*.45:6.9+(t-2)*.02,0,10,110,52,620,140,3,9,C.cold,3,[],now);
+  plotFn(t=>t<2?6+t*.45:6.9-(t-2)*.48,0,10,110,52,620,140,3,9,C.bad,3,[],now);
+  if(now>8){txt(G.X(9.7),G.Y(8.7)+12,"no drug",{size:12,weight:700,align:"right",color:C["ink-soft"]});txt(G.X(9.7),G.Y(7.05)-11,"static",{size:12,weight:700,align:"right",color:C.cold});txt(G.X(9.7),G.Y(3.8)-12,"cidal",{size:12,weight:700,align:"right",color:C.bad})}
+  // static + phagocyte
+  panelBox(12,250,384,218);title(26,270,"Bacteriostatic: paused");
+  const q=P(T,8);const bx=250,by=360;const eat=smooth(seg(q,.45,.75));const px=lerp(70,bx-30,smooth(seg(q,.05,.45)));
+  if(eat<1)bact(bx,by,0,12,1-eat*.8,{col:C.bact,shrink:eat});
+  if(eat<.3){rr(bx+30,by-34,6,18,2);ctx.fillStyle=C.cold;ctx.fill();rr(bx+40,by-34,6,18,2);ctx.fill()}
+  phagocyte(lerp(px,bx,eat*.8),by,lerp(48,56,eat),T,eat);
+  txt(204,450,eat>.5?"white blood cell clears it":"growth paused; immune cell arrives",{size:12.5,weight:700,align:"center"});
+  // cidal
+  panelBox(404,250,384,218);title(418,270,"Bactericidal: killed");
+  const b2=smooth(seg(q,.35,.6));rodCell(596,360,150,70,{gram:"pos",burst:b2,dead:b2>.6,t:T});
+  for(let i=0;i<5;i++){const f=smooth(seg(q,i*.05,i*.05+.35));if(b2<.6)drugMol("bl",lerp(430+i*10,560+i*18,f),lerp(300+i*30,330+i*12,f),7)}
+  txt(596,450,b2>.5?"wall bursts; the cell dies":"drug reaches the cell wall",{size:12.5,weight:700,align:"center"});
+}
+
+/* ================= Part 2: cell wall ================= */
+/* PBP enzyme drawn as an open mouth; jammed shows a drug inside */
+function pbpEnz(x,y,s,o){o=o||{};const open=o.jam?.35:.45+.25*Math.sin((o.t||0)*6);const col=o.col||(o.jam?C.dead:C.pbp);
+  ctx.beginPath();ctx.moveTo(x,y);ctx.arc(x,y,s,open,TAU-open);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1.2;ctx.stroke();
+  if(o.square){ctx.fillStyle=C.ecf;ctx.fillRect(x+s*.35,y-s*.3,s*.7,s*.6)}
+  if(o.jam)drugMol("bl",x+s*.55,y,s*.45,{col:o.jamCol})}
+/* peptidoglycan mesh: rows of sugar beads; links(i,j) says whether a cross-link exists */
+function pgMesh(x,y,w,rows,gap,links,o){o=o||{};const n=Math.floor(w/16);
+  for(let r=0;r<rows;r++){const Y=y+r*gap;line(x,Y,x+n*16,Y,hexA(C.pg,.7),2);for(let i=0;i<n;i++){const X=x+8+i*16;if(o.hole&&o.hole(r,i))continue;circ(X,Y,5,i%2?C.pg:mix(C.pg,C.panel,.4),hexA(C.ink,.35),.8)}}
+  for(let r=0;r<rows-1;r++)for(let i=1;i<n;i+=2){const X=x+8+i*16;const l=links(r,i,X);if(l>0){line(X,y+r*gap+5,X,y+r*gap+5+(gap-10)*l,C.protein,3)}else if(o.gaps){circ(X,y+r*gap+gap/2,3,null,hexA(C.bad,.6),1.2)}}}
+function sceneBetaLactam(T){
+  const L=10,p=P(T,L);
+  panelBox(12,12,384,226);title(26,32,"Normal: PBPs add cross-links");
+  const px=lerp(40,370,p);pgMesh(30,70,352,4,48,(r,i,X)=>X<px-10?1:(X<px+6?seg(px-X,-6,6):0));
+  [0,1,2].forEach(r=>pbpEnz(px,94+r*48,13,{t:T}));
+  panelBox(404,12,384,226);title(418,32,"With penicillin: PBPs jammed");
+  const stopX=520;const q=lerp(422,760,p);
+  pgMesh(422,70,352,4,48,(r,i,X)=>X<stopX?1:0,{gaps:true});
+  [0,1,2].forEach(r=>{const X=Math.min(q,stopX+12);const jam=q>=stopX+12;pbpEnz(X,94+r*48,13,{t:T,jam})});
+  for(let i=0;i<3;i++){const f=smooth(seg(p,.05+i*.05,.3+i*.05));if(f<1)drugMol("bl",lerp(620+i*50,stopX+20,f),lerp(50,94+i*48,f),8)}
+  label(650,226,"gaps: no new cross-links",{size:12,weight:700,border:C.bad});
+  // cells
+  panelBox(12,246,384,222);title(26,266,"Normal growth: divides");
+  const g=smooth(seg(p,.05,.6)),split=smooth(seg(p,.6,.85));
+  if(split<=0)rodCell(204,368,lerp(130,210,g),72,{gram:"pos",t:T});else{rodCell(204-56*split-20,368,105,70,{gram:"pos",t:T});rodCell(204+56*split+20,368,105,70,{gram:"pos",t:T})}
+  txt(204,450,split>0?"two healthy daughter cells":"growing cell builds new wall",{size:12.5,weight:700,align:"center"});
+  panelBox(404,246,384,222);title(418,266,"Penicillin: weak wall bursts");
+  const bul=smooth(seg(p,.2,.6)),bst=smooth(seg(p,.62,.82));
+  rodCell(596,372,lerp(130,190,g),72,{gram:"pos",bulge:bst>0?0:bul*1.4,burst:bst,dead:bst>.6,t:T});
+  if(bst<.3){for(let i=0;i<6;i++){const a=i/6*TAU;const f=P(T*1.2+i/6,1);const r0=lerp(110,70,f);arrow(596+Math.cos(a)*r0,372+Math.sin(a)*r0*.7,596+Math.cos(a)*(r0-18),372+Math.sin(a)*(r0-18)*.7,hexA(C.steam,1-f),1.6)}}
+  txt(596,450,bst>.2?"osmotic lysis: the cell bursts":"water pushes in at the weak spot",{size:12.5,weight:700,align:"center"});
+}
+
+function blFamilyMol(kind,x,y,s,pulse){ctx.save();ctx.translate(x,y);const sq=1+.12*pulse;rr(-s*sq,-s*.5*sq,s*sq,s*sq,2);fillStroke(C.drug,hexA(C.ink,.6),1.4);
+  if(pulse>.1)circ(-s*.5,0,s*(.9+pulse*.5),null,hexA(C.drug,.5*(1-pulse)),2);
+  const ex=s*.45;if(kind==="pen"){ngon(ex,0,s*.62,5,Math.PI);fillStroke(hexA(C.drug,.45),hexA(C.ink,.6),1.2);txt(ex,0,"S",{size:11,weight:700,align:"center",mono:true})}
+  else if(kind==="ceph"){hexPath(ex+2,0,s*.62,Math.PI/6);fillStroke(hexA(C.drug,.45),hexA(C.ink,.6),1.2);txt(ex+2,0,"S",{size:11,weight:700,align:"center",mono:true})}
+  else if(kind==="carb"){ngon(ex,0,s*.62,5,Math.PI);fillStroke(hexA(C.drug,.3),hexA(C.ink,.6),1.2);line(ex-4,-6,ex+6,-2,C.ink,1.4)}
+  else{line(0,0,s*1.1,0,C.drug,3);circ(s*1.2,0,4,C.drug)}
+  ctx.restore()}
+function sceneFamily(T){
+  panelBox(12,12,448,456);title(26,32,"One ring, four families");
+  const fams=[["pen","Penicillins","narrow to medium",[0,.35],.55],["ceph","Cephalosporins","generations 1 → 4",[0,.8],null],["carb","Carbapenems","very broad: last line",[0,1],null],["mono","Monobactams","Gram-negative only",[.62,1],null]];
+  const pulse=P(T,1.4);
+  fams.forEach((f,i)=>{const y=86+i*96;panelBox(24,y-36,424,80,{fill:hexA(C["panel-2"],.85)});blFamilyMol(f[0],70,y,22,pulse);
+    txt(118,y-14,f[1],{size:14,weight:700});txt(118,y+8,f[2],{size:12.5,color:C["ink-soft"]});
+    const bx=268,bw=168,by=y+4;rr(bx,by-8,bw,16,8);ctx.fillStyle=C.sunk;ctx.fill();
+    const grow=smooth(seg(P(T,6),.05,.5));const a=f[3][0],b=lerp(f[3][0],f[3][1],grow);
+    rr(bx+a*bw,by-8,(b-a)*bw,16,8);const gr=ctx.createLinearGradient(bx,0,bx+bw,0);gr.addColorStop(0,C.gpos);gr.addColorStop(1,C.gneg);ctx.fillStyle=gr;ctx.fill();
+    if(f[4]){ctx.setLineDash([4,3]);rr(bx+.35*bw,by-8,(f[4]-.35)*bw,16,8);ctx.strokeStyle=C.ink;ctx.lineWidth=1.2;ctx.stroke();ctx.setLineDash([])}
+    if(f[0]==="ceph")[.2,.4,.6,.8].forEach((g,k)=>{if(g<=b+.01)txt(bx+g*bw-6,by-18,String(k+1),{size:11.5,mono:true,weight:700,align:"center"})});
+    txt(bx,by+20,"Gram+",{size:11.5,color:C.gpos,weight:700});txt(bx+bw,by+20,"Gram−",{size:11.5,color:C.gneg,weight:700,align:"right"})});
+  txt(236,448,"dashed: lab-changed penicillins reach further",{size:12,align:"center",color:C["ink-soft"]});
+  // Gram-negative envelope
+  panelBox(468,12,320,456);title(482,32,"Getting past the outer membrane");
+  const ox=480,ow=296,omY=150;
+  const porins=[540,628,716];
+  for(let X=ox;X<=ox+ow;X+=10){if(porins.some(pq=>Math.abs(X-pq)<16))continue;circ(X,omY,4,C.gneg);circ(X,omY+18,4,C.gneg);line(X,omY+4,X,omY+14,hexA(C.gneg,.6),1.2)}
+  porins.forEach(pq=>{rr(pq-14,omY-8,6,34,3);ctx.fillStyle=C.act5;ctx.fill();rr(pq+8,omY-8,6,34,3);ctx.fill()});
+  txt(ox,omY-24,"outer membrane",{size:12,weight:700,color:C.gneg});txt(porins[1],omY+42,"porin",{size:12,align:"center",color:C["ink-soft"]});
+  pgMesh(ox,250,ow,2,16,()=>1);txt(ox,226,"thin peptidoglycan",{size:12,color:C["ink-soft"]});
+  for(let X=ox;X<=ox+ow;X+=10){circ(X,340,4,C.membrane);circ(X,358,4,C.membrane)}txt(ox,376,"inner membrane",{size:12,color:C["ink-soft"]});
+  pbpEnz(600,300,13,{t:T,jam:P(T,5)>.55});pbpEnz(700,300,13,{t:T});
+  const q=P(T,5);
+  const cp=along([[628,64],[628,omY+9],[612,250],[608,300]],smooth(seg(q,.05,.55)));if(q<.55)drugMol("bl",cp[0],cp[1],8);
+  label(574,74,"carbapenem",{size:12,weight:700});
+  const pf=seg(q,.1,.7);const py=pf<.5?lerp(70,omY-14,pf*2):lerp(omY-14,80,(pf-.5)*2);drugMol("bl",700,py,8,{col:mix(C.drug,C.panel,.25)});label(718,90,"penicillin G",{size:12,weight:700,align:"left"});
+  if(pf>.45&&pf<.65)crossMark(700,omY-26,6);
+  wrapText("Broad beta-lactams pass porins to reach the PBPs. Natural penicillin mostly cannot.",484,410,290,17,{size:12.5});
+}
+
+/* vancomycin */
+function buildingBlock(x,y,s,capped,col){line(x,y,x,y-s*2.2,C.pg,4);circ(x,y,5,C.pg);for(let k=1;k<=3;k++)circ(x,y-k*s*.55,3.4,C.protein);
+  circ(x-4,y-s*2.2,4,C.protein,hexA(C.ink,.6),1);circ(x+4,y-s*2.2,4,C.protein,hexA(C.ink,.6),1);
+  if(capped)drugMol("van",x,y-s*2.2-4,9,{rot:Math.PI,col:col||C.phen})}
+function sceneVanco(T){
+  panelBox(12,12,452,456);title(26,32,"Gram-positive: blocks get capped");
+  for(let r=0;r<4;r++){const Y=70+r*22;line(30,Y,446,Y,hexA(C.gpos,.6),9)}label(330,103,"thick wall (peptidoglycan)",{size:12,weight:700,color:C.gpos});
+  for(let X=30;X<=446;X+=10){circ(X,380,4,C.membrane);circ(X,398,4,C.membrane)}txt(36,420,"cell membrane",{size:12,color:C["ink-soft"]});
+  const L=8,p=P(T,L);
+  const xs=[90,170,250,330,410];
+  xs.forEach((x,i)=>{const rise=smooth(seg(p,i*.06,i*.06+.35));const y=lerp(370,215,rise);const capT=.4+i*.05;const capped=p>capT;
+    if(!capped&&p>capT-.15){const f=seg(p,capT-.15,capT);drugMol("van",x,lerp(150,y-s2(i)-6,f),9,{rot:Math.PI})}
+    buildingBlock(x,y,26,capped);
+    if(capped){const ex=x+20+Math.sin(T*10)*3;pbpEnz(ex,y-34,9,{t:T});if(i===2)crossMark(ex+10,y-58,5)}});
+  function s2(){return 26*2.2}
+  txt(26,54,"New building blocks end in D-Ala-D-Ala (two small beads).",{size:12.5,weight:600});
+  label(330,452,"capped ends cannot be linked into the wall",{size:12.5,weight:700,border:C.phen});
+  panelBox(472,12,316,456);title(486,32,"Gram-negative: kept out");
+  const omY=200;const porins=[560,690];
+  for(let X=484;X<=776;X+=10){if(porins.some(q=>Math.abs(X-q)<9))continue;circ(X,omY,4,C.gneg);circ(X,omY+18,4,C.gneg)}
+  porins.forEach(q=>{rr(q-9,omY-6,4,30,2);ctx.fillStyle=C.act5;ctx.fill();rr(q+5,omY-6,4,30,2);ctx.fill()});
+  pgMesh(484,270,292,2,16,()=>1);
+  for(let i=0;i<3;i++){const f=P(T*.4+i/3,1);const x=520+i*100;const y=f<.5?lerp(70,omY-22,f*2):lerp(omY-22,90,(f-.5)*2);drugMol("van",x,y,11,{rot:Math.PI});if(Math.abs(f-.5)<.06)crossMark(x,omY-40,6)}
+  label(630,140,"too big for porins",{size:13,weight:700,border:C.bad});
+  wrapText("Vancomycin cannot get through, so Gram-negative bacteria are naturally resistant.",490,360,280,17,{size:12.5});
+}
+
+/* ================= Part 3: ribosomes ================= */
+/* translation scene; returns nothing. o: blocked,chainLen,bad,tunnelPlug,aSiteBlock */
+function translate(x,y,s,T,o){o=o||{};mrna(x-s*3.2,x+s*3.2,y+s*.86,o.stop?0:T,C.mrna);ribosome(x,y,s,{big:o.big,lab:o.lab});
+  const n=o.chainLen==null?6:o.chainLen;ctx.save();let cx=x-s*.1,cy=y-s*.95;
+  for(let k=0;k<n;k++){const bad=o.bad&&o.bad(k);circ(cx,cy,s*.13,bad?C.bad:C.protein,hexA(C.ink,.4),1);if(bad)crossMark(cx,cy,s*.06,C.panel);
+    const wig=o.tangle?Math.sin(k*1.7+T)*s*.3:Math.sin(k*.8+T*.6)*s*.12;cx+=wig;cy-=s*.24}ctx.restore()}
+function tRNAflow(x,y,s,T,o){o=o||{};const L=o.L||2;const f=P(T,L);if(o.stop)return;
+  if(o.bounce){const q=f<.5?f*2:1-(f-.5)*2;trnaShape(lerp(x+s*2.6,x+s*.9,q),lerp(y+s*2.2,y+s*.3,q),s*.5,C.trna,null);trnaShape(lerp(x+s*2.6,x+s*.9,q),lerp(y+s*2.2,y+s*.3,q),s*.5,C.trna);if(Math.abs(f-.5)<.08)crossMark(x+s*1.2,y-s*.2,5);return}
+  const inn=smooth(seg(f,0,.45)),out=smooth(seg(f,.6,1));const bad=o.badAA&&Math.floor(T/L)%2===0;
+  trnaShape(lerp(x+s*2.6,x+s*.3,inn),lerp(y+s*2.2,y+s*.35,inn),s*.5,C.trna,inn<.95?(bad?C.bad:C.protein):null);
+  if(out>0)trnaShape(lerp(x-s*.3,x-s*2.6,out),lerp(y+s*.35,y+s*2,out),s*.5,C.trna,null)}
+function mito(x,y,r){ell(x,y,r*1.6,r,0,hexA(C.act3,.3),C.act3,1.6);ctx.beginPath();for(let i=0;i<=20;i++){const f=i/20;const X=x-r*1.3+f*r*2.6,Y=y+Math.sin(f*TAU*2.5)*r*.45;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=C.act3;ctx.lineWidth=1.2;ctx.stroke()}
+function sceneRibo(T){
+  const L=8,p=P(T,L);const hit=p>.58;
+  panelBox(12,12,384,456);title(26,32,"Bacterium: 70S ribosome");
+  const grow=Math.floor(4+P(T,L)*(hit?0:8));
+  tRNAflow(204,280,52,T,{stop:hit});translate(204,280,52,T,{lab:true,chainLen:hit?Math.floor(4+.58*8):grow,stop:hit});
+  const f=smooth(seg(p,.4,.58));if(p>.4)drugMol("amg",lerp(40,236,f),lerp(80,262,f),9);
+  if(hit)label(204,410,"drug jams the 70S: protein stops",{size:12.5,weight:700,border:C.drug});else txt(204,410,"30S + 50S = 70S",{size:13,weight:700,align:"center",mono:true});
+  panelBox(404,12,384,456);title(418,32,"Human cell: 80S ribosome");
+  humanCell(596,262,170,T*.4,{seed:2});tRNAflow(570,300,52,T);translate(570,300,52,T,{big:true,lab:true,chainLen:4+Math.floor(P(T,L)*8)});
+  const g=seg(p,.4,.75);const gx=g<.6?lerp(420,520,g/.6):lerp(520,440,(g-.6)/.4),gy=g<.6?lerp(80,250,g/.6):lerp(250,150,(g-.6)/.4);if(p>.4&&p<.75)drugMol("amg",gx,gy,9);if(g>.5&&g<.7)checkMark(530,232,6);
+  mito(700,150,22);[[688,146],[706,156],[716,142]].forEach(q=>ribosome(q[0],q[1],4.5));lead(700,128,700,82,"mitochondrion: 70S-like ribosomes",{size:12,align:"right"});
+  txt(596,440,"40S + 60S = 80S: the drug does not fit",{size:12.5,weight:700,align:"center"});
+}
+function sceneRibo30(T){
+  const L=9,p=P(T,L);
+  panelBox(12,12,384,456);title(26,32,"Aminoglycosides: misreading");
+  const bound=p>.18;const f=smooth(seg(p,0,.18));drugMol("amg",lerp(50,170,f),lerp(420,318,f),12);
+  tRNAflow(204,260,50,T,{badAA:bound,L:1.8});translate(204,260,50,T,{lab:true,chainLen:4+Math.floor(p*7),bad:k=>bound&&k>2&&k%2===1,tangle:bound&&p>.5});
+  for(let X=30;X<=380;X+=10){const holey=p>.75&&(Math.abs(X-120)<12||Math.abs(X-290)<12);if(!holey){circ(X,430,3.6,C.membrane);circ(X,446,3.6,C.membrane)}}
+  if(p>.55){const d=smooth(seg(p,.55,.75));[[120],[290]].forEach((q,i)=>{const X=lerp(204,q[0],d),Y=lerp(150,410,d);ctx.beginPath();for(let k=0;k<12;k++){const a=k*1.3+T;ctx.lineTo(X+Math.cos(a)*10*rnd(k+i),Y+Math.sin(a)*8)}ctx.strokeStyle=C.bad;ctx.lineWidth=2;ctx.stroke()})}
+  label(204,60,"misreading · cidal",{size:13,weight:700,border:C.ald});
+  if(p>.75)txt(204,404,"faulty proteins damage the membrane",{size:12.5,weight:700,align:"center"});
+  panelBox(404,12,384,456);title(418,32,"Tetracyclines: tRNA blocked");
+  const tb=p>.18;const g=smooth(seg(p,0,.18));drugMol("tet",lerp(760,640,g),lerp(420,296,g),12);
+  tRNAflow(596,260,50,T,{bounce:tb,L:1.8});translate(596,260,50,T,{lab:true,chainLen:tb?5:4+Math.floor(seg(p,0,.18)*1.5)});
+  
+  label(596,60,"blocked tRNA · static",{size:13,weight:700,border:C.gold});
+  txt(596,420,tb?"no new amino acids can dock":"the drug arrives at the 30S",{size:12.5,weight:700,align:"center"});
+}
+function sceneRibo50(T){
+  const L=8,p=P(T,L);const titles=[["Macrolides","mac","plug the exit tunnel"],["Clindamycin","clin","same site as macrolides"],["Chloramphenicol","chl","no peptide bond"]];
+  titles.forEach((tt,i)=>{const x0=12+i*260,cx=x0+136;panelBox(x0,12,252,456);title(x0+14,32,tt[0]);
+    const f=smooth(seg(p,0,.25));const s=56;const cy=250;const bound=p>.25;
+    mrna(cx-s*2,cx+s*1.9,cy+s*.86,bound?0:T,C.mrna);ribosome(cx,cy,s);
+    txt(x0+16,cy-s*.45,"50S",{size:12,weight:700,mono:true,color:C.r50});txt(x0+16,cy+s*.45,"30S",{size:12,weight:700,mono:true,color:C.r30});
+    if(i<2){rr(cx-8,cy-s*1.05,16,s*.85,6);ctx.fillStyle=hexA(C.ink,.35);ctx.fill();
+      const n=bound?6:3+Math.floor(seg(p,0,.25)*3);
+      for(let k=0;k<n;k++){let X,Y;if(!bound){X=cx;Y=cy-s*.3-k*12}else{X=cx+(k%2?6:-6)*(k>2?1:0);Y=cy-s*.3-Math.min(k,3)*10+(k>3?6:0)}circ(X,Y,5.5,C.protein,hexA(C.ink,.4),1)}
+      if(!bound){for(let k=0;k<4;k++){circ(cx+Math.sin(k+T)*3,cy-s*1.15-k*12-((T*20)%12),5.5,C.protein,hexA(C.ink,.4),1)}}
+      drugMol(tt[1],lerp(x0+30,cx,f),lerp(70,cy-s*1.05,f),11);
+      if(bound)txt(cx,cy-s*1.75,"chain cannot exit",{size:12.5,weight:700,align:"center"})}
+    else{trnaShape(cx-16,cy+s*.35,26,C.trna);trnaShape(cx+16,cy+s*.35,26,C.trna);
+      const sp=P(T,1.2);const ay=cy+s*.35-26*1.55;if(!bound){if(sp<.35)glow(cx,ay,16,C.gold,1);circ(cx-16,ay,8,C.protein,hexA(C.ink,.4),1);circ(cx+16,ay,8,C.protein,hexA(C.ink,.4),1);line(cx-8,ay,cx+8,ay,C.ink,2)}
+      else{circ(cx-16,ay,8,C.protein,hexA(C.ink,.4),1);circ(cx+16,ay,8,C.protein,hexA(C.ink,.4),1);ctx.save();ctx.setLineDash([3,3]);line(cx-8,ay,cx+8,ay,hexA(C.gold,sp<.5?.9:.3),2);ctx.restore();crossMark(cx,ay-18,5)}
+      drugMol("chl",lerp(x0+30,cx,f),lerp(70,ay-22,f),11);if(bound)txt(cx,cy-s*1.75,"bond cannot form",{size:12.5,weight:700,align:"center"})}
+    label(cx-10,400,tt[2],{size:12.5,weight:700,border:dcol(tt[1])});
+    if(i===1)chipText(cx-10,432,"high C. diff risk",C.warn);
+    if(i===2)txt(cx-10,432,"rare: bone-marrow toxicity",{size:12,align:"center",color:C["ink-soft"]});
+    if(i===0)txt(cx-10,432,"often used if penicillin allergy",{size:12,align:"center",color:C["ink-soft"]})});
+}
+
+/* ================= Part 4 ================= */
+function sceneMembrane(T){
+  const L=9,p=P(T,L);
+  panelBox(12,12,516,456);title(26,32,"Gram-negative envelope, close up");
+  const omY=150,imY=270;const holes=[140,300,430];const open=smooth(seg(p,.4,.7));
+  const isHole=X=>holes.some(h=>Math.abs(X-h)<14*open);
+  for(let X=30;X<=510;X+=11){if(!isHole(X)){circ(X,omY,5,C.gneg);circ(X,omY+20,4,hexA(C.gneg,.7));line(X,omY+5,X,omY+16,hexA(C.gneg,.5),1.2);if((X/11|0)%3===0)txt(X,omY-12,"−",{size:12,weight:700,align:"center",color:C.gneg})}}
+  txt(30,omY-30,"outer membrane (LPS)",{size:12,weight:700,color:C.gneg});
+  pgMesh(30,205,480,2,16,()=>1);
+  for(let X=30;X<=510;X+=11){if(!isHole(X)){circ(X,imY,4.5,C.membrane);circ(X,imY+18,4.5,C.membrane)}}txt(30,imY+38,"inner membrane",{size:12,weight:700,color:C["ink-soft"]});
+  for(let i=0;i<34;i++){let X=40+rnd(i)*460,Y=320+rnd(i+4)*120;const h=holes[i%3];if(open>.5&&i%2===0){const f=P(T*.3+rnd(i),1);X=lerp(X,h,Math.min(1,f*2));Y=lerp(Y,omY-60,f)}circ(X,Y,3,hexA(C.dna,.75))}
+  holes.forEach((h,i)=>{const f=smooth(seg(p,i*.08,i*.08+.35));const y=lerp(60,omY-16,f);drugMol("pmx",h-14,y,12);if(f>=1)txt(h+18,omY-34,"+",{size:14,weight:700,align:"center",color:C.nonenv})});
+  if(open>.5)label(270,110,"holes open; contents leak out",{size:12.5,weight:700,border:C.bad});
+  panelBox(536,12,252,456);title(550,32,"Gram-positive");
+  rodCell(662,230,170,90,{gram:"pos",t:T});
+  for(let i=0;i<2;i++){const f=P(T*.25+i/2,1);drugMol("pmx",lerp(560,750,f),90+i*50+Math.sin(f*6)*8,10)}
+  label(662,330,"little effect",{size:13,weight:700});wrapText("No outer membrane LPS to grab, so polymyxins mainly hit Gram-negatives.",552,370,224,17,{size:12.5});
+}
+function sceneNucleic(T){
+  const L=10,p=P(T,L);
+  panelBox(12,12,384,456);title(26,32,"Fluoroquinolones vs DNA gyrase");
+  const jam=p>.45;const fork=jam?lerp(60,200,.45/0.6):lerp(60,200,seg(p,0,.6));
+  dnaHelix(30,170,fork-30,8,0,C.dna);dnaHelix(30,206,fork-30,8,0,mix(C.dna,C.panel,.3));
+  dnaHelix(fork,188,370-fork,10,T*(jam?0:2),C.dna,{breakAt:jam?255-fork:null,gap:12});
+  // twisted loop ahead
+  ctx.beginPath();ctx.ellipse(285,240,40,26,0,0,TAU);ctx.strokeStyle=hexA(C.dna,.6);ctx.lineWidth=2;ctx.stroke();
+  const gx=255,gy=188;blobPath(gx,gy,20,3,T,.08);ctx.fillStyle=hexA(jam?C.dead:C.perox,.85);ctx.fill();ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1.2;ctx.stroke();
+  if(!jam&&P(T,1.5)<.4){line(gx,gy-24,gx,gy+24,C.gold,2)}
+  lead(gx,gy-20,170,90,"DNA gyrase",{size:12});
+  if(p>.3){const f=smooth(seg(p,.3,.45));drugMol("fq",lerp(60,gx+6,f),lerp(380,gy+20,f),9);drugMol("fq",lerp(360,gx-6,f),lerp(400,gy+24,f),9)}
+  if(jam){[[gx-14,gy-26],[gx+12,gy+28]].forEach(q=>{poly([[q[0]-6,q[1]-6],[q[0],q[1]],[q[0]-4,q[1]+5],[q[0]+3,q[1]+10]],C.bad,2.4)});label(204,330,"cut DNA stays broken",{size:12.5,weight:700,border:C.bad});txt(204,360,"copying stops; the cell dies",{size:12.5,align:"center"})}
+  else txt(204,330,"gyrase cuts and rejoins to undo twists",{size:12.5,align:"center"});
+  panelBox(404,12,384,456);title(418,32,"Rifampin vs RNA polymerase");
+  const stop=p>.5;const px=stop?lerp(470,700,.5/0.5*.9):lerp(470,700,seg(p,0,.5)*.9);
+  dnaHelix(420,260,350,9,0,C.dna);
+  ctx.beginPath();ctx.moveTo(px-10,246);for(let k=1;k<=14;k++){const X=px-10-k*12,Y=246-k*7+Math.sin(k+T*(stop?0:3))*4;if(X<430)break;ctx.lineTo(X,Y)}ctx.strokeStyle=C.mrna;ctx.lineWidth=3;ctx.stroke();
+  ell(px,256,34,24,0,hexA(stop?C.dead:C.alc,.85),hexA(C.ink,.5),1.3);txt(px,256,"RNA pol",{size:12,weight:700,align:"center"});
+  if(p>.35){const f=smooth(seg(p,.35,.5));drugMol("rif",lerp(760,px+14,f),lerp(110,236,f),10)}
+  label(500,150,"mRNA",{size:12,weight:700,color:C.mrna});
+  if(stop){label(596,330,"no mRNA can be made",{size:12.5,weight:700,border:C.heat});
+    rr(650,368,40,56,4);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();rr(652,390,36,32,3);ctx.fillStyle=hexA(C.heat,.7);ctx.fill();
+    txt(632,400,"harmless orange",{size:12,weight:600,align:"right"});txt(632,418,"colour in urine",{size:12,weight:600,align:"right"})}
+  else txt(596,330,"polymerase copies DNA into mRNA",{size:12.5,align:"center"});
+}
+function sceneFolate(T){
+  const L=14,p=P(T,L);const b1=p>.28&&p<.92,b2=p>.55&&p<.92;
+  rr(20,16,760,300,60);ctx.fillStyle=hexA(C.water,.5);ctx.fill();ctx.strokeStyle=C.gneg;ctx.lineWidth=3;ctx.stroke();title(64,40,"Inside a bacterium");
+  const y=170;line(60,y+18,740,y+18,C["ink-soft"],2);
+  const st=[[90,"PABA"],[230,"Enzyme 1"],[370,"Dihydrofolic acid"],[500,"Enzyme 2"],[620,"Tetrahydrofolic acid"],[725,"DNA, RNA blocks"]];
+  [1,3].forEach(i=>{const x=st[i][0];const blk=i===1?b1:b2;rr(x-32,y-34,64,52,10);ctx.fillStyle=blk?C.dead:C.pbp;ctx.fill();ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1.3;ctx.stroke();ctx.fillStyle=C.ecf;ctx.fillRect(x-10,y-8,20,26);
+    if(blk)drugMol(i===1?"sul":"tmp",x,y+4,12)});
+  st.forEach((s,i)=>txt(s[0],i%2?y-50:y+46,s[1],{size:12.5,weight:700,align:"center"}));
+  txt(230,y+64,"(dihydropteroate synthase)",{size:11.5,align:"center",color:C["ink-soft"]});txt(500,y+64,"(dihydrofolate reductase)",{size:11.5,align:"center",color:C["ink-soft"]});
+  // items moving
+  for(let i=0;i<14;i++){let X=60+((T*40+i*50)%680);if(b1&&X>200&&X<260)X=200-((i*7)%40);
+    let col,shape;if(X<230){col=C.gold;shape="hex"}else if(X<500){col=C.act3;shape="hex2"}else if(X<700){col=C.act5;shape="hex3"}else{col=C.dna;shape="nuc"}
+    if(b1&&X>230)continue;if(b2&&X>500&&X<720)continue;
+    const yy=y+4;if(shape==="nuc"){ngon(X,yy,9,5,-Math.PI/2);fillStroke(col,hexA(C.ink,.4),1)}else{hexPath(X,yy,8,0);fillStroke(col,hexA(C.ink,.4),1);if(shape!=="hex"){hexPath(X+12,yy,6.5,0);fillStroke(hexA(col,.6),null)}}}
+  if(b1){for(let k=0;k<4;k++){const f=P(T*.6+k/4,1);drugMol("sul",lerp(150,214,f),lerp(70,y-30,f),10,{a:Math.sin(f*Math.PI)})}label(230,96,"sulfa looks like PABA",{size:12.5,weight:700,border:C.phen})}
+  if(b2)label(500,96,"trimethoprim blocks here",{size:12.5,weight:700,border:C.chlor});
+  if(b1)label(620,280,"no folic acid: no new DNA",{size:12.5,weight:700,border:C.bad});
+  // human
+  panelBox(20,328,760,140);title(36,348,"Human cell");
+  ell(100,420,40,14,0,C.panel,C["ink-soft"],1.6);ctx.beginPath();ctx.ellipse(100,416,40,30,0,0,Math.PI);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.stroke();
+  for(let k=0;k<3;k++){hexPath(84+k*16,410,5,0);fillStroke(C.act5,null)}txt(100,456,"folic acid in food",{size:12,align:"center",weight:600});
+  humanCell(380,404,52,T,{seed:4});
+  for(let k=0;k<5;k++){const f=P(T*.4+k/5,1);const X=lerp(150,360,f);hexPath(X,404+Math.sin(f*6)*6,5,0);fillStroke(C.act5,null)}
+  wrapText("We take in ready-made folic acid and have no Enzyme 1, so sulfa drugs do not block our cells this way.",470,384,290,17,{size:12.5});
+}
+
+/* ================= Part 5: fungi, viruses, parasites ================= */
+function sceneAntifungal(T){
+  const L=12,mode=Math.floor(P(T,L)*3),p=P(T,L/3);
+  panelBox(12,12,460,456);title(26,32,"A yeast cell");
+  const cx=232,cy=200,rx=165,ry=128;
+  // wall glucan strands
+  const thin=mode===2?smooth(seg(p,.2,.8)):0;
+  ctx.save();for(let k=0;k<60;k++){if(thin>rnd(k+5))continue;const a=k/60*TAU;const a2=a+.22;line(cx+Math.cos(a)*(rx+6),cy+Math.sin(a)*(ry+6),cx+Math.cos(a2)*(rx+16),cy+Math.sin(a2)*(ry+16),C.fungus,2.4);
+    line(cx+Math.cos(a2)*(rx+6),cy+Math.sin(a2)*(ry+6),cx+Math.cos(a)*(rx+16),cy+Math.sin(a)*(ry+16),hexA(C.fungus,.6),1.6)}ctx.restore();
+  ell(cx,cy,rx,ry,0,hexA(C.fungus,.16),C.membrane,3);
+  // ergosterol bars
+  const nE=40;for(let k=0;k<nE;k++){const a=k/nE*TAU;let show=true;if(mode===0&&rnd(k*3)<smooth(seg(p,.2,.8))*.7)show=false;
+    if(show){const X=cx+Math.cos(a)*rx,Y=cy+Math.sin(a)*ry;ctx.save();ctx.translate(X,Y);ctx.rotate(a);ctx.fillStyle=C.ergo;ctx.fillRect(-6,-2,12,4);ctx.restore()}}
+  ell(cx+20,cy+10,44,36,0,hexA(C.fungus,.35),C.fungus,1.6);circ(cx+30,cy+4,10,hexA(C.fungus,.6));txt(cx+20,cy+62,"nucleus",{size:12,align:"center",color:C["ink-soft"]});
+  if(mode===1){const k=smooth(seg(p,.15,.5));for(let j=0;j<4;j++){const a=-.6+j*.4;const X=cx+Math.cos(a)*rx,Y=cy+Math.sin(a)*ry;drugMol("polyene",X+Math.cos(a)*(60-50*k),Y+Math.sin(a)*(60-50*k),7,{rot:a+Math.PI/2});
+      if(k>.9)for(let d=0;d<3;d++){const f=P(T*.8+d/3+j*.2,1);circ(X+Math.cos(a)*f*40,Y+Math.sin(a)*f*40,2.4,hexA(C.dna,1-f))}}}
+  if(mode===0){const f=smooth(seg(p,0,.2));drugMol("azole",lerp(40,cx-60,f),lerp(420,cy+40,f),9)}
+  if(mode===2){const f=smooth(seg(p,0,.2));drugMol("ech",lerp(440,cx+rx*.7,f),lerp(420,cy+ry*.8,f),9)}
+  const note=["new ergosterol stops being made","polyenes bind ergosterol, making pores","the glucan wall thins and breaks"][mode];label(cx,46+12,note,{size:12.5,weight:700,border:C.accent});
+  // human membrane inset
+  panelBox(28,352,428,104,{fill:hexA(C["panel-2"],.95)});txt(40,370,"Human membrane: cholesterol, not ergosterol",{size:12.5,weight:700});
+  for(let X=44;X<=440;X+=12){circ(X,404,4.4,C.membrane);circ(X,430,4.4,C.membrane)}for(let X=50;X<=440;X+=36){ctx.fillStyle=C.chol;ctx.fillRect(X,411,5,13)}
+  if(mode===1){drugMol("polyene",200,394,6,{rot:Math.PI/2});drugMol("polyene",320,394,6,{rot:Math.PI/2});txt(440,446,"a little binding: why polyenes can be toxic",{size:12,align:"right",weight:600,color:C.bad})}
+  // callouts
+  const box=[["Azoles","azole","block the enzyme that makes ergosterol"],["Polyenes","polyene","amphotericin B, nystatin: punch pores"],["Echinocandins","ech","block beta-glucan: weak wall"]];
+  box.forEach((b,i)=>{const y=12+i*152,on=i===mode;panelBox(480,y,308,144,{stroke:on?C.accent:C.rule,lw:on?2.6:1.2,fill:hexA(C.panel,on?.98:.7)});
+    txt(496,y+22,b[0],{size:15,weight:700});drugMol(b[1],740,y+24,9);wrapText(b[2],496,y+48,276,17,{size:12.5,color:C["ink-soft"]});
+    const zy=y+104;if(i===0){for(let k=0;k<6;k++){const X=510+k*42;const gone=on&&k>=6-Math.floor(seg(p,.2,.9)*4);circ(X,zy,5,C.membrane);if(!gone){ctx.fillStyle=C.ergo;ctx.fillRect(X+8,zy-6,5,12)}}}
+    else if(i===1){for(let k=0;k<7;k++){const X=510+k*38;circ(X,zy,5,C.membrane);ctx.fillStyle=C.ergo;ctx.fillRect(X+8,zy-6,5,12)}if(on){rr(600,zy-16,30,32,8);ctx.strokeStyle=C.gold;ctx.lineWidth=4;ctx.stroke();const f=P(T,1);circ(615,zy+20+f*12,2.5,hexA(C.dna,1-f))}}
+    else{for(let k=0;k<7;k++){if(on&&rnd(k+2)<seg(p,.2,.9)*.6)continue;line(500+k*40,zy-8,530+k*40,zy+8,C.fungus,2.4);line(500+k*40,zy+8,530+k*40,zy-8,hexA(C.fungus,.6),1.6)}}});
+}
+
+function sceneAntiviral(T){
+  const L=15,step=Math.floor(P(T,L)*5),p=P(T,L/5);
+  ell(410,268,280,175,0,hexA(C.body,.7),C["body-edge"],2.5);circ(410,296,56,hexA(C.r50,.15),C["body-edge"],2);txt(410,296,"nucleus",{size:12,align:"center",color:C["ink-soft"]});
+  title(24,30,"Viral life cycle in a host cell");
+  const S=[{x:200,y:126,n:"1 Attach and enter",d:"Entry blockers",mol:"fus"},{x:250,y:232,n:"2 Uncoat",d:"Uncoating blockers",mol:"unc"},{x:330,y:372,n:"3 Copy genome",d:"Nucleoside analogs, RT inhibitors",mol:"nuc"},
+    {x:540,y:342,n:"4 Cut proteins",d:"Protease inhibitors",mol:"pi"},{x:620,y:126,n:"5 Release",d:"Neuraminidase inhibitors",mol:"ni"}];
+  for(let i=0;i<4;i++)arrow(S[i].x+(S[i+1].x-S[i].x)*.2,S[i].y+(S[i+1].y-S[i].y)*.2,S[i].x+(S[i+1].x-S[i].x)*.75,S[i].y+(S[i+1].y-S[i].y)*.75,hexA(C["ink-soft"],.6),1.6,[5,4]);
+  S.forEach((s,i)=>{const on=i===step;badge(s.x,s.y,i+1,on?C.accent:C["ink-soft"],12);if(on)pulseRing(s.x,s.y,24,C.accent,P(T,1))});
+  const s=S[step];const blocked=p>.45;
+  // per-step mini animation
+  if(step===0){const f=smooth(seg(p,0,.45));envVirus(lerp(130,196,f),lerp(60,96,f),15,{t:T})}
+  else if(step===1){envVirus(296,214,14,{t:T,broken:blocked?0:smooth(seg(p,.1,.45))})}
+  else if(step===2){ctx.beginPath();const n=blocked?5:Math.floor(4+P(T,2)*8);for(let k=0;k<n;k++){const X=290+k*10;k?ctx.lineTo(X,410+Math.sin(k)*3):ctx.moveTo(X,410)}ctx.strokeStyle=C.env;ctx.lineWidth=3;ctx.stroke();if(blocked){drugMol("nuc",290+n*10+6,410,6);txt(352,432,"chain stops short",{size:12,weight:700})}}
+  else if(step===3){rr(500,380,120,10,5);ctx.fillStyle=C.protein;ctx.fill();if(!blocked){[530,560,590].forEach(X=>line(X,374,X,396,C.panel,2))}else txt(560,410,"long protein left uncut",{size:12,weight:700,align:"center"})}
+  else{const f=smooth(seg(p,0,.6));for(let k=0;k<3;k++){const X=600+k*34,Y=lerp(150,blocked?92:30-k*6,blocked?Math.min(f,.95):f);envVirus(X,Y,11,{t:T});if(blocked)line(X,Y+11,X,98,C["ink-soft"],1.2)}}
+  // drug + block sign
+  if(blocked){const f=smooth(seg(p,.45,.6));drugMol(s.mol,lerp(s.x+80,s.x+30,f),lerp(s.y-40,s.y-24,f),9);if(p>.6)blockSign(s.x+52,s.y+20,12)}
+  panelBox(20,40+0,250,58,{stroke:C.accent,lw:2});txt(32,58,s.n,{size:13.5,weight:700});txt(32,80,s.d,{size:12.5,color:C["ink-soft"]});
+  // antibiotic note
+  panelBox(12,404,224,58);capsulePill(44,433,16,C.drug,.3);txt(70,424,"Antibiotic:",{size:12.5,weight:700});txt(70,444,"no target here",{size:12.5,color:C["ink-soft"]});
+}
+
+function rbc(x,y,r,col){ell(x,y,r,r*.85,0,col,hexA(C.ink,.3),1.2);ell(x,y,r*.45,r*.38,0,hexA(C.panel,.25))}
+function sceneAntiparasite(T){
+  const L=10,p=P(T,L);
+  panelBox(12,12,384,456);title(26,32,"Protozoa");
+  rr(24,80,360,200,20);ctx.fillStyle=hexA(C.bad,.08);ctx.fill();txt(32,96,"blood vessel",{size:12,color:C["ink-soft"]});
+  const rcol=mix(C.drug,C.panel,.25);const kill=smooth(seg(p,.35,.6));
+  for(let i=0;i<7;i++){const X=40+((T*30+i*56)%340),Y=140+(i%3)*45;rbc(X,Y,20,rcol);if(i===2||i===5){const s=lerp(7,3,kill);circ(X+4,Y-2,s,null,kill>.5?C.dead:C.cyst,2.4);circ(X+4+s*.7,Y-2-s*.7,2,kill>.5?C.dead:C.cyst)}}
+  if(p>.2&&p<.6){const f=seg(p,.2,.4);drugMol("tet",lerp(30,200,f),lerp(60,180,f),8,{col:C.act2})}
+  label(204,300,kill>.5?"malaria parasites killed in red cells":"malaria parasites inside red blood cells",{size:12.5,weight:700});
+  const g=smooth(seg(p,.55,.75));protozoan(lerp(110,200,P(T*.1,1)),380,24,T,{dead:g>.6});if(p>.45){const f=smooth(seg(p,.45,.6));drugMol("ni",lerp(330,230,f),lerp(440,390,f),8)}
+  txt(204,440,g>.6?"metronidazole stops Giardia":"Giardia swims in the gut",{size:12.5,weight:700,align:"center"});
+  panelBox(404,12,384,456);title(418,32,"Helminths (worms)");
+  rr(416,110,360,220,22);ctx.fillStyle=hexA(C.body,.5);ctx.fill();ctx.strokeStyle=C["body-edge"];ctx.lineWidth=2;ctx.stroke();txt(424,126,"gut",{size:12,color:C["ink-soft"]});
+  const still=p>.4;const slow=smooth(seg(p,.25,.4));const out=smooth(seg(p,.5,.95));
+  ctx.save();rr(416,110,360,220,22);ctx.clip();helminth(lerp(560,900,out),220,80,T*(1-slow),{still,dead:still});ctx.restore();
+  if(p>.1&&p<.4){const f=smooth(seg(p,.1,.3));drugMol("azole",lerp(760,610,f),lerp(380,236,f),8,{col:C.act2})}
+  for(let k=0;k<4;k++){const f=P(T*.5+k/4,1);arrow(430+f*300,150+k*50,450+f*300,150+k*50,hexA(C.steam,.8),1.6)}
+  label(596,360,still?"paralysed and passed out":"the worm grips and wriggles",{size:12.5,weight:700,border:still?C.accent:null});
+  wrapText("Other worm drugs block microtubules, so the worm cannot take in glucose.",420,400,350,17,{size:12.5});
+}
+
+/* ================= Part 6: testing ================= */
+const KB=[["CIP",30,"S"],["P",6,"R"],["TE",24,"S"],["SXT",6,"R"],["E",20,"I"],["GM",19,"S"]];
+function sceneKirby(T){
+  const L=16,p=P(T,L);
+  panelBox(12,12,460,456);title(26,32,["1. Swab a lawn","2. Add drug disks","3. Incubate about 18 h","4. Measure each zone"][p<.2?0:p<.32?1:p<.6?2:3]);
+  const cx=242,cy=250,R=176,pxmm=R/45;
+  const lawn=p<.2?.25*seg(p,0,.2):p<.32?.25:lerp(.25,1,smooth(seg(p,.32,.6)));const zf=smooth(seg(p,.36,.6));
+  const pos=KB.map((d,i)=>{const a=-Math.PI/2+i/6*TAU;return {x:cx+Math.cos(a)*100,y:cy+Math.sin(a)*100,d}});
+  const zones=p>.32?pos.map(q=>({x:q.x,y:q.y,r:q.d[1]>6?q.d[1]/2*pxmm*zf:0})):[];
+  plateTop(cx,cy,R,lawn,zones);
+  if(p<.2){const f=seg(p,0,.2);const pass=Math.floor(f*3),q=(f*3)%1;const a=pass*Math.PI/3;const u=lerp(-1,1,q),v=Math.sin(q*TAU*5)*.9;
+    const sx=cx+(Math.cos(a)*u-Math.sin(a)*v)*R*.8,sy=cy+(Math.sin(a)*u+Math.cos(a)*v)*R*.8;line(sx,sy,sx+40,sy-60,C["ink-soft"],4);ell(sx,sy,8,5,0,C.panel,C["ink-soft"],1.4)}
+  pos.forEach((q,i)=>{const f=smooth(seg(p,.2+i*.018,.25+i*.018));if(f<=0)return;disk(q.x,lerp(q.y-40,q.y,f),q.d[0],{r:12,fs:10,sel:p>.6&&i===0})});
+  if(p>.32&&p<.6){clock(420,62,18,seg(p,.32,.6),C.accent);txt(420,92,"18 h",{size:12,mono:true,weight:700,align:"center"})}
+  if(p>.6){const f=smooth(seg(p,.6,.75));const z=pos[0];const r=15*pxmm;rulerMM(z.x-r-60*(1-f),z.y+r+18,z.x+r+30,z.y+r+18,pxmm);
+    line(z.x-r,z.y,z.x-r,z.y+r+20,C.ink,1.2,[3,3]);line(z.x+r,z.y,z.x+r,z.y+r+20,C.ink,1.2,[3,3]);if(f>.9)label(z.x+r+40,z.y-10,"30 mm",{size:13,weight:700,mono:true,border:C.accent})}
+  // chart
+  panelBox(480,12,308,456);title(494,32,"Read the chart");
+  txt(494,58,"Ciprofloxacin (teaching chart)",{size:12.5,weight:700});
+  const bx=500,bw=268,mm=v=>bx+(v-6)/(40-6)*bw;
+  [[6,15.5,"R",C.bad],[15.5,20.5,"I",C.warn],[20.5,40,"S",C.good]].forEach(z=>{rr(mm(z[0]),80,mm(z[1])-mm(z[0]),26,0);ctx.fillStyle=hexA(z[3],.28);ctx.fill();ctx.strokeStyle=z[3];ctx.lineWidth=1.4;ctx.stroke();txt((mm(z[0])+mm(z[1]))/2,93,z[2],{size:13,weight:700,align:"center",mono:true})});
+  [6,15,20,30,40].forEach(v=>txt(mm(v),116,String(v),{size:11.5,mono:true,align:"center",color:C["ink-soft"]}));txt(bx+bw/2,134,"zone diameter (mm)",{size:12,align:"center",color:C["ink-soft"]});
+  if(p>.72){const X=mm(30);ctx.beginPath();ctx.moveTo(X,78);ctx.lineTo(X-7,66);ctx.lineTo(X+7,66);ctx.closePath();ctx.fillStyle=C.ink;ctx.fill();}
+  txt(494,164,"All six disks:",{size:12.5,weight:700});
+  KB.forEach((d,i)=>{const y=190+i*34;const show=p>.62+i*.03;rr(494,y-14,280,28,4);ctx.fillStyle=hexA(C["panel-2"],.9);ctx.fill();
+    txt(504,y,d[0],{size:12.5,weight:700,mono:true});txt(570,y,show?d[1]+" mm":"…",{size:12.5,mono:true});
+    if(show){const col=d[2]==="S"?C.good:d[2]==="I"?C.warn:C.bad;chipText(680,y,d[2]==="S"?"S susceptible":d[2]==="I"?"I intermediate":"R resistant",col)}});
+  wrapText("6 mm means no zone: the disk itself is 6 mm wide.",494,406,280,17,{size:12.5,color:C["ink-soft"]});
+}
+
+function sceneMIC(T){
+  const L=14,p=P(T,L);
+  panelBox(12,12,516,222);title(26,32,"Broth dilution: find the MIC");
+  const conc=["64","32","16","8","4","2","1","0.5","GC"];const grow=smooth(seg(p,.05,.35));
+  conc.forEach((c,i)=>{const x=56+i*52;const cloudy=i>=5?grow:0;tube(x,62,28,110,.78,{col:mix(C.water,C.food,cloudy),cloudy,seed:i*5});txt(x,188,c,{size:12,mono:true,weight:700,align:"center"})});
+  txt(270,210,"drug level (µg/mL); GC = growth control, no drug",{size:12,align:"center",color:C["ink-soft"]});
+  if(p>.35){arrow(264,40,264,58,C.accent,2);label(330,44,"MIC = 4: lowest clear tube",{size:12.5,weight:700,border:C.accent,align:"left"})}
+  panelBox(12,242,516,226);title(26,262,"Plate the clear tubes: find the MBC");
+  const pl=["64","32","16","8","4"];const sub=seg(p,.45,.6),col=smooth(seg(p,.6,.85));
+  pl.forEach((c,i)=>{const x=70+i*98,y=360;petri(x,y,42);
+    if(i===4&&col>0){for(let k=0;k<Math.floor(col*18);k++){const a=rnd(k+3)*TAU,d=Math.sqrt(rnd(k+11))*34;circ(x+Math.cos(a)*d,y+Math.sin(a)*d*.42,3,C.bact,hexA(C.ink,.3),.8)}}
+    txt(x,396,c,{size:12,mono:true,weight:700,align:"center"})});
+  if(sub>0&&sub<1){const i=Math.min(4,Math.floor(sub*5));const f=(sub*5)%1;const x=70+i*98;line(x-20,lerp(290,350,f),x+10,lerp(270,330,f),C["ink-soft"],2);circ(x-20,lerp(290,350,f),4,null,C["ink-soft"],2)}
+  if(col>.6){label(70+3*98,440,"MBC = 8: lowest with no colonies",{size:12.5,weight:700,border:C.accent});txt(70+4*98,440,"grew",{size:12,weight:700,align:"center"})}
+  // E-test
+  panelBox(536,12,252,456);title(550,32,"E-test strip");
+  const ex=662,ey=230,R=110;const lw=smooth(seg(p,.05,.35));
+  circ(ex,ey,R+4,hexA(C.glass,.8),C["glass-edge"],2);circ(ex,ey,R,C.agar,C["agar-edge"],1.2);
+  ctx.save();ctx.beginPath();ctx.arc(ex,ey,R-2,0,TAU);ctx.clip();ctx.globalAlpha=lerp(.25,1,lw);ctx.fillStyle=C.lawn;ctx.fillRect(ex-R,ey-R,2*R,2*R);
+  for(let i=0;i<300;i++){const a=rnd(i*1.7)*TAU,d=Math.sqrt(rnd(i*2.3+1))*R;circ(ex+Math.cos(a)*d,ey+Math.sin(a)*d,1.2,C["lawn-dot"])}
+  ctx.globalAlpha=1;const zw=26*lw;ctx.beginPath();ctx.moveTo(ex,ey-30);ctx.bezierCurveTo(ex-zw*1.4,ey-46,ex-zw*2.2,ey-96,ex-zw*1.2,ey-108);ctx.lineTo(ex+zw*1.2,ey-108);ctx.bezierCurveTo(ex+zw*2.2,ey-96,ex+zw*1.4,ey-46,ex,ey-30);ctx.fillStyle=C.zone;ctx.fill();ctx.restore();
+  rr(ex-7,ey-100,14,190,3);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.2;ctx.stroke();
+  for(let k=0;k<12;k++){const Y=ey-94+k*16;line(ex-7,Y,ex-2,Y,C.ink,1);const v=[256,64,16,8,4,2,1,.5,.25,.125,.06,.03][k];if(k%2===0||v===4)txt(ex+12,Y,String(v),{size:11.5,mono:true,weight:v===4?700:500})}
+  if(p>.35){const Y=ey-30;arrow(ex-70,Y+70,ex-12,Y+2,C.accent,2);label(ex,Y+150,"MIC = 4 where the zone",{size:12,weight:700,border:C.accent});label(ex,Y+172,"meets the strip",{size:12,weight:700})}
+  txt(662,440,"strip has more drug at the top",{size:12,align:"center",color:C["ink-soft"]});
+}
+
+/* ================= Part 7: resistance ================= */
+function scissors(x,y,s,open,col){const a=open*.6;ctx.save();ctx.translate(x,y);[1,-1].forEach(d=>{ctx.save();ctx.rotate(d*a);rr(-s*.15,-s*.12,s*1.2,s*.24,s*.12);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1;ctx.stroke();ctx.restore()});
+  circ(0,0,s*.28,col,hexA(C.ink,.5),1);circ(-s*.5,s*.25,s*.25,null,col,3);circ(-s*.5,-s*.25,s*.25,null,col,3);ctx.restore()}
+function brokenBL(x,y,s,a){ctx.save();ctx.globalAlpha*=a==null?1:a;ctx.translate(x,y);ctx.strokeStyle=C.dead;ctx.lineWidth=2.2;ctx.beginPath();ctx.moveTo(-s*1.1,-s*.5);ctx.lineTo(-s*1.1,s*.5);ctx.lineTo(-s*.1,s*.5);ctx.moveTo(-s*1.1,-s*.5);ctx.lineTo(-s*.4,-s*.7);ctx.stroke();
+  ngon(s*.35,0,s*.62,5,Math.PI);fillStroke(hexA(C.dead,.5),C.dead,1.2);ctx.restore()}
+function sceneResist1(T){
+  const L=10,p=P(T,L);
+  panelBox(12,12,384,456);title(26,32,"1. Enzyme destroys the drug");
+  const ex=200,ey=220;const stuck=p>.66;
+  // three penicillins then clavulanate then penicillin passing
+  const evts=[[0,.18],[.18,.36],[.36,.54]];let open=.5+.5*Math.sin(T*8);
+  evts.forEach((e,i)=>{const f=seg(p,e[0],e[1]);if(f<=0)return;if(f<.6){drugMol("bl",lerp(30,ex-34,f/.6),ey-30+i*30,12)}else{brokenBL(lerp(ex-10,ex+110,(f-.6)/.4),ey+60+i*26,11,1-seg(f,.85,1)*.0);}});
+  const cf=seg(p,.54,.66);if(cf>0&&cf<1){ctx.save();ctx.translate(lerp(30,ex-18,cf),ey);ngon(0,0,9,5,0);fillStroke(C.gold,hexA(C.ink,.5),1.2);ctx.restore()}
+  if(stuck){open=.15;ngon(ex-16,ey,9,5,0);fillStroke(C.gold,hexA(C.ink,.5),1.2)}
+  scissors(ex,ey,40,stuck?.1:open,stuck?mix(C.accent,C.dead,.6):C.accent);
+  label(ex,ey-60,stuck?"inhibitor ties up the enzyme":"beta-lactamase cuts the ring",{size:12.5,weight:700,border:stuck?C.gold:C.accent});
+  if(p>.7){const f=smooth(seg(p,.7,.95));drugMol("bl",lerp(40,330,f),ey+130,9);if(f>.95)checkMark(352,ey+130,7);txt(204,ey+170,"penicillin gets through intact",{size:12.5,weight:600,align:"center"})}
+  txt(204,440,"Fix: pair the drug with clavulanic acid",{size:12.5,weight:700,align:"center"});
+  panelBox(404,12,384,456);title(418,32,"2. Target changed: MRSA");
+  const q=P(T,6);pgMesh(424,330,348,3,40,(r,i,X)=>X<lerp(470,760,q)?1:0);
+  pbpEnz(500,200,22,{t:T,jam:q>.4});txt(500,244,"normal PBP",{size:12.5,weight:700,align:"center"});
+  const f1=smooth(seg(q,.1,.4));if(q<.4)drugMol("bl",lerp(450,512,f1),lerp(80,200,f1),9);
+  const px=lerp(640,700,q);pbpEnz(px,200,22,{t:T,col:C.gpos,square:true});txt(680,244,"PBP2a",{size:12.5,weight:700,align:"center",color:C.gpos});
+  const f2=seg(q,.1,.6);const by=f2<.5?lerp(80,180,f2*2):lerp(180,90,(f2-.5)*2);drugMol("bl",lerp(620,700,f2),by,9);if(Math.abs(f2-.5)<.07)crossMark(px+8,170,6);
+  label(596,110,"drug cannot fit PBP2a",{size:12.5,weight:700,border:C.gpos});
+  txt(596,440,"PBP2a keeps building the wall",{size:12.5,weight:700,align:"center"});
+}
+function sceneResist2(T){
+  const L=8,p=P(T,L);
+  // efflux
+  panelBox(12,12,252,456);title(26,32,"3. Efflux pump");
+  for(let X=24;X<=252;X+=10){if(Math.abs(X-138)<16)continue;circ(X,220,4,C.membrane);circ(X,238,4,C.membrane)}
+  rr(124,196,28,66,8);ctx.fillStyle=C.alc;ctx.fill();ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1.2;ctx.stroke();txt(138,276,"pump",{size:12,weight:700,align:"center"});
+  for(let i=0;i<4;i++){const f=P(T*.3+i/4,1);let X,Y;const sx=40+i*55;if(f<.35){X=sx;Y=lerp(80,330,f/.35)}else if(f<.7){const g=(f-.35)/.35;X=lerp(sx,138,g);Y=lerp(330,250,g)}else{const g=(f-.7)/.3;X=138;Y=lerp(250,70,g)}drugMol("tet",X,Y,7)}
+  arrow(138,190,138,120,C.alc,2.4);txt(160,130,"pushed out",{size:12.5,weight:700});txt(40,400,"inside",{size:12,color:C["ink-soft"]});txt(40,170,"outside",{size:12,color:C["ink-soft"]});
+  txt(138,440,"drug never builds up",{size:12.5,weight:700,align:"center"});
+  // permeability
+  panelBox(272,12,252,456);title(286,32,"4. Fewer porins");
+  const close=smooth(seg(p,.1,.5));const porins=[330,398,466];
+  for(let X=284;X<=512;X+=10){if(porins.some(q=>Math.abs(X-q)<12))continue;circ(X,220,4,C.gneg);circ(X,238,4,C.gneg)}
+  porins.forEach((q,i)=>{const g=i===1?0:close;const w=lerp(8,1,g);rr(q-12,212,12-w,34,3);ctx.fillStyle=C.act5;ctx.fill();rr(q+w,212,12-w,34,3);ctx.fill();if(g>.9)crossMark(q,190,5)});
+  for(let i=0;i<3;i++){const f=P(T*.35+i/3,1);const q=porins[i];const pass=i===1||close<.5;const Y=pass?lerp(80,380,f):(f<.5?lerp(80,200,f*2):lerp(200,90,(f-.5)*2));drugMol("bl",q,Y,7)}
+  txt(398,440,"less drug gets in",{size:12.5,weight:700,align:"center"});txt(398,270,"porins close or are lost",{size:12,align:"center",color:C["ink-soft"]});
+  // bypass
+  panelBox(532,12,256,456);title(546,32,"5. Metabolic bypass");
+  const y=250;line(550,y,770,y,C["ink-soft"],2);rr(590,y-22,40,40,8);ctx.fillStyle=C.dead;ctx.fill();drugMol("sul",610,y-2,7);txt(610,y+36,"Enzyme 1",{size:12,align:"center",weight:600});
+  rr(700,y-22,40,40,8);ctx.fillStyle=C.pbp;ctx.fill();txt(720,y+36,"DNA blocks",{size:12,align:"center",weight:600});
+  for(let k=0;k<3;k++){hexPath(560+k*8,y-6,5,0);fillStroke(C.gold,null)}
+  ctx.save();ctx.setLineDash([6,4]);ctx.beginPath();ctx.moveTo(560,110);ctx.quadraticCurveTo(650,130,660,y-30);ctx.strokeStyle=C.accent;ctx.lineWidth=2.4;ctx.stroke();ctx.restore();arrow(658,y-50,662,y-26,C.accent,2.4);
+  for(let k=0;k<4;k++){const f=P(T*.4+k/4,1);let X,Y;if(f<.6){const g=f/.6;X=lerp(560,660,g);Y=lerp(110,y-30,g*g)}else{const g=(f-.6)/.4;X=lerp(660,712,g);Y=y-4}hexPath(X,Y,5,0);fillStroke(C.act5,null)}
+  txt(560,96,"ready-made folic acid",{size:12,weight:600});
+  txt(660,440,"goes around the block",{size:12.5,weight:700,align:"center"});
+}
+const POP=Array.from({length:42},(_,i)=>({x:Math.cos(i*2.39996)*Math.sqrt(i+.5)*19,y:Math.sin(i*2.39996)*Math.sqrt(i+.5)*19}));
+function shieldCell(x,y,s,res,o){o=o||{};bact(x,y,o.ang||0,s,o.a,{col:res?C.res:C.sus,dead:o.dead});if(res&&!o.dead){rr(x-s*2,y-s*1.15,s*4,s*2.3,s*1.15);ctx.strokeStyle=C.res;ctx.lineWidth=1.6;ctx.setLineDash([3,2]);ctx.stroke();ctx.setLineDash([])}}
+function sceneSpread(T){
+  const L=14,p=P(T,L);
+  panelBox(12,12,384,456);title(26,32,"Selection by the drug");
+  const cx=204,cy=200;circ(cx,cy,138,hexA(C.panel,.6),C.rule,1.5);
+  const wash=seg(p,.15,.4);const resIdx=[7,30];
+  const nR=p<.4?2:Math.min(42,Math.round(2*Math.pow(21,smooth(seg(p,.42,.95)))));
+  POP.forEach((q,i)=>{const X=cx+q.x,Y=cy+q.y;const isR=resIdx.includes(i);
+    if(isR){shieldCell(X,Y,7,true,{ang:i})}
+    else{const hitX=cx-138+wash*276;const dead=wash>0&&X<hitX;const a=dead?1-seg(p,.4,.5):1;if(a>0&&p<.5)shieldCell(X,Y,7,false,{ang:i,dead,a})}});
+  if(p>=.42){let c=0;POP.forEach((q,i)=>{if(resIdx.includes(i))return;if(c<nR-2){c++;const s=seg(p,.42+c*.012,.46+c*.012);if(s>0)shieldCell(cx+q.x,cy+q.y,7*s,true,{ang:i})}})}
+  if(wash>0&&wash<1){ctx.save();ctx.beginPath();ctx.arc(cx,cy,136,0,TAU);ctx.clip();ctx.fillStyle=hexA(C.drug,.18);ctx.fillRect(cx-138,cy-138,wash*276,276);ctx.restore()}
+  const frac=p<.4?2/42:p<.5?1:1;const pr=p<.4?5:100;rr(40,370,328,16,8);ctx.fillStyle=C.sunk;ctx.fill();rr(40,370,328*pr/100,16,8);ctx.fillStyle=C.res;ctx.fill();
+  txt(204,400,"resistant: "+(p<.4?"about 5%":"nearly 100%"),{size:12.5,weight:700,align:"center"});
+  txt(204,440,p<.15?"a few random mutants are already there":p<.42?"the drug kills the susceptible cells":"survivors multiply and take over",{size:12.5,weight:700,align:"center"});
+  panelBox(404,12,384,456);title(418,32,"Sharing genes: conjugation");
+  const q=P(T,7);const done=q>.6;
+  rodCell(500,190,140,70,{gram:"neg",t:T,noDNA:true});circ(500,190,16,null,C.plasmid,4);txt(500,240,"donor",{size:12,weight:700,align:"center"});
+  rodCell(690,190,130,66,{gram:"neg",t:T,noDNA:true,cyto:done?mix(C.water,C.res,.25):null});if(done){rr(620,152,140,76,38);ctx.strokeStyle=C.res;ctx.lineWidth=2;ctx.setLineDash([5,3]);ctx.stroke();ctx.setLineDash([])}
+  txt(690,240,done?"now resistant":"recipient",{size:12,weight:700,align:"center",color:done?C.res:C.ink});
+  const pil=smooth(seg(q,0,.2));line(574,190,lerp(574,624,pil),190,C.gneg,3);txt(600,172,"pilus",{size:12,align:"center",color:C["ink-soft"]});
+  const tr=smooth(seg(q,.2,.6));if(tr>0&&tr<1){circ(lerp(520,690,tr),190,12,null,C.plasmid,3.4)}if(done)circ(690,190,14,null,C.plasmid,4);
+  label(500,120,"R plasmid",{size:12.5,weight:700,border:C.plasmid});
+  panelBox(420,300,170,150,{fill:hexA(C["panel-2"],.9)});title(432,318,"Transformation");
+  rodCell(505,390,100,52,{gram:"neg",noDNA:true});const tf=P(T*.4,1);ctx.beginPath();for(let k=0;k<8;k++){const X=440+tf*50+k*5,Y=340+tf*30+Math.sin(k+T*3)*4;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=C.dna;ctx.lineWidth=2.4;ctx.stroke();
+  txt(505,436,"takes up loose DNA",{size:12,align:"center"});
+  panelBox(602,300,170,150,{fill:hexA(C["panel-2"],.9)});title(614,318,"Transduction");
+  rodCell(687,400,100,52,{gram:"neg",noDNA:true});const tx=lerp(640,670,P(T*.4,1));hexPath(tx,350,10,0);fillStroke(C.nonenv,hexA(C.ink,.5),1);line(tx,360,tx,374,C.nonenv,2.4);[-1,1].forEach(d=>line(tx,374,tx+d*7,382,C.nonenv,1.6));
+  txt(687,436,"a phage carries genes",{size:12,align:"center"});
+}
+function sceneSuperbugs(T){
+  const bugs=[["MRSA","resists beta-lactams (PBP2a)"],["VRE","resists vancomycin"],["CRE","carbapenemase: resists carbapenems"],["ESBL","breaks penicillins and most cephalosporins"],["MDR-TB","resists isoniazid and rifampin"]];
+  const on=Math.floor(T/2.4)%5;
+  bugs.forEach((b,i)=>{const x=12+i*156,w=148;const hl=i===on;panelBox(x,40,w,420,{stroke:hl?C.accent:C.rule,lw:hl?2.8:1.2,fill:hexA(C.panel,hl?.98:.75)});
+    txt(x+w/2,66,b[0],{size:16,weight:700,align:"center"});
+    const cx=x+w/2,cy=190;
+    if(i===4){rr(cx-56,cy-56,112,112,10);ctx.fillStyle=hexA(C.nonenv,.35);ctx.fill()}
+    circ(cx,cy,64,null,hexA(C.res,.8),2.5);ctx.setLineDash([5,4]);circ(cx,cy,70,null,hexA(C.res,.5),1.5);ctx.setLineDash([]);
+    if(i===0)[[-14,-8],[0,-14],[14,-6],[-6,4],[8,8],[-18,10],[20,10],[2,22]].forEach(q=>coccus(cx+q[0],cy+q[1],8,C.gpos));
+    else if(i===1)[[-26,-18],[-12,-18],[6,4],[20,4],[-20,26],[-6,26]].forEach(q=>coccus(cx+q[0],cy+q[1],7.5,C.gpos));
+    else if(i===2)[[-16,-14,.4],[14,6,-.3],[-10,24,1.4]].forEach(q=>bact(cx+q[0],cy+q[1],q[2],8,1,{col:C.gneg}));
+    else if(i===3){[[-18,-10,.3],[16,14,-.5]].forEach(q=>bact(cx+q[0],cy+q[1],q[2],8,1,{col:C.gneg}));scissors(cx+16,cy-24,16,.5+.5*Math.sin(T*6),C.accent)}
+    else for(let k=0;k<9;k++){const a=rnd(k+2)*TAU,d=rnd(k+5)*40;ctx.save();ctx.translate(cx+Math.cos(a)*d,cy+Math.sin(a)*d);ctx.rotate(a);rr(-10,-2,20,4,2);ctx.fillStyle=C.drug;ctx.fill();ctx.restore()}
+    for(let k=0;k<3;k++){const f=P(T*.5+k/3+i*.13,1);const a=k*2.1+i;const dd=f<.5?lerp(120,72,f*2):lerp(72,120,(f-.5)*2);const X=cx+Math.cos(a)*dd,Y=cy+Math.sin(a)*dd*.8;if(X>x+10&&X<x+w-10)drugMol("bl",X,Y,6)}
+    wrapText(b[1],x+12,300,w-24,18,{size:12.5,weight:600});
+    txt(x+w/2,430,["Gram+ clusters","Gram+ pairs, chains","Gram− rods","Gram− rods","acid-fast rods"][i],{size:12,align:"center",color:C["ink-soft"]})});
+  title(16,22,"Superbugs: resistant to many drugs");
+}
+function sceneSteward(T){
+  // panel 1: viruses
+  panelBox(12,12,252,380);title(26,32,"No antibiotics for viruses");
+  envVirus(138,150,30,{t:T});txt(138,212,"cold virus",{size:12,align:"center",weight:600});
+  const killF=P(T,6);for(let i=0;i<4;i++){const f=P(T*.3+i/4,1);drugMol("bl",lerp(30,250,f),100+i*24+(i%2?-40:40)*Math.sin(f*Math.PI)*.0+ (i<2?-50:60),7)}
+  for(let i=0;i<6;i++){const X=40+i*36,Y=300+(i%2)*26;bact(X,Y,i,7,1,{col:C.bact,dead:killF>.3+i*.1})}
+  txt(138,350,"helpful bacteria get hit",{size:12.5,weight:700,align:"center"});txt(138,370,"the virus does not",{size:12.5,align:"center"});
+  // panel 2: adherence
+  panelBox(272,12,252,380);title(286,32,"Take it as prescribed");
+  const now=P(T,8)*10;
+  function mini(y,lab,fn,fr,stopAt){panelBox(284,y,228,160,{fill:hexA(C["panel-2"],.9)});txt(296,y+16,lab,{size:12.5,weight:700});const gx=310,gy=y+30,gw=190,gh=100;
+    line(gx,gy+gh,gx+gw,gy+gh,C["ink-soft"],1.2);line(gx,gy,gx,gy+gh,C["ink-soft"],1.2);rr(gx,gy+gh+4,gw*stopAt/10,6,3);ctx.fillStyle=C.drug;ctx.fill();
+    plotFn(fn,0,10,gx,gy,gw,gh,0,9,C.sus,2.6,[],now);if(fr)plotFn(fr,0,10,gx,gy,gw,gh,0,9,C.res,2.6,[5,3],now);txt(gx+gw,gy+gh+18,"days",{size:11.5,align:"right",color:C["ink-soft"]})}
+  mini(46,"stopped early",t=>t<3?8-t*1.4:Math.min(8.5,3.8+(t-3)*1.1),t=>t<3?2+t*.4:Math.min(8,3.2+(t-3)*1.15),3);
+  mini(214,"full course",t=>Math.max(0,8-t*1.25),null,7);
+  txt(398,386,"dosing bar in red",{size:12,align:"center",color:C["ink-soft"]});
+  // panel 3: narrow
+  panelBox(532,12,256,380);title(546,32,"Narrow when you can");
+  for(let i=0;i<12;i++){const X=570+(i%4)*55,Y=110+Math.floor(i/4)*70;if(i===5)continue;bact(X,Y,i*.7,7,1,{col:C.bact})}
+  const tf=P(T,5);const hit=tf>.55;coccus(625,180,10,C.gpos,{dead:hit});coccus(640,188,10,C.gpos,{dead:hit});
+  if(!hit){const f=smooth(seg(tf,.05,.55));drugMol("bl",lerp(560,616,f),lerp(330,186,f),8)}
+  txt(660,330,"narrow drug hits only the cause",{size:12.5,weight:700,align:"center"});txt(660,350,"helpers survive",{size:12.5,align:"center"});
+  // icons row
+  panelBox(12,400,776,68);const ic=[["Wash hands"],["Vaccinate"],["Do not share or save"],["Culture first"]];
+  ic.forEach((c,i)=>{const x=60+i*190,y=434;
+    if(i===0){handShape(x,y+8,.42,{rot:.2});handShape(x+22,y+8,.42,{rot:-.2,flip:true})}
+    else if(i===1){rr(x-22,y-4,36,10,3);fillStroke(C.panel,C["ink-soft"],1.4);line(x+14,y+1,x+28,y+1,C["ink-soft"],2);line(x-22,y+1,x-30,y+1,C["ink-soft"],3);ctx.fillStyle=hexA(C.steam,.6);ctx.fillRect(x-18,y-2,18,6)}
+    else if(i===2){capsulePill(x-8,y,10,C.drug,.4);capsulePill(x+10,y+4,10,C.drug,-.3);blockSign(x,y+2,18,C.bad)}
+    else{tube(x,y-20,14,40,.6,{col:mix(C.water,C.food,.6),cloudy:.6,cap:C.act4})}
+    txt(x+(i===0?52:36),y,c[0],{size:12.5,weight:700})});
+}
+function sceneRecap(T){
+  panelBox(12,12,392,456);title(26,32,"Five targets, one picture");
+  bigBug(208,250,T,-1,{all:true,noLabels:true});
+  TARGETS.forEach((tg,i)=>{const px=208+tg.dx,py=250+tg.dy;drugMol(tg.mol,px+10,py-8,7)});
+  const labs=[["Wall: beta-lactams, vancomycin",208,96],["70S ribosome: aminoglycosides,",150,372],["tetracyclines, macrolides, clindamycin",150,390],["Membrane: polymyxins",300,128],["DNA, RNA: quinolones, rifampin",208,420],["Folate: sulfa, trimethoprim",290,446]];
+  labs.forEach(l=>txt(l[1],l[2],l[0],{size:12,weight:600,align:"center"}));
+  const parts=[["The basics","act1","Selective toxicity; narrow vs broad; cidal vs static"],["Cell wall","act2","PBPs jammed; vancomycin caps; lysis"],["Ribosomes","act3","70S: 30S misread/blocked; 50S tunnel"],["Membrane, DNA, folate","act4","Polymyxins; gyrase; RNA pol; PABA mimic"],["Fungi, viruses, parasites","act5","Ergosterol; viral steps; worm paralysis"],["Testing","act6","Zones S/I/R; MIC, MBC; E-test"],["Resistance","act7","Destroy, change, pump, block, bypass"]];
+  const lit=Math.floor(P(T,16)*8);
+  parts.forEach((pt,i)=>{const x=412,y=12+i*65.5,w=376,h=59;const l=i<=lit;panelBox(x,y,w,h,{stroke:l?C[pt[1]]:C.rule,lw:l?2.5:1.2,fill:hexA(C.panel,l?.97:.6)});
+    ctx.save();ctx.globalAlpha=l?1:.45;badge(x+22,y+h/2,i+1,C[pt[1]],12);txt(x+44,y+20,pt[0],{size:14,weight:700});txt(x+44,y+40,pt[2],{size:12.5,color:C["ink-soft"]});ctx.restore()});
+}
+
+/* ---------------- loop ---------------- */
+let T=0,last=performance.now();
+const SCENES={map:sceneMap,history:sceneHistory,selective:sceneSelective,spectrum:sceneSpectrum,superinf:sceneSuperinf,cidal:sceneCidal,
+  betalactam:sceneBetaLactam,family:sceneFamily,vanco:sceneVanco,ribo:sceneRibo,ribo30:sceneRibo30,ribo50:sceneRibo50,
+  membrane:sceneMembrane,nucleic:sceneNucleic,folate:sceneFolate,antifungal:sceneAntifungal,antiviral:sceneAntiviral,antiparasite:sceneAntiparasite,
+  kirby:sceneKirby,mic:sceneMIC,resist1:sceneResist1,resist2:sceneResist2,spread:sceneSpread,superbugs:sceneSuperbugs,steward:sceneSteward,recap:sceneRecap};
+function draw(){
+  ctx.setTransform(K,0,0,K,0,0);ctx.clearRect(0,0,W,H);ctx.globalAlpha=1;bg(C.ecf);
+  const s=STEPS[cur];
+  try{(SCENES[s.scene]||sceneRecap)(T)}catch(e){console.error(e)}
+  ctx.globalAlpha=1;
+}
+function frame(now){
+  const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;if(!paused)T+=dt*speed;
+  draw();
+  requestAnimationFrame(frame);
+}
+window.__setT=v=>{T=v;paused=true;draw()};
+window.__go=i=>go(i);
+window.__n=()=>STEPS.length;
+readColors();buildChain();fit();render();requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

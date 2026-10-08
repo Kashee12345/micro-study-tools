@@ -1,0 +1,1526 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microbial Growth Walkthrough</title>
+<meta name="description" content="Step-by-step animated walkthrough of how bacteria grow, how growth is measured, biofilms, environmental needs and culture media.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#1E7A4C;--accent-ink:#145C38;--accent-wash:#DDEFE4;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#7B5CC9;--act2:#D98A1C;--act3:#C4644F;--act4:#2E8A7A;--act5:#A04E8C;--act6:#4F6F94;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#8A6D12;
+  /* microbial growth palette */
+  --ecf:#F1F5F2;--grid:#D5E0D9;
+  --bact:#2F86A8;--bact-edge:#1D5E78;--dna:#B0408A;--dead:#9AA3A8;
+  --gpos:#6B3FA0;--gneg:#C2407A;
+  --broth:#EFE3B5;--broth-edge:#B9A66A;--glass:#D7E3E9;--glass-edge:#7F98A6;
+  --agar:#E8D9A4;--agar-edge:#B49F5C;
+  --mac:#D98FAE;--mac-pos:#B8245A;--mac-neg:#F4EEE2;
+  --msa:#E0675C;--msa-yel:#E8C02E;
+  --bap:#A82828;--beta:#F3D9A8;--alpha:#6F8A3A;
+  --thio:#F2E6B8;--resaz:#E58AAE;
+  --o2:#3B82C4;--heat:#D9532E;--cold:#3B82C4;--acid:#D98A1C;--alk:#5A6FCB;--salt:#7E929C;
+  --eps:#D6BE6A;--ai:#C9A227;--abx:#C4384A;--beam:#E8B820;
+  --tooth:#F4EEDC;--gum:#E3A3A3;--cath:#B7C9D3;--water:#BBD7EA;
+  --nut:#D98A1C;--waste:#7A5A3A;--ros:#E0563A;
+  --psy:#3B82C4;--psytr:#2E8A9A;--meso:#1E7A4C;--thermo:#D98A1C;--hyper:#C4384A;
+  --lag:#4F6F94;--logp:#1E7A4C;--stat:#B07A10;--death:#A9372F;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#163526;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#F2A93B;--act3:#E08A74;--act4:#5CC4B0;--act5:#D186C0;--act6:#8FB1D9;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#25332C;
+  --bact:#6FC3E0;--bact-edge:#A9DDEC;--dna:#E07AC4;--dead:#6E777C;
+  --gpos:#B58CEB;--gneg:#F08DB8;
+  --broth:#4A4023;--broth-edge:#A8955A;--glass:#2A3A44;--glass-edge:#8FA8B6;
+  --agar:#4A4128;--agar-edge:#9A8650;
+  --mac:#6A3446;--mac-pos:#F06A9A;--mac-neg:#D8D0C2;
+  --msa:#7A3430;--msa-yel:#E8C84A;
+  --bap:#6E1E1E;--beta:#8A7650;--alpha:#8FAE52;
+  --thio:#4A4428;--resaz:#B0507A;
+  --o2:#7FB6EA;--heat:#F27A5E;--cold:#7FB6EA;--acid:#F2A93B;--alk:#98A8F0;--salt:#A9BAC2;
+  --eps:#8A7838;--ai:#E0BE48;--abx:#F07080;--beam:#F2D36B;
+  --tooth:#4A463A;--gum:#7A4A4A;--cath:#3E5260;--water:#2A4458;
+  --nut:#F2A93B;--waste:#B08A60;--ros:#F27A5E;
+  --psy:#7FB6EA;--psytr:#5CC4C4;--meso:#6FD3A0;--thermo:#F2A93B;--hyper:#F07080;
+  --lag:#8FB1D9;--logp:#6FD3A0;--stat:#E0BE48;--death:#E07067;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#163526;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#F2A93B;--act3:#E08A74;--act4:#5CC4B0;--act5:#D186C0;--act6:#8FB1D9;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#25332C;
+  --bact:#6FC3E0;--bact-edge:#A9DDEC;--dna:#E07AC4;--dead:#6E777C;
+  --gpos:#B58CEB;--gneg:#F08DB8;
+  --broth:#4A4023;--broth-edge:#A8955A;--glass:#2A3A44;--glass-edge:#8FA8B6;
+  --agar:#4A4128;--agar-edge:#9A8650;
+  --mac:#6A3446;--mac-pos:#F06A9A;--mac-neg:#D8D0C2;
+  --msa:#7A3430;--msa-yel:#E8C84A;
+  --bap:#6E1E1E;--beta:#8A7650;--alpha:#8FAE52;
+  --thio:#4A4428;--resaz:#B0507A;
+  --o2:#7FB6EA;--heat:#F27A5E;--cold:#7FB6EA;--acid:#F2A93B;--alk:#98A8F0;--salt:#A9BAC2;
+  --eps:#8A7838;--ai:#E0BE48;--abx:#F07080;--beam:#F2D36B;
+  --tooth:#4A463A;--gum:#7A4A4A;--cath:#3E5260;--water:#2A4458;
+  --nut:#F2A93B;--waste:#B08A60;--ros:#F27A5E;
+  --psy:#7FB6EA;--psytr:#5CC4C4;--meso:#6FD3A0;--thermo:#F2A93B;--hyper:#F07080;
+  --lag:#8FB1D9;--logp:#6FD3A0;--stat:#E0BE48;--death:#E07067;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1240px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:7px 12px;cursor:pointer;font-size:14px}
+.tbtn:hover{border-color:var(--accent)}
+.wrap{max-width:1240px;margin:0 auto;padding:16px}
+.chain{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.actgrp{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:8px 10px;display:flex;flex-direction:column;gap:6px;flex:1 1 150px}
+.actgrp .an{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.actgrp .an i{width:10px;height:10px;border-radius:50%;display:inline-block;flex:0 0 auto}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--rule);background:var(--panel-2);font-family:var(--mono);font-size:13px;cursor:pointer;display:grid;place-items:center;padding:0}
+.dot:hover{border-color:var(--accent)}
+.dot.cur{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.dot.done:not(.cur){background:var(--good-wash);border-color:var(--good);color:var(--good)}
+.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);min-width:0}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%}
+.stagebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.stagebar input[type=range]{accent-color:var(--accent);width:110px}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2);flex:0 0 auto}
+.legend i.s{border-radius:2px}
+.legend i.d{border-radius:1px;transform:rotate(45deg);width:9px;height:9px}
+.legend i.r{border-radius:3px;width:14px}
+.legend i.l{width:18px;height:4px;border-radius:2px;border:0}
+.legend i.t{width:0;height:0;border-radius:0;border:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid;background:none!important}
+.legend i.dl{width:18px;height:0;border-radius:0;border:0;border-top:2px dashed;background:none!important}
+.legend i.y{width:12px;height:12px;border:0;border-radius:0;background:none!important;position:relative}
+.legend i.y::before{content:"Y";position:absolute;left:0;top:-4px;font:700 14px var(--sans);color:var(--yc)}
+.explain{padding:18px 20px}
+.stepno{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.actchip{padding:1px 8px 1px 6px;border-radius:99px;color:var(--ink);font-size:11px;border:1.5px solid var(--c,var(--accent));background:var(--panel);display:inline-flex;align-items:center;gap:5px}.actchip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c,var(--accent))}
+h2{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.25;margin:6px 0 10px}
+.body p{margin:0 0 10px}
+.body ol,.body ul{margin:0 0 10px;padding-left:22px}
+.body li{margin-bottom:4px}
+.body .tx{border-left:3px solid var(--accent);padding:2px 0 2px 10px;color:var(--ink)}
+.analogy{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:12px 0}
+.analogy b{display:block;font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.analogy p{margin:0}
+.terms{margin:12px 0 0;padding:0}
+.terms div{display:grid;grid-template-columns:minmax(110px,34%) 1fr;gap:10px;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14.5px}
+.terms dt{font-weight:600}
+.terms dd{margin:0;color:var(--ink-soft)}
+.check{margin-top:16px;border:1px solid var(--rule);border-radius:var(--r);padding:14px;background:var(--panel-2)}
+.check h3{margin:0 0 6px;font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
+.check .q{font-weight:600;margin:0 0 10px}
+.opt{display:block;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;margin:0 0 8px;cursor:pointer;font-size:15px;line-height:1.4}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:6px 0 0;font-size:14.5px}
+.fb.ok{color:var(--good)}
+.fb.no{color:var(--warn-ink)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+.nav{display:flex;align-items:center;gap:12px;margin-top:14px}
+.navbtn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:11px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.navbtn.sec{background:var(--panel);color:var(--ink);border:1px solid var(--rule)}
+.navbtn:disabled{opacity:.4;cursor:default}
+.prog{flex:1;height:8px;background:var(--sunk);border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+footer{max-width:1240px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+sub,sup{line-height:0}
+</style>
+<script src="micro-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">Microbiology &middot; Module 5 &middot; Microbial growth</div>
+    <h1>Microbial Growth Walkthrough</h1>
+    <p class="sub">How one bacterium becomes billions, how we count them, why they build biofilms, what oxygen, heat, pH and salt they need, and how lab media sort them out. Go at your own pace. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+
+<div class="wrap">
+  <nav class="chain" id="chain" aria-label="Steps"></nav>
+  <div class="grid">
+    <section class="card stage" aria-label="Animation">
+      <div class="canvas-holder"><canvas id="stage" role="img" aria-label=""></canvas></div>
+      <div class="stagebar">
+        <button class="tbtn" id="pauseBtn" type="button">Pause</button>
+        <button class="tbtn" id="replayBtn" type="button">Replay</button>
+        <label>Speed <input type="range" id="speed" min="0.25" max="1.75" step="0.25" value="1"></label>
+        <span class="caption" id="caption"></span>
+      </div>
+      <div class="legend" id="legend"></div>
+    </section>
+    <section class="card explain" aria-live="polite">
+      <div class="stepno" id="stepno"></div>
+      <h2 id="title"></h2>
+      <div class="body" id="body"></div>
+      <div class="analogy" id="analogy"><b>Think of it like this</b><p></p></div>
+      <dl class="terms" id="terms"></dl>
+      <div class="check" id="check">
+        <h3>Quick check</h3>
+        <p class="q" id="q"></p>
+        <div id="opts"></div>
+        <p class="fb" id="fb"></p>
+        <p class="calm">Wrong answers are fine here. Read why, then try again.</p>
+      </div>
+      <div class="nav">
+        <button class="navbtn sec" id="prev" type="button">&larr; Back</button>
+        <div class="prog"><i id="progbar"></i></div>
+        <button class="navbtn" id="next" type="button">Next &rarr;</button>
+      </div>
+    </section>
+  </div>
+</div>
+<footer>Dr. Akash Garg &middot; Microbiology Study Tools &middot; Diagrams are simplified and not to scale. For learning only, not medical advice. CC BY-NC-SA 4.0<br>Use the left and right arrow keys to move between steps. Practice next in the <a href="Growth-Lab.html">Microbial Growth Lab</a>. Cells are drawn as large cartoons, and growth that takes hours or days is sped up so you can watch it. Numbers are rounded teaching values.</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "gold", "gold-wash", "gold-ink", "ecf", "grid", "bact", "bact-edge", "dna", "dead", "gpos", "gneg", "broth", "broth-edge", "glass", "glass-edge", "agar", "agar-edge", "mac", "mac-pos", "mac-neg", "msa", "msa-yel", "bap", "beta", "alpha", "thio", "resaz", "o2", "heat", "cold", "acid", "alk", "salt", "eps", "ai", "abx", "beam", "tooth", "gum", "cath", "water", "nut", "waste", "ros", "psy", "psytr", "meso", "thermo", "hyper", "lag", "logp", "stat", "death"];
+/* ================= drawing kit (shared by both pages) ================= */
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"left";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase(),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+function gauge(x,y,r,v,v0,v1,o){o=o||{};const a0=Math.PI*.8,a1=Math.PI*2.2;ctx.lineCap="round";
+  ctx.beginPath();ctx.arc(x,y,r,a0,a1);ctx.strokeStyle=C.sunk;ctx.lineWidth=r*.18;ctx.stroke();
+  (o.zones||[]).forEach(z=>{ctx.beginPath();ctx.arc(x,y,r,a0+(a1-a0)*seg(z[0],v0,v1),a0+(a1-a0)*seg(z[1],v0,v1));ctx.strokeStyle=hexA(z[2],.75);ctx.lineWidth=r*.18;ctx.stroke()});
+  ctx.lineCap="butt";const a=a0+(a1-a0)*seg(v,v0,v1);line(x,y,x+Math.cos(a)*r*.82,y+Math.sin(a)*r*.82,C.ink,3);circ(x,y,4.5,C.ink);
+  if(o.title)txt(x,y+r*.42,o.title,{size:11.5,mono:true,weight:700,align:"center",color:C["ink-soft"]});
+  if(o.val)txt(x,y+r*.78,o.val,{size:14,mono:true,weight:700,align:"center",color:o.valCol||C.ink})}
+function thermo(x,y,h,f,o){o=o||{};rr(x-6,y,12,h,6);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();
+  const fh=(h-8)*clamp(f,0,1);rr(x-3,y+h-fh-2,6,fh+4,3);ctx.fillStyle=C.heat;ctx.fill();circ(x,y+h+6,9,C.heat,C["ink-soft"],1.4);
+  if(o.lab)txt(x,y+h+24,o.lab,{size:12,mono:true,weight:700,align:"center",color:o.labCol||C.ink})}
+function timeBar(x,y,w,f,marks,o){o=o||{};rr(x,y,w,8,4);ctx.fillStyle=C.sunk;ctx.fill();rr(x,y,w*clamp(f,0,1),8,4);ctx.fillStyle=o.col||C.accent;ctx.fill();
+  (marks||[]).forEach(m=>{const X=x+w*m[0];line(X,y-3,X,y+11,C["ink-soft"],1.2);txt(X,y+22,m[1],{size:11.5,mono:true,align:m[0]<=0?"left":m[0]>=1?"right":"center",color:C["ink-soft"]})});
+  circ(x+w*clamp(f,0,1),y+4,6,o.col||C.accent,C.panel,2)}
+function stepRow(x,y,w,items,on,col){const n=items.length,gap=6,bw=(w-gap*(n-1))/n;items.forEach((s,i)=>{const X=x+i*(bw+gap);const lit=i===on,past=i<on;rr(X,y,bw,24,12);ctx.fillStyle=lit?(col||C.accent):past?hexA(col||C.accent,.18):hexA(C.panel,.9);ctx.fill();ctx.strokeStyle=lit||past?(col||C.accent):C.rule;ctx.lineWidth=1.3;ctx.stroke();
+  txt(X+bw/2,y+12.5,(i+1)+" "+s,{size:12,weight:700,align:"center",color:lit?onFill():C.ink})})}
+
+/* ---- HIV teaching model (rounded, typical untreated course; ART started at year artStart) ---- */
+
+/* ================= microbe and lab-ware drawing (shared) ================= */
+/* rod-shaped bacterium. L = half-length, R = half-width */
+function rod(x,y,ang,L,R,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const col=o.col||C.bact;
+  if(o.flag){ctx.strokeStyle=hexA(o.dead?C.dead:col,.85);ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(-L,0);for(let k=1;k<=8;k++)ctx.lineTo(-L-k*R*.45,Math.sin(k*1.4+(o.t||0)*9)*R*.35);ctx.stroke()}
+  if(o.pili){ctx.strokeStyle=hexA(col,.8);ctx.lineWidth=1;for(let k=0;k<7;k++){const px=-L*.8+k*L*1.6/6;ctx.beginPath();ctx.moveTo(px,R);ctx.lineTo(px+Math.sin(k*2.1)*2,R+R*.6);ctx.stroke()}}
+  rr(-L,-R,2*L,2*R,R);
+  if(o.dead){ctx.fillStyle=hexA(C.dead,.35);ctx.fill();ctx.strokeStyle=C.dead;ctx.lineWidth=1.3;ctx.setLineDash([3,2]);ctx.stroke();ctx.setLineDash([])}
+  else{ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=o.edge||C["bact-edge"];ctx.lineWidth=o.lw||1.2;ctx.stroke();
+    if(o.dna!==false&&L>6){ctx.strokeStyle=hexA(C.panel,.75);ctx.lineWidth=Math.max(1,R*.16);ctx.beginPath();for(let k=0;k<=12;k++){const f=k/12;const X=-L*.45+f*L*.9,Y=Math.sin(f*TAU*1.5+(o.seed||0))*R*.32;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.stroke()}
+    if(o.glow){glow(0,0,L*1.6,C.beam,.5*o.glow)}}
+  ctx.restore()}
+/* coccus */
+function coccus(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  if(o.dead){circ(x,y,r,hexA(C.dead,.35));ctx.setLineDash([3,2]);circ(x,y,r,null,C.dead,1.3);ctx.setLineDash([])}
+  else{circ(x,y,r,o.col||C.bact,o.edge||hexA(C.ink,.4),1.1);circ(x-r*.3,y-r*.3,r*.32,hexA("#ffffff",.3))}
+  ctx.restore()}
+/* a rod going through binary fission. p 0..1: 0-.4 elongate + copy DNA, .35-.75 septum pinches, .75-1 daughters separate */
+function fission(x,y,ang,L,R,p,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const col=o.col||C.bact,edge=o.edge||C["bact-edge"];
+  const grow=smooth(seg(p,0,.4));const half=L*(1+grow)/2*1;// each daughter half-length grows from L/2 to L
+  const k=smooth(seg(p,.35,.75));const gap=smooth(seg(p,.75,1))*R*1.6;
+  const Lt=L*(1+grow); // half-length of the whole cell
+  if(k<1){
+    const w=R*(1-k*.98);
+    ctx.beginPath();ctx.moveTo(-Lt+R,-R);ctx.bezierCurveTo(-Lt*.45,-R,-R*.9,-w,0,-w);ctx.bezierCurveTo(R*.9,-w,Lt*.45,-R,Lt-R,-R);
+    ctx.arc(Lt-R,0,R,-Math.PI/2,Math.PI/2);ctx.bezierCurveTo(Lt*.45,R,R*.9,w,0,w);ctx.bezierCurveTo(-R*.9,w,-Lt*.45,R,-Lt+R,R);ctx.arc(-Lt+R,0,R,Math.PI/2,Math.PI*1.5);ctx.closePath();
+    ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=edge;ctx.lineWidth=o.lw||1.4;ctx.stroke();
+    if(k>0.02&&o.septum!==false){ctx.strokeStyle=hexA(C.ink,.55);ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(0,-w);ctx.lineTo(0,w);ctx.stroke()}
+  }else{[-1,1].forEach(sd=>{rr(sd*(Lt/2+gap/2)-Lt/2,-R,Lt,2*R,R);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=edge;ctx.lineWidth=o.lw||1.4;ctx.stroke()})}
+  // FtsZ ring
+  if(o.ring!==false){const rk=seg(p,.28,.4)*(1-seg(p,.7,.78));if(rk>0){const w=R*(1-k*.98);ctx.save();ctx.globalAlpha*=rk;ctx.fillStyle=C.gold;[-1,1].forEach(sd=>{ctx.beginPath();ctx.ellipse(0,sd*w*.92,Math.max(1.5,R*.13),Math.max(1.5,R*.13),0,0,TAU);ctx.fill()});ctx.restore()}}
+  // chromosome copies
+  if(o.dna!==false){const sep=smooth(seg(p,.08,.4));const dup=seg(p,.05,.2);
+    const blob=(cx,a)=>{ctx.save();ctx.globalAlpha*=a;ctx.strokeStyle=o.dnaCol||C.dna;ctx.lineWidth=Math.max(1.2,R*.13);ctx.beginPath();for(let i=0;i<=24;i++){const an=i/24*TAU;const rr_=R*.42*(1+.25*Math.sin(an*4+(o.t||0)*2));const X=cx+Math.cos(an)*rr_*1.25,Y=Math.sin(an)*rr_*.7;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();ctx.stroke();ctx.restore()};
+    const off=(Lt/2+(k>=1?gap/2:0))*sep;
+    blob(-off,1);if(dup>0)blob(off,dup)}
+  ctx.restore()}
+/* Erlenmeyer flask. (x,y) = centre of the base, s = scale. Returns nothing. o.fill 0..1 broth level, o.turb 0..1 cloudiness */
+function flaskPath(x,y,s){const bw=78*s,nw=16*s,h=150*s,nh=48*s;ctx.beginPath();ctx.moveTo(x-nw,y-h);ctx.lineTo(x-nw,y-h+nh);ctx.lineTo(x-bw,y-10*s);ctx.quadraticCurveTo(x-bw-2*s,y,x-bw+10*s,y);ctx.lineTo(x+bw-10*s,y);ctx.quadraticCurveTo(x+bw+2*s,y,x+bw,y-10*s);ctx.lineTo(x+nw,y-h+nh);ctx.lineTo(x+nw,y-h);}
+function flask(x,y,s,o){o=o||{};const h=150*s;
+  ctx.save();flaskPath(x,y,s);ctx.closePath();ctx.fillStyle=hexA(C.glass,.35);ctx.fill();ctx.clip();
+  const lvl=y-(o.fill==null?.55:o.fill)*h*.75;const bc=o.broth||C.broth;
+  ctx.fillStyle=bc;ctx.fillRect(x-100*s,lvl,200*s,h);
+  if(o.turb){ctx.fillStyle=hexA(o.turbCol||(isDark()?"#D8E2E6":"#FFFFFF"),.65*clamp(o.turb,0,1));ctx.fillRect(x-100*s,lvl,200*s,h);
+    for(let i=0;i<Math.round(60*o.turb);i++){const px=x+(rnd(i*3)-.5)*150*s,py=lvl+rnd(i*7+1)*(y-lvl);circ(px,py,1.1*s+.6,hexA(C.bact,.5))}}
+  if(o.inside)o.inside(lvl);
+  // surface line
+  line(x-100*s,lvl,x+100*s,lvl,hexA(C["broth-edge"],.9),1.4);
+  ctx.restore();
+  flaskPath(x,y,s);ctx.closePath();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke();
+  // rim + plug
+  rr(x-20*s,y-h-6*s,40*s,8*s,3);ctx.fillStyle=C.glass;ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.5;ctx.stroke();
+  if(o.plug!==false){rr(x-14*s,y-h-26*s,28*s,24*s,6*s);ctx.fillStyle=isDark()?"#C9C4B8":"#FBF8F0";ctx.fill();ctx.strokeStyle=hexA(C.ink,.35);ctx.lineWidth=1;ctx.stroke()}
+  // glass highlight
+  line(x-nwH(s),y-h+10*s,x-nwH(s),y-h+40*s,hexA("#ffffff",.5),2)}
+function nwH(s){return 9*s}
+/* test tube: (x,y) top-centre, w width, h height. o.fill(lvlY) draws contents (clipped). */
+function tubePath(x,y,w,h){const r=w/2;ctx.beginPath();ctx.moveTo(x-r,y);ctx.lineTo(x-r,y+h-r);ctx.arc(x,y+h-r,r,Math.PI,0,true);ctx.lineTo(x+r,y);}
+function tube(x,y,w,h,o){o=o||{};const lvl=y+h*(1-(o.level==null?.82:o.level));
+  ctx.save();tubePath(x,y,w,h);ctx.closePath();ctx.fillStyle=hexA(C.glass,.3);ctx.fill();ctx.clip();
+  ctx.fillStyle=o.col||C.broth;ctx.fillRect(x-w,lvl,w*2,h);
+  if(o.inside)o.inside(lvl);
+  line(x-w,lvl,x+w,lvl,hexA(C["broth-edge"],.8),1.2);ctx.restore();
+  tubePath(x,y,w,h);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.8;ctx.stroke();
+  line(x-w*.28,y+8,x-w*.28,y+h*.6,hexA("#ffffff",.45),2);
+  if(o.cap){rr(x-w/2-3,y-14,w+6,18,4);ctx.fillStyle=o.cap;ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.lineWidth=1;ctx.stroke()}
+  return lvl}
+/* Petri dish: o.agar colour, o.colonies [[dx,dy,r,col]] relative to centre in units of radius (-1..1) */
+function dish(x,y,r,o){o=o||{};circ(x,y,r+5,hexA(C.glass,.55),C["glass-edge"],1.6);circ(x,y,r,o.agar||C.agar,o.edge||C["agar-edge"],1.2);
+  if(o.inside){ctx.save();ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.clip();o.inside();ctx.restore()}
+  ctx.save();ctx.globalAlpha*=.5;ctx.beginPath();ctx.arc(x,y,r+2,-2.4,-1.6);ctx.strokeStyle="#ffffff";ctx.lineWidth=2.5;ctx.stroke();ctx.restore()}
+function colony(x,y,r,col,o){o=o||{};if(r<=.2)return;if(o.halo)circ(x,y,r*o.halo,hexA(o.haloCol||col,.45));circ(x,y,r,col,o.edge||hexA(C.ink,.35),r>3?1:.6);if(r>2.5)circ(x-r*.3,y-r*.3,r*.35,hexA("#ffffff",.35))}
+/* seeded colony positions inside a unit disc */
+function discPts(n,seed,rmax){const out=[];rmax=rmax==null?.9:rmax;for(let i=0;i<n;i++){const a=rnd(i*12.9+seed)*TAU,d=Math.sqrt(rnd(i*7.3+seed*3+1))*rmax;out.push([Math.cos(a)*d,Math.sin(a)*d,rnd(i*3.1+seed)])}return out}
+/* glass pipette, (x,y) = tip */
+function pipette(x,y,len,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(o.ang||0);rr(-4,-len,8,len-10,3);ctx.fillStyle=hexA(C.glass,.6);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.3;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(-4,-10);ctx.lineTo(-1,0);ctx.lineTo(1,0);ctx.lineTo(4,-10);ctx.closePath();ctx.fill();ctx.stroke();
+  if(o.fill){rr(-3,-10-(len-20)*o.fill,6,(len-20)*o.fill,2);ctx.fillStyle=o.fillCol||C.broth;ctx.fill()}
+  rr(-7,-len-22,14,24,7);ctx.fillStyle=o.bulb||C.act3;ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.stroke();ctx.restore()}
+/* simple graph frame. returns mapping helpers */
+function axes(x,y,w,h,o){o=o||{};panelBox(x-8,y-8,w+16,h+16,{fill:hexA(C.panel,.6),stroke:C["rule-soft"]});
+  (o.yt||[]).forEach(v=>{const Y=y+h-(v[0]-o.y0)/(o.y1-o.y0)*h;line(x,Y,x+w,Y,C.grid,1);txt(x-6,Y,v[1],{size:12,mono:true,align:"right",color:C["ink-soft"]})});
+  (o.xt||[]).forEach(v=>{const X=x+(v[0]-o.x0)/(o.x1-o.x0)*w;line(X,y+h,X,y+h+4,C["ink-soft"],1);txt(X,y+h+14,v[1],{size:12,mono:true,align:"center",color:C["ink-soft"]})});
+  line(x,y,x,y+h,C["ink-soft"],1.5);line(x,y+h,x+w,y+h,C["ink-soft"],1.5);
+  if(o.xl)txt(x+w/2,y+h+30,o.xl,{size:12,align:"center",color:C["ink-soft"],weight:600});
+  if(o.yl){ctx.save();ctx.translate(x-(o.ylOff||40),y+h/2);ctx.rotate(-Math.PI/2);txt(0,0,o.yl,{size:12,align:"center",color:C["ink-soft"],weight:600});ctx.restore()}
+  return {X:v=>x+(v-o.x0)/(o.x1-o.x0)*w,Y:v=>y+h-(clamp(v,o.y0,o.y1)-o.y0)/(o.y1-o.y0)*h}}
+/* teaching growth curve, f 0..1 of time -> log10 cells (from 5 to 9, then decline) */
+const PH=[[0,.16,"Lag","lag"],[.16,.46,"Log","logp"],[.46,.72,"Stationary","stat"],[.72,1,"Death","death"]];
+function curveLog(f){f=clamp(f,0,1);
+  if(f<.16)return 5+.06*smooth(seg(f,.08,.16));
+  if(f<.46){const u=(f-.16)/.30;return u<.85?5.06+3.6*u/.85:8.66+.34*Math.sin((u-.85)/.15*Math.PI/2)}
+  if(f<.72)return 9;
+  const u=(f-.72)/.28;return 9-2.4*(u<.12?u*u/.24:u-.06)/0.94}
+function phaseAt(f){for(let i=0;i<PH.length;i++)if(f<PH[i][1])return i;return 3}
+function fmtSci(v,d){if(v<=0)return "0";const e=Math.floor(Math.log10(v));const m=v/Math.pow(10,e);return (d==null?m.toFixed(1):m.toFixed(d))+" × 10"+sup(e)}
+function sup(n){const m={"-":"⁻","0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹"};return String(n).split("").map(c=>m[c]||c).join("")}
+/* small oxygen molecule */
+function o2(x,y,s,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x-s*.55,y,s*.7,C.o2,hexA(C.ink,.3),.8);circ(x+s*.55,y,s*.7,C.o2,hexA(C.ink,.3),.8);ctx.restore()}
+function bubble(x,y,r,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x,y,r,hexA("#ffffff",.25),hexA(C.ink,.55),1.1);circ(x-r*.35,y-r*.35,r*.25,hexA("#ffffff",.8));ctx.restore()}
+/* endospore inside a rod */
+function spore(x,y,r){ell(x,y,r*1.3,r,0,isDark()?"#E8EEF1":"#FFFFFF",C.ink,1.4)}
+/* small check / cross marks */
+function tick(x,y,s,col){ctx.save();ctx.strokeStyle=col||C.good;ctx.lineWidth=2.6;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(x-s,y);ctx.lineTo(x-s*.3,y+s*.7);ctx.lineTo(x+s,y-s*.8);ctx.stroke();ctx.restore()}
+function cross(x,y,s,col){ctx.save();ctx.strokeStyle=col||C.bad;ctx.lineWidth=2.6;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(x-s,y-s);ctx.lineTo(x+s,y+s);ctx.moveTo(x+s,y-s);ctx.lineTo(x-s,y+s);ctx.stroke();ctx.restore()}
+/* cardinal temperature model (Rosso): relative growth rate 0..1 */
+function ctm(T,mn,op,mx){if(T<=mn||T>=mx)return 0;const n=(T-mx)*(T-mn)*(T-mn);const d=(op-mn)*((op-mn)*(T-op)-(op-mx)*(op+mn-2*T));return clamp(n/d,0,1)}
+
+const THIO=[["Obligate aerobe","Top only",d=>d<.13?1:0,"yes","no"],["Obligate anaerobe","Bottom only",d=>d>.55?1:0,"no","yes"],["Facultative anaerobe","Thickest at top",d=>1-.75*d,"yes","no"],["Aerotolerant anaerobe","Even throughout",d=>.7,"no","no"],["Microaerophile","Band below top",d=>d>.12&&d<.24?1:0,"low O₂ only","by high O₂"]];
+function thioTube(x,y,w,h,kind,g,T,o){o=o||{};const fn=kind==null?null:THIO[kind][2];
+  return tube(x,y,w,h,{level:.86,col:C.thio,cap:o.cap,inside:lvl=>{const H=y+h-lvl;ctx.fillStyle=hexA(C.resaz,.75);ctx.fillRect(x-w,lvl,w*2,H*.14);
+    if(o.pinkAll){ctx.fillStyle=hexA(C.resaz,.6);ctx.fillRect(x-w,lvl,w*2,H)}
+    if(fn&&g>0){const N=Math.round((o.n||260)*g);for(let i=0;i<N;i++){const d=rnd(i*1.37+kind*7);const keep=rnd(i*2.91+3)<fn(d);if(!keep)continue;const xx=x+(rnd(i*4.7+1)-.5)*(w-8),yy=lvl+3+d*(H-6);circ(xx,yy,o.dot||1.7,hexA(C.bact,.9))}}}})}
+
+function lensRing(cx,cy,r,lab){circ(cx,cy,r,null,C["ink-soft"],3);circ(cx,cy,r+4,null,hexA(C["ink-soft"],.35),2);if(lab)txt(cx,cy+r+16,lab,{size:12,align:"center",color:C["ink-soft"],weight:600})}
+function lensBg(cx,cy,r,col){circ(cx,cy,r,col||mix(C.broth,C.panel,.35))}
+
+
+const ACTS={1:{name:"Part 1 · How bacteria multiply",col:"act1"},
+            2:{name:"Part 2 · The growth curve",col:"act2"},
+            3:{name:"Part 3 · Measuring growth",col:"act3"},
+            4:{name:"Part 4 · Biofilms",col:"act4"},
+            5:{name:"Part 5 · Oxygen, heat, pH and salt",col:"act5"},
+            6:{name:"Part 6 · Culture media and technique",col:"act6"}};
+const NACT=6;
+const STEPS=[
+{act:0,scene:"map",desc:"The left half shows a glass flask of yellow broth with a cotton plug. Beside it, a round zoomed-in view shows blue rod-shaped bacteria: first a few, then many dividing cells, then grey dashed dead cells as the run ends, while the broth turns cloudy. Under the flask a small graph draws the growth curve, shading the lag, log, stationary and death phases in turn and naming the current phase. The right half has six cards that light up one at a time: How bacteria multiply (a rod splitting in two), The growth curve, Measuring growth (colonies appearing on a plate), Biofilms (rods coated in a yellow layer on a surface), Oxygen, heat, pH, salt (a broth tube and a thermometer) and Culture media (a pink plate with pink and pale colonies).",
+ title:"The big picture: how microbes grow",
+ body:`<p>When microbiologists say a microbe <b>grows</b>, they usually mean the <b>number of cells</b> goes up, not that one cell gets bigger. One bacterium can become billions overnight.</p>
+ <p>This matters in health care. Fast growth is why an infection can spread in hours, why food left out spoils, and why a lab can grow a patient's sample into something it can identify.</p>
+ <p>This walkthrough has six parts:</p>
+ <ol><li><b>How bacteria multiply:</b> binary fission, doubling and log scales.</li><li><b>The growth curve:</b> lag, log, stationary and death phases.</li><li><b>Measuring growth:</b> counts, plate counts, MPN and turbidity.</li><li><b>Biofilms:</b> slimy communities that resist antibiotics.</li><li><b>Oxygen, heat, pH and salt:</b> what each microbe needs.</li><li><b>Culture media and technique:</b> the plates and tubes labs use.</li></ol>`,
+ analogy:"A savings account with very high interest. Money that doubles again and again starts slow, then explodes, until the bank runs out of money to pay.",
+ terms:[["Microbial growth","An increase in the number of cells in a population."],["Culture","Microbes grown on purpose in a nutrient medium."]],
+ check:null,caption:"A flask goes from a few cells to billions, then declines. Six parts explain how and why.",
+ legend:[["bact","Living bacteria"],["dead","Dead cell"],["broth","Broth"],["accent","Current part","s"]]},
+
+/* ---------- Part 1 ---------- */
+{act:1,scene:"fission",desc:"One large blue rod-shaped bacterium sits in the middle. A row of four labels across the top lights up in turn: cell grows longer, DNA is copied, septum pinches in, two daughter cells. A pink loop of DNA inside the cell is copied, and the two copies slide toward opposite ends as the cell stretches to about twice its length. Two small gold dots mark the FtsZ ring at the middle, then the cell pinches inward there and a dark line (the septum) closes across it. The two halves separate into two identical cells. A counter at the bottom changes from 1 to 2 cells, and a time bar fills to about 20 minutes.",
+ title:"Binary fission: one cell becomes two",
+ body:`<p>Most bacteria reproduce by <b>binary fission</b>. It is simple and fast, with no mitosis like in your cells.</p>
+ <ol><li>The cell takes in nutrients and <b>grows longer</b>.</li><li>Its single circular <b>chromosome is copied</b>. The two copies move toward opposite ends.</li><li>A protein called <b>FtsZ</b> forms a ring at the middle. New membrane and wall grow inward there to form a <b>septum</b>.</li><li>The septum closes and the cell splits into <b>two identical daughter cells</b>.</li></ol>
+ <p>Each daughter is a clone of the parent. Under ideal lab conditions, <i>E. coli</i> can do this about every 20 minutes.</p>`,
+ analogy:"Copying a book and then cutting the bookshelf in half, with one complete copy of the book on each side.",
+ terms:[["Binary fission","Splitting of one cell into two identical cells."],["Septum","The new wall and membrane that grow across the middle of the dividing cell."],["FtsZ ring","A ring of protein at the middle that guides where the cell divides."]],
+ check:{q:"Two daughter cells from binary fission are best described as:",opts:[
+  ["Genetically identical copies of the parent",1,"Yes. The chromosome is copied, and each daughter gets one complete copy, so they are clones."],
+  ["Each with half of the parent's chromosome",0,"The chromosome is copied first, so each daughter gets a whole chromosome, not half."],
+  ["A mix of genes from two parent cells",0,"Binary fission uses one parent and no mating, so there is no mixing of genes."],
+  ["One large cell and one small bud",0,"That describes budding, as in yeast. Binary fission splits the cell into two equal halves."]]},
+ caption:"The cell grows, copies its DNA, builds a septum at the FtsZ ring, and splits into two identical cells.",
+ legend:[["bact","Bacterial cell"],["dna","Chromosome (DNA)"],["gold","FtsZ ring"]]},
+
+{act:1,scene:"gentime",desc:"On the left, a family tree of blue rods grows downward, one row every 20 minutes: 1 cell at 0 minutes, then 2, 4, 8 and 16 cells, with thin lines joining each parent to its two daughters. The newest row splits in two as the next row appears, and the cell count for each row is written at the right in green. On the right, a card shows the formula N equals N zero times 2 to the n and explains each letter. Below it, a worked example fills in line by line: start with 1 cell, 7 hours is 420 minutes, n equals 21 generations, so N is about 2.1 million cells.",
+ title:"Generation time and exponential growth",
+ body:`<p>The <b>generation time</b> (doubling time) is how long it takes a population to double. It depends on the species and the conditions. <i>E. coli</i> in ideal conditions: about 20 minutes. <i>Mycobacterium tuberculosis</i>: about 15 to 20 hours, which is why TB cultures take weeks.</p>
+ <p>Because every cell divides, the number doubles each generation: 1, 2, 4, 8, 16... This is <b>exponential growth</b>.</p>
+ <p class="tx"><b>The formula:</b> N = N₀ × 2ⁿ, where N₀ is the starting number, n is the number of generations, and N is the final number. To find n, divide the time by the generation time.</p>
+ <p>Example: 1 cell, 20-minute generation time, 7 hours. 420 ÷ 20 = 21 generations, and 2²¹ is about 2.1 million cells.</p>`,
+ analogy:"Folding a sheet of paper in half over and over. Each fold doubles the thickness. A few folds look thin; a few more and it is thicker than a book.",
+ terms:[["Generation time","Time for a population to double in number."],["Exponential growth","Growth by doubling, so the number climbs faster and faster."],["N = N₀ × 2ⁿ","Final cells = starting cells × 2 raised to the number of generations."]],
+ check:{q:"You start with 10 bacteria that double every 30 minutes. How many are there after 2 hours?",opts:[
+  ["160",1,"Right. 2 hours = 120 minutes, and 120 ÷ 30 = 4 generations. 10 × 2⁴ = 10 × 16 = 160."],
+  ["80",0,"That is 10 × 2³, which is only 3 generations. 120 ÷ 30 gives 4 generations, so 10 × 16 = 160."],
+  ["40",0,"That would be adding 10 cells each half hour. Bacteria double, so 10 × 2⁴ = 160."],
+  ["1,280",0,"That is 10 × 2⁷. Only 4 generations fit in 2 hours at 30 minutes each, so 10 × 16 = 160."]]},
+ caption:"Every generation doubles the number of cells: N = N₀ × 2ⁿ.",
+ legend:[["bact","Bacterial cell"],["accent","Newest generation","s"],["act1","Formula variables","s"]]},
+
+{act:1,scene:"logscale",desc:"Two graphs sit side by side and fill in one dot per generation, from 0 to 20 generations. The left graph has a normal (linear) vertical axis from 0 to 1,000,000. Its purple line stays flat along the bottom for most of the time, then shoots almost straight up near the end, and a label says it looks flat, then shoots up. The right graph has a log axis where each gridline is 10 times the one below: 1, 10, 100, 1,000 and so on. Its green dots form a straight rising line, labelled a straight line means steady doubling. A box at the bottom shows the current generation and the number of cells, ending at 1,048,576.",
+ title:"Seeing growth on a log scale",
+ body:`<p>Exponential numbers get huge fast, so they are hard to graph. On a normal <b>linear scale</b>, the early generations look like zero and the last few shoot off the top.</p>
+ <p>Microbiologists use a <b>logarithmic (log) scale</b> instead. Each gridline is <b>10 times</b> the one below it: 1, 10, 100, 1,000... On a log scale, steady doubling makes a <b>straight line</b>.</p>
+ <p>The <b>slope</b> of that line shows how fast the cells grow. A steeper line means a shorter generation time. When the line bends, the growth rate is changing.</p>
+ <p>Numbers on log graphs are often written in scientific notation: 10⁶ is 1,000,000 and 10⁹ is 1,000,000,000.</p>`,
+ analogy:"A map where every step on the ruler means ten times farther. Your street, your city and your country all fit on one page.",
+ terms:[["Log scale","An axis where each step is 10 times larger than the last."],["Scientific notation","Writing big numbers as powers of 10, such as 10⁸."],["Slope","How steep the line is; on a log graph it shows the growth rate."]],
+ check:{q:"On a log-scale graph, a culture growing at a constant doubling time looks like:",opts:[
+  ["A straight line going up",1,"Yes. Constant doubling adds the same amount on a log axis each generation, so the line is straight."],
+  ["A curve that bends sharply upward",0,"That is what exponential growth looks like on a linear axis. On a log axis it straightens out."],
+  ["A flat horizontal line",0,"A flat line means the number is not changing. Doubling cells make a rising line."],
+  ["A line that rises and then falls",0,"Rising then falling is the whole growth curve. Steady doubling by itself is a straight rising line."]]},
+ caption:"The same doubling numbers: a sudden explosion on a linear axis, a straight line on a log axis.",
+ legend:[["act1","Linear scale","l"],["accent","Log scale","l"]]},
+
+/* ---------- Part 2 ---------- */
+{act:2,scene:"curve",desc:"On the left, a flask of yellow broth sits under a large round zoomed-in view of the cells. Orange nutrient dots in the broth disappear over time while brown waste dots build up, and the broth turns cloudy. In the zoom, a few rods first get slightly bigger without dividing, then divide quickly, then hold steady, then turn grey and dashed as they die. On the right, a graph of living cells per mL on a log scale against 24 hours is drawn from left to right. The line stays flat (lag, blue shading), climbs in a straight line (log, green), levels off (stationary, gold) and then falls in a straight line (death, red). Bars at the bottom show nutrients falling from 100% to 0% and waste rising, with one sentence naming what happens in the current phase.",
+ title:"The growth curve in a closed system",
+ body:`<p>In a <b>closed system</b> (a <b>batch culture</b>, such as a flask or tube), nothing is added and nothing is removed after you inoculate it. The population follows a predictable <b>growth curve</b> with four phases:</p>
+ <ol><li><b>Lag phase:</b> little or no increase in number.</li><li><b>Log (exponential) phase:</b> steady doubling, a straight line on a log graph.</li><li><b>Stationary phase:</b> the number levels off.</li><li><b>Death (decline) phase:</b> the number of living cells falls.</li></ol>
+ <p>The shape comes from the closed flask. Food is used up and waste builds up, and nobody cleans the flask out.</p>`,
+ analogy:"A party in a closed room. People arrive and settle in, the room fills fast, it gets crowded and the snacks run out, and then people start leaving.",
+ terms:[["Batch culture","A closed culture: nutrients are not added and waste is not removed."],["Growth curve","A graph of living cells over time: lag, log, stationary, death."],["Inoculate","To add microbes to a sterile medium to start a culture."]],
+ check:{q:"Why does a closed flask eventually stop growing?",opts:[
+  ["Nutrients run out and toxic waste builds up",1,"Right. In a closed system nothing new comes in and nothing is removed, so food runs low and waste such as acid piles up."],
+  ["The cells forget how to divide",0,"The cells can still divide. They stop because the flask runs out of food and fills with waste."],
+  ["Oxygen always kills the cells after one day",0,"Oxygen is needed or tolerated by many bacteria. The limit comes from used-up nutrients and built-up waste."],
+  ["The cells grow too large to split",0,"Cell size stays about the same. The population stops growing because of the conditions in the flask."]]},
+ caption:"Lag, log, stationary and death phases appear as food runs out and waste builds up in a closed flask.",
+ legend:[["lag","Lag","s"],["logp","Log","s"],["stat","Stationary","s"],["death","Death","s"],["nut","Nutrients"],["waste","Waste"]]},
+
+{act:2,scene:"laglog",desc:"Two panels. The left panel, Lag phase, shows one large rod-shaped cell in the middle. Orange nutrient dots stream into it from all sides, and the cell slowly gets bigger while gold dots (new enzymes) and pale dots (ribosomes) fill it up. A label says the cell gets bigger but does not divide yet, and a counter stays at 1 cell. The right panel, Log phase, shows cells dividing all at the same time on a steady beat: 1 becomes 2, 2 becomes 4, then 8 and 16, and a counter shows the number doubling each generation. Under each panel a small growth curve shades the matching phase, with a dot moving along it.",
+ title:"Lag and log phases: why they happen",
+ body:`<p><b>Lag phase:</b> cells moved into fresh medium are busy but not yet dividing. They make the <b>enzymes</b>, ribosomes and other molecules they need for the new food, and they repair damage. The lag is longer if the new medium is very different from the old one, or if the cells were cold or damaged.</p>
+ <p><b>Log (exponential) phase:</b> cells divide at a <b>constant, fastest rate</b> for those conditions. The generation time stays the same, so the log graph is a straight line.</p>
+ <p>Log-phase cells are the most uniform and active. That makes them the <b>most sensitive to antibiotics</b> that attack growing cells, such as penicillin, which blocks new cell wall.</p>`,
+ analogy:"A new job. The first days you are learning and gathering tools (lag). Once set up, you work at a steady top speed (log).",
+ terms:[["Lag phase","Cells adjust and make enzymes; numbers barely change."],["Log phase","Exponential growth at a constant generation time."],["Enzyme","A protein that speeds up a chemical reaction, such as breaking down a sugar."]],
+ check:{q:"Penicillin works best on bacteria in which phase?",opts:[
+  ["Log phase",1,"Yes. Penicillin blocks cell wall building, which happens most in actively dividing log-phase cells."],
+  ["Lag phase",0,"Lag-phase cells are not yet dividing, so they are not building much new wall for penicillin to block."],
+  ["Stationary phase",0,"In stationary phase few cells are dividing, so a drug that blocks new wall has little to act on."],
+  ["Death phase",0,"Most cells in death phase are not dividing. Penicillin targets active wall building in log phase."]]},
+ caption:"Lag: cells grow larger and make enzymes but do not divide. Log: every cell divides on a steady beat.",
+ legend:[["bact","Bacterial cell"],["nut","Nutrients"],["gold","New enzymes"],["lag","Lag","s"],["logp","Log","s"]]},
+
+{act:2,scene:"statdeath",desc:"Two panels. The left panel, Stationary, shows a round pool of broth with about 20 rods, only a few orange nutrient dots and many brown waste dots. Every few seconds one cell divides and a green +1 new label appears, while another cell fades to a grey dashed outline with a red minus 1 dies label, so the total stays the same. One rod slowly forms a white oval endospore inside it, with a label saying some make endospores. The right panel, Death, shows a grid of 40 rods. At each step most living rods fade to grey dashed outlines, and a counter drops from 1,000,000 to 100,000 to 10,000 to 1,000 living cells per mL, with the note minus 90 percent each step. A few rods with gold rings stay alive longer, labelled persister cells. Small growth curves under each panel shade the stationary and death phases.",
+ title:"Stationary and death phases: why they happen",
+ body:`<p><b>Stationary phase:</b> nutrients are running low and <b>waste</b> (such as acids) is building up. Some cells still divide, but about the same number die, so the total stays level. Cells slow down and switch on survival genes. Some species, such as <i>Bacillus</i> and <i>Clostridium</i>, form tough <b>endospores</b>. Many cells talk to each other by quorum sensing here.</p>
+ <p><b>Death (decline) phase:</b> conditions are too harsh, so more cells die than divide. The decline is also <b>exponential</b>: a steady fraction dies in each time period, so the log graph falls in a straight line.</p>
+ <p>A few <b>persister cells</b> may survive much longer. That is one reason infections can return after treatment stops.</p>`,
+ analogy:"A city with no new food deliveries and no garbage pickup. At first births and deaths balance. Then the garbage wins and the population falls by a steady share each week.",
+ terms:[["Stationary phase","Cell divisions equal cell deaths, so the number stays level."],["Death phase","Cells die faster than they divide; living numbers fall exponentially."],["Endospore","A tough, dormant structure some bacteria make to survive harsh conditions."],["Persister cell","A dormant cell that survives conditions, including antibiotics, that kill most others."]],
+ check:{q:"In stationary phase, the number of living cells stays about the same because:",opts:[
+  ["New cells are made at about the same rate that cells die",1,"Right. Division has not stopped completely; it is balanced by death, so the line is flat."],
+  ["Every cell stops dividing and nothing dies",0,"Some cells still divide and some die. The total stays level because the two balance."],
+  ["The cells all turn into endospores",0,"Only some species make endospores, and only some of their cells do. The flat line is a balance of births and deaths."],
+  ["Fresh nutrients are being added",0,"In a closed flask nothing is added. Running out of nutrients is what causes stationary phase."]]},
+ caption:"Stationary: births balance deaths as food runs out. Death: a steady fraction dies in each time period.",
+ legend:[["bact","Living cell"],["dead","Dead cell","s"],["nut","Nutrients"],["waste","Waste"],["gold","Persister cell"]]},
+
+{act:2,scene:"chemostat",desc:"A bottle of fresh yellow medium with orange nutrient dots sits at the upper left. A tube runs from it through a pump with spinning rollers, and orange drops fall into a culture vessel in the middle, labelled In. Inside the vessel many blue rods keep dividing while the liquid level stays the same. An overflow tube on the right carries a few rods out into a waste bottle labelled Overflow out. A small graph at the upper right compares two lines being drawn: a dashed grey line for a closed flask that rises, levels off and falls, and a solid green line for the chemostat that rises and then stays level. A box at the bottom explains that nutrients are added and culture is removed at the same rate.",
+ title:"Continuous culture: keeping cells in log phase",
+ body:`<p>A <b>continuous culture</b> is an <b>open system</b>. A device called a <b>chemostat</b> pumps in fresh medium and removes used culture at the same rate, so the volume stays the same.</p>
+ <p>Because food is always being added and waste is always being removed, the cells never reach stationary phase. They stay growing at a <b>steady rate</b>, and the number of cells stays steady too.</p>
+ <p>Industry uses continuous culture to make products such as enzymes, vaccines and fermented foods. Researchers use it to study cells under constant conditions. Your gut is a bit like a continuous culture: food comes in and contents move out every day.</p>`,
+ analogy:"A river versus a pond. The pond (batch flask) slowly fills with leaves and mud. The river (chemostat) keeps bringing fresh water and carrying waste away.",
+ terms:[["Continuous culture","An open system that adds medium and removes culture at the same rate."],["Chemostat","A device for continuous culture that controls the flow rate."],["Open system","A culture where nutrients come in and waste leaves."]],
+ check:{q:"Why does a chemostat keep cells growing steadily?",opts:[
+  ["Fresh nutrients keep coming in and waste keeps being removed",1,"Yes. The flow prevents the food shortage and waste build-up that cause stationary phase."],
+  ["It is kept in the refrigerator",0,"Cold would slow growth. A chemostat works by steady flow of fresh medium in and culture out."],
+  ["It has no oxygen",0,"Oxygen depends on the organism. The key feature is the continuous flow of medium."],
+  ["It contains antibiotics",0,"Antibiotics would kill or stop the cells. The chemostat's steady flow keeps them growing."]]},
+ caption:"Fresh medium flows in and culture flows out at the same rate, so the cells stay in steady growth.",
+ legend:[["broth","Medium"],["nut","Nutrients"],["bact","Bacteria"],["accent","Chemostat","l"],["ink-soft","Closed flask","dl"]]},
+
+/* ---------- Part 3 ---------- */
+{act:3,scene:"direct",desc:"At the upper left, a glass slide with a small grid under a coverslip is drawn, with dashed lines leading to a large round microscope view on the right. The view shows a three by three grid of squares with blue rod-shaped cells scattered across all of them, plus a few grey dashed dead cells. One square at a time lights up in green: five squares (the four corners and the middle) are counted, and a small green tick appears on each cell as it is counted, including one dead cell labelled dead cell, still counted. A tally on the left fills in 8, 7, 9, 8 and 8 cells, then shows an average of 8 per square and the result 8 times 2 times 10 to the 7th equals 1.6 times 10 to the 8th cells per mL.",
+ title:"Direct microscopic count",
+ body:`<p>The quickest way to count cells is to look at them. A <b>counting chamber</b> (such as a Petroff-Hausser chamber) is a special slide with a grid etched into it. The liquid under the coverslip has a <b>known depth</b>, so each square holds a known, tiny volume.</p>
+ <p>You count the cells in several squares, find the <b>average per square</b>, and multiply by how many squares fit in 1 mL.</p>
+ <p>It is fast, but it has limits. <b>Dead cells look the same as live ones</b>, so they get counted too. Very small or few cells are hard to see. Machines such as <b>flow cytometers</b> count cells automatically, and special dyes can show which are alive.</p>`,
+ analogy:"Estimating the people in a stadium by counting a few sections and multiplying. You cannot tell who is asleep, so everyone is counted.",
+ terms:[["Counting chamber","A slide with a grid that holds a known volume of liquid."],["Direct count","Counting cells by looking at them; counts living and dead cells."],["Flow cytometer","A machine that counts cells one by one as they pass a laser."]],
+ check:{q:"What is a main weakness of a direct microscopic count?",opts:[
+  ["It cannot tell living cells from dead ones",1,"Right. Under the microscope dead cells usually look like live ones, so the count includes both."],
+  ["It takes 48 hours of incubation",0,"Direct counts need no incubation. You count right away; the problem is that dead cells are counted too."],
+  ["It only works for viruses",0,"Viruses are too small to see with a light microscope. Direct counts are used for bacteria and other cells."],
+  ["It needs the cells to form colonies",0,"Colonies are needed for plate counts. A direct count looks at the cells themselves."]]},
+ caption:"Count the cells in a few grid squares, average them, and multiply by the squares per mL.",
+ legend:[["bact","Cell counted"],["dead","Dead cell (also counted)","s"],["accent","Square being counted","s"]]},
+
+{act:3,scene:"dilution",desc:"Seven test tubes stand in a row. The first, labelled Stock, is cloudy with many blue dots. The other six are labelled 9 mL on top and 10 to the minus 1 through 10 to the minus 6 below, with fractions 1 over 10 up to 1 over 1,000,000. A glass pipette with a red bulb dips into one tube, fills, arcs over to the next tube with a label reading 1 mL, empties, and a green swirl shows mixing. Each tube it reaches turns a little less cloudy with fewer dots than the one before. A box at the bottom explains that 1 mL plus 9 mL makes each tube one tenth as concentrated, and six steps make one millionth.",
+ title:"Serial dilution",
+ body:`<p>A sample of broth or urine can hold hundreds of millions of bacteria per mL, far too many to count on one plate. So we dilute it first.</p>
+ <p>In a <b>tenfold serial dilution</b>, you move <b>1 mL</b> of sample into a tube with <b>9 mL</b> of sterile liquid. Now there is 10 mL, and the cells are spread out <b>10 times</b> more. Mix, then move 1 mL of that tube into the next 9 mL tube, and so on.</p>
+ <p>The dilutions <b>multiply</b>: 10⁻¹ (1/10), 10⁻² (1/100), 10⁻³ (1/1,000)... After six steps you have 10⁻⁶, one millionth of the starting concentration.</p>
+ <p class="tx"><b>Lab tip:</b> use a fresh sterile pipette tip for each transfer and mix every tube well.</p>`,
+ analogy:"Adding one spoon of strong juice to nine spoons of water, then one spoon of that to nine more spoons, again and again. Each glass is ten times weaker.",
+ terms:[["Serial dilution","A series of step-by-step dilutions, each from the tube before."],["Dilution factor","How much a sample has been diluted, such as 10⁻³ (1/1,000)."],["Sterile","Free of all living microbes."]],
+ check:{q:"You transfer 1 mL into 9 mL three times in a row. What is the final dilution?",opts:[
+  ["10⁻³ (1/1,000)",1,"Yes. Each step is 1/10, and the steps multiply: 1/10 × 1/10 × 1/10 = 1/1,000."],
+  ["1/30",0,"Dilutions multiply, they do not add. Three 1/10 steps make 1/1,000."],
+  ["10⁻⁹",0,"That would be nine steps. Three tenfold steps give 10⁻³."],
+  ["1/27",0,"That would be three 1/3 steps. Each step here is 1 mL into 9 mL, which is 1/10."]]},
+ caption:"Move 1 mL into 9 mL, mix, and repeat. Each tube is one tenth as concentrated as the one before.",
+ legend:[["bact","Bacteria"],["broth","Diluted sample"],["act3","Pipette bulb","s"]]},
+
+{act:3,scene:"platecount",desc:"Four small tubes labelled 10 to the minus 3, 4, 5 and 6 sit along the top, each with an arrow down to a Petri dish. As incubation time ticks from 0 to 24 hours, colonies grow on the plates. The 10 to the minus 3 plate becomes a solid lawn with a red cross, labelled too many. The 10 to the minus 4 plate fills with over a thousand tiny colonies, labelled over 300, TNTC, with a red cross. The 10 to the minus 5 plate has about 150 separate colonies, a green tick, and a counter that climbs to 150. The 10 to the minus 6 plate has about 15 colonies, labelled under 30, too few, with a red cross. In the bottom box the calculation appears line by line: CFU per mL equals colonies divided by dilution times volume plated, equals 150 divided by 10 to the minus 5 times 0.1 mL, equals 1.5 times 10 to the 8th CFU per mL.",
+ title:"Plate counts and CFU",
+ body:`<p>For a <b>viable plate count</b>, you spread a measured volume (often <b>0.1 mL</b>) of each dilution on agar and incubate. Each living cell, or small clump, grows into one visible <b>colony</b>. So we call it a <b>colony-forming unit (CFU)</b>.</p>
+ <p>Count only plates with <b>30 to 300 colonies</b>. More than 300 is <b>too numerous to count (TNTC)</b> because colonies merge. Fewer than 30 is too few to be reliable.</p>
+ <p class="tx"><b>Calculation:</b> CFU/mL = number of colonies ÷ (dilution × volume plated). Example: 150 colonies from 0.1 mL of the 10⁻⁵ tube: 150 ÷ (10⁻⁵ × 0.1) = <b>1.5 × 10⁸ CFU/mL</b>.</p>
+ <p>Plate counts only count <b>living</b> cells that can grow on that medium, and they take a day or more.</p>`,
+ analogy:"Planting seeds from a bag. Each live seed grows one plant. Count the plants and you know how many live seeds were in the scoop.",
+ terms:[["CFU","Colony-forming unit: a cell or clump that grows into one colony."],["30 to 300 rule","Only plates with 30-300 colonies are counted."],["TNTC","Too numerous to count: more than 300 colonies."]],
+ check:{q:"A plate from the 10⁻⁴ tube (0.1 mL spread) has 52 colonies. What is the count in the original sample?",opts:[
+  ["5.2 × 10⁶ CFU/mL",1,"Right. 52 ÷ (10⁻⁴ × 0.1) = 52 ÷ 10⁻⁵ = 5.2 × 10⁶ CFU/mL."],
+  ["5.2 × 10⁵ CFU/mL",0,"That forgets the 0.1 mL plated. Divide by both: 52 ÷ (10⁻⁴ × 0.1) = 5.2 × 10⁶."],
+  ["52 CFU/mL",0,"52 is the number on the plate. You must correct for the dilution and the volume plated."],
+  ["5.2 × 10⁻⁵ CFU/mL",0,"That multiplies by the dilution instead of dividing. 52 ÷ 10⁻⁵ = 5.2 × 10⁶."]]},
+ caption:"Only the plate with 30-300 colonies is counted. Divide colonies by (dilution × volume) to get CFU per mL.",
+ legend:[["agar","Agar plate"],["accent","Countable plate","s"],["bad","Not countable","s"]]},
+
+{act:3,scene:"mpn",desc:"Three rows of five test tubes are labelled 10 mL, 1 mL and 0.1 mL of sample each. Each tube holds a small upside-down glass tube. As incubation runs, some tubes turn cloudy and a white gas bubble fills the top of the small inner tube, with bubbles rising: all 5 tubes in the top row, 3 in the middle row and 1 in the bottom row. Green ticks mark positive tubes and grey crosses negative ones, and labels read 5 of 5, 3 of 5 and 1 of 5 positive. On the right, a part of an MPN table lists patterns and values: 5-2-0 is 49, 5-3-0 is 79, 5-3-1 is 110 (highlighted) and 5-3-2 is 140. The note says pattern 5-3-1 means about 110 bacteria per 100 mL of water.",
+ title:"Most probable number (MPN)",
+ body:`<p>The <b>most probable number (MPN)</b> method estimates numbers when they are <b>low</b>, such as coliform bacteria in drinking water, or when cells do not grow well on plates.</p>
+ <p>You put three amounts of sample (for example 10 mL, 1 mL and 0.1 mL) into sets of tubes of broth, often 5 tubes each. After incubation you count the <b>positive tubes</b>: cloudy, and for coliforms, gas trapped in a small inverted tube.</p>
+ <p>The pattern of positives, such as <b>5-3-1</b>, is looked up in a <b>statistical MPN table</b>. It gives the most likely number of bacteria per 100 mL, about 110 for this pattern.</p>
+ <p>MPN is an estimate based on probability, not an exact count, and like plate counts it only detects living cells.</p>`,
+ analogy:"Fishing in many small buckets of pond water. If almost every big bucket catches a fish but few small ones do, you can estimate how many fish the pond holds.",
+ terms:[["MPN","Most probable number: a statistical estimate from the pattern of positive tubes."],["Positive tube","A tube that shows growth (and gas, for coliforms)."],["Coliforms","Gut-type bacteria used as a sign of fecal contamination in water."]],
+ check:{q:"When is the MPN method most useful?",opts:[
+  ["When bacteria are few, such as in a water sample",1,"Yes. MPN is designed for low numbers, like coliforms in water, where plates would show too few colonies."],
+  ["When you need an exact count in minutes",0,"MPN needs incubation and gives a statistical estimate, not an exact or instant count."],
+  ["When you want to count dead cells",0,"Only living cells grow and make a tube positive, so MPN does not count dead cells."],
+  ["When the sample has billions of cells per mL",0,"Very dense samples are usually measured by plate count or turbidity. MPN is for low numbers."]]},
+ caption:"Count the positive tubes in each set, then look up the pattern (here 5-3-1) in an MPN table.",
+ legend:[["broth","Broth"],["accent","Positive tube","s"],["glass","Inverted gas tube","s"]]},
+
+{act:3,scene:"turbidity",desc:"A spectrophotometer is drawn from left to right. A yellow glowing lamp sends a stream of dots (light) through a triangular filter labelled 600 nm, then through a glass cuvette of broth, to a dark grey detector. Over time the broth in the cuvette fills with more and more blue rods and gets cloudier. As it does, more of the light dots bounce off in other directions inside the cuvette and fewer reach the detector. A reading panel shows absorbance (OD) rising from 0.00 to about 1.20 while light through falls from 100% toward about 6%. At the bottom left, a standard curve graph of OD against cells per mL has a green dot sliding up a straight dashed line. A text box explains that more cells scatter more light, and that turbidity counts living and dead cells.",
+ title:"Turbidity and the spectrophotometer",
+ body:`<p>As bacteria multiply in broth, the broth turns <b>cloudy</b> (turbid). Cloudiness can be measured with a <b>spectrophotometer</b>.</p>
+ <p>A beam of light (often 600 nm) passes through a cuvette of culture. Cells <b>scatter</b> the light, so less reaches the detector. The machine reports this as <b>absorbance</b> or <b>optical density (OD)</b>. More cells, higher OD.</p>
+ <p>It is fast and easy for following growth over time. But it needs a <b>standard curve</b> (OD matched to plate counts) to turn OD into numbers, it counts <b>living and dead</b> cells, and broth only looks cloudy above about 10 million cells per mL.</p>`,
+ analogy:"Shining a flashlight through fog. The thicker the fog, the less light reaches the other side.",
+ terms:[["Turbidity","Cloudiness of a liquid caused by suspended cells."],["Spectrophotometer","An instrument that measures how much light passes through a sample."],["Optical density (OD)","A reading of how much light is blocked; rises as cells increase."],["Standard curve","A graph that links OD readings to known cell counts."]],
+ check:{q:"A culture's OD stays high even after an antibiotic has killed most cells. Why?",opts:[
+  ["Dead cells still scatter light, so turbidity cannot tell them apart",1,"Right. The spectrophotometer sees particles, living or dead. A plate count would show the drop in living cells."],
+  ["The antibiotic itself is cloudy",0,"The drug at normal doses does not make broth cloudy. The dead cells are still there and still block light."],
+  ["The detector is broken",0,"The reading is expected. OD measures all cells, so dead cells keep it high."],
+  ["Living cells absorb less light than dead ones",0,"Both scatter light about the same. That is why OD cannot separate living from dead cells."]]},
+ caption:"More cells scatter more light, so less reaches the detector and the OD reading rises.",
+ legend:[["beam","Light from lamp"],["act3","Light at 600 nm"],["bact","Cells"],["accent","OD reading","s"]]},
+
+/* ---------- Part 4 ---------- */
+{act:4,scene:"biofilm",desc:"A blue-grey surface runs along the bottom, labelled a catheter, a tooth, a pipe. A row of five stage labels across the top lights up in turn: attach, microcolony, matrix, mature, disperse. First, three blue rods with whip-like flagella swim down from the upper left and land on the surface. Then each grows into a small mound of rods by dividing. A yellow sticky matrix then grows around each mound. The mounds become tall towers with dips in their tops, and small blue arrows flow between them, labelled water channel. Finally, some rods from the tops break away and swim off upward. A caption label above names each stage.",
+ title:"How a biofilm forms",
+ body:`<p>In nature most bacteria do not float alone. They live in <b>biofilms</b>: communities stuck to a surface and wrapped in a slimy matrix.</p>
+ <ol><li><b>Attach:</b> free-swimming (<b>planktonic</b>) cells land on a surface and grab on with pili and sticky proteins.</li><li><b>Microcolony:</b> attached cells divide into small clusters.</li><li><b>Matrix:</b> cells make <b>extracellular polymeric substances (EPS)</b>: sugars, proteins and DNA that glue them together.</li><li><b>Mature:</b> towers form, with <b>water channels</b> that carry nutrients in and waste out.</li><li><b>Disperse:</b> some cells break free to start new biofilms elsewhere.</li></ol>`,
+ analogy:"Building a city. Settlers land, build houses, pour concrete around everything, lay down roads (water channels), and eventually some people leave to found new towns.",
+ terms:[["Biofilm","A community of microbes stuck to a surface inside a slimy matrix."],["Planktonic","Free-floating, single cells, not in a biofilm."],["EPS","Extracellular polymeric substances: the sugars, proteins and DNA of the matrix."]],
+ check:{q:"What is the main job of the EPS matrix in a biofilm?",opts:[
+  ["It glues the cells together and to the surface and protects them",1,"Yes. The matrix holds the community in place and shields the cells from drugs, drying and immune cells."],
+  ["It is the cells' main food source",0,"The cells make the matrix; they get food from nutrients carried in by water channels."],
+  ["It helps the cells swim faster",0,"Cells in a biofilm are attached. Flagella help planktonic cells swim; the matrix keeps them in place."],
+  ["It turns the cells into endospores",0,"Endospores are a separate survival form. The matrix glues and protects the biofilm community."]]},
+ caption:"Cells attach, divide into microcolonies, wrap themselves in matrix, build towers with water channels, then disperse.",
+ legend:[["bact","Bacterium"],["eps","Matrix (EPS)"],["o2","Water flow","l"],["cath","Surface","s"]]},
+
+{act:4,scene:"quorum",desc:"A large box shows a population of blue rods that grows from a few cells to more than forty. Small gold dots (signal molecules called autoinducers) fill the space around them, getting denser as the cells multiply. A tall meter to the right fills with gold up to a red dashed threshold line. Once the level passes the threshold, all the cells start to glow together and a label changes from few cells: signal drifts away, genes stay OFF, to crowded: everyone switches genes ON together. A side panel shows one cell with gold signal molecules moving toward a receptor and a small box that switches from genes OFF to genes ON, with examples: Vibrio fischeri glows; many pathogens build biofilm or release toxins.",
+ title:"Quorum sensing: bacteria count their neighbours",
+ body:`<p><b>Quorum sensing</b> is how bacteria sense how crowded they are. Each cell releases small signal molecules called <b>autoinducers</b>.</p>
+ <p>When there are only a few cells, the signal drifts away and stays low. When many cells are packed together, the signal builds up past a <b>threshold</b>. It binds receptors and switches on <b>genes</b> in all the cells at once.</p>
+ <p>Those genes can control biofilm matrix, <b>toxins</b> and other virulence factors, or light. The ocean bacterium <i>Vibrio fischeri</i> only glows when it is crowded inside a squid's light organ. Many pathogens wait until they are numerous enough before launching an attack.</p>`,
+ analogy:"A crowd at a concert. One person clapping makes little noise, but when enough people join in, the sound passes a point where the whole crowd starts chanting together.",
+ terms:[["Quorum sensing","Cell-to-cell signalling that lets bacteria act together once they are crowded."],["Autoinducer","A small signal molecule released by bacteria for quorum sensing."],["Threshold","The signal level that must be passed before genes switch on."]],
+ check:{q:"Why would a pathogen wait for quorum sensing before making toxins?",opts:[
+  ["A few cells making toxin would just alert the immune system; many cells together have a better chance",1,"Right. Acting together once numbers are high makes the attack more effective."],
+  ["Toxins can only be made at night",0,"Quorum sensing depends on cell density, not time of day."],
+  ["Autoinducers are the toxin",0,"Autoinducers are signals between bacteria. They switch on genes, such as toxin genes."],
+  ["Only one cell in the population can make toxin",0,"Quorum sensing switches the genes on in many cells at once."]]},
+ caption:"Signal builds with crowding. Past the threshold, all cells switch genes on together.",
+ legend:[["bact","Bacterium"],["ai","Autoinducer signal"],["bad","Threshold","dl"]]},
+
+{act:4,scene:"biocare",desc:"Two panels. The left shows a urinary catheter cut open along its length: a blue-grey tube with a yellow matrix layer full of rods lining its inner walls. Red antibiotic dots stream through the middle. Free-floating rods in the middle turn grey and dashed as the drug hits them, but the rods buried in the matrix, especially the deeper, duller ones, stay alive. Labels read matrix slows the drug, deep slow-growing cells survive, and free-floating cells die. The right panel shows a tooth above pink gum, with a yellow plaque patch of purple round bacteria at the gumline. White sugar cubes drift into the plaque, orange acid drops come out, and a dark spot grows on the enamel. A toothbrush sweeps across every few seconds and wipes the plaque away, and then it slowly builds up again. A bar at the bottom lists four reasons biofilms resist antibiotics.",
+ title:"Biofilms in health care",
+ body:`<p>Biofilms cause many hard-to-treat infections. They form on <b>catheters</b>, IV lines, artificial joints, heart valves and contact lenses. A biofilm on a urinary catheter is a common cause of <b>catheter-associated urinary tract infections</b>.</p>
+ <p>Biofilm cells can survive up to about 1,000 times more antibiotic than free-floating cells:</p>
+ <ul><li>The <b>matrix slows and binds</b> drugs, so less reaches deep cells.</li><li>Deep cells get little food and <b>grow slowly</b>, and many drugs work best on growing cells. Some are <b>persisters</b>.</li><li>The matrix <b>shields</b> them from white blood cells and antibodies.</li><li>Packed cells easily <b>share resistance genes</b>.</li></ul>
+ <p><b>Dental plaque</b> is a biofilm. <i>Streptococcus mutans</i> ferments sugar into acid that dissolves enamel, causing cavities. Brushing and flossing <b>physically break it apart</b>. Infected devices often have to be removed.</p>`,
+ analogy:"A fortress with thick walls. Soldiers outside (free-floating cells) are easy targets, but those inside the walls, resting in the cellar, are hard to reach.",
+ terms:[["Device-associated infection","An infection that grows on a medical device such as a catheter."],["Dental plaque","A biofilm on teeth; its acids cause cavities."],["Tolerance","Surviving a drug without a resistance gene, for example by slow growth."]],
+ check:{q:"A patient's catheter infection keeps coming back after antibiotics. What is the most likely reason?",opts:[
+  ["A biofilm on the catheter protects bacteria from the drug",1,"Yes. The matrix and slow-growing cells let the biofilm survive, so the catheter often needs to be removed or replaced."],
+  ["Antibiotics cannot enter the urinary tract",0,"Many antibiotics reach the urinary tract well. The problem is the protected biofilm on the device."],
+  ["The bacteria are all in lag phase",0,"Biofilms contain cells in many states. Their protection comes mainly from the matrix and slow-growing inner cells."],
+  ["The catheter itself makes bacteria",0,"Catheters are sterile when placed. Bacteria attach to them and build a biofilm."]]},
+ caption:"On a catheter, drugs kill free-floating cells but not cells deep in the matrix. On teeth, plaque turns sugar into acid until brushing breaks it up.",
+ legend:[["eps","Biofilm matrix"],["abx","Antibiotic"],["dead","Killed cell","s"],["gpos","Plaque bacteria"],["acid","Acid"]]},
+
+/* ---------- Part 5 ---------- */
+{act:5,scene:"thio",desc:"A blue bar on the left fades from strong at the top (O2 high) to clear at the bottom (no O2), with small blue oxygen molecules drifting down from the top. Five tubes of pale yellow thioglycolate broth stand in a row, each with a pink layer at the top showing oxygen. During incubation, blue cloudy growth appears in a different place in each tube: only at the very top for the obligate aerobe; only in the bottom half for the obligate anaerobe; heaviest at the top and thinning toward the bottom for the facultative anaerobe; evenly all the way through for the aerotolerant anaerobe; and in a thin band just below the top for the microaerophile. Under each tube, lines appear saying whether it uses oxygen and whether oxygen harms it.",
+ title:"Oxygen needs: reading thioglycolate tubes",
+ body:`<p><b>Thioglycolate broth</b> removes oxygen, so a tube has plenty of O₂ at the top and none at the bottom. A pink dye (<b>resazurin</b>) shows where oxygen is. Where cells grow tells you their oxygen needs:</p>
+ <ul><li><b>Obligate aerobe:</b> top only. Must have O₂ (e.g. <i>Mycobacterium tuberculosis</i>).</li><li><b>Obligate anaerobe:</b> bottom only. O₂ kills it (e.g. <i>Clostridium</i>).</li><li><b>Facultative anaerobe:</b> grows all through, <b>most at the top</b>. Uses O₂ if present, ferments if not (e.g. <i>E. coli</i>, <i>Staphylococcus</i>).</li><li><b>Aerotolerant anaerobe:</b> <b>evenly</b> all through. Does not use O₂ but is not harmed (e.g. <i>Streptococcus</i>, <i>Lactobacillus</i>).</li><li><b>Microaerophile:</b> a <b>band just below</b> the top. Needs a little O₂; full air harms it (e.g. <i>Campylobacter</i>, <i>Helicobacter</i>).</li></ul>`,
+ analogy:"Five people choosing seats in a smoky theatre: one needs the fresh-air balcony, one must hide in the basement, one prefers the balcony but copes anywhere, one does not care, and one likes the row just under the balcony.",
+ terms:[["Thioglycolate broth","A medium that removes O₂, making an oxygen gradient from top to bottom."],["Facultative anaerobe","Uses O₂ when present but can grow without it."],["Microaerophile","Needs low O₂ levels; normal air is too much."]],
+ check:{q:"A tube shows heavy growth at the top that thins out toward the bottom. The organism is a:",opts:[
+  ["Facultative anaerobe",1,"Yes. It grows everywhere but best at the top, because using O₂ gives it the most energy."],
+  ["Aerotolerant anaerobe",0,"Aerotolerant anaerobes do not use O₂, so they grow evenly. Heavier growth at the top means O₂ helps."],
+  ["Obligate aerobe",0,"An obligate aerobe grows only at the very top. Growth all through the tube means it can live without O₂."],
+  ["Microaerophile",0,"A microaerophile makes a narrow band just below the surface, not growth all through the tube."]]},
+ caption:"Where cells grow in the oxygen gradient shows their oxygen needs.",
+ legend:[["o2","Oxygen"],["resaz","Pink: oxygen present","s"],["thio","Thioglycolate broth","s"],["bact","Growth"]]},
+
+{act:5,scene:"ros",desc:"Two large cells sit side by side. In the left cell, outlined in green and titled has SOD and catalase, blue oxygen molecules enter from the top and turn into red superoxide dots labelled O2 minus. A green enzyme labelled SOD and a purple one labelled Cat sit inside; the red dots change into blue hydrogen peroxide labelled H2O2, which then becomes water while bubbles of oxygen rise, and the label reads toxic oxygen is made safe. In the right cell, outlined in red and titled lacks them (obligate anaerobe), the red superoxide dots drift down into a pink DNA strand, which breaks in two places with orange flashes, and the cell slowly fades to grey with the label DNA and proteins damaged: cell dies. At the bottom, the two enzyme reactions are written out, and a catalase test shows a Staph smear bubbling and a Strep smear with no bubbles.",
+ title:"Why oxygen is toxic: SOD and catalase",
+ body:`<p>When cells use oxygen, some of it turns into <b>reactive oxygen species</b> such as <b>superoxide</b> (O₂⁻) and <b>hydrogen peroxide</b> (H₂O₂). These damage DNA, proteins and membranes.</p>
+ <p>Cells that live with oxygen carry protective enzymes:</p>
+ <ul><li><b>Superoxide dismutase (SOD)</b> turns superoxide into hydrogen peroxide and O₂.</li><li><b>Catalase</b> breaks hydrogen peroxide into water and O₂. (<b>Peroxidase</b> also removes it.)</li></ul>
+ <p><b>Obligate anaerobes</b> lack these enzymes, so oxygen poisons them. Aerotolerant anaerobes have SOD but usually no catalase.</p>
+ <p class="tx"><b>Catalase test:</b> drop H₂O₂ on a colony. Bubbles (O₂) = catalase positive. <i>Staphylococcus</i> bubbles; <i>Streptococcus</i> does not. This quick test helps tell them apart.</p>`,
+ analogy:"Sparks from a campfire. Aerobes keep a fire extinguisher (SOD) and a bucket of water (catalase). Obligate anaerobes have neither, so the sparks burn their house down.",
+ terms:[["Reactive oxygen species","Harmful forms of oxygen such as superoxide and hydrogen peroxide."],["Superoxide dismutase (SOD)","Enzyme that converts superoxide to hydrogen peroxide and O₂."],["Catalase","Enzyme that breaks hydrogen peroxide into water and O₂ (bubbles)."]],
+ check:{q:"Why are obligate anaerobes killed by oxygen?",opts:[
+  ["They lack enzymes such as SOD and catalase that destroy toxic forms of oxygen",1,"Right. Without SOD and catalase, superoxide and peroxide build up and damage the cell."],
+  ["Oxygen blocks their cell wall from forming",0,"The damage comes from reactive oxygen species, which these cells cannot remove."],
+  ["They breathe too much oxygen and swell",0,"They do not use oxygen at all. The harm comes from toxic oxygen forms they cannot break down."],
+  ["Oxygen makes them form endospores",0,"Some anaerobes make endospores, but oxygen kills active cells because they lack SOD and catalase."]]},
+ caption:"SOD and catalase make toxic oxygen safe. Without them, superoxide and peroxide damage the cell.",
+ legend:[["o2","Oxygen"],["ros","Superoxide (toxic)"],["good","SOD"],["act1","Catalase"],["dna","DNA"]]},
+
+{act:5,scene:"temp",desc:"A graph shows growth rate on the vertical axis against temperature from minus 10 to 120 degrees Celsius. Five hump-shaped curves appear one after another, each rising slowly to a peak and then dropping steeply: blue psychrophile peaking near 12 degrees, teal psychrotroph near 25, green mesophile near 37, orange thermophile near 65 and red hyperthermophile near 90. Dashed lines mark the fridge at 4 degrees, body temperature at 37 and boiling at 100. A black marker with a thermometer sweeps from cold to hot, and a panel on the right shows bars for how fast each group grows at the current temperature. A note at the bottom says cold slows growth but does not kill.",
+ title:"Temperature groups",
+ body:`<p>Every microbe has a <b>minimum</b>, <b>optimum</b> and <b>maximum</b> growth temperature. Growth rises slowly to the optimum, then drops sharply just above it as proteins <b>denature</b> (unfold).</p>
+ <ul><li><b>Psychrophiles:</b> best around 15 °C or below; polar seas.</li><li><b>Psychrotrophs:</b> best around 20-30 °C but still grow in the fridge; spoil food (e.g. <i>Listeria</i>).</li><li><b>Mesophiles:</b> best at about 20-45 °C. Human pathogens like about 37 °C.</li><li><b>Thermophiles:</b> best at about 50-80 °C; hot springs, compost.</li><li><b>Hyperthermophiles:</b> best above 80 °C; deep-sea vents.</li></ul>
+ <p class="tx"><b>Refrigeration (about 4 °C) slows growth, but does not kill.</b> Bacteria start growing again when food warms up, and <i>Listeria</i> keeps growing slowly even in the fridge.</p>`,
+ analogy:"A car engine. Too cold and it barely turns over; at its best temperature it runs smoothly; overheat it and it breaks down quickly.",
+ terms:[["Optimum temperature","The temperature where a microbe grows fastest."],["Mesophile","Grows best at moderate temperatures, about 20-45 °C; includes human pathogens."],["Psychrotroph","Grows best at room temperature but can still grow in the fridge."]],
+ check:{q:"Why does keeping food in the refrigerator not make it safe forever?",opts:[
+  ["Cold slows most bacteria but does not kill them, and psychrotrophs keep growing",1,"Yes. Refrigeration only slows growth. Listeria and other psychrotrophs grow slowly at 4 °C."],
+  ["Refrigerators are warmer than body temperature",0,"Fridges are about 4 °C, far colder than 37 °C. Cold slows growth, but does not kill."],
+  ["Cold kills bacteria, but only after a week",0,"Cold does not kill most bacteria. It slows them, and they recover when warmed."],
+  ["All food bacteria are thermophiles",0,"Thermophiles need heat. Food spoilers in the fridge are mostly psychrotrophs."]]},
+ caption:"Each group grows over its own temperature range, rising slowly to an optimum and crashing just above it.",
+ legend:[["psy","Psychrophile","l"],["psytr","Psychrotroph","l"],["meso","Mesophile","l"],["thermo","Thermophile","l"],["hyper","Hyperthermophile","l"]]},
+
+{act:5,scene:"phosmo",desc:"The left panel shows a coloured pH bar from red (0, acidic) through green (7) to blue (14, basic), with three hump-shaped curves above it: orange acidophile peaking near pH 3, green neutrophile near pH 7 and blue alkaliphile near pH 10. A black marker slides back and forth along the pH scale with its value shown. Lines below list the pH range and a place where each group lives. The right panel, salt and sugar pull water out, shows three cells in water. In normal water a blue rod sits snug in its outer wall. In very salty water, filled with grey salt grains, blue arrows show water leaving and the inner cell shrinks away from the wall, labelled plasmolysis: growth stops. In a salt lake, a pink halophile cell glows softly, labelled needs high salt to grow.",
+ title:"pH, salt and osmotic pressure",
+ body:`<p><b>pH:</b> most bacteria are <b>neutrophiles</b>, growing best at about pH 5.5-8.5, including most human pathogens. <b>Acidophiles</b> prefer acid, below about 5.5. <b>Alkaliphiles</b> prefer basic conditions, above about 8.5, such as soda lakes. Acidic foods like pickles and yogurt resist spoilage because most microbes cannot grow in acid.</p>
+ <p><b>Osmotic pressure:</b> in very salty or sugary surroundings, water leaves the cell by osmosis. The membrane pulls away from the wall (<b>plasmolysis</b>) and growth stops. That is why salt and sugar preserve meat and jam.</p>
+ <p><b>Halophiles</b> need high salt to grow, as in salt lakes. <b>Halotolerant</b> microbes do not need salt but can survive it. <i>Staphylococcus aureus</i> grows in 7.5% salt, which is why salt is used to select for it in the lab.</p>`,
+ analogy:"A raisin is a grape that lost its water. Put a cell in very salty water and it shrivels the same way.",
+ terms:[["Neutrophile","Grows best near neutral pH, about 5.5-8.5."],["Plasmolysis","The membrane shrinks away from the cell wall as water leaves."],["Halophile","A microbe that needs high salt."],["Halotolerant","Can survive high salt but does not need it."]],
+ check:{q:"Why does salting meat help preserve it?",opts:[
+  ["Salt draws water out of bacteria by osmosis, so they cannot grow",1,"Right. In a hypertonic environment water leaves the cells, causing plasmolysis, and growth stops."],
+  ["Salt makes the meat very acidic",0,"Salt changes osmotic pressure, not pH. It pulls water out of microbes."],
+  ["Salt heats the meat",0,"Salt does not heat food. It works by drawing water out of microbial cells."],
+  ["Salt feeds helpful bacteria",0,"Salt preserves food by stopping most bacteria, through water loss."]]},
+ caption:"Each pH group grows best in its own range. High salt or sugar pulls water out and stops most cells, but halophiles need it.",
+ legend:[["acid","Acidophile","l"],["meso","Neutrophile","l"],["alk","Alkaliphile","l"],["salt","Salt","s"],["gneg","Halophile"]]},
+
+/* ---------- Part 6 ---------- */
+{act:6,scene:"mediatypes",desc:"The top left card, chemically defined, lists ingredients that light up one by one with exact amounts: glucose 5.0 grams, K2HPO4 7.0 grams, KH2PO4 2.0 grams, ammonium sulfate 1.0 gram, MgSO4 0.1 gram and water to 1 litre, and small blue blocks drop from each line into a flask of clear medium. The top right card, complex nutrient broth, lists peptone 5 grams, beef extract 3 grams and water to 1 litre beside a flask of yellow broth, with question marks floating up from it to show the exact chemicals are unknown. A bottom strip shows a flask of melted agar pouring into a Petri dish, which fills and sets into a gel, then a second dish turning red as blood is added, labelled add blood: enriched.",
+ title:"Culture media: complex versus defined",
+ body:`<p>A <b>culture medium</b> is the food mix used to grow microbes. It can be a liquid <b>broth</b> or a solid made with <b>agar</b>, a seaweed sugar that melts near boiling, stays solid at body temperature, and that few microbes can eat.</p>
+ <ul><li><b>Chemically defined medium:</b> every chemical and its exact amount is known, such as glucose plus specific salts. Useful for research.</li><li><b>Complex medium:</b> contains extracts such as <b>peptone</b> (digested protein), beef extract or yeast extract, so the exact chemicals are unknown. It grows a wide range of microbes (e.g. nutrient broth, tryptic soy agar).</li><li><b>Enriched medium:</b> complex medium with extra nutrients such as <b>blood</b>, for <b>fastidious</b> (picky) organisms. Examples: blood agar, chocolate agar.</li></ul>`,
+ analogy:"A recipe with exact measurements (defined) versus a big pot of stew made from whatever is in the kitchen (complex). Adding steak to the stew makes it enriched.",
+ terms:[["Chemically defined medium","Exact chemical makeup is known."],["Complex medium","Contains extracts; exact chemicals unknown."],["Agar","A seaweed sugar used to make media solid."],["Fastidious","Needs many special nutrients to grow."]],
+ check:{q:"Nutrient broth made from peptone and beef extract is a:",opts:[
+  ["Complex medium",1,"Yes. Peptone and beef extract are mixtures, so the exact chemical makeup is not known."],
+  ["Chemically defined medium",0,"A defined medium lists every pure chemical and amount. Extracts like peptone make it complex."],
+  ["Selective medium",0,"Nutrient broth does not hold back any group of microbes. It is a general-purpose complex medium."],
+  ["Differential medium",0,"Nutrient broth has no indicator to show differences between microbes. It is a complex medium."]]},
+ caption:"Defined media list every chemical. Complex media use extracts. Agar makes them solid; blood makes them enriched.",
+ legend:[["act6","Defined ingredients","s"],["broth","Complex broth"],["agar","Agar"],["bap","Blood"]]},
+
+{act:6,scene:"seldiff",desc:"Two Petri dishes sit side by side, each streaked with three organisms in three wedges, and colonies grow as incubation runs to 24 hours. The left dish is pinkish-purple MacConkey agar. In the E. coli wedge, bright pink colonies grow with a pink haze around them. In the Salmonella wedge, pale colourless colonies grow. In the Staph (Gram-positive) wedge, the purple starting dots fade away and a red cross appears: no growth. The right dish is red mannitol salt agar. In the S. aureus wedge, colonies grow and the agar around them turns yellow. In the S. epidermidis wedge, colonies grow but the agar stays red. In the E. coli wedge, the starting dots fade and a red cross appears: no growth. Text under each dish explains what makes it selective and what makes it differential.",
+ title:"Selective and differential media",
+ body:`<p><b>Selective media</b> contain something that <b>stops some microbes</b> so others can grow. <b>Differential media</b> contain an <b>indicator</b> that makes different microbes <b>look different</b>. Many media are both.</p>
+ <p><b>MacConkey agar:</b> bile salts and crystal violet stop Gram-positives, so it <b>selects for Gram-negatives</b>. It has lactose and a pH dye: <b>lactose fermenters</b> (e.g. <i>E. coli</i>) make acid and turn <b>pink</b>. Non-fermenters (e.g. <i>Salmonella</i>, <i>Shigella</i>) stay colourless.</p>
+ <p><b>Mannitol salt agar (MSA):</b> 7.5% salt <b>selects for staphylococci</b>. It has mannitol and phenol red: <i>S. aureus</i> ferments mannitol, making acid that turns the red agar <b>yellow</b>. <i>S. epidermidis</i> grows but the agar stays red.</p>`,
+ analogy:"A club with a bouncer and a dress code. The bouncer (selective) keeps some people out. The dress code (differential) lets you tell the guests apart by what they wear.",
+ terms:[["Selective medium","Inhibits some microbes so others can grow."],["Differential medium","Shows visible differences between microbes, often with a pH dye."],["Lactose fermenter","Breaks down lactose to acid; pink on MacConkey."]],
+ check:{q:"Pink colonies grow on MacConkey agar. What do you know about the organism?",opts:[
+  ["It is Gram-negative and ferments lactose",1,"Right. Only Gram-negatives grow (selective), and pink means lactose was fermented to acid (differential)."],
+  ["It is Gram-positive and ferments mannitol",0,"Gram-positives are inhibited on MacConkey, and mannitol is the sugar in MSA, not MacConkey."],
+  ["It is Gram-negative and cannot ferment lactose",0,"Non-fermenters stay colourless on MacConkey. Pink means lactose was fermented."],
+  ["It causes hemolysis",0,"Hemolysis is read on blood agar. MacConkey shows Gram-negative growth and lactose fermentation."]]},
+ caption:"MacConkey selects Gram-negatives and turns lactose fermenters pink. MSA selects staphylococci and turns mannitol fermenters yellow.",
+ legend:[["mac-pos","Lactose fermenter (pink)"],["mac-neg","Non-fermenter (pale)"],["msa-yel","Mannitol fermented (yellow)"],["msa","MSA (red)","s"]]},
+
+{act:6,scene:"blood",desc:"On the left, a dark red blood agar plate is divided into three wedges labelled beta, alpha and gamma, and pale colonies appear. In the beta wedge, each colony has a clear, pale yellow zone around it; in the alpha wedge, a greenish zone; in the gamma wedge, no zone at all. For part of the time, white stripes appear behind the plate as if it is held up to a light, and they show through the clear beta zones. On the right, a zoomed-in circle shows a colony surrounded by round red blood cells, cycling through beta, alpha and gamma. For beta, the red cells near the colony burst and vanish, leaving a clear ring. For alpha, the red cells near the colony turn green-brown but stay whole. For gamma, the red cells stay red and whole. Labels give an example organism for each.",
+ title:"Blood agar and hemolysis",
+ body:`<p><b>Blood agar</b> is a complex medium with about 5% sheep blood. It is <b>enriched</b> (grows picky organisms) and <b>differential</b>, because some bacteria make <b>hemolysins</b>, toxins that damage red blood cells. Look at the zone around each colony:</p>
+ <ul><li><b>Beta (β) hemolysis:</b> red cells are <b>completely</b> destroyed, leaving a <b>clear</b> zone you can see light through. Example: <i>Streptococcus pyogenes</i> (strep throat).</li><li><b>Alpha (α) hemolysis:</b> <b>partial</b> damage; hemoglobin is changed, so the zone looks <b>green-brown</b>. Example: <i>Streptococcus pneumoniae</i>.</li><li><b>Gamma (γ) hemolysis:</b> <b>no</b> hemolysis, no change. Example: <i>Enterococcus</i>.</li></ul>
+ <p>Hemolysis is one of the first clues used to sort streptococci.</p>`,
+ analogy:"Spilled juice on a red rug. One spill bleaches it clean (beta), one leaves a greenish stain (alpha), and one does nothing (gamma).",
+ terms:[["Hemolysin","A bacterial toxin that damages red blood cells."],["Beta hemolysis","Complete breakdown of red cells: a clear zone."],["Alpha hemolysis","Partial breakdown: a green-brown zone."],["Gamma hemolysis","No hemolysis."]],
+ check:{q:"A throat swab grows colonies with clear zones you can see light through on blood agar. This is:",opts:[
+  ["Beta hemolysis, as with Streptococcus pyogenes",1,"Yes. Clear zones mean red cells were completely destroyed, which is beta hemolysis."],
+  ["Alpha hemolysis",0,"Alpha zones are green-brown and you cannot see through them. Clear zones are beta."],
+  ["Gamma hemolysis",0,"Gamma means no change in the agar. Clear zones are beta."],
+  ["Lactose fermentation",0,"Lactose fermentation is read on MacConkey agar. Clear zones on blood agar are beta hemolysis."]]},
+ caption:"Beta: clear zone. Alpha: green-brown zone. Gamma: no change.",
+ legend:[["bap","Blood agar","s"],["beta","Beta zone (clear)"],["alpha","Alpha zone (green)"],["act6","Zoom view","s"]]},
+
+{act:6,scene:"streak",desc:"A large Petri dish of agar sits on the left with quadrant numbers 1 to 4 around its edge. A Bunsen burner flame flickers at the lower left. A wire loop glows red-hot in the flame, then moves onto the plate and draws a zigzag streak in quadrant 1 at the upper left. It returns to the flame, then drags from quadrant 1 into quadrant 2 at the upper right, and repeats for quadrants 3 and 4, each streak starting from the one before. During incubation, colonies grow along the streak lines: a thick merged band in quadrant 1, fewer colonies in 2 and 3, and only a few separate colonies in quadrant 4, labelled one colony equals one pure culture. On the right, a checklist titled aseptic technique highlights one step at a time, from disinfecting the bench to incubating plates upside down.",
+ title:"Streak plates and aseptic technique",
+ body:`<p>A patient sample often holds several kinds of bacteria. To study one, you need a <b>pure culture</b>, grown from a single cell. The <b>streak plate</b> method spreads cells out until single cells land apart.</p>
+ <ol><li>Flame the loop until red-hot, let it cool, and pick up some sample.</li><li>Streak quadrant 1.</li><li>Flame the loop, then drag it through the end of quadrant 1 into quadrant 2. Each pass carries fewer cells.</li><li>Repeat for quadrants 3 and 4.</li></ol>
+ <p>After incubation, the last quadrant has <b>isolated colonies</b>. Each grew from one cell, so picking one gives a pure culture.</p>
+ <p><b>Aseptic technique</b> keeps unwanted microbes out of your culture and keeps the culture off you: disinfect the bench, flame tools, open lids only partway, work quickly, and incubate plates <b>upside down</b> so water drops do not fall on the agar.</p>`,
+ analogy:"Spreading a handful of sand across a long table. At the start it is a heap; by the far end the grains are far enough apart to pick up one at a time.",
+ terms:[["Pure culture","A culture of only one kind of microbe, grown from a single cell."],["Isolated colony","A colony far enough from others to pick on its own."],["Aseptic technique","Methods that prevent contamination of cultures, people and the lab."]],
+ check:{q:"Why do you flame the loop between quadrants?",opts:[
+  ["To kill leftover cells so each quadrant carries fewer cells from the one before",1,"Right. A clean loop only picks up cells from the edge of the last quadrant, so numbers drop each time."],
+  ["To warm the agar so colonies grow faster",0,"The loop is cooled before touching the agar. Flaming kills the leftover cells on it."],
+  ["To make the colonies change colour",0,"Colour comes from the medium, not flaming. Flaming clears the loop so cells thin out."],
+  ["To add oxygen to the plate",0,"Flaming sterilizes the loop. It does not add oxygen to the agar."]]},
+ caption:"Streaking and flaming between quadrants thins out the cells until single cells grow into isolated colonies.",
+ legend:[["agar","Agar"],["heat","Hot loop"],["act6","Aseptic step","s"]]},
+
+/* ---------- Finish ---------- */
+{act:0,scene:"recap",desc:"Six cards fill the picture in two columns and light up one after another. Card 1, How bacteria multiply, shows a rod splitting in two. Card 2, The growth curve, shows a small curve with a moving dot. Card 3, Measuring growth, shows a plate of colonies. Card 4, Biofilms, shows rods in a yellow matrix. Card 5, Oxygen, heat, pH, salt, shows a thioglycolate tube with growth heaviest at the top. Card 6, Culture media, shows a MacConkey plate with pink and pale colonies. Each card has a one-line summary of the key ideas.",
+ title:"Recap: microbial growth",
+ body:`<ul><li><b>Binary fission</b> doubles cells each generation: N = N₀ × 2ⁿ. Log scales turn doubling into a straight line.</li>
+ <li>A closed culture goes through <b>lag, log, stationary and death</b> phases as food runs out and waste builds. A chemostat keeps cells in steady growth.</li>
+ <li><b>Measure</b> growth by direct count (living and dead), serial dilution and plate count (30-300 colonies; CFU/mL = colonies ÷ (dilution × volume)), MPN for low numbers, and turbidity (OD).</li>
+ <li><b>Biofilms</b> attach, build an EPS matrix, use quorum sensing, and resist antibiotics; think catheters and plaque.</li>
+ <li><b>Oxygen</b> patterns in thioglycolate; SOD and catalase protect from toxic oxygen. <b>Temperature</b>, <b>pH</b> and <b>salt</b> groups. Cold slows growth but does not kill.</li>
+ <li><b>Media:</b> defined vs complex; selective vs differential (MacConkey, MSA); blood agar hemolysis; streak plates and aseptic technique.</li></ul>`,
+ analogy:"Growth is a story with a beginning, middle and end. The lab's job is to count the characters and give each the right room to live in.",
+ terms:[["Key numbers","E. coli about 20 min per generation; count plates with 30-300 colonies; fridge about 4 °C; MSA has 7.5% salt."],["Key tests","Thioglycolate tube, catalase test, MacConkey, MSA, blood agar."]],
+ check:null,caption:"Six parts in review: multiplying, the growth curve, measuring, biofilms, environment and media.",
+ legend:[["act1","Multiply","s"],["act2","Growth curve","s"],["act3","Measuring","s"],["act4","Biofilms","s"],["act5","Environment","s"],["act6","Media","s"]]}
+];
+
+/* ---------------- DOM ---------------- */
+const $=s=>document.querySelector(s);
+const chainEl=$("#chain");
+const done=new Set();
+let cur=0;
+function buildChain(){
+  chainEl.innerHTML="";
+  const groups=[[0,"Start","accent",[0]]];
+  for(let a=1;a<=NACT;a++)groups.push([a,ACTS[a].name,ACTS[a].col,[]]);
+  groups.push([NACT+1,"Finish","accent",[STEPS.length-1]]);
+  STEPS.forEach((s,i)=>{if(s.act>0)groups[s.act][3].push(i)});
+  groups.forEach(g=>{
+    const d=document.createElement("div");d.className="actgrp";
+    if(g[0]===0||g[0]===NACT+1)d.style.flex="0 0 auto";
+    d.innerHTML=`<div class="an"><i style="background:var(--${g[2]})"></i>${g[1]}</div>`;
+    const dots=document.createElement("div");dots.className="dots";
+    g[3].forEach(i=>{const b=document.createElement("button");b.type="button";b.className="dot";b.textContent=i===0?"★":(i===STEPS.length-1?"✓":i);
+      b.setAttribute("aria-label",(i===0?"Start":i===STEPS.length-1?"Finish":"Step "+i)+": "+STEPS[i].title);b.onclick=()=>go(i);b.dataset.i=i;dots.appendChild(b)});
+    d.appendChild(dots);chainEl.appendChild(d);
+  });
+}
+function refreshDots(){document.querySelectorAll(".dot").forEach(b=>{const i=+b.dataset.i;b.classList.toggle("cur",i===cur);b.classList.toggle("done",done.has(i));if(i===cur)b.setAttribute("aria-current","step");else b.removeAttribute("aria-current")})}
+function legendHTML(l){const v="--"+l[0];const sh=l[2]||"c";
+  if(sh==="dl")return `<span><i class="dl" style="border-top-color:var(${v})"></i>${l[1]}</span>`;
+  if(sh==="t")return `<span><i class="t" style="border-bottom-color:var(${v})"></i>${l[1]}</span>`;
+  if(sh==="y")return `<span><i class="y" style="--yc:var(${v})"></i>${l[1]}</span>`;
+  return `<span><i class="${sh}" style="background:var(${v})"></i>${l[1]}</span>`}
+function render(){
+  const s=STEPS[cur];
+  const a=ACTS[s.act];
+  $("#stepno").innerHTML=(s.act?`<span class="actchip" style="--c:var(--${a.col})">${a.name}</span>`:"")+
+    (cur>0&&cur<STEPS.length-1?`<span>Step ${cur} of ${STEPS.length-2}</span>`:"");
+  $("#title").textContent=s.title;
+  $("#body").innerHTML=s.body;
+  $("#analogy p").textContent=s.analogy;
+  $("#terms").innerHTML=s.terms.map(t=>`<div><dt>${t[0]}</dt><dd>${t[1]}</dd></div>`).join("");
+  $("#caption").textContent=s.caption;
+  cv.setAttribute("aria-label","Animation: "+s.caption);if(window.gkDescribe)window.gkDescribe(s.desc);
+  $("#legend").innerHTML=(s.legend||[]).map(legendHTML).join("");
+  const ck=$("#check");
+  if(!s.check){ck.style.display="none"}else{
+    ck.style.display="";
+    $("#q").textContent=s.check.q;
+    const fb=$("#fb");fb.textContent="";fb.className="fb";
+    const box=$("#opts");box.innerHTML="";
+    s.check.opts.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];
+      b.onclick=()=>{box.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));
+        if(o[1]){b.classList.add("right");fb.className="fb ok";fb.textContent="✓ "+o[2];done.add(cur);refreshDots()}
+        else{b.classList.add("wrong");fb.className="fb no";fb.textContent="Not quite. "+o[2]}};
+      box.appendChild(b)});
+  }
+  $("#prev").disabled=cur===0;
+  $("#next").textContent=cur===STEPS.length-1?"Start over":"Next →";
+  $("#progbar").style.width=(cur/(STEPS.length-1)*100)+"%";
+  refreshDots();
+}
+function go(i){cur=Math.max(0,Math.min(STEPS.length-1,i));T=0;render();}
+$("#prev").onclick=()=>go(cur-1);
+$("#next").onclick=()=>go(cur===STEPS.length-1?0:cur+1);
+document.addEventListener("keydown",e=>{if(e.target.tagName==="INPUT"||e.altKey||e.ctrlKey||e.metaKey)return;if(e.key==="ArrowRight")go(cur+1);if(e.key==="ArrowLeft")go(cur-1)});
+let paused=false;
+$("#pauseBtn").onclick=()=>{paused=!paused;$("#pauseBtn").textContent=paused?"Play":"Pause"};
+$("#replayBtn").onclick=()=>{T=0};
+let speed=1;$("#speed").oninput=e=>speed=+e.target.value;
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";
+  r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+
+/* ---------------- canvas ---------------- */
+const W=800,H=480;
+const cv=document.getElementById("stage");ctx=cv.getContext("2d");
+let K=1;
+function fit(){const w=cv.parentElement.clientWidth;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);K=cv.width/W}
+window.addEventListener("resize",fit);
+
+
+/* ================= scenes: start + Part 1 + Part 2 ================= */
+/* a field of rods inside a circle (cx,cy,r). n cells, o.dead fraction, o.div true = cells divide, o.size scale */
+function cellField(cx,cy,r,n,T,o){o=o||{};const s=o.size||1;const nd=Math.round(n*(o.dead||0));
+  for(let i=0;i<n;i++){const a=rnd(i*5.7+1)*TAU+T*.05*(rnd(i)-.5),d=Math.sqrt(rnd(i*3.3+2))*(r-14*s);const x=cx+Math.cos(a)*d+Math.sin(T*.7+i)*2,y=cy+Math.sin(a)*d+Math.cos(T*.6+i*1.3)*2;const ang=rnd(i*9.1)*TAU+Math.sin(T*.4+i)*.2;
+    const dead=i<nd;const fa=o.fadeIn!=null&&i>=o.fadeIn?clamp(o.fadeA||1,0,1):1;
+    if(dead)rod(x,y,ang,8*s,3.6*s,{dead:true,a:fa});
+    else if(o.div){const p=P(T*.5+rnd(i*2.7),1);fission(x,y,ang,5*s,3.4*s,p,{a:fa,lw:1,ring:false,dna:false,septum:false})}
+    else rod(x,y,ang,8*s*(o.grow||1),3.6*s*(o.grow||1),{a:fa,dna:false,glow:o.glow?o.glow*(.5+.5*Math.sin(T*3+i)):0})}}
+function miniCurve(x,y,w,h,f,o){o=o||{};
+  PH.forEach((p,i)=>{if(f>=p[0]){const x0=x+p[0]*w,x1=x+Math.min(f,p[1])*w;ctx.fillStyle=hexA(C[p[3]],.16);ctx.fillRect(x0,y,x1-x0,h)}});
+  line(x,y+h,x+w,y+h,C["ink-soft"],1.3);line(x,y,x,y+h,C["ink-soft"],1.3);
+  const Y=v=>y+h-(v-4.5)/5*h;plotFn(curveLog,0,1,x,y,w,h,4.5,9.5,hexA(C.ink,.18),2);plotFn(curveLog,0,1,x,y,w,h,4.5,9.5,C.ink,2.6,null,f);
+  circ(x+f*w,Y(curveLog(f)),5,C[PH[phaseAt(f)][3]],C.panel,1.5);
+  if(o.labels!==false)PH.forEach((p,i)=>{txt(x+(p[0]+p[1])/2*w,y+h+13,p[2],{size:12,align:"center",weight:i===phaseAt(f)?700:500,color:i===phaseAt(f)?C.ink:C["ink-soft"]})})}
+
+/* ---------- start map ---------- */
+function sceneMap(T){
+  panelBox(12,12,380,456);title(26,32,"One flask, start to finish");
+  const L=16,f=seg(P(T,L),.02,.95);const lg=curveLog(f);const turb=clamp((lg-6)/3,0,1)*(f>.72?1-.25*seg(f,.72,1):1);
+  flask(110,262,1.05,{fill:.5,turb});
+  const n=Math.round(lerp(2,46,clamp((lg-5)/4,0,1)));lensBg(282,150,74);ctx.save();ctx.beginPath();ctx.arc(282,150,72,0,TAU);ctx.clip();cellField(282,150,74,n,T,{div:f>.16&&f<.46,dead:f>.72?seg(f,.72,1)*.8:0});ctx.restore();lensRing(282,150,74,"Zoomed-in view");
+  line(150,170,212,160,hexA(C["ink-soft"],.6),1.2,[4,3]);
+  miniCurve(44,310,330,120,f);txt(44,300,"Number of living cells (log scale)",{size:12,color:C["ink-soft"],weight:600});
+  label(360,322,PH[phaseAt(f)][2]+" phase",{size:13,weight:700,align:"right",border:C[PH[phaseAt(f)][3]]});
+  const cards=[["How bacteria multiply","act1"],["The growth curve","act2"],["Measuring growth","act3"],["Biofilms","act4"],["Oxygen, heat, pH, salt","act5"],["Culture media","act6"]];
+  const on=Math.floor(T/2.2)%6;
+  cards.forEach((c,i)=>{const x=404+(i%2)*196,y=12+Math.floor(i/2)*154,w=188,h=146;const lit=i===on;
+    panelBox(x,y,w,h,{stroke:lit?C[c[1]]:C.rule,lw:lit?3:1.2,fill:hexA(C.panel,lit?.97:.85)});
+    const cx=x+w/2,cy=y+56;ctx.save();ctx.globalAlpha*=lit?1:.62;
+    if(i===0)fission(cx,cy,0,26,12,P(T,3.2),{t:T});
+    else if(i===1){const g=P(T,6);miniCurve(x+22,y+16,w-44,70,g,{labels:false})}
+    else if(i===2){dish(cx,cy,42,{inside:()=>{const g=seg(P(T,4),.1,.7);discPts(26,3).forEach(p=>colony(cx+p[0]*40,cy+p[1]*40,(2+p[2]*3)*g,mix(C.panel,C["agar-edge"],.25)))}})}
+    else if(i===3){line(x+16,cy+30,x+w-16,cy+30,C.cath,6);const g=seg(P(T,5),0,.6);for(let k=0;k<7;k++)rod(x+40+k*18,cy+22-(k%2)*8,Math.PI/2+(k%3-1)*.3,8,3.5,{dna:false});withA(g,()=>{ctx.beginPath();ctx.ellipse(cx,cy+22,74,26*g+4,0,Math.PI,TAU);ctx.fillStyle=hexA(C.eps,.45);ctx.fill()})}
+    else if(i===4){tube(cx-30,y+14,26,84,{col:C.thio,inside:lvl=>{ctx.fillStyle=hexA(C.resaz,.7);ctx.fillRect(cx-60,lvl,60,10);for(let k=0;k<14;k++)circ(cx-30+(rnd(k)-.5)*18,lvl+12+rnd(k+4)*5,1.6,C.bact)}});thermo(cx+30,y+18,58,.35+.25*Math.sin(T*1.5))}
+    else{dish(cx,cy,42,{agar:C.mac,edge:mix(C.mac,C.ink,.3),inside:()=>{discPts(14,7).forEach((p,k)=>colony(cx+p[0]*40,cy+p[1]*40,3+p[2]*2,k%2?C["mac-pos"]:C["mac-neg"]))}})}
+    ctx.restore();
+    txt(cx,y+h-30,c[0],{size:14,weight:700,align:"center"});txt(cx,y+h-12,"Part "+(i+1),{size:12,mono:true,align:"center",color:C["ink-soft"],weight:600})});
+}
+
+/* ---------- 1 binary fission ---------- */
+function sceneFission(T){
+  const L=9,t=P(T,L)*L;const p=seg(t,.6,7.4);
+  const st=p<.12?0:p<.35?1:p<.78?2:3;
+  stepRow(20,18,760,["Cell grows longer","DNA is copied","Septum pinches in","Two daughter cells"],st,C.act1);
+  const cx=400,cy=230;fission(cx,cy,0,92,44,p,{t:T});
+  const Lt=92*(1+smooth(seg(p,0,.4)));const sep=smooth(seg(p,.08,.4));const gap=smooth(seg(p,.75,1))*44*1.6;const off=(Lt/2+(p>.75?gap/2:0))*sep;
+  lead(cx-off,cy-14,cx-off-60,cy-104,"Chromosome (DNA)",{a:1-seg(p,.12,.2)});
+  lead(cx-off,cy-14,cx-off-30,cy-104,"Original chromosome",{a:seg(p,.12,.2)*(1-seg(p,.8,.86))});
+  lead(cx+off,cy-14,cx+off+30,cy-104,"Copy moves to the other end",{a:seg(p,.12,.2)*(1-seg(p,.8,.86))});
+  lead(cx,cy+44*(1-smooth(seg(p,.35,.75))*.98)*.9,cx+70,cy+112,"FtsZ ring marks the middle",{a:seg(p,.28,.36)*(1-seg(p,.55,.62))});
+  lead(cx,cy,cx-40,cy+112,"Septum: new wall and membrane grow inward",{a:seg(p,.5,.56)*(1-seg(p,.82,.88))});
+  if(p>.86){label(cx,cy+112,"Two identical daughter cells",{size:14,weight:700,align:"center",border:C.act1})}
+  // counter + clock
+  panelBox(20,380,360,84);title(34,400,"Cells");const n=p>.75?2:1;txt(34,436,"1",{size:30,weight:700,mono:true});arrow(64,436,104,436,C["ink-soft"],2);txt(116,436,String(n),{size:30,weight:700,mono:true,color:n===2?C.accent:C.ink});
+  txt(170,428,"one cell becomes two",{size:13});txt(170,448,"identical copies",{size:13,color:C["ink-soft"]});
+  panelBox(400,380,380,84);title(414,400,"Time (E. coli, ideal conditions)");timeBar(414,420,340,p,[[0,"0 min"],[.5,"10"],[1,"about 20 min"]],{col:C.act1});
+}
+
+/* ---------- 2 generation time and 2^n ---------- */
+function sceneGenTime(T){
+  const L=15,t=P(T,L)*L;
+  panelBox(12,12,470,456);title(26,32,"Every 20 minutes, every cell divides");
+  const rows=5,y0=74,dy=84,x0=96,w=330;const shown=Math.min(4,Math.floor(seg(t,.5,12.5)*5));const prog=P(seg(t,.5,12.5)*5,1);
+  for(let g=0;g<=Math.min(4,shown);g++){const n=1<<g;const y=y0+g*dy;txt(26,y,g*20+" min",{size:12.5,mono:true,weight:700,color:C["ink-soft"]});txt(26,y+16,"n = "+g,{size:12,mono:true,color:C["ink-soft"]});
+    for(let k=0;k<n;k++){const x=x0+w*(k+.5)/n;
+      if(g>0){const px=x0+w*(Math.floor(k/2)+.5)/(n/2);line(px,y-dy+16,x,y-14,hexA(C["ink-soft"],.5),1.2)}
+      const s=g<3?1:g<4?.8:.55;const isLast=g===shown&&g<4;const p=isLast?seg(prog,.35,.95):0;
+      if(isLast&&p>0)fission(x,y,0,13*s,6*s,p,{ring:false,dna:false,septum:false,lw:1});else rod(x,y,0,13*s,6*s,{dna:false})}
+    txt(x0+w+8,y,String(n),{size:15,mono:true,weight:700,align:"left",color:g===shown?C.accent:C.ink})}
+  txt(x0+w+8,y0-30,"cells",{size:12,color:C["ink-soft"]});
+  // formula card
+  panelBox(494,12,294,212);title(508,32,"The formula");
+  {const cx_=760,cy_=34;circ(cx_,cy_,13,C.panel,C["ink-soft"],1.5);line(cx_,cy_,cx_+Math.cos(T*1.2-1.57)*10,cy_+Math.sin(T*1.2-1.57)*10,C.act1,2);line(cx_,cy_,cx_+Math.cos(T*.1-1.57)*6,cy_+Math.sin(T*.1-1.57)*6,C.ink,2)}
+  txt(641,74,"N = N₀ × 2ⁿ",{size:26,weight:700,align:"center",mono:true});
+  [["N₀","cells at the start"],["n","number of generations"],["N","cells after n generations"]].forEach((r,i)=>{txt(512,114+i*24,r[0],{size:14,mono:true,weight:700,color:C.act1});txt(550,114+i*24,r[1],{size:13})});
+  txt(512,192,"n = time ÷ generation time",{size:13.5,weight:700});
+  // example card
+  panelBox(494,236,294,232);title(508,256,"Worked example");
+  const ex=seg(t,2,12);const steps=["Start: N₀ = 1 cell","Time: 7 hours = 420 min","n = 420 ÷ 20 = 21","N = 1 × 2²¹","N ≈ 2,100,000 cells"];
+  steps.forEach((s_,i)=>{const a=seg(ex,i*.18,i*.18+.12);if(a>0)withA(a,()=>txt(512,290+i*30,s_,{size:i===4?15:13.5,weight:i===4?700:500,color:i===4?C.accent:C.ink,mono:i>1}))});
+  txt(512,450,"TB bacteria take about 15 to 20 h per generation",{size:12,color:C["ink-soft"]});
+}
+
+/* ---------- 3 linear vs log scale ---------- */
+function sceneLogScale(T){
+  const L=14,t=P(T,L)*L;const gN=Math.min(20,Math.floor(seg(t,.4,11)*21));
+  const pts=[];for(let g=0;g<=gN;g++)pts.push([g,Math.pow(2,g)]);
+  // linear
+  const A=axes(80,56,280,300,{x0:0,x1:20,y0:0,y1:1.1e6,yt:[[0,"0"],[2.5e5,"250,000"],[5e5,"500,000"],[7.5e5,"750,000"],[1e6,"1,000,000"]],xt:[[0,"0"],[5,"5"],[10,"10"],[15,"15"],[20,"20"]],xl:"Generations",yl:"",ylOff:60});
+  title(26,28,"Linear scale");
+  ctx.beginPath();pts.forEach((p,i)=>{const X=A.X(p[0]),Y=A.Y(p[1]);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)});ctx.strokeStyle=C.act1;ctx.lineWidth=2.6;ctx.stroke();pts.forEach(p=>circ(A.X(p[0]),A.Y(p[1]),3.2,C.act1));
+  // log
+  const B=axes(500,56,280,300,{x0:0,x1:20,y0:0,y1:6.3,yt:[[0,"1"],[1,"10"],[2,"100"],[3,"1,000"],[4,"10⁴"],[5,"10⁵"],[6,"10⁶"]],xt:[[0,"0"],[5,"5"],[10,"10"],[15,"15"],[20,"20"]],xl:"Generations"});
+  title(440,28,"Log scale (each line = 10 times more)");
+  ctx.beginPath();pts.forEach((p,i)=>{const X=B.X(p[0]),Y=B.Y(Math.log10(p[1]));i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)});ctx.strokeStyle=C.accent;ctx.lineWidth=2.6;ctx.stroke();pts.forEach(p=>circ(B.X(p[0]),B.Y(Math.log10(p[1])),3.2,C.accent));
+  const last=pts[pts.length-1];
+  panelBox(250,404,300,58);txt(400,422,"Generation "+last[0],{size:13,weight:600,align:"center",color:C["ink-soft"]});txt(400,446,last[1].toLocaleString("en-US")+" cells",{size:18,weight:700,mono:true,align:"center"});
+  if(gN>=10)label(220,330,"Looks flat... then shoots up",{size:12.5,weight:700,align:"center",border:C.act1,a:seg(t,6,7)});
+  if(gN>=12)label(640,150,"A straight line = steady doubling",{size:12.5,weight:700,align:"center",border:C.accent,a:seg(t,7,8)});
+  txt(26,400,"Same numbers,",{size:13,weight:600,color:C["ink-soft"]});txt(26,418,"two ways to plot",{size:13,weight:600,color:C["ink-soft"]});
+}
+
+/* ---------- 4 the growth curve in a closed system ---------- */
+function sceneCurve(T){
+  const L=22,f=seg(P(T,L),.03,.93);const lg=curveLog(f);const ph=phaseAt(f);
+  panelBox(12,12,268,456);title(26,32,"Closed flask: nothing added");
+  const turb=clamp((lg-6.2)/2.8,0,1)*(f>.72?1-.2*seg(f,.72,1):1);
+  flask(146,448,.95,{fill:.55,turb,inside:lvl=>{const S=1-seg(f,.2,.5);for(let i=0;i<Math.round(26*S);i++)circ(146+(rnd(i*4)-.5)*120,lvl+8+rnd(i*9)*90,2.6,C.nut);const Wt=seg(f,.25,.9);for(let i=0;i<Math.round(30*Wt);i++)circ(146+(rnd(i*6+2)-.5)*120,lvl+8+rnd(i*5+3)*90,2.2,C.waste)}});
+  const n=Math.round(lerp(3,48,clamp((lg-5)/4,0,1)));lensBg(146,130,90);ctx.save();ctx.beginPath();ctx.arc(146,130,88,0,TAU);ctx.clip();
+  cellField(146,130,90,n,T,{div:ph===1,dead:ph===3?seg(f,.72,1)*.85:0,grow:ph===0?1+.25*seg(f,0,.16):1});ctx.restore();lensRing(146,130,90);
+  const G=axes(340,40,430,280,{x0:0,x1:1,y0:4.5,y1:9.5,yt:[[5,"10⁵"],[6,"10⁶"],[7,"10⁷"],[8,"10⁸"],[9,"10⁹"]],xt:[[0,"0"],[.25,"6"],[.5,"12"],[.75,"18"],[1,"24"]],xl:"Time (hours)",yl:"Living cells per mL (log scale)",ylOff:50});
+  PH.forEach((p,i)=>{if(f>=p[0]){const x0=G.X(p[0]),x1=G.X(Math.min(f,p[1]));ctx.fillStyle=hexA(C[p[3]],.16);ctx.fillRect(x0,40,x1-x0,280);txt((G.X(p[0])+G.X(p[1]))/2,54,p[2],{size:12.5,weight:700,align:"center",color:i===ph?C.ink:C["ink-soft"]})}});
+  plotFn(curveLog,0,1,340,40,430,280,4.5,9.5,C.ink,3,null,f);circ(G.X(f),G.Y(lg),6,C[PH[ph][3]],C.panel,2);
+  // nutrients and waste bars
+  const S=1-seg(f,.2,.5),Wt=seg(f,.25,.9);
+  panelBox(300,372,488,96);
+  txt(316,396,"Nutrients",{size:13,weight:700});hgaugeBar(410,388,240,16,S,C.nut);txt(662,396,Math.round(S*100)+"%",{size:13,mono:true,weight:700});
+  txt(316,426,"Waste and acid",{size:13,weight:700});hgaugeBar(430,418,220,16,Wt,C.waste);txt(662,426,Math.round(Wt*100)+"%",{size:13,mono:true,weight:700});
+  txt(316,452,["Lag: adjusting, not dividing yet","Log: dividing at a steady rate","Stationary: new cells = dying cells","Death: more cells die than divide"][ph],{size:13,weight:600,color:C["ink-soft"]});
+}
+function hgaugeBar(x,y,w,h,f,col){rr(x,y,w,h,h/2);ctx.fillStyle=C.sunk;ctx.fill();if(f>0){rr(x,y,Math.max(h,w*clamp(f,0,1)),h,h/2);ctx.fillStyle=col;ctx.fill()}}
+
+/* ---------- 5 lag and log ---------- */
+function sceneLagLog(T){
+  const L=12,t=P(T,L)*L;
+  panelBox(12,12,380,456,{stroke:C.lag,lw:2});title(26,32,"Lag phase: getting ready",C.lag);
+  {const g=seg(t,.5,10);const cx=200,cy=190;const R=48+16*g;
+    for(let i=0;i<14;i++){const f=P(T*.25+i/14,1);const a=i/14*TAU;const d=lerp(150,R+4,f);circ(cx+Math.cos(a)*d,cy+Math.sin(a)*d*.8,3,hexA(C.nut,1-seg(f,.85,1)))}
+    rod(cx,cy,0,R*1.6,R*.7,{dna:false,lw:2});
+    const nE=Math.round(4+g*22);for(let i=0;i<nE;i++){const a=rnd(i*3)*TAU,d=rnd(i*7)*.8;const x=cx+Math.cos(a)*d*R*1.25,y=cy+Math.sin(a)*d*R*.5;if(i%3===0)circ(x,y,3.4,C.gold,hexA(C.ink,.3),.8);else circ(x,y,2.4,hexA(C.panel,.85))}
+    lead(cx-40,cy-6,60,90,"Ribosomes and new enzymes",{align:"left"});
+    label(cx,cy+90,"Cell gets bigger, but does not divide yet",{size:12.5,weight:600,align:"center"});
+    panelBox(40,312,324,40);txt(56,332,"Cells:",{size:13,weight:600});txt(110,332,"1",{size:18,mono:true,weight:700});txt(140,332,"(no change)",{size:13,color:C["ink-soft"]});
+    miniHL(40,368,324,86,0,1,T)}
+  panelBox(404,12,384,456,{stroke:C.logp,lw:2});title(418,32,"Log phase: steady doubling",C.logp);
+  {const per=2;const k=Math.floor(t/per)%5;const ph=P(t,per);const n=1<<k;const cols=Math.ceil(Math.sqrt(n*2)),rows=Math.ceil(n/cols);
+    for(let i=0;i<n;i++){const c=i%cols,r=Math.floor(i/cols);const x=596+(c-(cols-1)/2)*Math.min(70,300/cols),y=180+(r-(rows-1)/2)*Math.min(60,200/rows);const s=n>8?.6:n>2?.8:1;
+      fission(x,y,0,22*s,10*s,seg(ph,.45,.98),{ring:false,lw:1.2,septum:true,dna:n<=4})}
+    panelBox(432,312,328,40);txt(448,332,"Cells:",{size:13,weight:600});txt(504,332,String(n)+" → "+String(n*2),{size:18,mono:true,weight:700,color:C.accent});txt(616,332,"every generation",{size:13,color:C["ink-soft"]});
+    miniHL(432,368,328,86,1,1,T)}
+}
+/* mini curve with one phase highlighted */
+function miniHL(x,y,w,h,ph,f,T){panelBox(x,y,w,h,{fill:hexA(C.panel,.7),stroke:C["rule-soft"]});const gx=x+10,gy=y+10,gw=w-20,gh=h-30;
+  PH.forEach((p,i)=>{if(i===ph){ctx.fillStyle=hexA(C[p[3]],.22);ctx.fillRect(gx+p[0]*gw,gy,(p[1]-p[0])*gw,gh)}txt(gx+(p[0]+p[1])/2*gw,gy+gh+10,p[2],{size:12,align:"center",weight:i===ph?700:500,color:i===ph?C.ink:C["ink-soft"]})});
+  plotFn(curveLog,0,1,gx,gy,gw,gh,4.5,9.5,C.ink,2.2);const p=PH[ph];const fx=p[0]+(p[1]-p[0])*P(T*.15,1);circ(gx+fx*gw,gy+gh-(curveLog(fx)-4.5)/5*gh,4.5,C[p[3]],C.panel,1.5)}
+
+/* ---------- 6 stationary and death ---------- */
+function sceneStatDeath(T){
+  const L=12,t=P(T,L)*L;
+  panelBox(12,12,380,456,{stroke:C.stat,lw:2});title(26,32,"Stationary: new cells = dying cells",C.stat);
+  {const cx=200,cy=170;circ(cx,cy,120,mix(C.broth,C.panel,.35),C["broth-edge"],1.5);
+    for(let i=0;i<5;i++)circ(cx+(rnd(i*13)-.5)*200,cy+(rnd(i*17)-.5)*200,2.6,C.nut);
+    for(let i=0;i<40;i++){const a=rnd(i*5+9)*TAU,d=Math.sqrt(rnd(i*11+3))*112;circ(cx+Math.cos(a)*d,cy+Math.sin(a)*d,2.2,C.waste)}
+    const cyc=P(t,3);const born=Math.floor(t/3);
+    for(let i=0;i<20;i++){const a=rnd(i*7.7)*TAU,d=Math.sqrt(rnd(i*3.9+1))*92;const x=cx+Math.cos(a)*d,y=cy+Math.sin(a)*d;const ang=rnd(i*2.2)*TAU;
+      const isDiv=i===(born*3)%20,isDie=i===(born*3+7)%20,isSp=i===13;
+      if(isDiv)fission(x,y,ang,8,4,seg(cyc,.1,.8),{ring:false,dna:false,septum:false,lw:1});
+      else if(isDie){rod(x,y,ang,9,4,{a:1-seg(cyc,.2,.8),dna:false});rod(x,y,ang,9,4,{dead:true,a:seg(cyc,.2,.8)})}
+      else if(isSp){rod(x,y,ang,15,7,{dna:false});spore(x+Math.cos(ang)*6,y+Math.sin(ang)*6,4.6*(.3+.7*seg(P(T,6),0,.6)))}
+      else if(i===17||i===3)rod(x,y,ang,9,4,{dead:true});else rod(x,y,ang,9,4,{dna:false})}
+    const di=(born*3)%20,de=(born*3+7)%20;const pa=(i)=>{const a=rnd(i*7.7)*TAU,d=Math.sqrt(rnd(i*3.9+1))*92;return [cx+Math.cos(a)*d,cy+Math.sin(a)*d]};
+    const [dx,dy]=pa(di),[ex,ey]=pa(de);label(dx,dy-20,"+1 new",{size:12,weight:700,color:C.good,border:C.good,a:seg(cyc,.5,.6)*(1-seg(cyc,.92,1))});label(ex,ey-20,"−1 dies",{size:12,weight:700,color:C.bad,border:C.bad,a:seg(cyc,.5,.6)*(1-seg(cyc,.92,1))});
+    lead(cx+Math.cos(rnd(13*7.7)*TAU)*Math.sqrt(rnd(13*3.9+1))*92,cy+Math.sin(rnd(13*7.7)*TAU)*Math.sqrt(rnd(13*3.9+1))*92,360,300,"Some make endospores",{size:12,align:"right"});
+    txt(30,306,"Few nutrients left",{size:12.5,weight:600,color:C.nut});txt(30,324,"Waste and acid build up",{size:12.5,weight:600,color:C.waste});
+    miniHL(40,368,324,86,2,1,T)}
+  panelBox(404,12,384,456,{stroke:C.death,lw:2});title(418,32,"Death: exponential decline",C.death);
+  {const k=Math.floor(t/2.4)%4;const cyc=P(t,2.4);const n0=40;const alive=[40,12,4,2][k],next=[12,4,2,2][k];const cnt=["1,000,000","100,000","10,000","1,000"][k];
+    for(let i=0;i<n0;i++){const c=i%8,r=Math.floor(i/8);const x=470+c*36,y=90+r*40;const isA=i<alive,willDie=i>=next&&i<alive;
+      if(!isA)rod(x,y,.3,10,4.4,{dead:true});else if(willDie){const g=seg(cyc,.4,.9);rod(x,y,.3,10,4.4,{a:1-g,dna:false});rod(x,y,.3,10,4.4,{dead:true,a:g})}
+      else{rod(x,y,.3,10,4.4,{dna:false});if(k>=2||i<2)circ(x,y,16,null,C.gold,2)}}
+    panelBox(432,300,328,52);txt(448,318,"Living cells per mL",{size:12.5,color:C["ink-soft"]});txt(448,338,cnt,{size:18,mono:true,weight:700,color:C.death});txt(744,330,"−90% each step",{size:12.5,weight:600,align:"right"});
+    label(596,282,"Gold ring: persister cells survive longer",{size:12,weight:600,align:"center",a:seg(t,3,4)});
+    miniHL(432,368,328,86,3,1,T)}
+}
+
+/* ---------- 7 continuous culture ---------- */
+function sceneChemostat(T){
+  title(24,28,"Chemostat: fresh medium in, used culture out");
+  // reservoir bottle
+  const bx=60,by=60;rr(bx,by,110,170,14);ctx.fillStyle=hexA(C.glass,.4);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke();rr(bx+4,by+40,102,126,10);ctx.fillStyle=C.broth;ctx.fill();
+  for(let i=0;i<16;i++)circ(bx+14+rnd(i)*82,by+52+rnd(i+5)*104,2.6,C.nut);txt(bx+55,by+186,"Fresh medium",{size:12.5,weight:700,align:"center"});
+  // tube to pump to vessel
+  poly([[bx+55,by],[bx+55,by-20],[260,by-20],[260,110],[360,110],[360,140]],C["glass-edge"],5);poly([[bx+55,by],[bx+55,by-20],[260,by-20],[260,110],[360,110],[360,140]],hexA(C.broth,.9),2.4);
+  // pump
+  circ(260,by+10,22,C.panel,C["ink-soft"],2);ctx.save();ctx.translate(260,by+10);ctx.rotate(T*2);for(let k=0;k<3;k++){ctx.rotate(TAU/3);circ(14,0,4,C["ink-soft"])}ctx.restore();txt(260,by+44,"Pump",{size:12,align:"center",color:C["ink-soft"],weight:600});
+  // drops
+  for(let k=0;k<3;k++){const f=P(T*.8+k/3,1);circ(360,140+f*40,3.5,hexA(C.nut,1-seg(f,.8,1)))}
+  // vessel
+  const vx=290,vy=170,vw=180,vh=200;rr(vx,vy,vw,vh,16);ctx.fillStyle=hexA(C.glass,.35);ctx.fill();ctx.save();rr(vx,vy,vw,vh,16);ctx.clip();ctx.fillStyle=mix(C.broth,isDark()?"#D8E2E6":"#FFFFFF",.35);ctx.fillRect(vx,vy+30,vw,vh);
+  for(let i=0;i<22;i++){const x=vx+20+rnd(i*3)*(vw-40),y=vy+46+rnd(i*7)*(vh-60);fission(x+Math.sin(T+i)*3,y+Math.cos(T*.8+i)*3,rnd(i)*TAU,6,3,P(T*.45+rnd(i*2),1),{ring:false,dna:false,septum:false,lw:1})}
+  for(let i=0;i<6;i++)circ(vx+20+rnd(i*31)*(vw-40),vy+50+rnd(i*17)*(vh-70),2.4,C.nut);
+  ctx.restore();rr(vx,vy,vw,vh,16);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2.2;ctx.stroke();line(vx,vy+30,vx+vw,vy+30,C["broth-edge"],1.4);
+  txt(vx+vw/2,vy+vh+18,"Culture vessel: volume stays the same",{size:12.5,weight:700,align:"center"});
+  // overflow
+  poly([[vx+vw,vy+34],[560,vy+34],[560,220]],C["glass-edge"],5);poly([[vx+vw,vy+34],[560,vy+34],[560,220]],hexA(C.broth,.9),2.4);
+  for(let k=0;k<3;k++){const f=P(T*.8+k/3+.5,1);const x=lerp(vx+vw,560,seg(f,0,.5)),y=f<.5?vy+34:lerp(vy+34,240,seg(f,.5,1));rod(x,y,0,5,2.4,{dna:false,a:1-seg(f,.9,1)})}
+  rr(520,230,90,110,12);ctx.fillStyle=hexA(C.glass,.4);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke();rr(524,280,82,56,8);ctx.fillStyle=mix(C.broth,C.waste,.3);ctx.fill();txt(565,356,"Overflow out",{size:12.5,weight:700,align:"center"});
+  label(380,148,"In",{size:12,weight:700,align:"center"});
+  // graph
+  const G=axes(640,60,140,170,{x0:0,x1:1,y0:4.5,y1:9.5,yt:[[5,"10⁵"],[7,"10⁷"],[9,"10⁹"]],xt:[[0,"0"],[.75,"time →"]]});
+  const f=P(T,14);plotFn(curveLog,0,1,640,60,140,170,4.5,9.5,hexA(C["ink-soft"],.9),2,[5,4],f);
+  plotFn(x=>x<.3?curveLog(x):lerp(curveLog(.3),8.2,smooth(seg(x,.3,.45))),0,1,640,60,140,170,4.5,9.5,C.accent,3,null,f);
+  panelBox(630,280,158,74);line(642,298,666,298,C["ink-soft"],2,[5,4]);txt(672,298,"Closed flask",{size:12});line(642,322,666,322,C.accent,3);txt(672,322,"Chemostat",{size:12,weight:700});txt(642,342,"stays in log phase",{size:12,color:C["ink-soft"]});
+  panelBox(24,400,752,64);wrapText("Nutrients are added and culture is removed at the same rate. Food never runs out and waste never piles up, so cells keep dividing at a steady rate for as long as the pump runs.",40,422,720,20,{size:13.5});
+}
+
+
+/* ================= scenes: Part 3 measuring + Part 4 biofilms ================= */
+
+/* ---------- 8 direct microscopic count ---------- */
+const DC_COUNTS=[8,7,9,8,8];const DC_SQ=[[0,0],[2,0],[1,1],[0,2],[2,2]];
+function dcCells(){const out=[];for(let r=0;r<3;r++)for(let c=0;c<3;c++){const si=DC_SQ.findIndex(s=>s[0]===c&&s[1]===r);const n=si>=0?DC_COUNTS[si]:6+Math.floor(rnd(r*3+c)*4);
+  for(let k=0;k<n;k++){out.push({c,r,x:(c+.12+.76*rnd(k*7.1+r*31+c*13)),y:(r+.12+.76*rnd(k*3.3+r*17+c*29+5)),a:rnd(k*5+c+r*9)*TAU,dead:si>=0&&k===n-2&&si%2===0,si,k})}}return out}
+const DCC=dcCells();
+function sceneDirect(T){
+  const L=16,t=P(T,L)*L;
+  // slide
+  panelBox(12,12,300,196);title(26,32,"Counting chamber slide");
+  rr(30,70,264,70,6);ctx.fillStyle=hexA(C.glass,.7);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.5;ctx.stroke();
+  rr(120,62,84,86,4);ctx.fillStyle=hexA(C.glass,.4);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.stroke();
+  for(let i=0;i<=6;i++){line(132+i*10,84,132+i*10,128,hexA(C.ink,.5),.8);line(132,84+i*7.3,192,84+i*7.3,hexA(C.ink,.5),.8)}
+  txt(162,166,"Grid of known volume under a coverslip",{size:12,align:"center",color:C["ink-soft"]});
+  line(200,110,350,140,hexA(C["ink-soft"],.6),1.2,[4,3]);line(200,110,360,330,hexA(C["ink-soft"],.6),1.2,[4,3]);
+  // lens
+  const cx=540,cy=236,R=196,sq=84,gx=cx-sq*1.5,gy=cy-sq*1.5;
+  lensBg(cx,cy,R,mix(C.broth,C.panel,.45));ctx.save();ctx.beginPath();ctx.arc(cx,cy,R-2,0,TAU);ctx.clip();
+  for(let i=0;i<=3;i++){line(gx+i*sq,gy-60,gx+i*sq,gy+3*sq+60,hexA(C.ink,.55),2);line(gx-60,gy+i*sq,gx+3*sq+60,gy+i*sq,hexA(C.ink,.55),2)}
+  const cur=Math.min(4,Math.floor(seg(t,.5,12.5)*5));const prog=P(seg(t,.5,12.5)*5,1);const doneAll=t>12.5;
+  DC_SQ.forEach((s,i)=>{if(i<cur||(i===cur&&!doneAll)||doneAll){const on=i===cur&&!doneAll;ctx.fillStyle=hexA(C.accent,on?.16:.07);ctx.fillRect(gx+s[0]*sq+1,gy+s[1]*sq+1,sq-2,sq-2);if(on){rr(gx+s[0]*sq+2,gy+s[1]*sq+2,sq-4,sq-4,3);ctx.strokeStyle=C.accent;ctx.lineWidth=3;ctx.stroke()}}});
+  DCC.forEach(c=>{const x=gx+c.x*sq,y=gy+c.y*sq;rod(x,y,c.a,8,3.4,{dead:c.dead,dna:false});
+    if(c.si>=0&&(c.si<cur||doneAll||(c.si===cur&&c.k<Math.floor(prog*1.25*DC_COUNTS[c.si]))))tick(x+9,y-9,4,C.accent)});
+  ctx.restore();lensRing(cx,cy,R);
+  // a dead cell note
+  const dead=DCC.find(c=>c.dead&&c.si===0);if(dead)lead(gx+dead.x*sq,gy+dead.y*sq,gx-80,gy-40,"Dead cell: still counted",{size:12});
+  // tally
+  panelBox(12,220,300,248);title(26,240,"Tally");
+  DC_SQ.forEach((s,i)=>{const show=i<cur||doneAll||(i===cur);const n=i<cur||doneAll?DC_COUNTS[i]:i===cur?Math.min(DC_COUNTS[i],Math.floor(prog*1.25*DC_COUNTS[i])):0;
+    txt(30,268+i*22,"Square "+(i+1),{size:13,color:show?C.ink:C["ink-faint"]});txt(150,268+i*22,show?String(n):"–",{size:13,mono:true,weight:700})});
+  const a=seg(t,12.6,13.4);withA(a,()=>{line(26,376,296,376,C.rule,1);txt(30,394,"Average: 40 ÷ 5 = 8 per square",{size:13,weight:600});txt(30,416,"Each square holds 1/20,000,000 mL",{size:12,color:C["ink-soft"]});txt(30,444,"8 × 2 × 10⁷ = 1.6 × 10⁸ cells/mL",{size:14,weight:700,mono:true,color:C.accent})});
+}
+
+/* ---------- 9 serial dilution ---------- */
+const DIL_LAB=["Stock","10⁻¹","10⁻²","10⁻³","10⁻⁴","10⁻⁵","10⁻⁶"];
+function sceneDilution(T){
+  const L=16,t=P(T,L)*L;const per=2;const k=Math.floor(seg(t,.5,12.5)*6);const ph=P(seg(t,.5,12.5)*6,1);const doneAll=t>=12.5;
+  title(24,28,"Tenfold serial dilution: 1 mL into 9 mL, six times");
+  const xs=i=>70+i*110,ty=130,tw=46,th=170;
+  for(let i=0;i<7;i++){const reached=i===0||i<=k||doneAll||(i===k+1&&ph>.6);const conc=reached?Math.pow(.62,i):0;
+    tube(xs(i),ty,tw,th,{level:.58,col:mix(C.broth,isDark()?"#D8E2E6":"#FFFFFF",reached?.5*conc+.05:0),cap:null,inside:lvl=>{if(!reached)return;const n=[60,30,16,9,5,3,2][i];for(let q=0;q<n;q++)circ(xs(i)+(rnd(q*3+i)-.5)*30,lvl+8+rnd(q*7+i*5)*(ty+th-lvl-20),1.8,C.bact)}});
+    txt(xs(i),ty+th+20,DIL_LAB[i],{size:14,mono:true,weight:700,align:"center"});
+    if(i>0)txt(xs(i),ty-24,"9 mL",{size:12,align:"center",color:C["ink-soft"]});
+    if(i>0)txt(xs(i),ty+th+40,"1/"+Math.pow(10,i).toLocaleString("en-US"),{size:12,mono:true,align:"center",color:C["ink-soft"]})}
+  // pipette motion
+  if(!doneAll){const from=xs(k),to=xs(k+1);let px,py,fill;
+    if(ph<.25){px=from;py=lerp(ty+10,ty+120,smooth(ph/.25));fill=0}
+    else if(ph<.35){px=from;py=ty+120;fill=seg(ph,.25,.35)}
+    else if(ph<.7){const u=smooth(seg(ph,.35,.7));px=lerp(from,to,u);py=ty+120-Math.sin(u*Math.PI)*110;fill=1}
+    else if(ph<.85){px=to;py=ty+110;fill=1-seg(ph,.7,.85)}
+    else{px=to;py=lerp(ty+110,ty+10,seg(ph,.85,1));fill=0}
+    pipette(px,py,150,{fill,fillCol:mix(C.broth,C.bact,.2),bulb:C.act3});
+    if(ph>.5&&ph<.72)label(lerp(from,to,.5),ty-62,"1 mL",{size:13,weight:700,align:"center",border:C.act3});
+    if(ph>.85){const sw=seg(ph,.85,1);ctx.save();ctx.strokeStyle=hexA(C.accent,1-sw);ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(to,ty+th-30,18,6,0,0,TAU*sw);ctx.stroke();ctx.restore();txt(to,ty+th-60,"mix",{size:12,align:"center",weight:700,color:C.accent})}}
+  panelBox(24,392,752,76);
+  txt(40,414,"Each tube: 1 mL sample + 9 mL blank = 10 mL total, so 1/10 as concentrated (a 10⁻¹ step).",{size:13.5});
+  txt(40,444,"Steps multiply: 10⁻¹ × 10⁻¹ × 10⁻¹ ... six steps = 10⁻⁶ (one millionth).",{size:13.5,weight:700});
+}
+
+/* ---------- 10 plate count ---------- */
+const PC=[[3,15000,"Lawn: too many"],[4,1500,"Over 300: TNTC"],[5,150,"150: count this one"],[6,15,"Under 30: too few"]];
+function scenePlateCount(T){
+  const L=18,t=P(T,L)*L;const inc=smooth(seg(t,.5,5));
+  title(24,28,"Spread 0.1 mL from each tube, incubate, then count");
+  PC.forEach((p,i)=>{const x=110+i*193,y=180,r=74;
+    tube(x,44,26,64,{level:.6,col:mix(C.broth,"#FFFFFF",.3)});txt(x+24,82,"10⁻"+sup(p[0]).slice(0),{size:13,mono:true,weight:700});arrow(x,114,x,y-r-12,C["ink-soft"],1.6);
+    dish(x,y,r,{inside:()=>{
+      if(p[1]>5000){ctx.fillStyle=hexA(mix(C.panel,C["agar-edge"],.15),.85*inc);ctx.beginPath();ctx.arc(x,y,r*.92,0,TAU);ctx.fill();for(let q=0;q<500;q++){const a=rnd(q*1.3)*TAU,d=Math.sqrt(rnd(q*2.7))*r*.92;circ(x+Math.cos(a)*d,y+Math.sin(a)*d,1.6*inc,hexA(mix(C.panel,C["agar-edge"],.4),.9))}}
+      else{const n=p[1]>1000?1100:p[1];const cr=p[1]>1000?1.5:p[1]>100?3.1:4.4;discPts(n,i*11+2,.9).forEach((q,qi)=>colony(x+q[0]*r,y+q[1]*r,cr*(.7+.5*q[2])*inc,mix(C.panel,C["agar-edge"],.3)))}}});
+    const ok=i===2;txt(x,y+r+22,p[2],{size:12.5,weight:700,align:"center",color:ok?C.accent:C["ink-soft"]});
+    if(inc>.95){if(ok)tick(x+r-6,y-r+8,8,C.accent);else cross(x+r-6,y-r+8,7,C.bad)}
+    if(ok&&t>5.5){const cnt=Math.min(150,Math.floor(seg(t,5.5,9)*150));panelBox(x-36,y-16,72,32,{fill:hexA(C.panel,.92),stroke:C.accent,lw:2});txt(x,y,String(cnt),{size:18,mono:true,weight:700,align:"center",color:C.accent})}});
+  txt(24,302,"Incubation: "+Math.round(inc*24)+" h at 37 °C",{size:12.5,mono:true,color:C["ink-soft"]});
+  panelBox(24,320,752,148);title(40,340,"Count only plates with 30 to 300 colonies, then calculate");
+  const s=["CFU/mL = colonies ÷ (dilution × volume plated)","= 150 ÷ (10⁻⁵ × 0.1 mL)","= 150 ÷ 10⁻⁶ mL","= 1.5 × 10⁸ CFU per mL in the original sample"];
+  s.forEach((q,i)=>{const a=seg(t,9.5+i*1.4,10.2+i*1.4);if(a>0)withA(a,()=>txt(56,368+i*25,q,{size:i===3?15:14,mono:true,weight:i===0||i===3?700:500,color:i===3?C.accent:C.ink}))});
+  txt(760,452,"CFU = colony-forming unit",{size:12,align:"right",color:C["ink-soft"]});
+}
+
+/* ---------- 11 most probable number ---------- */
+const MPN_ROW=[["10 mL",5],["1 mL",3],["0.1 mL",1]];
+function sceneMPN(T){
+  const L=16,t=P(T,L)*L;const inc=seg(t,.2,6);
+  title(24,28,"Most probable number: which tubes turn positive?");
+  MPN_ROW.forEach((r,ri)=>{const y=58+ri*128;txt(30,y+44,r[0],{size:14,mono:true,weight:700});txt(30,y+64,"sample each",{size:12,color:C["ink-soft"]});
+    for(let j=0;j<5;j++){const x=170+j*58;const pos=j<r[1]&&rnd(ri*5+j)>-1;const g=pos?inc:0;
+      tube(x,y,30,100,{level:.78,col:mix(C.broth,isDark()?"#8A8F7A":"#C9C2A0",.75*g),inside:lvl=>{for(let q=0;q<Math.round(30*g);q++)circ(x+(rnd(q*3+j+ri*7)-.5)*24,lvl+4+rnd(q*5+j)*70,1.4,hexA(C.bact,.8));
+        // inverted Durham tube with a gas bubble
+        rr(x-6,lvl+24,12,40,4);ctx.fillStyle=hexA(C.glass,.5);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1;ctx.stroke();
+        if(g>0){rr(x-5,lvl+25,10,14*g,3);ctx.fillStyle=isDark()?"#E8EEF1":"#FFFFFF";ctx.fill();for(let q=0;q<3;q++){const f=P(T*.6+q/3,1);bubble(x+(q-1)*6,lerp(lvl+60,lvl+4,f),2,g*(1-f))}}}});
+      if(t>6.5){if(pos)tick(x,y+118,6,C.accent);else cross(x,y+118,5,C["ink-soft"])}}
+    if(t>7+ri*.8)label(500,y+50,r[1]+" of 5 positive",{size:13,weight:700,border:C.accent})});
+  txt(170,466,"Positive = cloudy with gas trapped in the small tube",{size:12.5,color:C["ink-soft"]});
+  const a=seg(t,9.5,10.5);
+  panelBox(600,40,188,300,{stroke:a>0?C.accent:C.rule,lw:a>0?2:1.2});title(612,60,"MPN table (part)");
+  [["5-2-0","49"],["5-3-0","79"],["5-3-1","110"],["5-3-2","140"]].forEach((r,i)=>{const y=96+i*36;const hl=i===2&&a>0;if(hl){rr(606,y-15,176,30,5);ctx.fillStyle=hexA(C.accent,.18*a+.02);ctx.fill()}
+    txt(620,y,r[0],{size:15,mono:true,weight:hl?700:500});txt(770,y,r[1],{size:15,mono:true,weight:hl?700:500,align:"right"})});
+  txt(612,250,"pattern → MPN per 100 mL",{size:12,color:C["ink-soft"]});
+  withA(a,()=>{wrapText("Pattern 5-3-1 means about 110 bacteria per 100 mL of water",612,284,170,18,{size:13,weight:700,color:C.accent})});
+}
+
+/* ---------- 12 turbidity ---------- */
+function sceneTurbidity(T){
+  const L=14,t=P(T,L)*L;const d=smooth(seg(t,.5,6))*(1-smooth(seg(t,12,13.6)));const A=1.2*d;const Tp=Math.pow(10,-A)*100;
+  title(24,28,"Spectrophotometer: cloudy broth blocks light");
+  const y=150;
+  // lamp
+  glow(60,y,40,C.beam,.8);circ(60,y,16,C.beam,hexA(C.ink,.4),1.2);txt(60,y+46,"Light",{size:12.5,weight:700,align:"center"});
+  // filter
+  ctx.beginPath();ctx.moveTo(170,y-30);ctx.lineTo(196,y+26);ctx.lineTo(144,y+26);ctx.closePath();ctx.fillStyle=hexA(C.glass,.7);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.5;ctx.stroke();txt(170,y+46,"600 nm",{size:12.5,weight:700,align:"center",mono:true});
+  // cuvette
+  rr(310,y-60,60,120,4);ctx.fillStyle=hexA(C.glass,.4);ctx.fill();ctx.save();rr(312,y-44,56,102,3);ctx.clip();ctx.fillStyle=mix(C.broth,isDark()?"#D8E2E6":"#FFFFFF",.15+.6*d);ctx.fillRect(300,y-50,80,120);
+  for(let i=0;i<Math.round(70*d);i++)rod(314+rnd(i*3)*52,y-40+rnd(i*7)*94,rnd(i)*TAU,4,1.8,{dna:false});ctx.restore();rr(310,y-60,60,120,4);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.8;ctx.stroke();
+  txt(340,y+80,"Cuvette of broth",{size:12.5,weight:700,align:"center"});
+  // photons
+  for(let i=0;i<26;i++){const f=P(T*.5+i/26,1);const x=lerp(80,560,f);const sc=rnd(i*13)<d*.9;
+    if(x<170)circ(x,y+(rnd(i)-.5)*10,3,C.beam);
+    else if(x<330)circ(x,y+(rnd(i)-.5)*6,3,C.act3);
+    else if(!sc)circ(x,y+(rnd(i)-.5)*6,3,C.act3);
+    else{const u=(x-330)/230;circ(330+u*120*Math.cos(rnd(i*5)*2-1),y+u*120*Math.sin(rnd(i*5)*4-2),3,hexA(C.act3,1-u))}}
+  // detector
+  rr(540,y-40,40,80,6);ctx.fillStyle=C["ink-soft"];ctx.fill();txt(560,y+60,"Detector",{size:12.5,weight:700,align:"center"});
+  // meter
+  panelBox(610,y-70,170,150);title(622,y-50,"Reading");txt(622,y-20,"Absorbance (OD)",{size:12.5,color:C["ink-soft"]});txt(622,y+6,A.toFixed(2),{size:26,mono:true,weight:700,color:C.accent});
+  txt(622,y+36,"Light through",{size:12.5,color:C["ink-soft"]});txt(622,y+60,Math.round(Tp)+"%",{size:20,mono:true,weight:700});
+  // standard curve
+  const G=axes(90,300,260,130,{x0:0,x1:1,y0:0,y1:1.3,yt:[[0,"0"],[.5,"0.5"],[1,"1.0"]],xt:[[0,"0"],[.5,"5 × 10⁸"],[1,"10⁹"]],xl:"Cells per mL",yl:"OD",ylOff:36});
+  plotFn(x=>1.2*x,0,1,90,300,260,130,0,1.3,hexA(C.accent,.5),2,[5,4]);circ(G.X(d),G.Y(A),6,C.accent,C.panel,2);
+  panelBox(420,300,360,160);wrapText("More cells scatter more light, so less reaches the detector and absorbance goes up. Fast, but it counts living and dead cells alike, and broth only looks cloudy above about 10 million cells per mL. A standard curve turns OD into a cell count.",436,322,330,19,{size:13})
+}
+
+/* ---------- 13 biofilm formation ---------- */
+const BF_CL=[160,400,630];
+function bfMound(xc,base,w,h,T){ctx.beginPath();ctx.moveTo(xc-w,base);for(let i=0;i<=30;i++){const u=i/30;const X=xc-w+u*2*w;const Y=base-h*Math.pow(Math.sin(u*Math.PI),.8)*(1+.06*Math.sin(u*9+T))-(u>.3&&u<.7?h*.25*Math.sin((u-.3)/.4*Math.PI):0);ctx.lineTo(X,Y)}ctx.closePath()}
+function sceneBiofilm(T){
+  const L=18,t=P(T,L)*L;const st=t<3.4?0:t<7?1:t<10.4?2:t<14?3:4;
+  stepRow(16,14,768,["Attach","Microcolony","Matrix","Mature","Disperse"],st,C.act4);
+  const base=410;rr(0,base,800,70,0);ctx.fillStyle=C.cath;ctx.fill();line(0,base,800,base,mix(C.cath,C.ink,.4),2);txt(400,base+34,"Surface: a catheter, a tooth, a pipe",{size:13,weight:600,align:"center",color:C.ink});
+  const grow=seg(t,3.4,7),mat=seg(t,7,10.4),mature=seg(t,10.4,14),disp=seg(t,14,17.5);
+  BF_CL.forEach((xc,ci)=>{
+    // swimming in
+    const land=seg(t,ci*.6,2.4+ci*.5);
+    if(land<1){const sx=xc-140+ci*30,sy=60+ci*20;const x=lerp(sx,xc,smooth(land)),y=lerp(sy,base-10,smooth(land));rod(x+Math.sin(T*3+ci)*4*(1-land),y,lerp(.6,0,land)+Math.sin(T*4)*.2*(1-land),12,5,{flag:true,t:T})}
+    else{const h=lerp(14,140,smooth(grow)*.5+smooth(mature)*.5),w=lerp(24,95,smooth(grow)*.6+smooth(mature)*.4);
+      if(mat>0){ctx.save();ctx.globalAlpha*=mat;bfMound(xc,base,w+14,h+16,T*.5);ctx.fillStyle=hexA(C.eps,.55);ctx.fill();ctx.strokeStyle=hexA(mix(C.eps,C.ink,.4),.7);ctx.lineWidth=1.3;ctx.stroke();ctx.restore()}
+      const n=Math.round(lerp(1,46,smooth(grow)*.55+smooth(mature)*.45));
+      for(let k=0;k<n;k++){const u=rnd(k*3.7+ci)*2-1;const hh=h*Math.pow(Math.max(0,1-u*u),.6);const X=xc+u*w*.85,Y=base-8-rnd(k*5.1+ci*2)*Math.max(0,hh-14);const gone=disp>0&&Y<base-h*.6&&k%3===0;
+        if(!gone)rod(X,Y,rnd(k)*TAU,8,3.6,{dna:false,pili:k===0&&grow<.2})}
+      if(disp>0)for(let k=0;k<4;k++){const f=seg(disp,k*.15,k*.15+.6);if(f<=0)continue;rod(xc+(k-1.5)*20+f*60*(k%2?1:-1),base-h-10-f*200,f*2+k,9,4,{flag:true,t:T,a:1-seg(f,.85,1)})}}
+  });
+  if(mature>0)for(let k=0;k<6;k++){const f=P(T*.5+k/6,1);const x=280+((k%2)?240:0)+f*0-0,y=base-16-k%3*28;arrow(lerp(BF_CL[k%2]+70,BF_CL[k%2+1]-70,f)-8,y,lerp(BF_CL[k%2]+70,BF_CL[k%2+1]-70,f)+8,y,hexA(C.o2,mature*(1-Math.abs(f-.5)*2)),2)}
+  const labs=[["Free-swimming cells land and grab on with pili",400,90],["Attached cells divide into small clusters",400,90],["Cells make a sticky matrix (EPS): sugars, proteins, DNA",400,90],["Towers form, with water channels carrying food in and waste out",400,90],["Some cells break free to start new biofilms",400,90]];
+  label(labs[st][1],labs[st][2],labs[st][0],{size:14,weight:700,align:"center",border:C.act4});
+  if(mature>.5)lead(BF_CL[1]+80,base-24,560,180,"Water channel",{size:12.5});
+  if(mat>.5)lead(BF_CL[0]+60,base-60,110,190,"Matrix (EPS)",{size:12.5});
+}
+
+/* ---------- 14 quorum sensing ---------- */
+function sceneQuorum(T){
+  const L=16,t=P(T,L)*L;const g=smooth(seg(t,.5,10));const n=Math.round(lerp(4,44,g));const AI=g*1.15;const on=AI>.75;const onA=seg(AI,.75,.9)*(1-seg(t,14.5,15.6));
+  panelBox(12,12,520,400);title(26,32,"A growing population");
+  const cx=272,cy=220;
+  for(let i=0;i<Math.round(160*g*g+8);i++){const a=rnd(i*2.3)*TAU+T*.1*(rnd(i)-.5),d=Math.sqrt(rnd(i*5.9))*230;const x=cx+Math.cos(a)*d*1.05,y=cy+Math.sin(a)*d*.75;if(x>20&&x<524&&y>44&&y<404)circ(x,y,2.3,hexA(C.ai,.85))}
+  for(let i=0;i<n;i++){const a=rnd(i*7.1)*TAU,d=Math.sqrt(rnd(i*3.1+4))*160;const x=cx+Math.cos(a)*d*1.3+Math.sin(T+i)*3,y=cy+Math.sin(a)*d*.95;rod(x,y,rnd(i)*TAU+Math.sin(T*.5+i)*.2,11,5,{dna:false,glow:onA})}
+  label(cx,392,on?"Crowded: everyone switches genes ON together":"Few cells: signal drifts away, genes stay OFF",{size:13,weight:700,align:"center",border:on?C.ai:C.rule});
+  // meter
+  panelBox(544,12,90,400);title(589,32,"Signal",null,"center");const my=60,mh=300;rr(574,my,30,mh,8);ctx.fillStyle=C.sunk;ctx.fill();const fh=mh*clamp(AI,0,1);rr(574,my+mh-fh,30,fh,8);ctx.fillStyle=C.ai;ctx.fill();
+  const th=my+mh*(1-.75);line(560,th,620,th,C.bad,2,[5,3]);txt(589,th-12,"threshold",{size:12,align:"center",weight:700,color:C.ink});txt(589,384,"autoinducer",{size:12,align:"center",color:C["ink-soft"]});
+  // inset
+  panelBox(646,12,142,400);title(717,32,"Inside one cell",null,"center");
+  txt(717,70,"signal",{size:12,align:"center",color:C["ink-soft"]});rod(717,150,0,58,34,{dna:false,lw:2});
+  rr(655,138,10,24,3);ctx.fillStyle=C.act4;ctx.fill();lead(660,138,690,100,"receptor",{size:12,align:"left"});
+  for(let k=0;k<3;k++){const f=P(T*.6+k/3,1);const x=on?lerp(650,662,f):lerp(662,650,f),y=128+k*16;circ(x-6,y+6,4,hexA(C.ai,on?1:.6*(1-f)))}
+  ctx.strokeStyle=on?C.dna:hexA(C.panel,.7);ctx.lineWidth=2.5;ctx.beginPath();for(let i=0;i<=20;i++){const X=690+i*3,Y=150+Math.sin(i*.9+T*2)*5;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.stroke();
+  if(on)arrow(670,150,686,150,C.ai,2);
+  rr(672,206,90,22,4);ctx.fillStyle=on?C.ai:C.sunk;ctx.fill();txt(717,217,on?"genes ON":"genes OFF",{size:12,weight:700,align:"center",color:on?"#10161A":C.ink});
+  wrapText("Examples: Vibrio fischeri glows; many pathogens build biofilm or release toxins",658,280,124,17,{size:12,color:C["ink-soft"]});
+  panelBox(12,422,776,46);txt(24,445,"Each cell releases a little signal. Only when many cells are packed together does the level pass the threshold.",{size:13.5});
+}
+
+/* ---------- 15 biofilms in health care ---------- */
+function sceneBiofilmCare(T){
+  const L=14,t=P(T,L)*L;const drug=seg(t,1.5,6);
+  panelBox(12,12,440,330);title(26,32,"Urinary catheter (cut open)");
+  const ty=110,th=150;rr(30,ty,404,th,20);ctx.fillStyle=C.cath;ctx.fill();ctx.strokeStyle=mix(C.cath,C.ink,.35);ctx.lineWidth=2;ctx.stroke();
+  rr(46,ty+16,372,th-32,14);ctx.fillStyle=mix(C.water,C.panel,.3);ctx.fill();
+  // biofilm on the inner walls
+  [[ty+16,1],[ty+th-16,-1]].forEach(([y0,sd],w)=>{ctx.beginPath();ctx.moveTo(46,y0);for(let i=0;i<=40;i++){const x=46+i/40*372;ctx.lineTo(x,y0+sd*(22+8*Math.sin(i*.9+w)))}ctx.lineTo(418,y0);ctx.closePath();ctx.fillStyle=hexA(C.eps,.75);ctx.fill();
+    for(let k=0;k<26;k++){const x=56+k*14+rnd(k+w*30)*6,dep=rnd(k*3+w)*20;const y=y0+sd*(4+dep);const deep=dep<9;rod(x,y,rnd(k*7)*TAU,6,2.8,{dna:false,col:deep?mix(C.bact,C.dead,.35):C.bact})}});
+  // free cells in lumen + drug
+  for(let k=0;k<8;k++){const x=70+((k*53+T*30)%330),y=ty+th/2+(rnd(k)-.5)*40;const hit=drug>rnd(k*5)*.8+.1;rod(x,y,rnd(k)*TAU+T,7,3,{dead:hit,dna:false})}
+  for(let k=0;k<Math.round(40*drug);k++){const x=50+((k*37+T*60)%360),y=ty+th/2+(rnd(k*9)-.5)*(th-60);const inMat=Math.abs(y-(ty+th/2))>th/2-44;circ(x,y,2.6,C.abx);}
+  lead(80,ty+30,60,ty-30,"Matrix slows the drug",{size:12.5,align:"left"});lead(300,ty+20,430,ty-30,"Deep, slow-growing cells survive",{size:12.5,align:"right"});lead(200,ty+th/2,200,ty+th+28,"Free-floating cells die",{size:12.5});
+  txt(30,322,"Biofilm cells can survive up to 1,000 times more drug.",{size:12.5,weight:600});
+  // tooth
+  panelBox(464,12,324,330);title(478,32,"Dental plaque");
+  const tx=626,tyy=60;ctx.beginPath();ctx.moveTo(tx-70,tyy+40);ctx.quadraticCurveTo(tx-80,tyy-10,tx-30,tyy);ctx.quadraticCurveTo(tx,tyy+14,tx+30,tyy);ctx.quadraticCurveTo(tx+80,tyy-10,tx+70,tyy+40);ctx.lineTo(tx+60,tyy+180);ctx.quadraticCurveTo(tx+50,tyy+240,tx+30,tyy+250);ctx.lineTo(tx+10,tyy+180);ctx.lineTo(tx-10,tyy+180);ctx.lineTo(tx-30,tyy+250);ctx.quadraticCurveTo(tx-50,tyy+240,tx-60,tyy+180);ctx.closePath();ctx.fillStyle=C.tooth;ctx.fill();ctx.strokeStyle=mix(C.tooth,C.ink,.4);ctx.lineWidth=2;ctx.stroke();
+  rr(480,tyy+150,292,120,10);ctx.fillStyle=hexA(C.gum,.85);ctx.fill();
+  const brush=P(T,7);const plaque=brush<.15?1-smooth(seg(brush,.05,.15)):smooth(seg(brush,.2,.9));
+  withA(plaque,()=>{ctx.beginPath();ctx.ellipse(tx-64,tyy+136,20,32,0,0,TAU);ctx.fillStyle=hexA(C.eps,.85);ctx.fill();for(let k=0;k<14;k++)coccus(tx-74+rnd(k)*18,tyy+110+rnd(k+3)*50,3.6,{col:C.gpos})});
+  for(let k=0;k<5;k++){const f=P(T*.7+k/5,1);rr(tx-120+f*40,tyy+90+k*12,6,6,1);ctx.fillStyle=hexA(isDark()?"#E8EEF1":"#FFFFFF",plaque*(1-f));ctx.fill();ctx.strokeStyle=hexA(C.ink,.3*plaque*(1-f));ctx.lineWidth=1;ctx.stroke()}
+  for(let k=0;k<4;k++){const f=P(T*.7+k/4+.3,1);circ(tx-50+f*10,tyy+130+k*8,2.6,hexA(C.acid,plaque*(1-f)))}
+  circ(tx-54,tyy+128,6+4*plaque,hexA(C.waste,.3+.3*plaque));
+  if(brush<.18){const bx=lerp(500,760,brush/.18);rr(bx-30,tyy+120,60,14,4);ctx.fillStyle=C.act6;ctx.fill();for(let k=0;k<8;k++)line(bx-26+k*7,tyy+134,bx-26+k*7,tyy+148,C.panel,2)}
+  lead(tx-66,tyy+150,480,tyy+262,"Sugar → acid → enamel damage",{size:12,align:"left"});
+  lead(tx-70,tyy+120,520,tyy+60,"Plaque: a biofilm",{size:12.5});
+  panelBox(12,354,776,114);title(26,374,"Why biofilms resist antibiotics");
+  [["1","Matrix slows and binds drugs"],["2","Inner cells grow slowly or rest"],["3","Shielded from white blood cells"],["4","Cells share resistance genes"]].forEach((r,i)=>{const x=26+i*190;badge(x+10,410,r[0],C.act4,11);wrapText(r[1],x+28,404,150,17,{size:12.5,weight:600})});
+  txt(26,452,"Infected catheters and lines often must be removed. Brushing breaks plaque apart.",{size:12.5,color:C["ink-soft"]});
+}
+
+
+/* ================= scenes: Part 5 environment + Part 6 media + recap ================= */
+function sceneThio(T){
+  const L=12,t=P(T,L)*L;const g=smooth(seg(t,.6,5));
+  title(24,26,"Thioglycolate broth: oxygen high at the top, none at the bottom");
+  // gradient bar
+  const gy=60,gh=250;const grd=ctx.createLinearGradient(0,gy,0,gy+gh);grd.addColorStop(0,C.o2);grd.addColorStop(1,hexA(C.o2,0));rr(26,gy,20,gh,6);ctx.fillStyle=grd;ctx.fill();ctx.strokeStyle=C.rule;ctx.lineWidth=1;ctx.stroke();
+  txt(56,gy+8,"O₂ high",{size:12,weight:700});txt(56,gy+gh-6,"no O₂",{size:12,weight:700});
+  for(let k=0;k<5;k++){const f=P(T*.3+k/5,1);o2(36,gy+6+f*gh*.25,4,1-f)}
+  THIO.forEach((th,i)=>{const x=170+i*140;thioTube(x,gy,54,gh,i,g,T);
+    txt(x,gy+gh+22,th[0],{size:12.5,weight:700,align:"center"});txt(x,gy+gh+40,th[1],{size:12,align:"center",color:C["ink-soft"]});
+    const a=seg(t,5.5+i*.5,6+i*.5);withA(a,()=>{txt(x,gy+gh+66,"Uses O₂: "+th[3],{size:12,align:"center",weight:600});txt(x,gy+gh+84,"Harmed: "+th[4],{size:12,align:"center",weight:600,color:th[4]==="yes"?C.bad:C.ink})})});
+  txt(24,456,"Pink layer = resazurin dye showing oxygen. Incubation: "+Math.round(g*48)+" h",{size:12.5,color:C["ink-soft"]});
+}
+
+/* ---------- 17 why oxygen is toxic ---------- */
+function sceneROS(T){
+  const L=12,t=P(T,L)*L;
+  [[12,"Has SOD and catalase (aerobes, facultatives)",true],[404,"Lacks them (obligate anaerobe)",false]].forEach(([x0,ttl,prot],pi)=>{
+    panelBox(x0,12,384,300,{stroke:prot?C.good:C.bad,lw:2});title(x0+14,32,ttl,prot?C.good:C.bad);
+    const cx=x0+192,cy=172;const dmg=prot?0:smooth(seg(t,1,10));
+    rr(cx-160,cy-100,320,200,90);ctx.fillStyle=mix(mix(C.bact,C.panel,.75),C.dead,dmg*.8);ctx.fill();ctx.strokeStyle=mix(C["bact-edge"],C.dead,dmg);ctx.lineWidth=2.5;ctx.stroke();
+    // DNA strand
+    ctx.strokeStyle=C.dna;ctx.lineWidth=2.5;ctx.beginPath();for(let i=0;i<=40;i++){const X=cx-90+i*4.5,Y=cy+50+Math.sin(i*.6+T)*6;const brk=!prot&&dmg>.3&&(i===14||i===27);brk?ctx.moveTo(X+6,Y):(i?ctx.lineTo(X,Y):ctx.moveTo(X,Y))}ctx.stroke();
+    if(!prot&&dmg>.3){[14,27].forEach(i=>{const X=cx-90+i*4.5;glow(X,cy+50,16,C.ros,.6)})}
+    txt(cx+100,cy+50,"DNA",{size:12,weight:700,color:C.dna});
+    for(let k=0;k<5;k++){const ph=P(T*.35+k/5,1);const sx=cx-120+k*60;
+      // O2 enters, becomes superoxide
+      if(ph<.3){o2(sx,lerp(cy-130,cy-60,ph/.3),5)}
+      else if(ph<.55){const u=seg(ph,.3,.55);const x=sx,y=cy-60+u*30;circ(x,y,6,C.ros,hexA(C.ink,.4),1);txt(x+12,y-8,"O₂⁻",{size:12,weight:700,color:C.ros})}
+      else if(prot){const u=seg(ph,.55,1);
+        if(u<.4){const x=sx,y=cy-30;circ(x,y,7,C.o2,hexA(C.ink,.3),1);circ(x+8,y+3,4,C.o2);txt(x,y+18,"H₂O₂",{size:12,align:"center",weight:700,color:C.o2})}
+        else{const v=seg(u,.4,1);txt(sx,cy-28,"H₂O",{size:12,align:"center",weight:700,color:C.water==null?C.o2:C["ink-soft"]});bubble(sx+10,cy-40-v*50,5,1-v)}}
+      else{const u=seg(ph,.55,1);const x=lerp(sx,cx-90+((k*8)%40)*4.5,u),y=lerp(cy-30,cy+50,u);circ(x,y,6,C.ros,hexA(C.ink,.4),1)}}
+    if(prot){circ(cx-130,cy-6,15,C.good,hexA(C.ink,.4),1.2);txt(cx-130,cy-6,"SOD",{size:12,weight:700,align:"center",color:onFill()});circ(cx+130,cy-6,15,C.act1,hexA(C.ink,.4),1.2);txt(cx+130,cy-6,"Cat",{size:12,weight:700,align:"center",color:onFill()});
+      txt(cx,cy+92,"Toxic oxygen is made safe",{size:13,weight:700,align:"center",color:C.good})}
+    else txt(cx,cy+92,dmg>.5?"DNA and proteins damaged: cell dies":"Toxic oxygen builds up",{size:13,weight:700,align:"center",color:C.bad});
+  });
+  panelBox(12,324,520,144);title(26,344,"Two enzymes that protect cells");
+  txt(26,372,"SOD (superoxide dismutase):",{size:13,weight:700});txt(26,392,"superoxide (O₂⁻) → hydrogen peroxide + O₂",{size:13,mono:true});
+  txt(26,420,"Catalase:",{size:13,weight:700});txt(26,440,"2 H₂O₂ → 2 H₂O + O₂ (gas bubbles)",{size:13,mono:true});
+  panelBox(544,324,244,144);title(556,344,"Catalase test: add H₂O₂");
+  [[600,"Staph",true],[728,"Strep",false]].forEach(([x,n,pos])=>{ell(x,410,46,20,0,hexA(C.glass,.6),C["glass-edge"],1.2);circ(x,410,10,mix(C.panel,C["agar-edge"],.3));
+    if(pos)for(let k=0;k<9;k++){const f=P(T*.8+k/9,1);bubble(x+(rnd(k)-.5)*40,410-f*28,2.5+rnd(k+1)*3,1-f)}
+    txt(x,446,n+": "+(pos?"bubbles (+)":"none (−)"),{size:12,align:"center",weight:700})});
+}
+
+/* ---------- 18 temperature ---------- */
+const TGROUPS=[["Psychrophile","psy",-5,12,20],["Psychrotroph","psytr",-2,25,35],["Mesophile","meso",10,37,45],["Thermophile","thermo",45,65,75],["Hyperthermophile","hyper",70,90,110]];
+function sceneTemp(T){
+  const L=16,t=P(T,L)*L;const Tc=lerp(-10,120,smooth(seg(t,1,14)));
+  const G=axes(70,52,520,280,{x0:-10,x1:120,y0:0,y1:1.15,yt:[[0,"0"],[.5,""],[1,"fast"]],xt:[[0,"0"],[20,"20"],[40,"40"],[60,"60"],[80,"80"],[100,"100"],[120,"120 °C"]],xl:"",yl:"Growth rate",ylOff:36});
+  title(24,26,"Each group has a minimum, optimum and maximum temperature");txt(70,372,"Temperature (°C)",{size:12,weight:600,color:C["ink-soft"]});
+  [[4,"Fridge 4 °C"],[37,"Body 37 °C"],[100,"Boiling"]].forEach(([v,n])=>{line(G.X(v),52,G.X(v),332,hexA(C["ink-soft"],.7),1.2,[4,4]);txt(G.X(v)+4,322,n,{size:12,weight:600,color:C["ink-soft"]})});
+  TGROUPS.forEach((g,i)=>{const a=seg(t,.2+i*.3,.6+i*.3);ctx.save();ctx.globalAlpha*=a;ctx.beginPath();for(let k=0;k<=200;k++){const v=lerp(g[2],g[4],k/200);const X=G.X(v),Y=G.Y(ctm(v,g[2],g[3],g[4]));k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.fillStyle=hexA(C[g[1]],.14);ctx.fill();ctx.strokeStyle=C[g[1]];ctx.lineWidth=3;ctx.stroke();ctx.restore();
+    label(G.X(g[3]),G.Y(1)-12-(i%2)*26,g[0],{size:12.5,weight:700,align:"center",color:C.ink,border:C[g[1]],a})});
+  // marker
+  const X=G.X(Tc);line(X,52,X,332,C.ink,2);label(X,348,Math.round(Tc)+" °C",{size:12.5,weight:700,mono:true,align:"center",border:C.ink});
+  // readout
+  panelBox(604,52,184,280);title(616,72,"At "+Math.round(Tc)+" °C");
+  TGROUPS.forEach((g,i)=>{const r=ctm(Tc,g[2],g[3],g[4]);const y=100+i*44;txt(616,y,g[0],{size:12.5,weight:600});hgaugeBar(616,y+10,120,10,r,C[g[1]]);txt(744,y+15,r>0?Math.round(r*100)+"%":"none",{size:12,mono:true,weight:700})});
+  panelBox(70,404,718,64);wrapText("Growth rises slowly to the optimum, then crashes just above it as proteins unfold. Cold slows growth but does not kill: at 4 °C mesophiles almost stop, while psychrotrophs such as Listeria keep growing slowly.",84,424,690,19,{size:13});
+}
+
+/* ---------- 19 pH and osmotic pressure ---------- */
+const PHG=[["Acidophile","acid",3,1.3],["Neutrophile","meso",7,1.1],["Alkaliphile","alk",9.8,1.2]];
+function scenePHOsmo(T){
+  const L=16,t=P(T,L)*L;const ph=lerp(1,13,.5-.5*Math.cos(t/L*TAU));
+  panelBox(12,12,388,456);title(26,32,"pH groups");
+  const gx=40,gy=70,gw=336,gh=200;const grd=ctx.createLinearGradient(gx,0,gx+gw,0);grd.addColorStop(0,"#D9402E");grd.addColorStop(.5,"#3FA34D");grd.addColorStop(1,"#4B5FC9");rr(gx,gy+gh+12,gw,14,7);ctx.fillStyle=grd;ctx.fill();
+  [0,2,4,6,7,8,10,12,14].forEach(v=>txt(gx+v/14*gw,gy+gh+40,String(v),{size:12,mono:true,align:"center",color:C["ink-soft"]}));txt(gx+gw/2,gy+gh+58,"pH",{size:12,weight:700,align:"center"});
+  PHG.forEach(g=>{ctx.beginPath();for(let k=0;k<=120;k++){const v=k/120*14;const y=gauss(v,g[2],g[3]);const X=gx+v/14*gw,Y=gy+gh-y*(gh-20);k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=C[g[1]];ctx.lineWidth=3;ctx.stroke();ctx.fillStyle=hexA(C[g[1]],.12);ctx.lineTo(gx+gw,gy+gh);ctx.lineTo(gx,gy+gh);ctx.fill();label(gx+(g[0]==="Alkaliphile"?11.6:g[2])/14*gw,g[0]==="Alkaliphile"?gy+30:gy+8,g[0],{size:12.5,weight:700,align:"center",border:C[g[1]]})});
+  const X=gx+ph/14*gw;line(X,gy,X,gy+gh+28,C.ink,2);label(X,gy+gh+80,"pH "+ph.toFixed(1),{size:13,weight:700,align:"center",border:C.ink});
+  [["Acidophiles: below about 5.5","acidic hot springs, mine water"],["Neutrophiles: about 5.5 to 8.5","most human pathogens"],["Alkaliphiles: above about 8.5","soda lakes"]].forEach((r,i)=>{txt(30,388+i*24,r[0],{size:12.5,weight:700});txt(220,388+i*24,r[1],{size:12,color:C["ink-soft"]})});
+  // osmotic
+  panelBox(412,12,376,456);title(426,32,"Salt and sugar pull water out");
+  const cells=[[506,150,"Normal water","iso"],[694,150,"Very salty or sugary","hyper"],[600,340,"Halophile in salt lake","halo"]];
+  cells.forEach(([cx,cy,n,kind])=>{const salty=kind!=="iso";circ(cx,cy,74,hexA(C.water,.6),C.rule,1.2);if(salty)for(let k=0;k<28;k++){const a=rnd(k*3+cx)*TAU,d=Math.sqrt(rnd(k*7+cy))*68;rr(cx+Math.cos(a)*d-2,cy+Math.sin(a)*d-2,4,4,1);ctx.fillStyle=C.salt;ctx.fill()}
+    const shr=kind==="hyper"?smooth(.5-.5*Math.cos(T*1.2)):0;
+    rr(cx-46,cy-22,92,44,22);ctx.strokeStyle=C["bact-edge"];ctx.lineWidth=2.5;ctx.stroke();
+    const k_=1-.35*shr;rr(cx-42*k_,cy-18*k_,84*k_,36*k_,18*k_);ctx.fillStyle=kind==="halo"?C.gneg:C.bact;ctx.fill();
+    if(kind==="hyper")for(let k=0;k<4;k++){const f=P(T*.8+k/4,1);const a=k/4*TAU+.4;arrow(cx+Math.cos(a)*(20+f*30),cy+Math.sin(a)*(12+f*24),cx+Math.cos(a)*(28+f*30),cy+Math.sin(a)*(16+f*24),hexA(C.o2,1-f),1.6)}
+    if(kind==="halo"){glow(cx,cy,60,C.gneg,.2+.1*Math.sin(T*2))}
+    txt(cx,cy+92,n,{size:12.5,weight:700,align:"center"});
+    txt(cx,cy+110,kind==="iso"?"grows":kind==="hyper"?"plasmolysis: growth stops":"needs high salt to grow",{size:12,align:"center",color:kind==="hyper"?C.bad:C["ink-soft"]})});
+  lead(694,132,640,62,"Membrane pulls away from wall",{size:12,align:"right"});
+}
+
+/* ---------- 20 complex vs defined media ---------- */
+function sceneMediaTypes(T){
+  const L=16,t=P(T,L)*L;
+  const DEF=[["Glucose","5.0 g"],["K₂HPO₄","7.0 g"],["KH₂PO₄","2.0 g"],["(NH₄)₂SO₄","1.0 g"],["MgSO₄","0.1 g"],["Water","to 1 L"]];
+  const CPX=[["Peptone (digested protein)","5 g"],["Beef extract","3 g"],["Water","to 1 L"]];
+  panelBox(12,12,384,290);title(26,32,"Chemically defined");
+  DEF.forEach((d,i)=>{const a=seg(t,.3+i*.6,.8+i*.6);withA(.35+.65*a,()=>{txt(30,64+i*24,d[0],{size:13,mono:true,weight:600});txt(200,64+i*24,d[1],{size:13,mono:true,align:"right"})});
+    if(a>0&&a<1){const f=a;rr(lerp(206,300,f)-6,lerp(64+i*24,180,f)-6,12,12,3);ctx.fillStyle=C.act6;ctx.fill()}});
+  flask(310,280,.72,{fill:.5,broth:mix(C.water,C.panel,.4)});txt(24,284,"Every chemical and amount known",{size:12.5,weight:700,color:C.act6});
+  panelBox(404,12,384,290);title(418,32,"Complex (nutrient broth)");
+  CPX.forEach((d,i)=>{const a=seg(t,.3+i*.8,.8+i*.8);withA(.35+.65*a,()=>{txt(422,64+i*24,d[0],{size:13,weight:600});txt(650,64+i*24,d[1],{size:13,mono:true,align:"right"})})});
+  flask(702,280,.72,{fill:.5,broth:C.broth});
+  for(let k=0;k<4;k++){const f=P(T*.3+k/4,1);txt(660+k*24,220-f*40,"?",{size:16,weight:700,color:hexA(C.ink,1-f),align:"center"})}
+  txt(418,284,"Extracts: exact chemicals unknown",{size:12.5,weight:700,color:C.act2});
+  // agar strip
+  panelBox(12,314,776,154);title(26,334,"Add agar to make it solid");
+  const pr=seg(t,6,11);flask(120,450,.55,{fill:.5*(1-pr*.8),broth:C.agar});
+  if(pr>0&&pr<1){ctx.save();ctx.strokeStyle=C.agar;ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(170,380);ctx.quadraticCurveTo(220,370,250,410);ctx.stroke();ctx.restore()}
+  dish(300,400,42,{agar:mix(C.panel,C.agar,smooth(pr)),edge:C["agar-edge"]});
+  txt(300,456,pr<1?"Pour while hot":"Sets into a gel",{size:12,align:"center",weight:600});
+  arrow(370,400,420,400,C["ink-soft"],2);
+  const blood=seg(t,11.5,13);dish(500,400,42,{agar:mix(C.agar,C.bap,blood)});txt(500,456,"Add blood: enriched",{size:12,align:"center",weight:600});
+  wrapText("Agar is a seaweed sugar that melts near boiling and stays solid at body temperature. Few microbes can eat it.",580,370,196,18,{size:12.5});
+}
+
+/* ---------- 21 selective and differential ---------- */
+function plateSectors(cx,cy,r,inc,specs,T){specs.forEach((s,i)=>{const a0=-Math.PI/2+i*TAU/specs.length+.25,a1=a0+TAU/specs.length-.5;
+  for(let k=0;k<26;k++){const u=k/25;const a=lerp(a0,a1,u);const rr_=r*(.3+.55*((k%2)?.9:.45+rnd(k)*.2));const x=cx+Math.cos(a)*rr_,y=cy+Math.sin(a)*rr_;
+    if(s.grow){colony(x,y,(3.2+rnd(k+i*9)*2)*inc,s.col,{halo:s.halo?1+1.3*inc:null,haloCol:s.haloCol})}
+    else if(inc<.4)colony(x,y,2.2,hexA(s.inCol||C.gpos,.9*(1-inc/.4)))}
+  const am=(a0+a1)/2;label(cx+Math.cos(am)*(r+26),cy+Math.sin(am)*(r+26)+(Math.sin(am)>0?8:-4),s.name,{size:12,weight:700,align:"center",border:s.grow?null:C.bad});
+  if(!s.grow&&inc>.6)cross(cx+Math.cos(am)*r*.62,cy+Math.sin(am)*r*.62,8,C.bad)})}
+function sceneSelDiff(T){
+  const L=14,t=P(T,L)*L;const inc=smooth(seg(t,.2,6));
+  panelBox(12,12,384,456);title(26,32,"MacConkey agar");
+  dish(204,206,118,{agar:C.mac,edge:mix(C.mac,C.ink,.3),inside:()=>{if(inc>0)glow(204-54,206-30,70*inc,C["mac-pos"],.25)}});
+  plateSectors(204,206,118,inc,[{name:"E. coli",grow:true,col:C["mac-pos"],halo:true,haloCol:C["mac-pos"]},{name:"Salmonella",grow:true,col:C["mac-neg"]},{name:"Staph (Gram+)",grow:false,inCol:C.gpos}],T);
+  [["Selective:","bile salts and crystal violet stop Gram-positives"],["Differential:","lactose fermenters make acid and turn pink"]].forEach((r,i)=>{txt(26,378+i*42,r[0],{size:13,weight:700,color:i?C["mac-pos"]:C.ink});wrapText(r[1],120,378+i*42,262,17,{size:12.5})});
+  panelBox(404,12,384,456);title(418,32,"Mannitol salt agar (7.5% salt)");
+  const yel=smooth(seg(t,3,7));
+  dish(596,206,118,{agar:C.msa,edge:mix(C.msa,C.ink,.3),inside:()=>{if(yel>0){ctx.beginPath();ctx.moveTo(596,206);ctx.arc(596,206,118,-Math.PI/2,-Math.PI/2+TAU/3);ctx.closePath();ctx.fillStyle=hexA(C["msa-yel"],.45*yel);ctx.fill()}}});
+  plateSectors(596,206,118,inc,[{name:"S. aureus",grow:true,col:C["msa-yel"],halo:true,haloCol:C["msa-yel"]},{name:"S. epidermidis",grow:true,col:mix(C["mac-neg"],C.msa,.2)},{name:"E. coli",grow:false,inCol:C.gneg}],T);
+  [["Selective:","high salt lets staphylococci grow"],["Differential:","mannitol fermenters make acid, red turns yellow"]].forEach((r,i)=>{txt(418,378+i*42,r[0],{size:13,weight:700,color:i?C.ink:C.ink});wrapText(r[1],512,378+i*42,262,17,{size:12.5})});
+  txt(780,460,"Incubation: "+Math.round(inc*24)+" h",{size:12,mono:true,align:"right",color:C["ink-soft"]});
+}
+
+/* ---------- 22 blood agar hemolysis ---------- */
+const HEMO=[["Beta (β)","Complete: clear zone","S. pyogenes","beta"],["Alpha (α)","Partial: green-brown zone","S. pneumoniae","alpha"],["Gamma (γ)","None: no change","Enterococcus","gamma"]];
+function sceneBlood(T){
+  const L=15,t=P(T,L)*L;const inc=smooth(seg(t,.5,4));const light=seg(t,5,6)*(1-seg(t,13.5,14.5));
+  panelBox(12,12,420,456);title(26,32,"Blood agar (5% sheep blood)");
+  const cx=222,cy=236,r=160;
+  dish(cx,cy,r,{agar:C.bap,edge:mix(C.bap,C.ink,.3),inside:()=>{
+    HEMO.forEach((h,i)=>{const a0=-Math.PI/2+i*TAU/3+.3,a1=a0+TAU/3-.6;for(let k=0;k<9;k++){const a=lerp(a0,a1,k/8);const d=r*(.35+.4*rnd(k*3+i));const x=cx+Math.cos(a)*d,y=cy+Math.sin(a)*d;
+      if(h[3]==="beta"){circ(x,y,13*inc,hexA(C.beta,.9));if(light>0){ctx.save();ctx.beginPath();ctx.arc(x,y,13*inc,0,TAU);ctx.clip();circ(x,y,13,hexA(isDark()?"#F2F6F8":"#FFFFFF",light*.45));for(let q=-2;q<=2;q++)line(x-14,y+q*7,x+14,y+q*7,hexA(C.ink,.5*light),1.5);ctx.restore()}}
+      if(h[3]==="alpha")circ(x,y,11*inc,hexA(C.alpha,.75));
+      colony(x,y,4.2*inc,isDark()?"#D8D0C2":"#F4F0E6")}})}});
+  HEMO.forEach((h,i)=>{const am=-Math.PI/2+i*TAU/3+TAU/6;const lx=cx+Math.cos(am)*(r*.62),ly=cy+Math.sin(am)*(r*.62);label(lx,ly,h[0],{size:13,weight:700,align:"center",border:C.ink})});
+  label(cx,452,light>0?"Held up to light: beta zones are see-through":"Colonies after 24 h",{size:12.5,weight:600,align:"center"});
+  // zoom inset cycling
+  const k=Math.floor(t/5)%3;const ph=P(t,5);const h=HEMO[k];
+  panelBox(444,12,344,456,{stroke:C.act6,lw:2});title(458,32,"Zoom: red cells next to a colony");
+  stepRow(458,46,316,["β","α","γ"],k,C.act6);
+  const zx=616,zy=220;circ(zx,zy,120,mix(C.bap,C.panel,.15),C.rule,1.4);ctx.save();ctx.beginPath();ctx.arc(zx,zy,118,0,TAU);ctx.clip();
+  if(h[3]==="beta"){circ(zx,zy,100*smooth(seg(ph,.1,.7)),mix(C.beta,C.panel,.3))}if(h[3]==="alpha"){circ(zx,zy,90*smooth(seg(ph,.1,.7)),hexA(C.alpha,.45))}
+  for(let i=0;i<40;i++){const a=rnd(i*3)*TAU,d=30+rnd(i*7)*86;const x=zx+Math.cos(a)*d,y=zy+Math.sin(a)*d;const near=1-seg(d,30,110);const pr=smooth(seg(ph,.1+(1-near)*.4,.5+(1-near)*.3));
+    if(h[3]==="beta"){if(pr<1)ell(x,y,9*(1-pr*.5),9*(1-pr*.5),0,hexA(C.rbc||C.bap,1-pr),hexA(C.ink,.3*(1-pr)),1)}
+    else if(h[3]==="alpha"){ell(x,y,9,9,0,mix(C.bap,C.alpha,pr*near*1.2),hexA(C.ink,.3),1)}
+    else ell(x,y,9,9,0,C.bap,hexA(C.ink,.3),1)}
+  ctx.restore();colony(zx,zy,26,isDark()?"#D8D0C2":"#F4F0E6");circ(zx,zy,120,null,C["ink-soft"],2.5);
+  txt(616,370,h[1],{size:14,weight:700,align:"center"});txt(616,394,"Example: "+h[2],{size:13,align:"center",color:C["ink-soft"]});
+  txt(616,430,h[3]==="beta"?"Toxins burst the red cells completely":h[3]==="alpha"?"Hemoglobin is changed, cells stay":"Red cells stay whole",{size:12.5,align:"center",weight:600});
+}
+
+/* ---------- 23 streak plate and aseptic technique ---------- */
+const QANG=[-2.36,-0.79,0.79,2.36];
+function streakPath(q){const a=QANG[q];const pts=[];const n=9;for(let i=0;i<=n;i++){const u=i/n;const ang=a-.62+u*1.24;const rad=(i%2?.86:.42)+(q===0?0:0);pts.push([Math.cos(ang)*rad,Math.sin(ang)*rad])}
+  if(q>0){const pa=QANG[q-1]+.4;pts.unshift([Math.cos(pa)*.7,Math.sin(pa)*.7])}return pts}
+const STREAK=[0,1,2,3].map(streakPath);
+function sceneStreak(T){
+  const L=20,t=P(T,L)*L;
+  const cx=280,cy=236,r=170;
+  panelBox(12,12,536,456);title(26,32,"Streak plate for isolated colonies");
+  const inc=smooth(seg(t,15,18));
+  dish(cx,cy,r,{inside:()=>{
+    STREAK.forEach((pts,q)=>{const s0=1.6+q*3.2,s1=s0+2.2;const pr=seg(t,s0,s1);if(pr<=0)return;
+      ctx.beginPath();const N=Math.max(1,Math.floor(pr*(pts.length-1)*20));for(let i=0;i<=N;i++){const f=i/((pts.length-1)*20);const p=along(pts.map(p=>[cx+p[0]*r,cy+p[1]*r]),f);i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1])}ctx.strokeStyle=hexA(C["ink-soft"],.35*(1-inc));ctx.lineWidth=2;ctx.stroke();
+      if(inc>0){const dens=[1,.45,.12,.035][q];const tot=(pts.length-1)*40;for(let i=0;i<tot;i++){if(rnd(i*3.7+q*91)>dens)continue;const p=along(pts.map(p=>[cx+p[0]*r,cy+p[1]*r]),i/tot);const cr=q===0?3.4:q===1?3.6:5.5;colony(p[0]+(rnd(i)-.5)*4,p[1]+(rnd(i+2)-.5)*4,cr*inc,mix(C.panel,C["agar-edge"],.3))}}})}});
+  for(let q=0;q<4;q++){const a=QANG[q];txt(cx+Math.cos(a)*(r+24),cy+Math.sin(a)*(r+24),String(q+1),{size:14,weight:700,mono:true,align:"center",color:C["ink-soft"]})}
+  // loop + flame
+  const fx=70,fy=420;ctx.beginPath();ctx.moveTo(fx-10,fy+20);ctx.quadraticCurveTo(fx-14,fy-10,fx,fy-30-5*Math.sin(T*9));ctx.quadraticCurveTo(fx+14,fy-10,fx+10,fy+20);ctx.closePath();ctx.fillStyle=hexA(C.o2,.6);ctx.fill();rr(fx-12,fy+20,24,26,3);ctx.fillStyle=C["ink-soft"];ctx.fill();
+  let lx,ly,hot=0;const qn=Math.floor((t-1.6)/3.2);const inQ=t>=1.6&&t<14.4&&P(t-1.6,3.2)<2.2/3.2;
+  if(t<1.6||(!inQ&&t<14.4)){lx=fx;ly=fy-24;hot=1}else if(inQ){const pr=seg(P(t-1.6,3.2)*3.2,0,2.2);const pts=STREAK[clamp(qn,0,3)];const p=along(pts.map(p=>[cx+p[0]*r,cy+p[1]*r]),pr);lx=p[0];ly=p[1]}else{lx=fx+60;ly=fy-60}
+  ctx.save();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(lx+60,ly-90);ctx.lineTo(lx+22,ly-30);ctx.stroke();ctx.strokeStyle=hot?mix(C.ink,C.heat,.9):C["ink-soft"];ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(lx+22,ly-30);ctx.lineTo(lx+4,ly-6);ctx.stroke();circ(lx,ly,6,null,hot?C.heat:C["ink-soft"],2);if(hot)glow(lx,ly,16,C.heat,.6);ctx.restore();
+  const status=t<1.6?"Flame the loop":inQ?"Streak quadrant "+(qn+1):t<14.4?"Flame again, then drag from the last quadrant":inc<1?"Incubate":"Quadrant 4: isolated colonies";
+  label(cx,456,status,{size:13,weight:700,align:"center",border:C.act6});
+  if(inc>.9){const p=along(STREAK[3].map(p=>[cx+p[0]*r,cy+p[1]*r]),.8);lead(p[0],p[1],470,420,"One colony = one pure culture",{size:12})}
+  // checklist
+  panelBox(560,12,228,456);title(572,32,"Aseptic technique");
+  const items=["Disinfect the bench","Flame the loop red-hot, let it cool","Lift the lid only partway","Flame the tube mouth","Re-flame between quadrants","Label the bottom of the plate","Incubate upside down"];
+  const lit=Math.floor(t/2.6)%items.length;
+  items.forEach((s_,i)=>{const y=64+i*56;panelBox(570,y-18,208,48,{stroke:i===lit?C.act6:C["rule-soft"],lw:i===lit?2.5:1,fill:hexA(C.panel,.9)});badge(588,y+6,i+1,C.act6,10);wrapText(s_,604,y,166,16,{size:12.5,weight:i===lit?700:500})});
+}
+
+/* ---------- recap ---------- */
+function sceneRecap(T){
+  const cards=[["How bacteria multiply","act1","Binary fission; N = N₀ × 2ⁿ; plot on a log scale"],["The growth curve","act2","Lag, log, stationary, death; chemostat stays in log"],["Measuring growth","act3","Direct count, plate count (30-300), MPN, turbidity"],["Biofilms","act4","Attach, matrix, quorum sensing; resist drugs"],["Oxygen, heat, pH, salt","act5","Thioglycolate patterns; SOD, catalase; temperature groups"],["Culture media","act6","Defined vs complex; selective vs differential; streak"]];
+  const lit=Math.floor(P(T,13)*7);
+  cards.forEach((c,i)=>{const x=12+(i%2)*392,y=12+Math.floor(i/2)*152,w=384,h=144;const l=i<=lit;panelBox(x,y,w,h,{stroke:l?C[c[1]]:C.rule,lw:l?2.5:1.2,fill:hexA(C.panel,l?.97:.6)});
+    ctx.save();ctx.globalAlpha*=l?1:.45;badge(x+24,y+30,i+1,C[c[1]],12);txt(x+46,y+30,c[0],{size:15,weight:700});wrapText(c[2],x+46,y+58,w-160,17,{size:12.5,color:C["ink-soft"]});
+    const ix=x+w-60,iy=y+h/2+6;
+    if(i===0)fission(ix,iy,0,22,10,P(T,3),{t:T});
+    else if(i===1){miniCurve(ix-48,iy-30,96,56,P(T*.3,1),{labels:false})}
+    else if(i===2)dish(ix,iy,36,{inside:()=>discPts(30,5).forEach(p=>colony(ix+p[0]*34,iy+p[1]*34,2.5,mix(C.panel,C["agar-edge"],.3)))});
+    else if(i===3){ctx.beginPath();ctx.ellipse(ix,iy+20,46,34,0,Math.PI,TAU);ctx.fillStyle=hexA(C.eps,.6);ctx.fill();for(let k=0;k<8;k++)rod(ix-30+k*9,iy+14-(k%3)*9,1.2+k,6,2.6,{dna:false})}
+    else if(i===4)thioTube(ix,iy-46,30,94,2,1,T);
+    else dish(ix,iy,36,{agar:C.mac,edge:mix(C.mac,C.ink,.3),inside:()=>discPts(10,9).forEach((p,k)=>colony(ix+p[0]*34,iy+p[1]*34,3.5,k%2?C["mac-pos"]:C["mac-neg"]))});
+    ctx.restore()});
+}
+
+/* ---------------- loop ---------------- */
+let T=0,last=performance.now();
+const SCENES={map:sceneMap,fission:sceneFission,gentime:sceneGenTime,logscale:sceneLogScale,curve:sceneCurve,laglog:sceneLagLog,statdeath:sceneStatDeath,chemostat:sceneChemostat,
+  direct:sceneDirect,dilution:sceneDilution,platecount:scenePlateCount,mpn:sceneMPN,turbidity:sceneTurbidity,biofilm:sceneBiofilm,quorum:sceneQuorum,biocare:sceneBiofilmCare,
+  thio:sceneThio,ros:sceneROS,temp:sceneTemp,phosmo:scenePHOsmo,mediatypes:sceneMediaTypes,seldiff:sceneSelDiff,blood:sceneBlood,streak:sceneStreak,recap:sceneRecap};
+function draw(){
+  ctx.setTransform(K,0,0,K,0,0);ctx.clearRect(0,0,W,H);ctx.globalAlpha=1;bg(C.ecf);
+  const s=STEPS[cur];
+  try{(SCENES[s.scene]||sceneRecap)(T)}catch(e){console.error(e)}
+  ctx.globalAlpha=1;
+}
+function frame(now){
+  const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;if(!paused)T+=dt*speed;
+  draw();
+  requestAnimationFrame(frame);
+}
+window.__setT=v=>{T=v;paused=true;draw()};
+window.__go=i=>go(i);
+window.__n=()=>STEPS.length;
+readColors();buildChain();fit();render();requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

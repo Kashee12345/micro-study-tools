@@ -1,0 +1,1182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microbial Metabolism Lab</title>
+<meta name="description" content="Cell energy and enzyme simulators, a biochemical test bench for identifying unknown bacteria, and sorting games for microbial metabolism.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#1E7A4C;--accent-ink:#145A37;--accent-wash:#DDEFE4;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#7B5CC9;--act2:#D98A1C;--act3:#C4644F;--act4:#2E8A7A;--act5:#A04E8C;--act6:#4F6F94;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#8A6D12;
+  --ecf:#F1F4EF;--grid:#DCE3DD;
+  --gpos:#6B3FA0;--gneg:#C2407A;
+  --cyto:#E3F0E6;--cell-edge:#5E8F70;--mem:#E2C77A;--mem-edge:#A88B3A;
+  --atp:#C9A227;--atp-edge:#8A6D12;--adp:#E6D48A;--pi:#D98A1C;
+  --nadh:#5B4FC9;--fad:#2E8A7A;--elec:#1E9FD6;--hplus:#E0701E;--o2:#C2392F;--h2o:#5AA9E6;--co2:#7D8B93;
+  --carb:#4F6F94;--pyr:#A04E8C;--acoa:#7B5CC9;--lac:#D98A1C;--eth:#5E7A2A;--acid:#C4644F;--gas:#9FB7C4;
+  --enz:#2E8A7A;--sub:#D98A1C;--inh:#A9372F;--prod:#7B5CC9;--allo:#B03A8C;--paba:#D98A1C;--sulfa:#A9372F;
+  --fat:#EED48E;--fat-edge:#B9993F;--amino:#C4644F;--nh3:#8A6FB0;
+  --sun:#F2B33B;--chl:#3E9C5A;--sulf:#C9B21E;--nitr:#4F6F94;--heat:#E0563A;--glow:#F2B33B;--cold:#3F8FD0;
+  --glass:#E4ECF0;--glass-edge:#8FA3AE;--pr-red:#C8323C;--pr-yel:#E3BE22;--pr-pink:#D63C78;
+  --cit-grn:#3E8E4E;--cit-blue:#2B57B0;--ure-peach:#F2B27A;--ure-pink:#E0388A;--kov:#C42A3A;--vp-red:#B83A3A;--vp-neg:#C9A27A;--ox-purp:#4A2A8A;
+  --yeast:#E6D3A3;--yeast-edge:#A88A4F;--colony:#F2EBD9;--food:#F4EAD8;--food-edge:#B9A07A;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#16301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#F2A93B;--act3:#E08A74;--act4:#5CC4B0;--act5:#D186C0;--act6:#8FB1D9;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#22302A;
+  --gpos:#B79AF0;--gneg:#F08FB8;
+  --cyto:#1C2E24;--cell-edge:#7FBF98;--mem:#6E5E2E;--mem-edge:#D9BC64;
+  --atp:#E0BE48;--atp-edge:#F2D77A;--adp:#6E5E2E;--pi:#F2A93B;
+  --nadh:#A398F0;--fad:#5CC4B0;--elec:#5CC8F0;--hplus:#F59A50;--o2:#E8706A;--h2o:#7FBFEE;--co2:#A3B2BA;
+  --carb:#8FB1D9;--pyr:#D186C0;--acoa:#A98BEF;--lac:#F2A93B;--eth:#A3C95A;--acid:#E08A74;--gas:#7A929E;
+  --enz:#5CC4B0;--sub:#F2A93B;--inh:#E07067;--prod:#A98BEF;--allo:#E07AC4;--paba:#F2A93B;--sulfa:#E07067;
+  --fat:#7A6630;--fat-edge:#D9BC64;--amino:#E08A74;--nh3:#B9A2E8;
+  --sun:#F2B33B;--chl:#6BC26E;--sulf:#E0CC48;--nitr:#8FB1D9;--heat:#F27A5E;--glow:#F2B33B;--cold:#6FB3EE;
+  --glass:#22303A;--glass-edge:#7F95A2;--pr-red:#E0525A;--pr-yel:#E8C84A;--pr-pink:#EE6AA0;
+  --cit-grn:#5CB06C;--cit-blue:#5A8BE0;--ure-peach:#E0A070;--ure-pink:#F070AE;--kov:#E8505E;--vp-red:#E0605E;--vp-neg:#B9926A;--ox-purp:#9A7AE0;
+  --yeast:#5A4A2E;--yeast-edge:#D9BC7A;--colony:#3A352A;--food:#3A3226;--food-edge:#B9A07A;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#16301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#F2A93B;--act3:#E08A74;--act4:#5CC4B0;--act5:#D186C0;--act6:#8FB1D9;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#22302A;
+  --gpos:#B79AF0;--gneg:#F08FB8;
+  --cyto:#1C2E24;--cell-edge:#7FBF98;--mem:#6E5E2E;--mem-edge:#D9BC64;
+  --atp:#E0BE48;--atp-edge:#F2D77A;--adp:#6E5E2E;--pi:#F2A93B;
+  --nadh:#A398F0;--fad:#5CC4B0;--elec:#5CC8F0;--hplus:#F59A50;--o2:#E8706A;--h2o:#7FBFEE;--co2:#A3B2BA;
+  --carb:#8FB1D9;--pyr:#D186C0;--acoa:#A98BEF;--lac:#F2A93B;--eth:#A3C95A;--acid:#E08A74;--gas:#7A929E;
+  --enz:#5CC4B0;--sub:#F2A93B;--inh:#E07067;--prod:#A98BEF;--allo:#E07AC4;--paba:#F2A93B;--sulfa:#E07067;
+  --fat:#7A6630;--fat-edge:#D9BC64;--amino:#E08A74;--nh3:#B9A2E8;
+  --sun:#F2B33B;--chl:#6BC26E;--sulf:#E0CC48;--nitr:#8FB1D9;--heat:#F27A5E;--glow:#F2B33B;--cold:#6FB3EE;
+  --glass:#22303A;--glass-edge:#7F95A2;--pr-red:#E0525A;--pr-yel:#E8C84A;--pr-pink:#EE6AA0;
+  --cit-grn:#5CB06C;--cit-blue:#5A8BE0;--ure-peach:#E0A070;--ure-pink:#F070AE;--kov:#E8505E;--vp-red:#E0605E;--vp-neg:#B9926A;--ox-purp:#9A7AE0;
+  --yeast:#5A4A2E;--yeast-edge:#D9BC7A;--colony:#3A352A;--food:#3A3226;--food-edge:#B9A07A;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1180px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:9px 14px;cursor:pointer;font-weight:500;font-size:15px}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 13px;cursor:pointer;font-size:14.5px}
+.tbtn:hover{border-color:var(--accent)}
+.tbtn:disabled{opacity:.45;cursor:default}
+.tbtn[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:10px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.btn:disabled{opacity:.45;cursor:default}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;min-width:0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid,.grid2{grid-template-columns:1fr}}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%;touch-action:manipulation}
+.stagebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2)}
+.legend i.s{border-radius:2px}
+.legend i.ln{width:20px;height:0;border-radius:0;border:0;border-top:3px solid}
+.legend i.t{width:0;height:0;border-radius:0;border:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid;background:none!important}
+.rounds{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.round{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 13px;cursor:pointer;font-size:14px}
+.round[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.round .ok{color:var(--gold-ink);margin-left:4px}
+.mode{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-soft)}
+.mode input{accent-color:var(--accent);width:18px;height:18px}
+.lvl-n{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.lvl-t{font-family:var(--serif);font-size:22px;font-weight:600;margin:4px 0 8px;line-height:1.25}
+.goal{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:15px}
+.goal b.h{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.msg{margin:10px 0 0;padding:10px 12px;border-radius:var(--r);font-size:15px;display:none}
+.msg.show{display:block}
+.msg.good{background:var(--good-wash);color:var(--ink);border:1px solid var(--good)}
+.msg.warn{background:var(--warn-wash);color:var(--ink);border:1px solid var(--warn)}
+.msg.info{background:var(--panel-2);color:var(--ink);border:1px solid var(--rule)}
+.stars{font-size:22px;letter-spacing:2px;color:var(--gold-ink)}
+.side h3{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+.side p,.side li{font-size:14.5px}
+.side ul{padding-left:18px;margin:6px 0}
+.small{font-size:13px;color:var(--ink-soft)}
+.typebtns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.typebtn{background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 0;cursor:pointer;font-family:var(--mono);font-weight:600;font-size:15px}
+.typebtn:hover{border-color:var(--accent)}
+.typebtn.right{border-color:var(--good);background:var(--good-wash)}
+.typebtn.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.typebtn:disabled{cursor:default}
+.prog{height:8px;background:var(--sunk);border-radius:99px;overflow:hidden;margin:6px 0 10px}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.timer{font-family:var(--mono);font-size:18px;font-weight:600}
+/* bags */
+.bags{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0 4px}
+.bag{position:relative;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:6px 4px 4px;cursor:grab;touch-action:none;user-select:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--mono);font-weight:700;font-size:14px}
+.bag svg{width:34px;height:44px;display:block}
+.bag.sel{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
+.bag.ok{border-color:var(--good);background:var(--good-wash)}
+.bag.no{border-color:var(--warn);background:var(--warn-wash)}
+.bag .mk{position:absolute;top:3px;right:5px;font-size:13px}
+.bag.ghost{position:fixed;z-index:50;pointer-events:none;opacity:.9;box-shadow:0 10px 24px -8px rgba(0,0,0,.4)}
+.droptarget{outline:3px dashed var(--accent);outline-offset:-3px}
+.abbox{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:10px 12px;font-size:14.5px;margin-top:10px}
+/* sim */
+.ctl{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ctl label{font-size:14.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.ctl output{font-family:var(--mono);font-weight:600;color:var(--accent-ink)}
+.ctl input[type=range]{accent-color:var(--accent);width:100%}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-faint);font-family:var(--mono)}
+.readouts{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+.readouts th{text-align:left;font-weight:500;color:var(--ink-soft);padding:5px 6px 5px 0;border-top:1px solid var(--rule-soft)}
+.srhead th,.srhead td,.readouts caption.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0;border:0}
+.readouts td{padding:5px 0;border-top:1px solid var(--rule-soft);font-family:var(--mono);font-size:13.5px;text-align:right;white-space:nowrap}
+.chal{list-style:none;padding:0;margin:6px 0}
+.chal li{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14px}
+.chal .ck{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-size:13px;font-family:var(--mono)}
+.chal li.done .ck{background:var(--good);border-color:var(--good);color:var(--on-accent)}
+.status{font-size:14.5px;padding:8px 10px;border-radius:var(--r);margin-top:8px;border:1px solid var(--rule);background:var(--panel-2)}
+.status.warn{background:var(--warn-wash);border-color:var(--warn)}
+.status.bad{background:var(--bad-wash);border-color:var(--bad)}
+.status.good{background:var(--good-wash);border-color:var(--good)}
+/* sequencer */
+ol.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.item{display:flex;align-items:center;gap:10px;background:var(--panel);border:1.5px solid var(--rule);border-left:6px solid var(--act4);border-radius:var(--r);padding:7px 8px 7px 10px;touch-action:none;user-select:none;cursor:grab;transition:background .15s,border-color .15s}
+.item.drag{box-shadow:0 10px 24px -8px rgba(0,0,0,.4);cursor:grabbing;border-color:var(--accent);z-index:2;position:relative}
+.item .pos{font-family:var(--mono);font-size:13px;color:var(--ink-faint);width:20px;text-align:right;flex:0 0 auto}
+.item .grip{color:var(--ink-faint);font-size:18px;line-height:1;flex:0 0 auto}
+.item .txt{flex:1;font-size:15px;line-height:1.35}
+.item .mv{display:flex;flex-direction:column;gap:2px}
+.mv button{width:30px;height:24px;border:1px solid var(--rule);background:var(--panel-2);border-radius:4px;cursor:pointer;font-size:12px;padding:0;line-height:1}
+.mv button:hover{border-color:var(--accent)}
+.item.right{background:var(--good-wash);border-color:var(--good)}
+.item.off{background:var(--warn-wash);border-color:var(--warn)}
+.item.hinted{box-shadow:0 0 0 3px var(--gold)}
+.sc-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.sc-n{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.sc-title{font-family:var(--serif);font-size:22px;font-weight:600;margin:2px 0 6px}
+.qlab{font-weight:600;margin:12px 0 8px}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opt{text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:8px 0 0;font-size:14.5px;padding:8px 10px;border-radius:4px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--good-wash);border-left:4px solid var(--good)}
+.fb.no{background:var(--warn-wash);border-left:4px solid var(--warn)}
+.explain{margin-top:14px;padding:12px 14px;background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;display:none}
+.explain.show{display:block}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-family:var(--mono);font-size:12.5px;background:var(--panel-2);cursor:pointer;padding:0}
+.chip.cur{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.chip.done{border-color:var(--good);background:var(--good-wash);color:var(--good)}
+.chip.done.cur{background:var(--accent);color:var(--on-accent)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+.subtabs{display:flex;gap:6px;margin:0 0 12px;flex-wrap:wrap}
+footer{max-width:1180px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+kbd{font-family:var(--mono);font-size:12.5px;border:1px solid var(--rule);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--panel-2)}
+sub,sup{line-height:0}
+[hidden]{display:none!important}
+/* heart lab */
+.sbank{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-top:10px}
+.sbtn{background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:7px 9px;cursor:pointer;font-size:14px;text-align:left;line-height:1.25}
+.sbtn:hover{border-color:var(--accent)}
+.sbtn.done{border-color:var(--good);background:var(--good-wash)}
+.sbtn.no{border-color:var(--warn);background:var(--warn-wash)}
+.sbtn.hint{box-shadow:0 0 0 3px var(--gold)}
+.paint{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.paint button{display:inline-flex;align-items:center;gap:8px}
+.paint i{width:16px;height:16px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.25)}
+.rhythms{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.rhythms .tbtn{text-align:left;font-size:14px;line-height:1.25}
+.mopts{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0}
+.slwrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 4px 0}
+.slwrap input[type=range]{flex:1 1 260px;accent-color:var(--accent)}
+.slwrap output{font-family:var(--mono);font-weight:600;min-width:72px}
+.qcard{margin-top:12px;border:1px solid var(--rule);border-radius:var(--r);padding:12px 14px;background:var(--panel-2)}
+.qcard h3{margin-top:0}
+.scen{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
+.big{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1.1}
+select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:var(--r);padding:4px 6px}
+/* genetics case lab */
+.gtgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.gtgrid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.gbtn{font-family:var(--mono);font-weight:600;font-size:15px;padding:8px 4px;text-align:center}
+.gbtn sup{font-size:10.5px;line-height:0}
+.modes{display:grid;grid-template-columns:1fr;gap:6px}
+.modes .tbtn{text-align:left;line-height:1.3}
+.modes .tbtn small{display:block;font-size:12.5px;color:var(--ink-soft);font-weight:500}
+.modes .tbtn[aria-pressed="true"] small{color:var(--accent-ink)}
+.kidbtns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0}
+.kidbtns .btn{padding:10px 6px;font-size:14.5px}
+.readouts td.l{font-family:var(--sans);text-align:left;white-space:normal}
+.readouts thead th{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;border-top:0}
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.case{grid-template-columns:1fr}}
+.casechips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.casechip{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 12px;cursor:pointer;font-size:14px}
+.casechip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.casechip .ok{color:var(--good);margin-left:4px;font-weight:700}
+.story{font-size:15.5px;margin:0 0 8px}
+.qblock{border-top:1px solid var(--rule-soft);padding-top:8px;margin-top:10px}
+.hintbox{margin:8px 0 0;padding:8px 10px;border-radius:4px;background:var(--gold-wash);border-left:4px solid var(--gold);font-size:14.5px}
+.meter{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--ink-soft);margin-bottom:6px}
+.meter b{color:var(--ink);font-family:var(--mono)}
+/* sort game */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:10px;border:1.5px dashed var(--rule);border-radius:var(--r);background:var(--panel-2);margin:8px 0 12px}
+.scard{background:var(--panel);border:1.5px solid var(--rule);border-left:5px solid var(--accent);border-radius:var(--r);padding:8px 10px;cursor:grab;font-size:14.5px;line-height:1.3;text-align:left;touch-action:none;user-select:none;max-width:100%}
+.scard:hover{border-color:var(--accent)}
+.scard[aria-pressed="true"]{box-shadow:0 0 0 3px var(--accent);border-color:var(--accent)}
+.scard.ghost{position:fixed;z-index:60;pointer-events:none;opacity:.92;box-shadow:0 10px 24px -8px rgba(0,0,0,.45)}
+.scard.placed{cursor:default;border-left-color:var(--good);background:var(--good-wash);font-size:13.5px;padding:6px 8px}
+.scard.hinted{box-shadow:0 0 0 3px var(--gold)}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.bin{border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);padding:8px;display:flex;flex-direction:column;gap:6px;min-height:150px}
+.bin.over{outline:3px dashed var(--accent);outline-offset:-3px}
+.bin.hintbin{box-shadow:0 0 0 3px var(--gold)}
+.binhead{display:flex;align-items:center;gap:8px;width:100%;background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:6px;cursor:pointer;font-weight:600;font-size:14.5px;text-align:left;line-height:1.25}
+.binhead:hover{border-color:var(--accent)}
+.binhead svg{width:56px;height:46px;flex:0 0 auto}
+.binitems{display:flex;flex-direction:column;gap:5px}
+.sortbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:4px 0 8px}
+.sorthead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h2.sec{font-family:var(--serif);font-size:21px;margin:2px 0 6px;font-weight:600}
+.sim-note{font-size:13.5px;color:var(--ink-soft);margin:6px 0 0}
+.readouts td{padding-left:10px}
+
+/* metabolism lab */
+.orgs{display:grid;grid-template-columns:1fr;gap:6px}
+.orgs .tbtn{text-align:left;line-height:1.3}
+.orgs .tbtn small{display:block;font-size:12.5px;color:var(--ink-soft);font-weight:500}
+.orgs .tbtn[aria-pressed="true"] small{color:var(--accent-ink)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.tests{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:6px 0}
+.tests .tbtn{text-align:left;font-size:14px;line-height:1.25}
+.tests .tbtn[aria-pressed="true"]{background:var(--good-wash);border-color:var(--good);color:var(--ink);font-weight:600}
+.tests .tbtn:disabled{opacity:.5}
+.restab{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+.restab th,.restab td{border-top:1px solid var(--rule-soft);padding:4px 6px;text-align:left}
+.restab th{font-weight:600;color:var(--ink-soft)}
+.restab td{font-family:var(--mono);font-size:13.5px}
+.gramline{font-size:14.5px;margin:4px 0 8px}
+</style>
+<script src="micro-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">Microbiology &middot; Module 4 &middot; Microbial metabolism</div>
+    <h1>Microbial Metabolism Lab</h1>
+    <p class="sub">Feed a cell glucose with and without oxygen, push an enzyme past its limits, identify unknown bacteria at the test bench, and sort the big ideas. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+<div class="wrap">
+  <div class="tabs" role="tablist" aria-label="Lab parts">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="tab-cell" data-tab="cell" id="tabbtn-cell" type="button">Part 1 &middot; Cell Energy Simulator</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-enz" data-tab="enz" id="tabbtn-enz" type="button" tabindex="-1">Part 2 &middot; Enzyme Simulator</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-bench" data-tab="bench" id="tabbtn-bench" type="button" tabindex="-1">Part 3 &middot; Unknowns Bench</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-sort" data-tab="sort" id="tabbtn-sort" type="button" tabindex="-1">Part 4 &middot; Sort It Out</button>
+  </div>
+
+  <!-- PART 1: cell energy simulator -->
+  <section id="tab-cell" role="tabpanel" aria-labelledby="tabbtn-cell">
+    <h2 class="gk-sr">Part 1: Cell Energy Simulator</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvCell" role="img" aria-label="A bacterium breaking down glucose."></canvas></div>
+        <div class="stagebar"><span class="caption" id="cellCap"></span></div>
+        <div class="legend">
+          <span><i style="background:var(--carb)"></i>Glucose</span>
+          <span><i style="background:var(--pyr)"></i>Pyruvate</span>
+          <span><i style="background:var(--atp)"></i>ATP</span>
+          <span><i class="s" style="background:var(--nadh)"></i>NADH (full carrier)</span>
+          <span><i style="background:var(--elec)"></i>Electron</span>
+          <span><i class="s" style="background:var(--accent)"></i>Active route</span>
+        </div>
+      </div>
+      <aside class="card side" aria-label="Cell energy controls">
+        <h3 id="orgLab">1. Choose the organism</h3>
+        <div class="orgs" id="orgBtns" role="group" aria-labelledby="orgLab"></div>
+        <h3 id="o2Lab">2. Oxygen</h3>
+        <div class="two" id="o2Btns" role="group" aria-labelledby="o2Lab">
+          <button class="tbtn" type="button" data-o2="1" aria-pressed="true">O&#8322; present</button>
+          <button class="tbtn" type="button" data-o2="0" aria-pressed="false">No O&#8322;</button>
+        </div>
+        <label class="mode" style="margin-top:8px"><input type="checkbox" id="nitrate"> Add nitrate (NO&#8323;&#8315;) to the broth</label>
+        <div class="bar">
+          <button class="btn" type="button" id="cellFeed">Add 5 glucose</button>
+          <button class="tbtn" type="button" id="cellReset">Reset counts</button>
+        </div>
+        <table class="readouts" id="cellRead"><caption class="sr">Cell energy readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody></tbody></table>
+        <div class="status" id="cellStatus" role="status"></div>
+        <h3>Challenges</h3>
+        <ul class="chal" id="cellChal"></ul>
+        <p class="small">A teaching model. ATP counts use the classic textbook values (38 aerobic, 2 fermentation); the anaerobic respiration value (20) is a round middle figure, since real yields vary.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 2: enzyme simulator -->
+  <section id="tab-enz" role="tabpanel" aria-labelledby="tabbtn-enz" hidden>
+    <h2 class="gk-sr">Part 2: Enzyme Simulator</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvEnz" role="img" aria-label="Enzymes and substrate molecules in a test well."></canvas></div>
+        <div class="stagebar"><span class="caption" id="enzCap"></span></div>
+        <div class="legend">
+          <span><i style="background:var(--enz)"></i>Enzyme</span>
+          <span><i class="t" style="border-bottom-color:var(--sub)"></i>Substrate</span>
+          <span><i class="s" style="background:var(--inh)"></i>Competitive inhibitor</span>
+          <span><i class="s" style="background:var(--allo);transform:rotate(45deg)"></i>Noncompetitive inhibitor</span>
+          <span><i style="background:var(--prod)"></i>Product</span>
+          <span><i class="ln" style="border-top-color:var(--accent)"></i>Reaction rate</span>
+        </div>
+      </div>
+      <aside class="card side" aria-label="Enzyme controls">
+        <h3 id="enzPreLab">1. Choose the enzyme</h3>
+        <div class="orgs" id="enzPre" role="group" aria-labelledby="enzPreLab"></div>
+        <h3>2. Conditions</h3>
+        <div class="ctl"><label for="eTemp">Temperature <output id="eTempOut" for="eTemp">37 °C</output></label>
+          <input type="range" id="eTemp" min="0" max="100" step="1" value="37"><div class="ticks" aria-hidden="true"><span>0</span><span>37</span><span>70</span><span>100</span></div></div>
+        <div class="ctl"><label for="ePH">pH <output id="ePHOut" for="ePH">7.0</output></label>
+          <input type="range" id="ePH" min="1" max="13" step="0.5" value="7"><div class="ticks" aria-hidden="true"><span>1 acid</span><span>7 neutral</span><span>13 base</span></div></div>
+        <div class="ctl"><label for="eSub"><span id="eSubName">Substrate amount</span> <output id="eSubOut" for="eSub">40</output></label>
+          <input type="range" id="eSub" min="0" max="100" step="1" value="40"></div>
+        <div class="ctl"><label for="eComp"><span id="eCompName">Competitive inhibitor</span> <output id="eCompOut" for="eComp">0</output></label>
+          <input type="range" id="eComp" min="0" max="100" step="1" value="0"></div>
+        <div class="ctl"><label for="eNon">Noncompetitive inhibitor <output id="eNonOut" for="eNon">0</output></label>
+          <input type="range" id="eNon" min="0" max="100" step="1" value="0"></div>
+        <div class="bar"><button class="tbtn" type="button" id="eFresh">Fresh enzyme</button><button class="tbtn" type="button" id="eDefaults">Reset sliders</button></div>
+        <table class="readouts" id="enzRead"><caption class="sr">Enzyme simulator readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody></tbody></table>
+        <div class="status" id="enzStatus" role="status"></div>
+        <h3>Challenges</h3>
+        <ul class="chal" id="enzChal"></ul>
+        <p class="small">A teaching model with rounded numbers. Real enzymes differ in their optimum, their sensitivity and how fast they denature.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 3: unknowns bench -->
+  <section id="tab-bench" role="tabpanel" aria-labelledby="tabbtn-bench" hidden>
+    <h2 class="gk-sr">Part 3: Unknowns Bench</h2>
+    <div class="casechips" id="uChips" role="group" aria-label="Choose an unknown"></div>
+    <div class="meter"><span>Unknown <b id="uN">1</b> of <b id="uT">7</b></span><span>Questions solved <b id="uSolved">0</b></span><span>First try <b id="uFirst">0</b></span></div>
+    <div class="card stage">
+      <div class="canvas-holder"><canvas id="cvBench" role="img" aria-label="Lab bench with a Gram stain and a row of biochemical tests."></canvas></div>
+      <div class="legend">
+        <span><i class="s" style="background:var(--pr-red)"></i>Red: no acid</span>
+        <span><i class="s" style="background:var(--pr-yel)"></i>Yellow: acid</span>
+        <span><i class="s" style="background:var(--pr-pink)"></i>Pink: alkaline</span>
+        <span><i class="s" style="background:var(--cit-blue)"></i>Blue: citrate +</span>
+        <span><i class="s" style="background:var(--ure-pink)"></i>Hot pink: urease +</span>
+        <span><b>+</b>/<b>&minus;</b> positive or negative</span>
+      </div>
+    </div>
+    <div class="grid2" style="margin-top:16px">
+      <div class="card">
+        <div class="sc-n" id="uWho"></div>
+        <h2 class="sc-title" id="uTitle"></h2>
+        <p class="story" id="uStory"></p>
+        <p class="qlab" id="uTestLab">Run tests (each takes a simulated day of incubation)</p>
+        <div class="tests" id="uTests" role="group" aria-labelledby="uTestLab"></div>
+        <div class="bar"><button class="tbtn" id="uAll" type="button">Run all tests</button></div>
+        <table class="restab" id="uTable"><caption class="gk-sr">Test results recorded so far</caption><thead><tr><th scope="col">Test</th><th scope="col">Result</th><th scope="col">Test</th><th scope="col">Result</th></tr></thead><tbody></tbody></table>
+      </div>
+      <div class="card">
+        <h3 class="sc-n" style="margin:0">Questions</h3>
+        <div id="uQs"></div>
+        <div class="bar" style="margin-top:12px">
+          <button class="tbtn" id="uHint" type="button">Hint</button>
+          <button class="tbtn" id="uShow" type="button">Show answer</button>
+          <button class="tbtn" id="uPrev" type="button">&larr; Previous</button>
+          <button class="btn" id="uNext" type="button">Next unknown &rarr;</button>
+        </div>
+        <div class="hintbox" id="uHintBox" role="status" hidden></div>
+        <div class="explain" id="uExp"></div>
+        <p class="calm">Wrong answers are fine here. Each one tells you why.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 4: sorting game -->
+  <section id="tab-sort" role="tabpanel" aria-labelledby="tabbtn-sort" hidden>
+    <h2 class="gk-sr">Part 4: Sort It Out</h2>
+    <div class="rounds" id="sRounds" role="group" aria-label="Rounds"></div>
+    <div class="card">
+      <div class="sorthead">
+        <div><div class="lvl-n" id="sN"></div><h2 class="sec" id="sTitle"></h2></div>
+        <div class="sortbar">
+          <label class="mode"><input type="checkbox" id="sRelaxed" checked> Relaxed mode (no timer)</label>
+          <span class="timer" id="sTimer" hidden>0:00</span>
+          <span class="stars" id="sStars" role="img" aria-label="Stars appear when the round is done"></span>
+        </div>
+      </div>
+      <p class="goal"><b class="h">Your job</b><span id="sGoal"></span></p>
+      <p class="small">Drag a card onto a box, or tap a card and then tap the box's name. Cards are buttons, so Tab and Enter work too.</p>
+      <div class="pool" id="sPool" aria-label="Cards to sort"></div>
+      <div class="bins" id="sBins"></div>
+      <div class="bar">
+        <button class="tbtn" id="sHint" type="button">Hint</button>
+        <button class="tbtn" id="sShow" type="button">Show answer</button>
+        <button class="tbtn" id="sShuffle" type="button">Start round over</button>
+        <button class="btn" id="sNext" type="button">Next round &rarr;</button>
+      </div>
+      <div class="msg" id="sMsg" role="status"></div>
+      <p class="small" id="sBest"></p>
+    </div>
+  </section>
+</div>
+<footer>Dr. Akash Garg &middot; Microbiology Study Tools &middot; Diagrams are simplified and not to scale. For learning only, not medical advice. CC BY-NC-SA 4.0<br>Pair with the <a href="Metabolism-Walkthrough.html">Microbial Metabolism Walkthrough</a>. The simulators are simple teaching models with rounded numbers. Test results for each unknown are the typical textbook results for that species; real strains can vary, and real identification uses more tests.</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "gold", "gold-wash", "gold-ink", "ecf", "grid", "gpos", "gneg", "cyto", "cell-edge", "mem", "mem-edge", "atp", "atp-edge", "adp", "pi", "nadh", "fad", "elec", "hplus", "o2", "h2o", "co2", "carb", "pyr", "acoa", "lac", "eth", "acid", "gas", "enz", "sub", "inh", "prod", "allo", "paba", "sulfa", "fat", "fat-edge", "amino", "nh3", "sun", "chl", "sulf", "nitr", "heat", "glow", "cold", "glass", "glass-edge", "pr-red", "pr-yel", "pr-pink", "cit-grn", "cit-blue", "ure-peach", "ure-pink", "kov", "vp-red", "vp-neg", "ox-purp", "yeast", "yeast-edge", "colony", "food", "food-edge"];
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"left";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase(),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+
+/* ================= metabolism drawing kit ================= */
+function bead(x,y,r,col,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);circ(x,y,r,col,mix(col,C.ink,.45),1.2);circ(x-r*.3,y-r*.32,r*.32,hexA(C.panel,.45));
+  if(o.t){ctx.font=`700 ${Math.max(9,Math.round(r*.95))}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(o.t,x,y+.5)}ctx.restore()}
+/* n beads in a row centred on x; returns total width */
+function chainH(x,y,n,r,col,o){o=o||{};const g=r*1.75;const w=(n-1)*g;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  if(n>1)line(x-w/2,y,x+w/2,y,mix(col,C.ink,.45),Math.max(2,r*.4));
+  for(let i=0;i<n;i++)bead(x-w/2+i*g,y+(o.wave?Math.sin(i*1.3+(o.t||0)*3)*o.wave:0),r,o.cols?o.cols[i]:col);
+  if(o.lab)txt(x,y+r+12,o.lab,{size:o.ls||12,weight:600,align:"center",color:o.lc||C["ink-soft"]});ctx.restore();return w+2*r}
+/* glucose: a ring of six carbon beads */
+function ringMol(x,y,R,n,col,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const pts=[];for(let i=0;i<n;i++){const a=-Math.PI/2+i/n*TAU+(o.rot||0);pts.push([x+Math.cos(a)*R,y+Math.sin(a)*R])}
+  ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();ctx.strokeStyle=mix(col,C.ink,.45);ctx.lineWidth=Math.max(2,R*.14);ctx.stroke();
+  pts.forEach(p=>bead(p[0],p[1],R*.36,col));if(o.lab)txt(x,y+R+R*.36+12,o.lab,{size:o.ls||12,weight:600,align:"center",color:C["ink-soft"]});
+  if(o.mid)txt(x,y,o.mid,{size:Math.max(11,R*.5),mono:true,weight:700,align:"center",color:C.ink});ctx.restore()}
+/* ATP as a gold coin; o.adp draws the paler ADP coin */
+function atpCoin(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ctx.translate(x,y);ctx.scale(o.flip==null?1:Math.max(.08,Math.abs(o.flip)),1);
+  if(o.glow)glow(0,0,r*2.2,C.atp,.5*o.glow);
+  const col=o.adp?C.adp:C.atp;circ(0,0,r,col,C["atp-edge"],1.6);circ(0,0,r*.76,null,hexA(C["atp-edge"],.7),1.1);
+  if(r>=8){ctx.font=`700 ${Math.max(8,Math.round(r*.62))}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=isDark()&&!o.adp?"#1A1405":(isDark()?C.ink:"#3A2C00");ctx.fillText(o.adp?"ADP":"ATP",0,.5)}
+  ctx.restore()}
+function pDot(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);if(o.glow)glow(x,y,r*2.4,C.glow,.6*o.glow);circ(x,y,r,C.pi,mix(C.pi,C.ink,.45),1.3);
+  ctx.font=`700 ${Math.round(r*1.05)}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText("P",x,y+.5);ctx.restore()}
+/* structural ATP: adenine (two rings), ribose, phosphate tail. returns x of each phosphate */
+function atpMol(x,y,s,nP,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const hexP=(cx,cy,r,n,rot)=>{ctx.beginPath();for(let i=0;i<n;i++){const a=rot+i/n*TAU;const X=cx+Math.cos(a)*r,Y=cy+Math.sin(a)*r;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()};
+  hexP(x-62*s,y-26*s,15*s,6,Math.PI/6);ctx.fillStyle=mix(C.carb,C.panel,.55);ctx.fill();ctx.strokeStyle=C.carb;ctx.lineWidth=1.6;ctx.stroke();
+  hexP(x-40*s,y-30*s,12*s,5,Math.PI);ctx.fillStyle=mix(C.carb,C.panel,.55);ctx.fill();ctx.stroke();
+  txt(x-56*s,y-50*s,"adenine",{size:12,align:"center",color:C["ink-soft"]});
+  line(x-34*s,y-20*s,x-26*s,y-6*s,C.carb,2);hexP(x-18*s,y+4*s,14*s,5,-Math.PI/2);ctx.fillStyle=mix(C.acoa,C.panel,.6);ctx.fill();ctx.strokeStyle=C.acoa;ctx.lineWidth=1.6;ctx.stroke();
+  txt(x-18*s,y+30*s,"ribose",{size:12,align:"center",color:C["ink-soft"]});
+  const xs=[];let px=x-4*s;for(let i=0;i<nP;i++){const cx=x+16*s+i*30*s;const bond=i===nP-1&&o.hotBond;line(px,y+4*s,cx-11*s,y+4*s,bond?C.heat:mix(C.pi,C.ink,.4),bond?3.5:2.4);
+    if(bond&&o.hotBond>0)glow((px+cx-11*s)/2,y+4*s,18*s,C.glow,.7*o.hotBond);pDot(cx,y+4*s,11*s);xs.push(cx);px=cx+11*s}
+  ctx.restore();return xs}
+/* electron carriers drawn as taxis. kind "nad" or "fad". full = reduced form carrying electrons */
+function taxi(x,y,s,kind,full,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ctx.translate(x,y);ctx.scale(s,s);
+  const col=kind==="fad"?C.fad:kind==="nadp"?C.chl:C.nadh;const w=kind==="fad"?44:kind==="nadp"?60:52,h=20;
+  rr(-w/2,-h/2,w,h,7);ctx.fillStyle=full?col:mix(col,C.panel,.78);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=2/s;ctx.stroke();
+  rr(-w/2+10,-h/2-11,w-22,12,5);ctx.fillStyle=full?mix(col,C.panel,.25):mix(col,C.panel,.85);ctx.fill();ctx.stroke();
+  circ(-w/2+11,h/2,5,C.ink);circ(w/2-11,h/2,5,C.ink);circ(-w/2+11,h/2,2,C.panel);circ(w/2-11,h/2,2,C.panel);
+  const t=kind==="fad"?(full?"FADH₂":"FAD"):kind==="nadp"?(full?"NADPH":"NADP⁺"):(full?"NADH":"NAD⁺");ctx.font=`700 12px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=full?onFill():C.ink;ctx.fillText(t,0,1);
+  if(full&&o.e!==false){const tt=o.t||0;for(let k=0;k<2;k++){const ex=-6+k*12,ey=-h/2-17+Math.sin(tt*6+k*2)*1.5;glow(ex,ey,8,C.elec,.5);circ(ex,ey,3.6,C.elec,mix(C.elec,C.ink,.4),1/s)}}
+  ctx.restore()}
+function elec(x,y,r,a){r=r||4;ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);glow(x,y,r*2.6,C.elec,.55);circ(x,y,r,C.elec,mix(C.elec,C.ink,.4),1);ctx.restore()}
+function hplus(x,y,r,a){r=r||6;ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x,y,r,C.hplus,mix(C.hplus,C.ink,.4),1);
+  if(r>=5){ctx.strokeStyle=onFill();ctx.lineWidth=Math.max(1.4,r*.28);ctx.beginPath();ctx.moveTo(x-r*.5,y);ctx.lineTo(x+r*.5,y);ctx.moveTo(x,y-r*.5);ctx.lineTo(x,y+r*.5);ctx.stroke()}ctx.restore()}
+function o2mol(x,y,s,a){s=s||1;ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x-5*s,y,6.5*s,C.o2,mix(C.o2,C.ink,.4),1);circ(x+5*s,y,6.5*s,C.o2,mix(C.o2,C.ink,.4),1);ctx.restore()}
+function h2o(x,y,s,a){s=s||1;ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x-7*s,y+4*s,4*s,C.h2o,mix(C.h2o,C.ink,.4),1);circ(x+7*s,y+4*s,4*s,C.h2o,mix(C.h2o,C.ink,.4),1);circ(x,y,6.5*s,C.o2,mix(C.o2,C.ink,.4),1);ctx.restore()}
+function co2(x,y,s,a){s=s||1;ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x-9*s,y,5*s,C.o2,mix(C.o2,C.ink,.4),1);circ(x+9*s,y,5*s,C.o2,mix(C.o2,C.ink,.4),1);circ(x,y,6*s,C.co2,mix(C.co2,C.ink,.4),1);ctx.restore()}
+function bubble(x,y,r,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x,y,r,hexA(C.panel,.35),hexA(C.ink,.55),1.1);circ(x-r*.35,y-r*.35,r*.25,hexA("#ffffff",.7));ctx.restore()}
+/* lipid bilayer across [x,x+w]; top heads at y, bottom heads at y+th */
+function membraneH(x,y,w,o){o=o||{};const th=o.th||34,step=o.step||10,r=o.r||4.2;ctx.save();
+  ctx.fillStyle=hexA(C.mem,.35);ctx.fillRect(x,y,w,th);
+  for(let X=x+step/2;X<x+w;X+=step){line(X-1.5,y+r,X-1.5,y+th/2-1,C["mem-edge"],1);line(X+1.5,y+r,X+1.5,y+th/2-1,C["mem-edge"],1);line(X-1.5,y+th-r,X-1.5,y+th/2+1,C["mem-edge"],1);line(X+1.5,y+th-r,X+1.5,y+th/2+1,C["mem-edge"],1);
+    circ(X,y+r,r,C.mem,C["mem-edge"],1);circ(X,y+th-r,r,C.mem,C["mem-edge"],1)}ctx.restore();return th}
+function protBlob(x,y,w,h,col,lab,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);if(o.glow)glow(x,y,Math.max(w,h)*.9,C.glow,.55*o.glow);
+  rr(x-w/2,y-h/2,w,h,Math.min(w,h)*.4);ctx.fillStyle=mix(col,C.panel,.35);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke();
+  if(lab){ctx.font=`700 ${o.ls||12}px ${o.mono===false?FONT:MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=C.ink;ctx.fillText(lab,x,y+.5)}ctx.restore()}
+/* ATP synthase: channel in membrane (cy = membrane middle), knob hangs below into the cytoplasm */
+function synthase(x,cy,s,rot,o){o=o||{};ctx.save();ctx.translate(x,cy);ctx.scale(s,s);
+  rr(-22,-22,44,44,10);ctx.fillStyle=mix(C.enz,C.panel,.35);ctx.fill();ctx.strokeStyle=C.enz;ctx.lineWidth=2;ctx.stroke();
+  for(let k=0;k<6;k++){const a=rot+k/6*TAU;const X=Math.cos(a)*14;line(X,-16,X,16,hexA(C.enz,.4+.5*(Math.sin(a)>0?1:0)),3)}
+  rr(-5,18,10,30,3);ctx.fillStyle=C.enz;ctx.fill();
+  for(let k=0;k<6;k++){const a=rot*1+k/6*TAU;circ(Math.cos(a)*16,64+Math.sin(a)*7,10,mix(C.enz,C.panel,k%2?.2:.5),C.enz,1.5)}
+  circ(0,64,8,C.enz);
+  if(o.lab!==false)txt(0,96,"ATP synthase",{size:12/s>11?12:12,weight:700,align:"center",color:C.ink});ctx.restore()}
+/* enzyme with a V-shaped active site on top.  o.distort 0..1 (denatured), o.allo 0..1 (allosteric shape change), o.alloSite draws the side pocket */
+function enzymePath(r,o){o=o||{};const N=90;const d=o.distort||0,al=o.allo||0;ctx.beginPath();
+  for(let i=0;i<=N;i++){const a=-Math.PI/2+i/N*TAU;let da=Math.atan2(Math.sin(a+Math.PI/2),Math.cos(a+Math.PI/2));let rad=r;
+    const half=.42*(1-al*.45);if(Math.abs(da)<half){rad=r*(1-.45*(1-al*.55)*(1-Math.abs(da)/half)*(1-d*.8))}
+    if(o.alloSite){const db=Math.atan2(Math.sin(a-Math.PI*.25),Math.cos(a-Math.PI*.25));if(Math.abs(db)<.3)rad=Math.min(rad,r*(1-.22*(1-Math.abs(db)/.3)))}
+    rad*=1+d*(.16*Math.sin(a*3+1.3)+.1*Math.sin(a*5+.4))+al*.05*Math.sin(a*2);
+    const X=Math.cos(a)*rad,Y=Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function enzyme(x,y,s,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(o.rot||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const r=34*s;const col=o.col||C.enz;
+  if(o.glow)glow(0,0,r*1.7,C.glow,.5*o.glow);
+  enzymePath(r,o);ctx.fillStyle=mix(col,C.panel,.45);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=2.2;ctx.stroke();
+  if(o.lab){ctx.font=`700 ${Math.max(11,Math.round(12*Math.min(1.2,s)))}px ${FONT}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=C.ink;ctx.fillText(o.lab,0,r*.18)}
+  ctx.restore()}
+/* substrate wedge that fits the active site. (x,y) = enzyme centre when bound; dy shifts it away */
+function wedge(x,y,s,col,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(o.rot||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const k=s;
+  const half=o.half;ctx.beginPath();
+  if(half==="L"){ctx.moveTo(-14*k,-31*k);ctx.lineTo(-1*k,-31*k);ctx.lineTo(-1*k,-20*k);ctx.closePath()}
+  else if(half==="R"){ctx.moveTo(1*k,-31*k);ctx.lineTo(14*k,-31*k);ctx.lineTo(1*k,-20*k);ctx.closePath()}
+  else{ctx.moveTo(-14*k,-31*k);ctx.lineTo(14*k,-31*k);ctx.lineTo(0,-19*k);ctx.closePath()}
+  ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=mix(col,C.ink,.45);ctx.lineWidth=1.3;ctx.stroke();
+  // top cap: substrate round, inhibitor square
+  const capY=-31*k;if(!half){if(o.cap==="sq"){rr(-11*k,capY-14*k,22*k,15*k,2);ctx.fillStyle=col;ctx.fill();ctx.stroke()}else{ctx.beginPath();ctx.arc(0,capY,11*k,Math.PI,0);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.stroke()}}
+  else{ctx.beginPath();if(half==="L"){ctx.arc(-1*k,capY,11*k,Math.PI,Math.PI*1.5);ctx.lineTo(-1*k,capY)}else{ctx.arc(1*k,capY,11*k,Math.PI*1.5,TAU);ctx.lineTo(1*k,capY)}ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.stroke()}
+  if(o.lab){ctx.restore();ctx.save();label(x,y-50*k,o.lab,{size:o.ls||11.5,weight:700,align:"center",color:C.ink});}
+  ctx.restore()}
+/* allosteric inhibitor: small diamond that docks at the side pocket (angle -45deg from top-right) */
+function alloDock(x,y,s){return [x+Math.cos(-Math.PI*.25)*34*s,y+Math.sin(-Math.PI*.25)*34*s]}
+/* microbes */
+function bact(x,y,ang,s,a,o){o=o||{};s=s||8;ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=a==null?1:clamp(a,0,1);
+  const L=s*1.6,Hh=s*.75;rr(-L,-Hh,L*2,Hh*2,Hh);ctx.fillStyle=o.col||C.gneg;ctx.fill();ctx.strokeStyle=hexA(C.ink,.45);ctx.lineWidth=1;ctx.stroke();
+  if(o.flag){ctx.strokeStyle=hexA(o.col||C.gneg,.8);ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(L,0);for(let k=1;k<=7;k++)ctx.lineTo(L+k*3,Math.sin(k*1.6+(o.t||0)*8)*2.5);ctx.stroke()}
+  ctx.restore()}
+function coccus(x,y,r,col,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x,y,r,col||C.gpos,hexA(C.ink,.45),1);circ(x-r*.3,y-r*.3,r*.3,hexA(C.panel,.35));ctx.restore()}
+function yeastC(x,y,s,bud,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ell(0,0,s,s*.8,0,C.yeast,C["yeast-edge"],1.5);circ(-s*.15,0,s*.28,hexA(C["yeast-edge"],.6));
+  if(bud>0)ell(s*(.82+bud*.32),-s*.1,s*.5*bud,s*.42*bud,0,C.yeast,C["yeast-edge"],1.4);ctx.restore()}
+/* big cell outline (rounded rod) used as a stage */
+function cellRod(x,y,w,h,o){o=o||{};rr(x,y,w,h,h/2);ctx.fillStyle=o.fill||C.cyto;ctx.fill();ctx.strokeStyle=o.edge||C["cell-edge"];ctx.lineWidth=o.lw||3;ctx.stroke();
+  if(o.wall){rr(x-5,y-5,w+10,h+10,h/2+5);ctx.strokeStyle=hexA(o.wall,.7);ctx.lineWidth=3;ctx.stroke()}}
+/* test tube. (x,y) = top centre */
+function tube(x,y,o){o=o||{};const w=o.w||26,h=o.h||112;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const lev=o.level==null?.72:o.level;const top=y+h*(1-lev);
+  const path=()=>{ctx.beginPath();ctx.moveTo(x-w/2,y);ctx.lineTo(x-w/2,y+h-w/2);ctx.arc(x,y+h-w/2,w/2,Math.PI,0,true);ctx.lineTo(x+w/2,y);};
+  path();ctx.fillStyle=C.glass;ctx.fill();
+  ctx.save();path();ctx.clip();
+  if(o.slant){ctx.beginPath();ctx.moveTo(x-w/2,y+h*.38);ctx.lineTo(x+w/2,y+h*.62);ctx.lineTo(x+w/2,y+h);ctx.lineTo(x-w/2,y+h);ctx.closePath();ctx.fillStyle=o.fill||C["pr-red"];ctx.fill();
+    if(o.streak){ctx.strokeStyle=hexA(C.colony==null?"#fff":C.colony,.95);ctx.lineWidth=2;ctx.beginPath();for(let i=0;i<=8;i++){const f=i/8;const X=x-w/2+3+f*(w-6),Y=y+h*.38+f*h*.24+3+Math.sin(i*2.1)*1.5;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.stroke()}}
+  else{ctx.fillStyle=o.fill||C["pr-red"];ctx.fillRect(x-w/2,top,w,h);
+    if(o.turbid){for(let i=0;i<o.turbid*40;i++){circ(x-w/2+3+rnd(i*3+1)*(w-6),top+4+rnd(i*7+2)*(y+h-top-6),1,hexA(C.ink,.22))}}
+    if(o.ring){ctx.fillStyle=o.ring;ctx.fillRect(x-w/2,top,w,o.ringH||9)}}
+  if(o.durham){const dw=w*.36,dh=h*.42,dx=x-dw/2,dy=y+h-dh-w*.35;ctx.fillStyle=hexA(C.panel,.25);ctx.fillRect(dx,dy,dw,dh);ctx.strokeStyle=hexA(C.ink,.6);ctx.lineWidth=1.2;
+    ctx.beginPath();ctx.moveTo(dx,dy+dh);ctx.lineTo(dx,dy+dw/2);ctx.arc(dx+dw/2,dy+dw/2,dw/2,Math.PI,0);ctx.lineTo(dx+dw,dy+dh);ctx.stroke();
+    if(o.gas>0){const gh=(dh-3)*clamp(o.gas,0,1);ctx.save();ctx.beginPath();ctx.moveTo(dx+1,dy+dw/2);ctx.arc(dx+dw/2,dy+dw/2,dw/2-1,Math.PI,0);ctx.lineTo(dx+dw-1,dy+Math.max(dw/2,gh));ctx.lineTo(dx+1,dy+Math.max(dw/2,gh));ctx.closePath();ctx.fillStyle=hexA("#ffffff",isDark()?.55:.92);ctx.fill();ctx.restore();
+      if(gh>dw/2)ctx.fillStyle=hexA("#ffffff",isDark()?.55:.92),ctx.fillRect(dx+1,dy+dw/2,dw-2,gh-dw/2);
+      if(o.rise!=null)for(let k=0;k<3;k++){const p=P(o.rise+k*.33,1);bubble(dx+dw/2+Math.sin(k*2+p*6)*2,dy+dh-p*(dh-gh),1.8,1-p)}}}
+  ctx.restore();
+  path();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.8;ctx.stroke();line(x-w/2+4,y+6,x-w/2+4,y+h-w/2,hexA("#ffffff",.5),2);
+  if(o.cap){rr(x-w/2-3,y-12,w+6,14,3);ctx.fillStyle=o.cap;ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.lineWidth=1;ctx.stroke()}
+  if(o.lab)txt(x,y+h+14,o.lab,{size:o.ls||12,weight:700,align:"center",color:o.lc||C.ink});
+  if(o.lab2)txt(x,y+h+30,o.lab2,{size:o.ls2||11.5,weight:500,align:"center",color:C["ink-soft"]});
+  ctx.restore()}
+/* axes for small graphs: returns mapping helpers */
+function axes(x,y,w,h,o){o=o||{};line(x,y,x,y+h,C.ink,1.4);line(x,y+h,x+w,y+h,C.ink,1.4);
+  if(o.xl)txt(x+w/2,y+h+(o.xlo||16),o.xl,{size:12,weight:600,align:"center",color:C["ink-soft"]});
+  if(o.yl){ctx.save();ctx.translate(x-(o.ylo||14),y+h/2);ctx.rotate(-Math.PI/2);txt(0,0,o.yl,{size:12,weight:600,align:"center",color:C["ink-soft"]});ctx.restore()}
+  return {X:v=>x+w*v,Y:v=>y+h-h*v}}
+/* pathway roadmap strip: on = index lit */
+const ROAD=["Glycolysis","Transition","Krebs cycle","Electron transport"];
+function roadmap(x,y,w,on,o){o=o||{};const items=o.items||ROAD;const n=items.length,gap=14,bw=(w-gap*(n-1))/n;
+  items.forEach((s,i)=>{const X=x+i*(bw+gap);const lit=i===on;rr(X,y,bw,24,12);ctx.fillStyle=lit?C.accent:hexA(C.panel,.9);ctx.fill();ctx.strokeStyle=lit?C.accent:C.rule;ctx.lineWidth=1.3;ctx.stroke();
+    txt(X+bw/2,y+12.5,s,{size:12,weight:700,align:"center",color:lit?onFill():C["ink-soft"]});if(i<n-1)arrow(X+bw+2,y+12,X+bw+gap-1,y+12,C["ink-soft"],1.3)})}
+/* tally: icons with counts. items [[kind,n,label]] */
+function tallyIcon(kind,x,y,s){s=s||1;if(kind==="atp")atpCoin(x,y,11*s);else if(kind==="nadh")taxi(x,y+3,.55*s,"nad",true,{e:false});else if(kind==="fadh")taxi(x,y+3,.55*s,"fad",true,{e:false});else if(kind==="co2")co2(x,y,.9*s);else if(kind==="adp")atpCoin(x,y,11*s,{adp:true});else if(kind==="h2o")h2o(x,y,.9*s)}
+function tally(x,y,items,o){o=o||{};let X=x;items.forEach(it=>{tallyIcon(it[0],X+16,y,o.s);const t=(it[1]>0&&o.sign?"+":"")+it[1]+(it[2]?" "+it[2]:"");txt(X+34,y,t,{size:o.size||13,mono:true,weight:700,color:it[3]||C.ink});X+=40+ctx.measureText(t).width+(o.gap||14)})}
+function sunIcon(x,y,r,t){glow(x,y,r*2.4,C.sun,.45);circ(x,y,r,C.sun,mix(C.sun,C.ink,.3),1.5);for(let k=0;k<10;k++){const a=k/10*TAU+(t||0)*.4;line(x+Math.cos(a)*r*1.3,y+Math.sin(a)*r*1.3,x+Math.cos(a)*r*1.75,y+Math.sin(a)*r*1.75,C.sun,2.4)}}
+function headPanel(x,y,w,h,t,col,o){o=o||{};panelBox(x,y,w,h,{stroke:col||C.rule,lw:col?2:1.2,fill:o.fill});if(t)title(x+12,y+18,t,o.tc||C["ink-soft"])}
+function okBadge(x,y,ok,t){const col=ok?C.good:C.bad;label(x,y,(ok?"✓ ":"✗ ")+t,{size:12.5,weight:700,align:"center",color:col,border:col})}
+
+
+/* ---------------- lab helpers ---------------- */
+const $=s=>document.querySelector(s);
+function makeStage(id,W,H){const cv=document.getElementById(id);const st={cv,ctx:cv.getContext("2d"),W,H,K:1};
+  st.fit=()=>{const w=cv.parentElement.clientWidth;if(!w)return;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);st.K=cv.width/W};return st}
+function use(st){ctx=st.ctx;ctx.setTransform(st.K,0,0,st.K,0,0);ctx.clearRect(0,0,st.W,st.H);ctx.globalAlpha=1;ctx.fillStyle=C.ecf;ctx.fillRect(0,0,st.W,st.H)}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function fmt(s){s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+const store={get:k=>{try{return localStorage.getItem("met-lab-"+k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem("met-lab-"+k,v)}catch(e){}}};
+function pct(x){return Math.round(x*100)+"%"}
+function chalUI(sel,list,done){$(sel).innerHTML=list.map((c,i)=>`<li class="${done.has(i)?"done":""}"><span class="ck" aria-hidden="true">${done.has(i)?"✓":i+1}</span><span>${c}${done.has(i)?' <span class="gk-sr">(done)</span>':""}</span></li>`).join("")}
+function readUI(sel,rows){$(sel+" tbody").innerHTML=rows.map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td></tr>`).join("")}
+function setStatus(sel,cls,t){const s=$(sel);s.className="status"+(cls?" "+cls:"");if(s.textContent!==t)s.textContent=t}
+
+
+/* ================= PART 1: cell energy simulator ================= */
+const S1=makeStage("cvCell",800,520);
+const ORGS={
+  ecoli:{name:"Escherichia coli",type:"facultative anaerobe",note:"respires with O₂ or nitrate; mixed-acid fermentation without either",shape:"rod",col:"gneg",aer:true,nitrate:true,ferm:"mixed"},
+  yeast:{name:"Saccharomyces (yeast)",type:"facultative anaerobe (a fungus)",note:"respires with O₂; alcohol fermentation without it",shape:"yeast",col:"yeast-edge",aer:true,nitrate:false,ferm:"alcohol"},
+  micro:{name:"Micrococcus luteus",type:"obligate aerobe",note:"must have O₂; cannot ferment",shape:"coccus",col:"gpos",aer:true,nitrate:false,ferm:null},
+  strep:{name:"Streptococcus",type:"aerotolerant anaerobe",note:"no electron transport chain; always lactic acid fermentation",shape:"chain",col:"gpos",aer:false,nitrate:false,ferm:"lactic"},
+  clos:{name:"Clostridium",type:"obligate anaerobe",note:"ferments; oxygen is toxic to it",shape:"rod",col:"gpos",aer:false,nitrate:false,ferm:"butyric",o2toxic:true}};
+const FERM={mixed:{name:"mixed acids",lab:"Mixed-acid fermentation",prods:{acid:2,eth:1,co2:1,h2:1}},alcohol:{name:"ethanol + CO₂",lab:"Alcohol fermentation",prods:{eth:2,co2:2}},
+  lactic:{name:"lactic acid",lab:"Lactic acid fermentation",prods:{lac:2}},butyric:{name:"butyric acid, CO₂, H₂",lab:"Butyric acid fermentation",prods:{acid:2,co2:2,h2:2}}};
+const YIELD={aer:38,anr:20,ferm:2,stall:0,dead:0};
+const CEL={fgas:0,org:"ecoli",o2:true,nitrate:false,nad:10,atp:0,glc:0,tokens:[],t:0,spawnT:0,regenT:0,prods:{},hist:[],histT:0,done:new Set(),dead:false,stallSeen:false,anrN:0,fermO2:0,ethSeen:false,bursts:[]};
+function cellMode(){const o=ORGS[CEL.org];if(CEL.dead)return "dead";if(CEL.o2&&o.o2toxic)return "dead";if(CEL.o2&&o.aer)return "aer";if(!CEL.o2&&CEL.nitrate&&o.nitrate)return "anr";if(o.ferm)return "ferm";return "stall"}
+function cellReset(keepOrg){CEL.nad=10;CEL.atp=0;CEL.glc=0;CEL.tokens=[];CEL.prods={co2:0,h2o:0,lac:0,eth:0,acid:0,h2:0,no2:0};CEL.fgas=0;CEL.hist=[[CEL.t,0]];CEL.dead=false;CEL.spawnT=1;CEL.bursts=[]}
+function addTok(delay){CEL.tokens.push({t0:CEL.t+(delay||0),st:"in",wait:0})}
+function cellStep(dt){CEL.t+=dt;const mode=cellMode();
+  if(mode==="dead"){if(!CEL.dead){CEL.dead=true;CEL.done.add(5)}return}
+  CEL.spawnT-=dt;if(CEL.spawnT<=0){CEL.spawnT=2.4;if(CEL.tokens.length<9)addTok(0)}
+  // ETC unloads stockpiled NADH when an acceptor is present
+  if(mode==="aer"||mode==="anr"){CEL.regenT+=dt;if(CEL.regenT>.5&&CEL.nad<10){const busy=CEL.tokens.filter(k=>k.st==="glyco"||k.st==="route").length;if(CEL.nad+busy*2<10){CEL.nad++;CEL.regenT=0}}}
+  CEL.tokens.forEach(k=>{const a=CEL.t-k.t0;if(a<0)return;
+    if(k.st==="in"&&a>=.8){if(CEL.nad>=2){CEL.nad-=2;k.st="glyco";k.t0=CEL.t}else{k.wait+=dt;k.t0=CEL.t-.8}}
+    else if(k.st==="glyco"&&a>=1){CEL.atp+=2;CEL.glc++;k.st="route";k.mode=cellMode();k.t0=CEL.t;CEL.bursts.push({t:CEL.t,n:2})}
+    else if(k.st==="route"){const m=k.mode;const L=m==="aer"||m==="anr"?3:m==="ferm"?2:9e9;
+      if(m!=="stall"&&a>=L){k.st="done";CEL.nad=Math.min(10,CEL.nad+2);
+        if(m==="aer"){CEL.atp+=36;CEL.prods.co2+=6;CEL.prods.h2o+=6;CEL.bursts.push({t:CEL.t,n:36});CEL.done.add(0)}
+        else if(m==="anr"){CEL.atp+=18;CEL.prods.co2+=6;CEL.prods.no2+=4;CEL.bursts.push({t:CEL.t,n:18});CEL.anrN++;CEL.done.add(2)}
+        else{const f=FERM[ORGS[CEL.org].ferm];Object.keys(f.prods).forEach(p=>CEL.prods[p]+=f.prods[p]);CEL.fgas+=(f.prods.co2||0)+(f.prods.h2||0);if(CEL.org==="yeast")CEL.done.add(1);if(CEL.org==="strep"&&CEL.o2)CEL.done.add(4)}}}});
+  CEL.tokens=CEL.tokens.filter(k=>k.st!=="done");
+  // stalled pyruvate pile limit
+  const stuck=CEL.tokens.filter(k=>k.st==="route"&&k.mode==="stall");if(stuck.length>4)CEL.tokens.splice(CEL.tokens.indexOf(stuck[0]),1);
+  if(mode==="stall"&&CEL.nad<2){CEL.done.add(3)}
+  CEL.histT+=dt;if(CEL.histT>=.5){CEL.histT=0;CEL.hist.push([CEL.t,CEL.atp]);if(CEL.hist.length>200)CEL.hist.shift()}
+}
+const CELCH=["Reach 38 ATP per glucose.","Make ethanol and CO₂.","Use nitrate as the final electron acceptor.","Stall glycolysis by running out of NAD⁺.","Find the organism that ferments even with O₂ present.","Show that O₂ kills an obligate anaerobe."];
+function cellUI(){const ob=$("#orgBtns");if(!ob.children.length){Object.keys(ORGS).forEach(k=>{const o=ORGS[k];const b=document.createElement("button");b.type="button";b.className="tbtn";b.dataset.k=k;
+    b.innerHTML=`<i>${o.name}</i><small>${o.type}: ${o.note}</small>`;b.onclick=()=>{CEL.org=k;cellReset();cellUI()};ob.appendChild(b)})}
+  ob.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===CEL.org));
+  document.querySelectorAll("#o2Btns button").forEach(b=>{b.setAttribute("aria-pressed",(b.dataset.o2==="1")===CEL.o2)});
+  $("#nitrate").checked=CEL.nitrate;cellRead()}
+document.querySelectorAll("#o2Btns button").forEach(b=>b.onclick=()=>{const v=b.dataset.o2==="1";if(CEL.dead&&!v){CEL.o2=v;cellReset()}else CEL.o2=v;cellUI()});
+$("#nitrate").onchange=e=>{CEL.nitrate=e.target.checked;cellUI()};
+$("#cellFeed").onclick=()=>{for(let i=0;i<5;i++)addTok(i*.45)};
+$("#cellReset").onclick=()=>{cellReset();cellUI()};
+const MODENAME={aer:"Aerobic respiration",anr:"Anaerobic respiration (nitrate)",ferm:"Fermentation",stall:"Stalled: no way to recycle NAD⁺",dead:"Killed by oxygen"};
+function accName(m){return m==="aer"?"O₂":m==="anr"?"nitrate (NO₃⁻ → NO₂⁻)":m==="ferm"?"pyruvate or a molecule made from it (organic)":"none"}
+function cellRead(){const m=cellMode();const o=ORGS[CEL.org];
+  readUI("#cellRead",[["Process",m==="ferm"?FERM[o.ferm].lab:MODENAME[m]],["Final electron acceptor",accName(m)],["ATP per glucose",m==="stall"?"2, then 0 once NAD⁺ runs out":String(YIELD[m])],["Glucose used",String(CEL.glc)],["ATP made",String(CEL.atp)],["NAD⁺ free",CEL.nad+" of 10"]]);
+  let cls="good",t="";
+  if(m==="aer")t=`${o.name} is respiring with oxygen: glycolysis, Krebs cycle and the electron transport chain run, up to 38 ATP per glucose.`;
+  else if(m==="anr")t=`No O₂, but nitrate is here. ${o.name} sends electrons down its electron transport chain to nitrate (making nitrite). Fewer ATP than with O₂.`;
+  else if(m==="ferm"){cls="warn";t=CEL.org==="strep"&&CEL.o2?`Streptococcus has no electron transport chain, so it ferments to lactic acid even with O₂ around (aerotolerant). Only 2 ATP per glucose.`:`No usable final electron acceptor, so ${o.name} ferments (${FERM[o.ferm].name}) to recycle NAD⁺. Only 2 ATP per glucose.`}
+  else if(m==="stall"){cls="bad";t=CEL.nad<2?`Stalled. Every carrier is full (NADH) and ${o.name} cannot ferment, so glycolysis has no NAD⁺ and ATP production stops. Add O₂ to restart it.`:`No O₂ and ${o.name} cannot ferment: NADH is piling up. Watch the NAD⁺ count fall.`}
+  else{cls="bad";t=`Oxygen is toxic to ${o.name}, an obligate anaerobe. The culture died. Switch to No O₂ to start a fresh culture.`}
+  setStatus("#cellStatus",cls,t);chalUI("#cellChal",CELCH,CEL.done);
+  $("#cellCap").textContent=`${o.name}, ${CEL.o2?"O₂ present":"no O₂"}${!CEL.o2&&CEL.nitrate?", nitrate added":""}: ${m==="ferm"?FERM[o.ferm].lab.toLowerCase():MODENAME[m].toLowerCase()}.`}
+/* drawing */
+function orgIcon(x,y,s,a){const o=ORGS[CEL.org];const col=C[o.col];const dead=CEL.dead;const cc=dead?C.co2:col;
+  if(o.shape==="rod")bact(x,y,0,9*s,a,{col:cc});else if(o.shape==="coccus"){for(let i=0;i<4;i++)coccus(x+(i%2)*13*s-6*s,y+Math.floor(i/2)*13*s-6*s,7*s,cc,a)}
+  else if(o.shape==="chain"){for(let i=0;i<5;i++)coccus(x-24*s+i*12*s,y+Math.sin(i)*2,6*s,cc,a)}else yeastC(x,y,12*s,.5,{a})}
+function drawCell(now){use(S1);const m=cellMode();const T=CEL.t;const dead=m==="dead";
+  rr(12,12,620,290,40);ctx.fillStyle=dead?hexA(C.co2,.25):C.cyto;ctx.fill();ctx.strokeStyle=dead?C.co2:C["cell-edge"];ctx.lineWidth=3;ctx.stroke();
+  orgIcon(70,44,1.2,1);txt(100,44,ORGS[CEL.org].name,{size:13,weight:700});
+  // glycolysis box
+  const gb=[40,110,150,82];panelBox(gb[0],gb[1],gb[2],gb[3],{stroke:C.act4,lw:2,fill:hexA(C.panel,.95)});txt(115,124,"Glycolysis",{size:13.5,weight:700,align:"center"});txt(115,180,"2 ATP + 2 NADH",{size:12,align:"center",color:C["ink-soft"]});
+  const resOn=m==="aer"||m==="anr",ferOn=m==="ferm";
+  // respiration lane
+  withA(resOn?1:.35,()=>{panelBox(232,46,96,36,{stroke:resOn?C.accent:C.rule,lw:resOn?2:1.2});txt(280,64,"Transition",{size:12.5,weight:700,align:"center"});
+    ctx.save();ctx.strokeStyle=resOn?C.act4:C.rule;ctx.lineWidth=5;ctx.setLineDash([9,6]);ctx.lineDashOffset=resOn?-T*20:0;ctx.beginPath();ctx.arc(380,64,22,0,TAU);ctx.stroke();ctx.restore();txt(380,98,"Krebs",{size:12,weight:700,align:"center"});
+    membraneH(430,48,150,{th:30,step:9,r:3.6});[455,505,555].forEach(x=>protBlob(x,63,22,36,C.act6,null));txt(505,98,"Electron transport",{size:12,weight:700,align:"center"});
+    arrow(190,128,232,74,resOn?C.accent:C.rule,2);arrow(328,64,356,64,resOn?C.accent:C.rule,1.6);arrow(404,64,428,64,resOn?C.accent:C.rule,1.6)});
+  const acc=m==="anr"?"NO₃⁻":"O₂";withA(resOn?1:.35,()=>{if(m==="anr"){circ(608,64,9,C.nitr,mix(C.nitr,C.ink,.4),1.2)}else o2mol(608,64,1.1,1);txt(608,90,acc,{size:12,weight:700,align:"center"})});
+  if(resOn)for(let k=0;k<3;k++){const p=P(T*.9+k/3,1);elec(lerp(440,600,p),63,4)}
+  if(resOn)for(let k=0;k<3;k++){const p=P(T*.7+k/3,1);hplus(455+k*50,lerp(60,22,p),4.5,1-p)}
+  // fermentation lane
+  const o=ORGS[CEL.org];withA(ferOn?1:.35,()=>{panelBox(232,206,180,60,{stroke:ferOn?C.act3:C.rule,lw:ferOn?2:1.2});txt(322,226,"Fermentation",{size:13,weight:700,align:"center"});txt(322,246,o.ferm?FERM[o.ferm].name:"not possible",{size:12,align:"center",color:C["ink-soft"]});
+    arrow(190,178,232,226,ferOn?C.act3:C.rule,2)});
+  // tokens
+  CEL.tokens.forEach((k,i)=>{const a=T-k.t0;if(a<0)return;
+    if(k.st==="in"){const p=clamp(a/.8,0,1);ringMol(lerp(-10,40,p)+(k.wait>0?Math.sin(T*8)*2:0),150,10,6,C.carb,{})}
+    else if(k.st==="glyco"){const p=clamp(a,0,1);const x=lerp(56,174,p);if(p<.5)ringMol(x,150,9,6,C.carb,{});else{chainH(x,142,3,3.6,C.pyr);chainH(x,158,3,3.6,C.pyr)}}
+    else if(k.st==="route"){const mm=k.mode;
+      if(mm==="aer"||mm==="anr"){const p=clamp(a/3,0,1);const [x,y]=along([[190,128],[232,74],[280,64],[380,64],[430,64]],Math.min(1,p*1.25));if(p<.45)chainH(x,y,3,3.6,C.pyr);else if(p<.8){chainH(x,y,2,3.6,C.acoa);co2(x-6,y-14-(p-.45)*40,.6,1-(p-.45)*2.5)}}
+      else if(mm==="ferm"){const p=clamp(a/2,0,1);const [x,y]=along([[190,178],[232,226],[322,236],[420,236],[600,236]],p);const f=FERM[o.ferm];const col=p<.45?C.pyr:o.ferm==="alcohol"?C.eth:o.ferm==="lactic"?C.lac:C.acid;chainH(x,y,p<.45||o.ferm!=="alcohol"?3:2,3.6,col,{a:1-seg(p,.85,1)});
+        if(p>.45&&(o.ferm==="alcohol"||o.ferm==="mixed"||o.ferm==="butyric"))bubble(x+8,y-14-(p-.45)*40,3,1-seg(p,.8,1))}
+      else{const idx=CEL.tokens.filter(q=>q.st==="route"&&q.mode==="stall").indexOf(k);chainH(200+idx*6,196+idx*10,3,3.6,C.pyr)}}});
+  if(m==="stall")label(222,286,"pyruvate piles up: nowhere to send NADH",{size:12,weight:700,align:"left",border:C.bad});
+  if(dead)label(322,150,"Oxygen is toxic: culture died",{size:14,weight:700,align:"center",border:C.bad});
+  // ATP panel
+  panelBox(644,12,146,120,{fill:hexA(C.panel,.95)});title(656,30,"ATP made");txt(717,66,String(CEL.atp),{size:28,mono:true,weight:700,align:"center",color:C["atp-edge"]});
+  txt(717,96,"per glucose",{size:12,weight:600,align:"center",color:C["ink-soft"]});txt(717,114,m==="stall"?"2, then 0":String(YIELD[m]),{size:13,mono:true,weight:700,align:"center"});
+  CEL.bursts=CEL.bursts.filter(b=>T-b.t<1.2);CEL.bursts.forEach((b,i)=>{const p=(T-b.t)/1.2;label(764,lerp(70,44,p),"+"+b.n,{size:12.5,weight:700,align:"center",a:1-p,color:C["atp-edge"]})});
+  // NAD pool
+  panelBox(644,142,146,160,{fill:hexA(C.panel,.95)});title(656,160,"NAD⁺ carriers");txt(717,180,CEL.nad+" of 10 free",{size:12.5,mono:true,weight:700,align:"center"});
+  for(let i=0;i<10;i++){const x=686+(i%2)*62,y=200+Math.floor(i/2)*22;taxi(x,y,.5,"nad",i>=CEL.nad,{e:false})}
+  // graph
+  panelBox(12,314,450,196,{fill:hexA(C.panel,.95)});title(24,332,"Total ATP over the last minute");
+  const gx=60,gy=346,gw=380,gh=130;const t1=T,t0=T-60;const pts=CEL.hist.filter(h=>h[0]>=t0);const base=pts.length?pts[0][1]:0;const mx=Math.max(40,...pts.map(h=>h[1]-base))*1.1;
+  axes(gx,gy,gw,gh,{xl:"time (s) →",yl:"ATP",xlo:22,ylo:38});txt(gx-6,gy+4,String(Math.round(mx)),{size:11.5,mono:true,align:"right",color:C["ink-soft"]});txt(gx-6,gy+gh,"0",{size:11.5,mono:true,align:"right",color:C["ink-soft"]});
+  if(pts.length>1){ctx.beginPath();pts.forEach((h,i)=>{const X=gx+gw*(h[0]-t0)/60,Y=gy+gh-(h[1]-base)/mx*gh;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)});ctx.strokeStyle=C.accent;ctx.lineWidth=2.6;ctx.lineJoin="round";ctx.stroke()}
+  txt(gx+gw,gy+8,"steeper = more ATP per second",{size:12,align:"right",color:C["ink-soft"]});
+  // tube + products
+  panelBox(474,314,316,196,{fill:hexA(C.panel,.95)});title(486,332,"Culture tube and products");
+  const P_=CEL.prods;const acid=P_.lac+P_.acid;
+  const tcol=mix(C["pr-red"],C["pr-yel"],clamp(acid/14,0,1));tube(520,362,{w:36,h:128,level:.84,fill:tcol,durham:true,gas:clamp(CEL.fgas/24,0,1),turbid:clamp(CEL.glc/20,0,1),cap:C.co2});
+  txt(520,500,"phenol red",{size:11.5,align:"center",color:C["ink-soft"]});
+  const rows=[["CO₂",P_.co2],["H₂O",P_.h2o],["Lactic acid",P_.lac],["Ethanol",P_.eth],["Other acids",P_.acid],["H₂ gas",P_.h2],["Nitrite (NO₂⁻)",P_.no2]];
+  rows.forEach((r,i)=>{const y=356+i*20;txt(570,y,r[0],{size:12.5,weight:600,color:r[1]?C.ink:C["ink-faint"]});txt(780,y,String(r[1]),{size:12.5,mono:true,weight:700,align:"right",color:r[1]?C.ink:C["ink-faint"]})});
+}
+function cellA11y(){const m=cellMode();const o=ORGS[CEL.org];const P_=CEL.prods;
+  const lab=`${o.name}, ${CEL.o2?"oxygen present":"no oxygen"}${!CEL.o2&&CEL.nitrate?", nitrate added":""}. ${m==="ferm"?FERM[o.ferm].lab:MODENAME[m]}. ${CEL.atp} ATP made, ${CEL.nad} of 10 carriers free.`;
+  const made=Object.keys(P_).filter(k=>P_[k]>0).map(k=>({co2:"carbon dioxide",h2o:"water",lac:"lactic acid",eth:"ethanol",acid:"other acids",h2:"hydrogen gas",no2:"nitrite"})[k]);
+  const d=`A large pale green cell holds the pathway. Glucose rings enter on the left into the Glycolysis box. `+(m==="aer"||m==="anr"?`The upper route is lit: pyruvate moves through Transition and the Krebs wheel to an electron transport strip, where cyan electrons flow right to ${m==="anr"?"a blue nitrate ion":"a red O2 molecule"} and orange H+ ions are pumped out. `:m==="ferm"?`The lower route is lit: pyruvate goes into the Fermentation box and leaves as ${FERM[o.ferm].name}. `:m==="stall"?`Neither route is lit; pyruvate chains pile up at the fork with a red label saying there is nowhere to send NADH. `:`The cell is greyed out with a red label: oxygen is toxic, culture died. `)+
+    `On the right, the ATP counter reads ${CEL.atp}, and ten small carrier taxis show ${CEL.nad} empty (NAD+) and ${10-CEL.nad} full (NADH). Below, a line graph shows total ATP climbing over the last minute, and a phenol red tube is ${acid(P_)>4?"turning yellow from acid":"still red"}${CEL.fgas>0?" with gas in its Durham tube":""}. Products so far: ${made.length?made.join(", "):"none yet"}.`;
+  return [lab,d]}
+function acid(P_){return P_.lac+P_.acid}
+
+
+/* ================= PART 2: enzyme simulator ================= */
+const S2=makeStage("cvEnz",800,480);
+const EPRE={typ:{name:"Typical bacterial enzyme",note:"optimum 37 °C, pH 7",opt:37,optPH:7,sub:"Substrate",inh:"Competitive inhibitor",prod:"product"},
+  thermo:{name:"Hot-spring enzyme",note:"from a thermophile: optimum 70 °C, pH 7",opt:70,optPH:7,sub:"Substrate",inh:"Competitive inhibitor",prod:"product"},
+  sulfa:{name:"Folic acid pathway enzyme",note:"uses PABA; blocked by sulfa drugs (37 °C, pH 7)",opt:37,optPH:7,sub:"PABA",inh:"Sulfa drug",prod:"folic acid precursor"}};
+const KM=15,KI=20,KN=12;
+const EZ={pre:"typ",T:37,pH:7,S:40,I:0,N:0,active:1,hist:[],histT:0,t:0,done:new Set(),sawDen:false,enz:[],free:[],prods:[]};
+for(let i=0;i<6;i++)EZ.enz.push({x:100+(i%3)*125,y:160+Math.floor(i/3)*170,occ:null,t0:0,dur:1,rank:rnd(i*7+3)});
+for(let i=0;i<40;i++)EZ.free.push({x:30+rnd(i*3+1)*390,y:60+rnd(i*5+2)*390,a:rnd(i*11)*TAU,s:rnd(i*13)});
+function eF(){const p=EPRE[EZ.pre];const T=EZ.T,o=p.opt;const fT=T<=o?Math.exp((T-o)/12):Math.max(0,1-Math.pow((T-o)/15,2));const fP=gauss(EZ.pH,p.optPH,1.5);
+  const sat=EZ.S/(KM*(1+EZ.I/KI)+EZ.S);const non=1/(1+EZ.N/KN);const satMax=100/(KM+100);
+  return {fT,fP,sat,non,rate:EZ.active*fT*fP*sat*non/satMax,noInh:EZ.active*fT*fP*(EZ.S/(KM+EZ.S))/satMax}}
+function enzStep(dt){EZ.t+=dt;const p=EPRE[EZ.pre];const over=EZ.T-p.opt-6;if(over>0)EZ.active=Math.max(0,EZ.active-dt*.25*over/10);
+  const dph=Math.abs(EZ.pH-p.optPH)-4;if(dph>0)EZ.active=Math.max(0,EZ.active-dt*.12*dph);if(EZ.active<.2)EZ.sawDen=true;
+  const f=eF();
+  EZ.histT+=dt;if(EZ.histT>=.25){EZ.histT=0;EZ.hist.push([EZ.t,f.rate]);if(EZ.hist.length>200)EZ.hist.shift()}
+  // per-enzyme occupancy
+  const nInt=Math.round(EZ.active*6);const fn=(EZ.N/KN)/(1+EZ.N/KN);
+  EZ.enz.forEach((e,i)=>{e.dead=i>=nInt;e.allo=!e.dead&&e.rank<fn;if(e.dead||e.allo){if(e.occ==="sub")e.occ=null;return}
+    if(EZ.t-e.t0>=e.dur){if(e.occ==="sub")EZ.prods.push({x:e.x,y:e.y-30,t:EZ.t});
+      const a=EZ.S/KM,b=EZ.I/KI;const r=Math.random()*(1+a+b);e.occ=r<a?"sub":r<a+b?"inh":null;e.t0=EZ.t;
+      const sp=Math.max(.05,f.fT*f.fP);e.dur=e.occ==="sub"?.25+.5/sp*.4:e.occ==="inh"?1.2+Math.random():.15+.6/(1+a+b)}});
+  EZ.prods=EZ.prods.filter(q=>EZ.t-q.t<1.4);
+  // challenges
+  const pr=EPRE[EZ.pre];if(f.rate>.9)EZ.done.add(0);if(EZ.sawDen&&EZ.active<.2&&Math.abs(EZ.T-pr.opt)<=5)EZ.done.add(1);
+  if(EZ.I>=50&&f.rate>.7)EZ.done.add(2);if(EZ.N>=50&&EZ.S>=95&&EZ.active>.9&&f.fT>.9&&f.fP>.9&&f.rate<.5)EZ.done.add(3);
+  if(EZ.pre==="thermo"&&EZ.T>=68&&f.rate>.9)EZ.done.add(4);if(EZ.pre!=="thermo"&&EZ.T<=5&&EZ.active>.95)EZ.done.add(5)}
+const ENZCH=["Get the reaction rate above 90%.","Denature the enzyme (under 20% active), then bring it back to its optimum temperature. Does it recover?","With 50 or more competitive inhibitor, add substrate until the rate is back above 70%.","With 50 or more noncompetitive inhibitor (and good conditions), set substrate to 100. The rate stays under 50%.","Hot-spring enzyme: rate above 90% at 70 °C or hotter.","Typical enzyme: cool it to 5 °C or less. Slow, but still 100% intact."];
+function enzUI(){const pb=$("#enzPre");if(!pb.children.length){Object.keys(EPRE).forEach(k=>{const p=EPRE[k];const b=document.createElement("button");b.type="button";b.className="tbtn";b.dataset.k=k;b.innerHTML=`${p.name}<small>${p.note}</small>`;
+    b.onclick=()=>{EZ.pre=k;EZ.active=1;EZ.sawDen=false;EZ.T=EPRE[k].opt;EZ.pH=7;$("#eTemp").value=EZ.T;$("#ePH").value=7;enzUI()};pb.appendChild(b)})}
+  pb.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===EZ.pre));const p=EPRE[EZ.pre];
+  $("#eSubName").textContent=p.sub+" amount";$("#eCompName").textContent=p.inh;
+  $("#eTempOut").textContent=EZ.T+" °C";$("#ePHOut").textContent=EZ.pH.toFixed(1);$("#eSubOut").textContent=EZ.S;$("#eCompOut").textContent=EZ.I;$("#eNonOut").textContent=EZ.N;enzRead()}
+[["#eTemp","T"],["#ePH","pH"],["#eSub","S"],["#eComp","I"],["#eNon","N"]].forEach(c=>{$(c[0]).oninput=e=>{EZ[c[1]]=+e.target.value;enzUI()}});
+$("#eFresh").onclick=()=>{EZ.active=1;EZ.sawDen=false;enzUI()};
+$("#eDefaults").onclick=()=>{const p=EPRE[EZ.pre];EZ.T=p.opt;EZ.pH=7;EZ.S=40;EZ.I=0;EZ.N=0;[["#eTemp",EZ.T],["#ePH",7],["#eSub",40],["#eComp",0],["#eNon",0]].forEach(c=>$(c[0]).value=c[1]);enzUI()};
+function enzRead(){const f=eF();const p=EPRE[EZ.pre];
+  readUI("#enzRead",[["Reaction rate",pct(clamp(f.rate,0,1))+" of max"],["Enzyme still intact",pct(EZ.active)],["Temperature effect",pct(f.fT)],["pH effect",pct(f.fP)],["Sites free of inhibitors",pct(f.non*(1/(1+EZ.I/KI*(KM/(KM+EZ.S)))))]]);
+  let cls="good",t;
+  if(EZ.active<.3){cls="bad";t=`Denatured. Heat or extreme pH has unfolded ${pct(1-EZ.active)} of the enzyme. Bringing conditions back does not refold it: press Fresh enzyme to start over.`}
+  else if(EZ.T>p.opt+6){cls="bad";t=`Too hot: the enzyme is unfolding right now. Its intact share is dropping.`}
+  else if(Math.abs(EZ.pH-p.optPH)>4){cls="bad";t=`pH this far from the optimum is unfolding the enzyme.`}
+  else if(f.fT<.35&&EZ.T<p.opt){cls="warn";t=`Cold: molecules move slowly, so the rate is low. The enzyme is not damaged; warm it up and it speeds up again.`}
+  else if(EZ.N>=30&&f.non<.6){cls="warn";t=`The noncompetitive inhibitor sits in the allosteric site and reshapes the active site. More ${p.sub.toLowerCase()} cannot fix that.`}
+  else if(EZ.I>=30&&f.sat<.6){cls="warn";t=`${p.inh} is competing for the active site. ${EZ.pre==="sulfa"?"Folic acid is not being made. ":""}Adding much more ${p.sub.toLowerCase()} can win the site back.`}
+  else if(f.rate>.85)t=`Near top speed: right temperature, right pH, plenty of ${p.sub.toLowerCase()}.`;
+  else if(EZ.S<20){cls="warn";t=`Little ${p.sub.toLowerCase()}: enzymes often sit empty. Add more to speed up.`}
+  else t=`Working. Rate ${pct(clamp(f.rate,0,1))} of max.`;
+  setStatus("#enzStatus",cls,t);chalUI("#enzChal",ENZCH,EZ.done);
+  $("#enzCap").textContent=`${p.name} at ${EZ.T} °C and pH ${EZ.pH.toFixed(1)}: rate ${pct(clamp(f.rate,0,1))} of max, ${pct(EZ.active)} intact.`}
+function drawEnz(now){use(S2);const f=eF();const p=EPRE[EZ.pre];const T=EZ.t;
+  headPanel(12,12,430,456,"Test well");txt(430,30,EZ.T+" °C · pH "+EZ.pH.toFixed(1),{size:12.5,mono:true,weight:700,align:"right"});
+  const hot=clamp((EZ.T-20)/80,0,1);rr(20,40,414,420,10);ctx.fillStyle=hexA(mix(C.cold,C.heat,hot),.08);ctx.fill();
+  // free particles
+  const sp=.3+EZ.T/40;const nS=Math.round(EZ.S/100*18),nI=Math.round(EZ.I/100*12),nN=Math.round(EZ.N/100*8);
+  EZ.free.forEach((q,i)=>{const x=30+((q.x-30+Math.cos(q.a)*T*sp*14+390*10)%390),y=60+((q.y-60+Math.sin(q.a)*T*sp*14+390*10)%390);
+    if(i<nS)wedge(x,y+22,.6,C.sub,{rot:q.a});else if(i<nS+nI)wedge(x,y+22,.6,C.inh,{cap:"sq",rot:q.a});else if(i<nS+nI+nN)diamondL(x,y,7,C.allo)});
+  // enzymes
+  EZ.enz.forEach((e,i)=>{const wob=EZ.T>p.opt?Math.sin(T*12+i)*.03*(EZ.T-p.opt)/10:0;const dist=e.dead?.9:clamp(wob,0,.3);
+    enzyme(e.x,e.y,1.05,{distort:dist,allo:e.allo?.95:0,alloSite:true,col:e.dead?C.co2:C.enz});
+    if(e.allo){const [dx,dy]=alloDock(e.x,e.y,1.05);diamondL(dx+4,dy-4,7,C.allo)}
+    if(!e.dead&&!e.allo&&e.occ){const a=clamp((T-e.t0)/.25,0,1);wedge(e.x,e.y-(1-a)*30,1.05,e.occ==="sub"?C.sub:C.inh,{cap:e.occ==="inh"?"sq":null})}
+    if(e.dead)txt(e.x,e.y+52,"denatured",{size:11.5,weight:700,align:"center",color:C.bad});else if(e.allo)txt(e.x,e.y+52,"blocked (allosteric)",{size:11.5,weight:700,align:"center",color:C.allo});
+    else if(e.occ==="inh")txt(e.x,e.y+52,EZ.pre==="sulfa"?"sulfa in site":"inhibitor in site",{size:11.5,weight:700,align:"center",color:C.inh})});
+  EZ.prods.forEach(q=>{const a=(T-q.t)/1.4;const k=ease(a);circ(q.x-12-k*20,q.y-k*40,4.5,C.prod,null);circ(q.x+12+k*20,q.y-k*40,4.5,C.prod,null);ctx.globalAlpha=1});
+  // strip chart
+  headPanel(454,12,334,220,"Reaction rate (live)");const gx=494,gy=46,gw=280,gh=140;axes(gx,gy,gw,gh,{xl:"last 30 seconds",yl:"rate",xlo:20,ylo:40});
+  [0,.5,1].forEach(v=>{line(gx,gy+gh-v*gh,gx+gw,gy+gh-v*gh,C["rule-soft"],1);txt(gx-6,gy+gh-v*gh,Math.round(v*100)+"%",{size:11.5,mono:true,align:"right",color:C["ink-soft"]})});
+  const pts=EZ.hist.filter(h=>h[0]>=T-30);if(pts.length>1){ctx.beginPath();pts.forEach((h,i)=>{const X=gx+gw*(h[0]-(T-30))/30,Y=gy+gh-clamp(h[1],0,1.05)*gh;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)});ctx.strokeStyle=C.accent;ctx.lineWidth=2.6;ctx.lineJoin="round";ctx.stroke()}
+  label(gx+gw,gy+gh-clamp(f.rate,0,1.05)*gh-14,pct(clamp(f.rate,0,1)),{size:12.5,weight:700,align:"right"});
+  // rate vs substrate
+  headPanel(454,244,334,224,"Rate vs "+p.sub.toLowerCase()+" amount");const hx=494,hy=276,hw=280,hh=140;axes(hx,hy,hw,hh,{xl:p.sub+" amount (0 to 100)",yl:"rate",xlo:20,ylo:24});
+  const base=EZ.active*f.fT*f.fP/(100/(KM+100));
+  plotFn(s=>base*s/(KM+s),0,100,hx,hy,hw,hh,0,1.05,C["ink-soft"],2,[6,5]);
+  plotFn(s=>base*s/(KM*(1+EZ.I/KI)+s)*f.non,0,100,hx,hy,hw,hh,0,1.05,C.accent,2.8);
+  const cx=hx+hw*EZ.S/100,cy=hy+hh-clamp(f.rate,0,1.05)/1.05*hh;circ(cx,cy,7,C.sub,C.panel,2);
+  if(EZ.I>0||EZ.N>0)txt(hx+hw,hy+hh-12,"dashed: no inhibitor",{size:12,align:"right",color:C["ink-soft"]});
+}
+function diamondL(x,y,s,col){ctx.beginPath();ctx.moveTo(x,y-s);ctx.lineTo(x+s,y);ctx.lineTo(x,y+s);ctx.lineTo(x-s,y);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.lineWidth=1;ctx.stroke()}
+function enzA11y(){const f=eF();const p=EPRE[EZ.pre];const dead=EZ.enz.filter(e=>e.dead).length,allo=EZ.enz.filter(e=>e.allo).length;
+  const lab=`${p.name}, ${EZ.T} °C, pH ${EZ.pH.toFixed(1)}, ${p.sub} ${EZ.S}, ${p.inh.toLowerCase()} ${EZ.I}, noncompetitive inhibitor ${EZ.N}. Rate ${pct(clamp(f.rate,0,1))} of max; ${pct(EZ.active)} of enzyme intact.`;
+  const d=`The left panel is a test well with six teal enzymes, each with a V-shaped active site. ${dead?dead+" of them are grey and melted out of shape, labelled denatured. ":""}${allo?allo+" have a magenta diamond in their side pocket and a squeezed active site, labelled blocked (allosteric). ":""}Orange ${p.sub} wedges${EZ.I?" and red square-topped "+p.inh.toLowerCase()+" wedges":""} drift around and drop into active sites; purple product dots pop out of enzymes that finish a reaction. At the top right, a live line graph of reaction rate over the last 30 seconds reads ${pct(clamp(f.rate,0,1))}. At the bottom right, a curve shows rate rising with ${p.sub} amount and levelling off; a dot marks the current amount, ${EZ.S}${EZ.I||EZ.N?", and a dashed curve shows what the rate would be with no inhibitor":""}.`;
+  return [lab,d]}
+
+
+/* ================= PART 3: unknowns bench ================= */
+const S3=makeStage("cvBench",800,470);
+const TESTS=[["glu","Glucose","sugar"],["lac","Lactose","sugar"],["man","Mannitol","sugar"],["cat","Catalase","cat"],["ox","Oxidase","ox"],["ind","Indole","ind"],["mr","MR","mr"],["vp","VP","vp"],["cit","Citrate","cit"],["ure","Urease","ure"]];
+const TNAME={glu:"Glucose",lac:"Lactose",man:"Mannitol",cat:"Catalase",ox:"Oxidase",ind:"Indole",mr:"Methyl red",vp:"Voges-Proskauer",cit:"Citrate",ure:"Urease"};
+const GPOS_TESTS=["glu","lac","man","cat","ox"];
+const UNK=[
+{src:"Urine culture",title:"Gram-negative rods from a bladder infection",gram:"neg",shape:"rod",
+ story:"A urine sample from an adult with burning urination grew smooth, pinkish colonies. The Gram stain shows gram-negative rods. Run the tests, then answer the questions.",
+ r:{glu:"AG",lac:"AG",man:"AG",cat:"+",ox:"-",ind:"+",mr:"+",vp:"-",cit:"-",ure:"-"},id:"Escherichia coli",
+ qs:[{q:"Which result separates this unknown from Salmonella and Proteus?",hint:"Look at the sugar tubes. Which sugar do Salmonella and Proteus fail to ferment?",opts:[
+   ["It ferments lactose (A/G)",1,"Yes. This unknown ferments lactose; Salmonella and Proteus do not."],
+   ["It is catalase positive",0,"All three are catalase positive, so catalase cannot separate them."],
+   ["It is oxidase negative",0,"All three are enteric bacteria, and enteric bacteria are oxidase negative."],
+   ["It ferments glucose (A/G)",0,"All three ferment glucose, so the glucose tube does not separate them."]]},
+  {q:"What is the IMViC pattern, and what is the most likely ID?",hint:"Read indole, methyl red, VP and citrate in that order.",opts:[
+   ["+ + − −: Escherichia coli",1,"Right. Indole +, MR +, VP −, citrate − is the classic E. coli pattern."],
+   ["− − + +: Enterobacter aerogenes",0,"That is the reverse pattern. This unknown is indole positive and citrate negative."],
+   ["+ + − −: Pseudomonas aeruginosa",0,"Pseudomonas is oxidase positive and does not ferment sugars. This unknown ferments and is oxidase negative."],
+   ["− + − +: Salmonella",0,"Salmonella is indole negative, citrate positive and does not ferment lactose."]]}],
+ exp:"Escherichia coli: a lactose-fermenting gram-negative rod with the IMViC pattern + + − −. Its mixed-acid fermentation turns methyl red red and fills the Durham tubes with gas (CO₂ and H₂)."},
+{src:"Hospital sink drain swab",title:"Another lactose fermenter",gram:"neg",shape:"rod",
+ story:"A swab from a hospital sink drain grew mucoid (slimy) colonies. The Gram stain shows gram-negative rods. It ferments lactose like E. coli. What else can you find?",
+ r:{glu:"AG",lac:"AG",man:"AG",cat:"+",ox:"-",ind:"-",mr:"-",vp:"+",cit:"+",ure:"-"},id:"Enterobacter aerogenes",
+ qs:[{q:"This unknown also ferments lactose with gas. Which tests separate it from E. coli?",hint:"Both are lactose-fermenting gram-negative rods. Look at the four tests on the right half of the bench.",opts:[
+   ["The IMViC tests (indole, MR, VP, citrate)",1,"Right. E. coli is + + − − and this unknown is − − + +."],
+   ["Catalase",0,"Both are catalase positive."],["Lactose",0,"Both ferment lactose with gas."],["The Gram stain",0,"Both are gram-negative rods."]]},
+  {q:"A positive VP test means the organism makes acetoin. Which kind of fermentation does it use?",hint:"Acetoin is made on the way to a neutral product, 2,3-butanediol.",opts:[
+   ["Butanediol fermentation",1,"Yes. Butanediol fermenters make acetoin (VP +) and fewer acids (MR −)."],
+   ["Mixed-acid fermentation",0,"Mixed-acid fermenters such as E. coli make lots of acid (MR +) and no acetoin (VP −)."],
+   ["Alcohol fermentation by yeast",0,"This is a bacterium. Yeast are fungi."],
+   ["No fermentation at all",0,"The yellow sugar tubes show it does ferment."]]},
+  {q:"What is the most likely ID?",hint:"Lactose fermenter with IMViC − − + +.",opts:[
+   ["Enterobacter aerogenes",1,"Right. Lactose A/G with IMViC − − + + fits Enterobacter aerogenes (now also called Klebsiella aerogenes)."],
+   ["Escherichia coli",0,"E. coli is indole positive and citrate negative (+ + − −)."],["Proteus vulgaris",0,"Proteus does not ferment lactose and is urease positive."],["Staphylococcus aureus",0,"S. aureus is a gram-positive coccus."]]}],
+ exp:"Enterobacter aerogenes: lactose-fermenting gram-negative rod, IMViC − − + +. It uses butanediol fermentation, so it makes acetoin (VP +) and does not drop the pH as far (MR −). It also grows on citrate alone."},
+{src:"Wound swab",title:"Colonies that swarm across the plate",gram:"neg",shape:"rod",
+ story:"A wound swab grew colonies that spread across the whole plate in waves (swarming) with a strong smell. The Gram stain shows gram-negative rods.",
+ r:{glu:"AG",lac:"-",man:"-",cat:"+",ox:"-",ind:"+",mr:"+",vp:"-",cit:"-",ure:"+"},id:"Proteus vulgaris",
+ qs:[{q:"Which single result is the strongest clue here?",hint:"Which tube turned a bright color that E. coli and Salmonella never give?",opts:[
+   ["Urease positive (hot pink)",1,"Yes. Proteus makes a lot of urease quickly. E. coli and Salmonella are urease negative."],
+   ["Indole positive",0,"E. coli is indole positive too, so indole alone does not point to Proteus."],
+   ["Glucose A/G",0,"Most enteric bacteria ferment glucose with gas."],["Catalase positive",0,"Almost all enteric bacteria are catalase positive."]]},
+  {q:"Why does urea broth turn pink when urease is present?",hint:"Think about what urease makes from urea, and what that does to the pH.",opts:[
+   ["Urease splits urea into ammonia, which raises the pH",1,"Right. Ammonia is a base; phenol red turns hot pink when the pH rises."],
+   ["Urease makes acid, which turns phenol red pink",0,"Acid turns phenol red yellow. Pink means the pH went up."],
+   ["The bacteria themselves are pink",0,"The color comes from the pH indicator, phenol red, not the cells."],
+   ["Urease uses citrate as food",0,"That is the citrate test, which turns Simmons agar blue."]]},
+  {q:"What is the most likely ID?",hint:"Lactose negative, urease positive, swarming.",opts:[
+   ["Proteus vulgaris",1,"Yes. A lactose-negative, urease-positive, swarming gram-negative rod fits Proteus. P. vulgaris is also indole positive."],
+   ["Escherichia coli",0,"E. coli ferments lactose and is urease negative."],["Salmonella enterica",0,"Salmonella is urease negative and indole negative."],["Pseudomonas aeruginosa",0,"Pseudomonas is oxidase positive and does not ferment glucose."]]}],
+ exp:"Proteus vulgaris: lactose-negative gram-negative rod, strongly urease positive, indole positive and known for swarming. Urease splits urea into ammonia, which can raise urine pH and help form kidney stones."},
+{src:"Burn wound swab",title:"Green colonies with a grape-like smell",gram:"neg",shape:"rod",
+ story:"A swab from a burn wound grew flat colonies with a blue-green pigment and a fruity, grape-like smell. The Gram stain shows gram-negative rods.",
+ r:{glu:"K",lac:"K",man:"K",cat:"+",ox:"+",ind:"-",mr:"-",vp:"-",cit:"+",ure:"-"},id:"Pseudomonas aeruginosa",
+ qs:[{q:"The sugar tubes did not turn yellow, and there is no gas. What does that mean?",hint:"Yellow means acid from fermentation. What if the organism never ferments?",opts:[
+   ["It does not ferment these sugars; it is a nonfermenter that respires with O₂",1,"Right. Pseudomonas uses aerobic respiration. Breaking down peptone in the broth released ammonia, so the tubes turned pink (alkaline)."],
+   ["It fermented all three sugars",0,"Fermentation makes acid, which would turn phenol red yellow."],
+   ["The tubes were not incubated",0,"The broth is cloudy with growth, so the tubes were incubated."],
+   ["It made so much acid the color flipped",0,"More acid only makes phenol red more yellow, not pink."]]},
+  {q:"Which result fits Pseudomonas and rules out the enteric bacteria (E. coli, Proteus, Salmonella)?",hint:"One quick test checks for a cytochrome at the end of the electron transport chain.",opts:[
+   ["Oxidase positive",1,"Yes. Pseudomonas has cytochrome c oxidase; enteric bacteria are oxidase negative."],
+   ["Catalase positive",0,"The enteric bacteria are catalase positive too."],["Citrate positive",0,"Enterobacter and Salmonella are citrate positive as well."],["Indole negative",0,"Many organisms are indole negative, so this is not specific."]]},
+  {q:"What is the most likely ID?",hint:"Oxidase-positive nonfermenter with a green pigment.",opts:[
+   ["Pseudomonas aeruginosa",1,"Right. An oxidase-positive, nonfermenting gram-negative rod with green pigment and a grape-like smell is classic P. aeruginosa."],
+   ["Escherichia coli",0,"E. coli ferments sugars and is oxidase negative."],["Enterobacter aerogenes",0,"Enterobacter ferments lactose and is oxidase negative."],["Streptococcus pyogenes",0,"Streptococcus is a gram-positive coccus."]]}],
+ exp:"Pseudomonas aeruginosa: an oxidase-positive gram-negative rod that does not ferment sugars. It respires with oxygen (and can use nitrate). It is a common cause of burn and hospital infections."},
+{src:"Skin abscess swab",title:"Gram-positive cocci in clusters",gram:"pos",shape:"clusters",
+ story:"A swab from a boil (skin abscess) grew golden-yellow colonies. The Gram stain shows gram-positive cocci in grape-like clusters. The IMViC tests are used for gram-negative rods, so they are not set up here.",
+ r:{glu:"A",lac:"A",man:"A",cat:"+",ox:"-"},id:"Staphylococcus aureus",
+ qs:[{q:"Which test separates Staphylococcus from Streptococcus?",hint:"One test uses hydrogen peroxide.",opts:[
+   ["Catalase",1,"Yes. Staphylococci are catalase positive (bubbles); streptococci are catalase negative."],
+   ["Oxidase",0,"Both are oxidase negative."],["Glucose",0,"Both ferment glucose to acid."],["Indole",0,"The IMViC tests are for gram-negative rods."]]},
+  {q:"The mannitol tube is yellow with no bubble. What does that tell you?",hint:"Yellow = acid. Bubble = gas.",opts:[
+   ["It ferments mannitol to acid, a typical trait of S. aureus",1,"Right. Mannitol fermentation is a key clue for S. aureus; it is why S. aureus turns mannitol salt agar yellow."],
+   ["It made gas from mannitol",0,"There is no bubble in the Durham tube. Yellow alone means acid."],["The broth turned alkaline",0,"Alkaline would be pink."],["It cannot use mannitol",0,"A negative tube would stay red."]]},
+  {q:"What is the most likely ID?",hint:"Gram-positive cocci in clusters, catalase +, mannitol fermented.",opts:[
+   ["Staphylococcus aureus",1,"Yes. Catalase-positive cocci in clusters that ferment mannitol fit S. aureus."],
+   ["Streptococcus pyogenes",0,"Streptococci are catalase negative and grow in chains."],["Escherichia coli",0,"E. coli is a gram-negative rod."],["Pseudomonas aeruginosa",0,"Pseudomonas is a gram-negative rod and oxidase positive."]]}],
+ exp:"Staphylococcus aureus: gram-positive cocci in clusters, catalase positive, ferments glucose, lactose and mannitol to acid without gas. In practice, a coagulase test confirms S. aureus."},
+{src:"Throat swab",title:"Gram-positive cocci in chains",gram:"pos",shape:"chains",
+ story:"A throat swab from an adult with a sore throat and fever grew small colonies. The Gram stain shows gram-positive cocci in chains. The IMViC tests are not set up for gram-positive cocci.",
+ r:{glu:"A",lac:"A",man:"-",cat:"-",ox:"-"},id:"Streptococcus pyogenes",
+ qs:[{q:"The catalase test gives no bubbles. What does that tell you?",hint:"What would Staphylococcus do?",opts:[
+   ["The organism lacks catalase, which fits Streptococcus",1,"Right. Streptococci are catalase negative; staphylococci would bubble."],
+   ["It must be Staphylococcus",0,"Staphylococci are catalase positive and would bubble."],
+   ["It is oxidase positive",0,"The oxidase strip stayed pale here: oxidase negative."],["It made acid",0,"Catalase tests for an enzyme that breaks down hydrogen peroxide, not for acid."]]},
+  {q:"The glucose tube is yellow with no gas. Which fermentation fits?",hint:"Which fermentation makes only an acid and no gas?",opts:[
+   ["Lactic acid fermentation",1,"Yes. Streptococci ferment sugar to lactic acid only: yellow, no bubble."],
+   ["Alcohol fermentation",0,"Alcohol fermentation makes CO₂ gas, which would show as a bubble."],
+   ["Mixed-acid fermentation",0,"Mixed-acid fermenters such as E. coli make CO₂ and H₂ gas."],
+   ["Aerobic respiration",0,"Streptococci have no electron transport chain, so they cannot respire."]]}],
+ exp:"Streptococcus pyogenes: gram-positive cocci in chains, catalase negative, lactic acid fermenter (acid, no gas). It is aerotolerant: it ignores oxygen and always ferments. In practice, beta-hemolysis and other tests confirm it."},
+{src:"Stool culture",title:"A lactose nonfermenter from the gut",gram:"neg",shape:"rod",
+ story:"A stool sample from an adult with diarrhea after eating undercooked chicken grew colonies that did not ferment lactose. The Gram stain shows gram-negative rods.",
+ r:{glu:"AG",lac:"-",man:"AG",cat:"+",ox:"-",ind:"-",mr:"+",vp:"-",cit:"+",ure:"-"},id:"Salmonella enterica",
+ qs:[{q:"Lactose is negative. Which test then separates this unknown from Proteus?",hint:"Proteus has one very fast, very pink test.",opts:[
+   ["Urease: negative here, strongly positive in Proteus",1,"Right. Salmonella is urease negative; Proteus turns urea broth hot pink."],
+   ["Lactose",0,"Both are lactose negative."],["Glucose",0,"Both ferment glucose."],["Oxidase",0,"Both are oxidase negative."]]},
+  {q:"What is the most likely ID?",hint:"Lactose negative, urease negative, indole negative, citrate positive.",opts:[
+   ["Salmonella enterica",1,"Yes. A lactose-negative, urease-negative, indole-negative, citrate-positive gram-negative rod from stool fits Salmonella."],
+   ["Escherichia coli",0,"E. coli ferments lactose and is indole positive."],["Proteus vulgaris",0,"Proteus is urease positive."],["Pseudomonas aeruginosa",0,"Pseudomonas is oxidase positive and does not ferment glucose."]]}],
+ exp:"Salmonella enterica: lactose-negative gram-negative rod, urease negative, indole negative, MR positive, citrate positive. In practice, H₂S production and serology help confirm it."}];
+const UB={i:0,run:{},solved:{},first:{},wrong:{},shown:{},t:0};
+function uKey(i,q){return i+"-"+q}
+function avail(u,k){return u.gram==="neg"||GPOS_TESTS.includes(k)}
+function resText(k,v){if(v==null)return "not run";if(TESTS.find(t=>t[0]===k)[2]==="sugar")return v==="AG"?"A/G (acid + gas)":v==="A"?"A (acid)":v==="K"?"no acid (pink, alkaline)":"− (red, no acid)";
+  const pos=v==="+";const m={cat:pos?"+ (bubbles)":"− (no bubbles)",ox:pos?"+ (purple)":"− (no color)",ind:pos?"+ (red ring)":"− (yellow ring)",mr:pos?"+ (red)":"− (yellow)",vp:pos?"+ (red)":"− (no red)",cit:pos?"+ (blue)":"− (green)",ure:pos?"+ (hot pink)":"− (peach)"};return m[k]}
+function runTest(k){const key=UB.i+"-"+k;const u=UNK[UB.i];if(!avail(u,k)||UB.run[key]!=null)return;UB.run[key]=UB.t;uTests();uTable()}
+function uTests(){const u=UNK[UB.i];const box=$("#uTests");box.innerHTML="";
+  TESTS.forEach(t=>{const b=document.createElement("button");b.type="button";b.className="tbtn";const ran=UB.run[UB.i+"-"+t[0]]!=null;const ok=avail(u,t[0]);
+    b.textContent=TNAME[t[0]]+(ok?(ran?": done":""):": not used");b.disabled=!ok;b.setAttribute("aria-pressed",ran);b.onclick=()=>runTest(t[0]);box.appendChild(b)})}
+function uTable(){const u=UNK[UB.i];const rows=[];for(let i=0;i<5;i++){const a=TESTS[i],b=TESTS[i+5];const ra=UB.run[UB.i+"-"+a[0]]!=null&&UB.t-UB.run[UB.i+"-"+a[0]]>1.4;const rb=UB.run[UB.i+"-"+b[0]]!=null&&UB.t-UB.run[UB.i+"-"+b[0]]>1.4;
+  rows.push(`<tr><td>${TNAME[a[0]]}</td><td>${avail(u,a[0])?(ra?resText(a[0],u.r[a[0]]):UB.run[UB.i+"-"+a[0]]!=null?"incubating…":"not run"):"not used"}</td><td>${TNAME[b[0]]}</td><td>${avail(u,b[0])?(rb?resText(b[0],u.r[b[0]]):UB.run[UB.i+"-"+b[0]]!=null?"incubating…":"not run"):"not used"}</td></tr>`)}
+  const html=rows.join("");const tb=$("#uTable tbody");if(tb.innerHTML!==html)tb.innerHTML=html}
+function uMeta(){const u=UNK[UB.i];
+  $("#uChips").querySelectorAll("button").forEach((b,i)=>{const d=UNK[i].qs.every((q,j)=>UB.solved[uKey(i,j)]);if(d&&!b.querySelector(".ok"))b.insertAdjacentHTML("beforeend",'<span class="ok" aria-label="solved">✓</span>')});
+  $("#uSolved").textContent=Object.keys(UB.solved).length+" of "+UNK.reduce((s,k)=>s+k.qs.length,0);$("#uFirst").textContent=Object.keys(UB.first).length;
+  const all=u.qs.every((q,j)=>UB.solved[uKey(UB.i,j)]);const ex=$("#uExp");ex.className="explain"+(all?" show":"");ex.innerHTML=all?`<b>Answer: ${u.id}.</b> ${u.exp}`:""}
+function uUI(){const u=UNK[UB.i];
+  $("#uChips").innerHTML=UNK.map((k,i)=>`<button type="button" class="casechip" aria-pressed="${i===UB.i}" data-i="${i}">Unknown ${i+1}${k.qs.every((q,j)=>UB.solved[uKey(i,j)])?'<span class="ok" aria-label="solved">✓</span>':""}</button>`).join("");
+  $("#uChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{UB.i=+b.dataset.i;uUI();a11yKey=""});
+  $("#uN").textContent=UB.i+1;$("#uT").textContent=UNK.length;
+  $("#uWho").textContent=`Unknown ${UB.i+1} · ${u.src}`;$("#uTitle").textContent=u.title;$("#uStory").textContent=u.story;
+  const box=$("#uQs");box.innerHTML="";let open=true;
+  u.qs.forEach((q,j)=>{const k=uKey(UB.i,j);const d=document.createElement("div");d.className="qblock";if(!open)d.hidden=true;
+    d.innerHTML=`<p class="qlab">${j+1}. ${q.q}</p><div class="opts"></div><div class="fb" role="status"></div>`;
+    const ob=d.querySelector(".opts"),fb=d.querySelector(".fb");
+    q.opts.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];if(UB.solved[k]&&o[1])b.classList.add("right");
+      b.onclick=()=>{if(o[1]){b.classList.add("right");fb.className="fb show ok";fb.textContent="✓ "+o[2];if(!UB.solved[k]){UB.solved[k]=1;if(!UB.wrong[k]&&!UB.shown[k])UB.first[k]=1}
+          $("#uHintBox").hidden=true;const nx=d.nextElementSibling;if(nx)nx.hidden=false;uMeta()}
+        else{b.classList.add("wrong");UB.wrong[k]=1;fb.className="fb show no";fb.textContent="Not quite. "+o[2]}};ob.appendChild(b)});
+    box.appendChild(d);if(!UB.solved[k])open=false});
+  uMeta();uTests();uTable();$("#uPrev").disabled=UB.i===0;$("#uNext").textContent=UB.i===UNK.length-1?"Back to unknown 1 →":"Next unknown →";$("#uHintBox").hidden=true}
+$("#uAll").onclick=()=>{const u=UNK[UB.i];TESTS.forEach((t,i)=>{const key=UB.i+"-"+t[0];if(avail(u,t[0])&&UB.run[key]==null)UB.run[key]=UB.t+i*.15});uTests();uTable()};
+$("#uHint").onclick=()=>{const u=UNK[UB.i];const j=u.qs.findIndex((q,j)=>!UB.solved[uKey(UB.i,j)]);const hb=$("#uHintBox");hb.hidden=false;hb.textContent=j<0?"All questions here are solved. Try the next unknown.":"Hint for question "+(j+1)+": "+u.qs[j].hint+(Object.keys(UB.run).some(k=>k.startsWith(UB.i+"-"))?"":" Tip: run the tests first.")};
+$("#uShow").onclick=()=>{const u=UNK[UB.i];u.qs.forEach((q,j)=>{const k=uKey(UB.i,j);if(!UB.solved[k]){UB.shown[k]=1;UB.solved[k]=1}});TESTS.forEach(t=>{const key=UB.i+"-"+t[0];if(avail(u,t[0])&&UB.run[key]==null)UB.run[key]=UB.t-5});uUI();
+  $("#uQs").querySelectorAll(".qblock").forEach((d,j)=>{const fb=d.querySelector(".fb");fb.className="fb show ok";fb.textContent="✓ "+u.qs[j].opts.find(o=>o[1])[2]})};
+$("#uPrev").onclick=()=>{if(UB.i>0){UB.i--;uUI()}};$("#uNext").onclick=()=>{UB.i=(UB.i+1)%UNK.length;uUI()};
+/* drawing */
+function gramField(x,y,r,u,T){circ(x,y,r,isDark()?"#2A2630":"#F6F0F2",C["ink-soft"],3);ctx.save();ctx.beginPath();ctx.arc(x,y,r-2,0,TAU);ctx.clip();
+  const col=u.gram==="pos"?C.gpos:C.gneg;
+  if(u.shape==="rod"){for(let i=0;i<18;i++){bact(x-r+rnd(i*3+UB.i)*2*r+Math.sin(T*1.1+i)*1.5,y-r+rnd(i*7+1+UB.i)*2*r+Math.cos(T*.9+i*2)*1.5,rnd(i*5)*TAU+Math.sin(T*.5+i)*.08,6,1,{col})}}
+  else if(u.shape==="clusters"){[[-.45,-.35],[.3,-.45],[-.25,.35],[.42,.28],[0,-.02]].forEach((c,ci)=>{const cx=x+c[0]*r+Math.sin(T*.9+ci)*1.4,cy=y+c[1]*r+Math.cos(T*.8+ci*2)*1.4;[[0,0],[8,1],[-8,1],[4,-7],[-4,-7],[4,8],[-4,8]].forEach((q,i)=>{if(i<5+ci%3)coccus(cx+q[0],cy+q[1],4.4,col)})})}
+  else{for(let c=0;c<4;c++){const cx=x-r*.8+rnd(c*9+1)*r*.6+Math.sin(T*.9+c)*1.4,cy=y-r*.6+c*r*.42;for(let i=0;i<8;i++)coccus(cx+i*9,cy+Math.sin(i*.9+c+T*.6)*5,4.2,col)}}
+  ctx.restore();txt(x,y+r+14,"Gram stain, 1000×",{size:12,weight:600,align:"center",color:C["ink-soft"]})}
+function benchSlot(k,x,u,T){const y0=244;const key=UB.i+"-"+k;const ok=avail(u,k);const st=UB.run[key];const p=st==null?0:clamp((T-st)/1.4,0,1);const v=u.r[k];const pos=v==="+";
+  txt(x,y0-12,TESTS.find(t=>t[0]===k)[1],{size:12,weight:700,align:"center",color:ok?C.ink:C["ink-faint"]});
+  if(!ok){rr(x-28,y0,56,150,6);ctx.save();ctx.setLineDash([4,4]);ctx.strokeStyle=C.rule;ctx.lineWidth=1.2;ctx.stroke();ctx.restore();txt(x,y0+75,"not",{size:12,align:"center",color:C["ink-soft"]});txt(x,y0+91,"used",{size:12,align:"center",color:C["ink-soft"]});return}
+  const kind=TESTS.find(t=>t[0]===k)[2];const e=smooth(p);
+  if(kind==="sugar"){const fin=v==="AG"||v==="A"?C["pr-yel"]:v==="K"?C["pr-pink"]:C["pr-red"];tube(x,y0+8,{w:28,h:130,level:.84,fill:mix(C["pr-red"],fin,e),durham:true,gas:v==="AG"?e*.6:0,turbid:st==null?0:e,cap:C.co2})}
+  else if(kind==="cat"){rr(x-28,y0+50,56,40,5);ctx.fillStyle=hexA(C.glass,.9);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.3;ctx.stroke();ell(x,y0+72,18,7,0,C.colony,C["food-edge"],1);
+    if(st!=null){ell(x,y0+68,16*Math.min(1,p*3),6*Math.min(1,p*3),0,hexA(C.h2o,.35));if(pos)for(let i=0;i<Math.round(e*12);i++)bubble(x-14+rnd(i*3)*28,y0+66-rnd(i*5)*16*e-Math.sin(T*3+i)*1.5,2+rnd(i)*2.5,.95)}}
+  else if(kind==="ox"){rr(x-26,y0+40,52,60,5);ctx.fillStyle=pos?mix("#F5F2EA",C["ox-purp"],e):"#F5F2EA";ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.3;ctx.stroke();if(st!=null)ell(x,y0+70,9,6,0,hexA(C.colony,.6))}
+  else if(kind==="ind")tube(x,y0+8,{w:28,h:130,level:.8,fill:C.food,ring:st==null?null:mix(C.food,pos?C.kov:C["pr-yel"],e),ringH:12,turbid:st==null?0:e,cap:C.co2});
+  else if(kind==="mr")tube(x,y0+8,{w:28,h:130,level:.8,fill:st==null?C.food:mix(C.food,pos?C["pr-red"]:C["pr-yel"],e),turbid:st==null?0:e*.6,cap:C.co2});
+  else if(kind==="vp")tube(x,y0+8,{w:28,h:130,level:.8,fill:st==null?C.food:mix(C.food,pos?C["vp-red"]:C["vp-neg"],e),turbid:st==null?0:e*.6,cap:C.co2});
+  else if(kind==="cit")tube(x,y0+8,{w:28,h:130,slant:true,fill:mix(C["cit-grn"],pos?C["cit-blue"]:C["cit-grn"],e),streak:st!=null,cap:C.co2});
+  else if(kind==="ure")tube(x,y0+8,{w:28,h:130,level:.8,fill:mix(C["ure-peach"],pos?C["ure-pink"]:C["ure-peach"],e),turbid:st==null?0:e*.6,cap:C.co2});
+  if(st==null)label(x,y0+168,"?",{size:14,weight:700,align:"center",color:C["ink-soft"],border:hexA(C.accent,.35+.35*Math.sin(T*2.5+x*.02))});
+  else if(p<1){label(x,y0+168,Math.round(p*24)+" h",{size:12,mono:true,weight:700,align:"center"})}
+  else{const t=kind==="sugar"?(v==="AG"?"A/G":v==="A"?"A":v==="K"?"K":"−"):(pos?"+":"−");const good=kind==="sugar"?(v==="AG"||v==="A"):pos;label(x,y0+168,t,{size:15,weight:700,align:"center",border:good?C.good:C.rule})}}
+function drawBench(now){use(S3);const u=UNK[UB.i];const T=UB.t;
+  panelBox(12,12,776,196,{fill:hexA(C.panel,.95)});gramField(110,104,74,u,T);
+  title(212,34,"Unknown "+(UB.i+1)+" · "+u.src);
+  txt(212,66,u.gram==="pos"?"Gram-positive (purple)":"Gram-negative (pink)",{size:15,weight:700,color:u.gram==="pos"?C.gpos:C.gneg});
+  txt(212,92,u.shape==="rod"?"Rods (bacilli)":u.shape==="clusters"?"Cocci in grape-like clusters":"Cocci in chains",{size:14,weight:600});
+  wrapText(u.gram==="pos"?"Tests for gram-positive cocci: sugars, catalase and oxidase.":"Tests for gram-negative rods: sugars, catalase, oxidase, IMViC, urease.",212,124,560,17,{size:13,color:C["ink-soft"]});
+  const nRun=TESTS.filter(t=>UB.run[UB.i+"-"+t[0]]!=null).length,nOk=TESTS.filter(t=>avail(u,t[0])).length;txt(212,170,`Tests run: ${nRun} of ${nOk}`,{size:13,mono:true,weight:700});
+  panelBox(12,220,776,240,{fill:hexA(C.panel,.6)});
+  TESTS.forEach((t,i)=>benchSlot(t[0],52+i*77,u,T));
+  txt(400,452,"Sugars: A = acid (yellow), A/G = acid + gas (bubble), K = alkaline (pink), − = red",{size:12,align:"center",color:C["ink-soft"]});
+}
+function benchA11y(){const u=UNK[UB.i];const res=TESTS.filter(t=>avail(u,t[0])).map(t=>{const st=UB.run[UB.i+"-"+t[0]];return TNAME[t[0]]+" "+(st==null?"not run":UB.t-st<1.4?"incubating":resText(t[0],u.r[t[0]]))});
+  const lab=`Unknown ${UB.i+1} from ${u.src}: ${u.gram==="pos"?"gram-positive":"gram-negative"} ${u.shape==="rod"?"rods":u.shape==="clusters"?"cocci in clusters":"cocci in chains"}. `+res.join("; ")+".";
+  const d=`At the top left, a round microscope field shows ${u.gram==="pos"?"purple":"pink"} ${u.shape==="rod"?"rod-shaped cells":u.shape==="clusters"?"round cells in grape-like clusters":"round cells in chains"}. Below, a bench holds a row of ten test slots: three phenol red sugar tubes with Durham tubes, a catalase slide, an oxidase strip, then indole, methyl red, VP, citrate and urease tubes${u.gram==="pos"?" (the last five are marked not used for gram-positive cocci)":""}. Results so far: `+res.join("; ")+".";
+  return [lab,d]}
+
+
+/* ================= PART 4: sort it out ================= */
+const SROUNDS=[
+{name:"Breaking down or building up?",goal:"Sort each process: catabolism (breaks down, releases energy) or anabolism (builds up, uses energy).",
+ bins:[["cat","Catabolism"],["ana","Anabolism"]],
+ cards:[["Glycolysis splitting glucose","cat","Glucose is broken into two pyruvates: catabolism."],["The Krebs cycle releasing CO₂","cat","Acetyl groups are broken down to CO₂: catabolism."],["Lipase splitting fats","cat","Fats are cut into glycerol and fatty acids: catabolism."],["Proteases cutting proteins into amino acids","cat","Big proteins become small amino acids: catabolism."],["Fermentation of sugar to lactic acid","cat","Sugar is broken down for a little ATP: catabolism."],["Beta-oxidation of fatty acids","cat","Fatty acids are chopped into 2-carbon pieces: catabolism."],
+  ["Linking amino acids into a protein","ana","Small pieces joined into a big molecule: anabolism."],["Copying DNA before the cell divides","ana","Nucleotides are joined into new DNA: anabolism."],["Building peptidoglycan cell wall","ana","Sugars and amino acids are assembled into the wall: anabolism."],["Calvin-Benson cycle making sugar from CO₂","ana","CO₂ is built into sugar using ATP: anabolism."],["Making folic acid from PABA","ana","A bigger molecule is built from PABA: anabolism."]]},
+{name:"Where does it happen in a bacterium?",goal:"Sort each step by where it happens in a bacterial cell.",
+ bins:[["cyto","Cytoplasm"],["mem","Plasma membrane"],["out","Outside the cell"]],
+ cards:[["Glycolysis","cyto","Glycolysis runs in the cytoplasm of every cell."],["Transition step (pyruvate → acetyl-CoA)","cyto","Bacteria have no mitochondria, so it happens in the cytoplasm."],["Krebs cycle","cyto","In bacteria the Krebs cycle runs in the cytoplasm."],["Fermentation","cyto","Fermentation enzymes are in the cytoplasm."],
+  ["Electron transport chain","mem","Bacteria build their ETC into the plasma membrane."],["ATP synthase","mem","ATP synthase sits in the plasma membrane and uses the proton gradient."],["Proton pumping","mem","Protons are pumped across the plasma membrane."],
+  ["Proteases digesting a large protein","out","Proteins are too big to enter, so proteases are released outside the cell."],["Lipase breaking down fats in the medium","out","Bacterial lipases are released outside the cell (exoenzymes)."]]},
+{name:"Respiration or fermentation?",goal:"Match each clue to aerobic respiration, anaerobic respiration or fermentation.",
+ bins:[["aer","Aerobic respiration"],["anr","Anaerobic respiration"],["fer","Fermentation"]],
+ cards:[["Final electron acceptor is O₂","aer","O₂ takes the electrons and becomes water."],["Up to 38 ATP per glucose","aer","The full pathway with O₂ gives the most ATP."],["Water forms at the end of the chain","aer","O₂ + electrons + H⁺ → H₂O."],
+  ["Final electron acceptor is nitrate","anr","Nitrate (NO₃⁻) replaces O₂ at the end of the chain."],["Sulfate reduced to H₂S by Desulfovibrio","anr","Sulfate is an inorganic final acceptor: anaerobic respiration."],["Uses an ETC but no oxygen","anr","Still an electron transport chain, just a different acceptor."],
+  ["Only 2 ATP per glucose","fer","Fermentation keeps just glycolysis's 2 ATP."],["Final electron acceptor is an organic molecule","fer","Pyruvate or a molecule made from it takes the electrons."],["Yeast making ethanol and CO₂","fer","Alcohol fermentation."],["No Krebs cycle and no ETC","fer","Fermentation is glycolysis plus a step that recycles NAD⁺."]]},
+{name:"Enzyme control",goal:"Sort each example into the way the enzyme is being slowed or stopped.",
+ bins:[["comp","Competitive inhibition"],["non","Noncompetitive inhibition"],["fb","Feedback inhibition"],["den","Denaturation"]],
+ cards:[["Sulfa drug takes PABA's place in the active site","comp","Look-alike molecule in the active site."],["Overcome by adding lots more substrate","comp","Substrate can outcompete a competitive inhibitor."],["Inhibitor shaped like the substrate","comp","It mimics the substrate to fit the active site."],
+  ["Binds the allosteric site and reshapes the active site","non","Acts away from the active site."],["Adding more substrate does not help","non","The active site is the wrong shape, so substrate cannot fit no matter how much there is."],["Heavy metal ions such as mercury binding the enzyme elsewhere","non","Metals like mercury bind other parts of the enzyme and change its shape."],
+  ["End product switches off the first enzyme of its pathway","fb","Feedback (end-product) inhibition."],["Isoleucine stops its own production","fb","The end product shuts down its own pathway."],
+  ["Boiling unfolds the enzyme for good","den","Heat breaks the bonds that hold the shape."],["Strong acid ruins the active site","den","Extreme pH unfolds the protein."],["Autoclaving kills microbes","den","Steam under pressure denatures their proteins."]]},
+{name:"Read the test",goal:"Is each lab result positive or negative?",
+ bins:[["pos","Positive"],["neg","Negative"]],
+ cards:[["Phenol red sugar broth turns yellow","pos","Yellow = acid: the sugar was fermented."],["Bubble in the Durham tube","pos","Gas was made: the G in A/G."],["Bubbles when H₂O₂ hits the colony","pos","Catalase positive."],["Oxidase strip turns dark purple","pos","Cytochrome c oxidase present."],["Simmons citrate turns blue","pos","Grew on citrate and made the medium alkaline."],["Urea broth turns hot pink","pos","Urease made ammonia."],["Red ring after Kovacs reagent","pos","Indole positive: tryptophan was broken down."],["Methyl red turns red","pos","Strong acid from mixed-acid fermentation."],
+  ["Phenol red sugar broth stays red","neg","No acid: the sugar was not fermented."],["No bubbles with H₂O₂","neg","Catalase negative, as in Streptococcus."],["Simmons citrate stays green","neg","Could not use citrate."],["Urea broth stays peach","neg","No urease."],["Yellow ring after Kovacs reagent","neg","Indole negative."]]}];
+const SG={r:0,placed:{},mist:0,sel:null,t0:0,timer:null,hint:null,doneRounds:{}};
+function binSVG(k){const s=b=>`<svg viewBox="0 0 56 46" aria-hidden="true" focusable="false">${b}</svg>`;
+  const bead=(x,y,c)=>`<circle cx="${x}" cy="${y}" r="5" fill="${c}" stroke="var(--ink)" stroke-width=".8"/>`;
+  const tubeS=(x,fill,extra)=>`<path d="M${x-7} 4 V36 a7 7 0 0 0 14 0 V4" fill="${fill}" stroke="var(--glass-edge)" stroke-width="1.5"/>${extra||""}`;
+  switch(k){
+    case "cat":return s(bead(10,14,"var(--carb)")+bead(20,14,"var(--carb)")+bead(30,14,"var(--carb)")+`<path d="M30 22 L44 34" stroke="var(--ink-soft)" stroke-width="1.5"/>`+bead(14,34,"var(--carb)")+bead(46,36,"var(--carb)")+`<circle cx="30" cy="32" r="6" fill="var(--atp)"/>`);
+    case "ana":return s(bead(8,32,"var(--amino)")+bead(18,32,"var(--act2)")+bead(28,32,"var(--act4)")+bead(38,32,"var(--act1)")+bead(48,32,"var(--amino)")+`<path d="M8 32 H48" stroke="var(--ink)" stroke-width="1.2"/><circle cx="28" cy="12" r="7" fill="var(--adp)" stroke="var(--atp-edge)"/>`);
+    case "cyto":return s(`<rect x="3" y="8" width="50" height="30" rx="15" fill="var(--cyto)" stroke="var(--cell-edge)" stroke-width="2"/><circle cx="28" cy="23" r="6" fill="var(--pyr)"/>`);
+    case "mem":return s(`<rect x="2" y="16" width="52" height="14" fill="var(--mem)" stroke="var(--mem-edge)"/><rect x="20" y="10" width="14" height="26" rx="5" fill="var(--act6)"/><circle cx="27" cy="5" r="3.5" fill="var(--hplus)"/>`);
+    case "out":return s(`<path d="M44 2 V44" stroke="var(--cell-edge)" stroke-width="3"/><circle cx="12" cy="22" r="5" fill="var(--amino)"/><circle cx="24" cy="22" r="5" fill="var(--amino)"/><path d="M30 14 l8 8 -8 8" stroke="var(--ink)" stroke-width="2" fill="none"/>`);
+    case "aer":return s(`<circle cx="22" cy="23" r="9" fill="var(--o2)"/><circle cx="34" cy="23" r="9" fill="var(--o2)"/>`);
+    case "anr":return s(`<circle cx="28" cy="25" r="9" fill="var(--nitr)"/><circle cx="28" cy="9" r="5" fill="var(--o2)"/><circle cx="14" cy="33" r="5" fill="var(--o2)"/><circle cx="42" cy="33" r="5" fill="var(--o2)"/>`);
+    case "fer":return s(`<ellipse cx="18" cy="26" rx="11" ry="9" fill="var(--yeast)" stroke="var(--yeast-edge)"/><circle cx="38" cy="16" r="4" fill="none" stroke="var(--ink)"/><circle cx="44" cy="28" r="3" fill="none" stroke="var(--ink)"/><circle cx="36" cy="36" r="3.5" fill="none" stroke="var(--ink)"/>`);
+    case "comp":return s(`<path d="M8 20 A20 20 0 1 0 48 20 L36 20 L28 32 L20 20 Z" fill="var(--enz)"/><path d="M20 6 H36 L28 18 Z" fill="var(--inh)"/>`);
+    case "non":return s(`<path d="M8 20 A20 20 0 1 0 48 20 L36 20 L28 28 L20 20 Z" fill="var(--enz)"/><path d="M46 10 l6 6 -6 6 -6 -6z" fill="var(--allo)"/>`);
+    case "fb":return s(`<circle cx="8" cy="30" r="5" fill="var(--carb)"/><circle cx="28" cy="30" r="5" fill="var(--carb)"/><circle cx="48" cy="30" r="5" fill="var(--prod)"/><path d="M13 30 H23 M33 30 H43" stroke="var(--ink-soft)"/><path d="M48 24 C40 4 16 4 10 22" stroke="var(--prod)" stroke-dasharray="3 2" fill="none" stroke-width="1.6"/>`);
+    case "den":return s(`<path d="M10 24 C6 10 22 4 28 12 C34 2 52 10 46 24 C54 34 40 44 30 38 C22 46 4 40 10 24Z" fill="var(--co2)"/><path d="M20 20 l16 10 M36 20 l-16 10" stroke="var(--bad)" stroke-width="2"/>`);
+    case "pos":return s(tubeS(18,"var(--pr-yel)")+tubeS(38,"var(--ure-pink)"));
+    case "neg":return s(tubeS(18,"var(--pr-red)")+tubeS(38,"var(--cit-grn)"));
+  }return s("")}
+function sRoundsUI(){$("#sRounds").innerHTML=SROUNDS.map((r,i)=>`<button type="button" class="round" aria-pressed="${i===SG.r}" data-i="${i}">Round ${i+1}: ${r.name}${SG.doneRounds[i]?`<span class="ok" aria-label="${SG.doneRounds[i]} stars">${"★".repeat(SG.doneRounds[i])}</span>`:""}</button>`).join("");
+  $("#sRounds").querySelectorAll("button").forEach(b=>b.onclick=()=>sLoad(+b.dataset.i))}
+function sLoad(i){SG.r=i;SG.placed={};SG.mist=0;SG.sel=null;SG.hint=null;SG.t0=Date.now();const R=SROUNDS[i];SG.order=shuffle(R.cards.map((c,k)=>k));
+  $("#sN").textContent=`Round ${i+1} of ${SROUNDS.length}`;$("#sTitle").textContent=R.name;$("#sGoal").textContent=R.goal;
+  const bins=$("#sBins");bins.innerHTML="";R.bins.forEach(b=>{const d=document.createElement("div");d.className="bin";d.dataset.k=b[0];
+    d.innerHTML=`<button type="button" class="binhead" data-k="${b[0]}">${binSVG(b[0])}<span>${b[1]}</span></button><div class="binitems"></div>`;
+    d.querySelector(".binhead").onclick=()=>{if(SG.sel!=null)sDrop(SG.sel,b[0]);else sMsg("info","Pick a card first, then tap a box.")};bins.appendChild(d)});
+  const best=store.get("best-"+i);$("#sBest").textContent=best?`Best for this round: ${"★".repeat(+best)}`:"";
+  $("#sMsg").className="msg";sRoundsUI();sRender();sTimerUI();a11yKey=""}
+function sRender(){const R=SROUNDS[SG.r];const pool=$("#sPool");pool.innerHTML="";
+  SG.order.forEach(k=>{if(SG.placed[k])return;const c=R.cards[k];const b=document.createElement("button");b.type="button";b.className="scard"+(SG.hint===k?" hinted":"");b.textContent=c[0];b.dataset.k=k;
+    b.setAttribute("aria-pressed",SG.sel===k);b.onclick=()=>{if(b.dataset.dragged){delete b.dataset.dragged;return}SG.sel=SG.sel===k?null:k;sRender();const nb=pool.querySelector(`[data-k="${k}"]`);if(nb)nb.focus()};
+    b.addEventListener("pointerdown",e=>sDragStart(e,b,k));pool.appendChild(b)});
+  if(!pool.children.length)pool.innerHTML='<span class="small">All cards sorted.</span>';
+  document.querySelectorAll("#sBins .bin").forEach(d=>{const items=d.querySelector(".binitems");items.innerHTML="";d.classList.toggle("hintbin",SG.hint!=null&&R.cards[SG.hint][1]===d.dataset.k);
+    R.cards.forEach((c,k)=>{if(SG.placed[k]&&c[1]===d.dataset.k){const s=document.createElement("div");s.className="scard placed";s.textContent="✓ "+c[0];items.appendChild(s)}})});
+  const n=Object.keys(SG.placed).length,tot=R.cards.length;$("#sStars").textContent=n===tot?"★".repeat(sStars())+"☆".repeat(3-sStars()):"";$("#sStars").setAttribute("aria-label",n===tot?sStars()+" of 3 stars":"Stars appear when the round is done")}
+function sStars(){return SG.mist===0?3:SG.mist<=2?2:1}
+function sMsg(cls,t){const m=$("#sMsg");m.className="msg show "+cls;m.textContent=t}
+function sDrop(k,bin){const R=SROUNDS[SG.r];const c=R.cards[k];SG.sel=null;SG.hint=null;
+  if(c[1]===bin){SG.placed[k]=1;sMsg("good","✓ "+c[0]+": "+c[2])}else{SG.mist++;const nm=R.bins.find(b=>b[0]===bin)[1];sMsg("warn",`Not quite. "${c[0]}" does not go in ${nm}. Think again about where it belongs and try another box.`)}
+  sRender();if(Object.keys(SG.placed).length===R.cards.length)sFinish();else{const f=$("#sPool .scard");if(f&&document.activeElement===document.body)f.focus()}}
+function sFinish(){const st=sStars();SG.doneRounds[SG.r]=Math.max(SG.doneRounds[SG.r]||0,st);const best=+(store.get("best-"+SG.r)||0);if(st>best)store.set("best-"+SG.r,st);
+  const tm=!$("#sRelaxed").checked?` Time: ${fmt((Date.now()-SG.t0)/1000)}.`:"";sMsg("good",`Round complete with ${SG.mist} ${SG.mist===1?"mistake":"mistakes"}: ${st} of 3 stars.${tm} `+(SG.r<SROUNDS.length-1?"Press Next round when you are ready.":"That was the last round. Well done."));sRoundsUI();sRender()}
+let drag=null;
+function sDragStart(e,b,k){if(e.button>0)return;const r=b.getBoundingClientRect();drag={k,b,sx:e.clientX,sy:e.clientY,dx:e.clientX-r.left,dy:e.clientY-r.top,g:null,over:null,id:e.pointerId};
+  window.addEventListener("pointermove",sDragMove);window.addEventListener("pointerup",sDragEnd);window.addEventListener("pointercancel",sDragEnd)}
+function sDragMove(e){if(!drag||e.pointerId!==drag.id)return;if(!drag.g){if(Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)<6)return;const g=drag.b.cloneNode(true);g.classList.add("ghost");g.removeAttribute("id");g.setAttribute("aria-hidden","true");g.tabIndex=-1;g.style.width=drag.b.offsetWidth+"px";document.body.appendChild(g);drag.g=g;drag.b.style.opacity=".35"}
+  e.preventDefault();drag.g.style.left=(e.clientX-drag.dx)+"px";drag.g.style.top=(e.clientY-drag.dy)+"px";
+  const el=document.elementFromPoint(e.clientX,e.clientY);const bin=el&&el.closest?el.closest(".bin"):null;document.querySelectorAll(".bin.over").forEach(x=>x!==bin&&x.classList.remove("over"));if(bin)bin.classList.add("over");drag.over=bin}
+function sDragEnd(e){if(!drag)return;window.removeEventListener("pointermove",sDragMove);window.removeEventListener("pointerup",sDragEnd);window.removeEventListener("pointercancel",sDragEnd);
+  const d=drag;drag=null;document.querySelectorAll(".bin.over").forEach(x=>x.classList.remove("over"));if(!d.g)return;d.g.remove();d.b.style.opacity="";d.b.dataset.dragged="1";
+  if(d.over)sDrop(d.k,d.over.dataset.k);else sRender()}
+$("#sHint").onclick=()=>{const R=SROUNDS[SG.r];const k=SG.sel!=null?SG.sel:SG.order.find(k=>!SG.placed[k]);if(k==null){sMsg("info","Everything is sorted.");return}SG.hint=k;
+  const bn=R.bins.find(b=>b[0]===R.cards[k][1])[1];sMsg("info",`Hint: "${R.cards[k][0]}" goes in the glowing box (${bn}). ${R.cards[k][2]}`);sRender()};
+$("#sShow").onclick=()=>{const R=SROUNDS[SG.r];R.cards.forEach((c,k)=>SG.placed[k]=1);SG.mist=Math.max(SG.mist,3);sRender();sFinish();sMsg("info","All cards placed. Read each box to see why they belong there.")};
+$("#sShuffle").onclick=()=>sLoad(SG.r);$("#sNext").onclick=()=>sLoad((SG.r+1)%SROUNDS.length);
+function sTimerUI(){const relaxed=$("#sRelaxed").checked;$("#sTimer").hidden=relaxed;clearInterval(SG.timer);if(!relaxed){SG.timer=setInterval(()=>{if(Object.keys(SG.placed).length<SROUNDS[SG.r].cards.length)$("#sTimer").textContent=fmt((Date.now()-SG.t0)/1000)},500)}}
+$("#sRelaxed").onchange=()=>{SG.t0=Date.now();sTimerUI()};
+function sortA11y(){const R=SROUNDS[SG.r];const n=Object.keys(SG.placed).length;
+  return [null,`Round ${SG.r+1}, ${R.name}. ${n} of ${R.cards.length} cards sorted. Each box has a small drawing: `+R.bins.map(b=>b[1]).join(", ")+`. Cards still to sort: `+(SG.order.filter(k=>!SG.placed[k]).map(k=>R.cards[k][0]).join(", ")||"none")+"."]}
+
+
+/* ---------------- accessibility: live labels and picture descriptions ---------------- */
+const A11Y={cell:{cv:"#cvCell",f:cellA11y},enz:{cv:"#cvEnz",f:enzA11y},bench:{cv:"#cvBench",f:benchA11y},sort:{cv:null,f:sortA11y}};
+let a11yKey="",a11yT=0;
+function a11yTick(){const n=performance.now();if(n-a11yT<700)return;a11yT=n;const a=A11Y[curTab];const [lab,d]=a.f();const key=curTab+"|"+lab+"|"+(a.cv?"":d);if(key===a11yKey)return;a11yKey=key;
+  if(a.cv&&lab)$(a.cv).setAttribute("aria-label",lab);if(window.gkDescribe)window.gkDescribe(d);
+  const box=document.getElementById("gk-desc");if(box){const host=a.cv?$(a.cv).closest(".canvas-holder"):$("#sPool");if(host&&host.nextElementSibling!==box)host.after(box);if(a.cv)$(a.cv).setAttribute("aria-describedby","gk-desc")}}
+/* ---------------- tabs / theme / loop ---------------- */
+let curTab="cell";
+const TABS=["cell","enz","bench","sort"];
+function showTab(k,focus){curTab=k;document.querySelectorAll(".tab").forEach(x=>{const on=x.dataset.tab===k;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;if(on&&focus)x.focus()});
+  TABS.forEach(t=>$("#tab-"+t).hidden=t!==k);fitAll();a11yKey=""}
+document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>showTab(t.dataset.tab);t.onkeydown=e=>{const i=TABS.indexOf(t.dataset.tab);
+  if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();showTab(TABS[(i+(e.key==="ArrowRight"?1:TABS.length-1))%TABS.length],true)}
+  if(e.key==="Home"){e.preventDefault();showTab(TABS[0],true)}if(e.key==="End"){e.preventDefault();showTab(TABS[TABS.length-1],true)}}});
+function fitAll(){[S1,S2,S3].forEach(s=>s.fit())}
+window.addEventListener("resize",fitAll);
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+let last=performance.now(),rdT=0;
+function frame(now){const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;
+  try{if(curTab==="cell"){cellStep(dt);drawCell(now);rdT+=dt;if(rdT>.3){rdT=0;cellRead()}}
+    else if(curTab==="enz"){enzStep(dt);drawEnz(now);rdT+=dt;if(rdT>.3){rdT=0;enzRead()}}
+    else if(curTab==="bench"){UB.t+=dt;drawBench(now);rdT+=dt;if(rdT>.3){rdT=0;uTable()}}}catch(err){console.error(err)}
+  try{a11yTick()}catch(err){console.error(err)}
+  requestAnimationFrame(frame)}
+/* test hooks */
+window.__ml={tab:k=>showTab(k),cell:(org,o2,nit)=>{CEL.org=org;CEL.o2=o2;CEL.nitrate=!!nit;cellReset();cellUI()},cellRun:s=>{for(let i=0;i<s*50;i++)cellStep(.02);cellRead()},cellState:()=>({mode:cellMode(),atp:CEL.atp,nad:CEL.nad,prods:CEL.prods,done:[...CEL.done]}),
+  enz:(o)=>{Object.assign(EZ,o);["T","pH","S","I","N"].forEach((k,i)=>$(["#eTemp","#ePH","#eSub","#eComp","#eNon"][i]).value=EZ[k]);enzUI()},enzRun:s=>{for(let i=0;i<s*50;i++)enzStep(.02);enzRead()},enzState:()=>({rate:eF().rate,active:EZ.active,done:[...EZ.done]}),
+  unk:i=>{UB.i=i;uUI()},unkAll:()=>{$("#uAll").click();UB.t+=5;uTable()},unkShow:()=>$("#uShow").click(),
+  sortGo:i=>sLoad(i),sortShow:()=>$("#sShow").click(),sortDrop:(k,b)=>sDrop(k,b),sortState:()=>({r:SG.r,placed:Object.keys(SG.placed).length,mist:SG.mist,order:SG.order})};
+readColors();cellReset();cellUI();enzUI();uUI();sLoad(0);fitAll();requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Disease and Epidemiology Lab</title>
+<meta name="description" content="Outbreak SIR simulator with vaccination and herd immunity, a John Snow-style cholera map investigation, chain-of-infection patient cases, and sorting and ordering games.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#1E7A4C;--accent-ink:#145A37;--accent-wash:#DDEFE4;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#2E8A7A;--act2:#2F7FC1;--act3:#D98A1C;--act4:#C4644F;--act5:#7B5CC9;--act6:#A04E8C;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#8A6D12;
+  /* disease and epidemiology palette */
+  --ecf:#EEF3EF;--grid:#D3DED6;
+  --gpos:#6A3FA0;--gneg:#C2457A;
+  --res:#2E8A7A;--res-2:#BFE3DA;--trans:#D98A1C;--trans-2:#F5DDB3;--path:#C2392F;--path-2:#F4C9C2;
+  --host:#F3DCCB;--host-edge:#B5866A;--nucf:#E3D8EE;--nuc-edge:#7B5CA0;--mucus:#CFE3C2;
+  --body:#E9D3BF;--body-edge:#A88468;--skin:#EAC9A8;--skin-edge:#B9937A;--rash:#D9534F;
+  --blood:#F6D9D6;--vessel:#B5524A;--rbc:#C8433A;--plasma:#F9E7C7;
+  --wbc:#E6E1F2;--wbc-edge:#6E5AA8;--ab:#2F6FD0;--iga:#2E8A7A;
+  --toxa:#C2392F;--toxb:#D98A1C;--lps:#C2457A;--cap:#E8D9A4;--cap-edge:#A88E3C;--fim:#5E6E9A;--biofilm:#C9DDB0;
+  --clot:#B8901C;--collagen:#C98E6E;--hyal:#7FA9C9;
+  --sus:#2F6FD0;--inf:#C8432F;--rec:#5E7280;--vac:#7B5CC9;
+  --water:#9CC6E4;--water-edge:#2F6FA0;--street:#D6D0C2;--house:#E6DFCE;--house-edge:#9A8F78;--pump:#2F4F7F;--park:#CFE3C2;
+  --vector:#6E5A3A;--food:#E2B060;--fever:#E0563A;--virus:#7B5CC9;
+  --glow:#F2B33B;--heat:#E0563A;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A9EBC6;--accent-wash:#14301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5CC4B0;--act2:#5AA9E6;--act3:#F2A93B;--act4:#E08A74;--act5:#A98BEF;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#22302A;
+  --gpos:#B48BF0;--gneg:#F08AB8;
+  --res:#5CC4B0;--res-2:#1E3D37;--trans:#F2A93B;--trans-2:#3E3018;--path:#F07067;--path-2:#4A2420;
+  --host:#3E2E25;--host-edge:#C9997A;--nucf:#352C44;--nuc-edge:#B49BF0;--mucus:#2A3D24;
+  --body:#4A3A2E;--body-edge:#C9A385;--skin:#5A4434;--skin-edge:#B9937A;--rash:#F07067;
+  --blood:#3A2220;--vessel:#E07A70;--rbc:#E0605A;--plasma:#3A3220;
+  --wbc:#2E2A44;--wbc-edge:#B49BF0;--ab:#6FA3F0;--iga:#5CC4B0;
+  --toxa:#F07067;--toxb:#F2A93B;--lps:#F08AB8;--cap:#4A4026;--cap-edge:#E0C060;--fim:#9FB0D9;--biofilm:#2E4024;
+  --clot:#E0BE48;--collagen:#D9A080;--hyal:#8FB9D9;
+  --sus:#6FA3F0;--inf:#F07A60;--rec:#A3B2BA;--vac:#B49BF0;
+  --water:#1E3A52;--water-edge:#7FB6E0;--street:#2C3530;--house:#26302C;--house-edge:#8A9488;--pump:#9FC0F0;--park:#22351E;
+  --vector:#C9A878;--food:#E0B060;--fever:#F27A5E;--virus:#B49BF0;
+  --glow:#F2B33B;--heat:#F27A5E;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A9EBC6;--accent-wash:#14301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5CC4B0;--act2:#5AA9E6;--act3:#F2A93B;--act4:#E08A74;--act5:#A98BEF;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#22302A;
+  --gpos:#B48BF0;--gneg:#F08AB8;
+  --res:#5CC4B0;--res-2:#1E3D37;--trans:#F2A93B;--trans-2:#3E3018;--path:#F07067;--path-2:#4A2420;
+  --host:#3E2E25;--host-edge:#C9997A;--nucf:#352C44;--nuc-edge:#B49BF0;--mucus:#2A3D24;
+  --body:#4A3A2E;--body-edge:#C9A385;--skin:#5A4434;--skin-edge:#B9937A;--rash:#F07067;
+  --blood:#3A2220;--vessel:#E07A70;--rbc:#E0605A;--plasma:#3A3220;
+  --wbc:#2E2A44;--wbc-edge:#B49BF0;--ab:#6FA3F0;--iga:#5CC4B0;
+  --toxa:#F07067;--toxb:#F2A93B;--lps:#F08AB8;--cap:#4A4026;--cap-edge:#E0C060;--fim:#9FB0D9;--biofilm:#2E4024;
+  --clot:#E0BE48;--collagen:#D9A080;--hyal:#8FB9D9;
+  --sus:#6FA3F0;--inf:#F07A60;--rec:#A3B2BA;--vac:#B49BF0;
+  --water:#1E3A52;--water-edge:#7FB6E0;--street:#2C3530;--house:#26302C;--house-edge:#8A9488;--pump:#9FC0F0;--park:#22351E;
+  --vector:#C9A878;--food:#E0B060;--fever:#F27A5E;--virus:#B49BF0;
+  --glow:#F2B33B;--heat:#F27A5E;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1180px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:9px 14px;cursor:pointer;font-weight:500;font-size:15px}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 13px;cursor:pointer;font-size:14.5px}
+.tbtn:hover{border-color:var(--accent)}
+.tbtn:disabled{opacity:.45;cursor:default}
+.tbtn[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:10px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.btn:disabled{opacity:.45;cursor:default}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;min-width:0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%;touch-action:manipulation}
+.stagebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2)}
+.legend i.s{border-radius:2px}
+.legend i.ln{width:20px;height:0;border-radius:0;border:0;border-top:3px solid}
+.legend i.dl{width:20px;height:0;border-radius:0;border:0;border-top:3px dashed}
+.rounds{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.round{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 13px;cursor:pointer;font-size:14px}
+.round[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.round .ok{color:var(--gold-ink);margin-left:4px}
+.mode{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-soft)}
+.mode input{accent-color:var(--accent);width:18px;height:18px}
+.lvl-n{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.lvl-t{font-family:var(--serif);font-size:22px;font-weight:600;margin:4px 0 8px;line-height:1.25}
+.goal{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:15px}
+.goal b.h{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.msg{margin:10px 0 0;padding:10px 12px;border-radius:var(--r);font-size:15px;display:none}
+.msg.show{display:block}
+.msg.good{background:var(--good-wash);color:var(--ink);border:1px solid var(--good)}
+.msg.warn{background:var(--warn-wash);color:var(--ink);border:1px solid var(--warn)}
+.msg.info{background:var(--panel-2);color:var(--ink);border:1px solid var(--rule)}
+.stars{font-size:22px;letter-spacing:2px;color:var(--gold-ink)}
+.side h3{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+.side p,.side li{font-size:14.5px}
+.small{font-size:13px;color:var(--ink-soft)}
+.timer{font-family:var(--mono);font-size:18px;font-weight:600}
+.ctl{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ctl label{font-size:14.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.ctl output{font-family:var(--mono);font-weight:600;color:var(--accent-ink)}
+.ctl input[type=range]{accent-color:var(--accent);width:100%}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);font-family:var(--mono)}
+.readouts{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+.readouts th{text-align:left;font-weight:500;color:var(--ink-soft);padding:5px 6px 5px 0;border-top:1px solid var(--rule-soft)}
+.srhead th,.readouts caption.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0;border:0}
+.readouts td{padding:5px 0;border-top:1px solid var(--rule-soft);font-family:var(--mono);font-size:13.5px;text-align:right}
+.chal{list-style:none;padding:0;margin:6px 0}
+.chal li{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14px}
+.chal .ck{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-size:13px;font-family:var(--mono)}
+.chal li.done .ck{background:var(--good);border-color:var(--good);color:var(--on-accent)}
+.status{font-size:14.5px;padding:8px 10px;border-radius:var(--r);margin-top:8px;border:1px solid var(--rule);background:var(--panel-2)}
+.status.warn{background:var(--warn-wash);border-color:var(--warn)}
+.status.bad{background:var(--bad-wash);border-color:var(--bad)}
+.status.good{background:var(--good-wash);border-color:var(--good)}
+.trt{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.trt .tbtn{text-align:left;line-height:1.25}
+.sc-n{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.sc-title{font-family:var(--serif);font-size:22px;font-weight:600;margin:2px 0 6px}
+.story{font-size:15px}
+.story p{margin:0 0 8px}
+.qlab{font-weight:600;margin:12px 0 8px}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opt{text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:8px 0 0;font-size:14.5px;padding:8px 10px;border-radius:4px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--good-wash);border-left:4px solid var(--good)}
+.fb.no{background:var(--warn-wash);border-left:4px solid var(--warn)}
+.fb.hint{background:var(--gold-wash);border-left:4px solid var(--gold)}
+.qnav{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{min-width:30px;height:30px;border-radius:99px;border:1.5px solid var(--rule);display:inline-grid;place-items:center;font-family:var(--mono);font-size:12.5px;background:var(--panel-2);cursor:pointer;padding:0 8px}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.chip.done:not([aria-pressed="true"]){border-color:var(--good);background:var(--good-wash);color:var(--good)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+/* sorter */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:70px;padding:10px;border:1px solid var(--rule);border-radius:var(--r);background:var(--panel-2);margin-bottom:12px}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.bin{border:2px dashed var(--rule);border-radius:var(--r);min-height:170px;padding:8px;background:var(--panel);display:flex;flex-direction:column;gap:6px;cursor:pointer}
+.bin:hover,.bin.target{border-color:var(--accent);background:var(--accent-wash)}
+.binhead{display:block;width:100%;background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;text-align:left;cursor:pointer;border-radius:4px}
+.binhead:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.bin .bh{font-weight:700;font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;display:flex;gap:8px;align-items:center}
+.bin .bsub{display:block;font-size:13px;color:var(--ink-soft);margin:2px 0 4px}
+.bin .bitems{display:flex;flex-wrap:wrap;gap:6px}
+.tok{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:5px 10px 5px 5px;cursor:grab;touch-action:none;user-select:none;font-size:14.5px;line-height:1.25;text-align:left;font-family:var(--sans);color:var(--ink)}
+.tok svg{width:38px;height:38px;flex:0 0 auto;display:block}
+.tok:hover{border-color:var(--accent)}
+.tok.sel{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
+.tok.ok{border-color:var(--good);background:var(--good-wash)}
+.tok.no{border-color:var(--warn);background:var(--warn-wash)}
+.tok.hinted{box-shadow:0 0 0 3px var(--gold)}
+.tok .mk{font-family:var(--mono);font-weight:700}
+.tok{max-width:100%}.tok>span{min-width:0;overflow-wrap:anywhere;hyphens:auto}
+.tok.ghost{position:fixed;z-index:60;pointer-events:none;opacity:.92;box-shadow:0 10px 24px -8px rgba(0,0,0,.4)}
+.abbox{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:10px 12px;font-size:14.5px;margin-top:10px}
+footer{max-width:1180px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+sub,sup{line-height:0}
+[hidden]{display:none!important}
+select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:var(--r);padding:4px 6px}
+.radios{display:flex;gap:6px;flex-wrap:wrap}
+ol.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.item{display:flex;align-items:center;gap:10px;background:var(--panel);border:1.5px solid var(--rule);border-left:6px solid var(--act4);border-radius:var(--r);padding:7px 8px 7px 10px;touch-action:none;user-select:none;cursor:grab;transition:background .15s,border-color .15s}
+.item.drag{box-shadow:0 10px 24px -8px rgba(0,0,0,.4);cursor:grabbing;border-color:var(--accent);z-index:2;position:relative}
+.item .pos{font-family:var(--mono);font-size:13px;color:var(--ink-faint);width:20px;text-align:right;flex:0 0 auto}
+.item .grip{color:var(--ink-faint);font-size:18px;line-height:1;flex:0 0 auto}
+.item .txt{flex:1;font-size:15px;line-height:1.35}
+.item .mv{display:flex;flex-direction:column;gap:2px}
+.mv button{width:30px;height:24px;border:1px solid var(--rule);background:var(--panel-2);border-radius:4px;cursor:pointer;font-size:12px;padding:0;line-height:1}
+.mv button:hover{border-color:var(--accent)}
+.item.right{background:var(--good-wash);border-color:var(--good)}
+.item.off{background:var(--warn-wash);border-color:var(--warn)}
+.item.hinted{box-shadow:0 0 0 3px var(--gold)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid2{grid-template-columns:1fr}}
+.seg{display:inline-flex;gap:0;border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:12px}
+.seg button{border:0;border-right:1px solid var(--rule);background:var(--panel);padding:8px 14px;cursor:pointer;font-size:15px}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);font-weight:600}
+.calc{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center;font-size:14.5px;margin:8px 0}
+.calc input{font:inherit;font-family:var(--mono);background:var(--panel);color:var(--ink);border:1.5px solid var(--rule);border-radius:var(--r);padding:6px 8px;width:100%;min-width:0}
+.calc input:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.platebtns{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.formula{font-family:var(--mono);font-size:14px;background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 10px;margin:6px 0;overflow-wrap:anywhere}
+.sirkey{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--ink-soft);padding:8px 4px 2px}
+.sirkey span{display:inline-flex;align-items:center;gap:6px}
+.sirkey i{display:inline-block;width:12px;height:12px}
+.presets{display:grid;grid-template-columns:1fr;gap:6px}
+.presets .tbtn{text-align:left;line-height:1.3}
+.presets .tbtn small{display:block;font-size:12.5px;color:var(--ink-soft);font-weight:500}
+.presets .tbtn[aria-pressed="true"] small{color:var(--accent-ink)}
+.toggles{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.toggles .tbtn{text-align:left;line-height:1.25}
+.toggles .tbtn small{display:block;font-size:12px;color:var(--ink-soft);font-weight:500}
+.toggles .tbtn[aria-pressed="true"] small{color:var(--accent-ink)}
+.pumpbtns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:6px 0}
+.pumpbtns .tbtn{font-size:14px;padding:7px 6px}
+.steplist{list-style:none;margin:6px 0;padding:0}
+.steplist li{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-top:1px solid var(--rule-soft);font-size:14px}
+.steplist .ck{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-size:12.5px;font-family:var(--mono)}
+.steplist li.done .ck{background:var(--good);border-color:var(--good);color:var(--on-accent)}
+.steplist li.cur{font-weight:600}
+</style>
+<script src="micro-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">Microbiology &middot; Module 9 &middot; Disease, virulence and epidemiology</div>
+    <h1>Disease and Epidemiology Lab</h1>
+    <p class="sub">Run an outbreak and test vaccines, masks and isolation; track down the source of a cholera outbreak like John Snow; trace the chain of infection in patient cases; and sort and order what you know. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+<main class="wrap" id="main">
+  <div class="tabs" role="tablist" aria-label="Lab activities">
+    <button class="tab" role="tab" aria-selected="true" data-tab="sim" id="tabbtn-sim" aria-controls="tab-sim" type="button">Part 1 &middot; Outbreak Simulator</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="map" id="tabbtn-map" aria-controls="tab-map" type="button" tabindex="-1">Part 2 &middot; Map the Outbreak</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="case" id="tabbtn-case" aria-controls="tab-case" type="button" tabindex="-1">Part 3 &middot; Chain of Infection Cases</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="sort" id="tabbtn-sort" aria-controls="tab-sort" type="button" tabindex="-1">Part 4 &middot; Sort and Order</button>
+  </div>
+
+  <!-- PART 1: SIR outbreak simulator -->
+  <section id="tab-sim" role="tabpanel" aria-labelledby="tabbtn-sim">
+    <h2 class="gk-sr">Part 1: Outbreak Simulator</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvSim" role="img" aria-label="Town of dots and a graph of susceptible, infected and recovered people."></canvas></div>
+        <div class="stagebar">
+          <button class="btn" id="mRun" type="button">Start outbreak</button>
+          <button class="tbtn" id="mReset" type="button">Reset</button>
+          <label class="mode" for="mSpeed">Speed</label><select id="mSpeed"><option value="2">2 days per second</option><option value="5" selected>5 days per second</option><option value="10">10 days per second</option></select>
+          <span class="timer" id="mClock">Day 0</span>
+        </div>
+        <div class="sirkey" aria-label="Colour and shape key">
+          <span><i style="background:var(--sus);border-radius:50%"></i>Susceptible (filled circle)</span>
+          <span><i style="background:var(--inf);border-radius:50%;box-shadow:0 0 0 2px var(--panel),0 0 0 3.5px var(--inf)"></i>Infected (circle with ring)</span>
+          <span><i style="border:2px solid var(--rec);border-radius:50%"></i>Recovered, immune (hollow circle)</span>
+          <span><i style="background:var(--vac);border-radius:2px"></i>Vaccinated, immune (square)</span>
+          <span><i style="border-top:2px dashed var(--ink);height:0;width:18px"></i>Herd immunity threshold</span>
+        </div>
+      </div>
+      <aside class="card side" aria-label="Simulator controls">
+        <h3 style="margin-top:0" id="mGermLab">1. Choose a germ</h3>
+        <div class="presets" id="mPresets" role="group" aria-labelledby="mGermLab"></div>
+        <div class="ctl"><label for="mC">Contacts per day <output id="mCOut" for="mC">10</output></label><input type="range" id="mC" min="1" max="20" step="1" value="10"></div>
+        <div class="ctl"><label for="mP">Chance of spread per contact <output id="mPOut" for="mP">4%</output></label><input type="range" id="mP" min="1" max="30" step="1" value="4"></div>
+        <div class="ctl"><label for="mD">Days infectious (recovery time) <output id="mDOut" for="mD">7 days</output></label><input type="range" id="mD" min="2" max="14" step="1" value="7"></div>
+        <div class="formula" id="mR0">R&#8320; = contacts &times; chance &times; days</div>
+        <h3>2. Protect the town</h3>
+        <div class="ctl"><label for="mV">Vaccination coverage <output id="mVOut" for="mV">0%</output></label><input type="range" id="mV" min="0" max="98" step="1" value="0"><div class="ticks" aria-hidden="true"><span>0%</span><span>50%</span><span>98%</span></div></div>
+        <div class="toggles" role="group" aria-label="Other measures">
+          <button class="tbtn" type="button" id="mMask" aria-pressed="false">Masks<small>40% less spread per contact</small></button>
+          <button class="tbtn" type="button" id="mIso" aria-pressed="false">Isolate when sick<small>70% fewer contacts after day 2</small></button>
+        </div>
+        <p class="small" style="margin:6px 0 0">Changing a germ setting or the vaccine coverage resets the town. Masks and isolation can be switched on at any time.</p>
+        <table class="readouts"><caption class="sr">Outbreak readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody id="mRead"></tbody></table>
+        <div class="status" id="mStatus" role="status"></div>
+        <h3>Challenges</h3>
+        <ul class="chal" id="mChal"></ul>
+        <p class="small" id="mChalStars"></p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 2: John Snow map -->
+  <section id="tab-map" role="tabpanel" aria-labelledby="tabbtn-map" hidden>
+    <h2 class="gk-sr">Part 2: Map the Outbreak</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvMap" role="img" aria-label="Street map of a city neighbourhood with water pumps, and an epidemic curve."></canvas></div>
+        <div class="stagebar">
+          <button class="btn" id="jPlay" type="button">Plot the deaths</button>
+          <button class="tbtn" id="jZones" type="button" aria-pressed="false">Show walking zones</button>
+          <button class="tbtn" id="jClues" type="button" aria-pressed="false">Show clues</button>
+          <button class="tbtn" id="jReset" type="button">Start over</button>
+        </div>
+        <div class="stagebar"><span class="caption" id="jCap"></span></div>
+        <div class="legend">
+          <span><i class="s" style="background:var(--ink)"></i>Black bar: 2 deaths</span>
+          <span><i style="background:var(--pump)"></i>Water pump (A to F)</span>
+          <span><i class="s" style="background:var(--gold)"></i>Brewery</span>
+          <span><i class="s" style="background:var(--act2)"></i>Workhouse</span>
+        </div>
+      </div>
+      <aside class="card side" aria-label="Investigation">
+        <div class="sc-n">London, 1854 &middot; simplified</div>
+        <h3 class="sc-title" style="text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:21px;color:var(--ink);margin:2px 0 6px">Be the epidemiologist</h3>
+        <p class="small" style="margin:0 0 6px">Cholera is killing people in one neighbourhood. Most doctors blame "bad air". Use the map to find the real source.</p>
+        <ol class="steplist" id="jSteps"></ol>
+        <p class="qlab" id="jQ"></p>
+        <div class="opts" id="jOpts"></div>
+        <div id="jPumpWrap" hidden><p class="small" style="margin:6px 0 2px" id="jPumpLab">Tap a pump on the map, or choose it here:</p><div class="pumpbtns" id="jPumps" role="group" aria-labelledby="jPumpLab"></div></div>
+        <p class="fb" id="jFb" role="status"></p>
+        <div class="bar"><button class="tbtn" id="jHint" type="button">Hint</button><button class="tbtn" id="jShow" type="button">Show answer</button><button class="btn" id="jNext" type="button">Next step &rarr;</button></div>
+        <p class="calm">Wrong answers are fine here. Read why, then try again.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 3: chain of infection cases -->
+  <section id="tab-case" role="tabpanel" aria-labelledby="tabbtn-case" hidden>
+    <h2 class="gk-sr">Part 3: Chain of Infection Cases</h2>
+    <div class="chips" id="cChips" role="group" aria-label="Choose a case"></div>
+    <div class="grid" style="margin-top:12px">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvCase" role="img" aria-label="Patient chart, stain and chain of infection."></canvas></div>
+        <div class="story" id="cStory" style="padding:12px 6px 2px"></div>
+      </div>
+      <aside class="card side" aria-label="Case questions">
+        <div class="sc-n" id="cN"></div>
+        <h3 class="sc-title" id="cT" style="text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:21px;color:var(--ink);margin:2px 0 6px"></h3>
+        <div class="qnav" id="cQnav" role="group" aria-label="Questions"></div>
+        <p class="qlab" id="cQ"></p>
+        <div class="opts" id="cOpts"></div>
+        <p class="fb" id="cFb" role="status"></p>
+        <div class="bar"><button class="tbtn" id="cHint" type="button">Hint</button><button class="tbtn" id="cShow" type="button">Show answer</button><button class="btn" id="cNext" type="button">Next question &rarr;</button></div>
+        <p class="calm">Wrong answers are fine here. Read why, then try again.</p>
+        <p class="small" id="cScore"></p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 4: sort and order -->
+  <section id="tab-sort" role="tabpanel" aria-labelledby="tabbtn-sort" hidden>
+    <h2 class="gk-sr">Part 4: Sort and Order</h2>
+    <div class="seg" role="group" aria-label="Game type"><button type="button" id="gSort" aria-pressed="true">Sort into groups</button><button type="button" id="gOrder" aria-pressed="false">Put in order</button></div>
+    <div id="sortWrap">
+      <div class="rounds" id="sRounds" role="group" aria-label="Sorting rounds"></div>
+      <div class="grid">
+        <div class="card">
+          <p class="small" style="margin-top:0">Tap a card, then tap a bin. Or drag the card into a bin.</p>
+          <div class="pool" id="sPool" role="group" aria-label="Cards to sort"></div>
+          <div class="bins" id="sBins"></div>
+        </div>
+        <aside class="card side" aria-live="polite">
+          <div class="lvl-n" id="sN"></div>
+          <h3 class="lvl-t" id="sT" style="text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:22px;color:var(--ink)"></h3>
+          <div class="goal"><b class="h">Your job</b><span id="sGoal"></span></div>
+          <div class="bar">
+            <button class="btn" id="sCheck" type="button">Check</button>
+            <button class="tbtn" id="sHint" type="button">Hint</button>
+            <button class="tbtn" id="sShow" type="button">Show answer</button>
+            <button class="tbtn" id="sReset" type="button">Start over</button>
+          </div>
+          <div class="bar"><label class="mode"><input type="checkbox" id="sRelaxed" checked> Relaxed mode (no timer)</label><span class="timer" id="sTimer" hidden>0:00</span></div>
+          <div class="msg" id="sMsg" role="status"></div>
+          <div class="abbox" id="sWhy"><b>Tip:</b> after checking, tap any card to read why it belongs where it does.</div>
+        </aside>
+      </div>
+    </div>
+    <div id="orderWrap" hidden>
+      <div class="rounds" id="qRounds" role="group" aria-label="Ordering rounds"></div>
+      <div class="grid2">
+        <div class="card stage">
+          <div class="canvas-holder"><canvas id="cvSeq" role="img" aria-label="Sequence picture"></canvas></div>
+          <div class="stagebar"><span class="caption" id="qCap"></span></div>
+        </div>
+        <div class="card">
+          <div class="lvl-n" id="qN"></div>
+          <h3 class="lvl-t" id="qT" style="text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:22px;color:var(--ink)"></h3>
+          <div class="goal"><b class="h">Your job</b><span id="qGoal"></span></div>
+          <p class="small">Drag cards to reorder them, or use the arrow buttons on each card.</p>
+          <ol class="list" id="qList"></ol>
+          <div class="bar">
+            <button class="btn" id="qCheck" type="button">Check</button>
+            <button class="tbtn" id="qPlay" type="button">Play my order</button>
+            <button class="tbtn" id="qHint" type="button">Hint</button>
+            <button class="tbtn" id="qShow" type="button">Show answer</button>
+            <button class="tbtn" id="qShuffle" type="button">Shuffle again</button>
+          </div>
+          <div class="bar"><label class="mode"><input type="checkbox" id="qRelaxed" checked> Relaxed mode (no timer)</label><span class="timer" id="qTimer" hidden>0:00</span></div>
+          <div class="msg" id="qMsg" role="status"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>Dr. Akash Garg &middot; Microbiology Study Tools &middot; Diagrams are simplified and not to scale. For learning only, not medical advice. CC BY-NC-SA 4.0<br>Learn the ideas first in the <a href="Disease-Epi-Walkthrough.html">Disease, Virulence and Epidemiology Walkthrough</a>. The outbreak simulator is a simple SIR teaching model with rounded numbers (it treats vaccines as fully protective and everyone as mixing evenly); real outbreaks are messier. The cholera map is a simplified drawing inspired by John Snow's 1854 map, with approximate numbers. Patient cases are fictional teaching examples.</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "gold", "gold-wash", "gold-ink", "ecf", "grid", "gpos", "gneg", "res", "res-2", "trans", "trans-2", "path", "path-2", "host", "host-edge", "nucf", "nuc-edge", "mucus", "body", "body-edge", "skin", "skin-edge", "rash", "blood", "vessel", "rbc", "plasma", "wbc", "wbc-edge", "ab", "iga", "toxa", "toxb", "lps", "cap", "cap-edge", "fim", "biofilm", "clot", "collagen", "hyal", "sus", "inf", "rec", "vac", "water", "water-edge", "street", "house", "house-edge", "pump", "park", "vector", "food", "fever", "virus", "glow", "heat"];
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"left";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase(),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+function bodyFig(cx,top,s,o){o=o||{};ctx.save();ctx.translate(cx,top);ctx.scale(s,s);ctx.lineCap="round";ctx.lineJoin="round";
+  const col=o.col||C.body,ed=o.edge||C["body-edge"];
+  const limbs=[[-38,40,-80,175],[38,40,80,175],[-20,170,-28,330],[20,170,28,330]];
+  ctx.strokeStyle=ed;ctx.lineWidth=31;limbs.forEach(l=>{ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.stroke()});
+  ctx.strokeStyle=col;ctx.lineWidth=28;limbs.forEach(l=>{ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.stroke()});
+  rr(-45,26,90,155,22);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=ed;ctx.lineWidth=1.5;ctx.stroke();
+  ctx.fillStyle=col;ctx.fillRect(-11,8,22,22);circ(0,-12,26,col,ed,1.5);
+  ctx.restore()}
+function bp(cx,top,s,x,y){return [cx+x*s,top+y*s]}
+
+function gauge(x,y,r,v,v0,v1,o){o=o||{};const a0=Math.PI*.8,a1=Math.PI*2.2;ctx.lineCap="round";
+  ctx.beginPath();ctx.arc(x,y,r,a0,a1);ctx.strokeStyle=C.sunk;ctx.lineWidth=r*.18;ctx.stroke();
+  (o.zones||[]).forEach(z=>{ctx.beginPath();ctx.arc(x,y,r,a0+(a1-a0)*seg(z[0],v0,v1),a0+(a1-a0)*seg(z[1],v0,v1));ctx.strokeStyle=hexA(z[2],.75);ctx.lineWidth=r*.18;ctx.stroke()});
+  ctx.lineCap="butt";const a=a0+(a1-a0)*seg(v,v0,v1);line(x,y,x+Math.cos(a)*r*.82,y+Math.sin(a)*r*.82,C.ink,3);circ(x,y,4.5,C.ink);
+  if(o.title)txt(x,y+r*.42,o.title,{size:11.5,mono:true,weight:700,align:"center",color:C["ink-soft"]});
+  if(o.val)txt(x,y+r*.78,o.val,{size:14,mono:true,weight:700,align:"center",color:o.valCol||C.ink})}
+function thermo(x,y,h,f,o){o=o||{};rr(x-6,y,12,h,6);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();
+  const fh=(h-8)*clamp(f,0,1);rr(x-3,y+h-fh-2,6,fh+4,3);ctx.fillStyle=C.heat;ctx.fill();circ(x,y+h+6,9,C.heat,C["ink-soft"],1.4);
+  if(o.lab)txt(x,y+h+24,o.lab,{size:12,mono:true,weight:700,align:"center",color:o.labCol||C.ink})}
+function dna(x,y,w,h,t,col,o){o=o||{};const n=o.n||16;for(let i=0;i<=n;i++){const f=i/n;const X=x+f*w;const a=f*TAU*2+t;const y1=y+Math.sin(a)*h/2,y2=y-Math.sin(a)*h/2;line(X,y1,X,y2,hexA(col,.45),1.4)}
+  [0,Math.PI].forEach(ph=>{ctx.beginPath();for(let i=0;i<=60;i++){const f=i/60;const X=x+f*w,Y=y+Math.sin(f*TAU*2+t+ph)*h/2;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=2.4;ctx.stroke()})}
+function rna(x,y,w,t,col,lw){ctx.beginPath();for(let i=0;i<=40;i++){const f=i/40;const X=x+f*w,Y=y+Math.sin(f*TAU*2.5+t)*4;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=lw||2.2;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt"}
+function face(x,y,r,o){o=o||{};circ(x,y,r,C.skin,C["skin-edge"],1.6);
+  if(o.rash){ctx.save();ctx.globalAlpha*=o.rash;ctx.fillStyle=hexA(C.rash,.7);ctx.beginPath();ctx.ellipse(x-r*.42,y+r*.12,r*.3,r*.2,-.3,0,TAU);ctx.ellipse(x+r*.42,y+r*.12,r*.3,r*.2,.3,0,TAU);ctx.fill();rr(x-r*.14,y-r*.05,r*.28,r*.28,r*.1);ctx.fill();ctx.restore()}
+  if(o.puffy){ell(x-r*.35,y-r*.08,r*.2,r*.12*(1+o.puffy*.6),0,hexA(C["skin-edge"],.5));ell(x+r*.35,y-r*.08,r*.2,r*.12*(1+o.puffy*.6),0,hexA(C["skin-edge"],.5))}
+  circ(x-r*.35,y-r*.18,r*.08,C.ink);circ(x+r*.35,y-r*.18,r*.08,C.ink);ctx.beginPath();ctx.arc(x,y+r*.3,r*.25,.2*Math.PI,.8*Math.PI);ctx.strokeStyle=C.ink;ctx.lineWidth=1.6;ctx.stroke()}
+function timeBar(x,y,w,f,marks,o){o=o||{};rr(x,y,w,8,4);ctx.fillStyle=C.sunk;ctx.fill();rr(x,y,w*clamp(f,0,1),8,4);ctx.fillStyle=o.col||C.accent;ctx.fill();
+  (marks||[]).forEach(m=>{const X=x+w*m[0];line(X,y-3,X,y+11,C["ink-soft"],1.2);txt(X,y+22,m[1],{size:11.5,mono:true,align:m[0]<=0?"left":m[0]>=1?"right":"center",color:C["ink-soft"]})});
+  circ(x+w*clamp(f,0,1),y+4,6,o.col||C.accent,C.panel,2)}
+function stepRow(x,y,w,items,on,col,st){const n=items.length,gap=6,bw=(w-gap*(n-1))/n;items.forEach((s,i)=>{const X=x+i*(bw+gap);const lit=i===on,past=i<on;rr(X,y,bw,24,12);ctx.fillStyle=lit?(col||C.accent):past?hexA(col||C.accent,.18):hexA(C.panel,.9);ctx.fill();ctx.strokeStyle=lit||past?(col||C.accent):C.rule;ctx.lineWidth=1.3;ctx.stroke();
+  txt(X+bw/2,y+12.5,(i+1+(st||0))+" "+s,{size:12,weight:700,align:"center",color:lit?onFill():C.ink})})}
+
+
+
+/* ================= disease and epidemiology drawing kit ================= */
+/* rod-shaped bacterium centred at x,y. L half-length, R half-width.
+   o.col fill, o.edge, o.fim fimbriae count, o.cap capsule, o.flag flagellum, o.a alpha, o.dead outline only, o.t time */
+function bug(x,y,ang,L,R,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const col=o.col||C.path,ed=o.edge||mix(col,C.ink,.45);
+  if(o.cap){rr(-L-R*.75,-R*1.75,2*L+R*1.5,R*3.5,R*1.75);ctx.fillStyle=hexA(C.cap,.75*o.cap);ctx.fill();ctx.setLineDash([3,3]);ctx.strokeStyle=hexA(C["cap-edge"],o.cap);ctx.lineWidth=1.3;ctx.stroke();ctx.setLineDash([])}
+  if(o.fim){const n=o.fim;for(let k=0;k<n;k++){const f=(k+.5)/n;const X=-L+f*2*L;[-1,1].forEach(sd=>{const len=R*(.8+.35*Math.sin(k*2.1+(o.t||0)*2))*(o.fimLen||1);line(X,sd*R*.92,X+Math.sin(k)*2,sd*(R+len),C.fim,1.1)})}}
+  if(o.flag){ctx.beginPath();for(let i=0;i<=24;i++){const f=i/24;const X=-L-f*L*1.6,Y=Math.sin(f*TAU*1.6-(o.t||0)*8)*R*.55;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=ed;ctx.lineWidth=1.3;ctx.stroke()}
+  rr(-L,-R,2*L,2*R,R);
+  if(o.dead){ctx.setLineDash([4,3]);ctx.strokeStyle=hexA(ed,.8);ctx.lineWidth=1.5;ctx.stroke();ctx.setLineDash([])}
+  else{ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=ed;ctx.lineWidth=1.4;ctx.stroke();ctx.fillStyle=hexA("#ffffff",isDark()?.12:.28);rr(-L*.7,-R*.62,L*1.1,R*.45,R*.22);ctx.fill()}
+  if(o.gene){rr(-L*.1,-R*.25,L*.5,R*.5,R*.2);ctx.fillStyle=o.gene;ctx.fill()}
+  ctx.restore()}
+/* coccus */
+function cocc(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.col||C.path,ed=o.edge||mix(col,C.ink,.45);
+  if(o.cap)circ(x,y,r*1.6,hexA(C.cap,.7*o.cap),hexA(C["cap-edge"],o.cap),1.2);
+  if(o.dead){ctx.setLineDash([3,3]);circ(x,y,r,null,ed,1.4);ctx.setLineDash([])}else{circ(x,y,r,col,ed,1.3);circ(x-r*.32,y-r*.32,r*.32,hexA("#ffffff",isDark()?.14:.32))}
+  ctx.restore()}
+/* a small cluster (staph-like) or chain (strep-like) of cocci */
+function cluster(x,y,r,n,o){o=o||{};for(let k=0;k<n;k++){const a=rnd(k*3.7+(o.seed||0))*TAU,d=k?r*1.7*Math.sqrt(k/n)*1.5:0;cocc(x+Math.cos(a)*d,y+Math.sin(a)*d,r,o)}}
+function chainC(x,y,r,n,ang,o){for(let k=0;k<n;k++){cocc(x+Math.cos(ang||0)*k*r*1.9,y+Math.sin(ang||0)*k*r*1.9,r,o)}}
+/* row of epithelial cells: top edge at y, from x to x+w, n cells, height h */
+function epi(x,y,w,n,o){o=o||{};const h=o.h||70,cw=w/n;
+  if(o.mucus){rr(x,y-o.mucus,w,o.mucus+6,4);ctx.fillStyle=hexA(C.mucus,.8);ctx.fill()}
+  for(let i=0;i<n;i++){const X=x+i*cw;const dmg=o.damage?o.damage(i):0;ctx.save();ctx.globalAlpha*=1-dmg*.55;
+    rr(X+1,y,cw-2,h,6);ctx.fillStyle=mix(C.host,C.panel,dmg*.5);ctx.fill();ctx.strokeStyle=C["host-edge"];ctx.lineWidth=1.3;if(dmg>.3)ctx.setLineDash([4,3]);ctx.stroke();ctx.setLineDash([]);
+    ell(X+cw/2,y+h*.62,Math.min(cw*.22,10),Math.min(h*.14,9),0,C.nucf,C["nuc-edge"],1.1);
+    if(o.cilia){for(let k=0;k<5;k++){const cx=X+cw*(.15+k*.17);const sw=Math.sin((o.t||0)*6+k+i)*4*(1-dmg);line(cx,y,cx+sw,y-9,mix(C["host-edge"],C.panel,.2),1.3)}}
+    if(o.rec){const cx=X+cw/2;ctx.beginPath();ctx.arc(cx,y-4,5,Math.PI*.1,Math.PI*.9,true);ctx.strokeStyle=o.recCol||C.act3;ctx.lineWidth=2.4;ctx.stroke();line(cx,y,cx,y-1,o.recCol||C.act3,2.4)}
+    ctx.restore()}}
+/* phagocyte (macrophage-like) */
+function phago(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  blobPath(x,y,r,o.seed||1,o.t||0,.09);ctx.fillStyle=C.wbc;ctx.fill();ctx.strokeStyle=C["wbc-edge"];ctx.lineWidth=1.8;ctx.stroke();
+  ell(x-r*.25,y+r*.15,r*.32,r*.24,.4,mix(C.wbc,C["wbc-edge"],.45),C["wbc-edge"],1.1);
+  for(let k=0;k<4;k++)circ(x+r*(.2+.12*k),y-r*(.3-.1*k),r*.07,hexA(C["wbc-edge"],.55));
+  ctx.restore()}
+/* red blood cell */
+function rbcD(x,y,r,ang,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ell(x,y,r,r*.8,ang||0,C.rbc,mix(C.rbc,C.ink,.35),1);ell(x,y,r*.45,r*.32,ang||0,mix(C.rbc,"#ffffff",.25));ctx.restore()}
+/* horizontal vessel band; returns inner top/bottom */
+function vessel(x,y,w,h,o){o=o||{};rr(x,y,w,h,h/2);ctx.fillStyle=C.blood;ctx.fill();ctx.strokeStyle=C.vessel;ctx.lineWidth=4;ctx.stroke();
+  if(o.flow!=null){for(let k=0;k<Math.floor(w/48);k++){const X=x+((k*48+o.flow*40)%(w-30))+15;rbcD(X,y+h*(.3+.4*rnd(k)),7,rnd(k*2)*3,.5)}}
+  return [y+6,y+h-6]}
+/* person icon (head + rounded body). o.col fill, o.ring state ring, o.shape: "sq" for square body marker */
+function person(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.col||C.body,ed=o.edge||C["body-edge"];
+  circ(x,y-s*1.25,s*.55,col,ed,1.3);rr(x-s*.75,y-s*.6,s*1.5,s*1.65,s*.6);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=ed;ctx.lineWidth=1.3;ctx.stroke();
+  if(o.mask){rr(x-s*.42,y-s*1.18,s*.84,s*.38,s*.12);ctx.fillStyle=o.n95?mix(C.panel,C.ink,.08):C.water;ctx.fill();ctx.strokeStyle=mix(C.water,C.ink,.4);ctx.lineWidth=1;ctx.stroke()}
+  if(o.gown){rr(x-s*.8,y-s*.55,s*1.6,s*1.6,s*.5);ctx.fillStyle=hexA(C.act2,.45);ctx.fill()}
+  if(o.sick){circ(x+s*.45,y-s*1.75,s*.22,C.fever);}
+  ctx.restore()}
+/* bed-ridden patient */
+function bedPerson(x,y,s,o){o=o||{};rr(x-s*2.2,y,s*4.4,s*.5,s*.2);ctx.fillStyle=mix(C.panel,C.ink,.15);ctx.fill();line(x-s*2.1,y+s*.5,x-s*2.1,y+s*1.1,C["ink-soft"],2);line(x+s*2.1,y+s*.5,x+s*2.1,y+s*1.1,C["ink-soft"],2);
+  rr(x-s*2,y-s*.55,s*.9,s*.55,s*.2);ctx.fillStyle=C.panel;ctx.fill();circ(x-s*1.5,y-s*.55,s*.42,C.body,C["body-edge"],1.3);
+  rr(x-s*1.05,y-s*.6,s*3,s*.62,s*.25);ctx.fillStyle=o.blanket||hexA(C.act2,.5);ctx.fill();ctx.strokeStyle=C.rule;ctx.lineWidth=1;ctx.stroke()}
+/* mosquito */
+function mosquito(x,y,s,ang,t){ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);const w=Math.sin((t||0)*40)*.5+.5;
+  ell(-s*.2,-s*.55,s*.8,s*.28*w+.05,-.3,hexA(C.panel,.6),C["ink-soft"],1);ell(-s*.2,s*.55,s*.8,s*.28*w+.05,.3,hexA(C.panel,.6),C["ink-soft"],1);
+  ell(0,0,s*.9,s*.22,0,C.vector,null);circ(s*.95,0,s*.22,C.vector);line(s*1.1,0,s*1.75,s*.05,C.vector,1.2);
+  for(let k=-1;k<=1;k++){line(s*.2*k,0,s*.2*k-s*.3,s*.9,C.vector,1);line(s*.2*k,0,s*.2*k-s*.3,-s*.9,C.vector,1)}ctx.restore()}
+/* housefly */
+function flyD(x,y,s,t){ctx.save();ctx.translate(x,y);const w=Math.sin((t||0)*36)*.4+.6;
+  ell(-s*.25,-s*.55,s*.55,s*.32*w,-.5,hexA(C.panel,.65),C["ink-soft"],1);ell(s*.25,-s*.55,s*.55,s*.32*w,.5,hexA(C.panel,.65),C["ink-soft"],1);
+  ell(0,0,s*.45,s*.6,0,C.vector,null);circ(0,-s*.62,s*.3,C.vector);circ(-s*.14,-s*.7,s*.1,C.bad);circ(s*.14,-s*.7,s*.1,C.bad);
+  for(let k=-1;k<=1;k+=2){line(0,s*.1,k*s*.8,s*.6,C.vector,1.2);line(0,s*.3,k*s*.7,s*.95,C.vector,1.2)}ctx.restore()}
+/* tick (arachnid) */
+function tickBug(x,y,s){ell(x,y,s*.8,s,0,C.vector,null);circ(x,y-s*1.05,s*.3,mix(C.vector,C.ink,.3));for(let k=0;k<4;k++){const yy=y-s*.4+k*s*.32;line(x-s*.6,yy,x-s*1.4,yy+s*.25*(k-1.5),C.vector,1.4);line(x+s*.6,yy,x+s*1.4,yy+s*.25*(k-1.5),C.vector,1.4)}}
+/* spray of droplets from (x,y) toward angle ang. p 0..1 progress. o.fall drop to ground y */
+function spray(x,y,ang,p,o){o=o||{};const n=o.n||16;for(let k=0;k<n;k++){const sp=(o.reach||120)*(.45+.55*rnd(k*3.1+(o.seed||0)));const a=ang+(rnd(k*5.7+(o.seed||0))-.5)*(o.cone||.6);
+  const d=sp*Math.min(1,p*1.4);let X=x+Math.cos(a)*d,Y=y+Math.sin(a)*d;if(o.fall!=null)Y+=Math.max(0,p-.45)*(o.fall-y)*1.6*(.5+rnd(k)*.6);if(o.fall!=null)Y=Math.min(Y,o.fall);
+  const r=(o.size||3)*(.6+rnd(k*7.7)*.7);circ(X,Y,r,hexA(o.col||C.water,.8*(o.a==null?1:o.a)),hexA(C["water-edge"],.6*(o.a==null?1:o.a)),.8);if(o.germ&&k%3===0)circ(X,Y,Math.max(1.6,r*.5),o.germ)}}
+/* lab mouse, o.sick 0..1 */
+function mouseD(x,y,s,o){o=o||{};const sick=o.sick||0;ctx.save();ctx.translate(x,y);
+  const wg=Math.sin((o.t||0)*3)*s*.35;ctx.beginPath();ctx.moveTo(-s*1.1,s*.1);ctx.quadraticCurveTo(-s*2,s*.2+wg,-s*2.1,-s*.5-wg*.6);ctx.strokeStyle=mix(C["body-edge"],C.rash,.3);ctx.lineWidth=2;ctx.stroke();
+  ell(0,0,s*1.2,s*.72*(1-sick*.15),0,mix(C.panel,C.ink,.06+sick*.14),C["ink-soft"],1.4);circ(s*.95,-s*.25,s*.48,mix(C.panel,C.ink,.06+sick*.14),C["ink-soft"],1.4);
+  circ(s*.78,-s*.72,s*.22,hexA(C.rash,.45),C["ink-soft"],1);circ(s*1.2,-s*.32,s*.07,C.ink);circ(s*1.42,-s*.2,s*.08,C.rash);
+  if(sick>.4){withA(seg(sick,.4,1),()=>{thermoMini(s*1.9,-s*1.2,s*.9);})}
+  ctx.restore()}
+function thermoMini(x,y,h){rr(x-3,y,6,h,3);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1;ctx.stroke();rr(x-1.5,y+h*.25,3,h*.75,1.5);ctx.fillStyle=C.fever;ctx.fill();circ(x,y+h+3,4.5,C.fever,C["ink-soft"],1)}
+/* Petri dish with colonies of colour col; g grow 0..1 */
+function dishD(x,y,r,g,col,o){o=o||{};circ(x,y,r+5,mix(C.panel,C.water,.25),mix(C["ink-soft"],C.panel,.2),1.4);circ(x,y,r,o.agar||mix(C.food,C.panel,.55),mix(C.food,C.ink,.3),1);
+  if(g>0){const n=o.n||16;for(let k=0;k<n;k++){const a=rnd(k*4.1+(o.seed||0))*TAU,d=Math.sqrt(rnd(k*2.3+(o.seed||0)+1))*r*.78;const rr_=(2.5+rnd(k)*2.5)*clamp(g*1.4-k/n*.4,0,1);if(rr_>.3)circ(x+Math.cos(a)*d,y+Math.sin(a)*d,rr_,col,mix(col,C.ink,.35),.8)}}}
+/* syringe pointing along angle */
+function syringe(x,y,s,ang,push){ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);rr(-s*2.6,-s*.32,s*1.9,s*.64,2);ctx.fillStyle=hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.3;ctx.stroke();
+  rr(-s*2.6+(push||0)*s*1.2,-s*.25,s*.7,s*.5,1);ctx.fillStyle=hexA(C.path,.5);ctx.fill();line(-s*2.6-s*.8+(push||0)*s*1.2,0,-s*2.6+(push||0)*s*1.2,0,C["ink-soft"],2.2);line(-s*.7,0,0,0,C["ink-soft"],1.2);ctx.restore()}
+/* antibody Y. ang = direction the arms point */
+function abY(x,y,s,ang,col,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate((ang||0)+Math.PI/2);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ctx.lineCap="round";const c=col||C.ab;
+  line(0,0,0,s,c,s*.32);line(0,0,-s*.62,-s*.75,c,s*.3);line(0,0,s*.62,-s*.75,c,s*.3);if(o.cut){line(-s*.3,-s*.1,s*.3,-s*.1,C.bad,2)}ctx.restore()}
+/* A-B toxin: B ring (5 small circles) and A ball. sep 0..1 separation */
+function abToxin(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  if(o.b!==false)for(let k=0;k<5;k++){const a=k/5*TAU+(o.rot||0);circ(x+Math.cos(a)*s*.62,y+s*.5+Math.sin(a)*s*.22,s*.3,C.toxb,mix(C.toxb,C.ink,.4),1)}
+  const sep=o.sep||0;circ(x+(o.ax||0)*sep,y-s*.25+(o.ay||0)*sep,s*.42,C.toxa,mix(C.toxa,C.ink,.4),1.2);ctx.restore()}
+/* LPS lollipop on outer membrane: lipid A base + O chain */
+function lpsMark(x,y,s,ang,col){ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);rr(-s*.3,-s*.25,s*.6,s*.5,2);ctx.fillStyle=col||C.lps;ctx.fill();
+  ctx.beginPath();for(let i=0;i<=8;i++){const Y=-s*.25-i*s*.22,X=Math.sin(i*1.4)*s*.18;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=hexA(col||C.lps,.8);ctx.lineWidth=1.4;ctx.stroke();ctx.restore()}
+/* small house and a street pump */
+function houseD(x,y,w,h,o){o=o||{};rr(x,y,w,h,2);ctx.fillStyle=o.fill||C.house;ctx.fill();ctx.strokeStyle=C["house-edge"];ctx.lineWidth=1;ctx.stroke()}
+function pumpD(x,y,s,o){o=o||{};ctx.save();ctx.translate(x,y);rr(-s*.35,-s*1.4,s*.7,s*1.4,2);ctx.fillStyle=o.col||C.pump;ctx.fill();circ(0,-s*1.4,s*.38,o.col||C.pump);
+  if(!o.noHandle){ctx.beginPath();ctx.moveTo(s*.3,-s*1.1);ctx.lineTo(s*1.1,-s*(1.4+(o.pumpUp||0)*.4));ctx.strokeStyle=o.col||C.pump;ctx.lineWidth=2.6;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt"}
+  line(-s*.35,-s*.55,-s*.85,-s*.45,o.col||C.pump,2.4);ctx.restore()}
+/* a simple world map silhouette (very schematic) inside box */
+function worldD(x,y,w,h,col){ctx.save();const fill=col||mix(C.park,C.panel,.2),st=mix(C.park,C.ink,.35);
+  const blobs=[[.18,.32,.13,.16],[.25,.68,.07,.17],[.5,.3,.09,.12],[.53,.62,.08,.18],[.7,.36,.17,.17],[.84,.72,.07,.08]];
+  blobs.forEach((b,i)=>{ctx.save();ctx.translate(x+b[0]*w,y+b[1]*h);ctx.scale(b[2]*w*1.3,b[3]*h*1.25);blobPath(0,0,1,i*2.3,0,.12);ctx.restore();ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=st;ctx.lineWidth=1;ctx.stroke()});ctx.restore()}
+function worldPts(){return [[.15,.28],[.22,.36],[.2,.25],[.27,.62],[.24,.74],[.49,.27],[.52,.33],[.52,.58],[.55,.7],[.66,.33],[.72,.4],[.78,.3],[.84,.7],[.62,.42],[.75,.45],[.48,.36]]}
+/* region map blob */
+function regionD(x,y,r,col,seed){blobPath(x,y,r,seed||1,0,.1);ctx.fillStyle=col||mix(C.park,C.panel,.25);ctx.fill();ctx.strokeStyle=mix(C.park,C.ink,.35);ctx.lineWidth=1.2;ctx.stroke()}
+/* little virus particle */
+function virD(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.col||C.virus;for(let k=0;k<8;k++){const a=k/8*TAU+(o.rot||0);line(x+Math.cos(a)*r,y+Math.sin(a)*r,x+Math.cos(a)*r*1.45,y+Math.sin(a)*r*1.45,col,1.4);circ(x+Math.cos(a)*r*1.5,y+Math.sin(a)*r*1.5,r*.16,col)}circ(x,y,r,mix(col,C.panel,.55),col,1.5);ctx.restore()}
+/* small T cell / APC for superantigen scene */
+function tcell(x,y,r,on,o){o=o||{};circ(x,y,r,on?mix(C.act3,C.panel,.35):mix(C.panel,C.ink,.08),on?mix(C.act3,C.ink,.3):C["ink-soft"],on?2.2:1.3);circ(x,y,r*.55,on?hexA(C.act3,.55):hexA(C["ink-soft"],.25));if(on&&o.glow)pulseRing(x,y,r*1.6,C.act3,o.glow)}
+/* cytokine dots */
+function cyto(x,y,r,col,a){withA(a==null?1:a,()=>{diamond(x,y,r,col||C.act5)})}
+/* simple tooth/catheter tube surface for biofilm */
+function surfaceStrip(x,y,w,h,col){rr(x,y,w,h,4);ctx.fillStyle=col||mix(C.panel,C.ink,.12);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.2;ctx.stroke()}
+/* numbered card heading inside canvas */
+function cardHead(x,y,n,t,col){badge(x+12,y+14,n,col,11);txt(x+30,y+14.5,t,{size:13,weight:700})}
+/* water drops for "flowing out" */
+function drop(x,y,s,col,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.beginPath();ctx.moveTo(x,y-s*1.3);ctx.quadraticCurveTo(x+s,y,x,y+s*.8);ctx.quadraticCurveTo(x-s,y,x,y-s*1.3);ctx.fillStyle=col||C.water;ctx.fill();ctx.strokeStyle=C["water-edge"];ctx.lineWidth=1;ctx.stroke();ctx.restore()}
+/* doorknob fomite */
+function doorD(x,y,w,h){rr(x,y,w,h,3);ctx.fillStyle=mix(C.house,C.collagen,.25);ctx.fill();ctx.strokeStyle=C["house-edge"];ctx.lineWidth=1.4;ctx.stroke();circ(x+w-12,y+h*.55,6,C.gold,mix(C.gold,C.ink,.4),1.2)}
+/* hand (simple mitten) */
+function handD(x,y,s,ang,col){ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);rr(-s*.5,-s*.4,s*1.1,s*.8,s*.35);ctx.fillStyle=col||C.skin;ctx.fill();ctx.strokeStyle=C["skin-edge"];ctx.lineWidth=1.3;ctx.stroke();rr(-s*.2,-s*.68,s*.32,s*.42,s*.15);ctx.fill();ctx.stroke();rr(-s*1.1,-s*.3,s*.65,s*.6,s*.1);ctx.fill();ctx.stroke();ctx.restore()}
+/* cup / glass of water */
+function glassD(x,y,s,fill){ctx.beginPath();ctx.moveTo(x-s*.55,y-s);ctx.lineTo(x-s*.42,y+s*.6);ctx.lineTo(x+s*.42,y+s*.6);ctx.lineTo(x+s*.55,y-s);ctx.closePath();ctx.fillStyle=hexA(C.panel,.5);ctx.fill();
+  ctx.save();ctx.clip();ctx.fillStyle=hexA(C.water,.85);ctx.fillRect(x-s,y-s+s*1.6*(1-(fill==null?.7:fill)),s*2,s*2);ctx.restore();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.3;ctx.stroke()}
+/* drumstick for foodborne */
+function drumD(x,y,s){ell(x,y,s,s*.7,-.4,mix(C.food,C.collagen,.3),mix(C.food,C.ink,.4),1.3);line(x+s*.7,y+s*.4,x+s*1.5,y+s*.95,mix(C.panel,C.ink,.1),s*.3);circ(x+s*1.55,y+s*1.0,s*.22,mix(C.panel,C.ink,.08),C["ink-soft"],1)}
+function hexPts(x,y,r,rot){const p=[];for(let k=0;k<6;k++){const a=rot+k*Math.PI/3-Math.PI/2;p.push([x+Math.cos(a)*r,y+Math.sin(a)*r])}return p}
+function fillPoly(pts,fill,stroke,lw){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.2;ctx.lineJoin="round";ctx.stroke()}}
+function diamond(x,y,s,col,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.beginPath();ctx.moveTo(x,y-s);ctx.lineTo(x+s,y);ctx.lineTo(x,y+s);ctx.lineTo(x-s,y);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.3);ctx.lineWidth=1;ctx.stroke();ctx.restore()}
+function tri(x,y,s,col,ang,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.translate(x,y);ctx.rotate(ang||0);ctx.beginPath();ctx.moveTo(0,-s);ctx.lineTo(s*.9,s*.7);ctx.lineTo(-s*.9,s*.7);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.35);ctx.lineWidth=1;ctx.stroke();ctx.restore()}
+function dotM(x,y,r,col,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x,y,r,col,hexA(C.ink,.25),.8);ctx.restore()}
+function tick(x,y,s,col){ctx.save();ctx.strokeStyle=col||C.good;ctx.lineWidth=3;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(x-s,y);ctx.lineTo(x-s*.3,y+s*.7);ctx.lineTo(x+s,y-s*.7);ctx.stroke();ctx.restore()}
+function cross(x,y,s,col){ctx.save();ctx.strokeStyle=col||C.bad;ctx.lineWidth=3;ctx.lineCap="round";line(x-s,y-s,x+s,y+s,col||C.bad,3);line(x+s,y-s,x-s,y+s,col||C.bad,3);ctx.restore()}
+const SUPM={"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","-":"⁻"};
+function sup(n){return String(n).split("").map(c=>SUPM[c]||c).join("")}
+/* hand seen from the back, fingers pointing down */
+function handDown(x,y,s,col){ctx.save();ctx.fillStyle=col||C.skin;ctx.strokeStyle=C["skin-edge"];ctx.lineWidth=1.3;rr(x-s*.62,y-s*1.4,s*1.24,s*.7,s*.2);ctx.fill();ctx.stroke();rr(x-s*.6,y-s*.8,s*1.2,s*.9,s*.3);ctx.fill();ctx.stroke();
+  for(let k=0;k<4;k++){rr(x-s*.56+k*s*.29,y,s*.25,s*.62-(k===0||k===3?s*.1:0),s*.12);ctx.fill();ctx.stroke()}rr(x+s*.5,y-s*.62,s*.42,s*.24,s*.12);ctx.fill();ctx.stroke();ctx.restore()}
+
+/* ================= shared lab helpers ================= */
+const $=s=>document.querySelector(s);
+const store={get(k){try{return JSON.parse(localStorage.getItem("mk-epi-"+k))}catch(e){return null}},set(k,v){try{localStorage.setItem("mk-epi-"+k,JSON.stringify(v))}catch(e){}}};
+function makeStage(id,W_,H_){const cv=document.getElementById(id);const st={cv,ctx:cv.getContext("2d"),W:W_,H:H_,K:1};
+  st.fit=()=>{const w=cv.parentElement.clientWidth;if(!w)return;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H_/W_)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H_/W_*dpr);st.K=cv.width/W_};return st}
+let W=800,H=440;
+function use(st){ctx=st.ctx;W=st.W;H=st.H;ctx.setTransform(st.K,0,0,st.K,0,0);ctx.clearRect(0,0,st.W,st.H);ctx.globalAlpha=1;bg(C.ecf)}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function fmt(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+function setMsg(id,t,c){const m=$(id);m.className="msg"+(t?" show "+c:"");m.innerHTML=t}
+function starStr(n){return `<span class="stars" aria-hidden="true">${"★".repeat(n)}${"☆".repeat(3-n)}</span><span class="gk-sr">${n} of 3 stars</span>`}
+function chalList(id,items,done){$(id).innerHTML=items.map((c,i)=>`<li class="${done[i]?"done":""}"><span class="ck" aria-hidden="true">${done[i]?"✓":i+1}</span><span>${c}<span class="gk-sr">${done[i]?" (done)":" (not yet)"}</span></span></li>`).join("")}
+function pctS(v){return (v*100).toFixed(v<.1&&v>0?1:0)+"%"}
+function shuffleStable(a,seed){return a.map((x,i)=>[x,rnd(seed*13+i*3.7)]).sort((p,q)=>p[1]-q[1]).map(p=>p[0])}
+
+/* ================= PART 1: SIR outbreak simulator ================= */
+const GERMS=[
+  {id:"flu",name:"Flu-like",note:"Seasonal influenza: R₀ about 1.6",c:8,p:4,d:5},
+  {id:"cov",name:"COVID-19-like (2020)",note:"Early pandemic strain: R₀ about 2.8",c:10,p:4,d:7},
+  {id:"mea",name:"Measles-like",note:"Very contagious: R₀ about 15",c:12,p:16,d:8}];
+const NPOP=10000,NDOT=360,I0=10,MAXDAY=365;
+const SM={germ:1,c:10,p:.04,d:7,vac:0,mask:false,iso:false,run:false,speed:5,day:0,S:0,I:0,R:0,V:0,hist:[],peak:0,peakDay:0,dots:[],sparks:[],ended:false,everMask:false,everIso:false};
+const S1=makeStage("cvSim",880,500);
+function r0(){return SM.c*SM.p*SM.d}
+function isoF(){if(!SM.iso)return 1;const d0=Math.min(2,SM.d);return (d0+Math.max(0,SM.d-2)*.3)/SM.d}
+function maskF(){return SM.mask?.6:1}
+function rc(){return r0()*maskF()*isoF()}
+function reNow(){return rc()*SM.S/NPOP}
+function hit(R){return R>1?1-1/R:0}
+function mReset(){SM.day=0;SM.V=Math.round(SM.vac*NPOP);SM.I=I0;SM.S=NPOP-SM.V-I0;SM.R=0;SM.hist=[[0,SM.S,SM.I,SM.R]];SM.peak=SM.I;SM.peakDay=0;SM.run=false;SM.ended=false;SM.sparks=[];SM.everMask=SM.mask;SM.everIso=SM.iso;SM.maxI=SM.I;
+  const dots=[];for(let i=0;i<NDOT;i++){const x=24+rnd(i*7.13)*416,y=56+rnd(i*3.71+2)*420;const a=rnd(i*9.1)*TAU;dots.push({x,y,vx:Math.cos(a)*14,vy:Math.sin(a)*14,s:"S",t:0})}
+  const nv=Math.round(SM.vac*NDOT);shuffleStable(dots.map((d,i)=>i),11).slice(0,nv).forEach(i=>dots[i].s="V");
+  const sIdx=dots.map((d,i)=>i).filter(i=>dots[i].s==="S");if(sIdx.length){const c0=sIdx.reduce((b,i)=>Math.hypot(dots[i].x-232,dots[i].y-266)<Math.hypot(dots[b].x-232,dots[b].y-266)?i:b,sIdx[0]);dots[c0].s="I";dots[c0].t=0}
+  SM.dots=dots;mUI();a11yKey=""}
+function mStep(dt){if(SM.ended)return;const beta=SM.c*SM.p*maskF()*isoF(),gam=1/SM.d;let h=dt;
+  while(h>1e-9){const d=Math.min(.05,h);const inf=beta*SM.S*SM.I/NPOP*d,rec=gam*SM.I*d;SM.S-=inf;SM.I+=inf-rec;SM.R+=rec;SM.day+=d;h-=d}
+  if(SM.I>SM.peak){SM.peak=SM.I;SM.peakDay=SM.day}
+  const last=SM.hist[SM.hist.length-1];if(SM.day-last[0]>=.5)SM.hist.push([SM.day,SM.S,SM.I,SM.R]);
+  if(SM.I<.5||SM.day>=MAXDAY){SM.ended=true;SM.run=false;SM.hist.push([SM.day,SM.S,SM.I,SM.R])}
+  mDots();mCheck()}
+/* keep the dot town matched to the model numbers */
+function mDots(){const D=SM.dots;const tgtIR=Math.round((SM.I+SM.R)/NPOP*NDOT),tgtR=Math.round(SM.R/NPOP*NDOT);
+  let nIR=D.filter(d=>d.s==="I"||d.s==="R").length;
+  while(nIR<tgtIR){const Is=D.filter(d=>d.s==="I");const Ss=D.filter(d=>d.s==="S");if(!Ss.length)break;let src=Is.length?Is[Math.floor(Math.random()*Is.length)]:null;
+    let best=Ss[0],bd=1e9;if(src){for(const s of Ss){const dd=Math.hypot(s.x-src.x,s.y-src.y)+Math.random()*30;if(dd<bd){bd=dd;best=s}}}else best=Ss[Math.floor(Math.random()*Ss.length)];
+    best.s="I";best.t=SM.day;if(src)SM.sparks.push({x1:src.x,y1:src.y,x2:best.x,y2:best.y,t:performance.now()});nIR++}
+  let nR=D.filter(d=>d.s==="R").length;while(nR<tgtR){const Is=D.filter(d=>d.s==="I").sort((a,b)=>a.t-b.t);if(!Is.length)break;Is[0].s="R";nR++}
+  if(SM.ended){D.forEach(d=>{if(d.s==="I")d.s="R"})}}
+function mMove(dt){const sp=SM.run?1:.35;for(const d of SM.dots){let f=sp;if(d.s==="I"&&SM.iso&&SM.day-d.t>2)f*=.15;if(d.s==="R"||d.s==="V")f*=.8;
+    d.x+=d.vx*dt*f;d.y+=d.vy*dt*f;if(d.x<22||d.x>442){d.vx*=-1;d.x=clamp(d.x,22,442)}if(d.y<54||d.y>478){d.vy*=-1;d.y=clamp(d.y,54,478)}
+    if(Math.random()<dt*.4){const a=Math.atan2(d.vy,d.vx)+(Math.random()-.5)*1.4;d.vx=Math.cos(a)*14;d.vy=Math.sin(a)*14}}}
+const MCH=["Run the measles-like germ with no vaccine and no other measures. Watch how far it spreads.","Stop the measles-like germ with vaccination alone: set coverage at or above the herd immunity threshold, then run it.","Flatten the curve: keep the COVID-19-like peak below 10% of people sick at once, without any vaccine.","Push R<sub>e</sub> below 1 for the flu-like germ with masks and isolation only (no vaccine)."];
+const mDone=store.get("simchal")||{};
+function mCheck(){const g=GERMS[SM.germ].id;const plain=!SM.everMask&&!SM.everIso;const tot=(NPOP-SM.V-SM.S)/NPOP;
+  if(!mDone[0]&&g==="mea"&&SM.vac<.1&&plain&&tot>.5)mDone[0]=1;
+  if(!mDone[1]&&g==="mea"&&plain&&SM.vac>=hit(r0())&&SM.ended&&tot<.05)mDone[1]=1;
+  if(!mDone[2]&&g==="cov"&&SM.vac===0&&SM.ended&&SM.peak/NPOP<.1&&SM.day>20)mDone[2]=1;
+  if(!mDone[3]&&g==="flu"&&SM.vac===0&&(SM.mask||SM.iso)&&rc()<1&&SM.day>5)mDone[3]=1;
+  store.set("simchal",mDone)}
+function mChalUI(){chalList("#mChal",MCH,mDone);const n=Object.keys(mDone).length;$("#mChalStars").innerHTML=n?`${n} of ${MCH.length} done `+starStr(Math.min(3,n<2?1:n<MCH.length?2:3)):"Try each challenge. Progress is kept in this browser only."}
+function mUI(){const g=GERMS[SM.germ];
+  const pb=$("#mPresets");if(!pb.children.length){GERMS.forEach((gg,i)=>{const b=document.createElement("button");b.type="button";b.className="tbtn";b.innerHTML=`${gg.name}<small>${gg.note}</small>`;b.onclick=()=>{SM.germ=i;SM.c=gg.c;SM.p=gg.p/100;SM.d=gg.d;$("#mC").value=gg.c;$("#mP").value=gg.p;$("#mD").value=gg.d;mReset()};pb.appendChild(b)})}
+  [...pb.children].forEach((b,i)=>b.setAttribute("aria-pressed",i===SM.germ&&matchesPreset()?"true":"false"));
+  $("#mCOut").textContent=SM.c;$("#mPOut").textContent=Math.round(SM.p*100)+"%";$("#mDOut").textContent=SM.d+" days";$("#mVOut").textContent=Math.round(SM.vac*100)+"%";
+  $("#mR0").innerHTML=`R<sub>0</sub> = ${SM.c} contacts × ${Math.round(SM.p*100)}% × ${SM.d} days = <b>${r0().toFixed(1)}</b>`;
+  $("#mMask").setAttribute("aria-pressed",SM.mask);$("#mIso").setAttribute("aria-pressed",SM.iso);
+  $("#mRun").textContent=SM.ended?"Outbreak over":SM.run?"Pause":SM.day>0?"Resume":"Start outbreak";$("#mRun").disabled=SM.ended;
+  $("#mClock").textContent="Day "+Math.floor(SM.day);
+  const rows=[["Day",Math.floor(SM.day)],["Susceptible",pctS(SM.S/NPOP)],["Sick right now",pctS(SM.I/NPOP)],["Recovered",pctS(SM.R/NPOP)],["Vaccinated",pctS(SM.V/NPOP)],["Peak sick at once",pctS(SM.peak/NPOP)+(SM.peakDay?" (day "+Math.round(SM.peakDay)+")":"")],["Total ever infected",pctS((NPOP-SM.V-SM.S)/NPOP)],["R₀ (no protection)",r0().toFixed(1)],["Rₑ right now",reNow().toFixed(2)],["Herd immunity threshold",pctS(hit(r0()))]];
+  $("#mRead").innerHTML=rows.map(r_=>`<tr><th scope="row">${r_[0]}</th><td>${r_[1]}</td></tr>`).join("");
+  const re=reNow();const st=$("#mStatus");
+  if(SM.day===0){st.className="status";st.textContent=SM.vac>=hit(r0())&&r0()>1?"Coverage is at or above the herd immunity threshold. Press Start to test it.":"One person in the middle of town is sick. Press Start outbreak."}
+  else if(SM.ended){st.className="status "+((NPOP-SM.V-SM.S)/NPOP>.3?"bad":"good");st.textContent=`The outbreak is over on day ${Math.round(SM.day)}. ${pctS((NPOP-SM.V-SM.S)/NPOP)} of the town was infected; the peak was ${pctS(SM.peak/NPOP)} sick at once.`}
+  else if(re>1){st.className="status warn";st.textContent=`Rₑ is ${re.toFixed(2)}, above 1: each sick person infects more than one other, so cases are growing.`}
+  else{st.className="status good";st.textContent=`Rₑ is ${re.toFixed(2)}, below 1: each sick person infects fewer than one other, so the outbreak is shrinking.`}
+  mChalUI()}
+function matchesPreset(){const g=GERMS[SM.germ];return SM.c===g.c&&Math.round(SM.p*100)===g.p&&SM.d===g.d}
+["mC","mP","mD","mV"].forEach(id=>{$("#"+id).addEventListener("input",e=>{const v=+e.target.value;if(id==="mC")SM.c=v;if(id==="mP")SM.p=v/100;if(id==="mD")SM.d=v;if(id==="mV")SM.vac=v/100;
+  if(id!=="mV"){const k=GERMS.findIndex(g=>g.c===SM.c&&g.p===Math.round(SM.p*100)&&g.d===SM.d);if(k>=0)SM.germ=k}mReset()})});
+$("#mMask").onclick=()=>{SM.mask=!SM.mask;if(SM.mask)SM.everMask=true;mUI();a11yKey=""};
+$("#mIso").onclick=()=>{SM.iso=!SM.iso;if(SM.iso)SM.everIso=true;mUI();a11yKey=""};
+$("#mRun").onclick=()=>{if(SM.ended)return;SM.run=!SM.run;mUI()};
+$("#mReset").onclick=()=>mReset();
+$("#mSpeed").onchange=e=>{SM.speed=+e.target.value};
+function mTick(dt){mMove(dt);if(SM.run){mStep(dt*SM.speed)}}
+function drawDot(d,T){const x=d.x,y=d.y;
+  if(d.s==="S")circ(x,y,5,C.sus,mix(C.sus,C.ink,.3),1);
+  else if(d.s==="I"){circ(x,y,5.4,C.inf,mix(C.inf,C.ink,.3),1);circ(x,y,8.5,null,C.inf,1.6)}
+  else if(d.s==="R")circ(x,y,4.5,hexA(C.panel,.6),C.rec,2);
+  else{rr(x-4.5,y-4.5,9,9,1.5);ctx.fillStyle=C.vac;ctx.fill()}}
+function drawSim(now){use(S1);const T=now/1000;
+  panelBox(12,12,440,476);title(26,32,"Town of 10,000 (each dot ≈ 28 people)");
+  ctx.save();rr(18,46,428,436,6);ctx.clip();
+  SM.sparks=SM.sparks.filter(s=>now-s.t<900);SM.sparks.forEach(s=>{const a=1-(now-s.t)/900;line(s.x1,s.y1,s.x2,s.y2,hexA(C.inf,.6*a),1.6)});
+  SM.dots.forEach(d=>drawDot(d,T));ctx.restore();
+  const tags=[];if(SM.mask)tags.push("Masks on");if(SM.iso)tags.push("Sick people isolate");if(SM.vac>0)tags.push(Math.round(SM.vac*100)+"% vaccinated");
+  tags.forEach((t_,i)=>label(440-0,60+i*24,t_,{size:12,weight:700,align:"right",border:C.accent}));
+  /* graph */
+  panelBox(464,12,404,300);title(478,32,"Percent of the town");
+  const gx=508,gy=50,gw=344,gh=220;const dmax=Math.max(60,Math.ceil(SM.day*1.15/20)*20);const X=d=>gx+d/dmax*gw,Y=v=>gy+gh-v*gh;
+  for(let v=0;v<=1.001;v+=.25){line(gx,Y(v),gx+gw,Y(v),C["rule-soft"],1);txt(gx-6,Y(v),Math.round(v*100)+"%",{size:12,mono:true,align:"right",color:C["ink-soft"]})}
+  const step=dmax<=60?10:dmax<=120?20:dmax<=200?40:60;for(let d=0;d<=dmax;d+=step)txt(X(d),gy+gh+14,String(d),{size:12,mono:true,align:"center",color:C["ink-soft"]});
+  txt(gx+gw,gy+gh+32,"day",{size:12,mono:true,align:"right",color:C["ink-soft"]});
+  const h_=hit(r0());if(h_>0)line(gx,Y(h_),gx+gw,Y(h_),C.ink,1.4,[6,4]);
+  line(gx,Y(SM.V/NPOP),gx+gw,Y(SM.V/NPOP),C.vac,2.4);
+  const series=[[1,C.sus,2.4],[3,C.rec,2.4],[2,C.inf,3.2]];
+  series.forEach(sr=>{ctx.beginPath();SM.hist.forEach((h,i)=>{const px=X(h[0]),py=Y(h[sr[0]]/NPOP);i?ctx.lineTo(px,py):ctx.moveTo(px,py)});ctx.strokeStyle=sr[1];ctx.lineWidth=sr[2];ctx.lineJoin="round";ctx.stroke()});
+  const lx=X(SM.day);line(lx,gy,lx,gy+gh,hexA(C.ink,.35),1,[3,3]);
+  if(h_>0)label(gx+6,Y(h_)-12,"herd immunity threshold: "+pctS(h_)+" immune",{size:12,weight:600,align:"left",bga:.92});
+  [["Susceptible",SM.S/NPOP,C.sus],["Sick now",SM.I/NPOP,C.inf],["Recovered",SM.R/NPOP,C.rec]].forEach(l=>circ(lx,Y(l[1]),4,l[2],C.panel,1.2));
+  /* R panel */
+  panelBox(464,324,404,164);title(478,344,"Reproduction numbers");
+  const bx=622,bw=196,RX=v=>bx+clamp(v/Math.max(4,Math.ceil(Math.max(r0(),rc())+1)),0,1)*bw;const rmax=Math.max(4,Math.ceil(Math.max(r0(),rc())+1));
+  [["R₀ basic",r0(),C["ink-soft"]],["With masks, isolation",rc(),C.act5],["Rₑ right now",reNow(),reNow()>1?C.inf:C.good]].forEach((r_,i)=>{const y=366+i*30;txt(478,y+8,r_[0],{size:12,weight:600});
+    rr(bx,y,bw,16,4);ctx.fillStyle=C.sunk;ctx.fill();rr(bx,y,Math.max(2,RX(r_[1])-bx),16,4);ctx.fillStyle=r_[2];ctx.fill();txt(bx+bw+6,y+8,r_[1].toFixed(r_[1]<10?2:1),{size:12.5,mono:true,weight:700})});
+  const one=RX(1);line(one,360,one,456,C.ink,1.6,[4,3]);txt(one,470,"1",{size:12,mono:true,weight:700,align:"center"});txt(bx+bw,470,"0 to "+rmax,{size:12,mono:true,align:"right",color:C["ink-soft"]});
+  txt(478,470,"Below 1: outbreak shrinks",{size:12,weight:600,color:C["ink-soft"]})}
+function simA11y(){const tot=(NPOP-SM.V-SM.S)/NPOP;
+  const lab=`Outbreak simulator, day ${Math.floor(SM.day)}: ${pctS(SM.S/NPOP)} susceptible, ${pctS(SM.I/NPOP)} sick now, ${pctS(SM.R/NPOP)} recovered, ${pctS(SM.V/NPOP)} vaccinated. R0 ${r0().toFixed(1)}, Re ${reNow().toFixed(2)}.`;
+  const d=`Left: a box of ${NDOT} moving dots stands for a town of 10,000. Blue filled circles are susceptible, red circles with a ring are sick, hollow grey circles have recovered, and purple squares are vaccinated. `+
+    (SM.day===0?"One red dot sits near the middle; nothing has spread yet. ":`About ${Math.round(SM.I/NPOP*NDOT)} red dots are sick now and ${Math.round(SM.R/NPOP*NDOT)} grey dots have recovered; short red lines flash when a sick dot infects a neighbour. `)+
+    `Top right: a graph of percent of the town over ${Math.max(60,Math.ceil(SM.day*1.15/20)*20)} days, with a blue susceptible line, a red sick line that peaked at ${pctS(SM.peak/NPOP)}, a grey recovered line, a flat purple vaccinated line at ${pctS(SM.vac)}, and a dashed herd immunity threshold at ${pctS(hit(r0()))}. Bottom right: three bars compare R0 ${r0().toFixed(1)}, R with masks and isolation ${rc().toFixed(2)}, and Re now ${reNow().toFixed(2)} against a dashed line at 1.`+(SM.ended?` The outbreak is over; ${pctS(tot)} of the town was infected.`:"");
+  return [lab,d]}
+
+/* ================= PART 2: John Snow-style map investigation ================= */
+const S2=makeStage("cvMap",880,620);
+const MOX=24,MOY=40,MW=832,MH=392;
+const JH=[70,160,250,330],JV=[110,250,400,560,700];
+const JP=[["A",110,70],["B",560,70],["C",330,160],["D",700,250],["E",110,330],["F",560,330]];
+const BREW=[400,160,560,250],WORK=[250,70,400,160];
+const JDAYS=["29 Aug","30 Aug","31 Aug","1 Sep","2 Sep","3 Sep","4 Sep","5 Sep","6 Sep","7 Sep","8 Sep","9 Sep","10 Sep","11 Sep","12 Sep","13 Sep","14 Sep"];
+const JCNT=[1,1,56,143,116,54,46,36,20,28,12,11,5,5,1,3,0];
+const JS={play:-1,playing:false,zones:false,clues:false,removed:null,step:0,done:{},tried:{},t0:0};
+function jNearest(x,y){let b=0,bd=1e9;JP.forEach((p,i)=>{const d=Math.abs(x-p[1])+Math.abs(y-p[2]);if(d<bd){bd=d;b=i}});return b}
+let JDEATHS=null;
+function jDeaths(){if(JDEATHS)return JDEATHS;const spots=[];let k=0;
+  const inB=(x,y,b)=>x>b[0]&&x<b[2]&&y>b[1]&&y<b[3];
+  const cand=(x,y,dir,side)=>{k++;if(inB(x,y,BREW)||inB(x,y,WORK))return;const p=JP[2];const d=Math.abs(x-p[1])+Math.abs(y-p[2]);const near=jNearest(x,y)===2;
+    const w=(near?1:.12)*Math.exp(-d/150);spots.push({x,y,dir,side,w,k})};
+  for(const y of JH)for(let x=8;x<=MW-8;x+=13)for(const s of[-1,1])cand(x,y+s*10,1,s);
+  for(const x of JV)for(let y=8;y<=MH-8;y+=13)for(const s of[-1,1])cand(x+s*10,y,0,s);
+  const total=JCNT.reduce((a,b)=>a+b,0),bars=Math.round(total/2);const sw=spots.reduce((a,s)=>a+s.w,0);
+  const out=[];const stack={};let cum=0;const dayOf=u=>{let c=0;for(let i=0;i<JCNT.length;i++){c+=JCNT[i]/total;if(u<=c)return i}return JCNT.length-1};
+  spots.forEach(s=>{const n=s.w/sw*bars;let m=Math.floor(n+rnd(s.k*3.3));for(let j=0;j<m;j++){const key=s.x+","+s.y;stack[key]=(stack[key]||0)+1;out.push({x:s.x,y:s.y,dir:s.dir,side:s.side,j:stack[key]-1,day:dayOf(rnd(s.k*7.7+j*1.3))})}});
+  JDEATHS=out;return out}
+/* two far clue houses */
+const WIDOW=[MW-10,40];
+function jMX(x){return MOX+x}function jMY(y){return MOY+y}
+function drawMap(now){use(S2);const T=now/1000;
+  panelBox(12,12,856,428);title(26,30,"Soho, London, 1854 (simplified drawing)");
+  ctx.save();rr(MOX,MOY,MW,MH,6);ctx.clip();ctx.fillStyle=C.house;ctx.fillRect(MOX,MOY,MW,MH);
+  const xs=[0,...JV,MW],ys=[0,...JH,MH];
+  for(let i=0;i<xs.length-1;i++)for(let j=0;j<ys.length-1;j++){const xa=xs[i]+(i?9:0),xb=xs[i+1]-(i<xs.length-2?9:0),ya=ys[j]+(j?9:0),yb=ys[j+1]-(j<ys.length-2?9:0);const n=Math.max(1,Math.round((xb-xa)/46));
+    for(let q=0;q<n;q++){const bx=xa+(xb-xa)*q/n;rr(jMX(bx)+1.5,jMY(ya)+1.5,(xb-xa)/n-3,yb-ya-3,2);ctx.fillStyle=mix(C.house,C["house-edge"],.12);ctx.fill()}}
+  if(JS.zones){const cs=14;const tints=[C.act2,C.act3,C.inf,C.act5,C.act6,C.act1];for(let x=0;x<MW;x+=cs)for(let y=0;y<MH;y+=cs){const z=jNearest(x+cs/2,y+cs/2);ctx.fillStyle=hexA(tints[z],z===2?.22:.12);ctx.fillRect(jMX(x),jMY(y),cs,cs)}}
+  JH.forEach(y=>{ctx.fillStyle=C.street;ctx.fillRect(MOX,jMY(y)-7,MW,14)});JV.forEach(x=>{ctx.fillStyle=C.street;ctx.fillRect(jMX(x)-7,MOY,14,MH)});
+  rr(jMX(BREW[0])+10,jMY(BREW[1])+10,BREW[2]-BREW[0]-20,BREW[3]-BREW[1]-20,4);ctx.fillStyle=hexA(C.gold,.4);ctx.fill();
+  rr(jMX(WORK[0])+10,jMY(WORK[1])+10,WORK[2]-WORK[0]-20,WORK[3]-WORK[1]-20,4);ctx.fillStyle=hexA(C.act2,.3);ctx.fill();
+  txt(jMX(70),jMY(JH[1])+1,"BROAD STREET",{size:12,mono:true,weight:700,color:C.ink});
+  const D=jDeaths();const upto=JS.play;D.forEach(d=>{if(d.day>upto)return;ctx.fillStyle=C.ink;const off=d.j*4.2*d.side;if(d.dir)ctx.fillRect(jMX(d.x)-3,jMY(d.y)+off-1.5,6,3);else ctx.fillRect(jMX(d.x)+off-1.5,jMY(d.y)-3,3,6)});
+  JP.forEach((p,i)=>{const x=jMX(p[1]),y=jMY(p[2]);const sel=JS.step===4&&!JS.done[4];if(sel)pulseRing(x,y,20,C.pump,P(T,1.4));pumpD(x,y+8,10,{noHandle:JS.removed===i,col:C.pump});
+    circ(x+14,y-14,10,C.panel,C.pump,1.6);txt(x+14,y-13.5,p[0],{size:12.5,weight:700,align:"center",color:C.ink})});
+  if(JS.clues){label(jMX(480),jMY(184),"Brewery: beer and its own well",{size:12,weight:700,align:"center",border:C.gold});label(jMX(325),jMY(86),"Workhouse: its own well",{size:12,weight:700,align:"center",border:C.act2});
+    label(jMX(480),jMY(226),"almost no deaths",{size:12,weight:600,align:"center"});label(jMX(325),jMY(112),"very few deaths",{size:12,weight:600,align:"center"})}
+  ctx.restore();
+  if(JS.clues){const x=jMX(MW)-150,y=jMY(20);panelBox(x-6,y-14,150,62,{fill:hexA(C.panel,.96),stroke:C.inf,lw:1.6});wrapText("Far away in Hampstead: a widow who had pump C water carried to her died",x+2,y,136,14,{size:12,weight:600});}
+  if(JS.removed===2)label(jMX(JP[2][1]),jMY(JP[2][2])+30,"Handle removed, 8 Sep",{size:12,weight:700,align:"center",border:C.pump});
+  /* epidemic curve */
+  panelBox(12,452,856,156);title(26,472,"Deaths per day (approximate; each map bar = 2 deaths)");
+  const gx=70,gy=486,gw=780,gh=92,bw=gw/JCNT.length;const mx=150;
+  [0,50,100,150].forEach(v=>{line(gx,gy+gh-v/mx*gh,gx+gw,gy+gh-v/mx*gh,C["rule-soft"],1);txt(gx-6,gy+gh-v/mx*gh,String(v),{size:12,mono:true,align:"right",color:C["ink-soft"]})});
+  JCNT.forEach((n,i)=>{const x=gx+i*bw+3;const h=i<=upto?n/mx*gh:0;rr(x,gy+gh-h,bw-6,Math.max(0,h),2);ctx.fillStyle=i===Math.floor(upto)&&JS.playing?C.inf:hexA(C.inf,.75);ctx.fill();if(i%2===0||bw>60)txt(x+(bw-6)/2,gy+gh+12,JDAYS[i],{size:12,mono:true,align:"center",color:C["ink-soft"]})});
+  if(JS.removed===2||JS.step>=5){const x=gx+10*bw+bw/2;line(x,gy-4,x,gy+gh,C.pump,2,[5,4]);label(x+8,gy+10,"handle removed",{size:12,weight:700,align:"left",border:C.pump})}}
+/* investigation steps */
+const JQ=[
+ {t:"Plot the deaths",q:"Press Plot the deaths. Where do the deaths cluster?",hint:"Look for where the black bars stack up most thickly.",opts:[["Around pump C, on Broad Street",1,"Yes. The bars pile up around pump C and thin out with distance from it."],["Evenly across the whole map",0,"Look again: the bars are thick near one pump and sparse elsewhere."],["Inside the brewery",0,"The brewery has almost no deaths. Most deaths surround pump C."],["Around pump A",0,"Pump A has very few deaths nearby. The cluster is around pump C."]]},
+ {t:"Walking zones",q:"Press Show walking zones. Each zone holds the homes closest to one pump. Most deaths fall in which zone?",hint:"Find the zone that holds the thickest stacks of bars.",opts:[["Pump C's zone",1,"Right. Most deaths are in homes for which pump C was the nearest water source."],["Pump B's zone",0,"Pump B's zone has few bars. Count the stacks in each zone."],["Pump E's zone",0,"Pump E's zone is almost empty of deaths."],["All zones equally",0,"The zones are not equal. One zone holds most of the deaths."]]},
+ {t:"Clues: brewery and workhouse",q:"Press Show clues. The brewery sits right beside pump C, yet its workers almost all stayed healthy. Why does this support Snow's idea?",hint:"What did the brewery workers drink?",opts:[["They drank beer and water from the brewery's own well, not pump C",1,"Yes. Living near the pump did not matter; drinking its water did. The workhouse, with its own well, also had very few deaths."],["They breathed cleaner air inside the brewery",0,"The air was the same as their neighbours'. The difference was their water supply."],["They were born immune to cholera",0,"There is no inborn immunity here. They simply did not drink pump C water."],["Brewing destroys bad air",0,"Cholera is not spread by bad air. The workers avoided pump C water."]]},
+ {t:"Clue: far away",q:"A widow who lived miles away in Hampstead also died. She liked the taste of Broad Street water and had it carried to her. How does this fit?",hint:"She never breathed Soho air, so what linked her to pump C?",opts:[["It fits: she drank pump C water, so the water, not the place, carried cholera",1,"Right. A death far from Soho, linked only by pump C water, is strong evidence that the water carried the disease."],["Bad air drifted miles to Hampstead",0,"No other Hampstead deaths happened. Her only link to Soho was the water."],["It proves the pump idea is wrong",0,"It supports it: her one link to the outbreak was pump C water."],["She caught it from a neighbour",0,"Her neighbours stayed well. Her link was the water from pump C."]]},
+ {t:"Act on it",pump:true,q:"Which pump's handle should be removed so no one can draw water from it?",hint:"Pick the pump at the centre of the death cluster.",opts:[]},
+ {t:"Read the curve",q:"Look at the epidemic curve. Deaths were already falling before the handle came off on 8 September. What is the best conclusion?",hint:"Many people had fled or already been exposed. What could removing the handle still do?",opts:[["The map and clues still point to pump C; removing the handle could prevent new cases",1,"Yes. The outbreak was fading on its own, but the evidence still shows pump C was the source, and closing it protected against a new wave."],["The pump had nothing to do with the outbreak",0,"The map, the zones, the brewery and the widow all point to pump C. Timing alone does not erase that."],["Removing the handle ended the outbreak by itself",0,"The curve was already falling. That is why the map evidence matters more than the timing."],["Cholera must spread through the air after all",0,"Nothing here supports airborne spread. All the clues point to the water."]]},
+ {t:"Kinds of study",q:"Snow's map is a descriptive study. He also compared deaths in homes supplied by two water companies. What kind of study is that comparison?",hint:"Comparing two groups to find a cause.",opts:[["Analytical",1,"Right. Comparing groups with different exposures is analytical epidemiology. Homes on the dirtier company's water had several times more deaths."],["Descriptive",0,"Descriptive studies record who, where and when. Comparing groups to find a cause is analytical."],["Experimental",0,"In an experimental study researchers assign the exposure. Snow compared groups that already existed: analytical."],["Koch's postulates",0,"Koch's postulates link a microbe to a disease in the lab. Comparing groups of homes is analytical epidemiology."]]}];
+function jStepsUI(){$("#jSteps").innerHTML=JQ.map((q,i)=>`<li class="${JS.done[i]?"done":""}${i===JS.step?" cur":""}"><span class="ck" aria-hidden="true">${JS.done[i]?"✓":i+1}</span><span>${q.t}<span class="gk-sr">${JS.done[i]?" (done)":i===JS.step?" (current step)":""}</span></span></li>`).join("")}
+function jLoad(){const q=JQ[JS.step];$("#jQ").textContent=(JS.step+1)+". "+q.q;const fb=$("#jFb");fb.className="fb";fb.textContent="";const box=$("#jOpts");box.innerHTML="";
+  $("#jPumpWrap").hidden=!q.pump;
+  if(q.pump){const pb=$("#jPumps");pb.innerHTML="";JP.forEach((p,i)=>{const b=document.createElement("button");b.type="button";b.className="tbtn";b.textContent="Pump "+p[0];b.setAttribute("aria-pressed",JS.removed===i?"true":"false");b.onclick=()=>jPick(i);pb.appendChild(b)})}
+  else shuffleStable(q.opts,JS.step*5+2).forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];if(JS.done[JS.step]&&o[1])b.classList.add("right");
+    b.onclick=()=>{box.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));if(o[1]){b.classList.add("right");fb.className="fb show ok";fb.textContent="✓ "+o[2];JS.done[JS.step]=1;jStepsUI()}else{b.classList.add("wrong");fb.className="fb show no";fb.textContent="Not quite. "+o[2]}};box.appendChild(b)});
+  $("#jNext").textContent=JS.step<JQ.length-1?"Next step →":"Start over";jStepsUI();jCap();a11yKey=""}
+function jPick(i){if(JS.step!==4)return;const fb=$("#jFb");JS.removed=i;
+  if(i===2){fb.className="fb show ok";fb.textContent="✓ Yes. Pump C (the Broad Street pump) sits at the centre of the deaths. Officials removed its handle on 8 September 1854.";JS.done[4]=1;jStepsUI()}
+  else{fb.className="fb show no";fb.textContent=`Not quite. Pump ${JP[i][0]} has few deaths around it. Look for the pump at the centre of the cluster.`}
+  $("#jPumps").querySelectorAll("button").forEach((b,k)=>b.setAttribute("aria-pressed",k===i?"true":"false"));jCap();a11yKey=""}
+$("#jNext").onclick=()=>{if(JS.step<JQ.length-1){JS.step++;jLoad()}else jResetAll()};
+$("#jHint").onclick=()=>{const fb=$("#jFb");fb.className="fb show hint";fb.textContent="Hint: "+JQ[JS.step].hint};
+$("#jShow").onclick=()=>{const q=JQ[JS.step];if(q.pump){jPick(2);return}const a=q.opts.find(o=>o[1]);$("#jOpts").querySelectorAll(".opt").forEach(b=>{if(b.textContent===a[0])b.classList.add("right")});const fb=$("#jFb");fb.className="fb show ok";fb.textContent="Answer: "+a[0]+". "+a[2]};
+$("#jPlay").onclick=()=>{JS.play=-1;JS.playing=true;JS.t0=performance.now();jCap()};
+$("#jZones").onclick=()=>{JS.zones=!JS.zones;$("#jZones").setAttribute("aria-pressed",JS.zones);jCap();a11yKey=""};
+$("#jClues").onclick=()=>{JS.clues=!JS.clues;$("#jClues").setAttribute("aria-pressed",JS.clues);jCap();a11yKey=""};
+$("#jReset").onclick=()=>jResetAll();
+function jResetAll(){Object.assign(JS,{play:-1,playing:false,zones:false,clues:false,removed:null,step:0,done:{}});$("#jZones").setAttribute("aria-pressed","false");$("#jClues").setAttribute("aria-pressed","false");jLoad()}
+function jTick(now){if(JS.playing){const d=(now-JS.t0)/1000/.55;JS.play=Math.min(JCNT.length-1,d);if(d>=JCNT.length-1){JS.playing=false;JS.play=JCNT.length-1;jCap()}}}
+S2.cv.addEventListener("click",e=>{if(JS.step!==4)return;const r=S2.cv.getBoundingClientRect();const x=(e.clientX-r.left)/r.width*S2.W,y=(e.clientY-r.top)/r.height*S2.H;JP.forEach((p,i)=>{if(Math.hypot(x-jMX(p[1]),y-jMY(p[2]))<26)jPick(i)})});
+function jCap(){const n=jDeaths().filter(d=>d.day<=JS.play).length;const parts=[];
+  parts.push(JS.play<0&&!JS.playing?"Press Plot the deaths to watch them appear day by day.":JS.playing?`Plotting: up to ${JDAYS[Math.floor(Math.max(0,JS.play))]}.`:`All deaths plotted: ${n} bars, about ${n*2} deaths.`);
+  if(JS.zones)parts.push("Walking zones on.");if(JS.clues)parts.push("Clues on.");if(JS.removed!=null)parts.push(`Pump ${JP[JS.removed][0]} handle removed.`);
+  $("#jCap").textContent=parts.join(" ")}
+function mapA11y(){const n=jDeaths().filter(d=>d.day<=JS.play).length;const lab=`Street map with six water pumps A to F. ${n} death bars shown.`+(JS.zones?" Walking zones on.":"")+(JS.clues?" Clues on.":"")+(JS.removed!=null?` Pump ${JP[JS.removed][0]} handle removed.`:"");
+  let d=`A street map with four east-west streets and five north-south streets; the second east-west street is labelled Broad Street. Six blue pumps sit at street corners and are labelled A to F; pump C is on Broad Street near the middle. A gold block east of pump C is the brewery and a blue block north of it is the workhouse. `;
+  d+=n?`${n} small black bars, each standing for 2 deaths, stack up along the streets. They are thickest around pump C and thin out with distance; the brewery and workhouse blocks have almost none. `:"No deaths are plotted yet. ";
+  if(JS.zones)d+="Coloured zones shade the homes nearest each pump; pump C's zone is shaded red and holds most of the bars. ";
+  if(JS.clues)d+="Clue labels say the brewery had beer and its own well with almost no deaths, the workhouse had its own well with very few deaths, and a note in the corner says a widow far away in Hampstead who had pump C water carried to her died. ";
+  d+=`Below the map, an epidemic curve of deaths per day from 29 August to 14 September 1854 rises to a peak of about 143 on 1 September and then falls.`+(JS.removed===2||JS.step>=5?" A dashed line marks 8 September, when the pump handle was removed, after deaths had already dropped.":"");
+  return [lab,d]}
+
+/* ================= PART 3: chain of infection cases ================= */
+const LINKN=[["path","Pathogen"],["res","Reservoir"],["exit","Portal of exit"],["trans","Transmission"],["entry","Portal of entry"],["host","Susceptible host"]];
+const CASES=[
+{who:"Maria, 34",title:"Sick after the potluck",stain:"gneg",stainT:"Gram stain, stool culture",
+ story:"Maria went to a potluck on Saturday and ate chicken that was still pink in the middle. About a day later she has cramps, diarrhea, vomiting and a fever. Several other guests are sick too.",
+ vit:[["Temperature","38.6 °C","high"],["Heart rate","108 /min","high"],["Blood pressure","104/66",""],["Breathing rate","18 /min",""]],lab:["Stool culture: Gram-negative rods, Salmonella"],
+ chain:{path:"Salmonella",res:"Poultry",exit:"Feces",trans:"Food (vehicle)",entry:"Mouth, gut",host:"Maria"},
+ qs:[{q:"What was the most likely reservoir of the Salmonella?",hint:"Salmonella lives in the intestines of many animals, especially birds.",rev:["res"],opts:[["Poultry: an animal reservoir",1,"Yes. Chickens often carry Salmonella in their intestines, so undercooked chicken is a classic source."],["Soil",0,"Soil is the reservoir for organisms like Clostridium tetani. Salmonella is mainly carried by animals such as poultry."],["The air in the room",0,"Salmonella is not airborne. It was carried in the food."],["A mosquito",0,"Mosquitoes do not carry Salmonella. The chicken was the source."]]},
+  {q:"How did the pathogen reach Maria?",hint:"Think about what she ate.",rev:["trans","entry","exit"],opts:[["Foodborne vehicle transmission: swallowed in undercooked chicken",1,"Right. Food is a vehicle. It entered through her mouth (digestive tract) and leaves the body in feces."],["Airborne droplet nuclei",0,"Airborne spread fits measles or TB. Many guests who ate the chicken got sick, which points to food."],["A biological vector",0,"Vectors are arthropods like ticks and mosquitoes. Here the vehicle was food."],["Direct contact with a sick guest",0,"Many people fell ill at about the same time after eating the same dish, which points to the food."]]},
+  {q:"Which step would best have broken the chain?",hint:"Which link is easiest to block in the kitchen?",opts:[["Cooking chicken to a safe internal temperature (74 °C or 165 °F) and washing hands and surfaces",1,"Yes. Proper cooking kills Salmonella, and clean hands and boards stop cross-contamination."],["Wearing N95 masks at the party",0,"Masks block airborne spread. This germ was in the food."],["Giving every guest antibiotics before eating",0,"That would not be safe or sensible. Cooking the food properly breaks the chain."],["Isolating Maria after she got sick",0,"By then the others had already eaten the chicken. The fix is safe cooking."]]}],
+ sum:"Salmonella from poultry (animal reservoir) reached Maria in undercooked food (vehicle), entered through the digestive tract and leaves in feces. Safe cooking and hygiene break the chain."},
+{who:"James, 68",title:"Fever after surgery",stain:"gneg",stainT:"Gram stain, urine culture",
+ story:"James had hip surgery 5 days ago and still has a urinary catheter. Today he has a fever, chills, and cloudy urine.",
+ vit:[["Temperature","38.9 °C","high"],["Heart rate","112 /min","high"],["Blood pressure","118/72",""],["Breathing rate","20 /min",""]],lab:["Urine culture: over 100,000 CFU/mL, Gram-negative rods, E. coli"],
+ chain:{path:"E. coli",res:"His own gut",exit:"Feces, skin",trans:"Catheter",entry:"Urethra",host:"James"},
+ qs:[{q:"This E. coli normally lives harmlessly in James's own large intestine. What kind of infection is this?",hint:"Where was he when he got it, and where did the microbe come from?",rev:["res","exit"],opts:[["An opportunistic, healthcare-associated infection from his own normal microbiota",1,"Right. A gut resident reached a new site during hospital care: an opportunistic HAI, here a catheter-associated urinary tract infection."],["A zoonosis caught from an animal",0,"Zoonoses come from animals. This E. coli came from James's own gut."],["A foodborne infection",0,"Nothing points to food. The catheter gave his own gut bacteria a path to the bladder."],["A latent infection that reactivated",0,"Latent infections hide and reactivate, like herpes. This is a new infection at a new site."]]},
+  {q:"What helped E. coli get in and stay in the bladder?",hint:"Think of the device and of how bacteria hold on against urine flow.",rev:["trans","entry"],opts:[["The catheter gave it a path in, and fimbriae with adhesins let it hold on against urine flow",1,"Yes. Devices break normal barriers, and fimbriae let uropathogenic E. coli attach to the bladder lining (or form a biofilm on the catheter)."],["Its capsule let it travel through the air",0,"Capsules help resist phagocytosis. They do not make bacteria airborne."],["Coagulase clotted the urine",0,"Coagulase is made by Staphylococcus aureus and clots blood plasma. Attachment by fimbriae is the key here."],["It entered through a mosquito bite",0,"No vector is involved. The catheter was the route."]]},
+  {q:"Which practice best prevents this kind of infection?",hint:"Which link involves the device?",opts:[["Insert catheters with aseptic technique and remove them as soon as they are no longer needed",1,"Right. The longer a catheter stays in, the higher the risk. Aseptic insertion and early removal break the chain."],["Give every patient antibiotics every day",0,"Routine antibiotics promote resistance and C. difficile. They do not replace good catheter care."],["Put him on airborne precautions",0,"This infection is not airborne. Catheter care is what matters."],["Leave the catheter in longer to be safe",0,"Longer use raises the risk of infection. Remove it as soon as possible."]]}],
+ sum:"James's own gut E. coli used the catheter as a route into the bladder and held on with fimbriae: a catheter-associated urinary tract infection, one of the most common HAIs."},
+{who:"Aisha, 25",title:"A cough that will not go away",stain:"afb",stainT:"Acid-fast stain, sputum",
+ story:"Aisha has had a cough for 4 weeks, night sweats and weight loss. She stayed in a crowded shelter where another resident had a long-lasting cough.",
+ vit:[["Temperature","38.0 °C","high"],["Heart rate","96 /min",""],["Breathing rate","22 /min","high"],["Oxygen saturation","94%","low"]],lab:["Sputum: acid-fast rods (red on blue)","Chest X-ray: patches in the upper lungs"],
+ chain:{path:"M. tuberculosis",res:"Infected people",exit:"Coughing",trans:"Airborne",entry:"Airways",host:"Aisha"},
+ qs:[{q:"How is tuberculosis spread?",hint:"It spreads in a crowded indoor space from someone with a cough.",rev:["res","exit","trans","entry"],opts:[["Airborne droplet nuclei from coughing, which can hang in the air",1,"Yes. Tiny droplet nuclei stay in the air and are breathed deep into the lungs."],["Food and water",0,"TB is not usually spread in food or water. It is airborne."],["Mosquito bites",0,"Mosquitoes spread malaria and other diseases, not TB."],["Only by kissing",0,"TB does not need close touching. It spreads through shared air."]]},
+  {q:"Aisha is admitted to hospital. Which precautions does she need on top of standard precautions?",hint:"Match the precaution to the route.",opts:[["Airborne precautions: fit-tested N95 respirators and a negative-pressure room",1,"Right. Droplet nuclei hang in the air, so staff need N95s and the room air must flow in, not out."],["Contact precautions only",0,"TB is not mainly spread by touch."],["Droplet precautions with a surgical mask",0,"Surgical masks are for large droplets. TB needs airborne precautions."],["Standard precautions only",0,"Standard precautions are the base for everyone. TB needs airborne precautions added."]]},
+  {q:"Why is M. tuberculosis so hard for her immune system to clear?",hint:"Think about where it hides and what its wall is made of.",opts:[["It survives inside macrophages and has a waxy, mycolic acid cell wall",1,"Yes. It blocks phagosome-lysosome fusion and its waxy wall resists digestion, so infection is slow and chronic."],["It makes a toxin that blocks acetylcholine",0,"That describes botulinum toxin. TB's tricks are hiding in macrophages and a waxy wall."],["It has no cell wall at all",0,"It has an unusually thick, waxy wall. That is why it needs an acid-fast stain."],["It changes its shape every hour",0,"Shape change is not its trick. Surviving inside macrophages is."]]}],
+ sum:"TB spreads from infected people by airborne droplet nuclei into the airways. It survives inside macrophages, so disease is chronic. Airborne precautions protect staff and other patients."},
+{who:"Daniel, 41",title:"A stiff jaw after gardening",stain:"spore",stainT:"Gram stain, wound culture",
+ story:"Ten days ago Daniel stepped on a nail while gardening barefoot. He cleaned the small wound but did not see a doctor. Now his jaw is stiff and he has painful muscle spasms. His last tetanus shot was more than 20 years ago.",
+ vit:[["Temperature","37.8 °C",""],["Heart rate","118 /min","high"],["Blood pressure","150/92","high"],["Breathing rate","20 /min",""]],lab:["Anaerobic culture: Gram-positive rods with round spores at one end"],
+ chain:{path:"C. tetani",res:"Soil",exit:"Not person to person",trans:"Puncture wound",entry:"Parenteral",host:"Daniel"},
+ qs:[{q:"Where did the bacteria come from?",hint:"Think about what was on the nail and in the garden.",rev:["res","exit"],opts:[["Endospores in soil: a nonliving reservoir",1,"Right. Clostridium tetani spores are common in soil. Tetanus does not spread from person to person."],["Another person who was coughing",0,"Tetanus is not passed between people. It comes from spores in soil."],["A mosquito bite",0,"There was no vector. The nail carried soil spores into the wound."],["His own skin microbiota",0,"C. tetani is not normal skin microbiota. It came from soil."]]},
+  {q:"Which portal of entry did it use?",hint:"The spores were pushed deep under the skin.",rev:["trans","entry"],opts:[["Parenteral: a deep puncture wound",1,"Yes. A puncture carries spores deep into tissue with little oxygen, where these anaerobes can grow."],["Respiratory tract",0,"Tetanus is not breathed in."],["Digestive tract",0,"Tetanus is not swallowed. It enters through wounds."],["Conjunctiva of the eye",0,"The nail wound in his foot was the way in."]]},
+  {q:"His spasms are caused by tetanus toxin, which travels through the body to his nerves. Which statement is true?",hint:"Is it a protein released by Gram-positive cells, or part of a Gram-negative wall?",opts:[["It is an exotoxin (an A-B neurotoxin), and a toxoid vaccine prevents it",1,"Right. Tetanus toxin is a protein exotoxin carried in the blood (toxemia). The tetanus toxoid vaccine, with boosters about every 10 years, prevents it."],["It is endotoxin from a Gram-negative wall",0,"C. tetani is Gram-positive, and its toxin is a protein exotoxin."],["It is a superantigen that switches on T cells",0,"Superantigens include TSST-1. Tetanus toxin is a neurotoxin that blocks relaxing nerve signals."],["It causes floppy paralysis",0,"Tetanus causes rigid spasms. Botulinum toxin causes floppy paralysis."]]}],
+ sum:"Spores from soil entered a puncture wound (parenteral route). C. tetani grew without oxygen and released an exotoxin that reached the nerves. The tetanus toxoid vaccine breaks the chain at the host."},
+{who:"Rosa, 52",title:"Rash after a hike",stain:"spiro",stainT:"Spirochete (dark-field sketch)",
+ story:"Rosa went hiking in tall grass 10 days ago. Now she has a fever, tiredness, aching joints and a widening red ring-shaped rash on her thigh. She remembers pulling off a tiny tick.",
+ vit:[["Temperature","38.1 °C","high"],["Heart rate","92 /min",""],["Blood pressure","124/80",""],["Breathing rate","16 /min",""]],lab:["Blood antibody test: positive for Borrelia burgdorferi"],
+ chain:{path:"Borrelia",res:"Mice and deer",exit:"Blood, via tick",trans:"Tick (vector)",entry:"Skin bite",host:"Rosa"},
+ qs:[{q:"Lyme disease is a zoonosis. What does that mean here?",hint:"Where does the bacterium live in nature?",rev:["res"],opts:[["The bacterium lives in animals such as mice and deer, and reaches people from them",1,"Yes. Animals are the reservoir; people are accidental hosts."],["It spreads mainly from person to person",0,"Lyme disease is not spread between people. It comes from animals by ticks."],["It lives in soil",0,"Soil reservoirs fit tetanus. Lyme bacteria live in animals."],["Only humans carry it",0,"Animals, not people, keep the bacterium going in nature."]]},
+  {q:"The bacteria multiply inside the tick before it bites. What kind of transmission is this?",hint:"Does the germ just ride along, or does it grow inside the vector?",rev:["trans","exit","entry"],opts:[["Biological vector transmission",1,"Right. The pathogen develops inside the tick and is passed on by its bite."],["Mechanical vector transmission",0,"In mechanical transmission the germ only rides on the outside, like on a fly's feet."],["Indirect contact with a fomite",0,"Fomites are nonliving objects. A tick is a living vector."],["Airborne",0,"Lyme disease needs a tick bite."]]},
+  {q:"Which advice best protects Rosa next time?",hint:"Which link can she block on the trail?",opts:[["Use insect repellent, wear long clothing, and check for ticks after hiking",1,"Yes. Blocking or quickly removing ticks breaks the chain at transmission."],["Wear a surgical mask on the trail",0,"Masks block droplets. Lyme comes from tick bites."],["Avoid shaking hands with other hikers",0,"Lyme does not spread by touch."],["Boil her drinking water",0,"Lyme is not waterborne."]]}],
+ sum:"Borrelia lives in mice and deer (a zoonosis) and is carried by ticks, a biological vector, into the skin. Repellent, clothing and tick checks break the chain."},
+{who:"Kevin, 29",title:"Boils on the wrestling team",stain:"gposc",stainT:"Gram stain, pus culture",
+ story:"Kevin wrestles at a gym. He has a painful, swollen, red boil on his forearm that drains pus. Two teammates have similar sores. The team shares towels and mats.",
+ vit:[["Temperature","37.9 °C",""],["Heart rate","90 /min",""],["Blood pressure","122/78",""],["Breathing rate","16 /min",""]],lab:["Pus culture: Gram-positive cocci in clusters","Coagulase positive; resistant to methicillin (MRSA)"],
+ chain:{path:"MRSA",res:"Skin, nose",exit:"Pus from sores",trans:"Touch, towels",entry:"Broken skin",host:"Kevin"},
+ qs:[{q:"How did the infection most likely spread between teammates?",hint:"Think about skin-to-skin sports and shared gear.",rev:["trans","exit","entry"],opts:[["Direct skin contact plus indirect contact with shared towels and mats (fomites)",1,"Right. Staphylococcus aureus spreads by touch and on shared objects, and enters through small breaks in the skin."],["Airborne droplet nuclei",0,"MRSA skin infections spread mainly by contact, not through the air."],["Contaminated water",0,"Nothing points to water. Shared towels and skin contact do."],["Mosquitoes",0,"No vector is involved here."]]},
+  {q:"The lab says the bacteria are coagulase positive. How might coagulase help the infection?",hint:"Coagulase makes clots.",opts:[["It clots fibrin around the bacteria, walling them off from phagocytes",1,"Yes. A fibrin wall can protect the staph from white blood cells, part of why boils form."],["It dissolves clots so the bacteria spread",0,"That is what kinases do. Coagulase makes clots."],["It destroys IgA antibodies",0,"That is IgA protease. Coagulase clots fibrinogen into fibrin."],["It is endotoxin",0,"S. aureus is Gram-positive and has no endotoxin. Coagulase is an enzyme."]]},
+  {q:"Kevin is admitted to have the abscess drained. Which precautions are added to standard precautions?",hint:"How does MRSA spread?",rev:["res"],opts:[["Contact precautions: gown and gloves",1,"Right. MRSA spreads by contact, so staff add gowns and gloves. Many people carry S. aureus on their skin and in their nose."],["Airborne precautions with an N95",0,"Airborne precautions are for TB, measles and chickenpox."],["No precautions at all",0,"Standard precautions are always used, and MRSA needs contact precautions added."],["Droplet precautions only",0,"MRSA skin infection spreads by contact, not large droplets."]]}],
+ sum:"MRSA, carried on skin and in noses, spread by touch and shared towels into breaks in the skin. Coagulase helps it wall itself off in a boil. Contact precautions and not sharing towels break the chain."},
+{who:"Grace, 72",title:"Worse again after the flu",stain:"gposd",stainT:"Gram stain, sputum",
+ story:"Grace had the flu last week and was starting to feel better. Two days ago her fever came back, higher, with chest pain and a cough bringing up rust-coloured sputum.",
+ vit:[["Temperature","39.4 °C","high"],["Heart rate","116 /min","high"],["Blood pressure","98/60","low"],["Oxygen saturation","90%","low"]],lab:["Sputum: Gram-positive cocci in pairs with capsules, Streptococcus pneumoniae"],
+ chain:{path:"S. pneumoniae",res:"Carriers' throats",exit:"Coughing",trans:"Droplets",entry:"Airways",host:"Grace"},
+ qs:[{q:"Influenza first, then bacterial pneumonia. What is the pneumonia called?",hint:"It followed a first illness that weakened her defences.",rev:["res","exit","trans","entry"],opts:[["A secondary infection",1,"Yes. Influenza damaged her airway lining, and S. pneumoniae, often carried harmlessly in throats, took the chance."],["A primary infection",0,"The flu was the primary infection. The pneumonia came second."],["A latent infection",0,"Latent infections hide, then reactivate. This is a new bacterial infection after the flu."],["A zoonosis",0,"S. pneumoniae comes from people, not animals."]]},
+  {q:"S. pneumoniae has a thick capsule. Why does that make it dangerous?",hint:"Capsules and phagocytes.",opts:[["The capsule helps it resist phagocytosis",1,"Right. White blood cells have trouble grabbing encapsulated bacteria, unless antibodies coat the capsule."],["The capsule makes it airborne",0,"Capsules do not make bacteria airborne. They help resist phagocytes."],["The capsule is endotoxin",0,"S. pneumoniae is Gram-positive. Its capsule is a polysaccharide that resists phagocytosis."],["The capsule lets it make spores",0,"S. pneumoniae does not form spores. The capsule's job is resisting phagocytosis."]]},
+  {q:"Which step would most help protect older adults like Grace?",hint:"Two vaccines target the two infections.",opts:[["A yearly flu vaccine plus a pneumococcal vaccine, which makes antibodies against the capsule",1,"Yes. Preventing the flu removes the first hit, and capsule antibodies let phagocytes clear S. pneumoniae."],["Antibiotics every winter",0,"Routine antibiotics cause resistance and side effects. Vaccines are the better tool."],["Insect repellent",0,"This disease has no insect vector."],["Avoiding fresh fruit",0,"Food is not the route. Vaccines target the real risks."]]}],
+ sum:"Influenza (primary) damaged Grace's airways, and S. pneumoniae from carriers' throats caused a secondary pneumonia. Its capsule resists phagocytosis; flu and pneumococcal vaccines protect older adults."}];
+let cI=0,cQ=0;const cSolved=store.get("cases")||{};const cTried={};
+function cChips(){const b=$("#cChips");b.innerHTML="";CASES.forEach((c,i)=>{const nq=c.qs.length;const n=[...Array(nq).keys()].filter(q=>cSolved[i+"-"+q]).length;const x=document.createElement("button");x.type="button";x.className="chip"+(n===nq?" done":"");x.setAttribute("aria-pressed",i===cI?"true":"false");x.textContent=(i+1)+". "+c.who.split(",")[0]+(n===nq?" ✓":"");x.setAttribute("aria-label",(i+1)+". "+c.who.split(",")[0]+", case "+(i+1)+": "+c.title+(n===nq?", solved":", "+n+" of "+nq+" answered"));x.style.padding="0 10px";x.onclick=()=>{cI=i;cQ=0;cLoad()};b.appendChild(x)})}
+function cLoad(){const c=CASES[cI];$("#cN").textContent="Case "+(cI+1)+" of "+CASES.length+" · "+c.who;$("#cT").textContent=c.title;$("#cStory").innerHTML=`<p>${c.story}</p>`+(c.qs.every((q,j)=>cSolved[cI+"-"+j])?`<p><b>Summary.</b> ${c.sum}</p>`:"");cChips();cQLoad();a11yKey=""}
+function cQLoad(){const c=CASES[cI],q=c.qs[cQ];const nav=$("#cQnav");nav.innerHTML="";c.qs.forEach((x,i)=>{const b=document.createElement("button");b.type="button";b.className="chip"+(cSolved[cI+"-"+i]?" done":"");b.setAttribute("aria-pressed",i===cQ?"true":"false");b.textContent="Q"+(i+1);b.setAttribute("aria-label","Q"+(i+1)+", question "+(i+1)+(cSolved[cI+"-"+i]?", answered":""));b.onclick=()=>{cQ=i;cQLoad()};nav.appendChild(b)});
+  $("#cQ").textContent=q.q;const fb=$("#cFb");fb.className="fb";fb.textContent="";const box=$("#cOpts");box.innerHTML="";const key=cI+"-"+cQ;
+  shuffleStable(q.opts,cI*7+cQ).forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];if(cSolved[key]&&o[1])b.classList.add("right");b.onclick=()=>{box.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));
+    if(o[1]){b.classList.add("right");fb.className="fb show ok";fb.textContent="✓ "+o[2];const was=!!cSolved[key];if(!was){cSolved[key]=cTried[key]?1:2;store.set("cases",cSolved)}cChips();cQnavDone();cScore();a11yKey="";if(!was&&c.qs.every((q,j)=>cSolved[cI+"-"+j]))$("#cStory").innerHTML=`<p>${c.story}</p><p><b>Summary.</b> ${c.sum}</p>`}
+    else{cTried[key]=1;b.classList.add("wrong");fb.className="fb show no";fb.textContent="Not quite. "+o[2]}};box.appendChild(b)});
+  $("#cNext").textContent=cQ<c.qs.length-1?"Next question →":cI<CASES.length-1?"Next case →":"Back to case 1";cScore()}
+function cQnavDone(){[...$("#cQnav").children].forEach((b,i)=>b.classList.toggle("done",!!cSolved[cI+"-"+i]))}
+function cScore(){const vals=Object.values(cSolved);const tot=CASES.reduce((a,c)=>a+c.qs.length,0);const first=vals.filter(v=>v===2).length;$("#cScore").textContent=vals.length?`Answered ${vals.length} of ${tot} questions, ${first} on the first try.`:"Pick an answer. Every option explains itself."}
+$("#cHint").onclick=()=>{const fb=$("#cFb");fb.className="fb show hint";fb.textContent="Hint: "+CASES[cI].qs[cQ].hint};
+$("#cShow").onclick=()=>{const q=CASES[cI].qs[cQ];const ans=q.opts.find(o=>o[1]);$("#cOpts").querySelectorAll(".opt").forEach(b=>{if(b.textContent===ans[0])b.classList.add("right")});const fb=$("#cFb");fb.className="fb show ok";fb.textContent="Answer: "+ans[0]+". "+ans[2];cTried[cI+"-"+cQ]=1;const k=cI+"-"+cQ;if(!cSolved[k]){cSolved[k]=1;store.set("cases",cSolved);cChips();cQnavDone();cScore()}a11yKey=""};
+$("#cNext").onclick=()=>{if(cQ<CASES[cI].qs.length-1){cQ++;cQLoad()}else{cI=(cI+1)%CASES.length;cQ=0;cLoad()}};
+const S3=makeStage("cvCase",860,340);
+function revealed(c,ci){const r=new Set(["path","host"]);c.qs.forEach((q,j)=>{if(cSolved[ci+"-"+j])(q.rev||[]).forEach(k=>r.add(k))});if(c.qs.every((q,j)=>cSolved[ci+"-"+j]))LINKN.forEach(l=>r.add(l[0]));return r}
+function stainField(kind,cx,cy,R,T){const dark=kind==="spiro";const bgc=kind==="afb"?mix("#7FA8D8",C.panel,.35):dark?mix(C.ink,C.panel,isDark()?.1:.85):mix("#F3E4EC",C.panel,.3);
+  ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,TAU);ctx.clip();ctx.fillStyle=dark?(isDark()?"#05080A":"#1A2226"):bgc;ctx.fillRect(cx-R,cy-R,2*R,2*R);
+  const pos=i=>[cx+(rnd(i*3.1+kind.length)-.5)*R*1.7,cy+(rnd(i*7.3+kind.length)-.5)*R*1.7];const pink="#C2457A",purple="#5B2E91",red="#C0282D";
+  if(kind==="gneg")for(let i=0;i<22;i++){const p=pos(i);bug(p[0],p[1],rnd(i)*3,7,3,{col:pink,edge:"#8A2A54"})}
+  if(kind==="gposc")for(let i=0;i<6;i++){const p=pos(i);for(let k=0;k<6;k++){const a=k*1.1+i,d=k?5.2:0;circ(p[0]+Math.cos(a)*d,p[1]+Math.sin(a)*d,3.4,purple,"#3A1A60",.8)}}
+  if(kind==="gposd")for(let i=0;i<11;i++){const p=pos(i);const a=rnd(i*5)*3;ell(p[0],p[1],14,9.5,a,"rgba(255,255,255,.85)","rgba(91,46,145,.45)",1.2);[-1,1].forEach(s=>ell(p[0]+Math.cos(a)*3.6*s,p[1]+Math.sin(a)*3.6*s,3.8,3,a,purple,"#3A1A60",.8))}
+  if(kind==="afb")for(let i=0;i<16;i++){const p=pos(i);bug(p[0],p[1],rnd(i)*3,8,1.8,{col:red,edge:"#7A1418"})}
+  if(kind==="spore")for(let i=0;i<14;i++){const p=pos(i);const a=rnd(i)*3;bug(p[0],p[1],a,10,2.6,{col:purple,edge:"#3A1A60"});circ(p[0]+Math.cos(a)*11,p[1]+Math.sin(a)*11,3.6,"#F7F2FA","#3A1A60",1)}
+  if(kind==="spiro")for(let i=0;i<7;i++){const p=pos(i);const a=rnd(i)*3;ctx.beginPath();for(let k=0;k<=40;k++){const f=k/40;const X=p[0]+Math.cos(a)*(f-.5)*44-Math.sin(a)*Math.sin(f*TAU*4+T*2)*3,Y=p[1]+Math.sin(a)*(f-.5)*44+Math.cos(a)*Math.sin(f*TAU*4+T*2)*3;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle="#F2EFD8";ctx.lineWidth=1.6;ctx.stroke()}
+  ctx.restore();circ(cx,cy,R,null,C["ink-soft"],3)}
+function drawCase(now){use(S3);const T=now/1000;const c=CASES[cI];
+  panelBox(10,10,246,320);title(22,30,"Patient chart");txt(22,52,c.who,{size:14,weight:700});
+  c.vit.forEach((v,i)=>{const y=80+i*38;line(22,y+18,244,y+18,C["rule-soft"],1);txt(22,y,v[0],{size:12.5,weight:600,color:C["ink-soft"]});const fl=v[2];
+    txt(244,y,v[1],{size:13.5,mono:true,weight:700,align:"right",color:fl?mix(fl==="high"?C.bad:C.act2,C.ink,.2):C.ink});if(fl){txt(244,y+14,fl==="high"?"HIGH":"LOW",{size:12,mono:true,weight:700,align:"right",color:fl==="high"?C.bad:C.act2})}});
+  title(22,246,"Lab");c.lab.forEach((l,i)=>wrapText(l,22,266+i*34,224,15,{size:12.5,weight:600}));
+  panelBox(266,10,256,320);title(278,30,"Microscope");stainField(c.stain,394,172,104,T);wrapText(c.stainT,394,300,230,15,{size:12.5,weight:600,align:"center",color:C["ink-soft"]});
+  panelBox(532,10,318,320);title(544,30,"Chain of infection");
+  const rv=revealed(c,cI);const cx=691,cy=180,rx=94,ry=118;ctx.save();ctx.setLineDash([5,5]);ctx.beginPath();ctx.ellipse(cx,cy,rx,ry,0,0,TAU);ctx.strokeStyle=C.rule;ctx.lineWidth=2;ctx.stroke();ctx.restore();
+  LINKN.forEach((l,i)=>{const a=-Math.PI/2+i/6*TAU;const x=cx+Math.cos(a)*rx,y=cy+Math.sin(a)*ry;const on=rv.has(l[0]);const w=134,h=40;
+    panelBox(x-w/2,y-h/2,w,h,{stroke:on?C.accent:C.rule,lw:on?2.2:1.2,fill:hexA(C.panel,.98)});txt(x,y-8,l[1],{size:12,mono:true,weight:600,align:"center",color:C["ink-soft"]});
+    txt(x,y+9,on?c.chain[l[0]]:"?",{size:12.5,weight:700,align:"center",color:on?C.ink:C["ink-soft"]})});
+  const k=Math.floor(T/1.2)%6,p=smooth(seg(T%1.2,.3,1.2));const a0=-Math.PI/2+k/6*TAU,a=lerp(a0,a0+TAU/6,p);circ(cx+Math.cos(a)*rx*.62,cy+Math.sin(a)*ry*.62,5,C.path,C.panel,1.4)}
+function caseA11y(){const c=CASES[cI];const rv=revealed(c,cI);const lab=`Case ${cI+1}, ${c.who}: patient chart, ${c.stainT}, and chain of infection.`;
+  const st={gneg:"many small pink rods (Gram-negative rods)",gposc:"purple round cocci in grape-like clusters (Gram-positive cocci in clusters)",gposd:"purple cocci in pairs, each pair inside a clear halo (Gram-positive diplococci with capsules)",afb:"thin red rods on a blue background (acid-fast rods)",spore:"purple rods, each with a round clear spore at one end like a drumstick (Gram-positive rods with end spores)",spiro:"thin, bright, wavy spiral bacteria on a dark background (spirochetes)"}[c.stain];
+  const d=`Left: the patient chart lists ${c.vit.map(v=>v[0]+" "+v[1]+(v[2]?" ("+v[2]+")":"")).join(", ")}; lab: ${c.lab.join("; ")}. Middle: a round microscope field shows ${st}. Right: a ring of six boxes for the chain of infection: `+LINKN.map(l=>l[1]+": "+(rv.has(l[0])?c.chain[l[0]]:"not yet known")).join(", ")+". Boxes fill in as you answer.";
+  return [lab,d]}
+
+/* ================= PART 4a: sort into groups ================= */
+const SICON={
+ contact:`<path d="M4 30 q8 -10 18 -6 l8 4" stroke="var(--skin-edge)" stroke-width="3" fill="none"/><rect x="18" y="20" width="14" height="10" rx="5" fill="var(--skin)" stroke="var(--skin-edge)"/><path d="M44 30 q-8 -10 -18 -6" stroke="var(--skin-edge)" stroke-width="3" fill="none"/><circle cx="24" cy="16" r="3" fill="var(--inf)"/><circle cx="31" cy="14" r="2.5" fill="var(--inf)"/>`,
+ droplet:`<circle cx="9" cy="24" r="6" fill="var(--body)" stroke="var(--body-edge)"/>${[[20,18,4],[28,22,4.5],[36,28,4],[30,34,3.5],[40,38,3.5]].map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="${p[2]}" fill="var(--water)" stroke="var(--water-edge)"/>`).join("")}<path d="M4 44 H44" stroke="var(--rule)" stroke-width="2"/>`,
+ airborne:`<circle cx="8" cy="30" r="6" fill="var(--body)" stroke="var(--body-edge)"/>${[[18,12],[26,8],[34,14],[42,10],[22,22],[30,20],[38,24],[44,18],[20,32],[28,30],[36,34],[42,28],[26,40],[40,40]].map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="2" fill="var(--virus)"/>`).join("")}`,
+ vehicle:`<path d="M8 10 L12 40 H26 L30 10 Z" fill="var(--water)" stroke="var(--ink-soft)" stroke-width="1.5"/><circle cx="16" cy="28" r="2" fill="var(--inf)"/><circle cx="22" cy="33" r="2" fill="var(--inf)"/><ellipse cx="36" cy="22" rx="9" ry="7" fill="var(--food)" stroke="var(--ink-soft)"/><path d="M42 27 L46 34" stroke="var(--ink-soft)" stroke-width="3"/>`,
+ vector:`<ellipse cx="24" cy="26" rx="14" ry="3.5" fill="var(--vector)"/><circle cx="39" cy="26" r="3.5" fill="var(--vector)"/><path d="M42 26 L47 27" stroke="var(--vector)" stroke-width="1.5"/><ellipse cx="22" cy="17" rx="11" ry="4" fill="var(--panel)" stroke="var(--ink-soft)" transform="rotate(-15 22 17)"/><path d="M18 28 l-6 12 M24 28 l-4 12 M30 28 l-2 12" stroke="var(--vector)" stroke-width="1.3"/>`,
+ exo:`<circle cx="24" cy="16" r="7" fill="var(--toxa)"/>${[0,1,2,3,4].map(k=>{const a=k/5*6.283;return `<circle cx="${(24+Math.cos(a)*11).toFixed(1)}" cy="${(32+Math.sin(a)*4).toFixed(1)}" r="5" fill="var(--toxb)"/>`}).join("")}`,
+ endo:`<rect x="4" y="34" width="40" height="8" rx="3" fill="var(--gneg)" opacity=".5"/>${[10,20,30,40].map(x=>`<rect x="${x-3}" y="28" width="6" height="6" rx="1" fill="var(--lps)"/><path d="M${x} 28 q3 -5 0 -9 q-3 -4 0 -9" stroke="var(--lps)" stroke-width="1.6" fill="none"/>`).join("")}`,
+ spor:`<path d="M4 40 H44 M4 8 V40" stroke="var(--ink-soft)" stroke-width="1.5"/><path d="M6 38 H14 L16 20 L18 38 H30 L32 26 L34 38 H44" stroke="var(--inf)" stroke-width="2.4" fill="none"/>`,
+ ende:`<path d="M4 40 H44 M4 8 V40" stroke="var(--ink-soft)" stroke-width="1.5"/><path d="M6 26 Q12 22 18 26 T30 26 T44 26" stroke="var(--inf)" stroke-width="2.4" fill="none"/>`,
+ epid:`<path d="M4 40 H44 M4 8 V40" stroke="var(--ink-soft)" stroke-width="1.5"/><path d="M6 34 H44" stroke="var(--rec)" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M6 36 C16 36 18 8 24 8 S32 36 44 36" stroke="var(--inf)" stroke-width="2.4" fill="none"/>`,
+ pand:`<circle cx="24" cy="24" r="18" fill="var(--water)" stroke="var(--water-edge)" stroke-width="1.5"/><path d="M12 16 q6 -4 10 2 q2 6 -4 8 q-6 0 -6 -10Z M28 22 q8 -4 10 4 q-2 8 -8 6 q-4 -4 -2 -10Z" fill="var(--park)" stroke="var(--ink-soft)"/>${[[16,20],[32,28],[22,30],[34,18]].map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="2.4" fill="var(--inf)"/>`).join("")}`,
+ inc:null,pro:null,ill:null,dec:null,con:null,
+ hum:`<circle cx="24" cy="12" r="7" fill="var(--body)" stroke="var(--body-edge)"/><rect x="13" y="21" width="22" height="22" rx="8" fill="var(--body)" stroke="var(--body-edge)"/><circle cx="24" cy="31" r="3" fill="var(--inf)"/>`,
+ ani:`<rect x="8" y="18" width="26" height="14" rx="6" fill="var(--food)" stroke="var(--ink-soft)"/><circle cx="36" cy="16" r="6" fill="var(--food)" stroke="var(--ink-soft)"/><path d="M12 32 v8 M18 32 v8 M26 32 v8 M31 32 v8 M8 22 l-5 -6" stroke="var(--ink-soft)" stroke-width="2.2"/>`,
+ non:`<rect x="4" y="26" width="20" height="16" rx="3" fill="var(--collagen)"/><ellipse cx="10" cy="32" rx="2.5" ry="1.6" fill="var(--panel)"/><ellipse cx="17" cy="37" rx="2.5" ry="1.6" fill="var(--panel)"/><rect x="26" y="26" width="18" height="16" rx="3" fill="var(--water)"/><path d="M28 32 q3 -3 6 0 t6 0" stroke="var(--water-edge)" stroke-width="1.5" fill="none"/>`};
+["inc","pro","ill","dec","con"].forEach((k,i)=>{const xs=[[4,14],[14,19],[19,31],[31,38],[38,44]][i];SICON[k]=`<path d="M4 40 H44" stroke="var(--ink-soft)" stroke-width="1.5"/><rect x="${xs[0]}" y="6" width="${xs[1]-xs[0]}" height="34" fill="var(--accent)" opacity=".28"/><path d="M4 39 C12 39 14 36 18 32 S22 10 26 10 S32 30 36 34 S42 39 44 39" stroke="var(--fever)" stroke-width="2.4" fill="none"/>`});
+const SROUNDS=[
+ {name:"Round 1 · Transmission route",title:"How did it spread?",goal:"Sort each example by how the pathogen travelled. Ask: was there touching, a big droplet, floating air, food or water, or an arthropod?",
+  bins:[["C","Contact","Direct touch or a fomite","contact"],["D","Droplet","Big drops, short range","droplet"],["A","Airborne","Floats far, stays in air","airborne"],["V","Vehicle","Food or water","vehicle"],["X","Vector","Insect or tick","vector"]],
+  items:[["Shaking hands with someone who has a cold","C","Person-to-person touching is direct contact."],["Sharing a towel with someone who has MRSA","C","A towel is a fomite, so this is indirect contact."],["Kissing someone with a cold sore","C","Kissing is direct contact."],["Whooping cough passed across a small table","D","Large droplets travel only about 1 to 2 metres."],["Influenza from a sneeze nearby","D","Flu spreads mainly by large respiratory droplets at close range."],["Measles caught in a room the sick person left an hour ago","A","Measles droplet nuclei can hang in the air for up to two hours."],["Tuberculosis in a crowded shelter","A","TB spreads by droplet nuclei that float in shared air."],["Cholera from sewage-contaminated water","V","Water is a vehicle."],["Salmonella in undercooked chicken","V","Food is a vehicle."],["Malaria from a mosquito bite","X","The mosquito is a biological vector."],["A housefly carrying germs from feces to food","X","The fly is a mechanical vector."]]},
+ {name:"Round 2 · Exotoxin or endotoxin",title:"Which kind of toxin?",goal:"Sort each feature: exotoxin (protein secreted by living bacteria) or endotoxin (lipid A from the Gram-negative outer membrane).",
+  bins:[["E","Exotoxin","Protein, secreted","exo"],["N","Endotoxin","Lipid A of LPS","endo"]],
+  items:[["A protein secreted by living bacteria","E","Exotoxins are proteins made and released by growing cells."],["The lipid A part of LPS","N","Endotoxin is lipid A, in the Gram-negative outer membrane."],["Made mostly by Gram-positive bacteria","E","Most exotoxins come from Gram-positives, though some Gram-negatives make them."],["Comes only from Gram-negative bacteria","N","Only Gram-negatives have an outer membrane with LPS."],["Released mainly when the cell breaks apart","N","Endotoxin is part of the wall, freed when the cell dies."],["Can be made into a toxoid vaccine","E","Tetanus and diphtheria toxoids are inactivated exotoxins."],["Heat-stable; survives autoclaving","N","Endotoxin is very heat-stable."],["Effects are specific, such as spasms or watery diarrhea","E","Each exotoxin has its own target and effect."],["Same effects every time: fever, weakness, shock","N","All endotoxins cause the same general effects."],["Tiny amounts can kill","E","Exotoxins such as botulinum toxin are extremely potent."]]},
+ {name:"Round 3 · How common is it?",title:"Sporadic, endemic, epidemic or pandemic?",goal:"Sort each example by how often and how widely the disease occurs.",
+  bins:[["S","Sporadic","Now and then","spor"],["E","Endemic","Always, steady","ende"],["P","Epidemic","Sudden rise in an area","epid"],["W","Pandemic","Worldwide","pand"]],
+  items:[["A few tetanus cases a year, scattered","S","Occasional cases with no pattern are sporadic."],["Occasional typhoid cases in the U.S.","S","Typhoid is rare and scattered in the U.S.: sporadic."],["The common cold, always around","E","Always present at a steady level is endemic."],["Malaria year after year in some tropical regions","E","A steady, ongoing presence in a region is endemic."],["Far more flu cases than usual this winter in one state","P","A sudden rise above the expected level in one area is an epidemic."],["A measles outbreak in one city","P","A local outbreak is a small epidemic."],["COVID-19 spreading around the world in 2020","W","Worldwide spread is a pandemic."],["The 1918 influenza","W","The 1918 flu spread across the globe: a pandemic."],["HIV/AIDS across the world","W","HIV/AIDS is a worldwide pandemic."]]},
+ {name:"Round 4 · Periods of disease",title:"Where on the timeline?",goal:"Place each moment on the disease timeline: incubation, prodromal, illness, decline or convalescence.",
+  bins:[["inc","Incubation","No symptoms yet","inc"],["pro","Prodromal","Mild, vague","pro"],["ill","Illness","Worst point","ill"],["dec","Decline","Fading","dec"],["con","Convalescence","Recovering","con"]],
+  items:[["Infected 3 days ago; feels fine, but the virus is multiplying","inc","Before any signs or symptoms is the incubation period."],["Exposed to chickenpox last week; no symptoms yet","inc","Still before symptoms: incubation."],["Vague tiredness and a slight headache begin","pro","Mild, general symptoms mark the prodromal period."],["Feeling achy and 'off' the day before the rash","pro","Early, non-specific symptoms are prodromal."],["High fever, in bed, symptoms at their worst","ill","The most severe signs and symptoms come in the period of illness."],["Rash and fever at their peak","ill","Peak signs and symptoms: period of illness."],["Fever falling; risk of a secondary infection","dec","As symptoms fade, the weakened body risks secondary infection: decline."],["Symptoms easing over several days","dec","Fading symptoms mark the period of decline."],["Regaining strength, back at work part-time","con","Recovery is convalescence."],["Feels well again, but may still shed some germs","con","People can still be contagious during convalescence."]]},
+ {name:"Round 5 · Reservoirs",title:"Where does the pathogen live?",goal:"Sort each pathogen by its reservoir: human, animal or nonliving.",
+  bins:[["H","Human","People and carriers","hum"],["A","Animal","Zoonoses","ani"],["N","Nonliving","Soil or water","non"]],
+  items:[["A typhoid carrier who feels fine","H","Carriers are human reservoirs."],["A person with the flu","H","Sick people are human reservoirs."],["Gonorrhea, passed between people","H","Gonorrhea has no animal reservoir; people keep it going."],["Rabies in bats and raccoons","A","Rabies is a zoonosis."],["Lyme disease bacteria in mice and deer","A","Lyme disease is a zoonosis carried by ticks."],["Salmonella in poultry","A","Poultry is a common animal reservoir for Salmonella."],["Clostridium tetani spores","N","Tetanus spores live in soil."],["Legionella in water systems","N","Legionella lives in water, such as cooling towers."],["Vibrio cholerae in water","N","Cholera bacteria survive in water."]]}];
+let sR=0,sSel=null,sChecks=0,sHints=0,sSolved=false,sT0=0;const sBest=store.get("sort")||{};
+function draggable(el,{onTap,targetSel,onDrop,canDrag}){let sx=0,sy=0,down=false,ghost=null,pid=null,lastT=null;
+  el.addEventListener("pointerdown",e=>{if(canDrag&&!canDrag())return;down=true;sx=e.clientX;sy=e.clientY;pid=e.pointerId;try{el.setPointerCapture(pid)}catch(_){}});
+  el.addEventListener("pointermove",e=>{if(!down)return;if(!ghost&&Math.hypot(e.clientX-sx,e.clientY-sy)>7){ghost=el.cloneNode(true);ghost.classList.add("ghost");ghost.removeAttribute("id");ghost.setAttribute("aria-hidden","true");ghost.style.width=el.offsetWidth+"px";document.body.appendChild(ghost)}
+    if(ghost){ghost.style.left=(e.clientX-20)+"px";ghost.style.top=(e.clientY-20)+"px";const t=document.elementFromPoint(e.clientX,e.clientY);const tg=t&&t.closest(targetSel);if(lastT&&lastT!==tg)lastT.classList.remove("target");if(tg)tg.classList.add("target");lastT=tg}});
+  const end=e=>{if(!down)return;down=false;if(lastT)lastT.classList.remove("target");
+    if(ghost){ghost.remove();ghost=null;const t=document.elementFromPoint(e.clientX,e.clientY);const tg=t&&t.closest(targetSel);if(tg)onDrop(tg)}else if(e.type==="pointerup")onTap();lastT=null};
+  el.addEventListener("pointerup",end);el.addEventListener("pointercancel",end);
+  el.addEventListener("click",e=>{if(e.detail===0)onTap()})}
+function sItem(id){return SROUNDS[sR].items[id]}
+function sRounds(){const box=$("#sRounds");box.innerHTML="";SROUNDS.forEach((r,i)=>{const b=document.createElement("button");b.type="button";b.className="round";b.setAttribute("aria-pressed",i===sR?"true":"false");b.innerHTML=r.name+(sBest[i]?`<span class="ok" aria-hidden="true">${"★".repeat(sBest[i])}</span><span class="gk-sr">, ${sBest[i]} stars</span>`:"");b.onclick=()=>{sR=i;sNew()};box.appendChild(b)})}
+function sTok(i){const it=sItem(i);const el=document.createElement("button");el.type="button";el.className="tok";el.dataset.i=i;
+  const binIcon=SROUNDS[sR].bins.find(b=>b[0]===it[1]);
+  el.innerHTML=`<span>${it[0]}</span><span class="mk" aria-hidden="true"></span><span class="gk-sr st"></span>`;el.style.paddingLeft="10px";void binIcon;
+  draggable(el,{targetSel:".bin,#sPool",canDrag:()=>!sSolved,onTap:()=>sTap(el),onDrop:tg=>sPlace(el,tg)});return el}
+function sTap(el){const it=sItem(+el.dataset.i);if(el.classList.contains("no")&&!sSolved)$("#sWhy").innerHTML=`<b>Clue · ${it[0]}:</b> read the bin descriptions again. ${SROUNDS[sR].goal.split(". ").slice(1).join(". ")}`;else if(el.classList.contains("ok")||sSolved)$("#sWhy").innerHTML=`<b>${it[0]}:</b> ${it[2]}`;if(sSolved)return;
+  document.querySelectorAll("#tab-sort .tok.sel").forEach(x=>x.classList.remove("sel"));if(sSel===el){sSel=null;return}sSel=el;el.classList.add("sel")}
+function sPlace(el,tg){if(sSolved)return;const dest=tg.id==="sPool"?$("#sPool"):tg.querySelector(".bitems");dest.appendChild(el);el.classList.remove("sel","ok","no","hinted");el.querySelector(".mk").textContent="";const b=el.closest(".bin");el.querySelector(".st").textContent=b?" (in "+b.dataset.name+")":"";sSel=null;try{el.focus()}catch(_){}}
+function sNew(){const r=SROUNDS[sR];sSel=null;sChecks=0;sHints=0;sSolved=false;sT0=performance.now();
+  const bins=$("#sBins");bins.innerHTML="";r.bins.forEach(b=>{const d=document.createElement("div");d.className="bin";d.dataset.bin=b[0];d.dataset.name=b[1];d.setAttribute("role","group");d.setAttribute("aria-label",b[1]+" bin");
+    d.innerHTML=`<button type="button" class="binhead"><span class="bh"><svg width="30" height="30" viewBox="0 0 48 48" aria-hidden="true">${SICON[b[3]]}</svg>${b[1]}</span><span class="bsub">${b[2]}</span><span class="gk-sr"> Place the selected card here.</span></button><span class="bitems"></span>`;
+    d.addEventListener("click",e=>{if(sSel&&!e.target.closest(".tok"))sPlace(sSel,d)});bins.appendChild(d)});
+  const pool=$("#sPool");pool.innerHTML="";shuffle(r.items.map((x,i)=>i)).forEach(i=>pool.appendChild(sTok(i)));
+  $("#sN").textContent=r.name+" · "+r.items.length+" cards";$("#sT").textContent=r.title;$("#sGoal").textContent=r.goal;setMsg("#sMsg","","");$("#sWhy").innerHTML="<b>Tip:</b> after checking, tap any card to read why it belongs where it does.";sRounds();a11yKey=""}
+$("#sPool").addEventListener("click",e=>{if(sSel&&!e.target.closest(".tok")&&sSel.parentElement!==$("#sPool"))sPlace(sSel,$("#sPool"))});
+function sWhere(el){const b=el.closest(".bin");return b?b.dataset.bin:null}
+$("#sCheck").onclick=()=>{if(sSolved)return;const toks=[...document.querySelectorAll("#tab-sort .tok")];const un=toks.filter(t=>!sWhere(t));
+  if(un.length){setMsg("#sMsg",`Place all the cards first. ${un.length} still in the tray.`,"warn");return}
+  sChecks++;let n=0;toks.forEach(t=>{const ok=sWhere(t)===sItem(+t.dataset.i)[1];t.classList.toggle("ok",ok);t.classList.toggle("no",!ok);t.querySelector(".mk").textContent=ok?"✓":"✕";const b=t.closest(".bin");t.querySelector(".st").textContent=" (in "+b.dataset.name+", "+(ok?"correct":"not quite")+")";if(ok)n++});
+  if(n===toks.length){sSolved=true;const el=(performance.now()-sT0)/1000;const st=sHints===0&&sChecks===1?3:sHints<=2&&sChecks<=3?2:1;if(!sBest[sR]||st>sBest[sR])sBest[sR]=st;store.set("sort",sBest);sRounds();
+    setMsg("#sMsg",`${starStr(st)}<br><b>All sorted!</b> ${$("#sRelaxed").checked?"":"Time "+fmt(el)+". "}Tap any card to read why.${sR<SROUNDS.length-1?' <button class="tbtn" id="sNextR" type="button">Next round →</button>':""}`,"good");const nb=$("#sNextR");if(nb)nb.onclick=()=>{sR++;sNew()}}
+  else setMsg("#sMsg",`<b>${n} of ${toks.length}</b> are right. Tap a ✕ card for a clue, move it, and check again.`,"warn")};
+$("#sHint").onclick=()=>{if(sSolved)return;const toks=[...document.querySelectorAll("#tab-sort .tok")];const t=toks.find(t=>sWhere(t)!==sItem(+t.dataset.i)[1]);if(!t)return;sHints++;const it=sItem(+t.dataset.i);
+  sPlace(t,document.querySelector(`#sBins .bin[data-bin="${it[1]}"]`));t.classList.add("hinted");$("#sWhy").innerHTML=`<b>Hint · ${it[0]}:</b> ${it[2]}`};
+$("#sShow").onclick=()=>{[...document.querySelectorAll("#tab-sort .tok")].forEach(t=>{const it=sItem(+t.dataset.i);sPlace(t,document.querySelector(`#sBins .bin[data-bin="${it[1]}"]`));t.classList.add("ok");t.querySelector(".mk").textContent="✓"});
+  sSolved=true;setMsg("#sMsg","Here is the answer. Tap any card to read why, then press <b>Start over</b> to try it yourself.","info")};
+$("#sReset").onclick=sNew;$("#sRelaxed").onchange=e=>{$("#sTimer").hidden=e.target.checked;sT0=performance.now()};
+function sTimerTick(){if(!$("#sRelaxed").checked&&!sSolved)$("#sTimer").textContent=fmt((performance.now()-sT0)/1000)}
+
+/* ================= PART 4b: put in order ================= */
+const QROUNDS=[
+ {id:"periods",name:"Periods of disease",goal:"Put the five periods of disease in order, from infection to recovery.",
+  cards:[["Incubation: microbes multiply, no signs or symptoms yet","Incubation","inc"],["Prodromal: mild, vague symptoms","Prodromal","pro"],["Illness: signs and symptoms at their worst","Illness","ill"],["Decline: symptoms fade; risk of secondary infection","Decline","dec"],["Convalescence: strength returns","Convalescence","con"]]},
+ {id:"patho",name:"Stages of pathogenesis",goal:"Follow a pathogen from first contact to leaving the host.",
+  cards:[["Exposure: enters through a portal of entry","Exposure","exp"],["Adhesion: adhesins bind host receptors","Adhesion","adh"],["Invasion: invasins and enzymes push deeper","Invasion","inv"],["Evasion: capsules and other tricks dodge defences","Evasion","eva"],["Damage: toxins and other harm to the host","Damage","dmg"],["Exit: leaves through a portal of exit","Exit","exit"]]},
+ {id:"koch",name:"Koch's postulates",goal:"Put Koch's four postulates in order.",
+  cards:[["The same microbe is found in every case of the disease","Find it","k1"],["It is grown in pure culture","Pure culture","k2"],["The culture causes the same disease in a healthy host","Same disease","k3"],["The same microbe is isolated again","Isolate again","k4"]]},
+ {id:"chain",name:"Chain of infection",goal:"Put the links of the chain of infection in order, starting with the pathogen.",
+  cards:[["Pathogen: the microbe that can cause disease","Pathogen","path"],["Reservoir: where it lives and multiplies","Reservoir","res"],["Portal of exit: how it leaves the host","Exit","exit"],["Mode of transmission: how it travels","Transmission","trans"],["Portal of entry: how it gets into a new host","Entry","entry"],["Susceptible host: someone who can be infected","Host","host"]]},
+ {id:"cholera",name:"Cholera toxin (A-B toxin)",goal:"Order the steps by which cholera toxin causes watery diarrhea.",
+  cards:[["Vibrio cholerae releases A-B toxin in the small intestine","Release","rel"],["The B part binds receptors on intestinal cells","B binds","bind"],["The toxin is taken in by endocytosis","Enters","endo"],["The A part separates and switches on a cell enzyme","A acts","aact"],["Cells pump out salt; water follows into the gut","Water out","water"]]}];
+const S4=makeStage("cvSeq",640,400);
+let qR=0,qChecks=0,qHints=0,qSolved=false,qStart=0,qPlay=null;const qRes=store.get("seq")||{};
+const qList=$("#qList");
+function qRoundsUI(){const box=$("#qRounds");box.innerHTML="";QROUNDS.forEach((r,i)=>{const b=document.createElement("button");b.type="button";b.className="round";b.setAttribute("aria-pressed",i===qR?"true":"false");
+  b.innerHTML=`Round ${i+1}: ${r.name}`+(qRes[r.id]?`<span class="ok" aria-hidden="true">${"★".repeat(qRes[r.id])}</span><span class="gk-sr">, ${qRes[r.id]} stars</span>`:"");b.onclick=()=>{qR=i;qNew()};box.appendChild(b)})}
+function qItem(i){const r=QROUNDS[qR];const li=document.createElement("li");li.className="item";li.dataset.i=i;const txt_=r.cards[i][0];
+  li.innerHTML=`<span class="pos"></span><span class="grip" aria-hidden="true">⋮⋮</span><span class="txt">${txt_}</span><span class="mk qmk"></span><span class="mv"><button type="button" aria-label="Move up: ${txt_}">▲</button><button type="button" aria-label="Move down: ${txt_}">▼</button></span>`;
+  const [up,dn]=li.querySelectorAll(".mv button");
+  up.onclick=()=>{const p=li.previousElementSibling;if(p&&!qSolved){qList.insertBefore(li,p);qChanged();up.focus()}};
+  dn.onclick=()=>{const n=li.nextElementSibling;if(n&&!qSolved){qList.insertBefore(n,li);qChanged();dn.focus()}};
+  let dragging=false;
+  li.addEventListener("pointerdown",e=>{if(e.target.closest("button")||qSolved)return;dragging=true;li.classList.add("drag");try{li.setPointerCapture(e.pointerId)}catch(_){}});
+  li.addEventListener("pointermove",e=>{if(!dragging)return;const kids=[...qList.children];const me=kids.indexOf(li);
+    for(let k=0;k<kids.length;k++){const el=kids[k];if(el===li)continue;const rc=el.getBoundingClientRect();if(e.clientY>rc.top&&e.clientY<rc.bottom){const mid=rc.top+rc.height/2;
+      if(k>me&&e.clientY>mid){qList.insertBefore(el,li);qChanged()}else if(k<me&&e.clientY<mid){qList.insertBefore(el,li.nextElementSibling);qChanged()}break}}});
+  const end=()=>{if(!dragging)return;dragging=false;li.classList.remove("drag")};li.addEventListener("pointerup",end);li.addEventListener("pointercancel",end);return li}
+function qRenum(){[...qList.children].forEach((li,i)=>li.querySelector(".pos").textContent=i+1)}
+function qChanged(){qRenum();[...qList.children].forEach(li=>{li.classList.remove("right","off","hinted");li.querySelector(".qmk").innerHTML=""});qPlay=null;a11yKey=""}
+const qOrder=()=>[...qList.children].map(li=>+li.dataset.i);
+function qNew(){const r=QROUNDS[qR];const n=r.cards.length;let o;do{o=shuffle([...Array(n).keys()])}while(o.filter((c,i)=>c===i).length>1);qList.innerHTML="";o.forEach(i=>qList.appendChild(qItem(i)));
+  qChecks=0;qHints=0;qSolved=false;qStart=performance.now();qPlay=null;$("#qN").textContent=`Round ${qR+1} of ${QROUNDS.length} · ${n} cards`;$("#qT").textContent=r.name;$("#qGoal").textContent=r.goal;
+  setMsg("#qMsg","","");qRenum();qRoundsUI();a11yKey=""}
+$("#qCheck").onclick=()=>{if(qSolved)return;qChecks++;const o=qOrder();let n=0;[...qList.children].forEach((li,i)=>{const ok=o[i]===i;if(ok)n++;li.classList.toggle("right",ok);li.classList.toggle("off",!ok);li.querySelector(".qmk").innerHTML=ok?`<span aria-hidden="true">✓</span><span class="gk-sr">, in the right spot</span>`:`<span aria-hidden="true">✗</span><span class="gk-sr">, not yet</span>`});
+  if(n===o.length)qWin();else setMsg("#qMsg",`<b>${n} of ${o.length}</b> cards are in the right spot (marked ✓ with a green border; the others are marked ✗). Ask yourself: what has to happen before this step can happen? Press <b>Play my order</b> to see where it gets stuck.`,"warn")};
+$("#qHint").onclick=()=>{if(qSolved)return;const o=qOrder();const i=o.findIndex((c,k)=>c!==k);if(i<0)return;qHints++;const li=qList.querySelector(`[data-i="${i}"]`);qList.insertBefore(li,qList.children[i]);qChanged();li.classList.add("hinted");
+  setMsg("#qMsg",`Hint: step ${i+1} is <b>${QROUNDS[qR].cards[i][0]}</b>.`,"info")};
+$("#qShuffle").onclick=qNew;
+$("#qShow").onclick=()=>{const r=QROUNDS[qR];qList.innerHTML="";r.cards.forEach((c,i)=>{const li=qItem(i);li.classList.add("right");qList.appendChild(li)});qRenum();qSolved=true;qHints+=9;
+  setMsg("#qMsg","Here is the correct order. Watch it play, then press <b>Shuffle again</b> and try it yourself.","info");qStartPlay()};
+function qWin(){qSolved=true;const r=QROUNDS[qR];const el=(performance.now()-qStart)/1000;const stars=qHints===0&&qChecks<=2?3:qHints<=2?2:1;if(!qRes[r.id]||stars>qRes[r.id])qRes[r.id]=stars;store.set("seq",qRes);
+  setMsg("#qMsg",`${starStr(stars)} <b>In order! ${stars} of 3 stars.</b> ${$("#qRelaxed").checked?"":"Time "+fmt(el)+". "}Checks: ${qChecks}. Hints: ${Math.min(qHints,9)}. Watch it play in the picture.`+(qR<QROUNDS.length-1?` <button class="tbtn" id="qNextR" type="button">Next round &rarr;</button>`:""),"good");
+  const nb=$("#qNextR");if(nb)nb.onclick=()=>{qR++;qNew()};qRoundsUI();qStartPlay()}
+$("#qRelaxed").onchange=e=>{$("#qTimer").hidden=e.target.checked;qStart=performance.now()};
+const QDUR=1.3;
+function qStartPlay(){const o=qOrder();const fail=o.findIndex((c,i)=>c!==i);qPlay={o,fail,t0:performance.now()};a11yKey=""}
+$("#qPlay").onclick=qStartPlay;
+function qStageNow(now){if(!qPlay)return {k:0,stuck:-1,p:0};const t=(now-qPlay.t0)/1000;const upto=qPlay.fail<0?qPlay.o.length:qPlay.fail;const k=Math.min(upto,Math.floor(t/QDUR)+1);const p=clamp((t-(k-1)*QDUR)/QDUR,0,1);
+  return {k,stuck:(qPlay.fail>=0&&t>upto*QDUR)?qPlay.fail:-1,p}}
+function seqIcon(key,x,y,T){
+  switch(key){
+  case"inc":person(x,y+16,14,{});for(let k=0;k<3;k++)virD(x-20+k*20,y-24,4,{rot:T});break;
+  case"pro":person(x,y+16,14,{});for(let k=0;k<3;k++)line(x+10+k*5,y-12-k*3,x+16+k*5,y-18-k*3,C["ink-soft"],1.5);break;
+  case"ill":bedPerson(x,y+6,14,{blanket:hexA(C.fever,.45)});thermoMini(x-34,y-22,18);break;
+  case"dec":bedPerson(x,y+6,14,{blanket:hexA(C.act2,.4)});break;
+  case"con":person(x,y+16-Math.abs(Math.sin(T*4))*2,14,{});break;
+  case"exp":arrow(x-24,y,x+4,y,C.act3,2.4);line(x+10,y-16,x+10,y+16,C["ink-soft"],3);break;
+  case"adh":epi(x-30,y+10,60,3,{h:14,rec:true});bug(x,y-2,0,13,6,{col:C.path,fim:6,t:T});break;
+  case"inv":rr(x-30,y-4,60,26,6);ctx.fillStyle=C.host;ctx.fill();bug(x,y+8,0,11,5,{col:C.path});diamond(x+22,y-12,5,C.clot);break;
+  case"eva":phago(x-16,y+4,14,{t:T});cocc(x+18,y,8,{col:C.path,cap:1});break;
+  case"dmg":abToxin(x,y,13,{rot:T});break;
+  case"exit":person(x-12,y+16,12,{});spray(x-4,y-2,0,P(T,1.4),{n:8,reach:30,cone:.6,size:2.4});break;
+  case"k1":mouseD(x,y+4,14,{sick:1});break;
+  case"k2":dishD(x,y+2,22,1,C.path,{seed:3,n:10});break;
+  case"k3":syringe(x-16,y-10,8,.5,.6);mouseD(x+10,y+10,12,{sick:1});break;
+  case"k4":dishD(x,y+2,22,1,C.path,{seed:5,n:10});tick(x,y+2,9,C.good);break;
+  case"path":bug(x,y,0,16,7,{col:C.path,fim:5,t:T});break;
+  case"res":person(x-16,y+16,12,{});ctx.save();ctx.setLineDash([3,3]);circ(x-16,y+12,6,null,C.inf,1.4);ctx.restore();circ(x-16,y+12,3,C.inf);tickBug(x+18,y+6,5);break;
+  case"trans":for(let k=0;k<4;k++)circ(x-24+k*16,y+Math.sin(T*3+k)*4,4,C.inf);arrow(x-28,y+16,x+28,y+16,C["ink-soft"],1.6);break;
+  case"entry":person(x+10,y+16,12,{});arrow(x-28,y-6,x+2,y-6,C.act3,2);break;
+  case"host":person(x,y+16,14,{col:mix(C.body,C.sus,.25)});break;
+  case"rel":bug(x-10,y,0,16,6,{col:C.path,flag:true,t:T});abToxin(x+20,y-8,8,{});break;
+  case"bind":epi(x-30,y+10,60,3,{h:14,rec:true,recCol:C.toxb});abToxin(x-10,y-2,9,{});break;
+  case"endo":rr(x-30,y-6,60,28,6);ctx.fillStyle=C.host;ctx.fill();ctx.save();ctx.setLineDash([3,3]);circ(x,y+6,11,hexA(C.panel,.5),C["host-edge"],1.2);ctx.restore();abToxin(x,y+6,7,{});break;
+  case"aact":rr(x-30,y-6,60,28,6);ctx.fillStyle=C.host;ctx.fill();glow(x,y+8,14,C.toxa,.5);circ(x,y+8,5,C.toxa);break;
+  case"water":rr(x-30,y+4,60,20,6);ctx.fillStyle=C.host;ctx.fill();for(let k=0;k<3;k++){const q=P(T+k/3,1);drop(x-14+k*14,lerp(y,y-22,q),4,C.water,1-q)}break}}
+function drawSeq(now){use(S4);const T=now/1000;const r=QROUNDS[qR];const st=qStageNow(now);const n=r.cards.length;
+  title(16,20,"How the steps connect");const cols=n<=4?n:3,rows=Math.ceil(n/cols);const bw=176,bh=118,gx=(640-cols*bw-(cols-1)*24)/2,gy=rows===1?130:56;
+  const pos=r.cards.map((c,i)=>{const row=Math.floor(i/cols),col=i%cols;return [gx+col*(bw+24)+bw/2,gy+row*(bh+40)+bh/2]});
+  for(let i=0;i<n-1;i++){const a=pos[i],b=pos[i+1];if(Math.abs(a[1]-b[1])<1)arrow(a[0]+bw/2+2,a[1],b[0]-bw/2-4,b[1],C["ink-soft"],1.6);else{poly([[a[0],a[1]+bh/2+2],[a[0],a[1]+bh/2+16],[b[0],b[1]-bh/2-16]],C["ink-soft"],1.4,[4,4]);arrow(b[0],b[1]-bh/2-16,b[0],b[1]-bh/2-4,C["ink-soft"],1.6)}}
+  if(r.id==="chain"){const a=pos[n-1],b=pos[0];txt(320,384,"The host can become a new reservoir, so the chain loops back to the start.",{size:12.5,weight:600,align:"center",color:C["ink-soft"]})}
+  pos.forEach((p,i)=>{const lit=qPlay&&i<st.k;const cur=qPlay&&i===st.k-1;rr(p[0]-bw/2,p[1]-bh/2,bw,bh,12);ctx.fillStyle=lit?hexA(C.accent,.15):hexA(C.panel,.95);ctx.fill();ctx.strokeStyle=cur?C.accent:lit?hexA(C.accent,.7):C.rule;ctx.lineWidth=cur?3:1.4;ctx.stroke();
+    const ci=qPlay?qPlay.o[i]:i;const card=r.cards[ci];
+    if(qPlay&&i<st.k){seqIcon(card[2],p[0],p[1]-12,T);txt(p[0],p[1]+bh/2-16,(i+1)+" "+card[1],{size:13,weight:700,align:"center"})}
+    else{txt(p[0],p[1]-6,String(i+1),{size:24,weight:700,align:"center",color:C["ink-soft"]});txt(p[0],p[1]+24,qPlay?"":"step "+(i+1),{size:12.5,align:"center",color:C["ink-soft"]})}
+    if(qPlay&&st.stuck===i){rr(p[0]-bw/2,p[1]-bh/2,bw,bh,12);ctx.strokeStyle=C.warn;ctx.lineWidth=3;ctx.stroke();cross(p[0]+bw/2-16,p[1]-bh/2+16,6,C.warn)}});
+  const cy=rows===1?320:372;
+  if(st.stuck>=0){const card=r.cards[qPlay.o[st.stuck]][1];label(320,r.id==="chain"?28:cy,`Stuck at step ${st.stuck+1}: "${card}" can't come yet`,{size:12.5,weight:700,align:"center",border:C.warn})}
+  else if(qPlay&&st.k>=n)label(320,r.id==="chain"?28:cy,"The whole process played in order",{size:12.5,weight:700,align:"center",border:C.good});
+  else if(!qPlay&&r.id!=="chain")label(320,cy,"Arrange the cards, then press Play my order",{size:12.5,weight:600,align:"center"});
+  const cap=!qPlay?"Arrange the cards, then press Play my order to watch it happen.":st.stuck>=0?`Playing stopped at card ${st.stuck+1}: it does not fit there yet.`:st.k>=n?"The whole process played in order.":st.k<1?"Playing...":`Playing step ${st.k}: ${r.cards[qPlay.o[st.k-1]][0]}`;
+  if($("#qCap").textContent!==cap){$("#qCap").textContent=cap;S4.cv.setAttribute("aria-label",r.name+" picture. "+cap)}}
+function seqA11y(){const r=QROUNDS[qR];const st=qStageNow(performance.now());const lab=r.name+" picture. "+$("#qCap").textContent;
+  const d=`Rounded boxes, one per step, are joined by arrows in reading order (left to right, then the next row). `+(!qPlay?"The boxes show only step numbers until you press Play my order.":`As your order plays, each box lights green with a small drawing and a short name: ${qPlay.o.slice(0,st.k).map((c,i)=>(i+1)+" "+r.cards[c][1]).join(", ")}.`+(st.stuck>=0?` The box for step ${st.stuck+1} is outlined in orange with an X: that card cannot come there yet.`:""));
+  return [lab,d]}
+$("#gSort").onclick=()=>{$("#gSort").setAttribute("aria-pressed","true");$("#gOrder").setAttribute("aria-pressed","false");$("#sortWrap").hidden=false;$("#orderWrap").hidden=true;curGame="sort";a11yKey=""};
+$("#gOrder").onclick=()=>{$("#gSort").setAttribute("aria-pressed","false");$("#gOrder").setAttribute("aria-pressed","true");$("#sortWrap").hidden=true;$("#orderWrap").hidden=false;curGame="order";S4.fit();a11yKey=""};
+let curGame="sort";
+
+/* ---------------- accessibility: live canvas labels and picture descriptions ---------------- */
+const A11Y={sim:{cv:"#cvSim",f:simA11y},map:{cv:"#cvMap",f:mapA11y},case:{cv:"#cvCase",f:caseA11y},sort:{cv:"#cvSeq",f:seqA11y}};
+let a11yKey="",a11yT=0;
+function a11yTick(){const n=performance.now();if(n-a11yT<600)return;a11yT=n;const a=A11Y[curTab];if(!a)return;
+  if(curTab==="sort"&&curGame!=="order"){if(a11yKey!=="sortgame"){a11yKey="sortgame";if(window.gkDescribe)window.gkDescribe("This part has no picture. Cards are buttons; bins have small icons and names. Use Tab and Enter to pick a card and then a bin.")}return}
+  const [lab,d]=a.f();const key=curTab+"|"+(curTab==="sim"?lab.replace(/[\d.]+%/g,"").replace(/Day \d+|day \d+|R0 [\d.]+|Re [\d.]+/g,"")+Math.floor(SM.day/10)+SM.ended:lab);if(key===a11yKey)return;a11yKey=key;
+  const cv=$(a.cv);if(lab)cv.setAttribute("aria-label",lab);if(window.gkDescribe)window.gkDescribe(d);
+  const box=document.getElementById("gk-desc");const h=cv.closest(".canvas-holder");if(box&&h&&h.nextElementSibling!==box)h.after(box);if(box)cv.setAttribute("aria-describedby","gk-desc")}
+/* ---------------- tabs / theme / loop ---------------- */
+let curTab="sim";const TABS=["sim","map","case","sort"];
+function setTab(k,focus){curTab=k;document.querySelectorAll(".tab").forEach(x=>{const on=x.dataset.tab===k;x.setAttribute("aria-selected",on?"true":"false");x.tabIndex=on?0:-1;if(on&&focus)x.focus()});TABS.forEach(t=>$("#tab-"+t).hidden=t!==k);a11yKey="";fitAll()}
+document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>setTab(t.dataset.tab);t.addEventListener("keydown",e=>{const i=TABS.indexOf(t.dataset.tab);if(e.key==="ArrowRight"){e.preventDefault();setTab(TABS[(i+1)%4],true)}if(e.key==="ArrowLeft"){e.preventDefault();setTab(TABS[(i+3)%4],true)}if(e.key==="Home"){e.preventDefault();setTab(TABS[0],true)}if(e.key==="End"){e.preventDefault();setTab(TABS[3],true)}})});
+function fitAll(){[S1,S2,S3,S4].forEach(s=>s.fit())}
+window.addEventListener("resize",fitAll);
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+let last=performance.now(),rdT=0;
+function frame(now){const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;
+  try{if(curTab==="sim"){mTick(dt);rdT+=dt;if(rdT>.25){rdT=0;mUI()}drawSim(now)}else if(curTab==="map"){jTick(now);drawMap(now);rdT+=dt;if(rdT>.3){rdT=0;if(JS.playing)jCap()}}else if(curTab==="case")drawCase(now);else{sTimerTick();if(curGame==="order"){drawSeq(now);if(!$("#qRelaxed").checked&&!qSolved)$("#qTimer").textContent=fmt((performance.now()-qStart)/1000)}}}catch(err){console.error(err)}
+  try{a11yTick()}catch(err){console.error(err)}
+  requestAnimationFrame(frame)}
+window.__lab={tab:k=>setTab(k),germ:i=>{$("#mPresets").children[i].click()},sim:(o)=>{Object.assign(SM,o||{});mUI()},simRun:days=>{SM.run=true;let t=0;while(t<days&&!SM.ended){mStep(.25);t+=.25}SM.run=false;mUI()},simState:()=>({day:SM.day,S:SM.S,I:SM.I,R:SM.R,V:SM.V,peak:SM.peak,ended:SM.ended,r0:r0(),re:reNow(),done:Object.keys(mDone)}),simReset:()=>mReset(),
+  mapStep:i=>{JS.step=i;jLoad()},mapPlayAll:()=>{JS.play=JCNT.length-1;JS.playing=false;jCap()},mapState:()=>({step:JS.step,done:Object.keys(JS.done),removed:JS.removed,play:JS.play}),
+  caseGo:(i,q)=>{cI=i;cQ=q||0;cLoad()},sortRound:i=>{$("#gSort").click();sR=i;sNew()},sortShow:()=>$("#sShow").click(),order:i=>{$("#gOrder").click();qR=i;qNew()},orderShow:()=>$("#qShow").click()};
+readColors();
+{const g=GERMS[SM.germ];SM.c=g.c;SM.p=g.p/100;SM.d=g.d;}
+mReset();jLoad();cLoad();sNew();qNew();setTab("sim");requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

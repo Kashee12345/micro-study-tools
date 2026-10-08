@@ -1,0 +1,1559 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Viruses Walkthrough</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#1E7A4C;--accent-ink:#145A37;--accent-wash:#DDEFE4;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#2F7FC1;--act2:#7B5CC9;--act3:#D98A1C;--act4:#C4644F;--act5:#2E8A7A;--act6:#A04E8C;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#8A6D12;
+  /* virus palette */
+  --ecf:#EEF3EF;--grid:#D3DED6;
+  --dna:#2F6FD0;--rna:#D9531E;--capsid:#7B5CC9;--capsid-2:#C9B8EE;--env:#C9962E;--env-2:#F2E2B8;--spike:#C4644F;
+  --phage:#5E6E9A;--phage-2:#C3CBE3;--tail:#6E7A8A;
+  --bact:#B9DDB9;--bact-edge:#3E7E4A;--gpos:#6A3FA0;--gneg:#C2457A;
+  --host:#F3DCCB;--host-edge:#B5866A;--nucf:#E3D8EE;--nuc-edge:#7B5CA0;--ribo:#6E7A8A;--endo:#F1C7C0;--endo-edge:#B05A4E;
+  --rt:#D98A1C;--rdrp:#2E8A7A;--integ:#B8901C;--prot:#4F6F94;
+  --toxin:#C2392F;--uv:#7B3FC9;
+  --prpc:#2E8A7A;--prpsc:#C2392F;--plaqueb:#C9A99A;
+  --viroid:#B8901C;--leaf:#8DBB64;--leaf-edge:#4E7A34;--potato:#E2C98E;--potato-edge:#9A7E44;
+  --agar:#F2E6BF;--lawn:#CDB46A;--plate:#C9D6DE;
+  --egg:#F4EAD8;--egg-edge:#B59A70;--yolk:#E8B93A;--cam:#E9A9A0;
+  --nerve:#D9A514;--ganglion:#E8C24A;--skin:#EAC9A8;--skin-edge:#B9937A;--blister:#F6E4C8;
+  --onc:#C4644F;--brake:#2E8A7A;
+  --glow:#F2B33B;--heat:#E0563A;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A9EBC6;--accent-wash:#14301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5AA9E6;--act2:#A98BEF;--act3:#F2A93B;--act4:#E08A74;--act5:#5CC4B0;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#22302A;
+  --dna:#6FA3F0;--rna:#F28A50;--capsid:#A98BEF;--capsid-2:#3D3360;--env:#E0B860;--env-2:#3E3420;--spike:#E08A74;
+  --phage:#9FB0D9;--phage-2:#2C3550;--tail:#A3B2BA;
+  --bact:#22402A;--bact-edge:#7FC48A;--gpos:#B48BF0;--gneg:#F08AB8;
+  --host:#3E2E25;--host-edge:#C9997A;--nucf:#352C44;--nuc-edge:#B49BF0;--ribo:#A3B2BA;--endo:#4A2A26;--endo-edge:#E08A7E;
+  --rt:#F2A93B;--rdrp:#5CC4B0;--integ:#E0BE48;--prot:#8FB1D9;
+  --toxin:#F07067;--uv:#B48BF0;
+  --prpc:#5CC4B0;--prpsc:#F07067;--plaqueb:#6E5A50;
+  --viroid:#E0BE48;--leaf:#3E5A2A;--leaf-edge:#A3C95A;--potato:#4A3E26;--potato-edge:#C9A866;
+  --agar:#3A3320;--lawn:#7A6A38;--plate:#33424C;
+  --egg:#3A3428;--egg-edge:#C9AE84;--yolk:#E0B040;--cam:#7A4A44;
+  --nerve:#E8C24A;--ganglion:#A88A2A;--skin:#5A4434;--skin-edge:#B9937A;--blister:#4A3E30;
+  --onc:#E08A74;--brake:#5CC4B0;
+  --glow:#F2B33B;--heat:#F27A5E;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A9EBC6;--accent-wash:#14301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5AA9E6;--act2:#A98BEF;--act3:#F2A93B;--act4:#E08A74;--act5:#5CC4B0;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#22302A;
+  --dna:#6FA3F0;--rna:#F28A50;--capsid:#A98BEF;--capsid-2:#3D3360;--env:#E0B860;--env-2:#3E3420;--spike:#E08A74;
+  --phage:#9FB0D9;--phage-2:#2C3550;--tail:#A3B2BA;
+  --bact:#22402A;--bact-edge:#7FC48A;--gpos:#B48BF0;--gneg:#F08AB8;
+  --host:#3E2E25;--host-edge:#C9997A;--nucf:#352C44;--nuc-edge:#B49BF0;--ribo:#A3B2BA;--endo:#4A2A26;--endo-edge:#E08A7E;
+  --rt:#F2A93B;--rdrp:#5CC4B0;--integ:#E0BE48;--prot:#8FB1D9;
+  --toxin:#F07067;--uv:#B48BF0;
+  --prpc:#5CC4B0;--prpsc:#F07067;--plaqueb:#6E5A50;
+  --viroid:#E0BE48;--leaf:#3E5A2A;--leaf-edge:#A3C95A;--potato:#4A3E26;--potato-edge:#C9A866;
+  --agar:#3A3320;--lawn:#7A6A38;--plate:#33424C;
+  --egg:#3A3428;--egg-edge:#C9AE84;--yolk:#E0B040;--cam:#7A4A44;
+  --nerve:#E8C24A;--ganglion:#A88A2A;--skin:#5A4434;--skin-edge:#B9937A;--blister:#4A3E30;
+  --onc:#E08A74;--brake:#5CC4B0;
+  --glow:#F2B33B;--heat:#F27A5E;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1240px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:7px 12px;cursor:pointer;font-size:14px}
+.tbtn:hover{border-color:var(--accent)}
+.wrap{max-width:1240px;margin:0 auto;padding:16px}
+.chain{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.actgrp{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:8px 10px;display:flex;flex-direction:column;gap:6px;flex:1 1 150px}
+.actgrp .an{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.actgrp .an i{width:10px;height:10px;border-radius:50%;display:inline-block;flex:0 0 auto}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--rule);background:var(--panel-2);font-family:var(--mono);font-size:13px;cursor:pointer;display:grid;place-items:center;padding:0}
+.dot:hover{border-color:var(--accent)}
+.dot.cur{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.dot.done:not(.cur){background:var(--good-wash);border-color:var(--good);color:var(--good)}
+.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);min-width:0}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%}
+.stagebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.stagebar input[type=range]{accent-color:var(--accent);width:110px}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2);flex:0 0 auto}
+.legend i.s{border-radius:2px}
+.legend i.d{border-radius:1px;transform:rotate(45deg);width:9px;height:9px}
+.legend i.r{border-radius:3px;width:14px}
+.legend i.l{width:18px;height:4px;border-radius:2px;border:0}
+.legend i.t{width:0;height:0;border-radius:0;border:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid;background:none!important}
+.legend i.dl{width:18px;height:0;border-radius:0;border:0;border-top:2px dashed;background:none!important}
+.legend i.y{width:12px;height:12px;border:0;border-radius:0;background:none!important;position:relative}
+.legend i.y::before{content:"Y";position:absolute;left:0;top:-4px;font:700 14px var(--sans);color:var(--yc)}
+.explain{padding:18px 20px}
+.stepno{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.actchip{padding:1px 8px 1px 6px;border-radius:99px;color:var(--ink);font-size:11px;border:1.5px solid var(--c,var(--accent));background:var(--panel);display:inline-flex;align-items:center;gap:5px}.actchip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c,var(--accent))}
+h2{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.25;margin:6px 0 10px}
+.body p{margin:0 0 10px}
+.body ol,.body ul{margin:0 0 10px;padding-left:22px}
+.body li{margin-bottom:4px}
+.body .tx{border-left:3px solid var(--accent);padding:2px 0 2px 10px;color:var(--ink)}
+.analogy{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:12px 0}
+.analogy b{display:block;font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.analogy p{margin:0}
+.terms{margin:12px 0 0;padding:0}
+.terms div{display:grid;grid-template-columns:minmax(110px,34%) 1fr;gap:10px;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14.5px}
+.terms dt{font-weight:600}
+.terms dd{margin:0;color:var(--ink-soft)}
+.check{margin-top:16px;border:1px solid var(--rule);border-radius:var(--r);padding:14px;background:var(--panel-2)}
+.check h3{margin:0 0 6px;font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
+.check .q{font-weight:600;margin:0 0 10px}
+.opt{display:block;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;margin:0 0 8px;cursor:pointer;font-size:15px;line-height:1.4}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:6px 0 0;font-size:14.5px}
+.fb.ok{color:var(--good)}
+.fb.no{color:var(--warn-ink)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+.nav{display:flex;align-items:center;gap:12px;margin-top:14px}
+.navbtn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:11px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.navbtn.sec{background:var(--panel);color:var(--ink);border:1px solid var(--rule)}
+.navbtn:disabled{opacity:.4;cursor:default}
+.prog{flex:1;height:8px;background:var(--sunk);border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+footer{max-width:1240px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+sub,sup{line-height:0}
+</style>
+<script src="micro-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">Microbiology &middot; Module 3 &middot; Viruses, viroids and prions</div>
+    <h1>Viruses, Viroids and Prions Walkthrough</h1>
+    <p class="sub">What a virus is, how phages and animal viruses copy themselves, how viruses hide, how labs grow and count them, and the even simpler agents: viroids and prions. Go at your own pace. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+
+<div class="wrap">
+  <nav class="chain" id="chain" aria-label="Steps"></nav>
+  <div class="grid">
+    <section class="card stage" aria-label="Animation">
+      <div class="canvas-holder"><canvas id="stage" role="img" aria-label=""></canvas></div>
+      <div class="stagebar">
+        <button class="tbtn" id="pauseBtn" type="button">Pause</button>
+        <button class="tbtn" id="replayBtn" type="button">Replay</button>
+        <label>Speed <input type="range" id="speed" min="0.25" max="1.75" step="0.25" value="1"></label>
+        <span class="caption" id="caption"></span>
+      </div>
+      <div class="legend" id="legend"></div>
+    </section>
+    <section class="card explain" aria-live="polite">
+      <div class="stepno" id="stepno"></div>
+      <h2 id="title"></h2>
+      <div class="body" id="body"></div>
+      <div class="analogy" id="analogy"><b>Think of it like this</b><p></p></div>
+      <dl class="terms" id="terms"></dl>
+      <div class="check" id="check">
+        <h3>Quick check</h3>
+        <p class="q" id="q"></p>
+        <div id="opts"></div>
+        <p class="fb" id="fb"></p>
+        <p class="calm">Wrong answers are fine here. Read why, then try again.</p>
+      </div>
+      <div class="nav">
+        <button class="navbtn sec" id="prev" type="button">&larr; Back</button>
+        <div class="prog"><i id="progbar"></i></div>
+        <button class="navbtn" id="next" type="button">Next &rarr;</button>
+      </div>
+    </section>
+  </div>
+</div>
+<footer>Dr. Akash Garg &middot; Microbiology Study Tools &middot; Diagrams are simplified and not to scale. For learning only, not medical advice. CC BY-NC-SA 4.0<br>Use the left and right arrow keys to move between steps. Practice next in the <a href="Viruses-Lab.html">Viruses Lab</a>. Viruses, cells and molecules are drawn as large cartoons with rounded teaching numbers, and steps that take minutes to years are sped up so you can watch them.</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "gold", "gold-wash", "gold-ink", "ecf", "grid", "dna", "rna", "capsid", "capsid-2", "env", "env-2", "spike", "phage", "phage-2", "tail", "bact", "bact-edge", "gpos", "gneg", "host", "host-edge", "nucf", "nuc-edge", "ribo", "endo", "endo-edge", "rt", "rdrp", "integ", "prot", "toxin", "uv", "prpc", "prpsc", "plaqueb", "viroid", "leaf", "leaf-edge", "potato", "potato-edge", "agar", "lawn", "plate", "egg", "egg-edge", "yolk", "cam", "nerve", "ganglion", "skin", "skin-edge", "blister", "onc", "brake", "glow", "heat"];
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"left";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase(),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+function bodyFig(cx,top,s,o){o=o||{};ctx.save();ctx.translate(cx,top);ctx.scale(s,s);ctx.lineCap="round";ctx.lineJoin="round";
+  const col=o.col||C.body,ed=o.edge||C["body-edge"];
+  const limbs=[[-38,40,-80,175],[38,40,80,175],[-20,170,-28,330],[20,170,28,330]];
+  ctx.strokeStyle=ed;ctx.lineWidth=31;limbs.forEach(l=>{ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.stroke()});
+  ctx.strokeStyle=col;ctx.lineWidth=28;limbs.forEach(l=>{ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.stroke()});
+  rr(-45,26,90,155,22);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=ed;ctx.lineWidth=1.5;ctx.stroke();
+  ctx.fillStyle=col;ctx.fillRect(-11,8,22,22);circ(0,-12,26,col,ed,1.5);
+  ctx.restore()}
+function bp(cx,top,s,x,y){return [cx+x*s,top+y*s]}
+
+function gauge(x,y,r,v,v0,v1,o){o=o||{};const a0=Math.PI*.8,a1=Math.PI*2.2;ctx.lineCap="round";
+  ctx.beginPath();ctx.arc(x,y,r,a0,a1);ctx.strokeStyle=C.sunk;ctx.lineWidth=r*.18;ctx.stroke();
+  (o.zones||[]).forEach(z=>{ctx.beginPath();ctx.arc(x,y,r,a0+(a1-a0)*seg(z[0],v0,v1),a0+(a1-a0)*seg(z[1],v0,v1));ctx.strokeStyle=hexA(z[2],.75);ctx.lineWidth=r*.18;ctx.stroke()});
+  ctx.lineCap="butt";const a=a0+(a1-a0)*seg(v,v0,v1);line(x,y,x+Math.cos(a)*r*.82,y+Math.sin(a)*r*.82,C.ink,3);circ(x,y,4.5,C.ink);
+  if(o.title)txt(x,y+r*.42,o.title,{size:11.5,mono:true,weight:700,align:"center",color:C["ink-soft"]});
+  if(o.val)txt(x,y+r*.78,o.val,{size:14,mono:true,weight:700,align:"center",color:o.valCol||C.ink})}
+function thermo(x,y,h,f,o){o=o||{};rr(x-6,y,12,h,6);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();
+  const fh=(h-8)*clamp(f,0,1);rr(x-3,y+h-fh-2,6,fh+4,3);ctx.fillStyle=C.heat;ctx.fill();circ(x,y+h+6,9,C.heat,C["ink-soft"],1.4);
+  if(o.lab)txt(x,y+h+24,o.lab,{size:12,mono:true,weight:700,align:"center",color:o.labCol||C.ink})}
+function dna(x,y,w,h,t,col,o){o=o||{};const n=o.n||16;for(let i=0;i<=n;i++){const f=i/n;const X=x+f*w;const a=f*TAU*2+t;const y1=y+Math.sin(a)*h/2,y2=y-Math.sin(a)*h/2;line(X,y1,X,y2,hexA(col,.45),1.4)}
+  [0,Math.PI].forEach(ph=>{ctx.beginPath();for(let i=0;i<=60;i++){const f=i/60;const X=x+f*w,Y=y+Math.sin(f*TAU*2+t+ph)*h/2;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=2.4;ctx.stroke()})}
+function rna(x,y,w,t,col,lw){ctx.beginPath();for(let i=0;i<=40;i++){const f=i/40;const X=x+f*w,Y=y+Math.sin(f*TAU*2.5+t)*4;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=lw||2.2;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt"}
+function face(x,y,r,o){o=o||{};circ(x,y,r,C.skin,C["skin-edge"],1.6);
+  if(o.rash){ctx.save();ctx.globalAlpha*=o.rash;ctx.fillStyle=hexA(C.rash,.7);ctx.beginPath();ctx.ellipse(x-r*.42,y+r*.12,r*.3,r*.2,-.3,0,TAU);ctx.ellipse(x+r*.42,y+r*.12,r*.3,r*.2,.3,0,TAU);ctx.fill();rr(x-r*.14,y-r*.05,r*.28,r*.28,r*.1);ctx.fill();ctx.restore()}
+  if(o.puffy){ell(x-r*.35,y-r*.08,r*.2,r*.12*(1+o.puffy*.6),0,hexA(C["skin-edge"],.5));ell(x+r*.35,y-r*.08,r*.2,r*.12*(1+o.puffy*.6),0,hexA(C["skin-edge"],.5))}
+  circ(x-r*.35,y-r*.18,r*.08,C.ink);circ(x+r*.35,y-r*.18,r*.08,C.ink);ctx.beginPath();ctx.arc(x,y+r*.3,r*.25,.2*Math.PI,.8*Math.PI);ctx.strokeStyle=C.ink;ctx.lineWidth=1.6;ctx.stroke()}
+function timeBar(x,y,w,f,marks,o){o=o||{};rr(x,y,w,8,4);ctx.fillStyle=C.sunk;ctx.fill();rr(x,y,w*clamp(f,0,1),8,4);ctx.fillStyle=o.col||C.accent;ctx.fill();
+  (marks||[]).forEach(m=>{const X=x+w*m[0];line(X,y-3,X,y+11,C["ink-soft"],1.2);txt(X,y+22,m[1],{size:11.5,mono:true,align:m[0]<=0?"left":m[0]>=1?"right":"center",color:C["ink-soft"]})});
+  circ(x+w*clamp(f,0,1),y+4,6,o.col||C.accent,C.panel,2)}
+function stepRow(x,y,w,items,on,col,st){const n=items.length,gap=6,bw=(w-gap*(n-1))/n;items.forEach((s,i)=>{const X=x+i*(bw+gap);const lit=i===on,past=i<on;rr(X,y,bw,24,12);ctx.fillStyle=lit?(col||C.accent):past?hexA(col||C.accent,.18):hexA(C.panel,.9);ctx.fill();ctx.strokeStyle=lit||past?(col||C.accent):C.rule;ctx.lineWidth=1.3;ctx.stroke();
+  txt(X+bw/2,y+12.5,(i+1+(st||0))+" "+s,{size:12,weight:700,align:"center",color:lit?onFill():C.ink})})}
+
+/* ---- HIV teaching model (rounded, typical untreated course; ART started at year artStart) ---- */
+
+/* ================= virus drawing kit ================= */
+/* coiled genome inside a radius (DNA blue, RNA orange) */
+function genome(x,y,r,col,t,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ctx.beginPath();const N=90;
+  for(let i=0;i<=N;i++){const f=i/N;const a=f*TAU*2.6+(t||0)*.35+(o.seed||0);const rad=r*(.18+.62*(.5+.5*Math.sin(f*11.3+(o.seed||0)*2)));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad*(o.sy||1);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}
+  ctx.strokeStyle=col;ctx.lineWidth=o.lw||2;ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt";ctx.restore()}
+/* a strand drawn along a path: double helix (dna) or single wavy line (rna) */
+function strand(x1,y1,x2,y2,col,t,o){o=o||{};const L=Math.hypot(x2-x1,y2-y1);if(L<1)return;const a=Math.atan2(y2-y1,x2-x1);ctx.save();ctx.translate(x1,y1);ctx.rotate(a);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const amp=o.amp||4,waves=o.waves||L/22;
+  if(o.ds){for(let i=0;i<=Math.floor(L/7);i++){const X=i*7;const s=Math.sin(X/L*waves*TAU+(t||0));line(X,s*amp,X,-s*amp,hexA(col,.45),1.2)}
+    [0,Math.PI].forEach(ph=>{ctx.beginPath();for(let i=0;i<=60;i++){const X=i/60*L;const Y=Math.sin(X/L*waves*TAU+(t||0)+ph)*amp;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=o.lw||2.2;ctx.stroke()})}
+  else{ctx.beginPath();for(let i=0;i<=60;i++){const X=i/60*L;const Y=Math.sin(X/L*waves*TAU+(t||0))*amp*.7;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=o.lw||2.2;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt"}
+  ctx.restore()}
+/* icosahedral capsid seen down its 3-fold axis */
+function hexPts(x,y,r,rot){const p=[];for(let k=0;k<6;k++){const a=rot+k*Math.PI/3-Math.PI/2;p.push([x+Math.cos(a)*r,y+Math.sin(a)*r])}return p}
+function fillPoly(pts,fill,stroke,lw){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.2;ctx.lineJoin="round";ctx.stroke()}}
+function icosa(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const rot=o.rot||0;const col=o.col||C.capsid,lite=o.lite||C["capsid-2"];
+  const H=hexPts(x,y,r,rot);const I=[1,3,5].map(k=>{const a=rot+k*Math.PI/3-Math.PI/2+Math.PI/3;return [x+Math.cos(a)*r*.5,y+Math.sin(a)*r*.5]});
+  const open=o.open||0;
+  if(open>0){ctx.translate(0,0)}
+  fillPoly(H,mix(col,lite,.35),null);
+  // side facets darker, front triangle lighter
+  for(let k=0;k<6;k++){const a=H[k],b=H[(k+1)%6];const near=I.reduce((m,p)=>Math.hypot(p[0]-(a[0]+b[0])/2,p[1]-(a[1]+b[1])/2)<Math.hypot(m[0]-(a[0]+b[0])/2,m[1]-(a[1]+b[1])/2)?p:m,I[0]);
+    fillPoly([a,b,near],k%2?mix(col,lite,.15):mix(col,lite,.5),hexA(C.ink,.35),1)}
+  fillPoly(I,mix(col,lite,.7),hexA(C.ink,.35),1);
+  if(o.genome){ctx.save();ctx.globalAlpha*=.9;genome(x,y,r*.55,o.genome,o.t||0,{lw:Math.max(1.4,r*.06),seed:o.seed||0});ctx.restore()}
+  if(o.caps&&r>14){const pts=[];H.forEach((p,k)=>{const q=H[(k+1)%6];for(let j=0;j<3;j++)pts.push([lerp(p[0],q[0],j/3),lerp(p[1],q[1],j/3)])});I.forEach(p=>pts.push(p));pts.forEach(p=>circ(p[0],p[1],Math.max(1.8,r*.07),lite,hexA(C.ink,.3),.8))}
+  fillPoly(H,null,mix(col,C.ink,.25),Math.max(1.2,r*.05));
+  ctx.restore()}
+/* helical nucleocapsid: stacked capsomeres around an RNA helix */
+function helical(x,y,len,w,ang,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const col=o.col||C.capsid,lite=o.lite||C["capsid-2"];const n=Math.max(4,Math.round(len/(o.step||7)));const st=len/n;const show=o.show==null?1:o.show;
+  if(o.genome!==false){ctx.beginPath();for(let i=0;i<=80;i++){const X=-len/2+i/80*len;const Y=Math.sin(i/80*n*Math.PI+(o.t||0))*w*.22;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=o.gcol||C.rna;ctx.lineWidth=Math.max(1.6,w*.1);ctx.stroke()}
+  for(let i=0;i<n*show;i++){const X=-len/2+(i+.5)*st;ell(X,0,st*.55,w/2,.32,hexA(i%2?col:mix(col,lite,.45),.82),hexA(C.ink,.3),.8)}
+  ctx.restore()}
+/* spike: stalk with a knob, pointing outward at angle a from (x,y) */
+function spike(x,y,a,len,col,o){o=o||{};const x2=x+Math.cos(a)*len,y2=y+Math.sin(a)*len;line(x,y,x2,y2,mix(col,C.ink,.25),o.lw||1.6);
+  if(o.knob==="T"){const px=Math.cos(a+Math.PI/2)*len*.32,py=Math.sin(a+Math.PI/2)*len*.32;line(x2-px,y2-py,x2+px,y2+py,col,2.6)}else circ(x2,y2,o.r||Math.max(2,len*.26),col,hexA(C.ink,.35),.8)}
+/* enveloped virion: lipid bilayer + spikes around an icosahedral or helical core */
+function envVirus(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const t=o.t||0;
+  const n=o.n||14;for(let k=0;k<n;k++){const a=k/n*TAU+t*.15+(o.rot||0);spike(x+Math.cos(a)*r,y+Math.sin(a)*r,a,r*.34,o.spikeCol||C.spike,{knob:o.knob})}
+  circ(x,y,r,o.fill||C["env-2"],null);ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.strokeStyle=C.env;ctx.lineWidth=Math.max(2,r*.12);ctx.stroke();
+  ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.strokeStyle=hexA(C.panel,.7);ctx.lineWidth=Math.max(.8,r*.03);ctx.stroke();
+  if(o.core==="helix"){for(let k=0;k<3;k++){const a=k*1.1+.4;helical(x+Math.cos(a)*r*.25,y+Math.sin(a)*r*.25-r*.05,r*1.1,r*.26,a*1.7,{t,gcol:o.genome||C.rna})}}
+  else if(o.core==="cone"){fillPoly([[x-r*.15,y-r*.55],[x+r*.15,y-r*.55],[x+r*.38,y+r*.5],[x-r*.38,y+r*.5]],mix(C.capsid,C["capsid-2"],.4),hexA(C.ink,.35));genome(x,y,r*.32,o.genome||C.rna,t,{lw:1.5,sy:1.5})}
+  else if(o.core!==false)icosa(x,y,r*.62,{genome:o.genome||C.dna,t,caps:false});
+  ctx.restore()}
+/* bacteriophage (T4-like). tail points along ang (default down). contract 0..1, full = DNA in head 0..1 */
+function phage(x,y,s,ang,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate((ang==null?Math.PI/2:ang)-Math.PI/2);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const col=o.col||C.phage,lite=C["phage-2"];const c=clamp(o.contract||0,0,1);const full=o.full==null?1:o.full;
+  // head: elongated hexagon above origin
+  const hw=s*.95,hh=s*1.35,hy=-s*1.55;const head=[[0,hy-hh],[hw,hy-hh*.5],[hw,hy+hh*.5],[0,hy+hh],[-hw,hy+hh*.5],[-hw,hy-hh*.5]];
+  fillPoly(head,mix(col,lite,.55),null);fillPoly([[0,hy-hh],[hw,hy-hh*.5],[0,hy],[-hw,hy-hh*.5]],mix(col,lite,.75),null);fillPoly([[0,hy],[hw,hy-hh*.5],[hw,hy+hh*.5],[0,hy+hh]],mix(col,lite,.35),null);
+  if(full>0.02){ctx.save();ctx.beginPath();head.forEach((p,i)=>i?ctx.lineTo(p[0]*.8,hy+(p[1]-hy)*.8):ctx.moveTo(p[0]*.8,hy+(p[1]-hy)*.8));ctx.closePath();ctx.clip();genome(0,hy+hh*(1-full)*.6,s*.95,C.dna,o.t||0,{lw:Math.max(1.3,s*.13),sy:1.25,a:clamp(full*1.5,0,1)});ctx.restore()}
+  fillPoly(head,null,mix(col,C.ink,.3),Math.max(1.2,s*.1));
+  // collar
+  rr(-s*.42,-s*.25,s*.84,s*.25,s*.08);ctx.fillStyle=col;ctx.fill();
+  // tail: core tube + sheath
+  const L=s*2.1,Ls=L*(1-.45*c);const sw=s*.34*(1+.55*c);
+  rr(-s*.12,0,s*.24,L+s*.05,s*.1);ctx.fillStyle=mix(col,C.ink,.25);ctx.fill();
+  rr(-sw,0,sw*2,Ls,s*.1);ctx.fillStyle=mix(col,lite,.25);ctx.fill();ctx.strokeStyle=mix(col,C.ink,.3);ctx.lineWidth=1;ctx.stroke();
+  for(let k=1;k<6;k++){line(-sw,Ls*k/6,sw,Ls*k/6,hexA(C.ink,.3),.8)}
+  // base plate
+  const by=c>0?Ls+(L-Ls)*.05:L;rr(-s*.6,by,s*1.2,s*.22,s*.06);ctx.fillStyle=col;ctx.fill();
+  // tail fibres
+  const sp=o.spread==null?1:o.spread;ctx.strokeStyle=mix(col,C.ink,.2);ctx.lineWidth=Math.max(1.1,s*.1);ctx.lineJoin="round";
+  [-1,1].forEach(sd=>{[0,1].forEach(j=>{const kx=sd*s*(1+.35*j)*(.7+.5*sp),ky=by+s*(.1+.25*j)-s*.3*(1-sp);const tx=sd*s*(1.25+.3*j)*(.6+.6*sp),ty=by+s*(1.15+.1*j)*(.6+.4*sp);
+    ctx.beginPath();ctx.moveTo(sd*s*.5,by+s*.1);ctx.lineTo(kx,ky);ctx.lineTo(tx,ty);ctx.stroke()})});
+  ctx.restore()}
+/* position of the phage tail tip (for injection paths) */
+function phageTip(x,y,s,ang,contract){ang=ang==null?Math.PI/2:ang;const L=s*2.1+s*.05;return [x+Math.cos(ang)*L,y+Math.sin(ang)*L]}
+/* rod-shaped bacterium. o.inner(fn) draws inside clip; o.chrom chromosome loop; o.pro prophage band; o.burst 0..1 */
+function bacterium(x,y,w,h,ang,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const b=o.burst||0;
+  const fill=o.fill||C.bact,edge=o.edge||C["bact-edge"];
+  if(b>0){// wall pieces fly apart and fade
+    const n=10;for(let k=0;k<n;k++){const a=k/n*TAU;const d=b*w*.5;ctx.save();ctx.translate(Math.cos(a)*(w*.45+d),Math.sin(a)*(h*.45+d*.6));ctx.rotate(a+Math.PI/2);ctx.globalAlpha*=1-b;line(-w*.12,0,w*.12,0,edge,2.4);ctx.restore()}
+    ctx.globalAlpha*=clamp(1-b*1.6,0,1)}
+  rr(-w/2,-h/2,w,h,h/2);ctx.fillStyle=fill;ctx.fill();
+  if(o.inner||o.chrom!==false){ctx.save();rr(-w/2,-h/2,w,h,h/2);ctx.clip();
+    if(o.chrom!==false){ctx.beginPath();const N=60;for(let i=0;i<=N;i++){const f=i/N;const a=f*TAU;const X=Math.cos(a)*w*.28+Math.sin(a*5)*w*.025,Y=Math.sin(a)*h*.22+Math.cos(a*6)*h*.04;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=hexA(o.chromCol||C.dna,o.chromA==null?.75:o.chromA);ctx.lineWidth=Math.max(1.4,h*.05);ctx.stroke();
+      if(o.pro){ctx.beginPath();for(let i=0;i<=14;i++){const a=-.9+i/14*1.1;ctx.lineTo(Math.cos(a)*w*.28+Math.sin(a*5)*w*.025,Math.sin(a)*h*.22+Math.cos(a*6)*h*.04)}ctx.strokeStyle=o.proCol||C.phage;ctx.lineWidth=Math.max(3,h*.12);ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt"}}
+    if(o.inner)o.inner(w,h);ctx.restore()}
+  rr(-w/2,-h/2,w,h,h/2);ctx.strokeStyle=edge;ctx.lineWidth=o.lw||clamp(h*.05,1.6,4);ctx.stroke();
+  ctx.restore()}
+/* animal host cell with nucleus */
+function aCell(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  blobPath(x,y,r,o.seed||7,o.t||0,o.wob==null?.035:o.wob);ctx.fillStyle=o.fill||C.host;ctx.fill();ctx.strokeStyle=o.edge||C["host-edge"];ctx.lineWidth=2;ctx.stroke();
+  if(o.nuc!==false){const nx=x+(o.nx||0),ny=y+(o.ny||0),nr=o.nr||r*.34;circ(nx,ny,nr,C.nucf,C["nuc-edge"],1.6);if(o.chromatin!==false)genome(nx,ny,nr*.8,hexA(C["nuc-edge"],.55),0,{lw:1.2,seed:3})}
+  if(o.ribo){for(let k=0;k<o.ribo;k++){const a=rnd(k*3+1)*TAU,d=r*(.5+rnd(k*5+2)*.38);circ(x+Math.cos(a)*d,y+Math.sin(a)*d,1.8,C.ribo)}}
+  ctx.restore()}
+/* receptor on a membrane: stalk + cup, pointing outward along a */
+function receptor(x,y,a,col,o){o=o||{};const L=o.len||12;const x2=x+Math.cos(a)*L,y2=y+Math.sin(a)*L;line(x,y,x2,y2,col,2.2);
+  ctx.beginPath();if(o.shape==="sq"){const px=Math.cos(a+Math.PI/2)*5,py=Math.sin(a+Math.PI/2)*5;ctx.moveTo(x2-px,y2-py);ctx.lineTo(x2-px+Math.cos(a)*6,y2-py+Math.sin(a)*6);ctx.moveTo(x2+px,y2+py);ctx.lineTo(x2+px+Math.cos(a)*6,y2+py+Math.sin(a)*6);ctx.moveTo(x2-px,y2-py);ctx.lineTo(x2+px,y2+py)}
+  else ctx.arc(x2+Math.cos(a)*4,y2+Math.sin(a)*4,5,a+Math.PI*1.5+Math.PI,a+Math.PI*.5+Math.PI,true);
+  ctx.strokeStyle=col;ctx.lineWidth=2.4;ctx.stroke()}
+/* prion protein: normal (coiled helices) morphing to misfolded (flat zigzag sheet) */
+function prp(x,y,s,mis,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(o.ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  if(mis<1){ctx.save();ctx.globalAlpha*=1-mis;ctx.beginPath();for(let i=0;i<=60;i++){const f=i/60;const X=-s+f*2*s;const Y=Math.sin(f*TAU*3+(o.t||0))*s*.35;const Z=Math.cos(f*TAU*3+(o.t||0))*s*.18;i?ctx.lineTo(X+Z,Y):ctx.moveTo(X+Z,Y)}ctx.strokeStyle=C.prpc;ctx.lineWidth=Math.max(2.4,s*.22);ctx.lineCap="round";ctx.stroke();ctx.restore()}
+  if(mis>0){ctx.save();ctx.globalAlpha*=mis;ctx.strokeStyle=C.prpsc;ctx.fillStyle=C.prpsc;ctx.lineWidth=Math.max(2.2,s*.2);ctx.lineJoin="round";
+    for(let r_=0;r_<3;r_++){const Y=(r_-1)*s*.38;const dir=r_%2?-1:1;ctx.beginPath();for(let i=0;i<=6;i++){const X=dir*(-s+i/6*2*s*.86);ctx.lineTo(X,Y+(i%2?-s*.08:s*.08))}ctx.stroke();
+      const ex=dir*(s*.72),ah=s*.22;ctx.beginPath();ctx.moveTo(ex+dir*ah,Y);ctx.lineTo(ex-dir*ah*.2,Y-ah*.8);ctx.lineTo(ex-dir*ah*.2,Y+ah*.8);ctx.closePath();ctx.fill()}
+    ctx.restore()}
+  ctx.restore()}
+/* petri dish with agar, bacterial lawn, and clear plaques */
+function petri(x,y,r,o){o=o||{};circ(x,y,r+6,C.plate,mix(C.plate,C.ink,.35),1.6);circ(x,y,r,C.agar,null);
+  const lawn=o.lawn==null?1:o.lawn;if(lawn>0){ctx.save();ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.clip();ctx.globalAlpha*=clamp(lawn,0,1);circ(x,y,r,hexA(C.lawn,.85));
+    for(let k=0;k<160;k++){const a=rnd(k*1.7)*TAU,d=Math.sqrt(rnd(k*2.3+1))*r;circ(x+Math.cos(a)*d,y+Math.sin(a)*d,1.6,hexA(mix(C.lawn,C.ink,.2),.5))}ctx.restore()}
+  (o.plaques||[]).forEach(p=>{const pr=p[2]*(o.grow==null?1:o.grow);if(pr<=.3)return;circ(x+p[0],y+p[1],pr,C.agar,hexA(C.plaqueb,.9),1)});
+  ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.strokeStyle=hexA(C.ink,.25);ctx.lineWidth=1;ctx.stroke()}
+/* erlenmeyer flask with liquid of a given turbidity (0 clear .. 1 cloudy) */
+function flask(x,y,s,turb,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+  const P_=[[-12,-60],[-12,-28],[-46,40],[46,40],[12,-28],[12,-60]];
+  ctx.beginPath();ctx.moveTo(-40,28);ctx.lineTo(-24,-4);ctx.lineTo(24,-4);ctx.lineTo(40,28);ctx.quadraticCurveTo(46,40,34,40);ctx.lineTo(-34,40);ctx.quadraticCurveTo(-46,40,-40,28);ctx.closePath();
+  ctx.fillStyle=mix(C["env-2"],C.lawn,clamp(turb,0,1)*.9);ctx.fill();
+  if(turb>0.05){for(let k=0;k<Math.round(turb*40);k++){circ(-30+rnd(k)*60,2+rnd(k+9)*34,1.2/s*1.4,hexA(mix(C.lawn,C.ink,.3),.6))}}
+  ctx.beginPath();P_.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=2.2/s;ctx.lineJoin="round";ctx.stroke();
+  rr(-15,-66,30,8,3);ctx.fillStyle=C.sunk;ctx.fill();ctx.restore()}
+/* test tube */
+function tube(x,y,w,h,liq,col,o){o=o||{};ctx.save();rr(x-w/2,y,w,h,w/2);ctx.save();ctx.clip();ctx.fillStyle=col;ctx.fillRect(x-w/2,y+h*(1-liq),w,h*liq);ctx.restore();
+  ctx.beginPath();ctx.moveTo(x-w/2,y);ctx.lineTo(x-w/2,y+h-w/2);ctx.arc(x,y+h-w/2,w/2,Math.PI,0,true);ctx.lineTo(x+w/2,y);ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.6;ctx.stroke();
+  if(o.lab)txt(x,y+h+14,o.lab,{size:12,mono:true,weight:700,align:"center",color:o.labCol||C.ink});ctx.restore()}
+/* small UV bolt icon */
+function uvBolt(x,y,s,a){withA(a==null?1:a,()=>{fillPoly([[x-s*.2,y-s],[x+s*.45,y-s*.1],[x+s*.05,y-s*.05],[x+s*.3,y+s],[x-s*.45,y+s*.05],[x-s*.05,y]],C.uv,hexA(C.ink,.35),1)})}
+/* cone-shaped sign of a cell under stress (sun/UV) */
+function sun(x,y,r,t){circ(x,y,r,C.glow,mix(C.glow,C.ink,.3),1.4);for(let k=0;k<10;k++){const a=k/10*TAU+(t||0)*.4;line(x+Math.cos(a)*(r+3),y+Math.sin(a)*(r+3),x+Math.cos(a)*(r+9),y+Math.sin(a)*(r+9),mix(C.glow,C.ink,.25),2)}}
+function graphBox(x,y,w,h,t){panelBox(x,y,w,h,{fill:hexA(C.panel,.95)});if(t)txt(x+10,y+14,t.toUpperCase(),{size:11.5,mono:true,weight:700,color:C["ink-soft"]})}
+/* toxin molecule: small bean of two subunits (A-B toxin) */
+function toxinA(x,y,s,a){withA(a==null?1:a,()=>{circ(x,y,s,C.toxin,hexA(C.ink,.35),1);circ(x+s*1.1,y,s*.7,mix(C.toxin,C.panel,.4),hexA(C.ink,.35),1)})}
+function diamond(x,y,s,col,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.beginPath();ctx.moveTo(x,y-s);ctx.lineTo(x+s,y);ctx.lineTo(x,y+s);ctx.lineTo(x-s,y);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.3);ctx.lineWidth=1;ctx.stroke();ctx.restore()}
+function tri(x,y,s,col,ang,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.translate(x,y);ctx.rotate(ang||0);ctx.beginPath();ctx.moveTo(0,-s);ctx.lineTo(s*.9,s*.7);ctx.lineTo(-s*.9,s*.7);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.35);ctx.lineWidth=1;ctx.stroke();ctx.restore()}
+function dotM(x,y,r,col,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x,y,r,col,hexA(C.ink,.25),.8);ctx.restore()}
+
+function tick(x,y,s,col){ctx.save();ctx.strokeStyle=col||C.good;ctx.lineWidth=3;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(x-s,y);ctx.lineTo(x-s*.3,y+s*.7);ctx.lineTo(x+s,y-s*.7);ctx.stroke();ctx.restore()}
+function cross(x,y,s,col){ctx.save();ctx.strokeStyle=col||C.bad;ctx.lineWidth=3;ctx.lineCap="round";line(x-s,y-s,x+s,y+s,col||C.bad,3);line(x+s,y-s,x-s,y+s,col||C.bad,3);ctx.restore()}
+/* small phages scattered outward from a burst */
+function burstPhages(cx,cy,n,f,s,seed,spread){for(let k=0;k<n;k++){const a=k/n*TAU+rnd(k+(seed||0))*.5;const d=(14+rnd(k*3+(seed||0))*spread)*f;phage(cx+Math.cos(a)*d,cy+Math.sin(a)*d*.8,s,a+Math.PI,{a:1-seg(f,.75,1)})}}
+function rnaS(x,y,w,t,col,dash,lw){ctx.save();if(dash)ctx.setLineDash([7,5]);rna(x,y,w,t,col,lw);ctx.restore()}
+
+const ACTS={1:{name:"Part 1 · What a virus is",col:"act1"},
+            2:{name:"Part 2 · Bacteriophages",col:"act2"},
+            3:{name:"Part 3 · Animal viruses",col:"act3"},
+            4:{name:"Part 4 · Infection patterns",col:"act4"},
+            5:{name:"Part 5 · Growing and counting",col:"act5"},
+            6:{name:"Part 6 · Viroids and prions",col:"act6"}};
+const NACT=6;
+const STEPS=[
+{act:0,scene:"map",desc:"The left half shows a short loop of a virus attacking a bacterium. A grey-blue bacteriophage with a six-sided head and a thin tail drops onto a green rod-shaped bacterium, its tail squeezes, and a blue strand of DNA flows into the cell. New phage heads appear inside, the cell bursts into pieces, and new phages drift away while a step bar under the picture lights Attach, Inject, Build and Burst in turn. The right half has six cards that light up one at a time with a coloured border: What a virus is, Bacteriophages, Animal viruses, Infection patterns, Growing and counting, and Viroids and prions, each with a small moving picture.",
+ title:"The big picture: tiny hijackers",
+ body:`<p>A <b>virus</b> is a tiny packet of genes wrapped in protein. It cannot eat, grow or make anything by itself. To copy itself, it must get inside a living cell and take over that cell's machinery.</p>
+ <p>Viruses infect every kind of life: bacteria, plants, animals and people. Many cause disease, such as the flu, colds, HIV and COVID-19. Even simpler agents exist: <b>viroids</b> (bare RNA) and <b>prions</b> (misfolded proteins).</p>
+ <p>This walkthrough has six parts:</p>
+ <ol><li><b>What a virus is:</b> parts, shapes, envelopes and which cells a virus can infect.</li><li><b>Bacteriophages:</b> viruses of bacteria, and the lytic and lysogenic cycles.</li><li><b>Animal viruses:</b> how they get in, copy DNA or RNA, and get out.</li><li><b>Infection patterns:</b> acute, persistent and latent infections, and viruses linked to cancer.</li><li><b>Growing and counting:</b> plaque assays, cell culture and eggs.</li><li><b>Viroids and prions:</b> infectious agents even simpler than viruses.</li></ol>`,
+ analogy:"A virus is like a USB stick with a program on it. On a desk it does nothing. Plug it into a computer and it can take over and make the computer copy it.",
+ terms:[["Virus","A tiny infectious particle: genes (DNA or RNA) inside a protein coat. It copies itself only inside a living host cell."],["Host cell","The living cell a virus infects and takes over."]],
+ check:null,caption:"A phage attaches, injects its DNA, builds new phages and bursts the cell. Six parts ahead.",
+ legend:[["phage","Bacteriophage"],["bact","Bacterium","s"],["dna","Viral DNA"],["accent","Current part","s"]]},
+
+/* ---------- Part 1 ---------- */
+{act:1,scene:"notcell",desc:"The picture is split in two. On the left, under the title A bacterium is a cell, a green rod-shaped bacterium with a blue DNA loop and grey ribosome dots grows longer and splits into two cells, again and again, with the label Makes its own proteins and divides. On the right, under the title A virus is not a cell, a purple six-sided virus particle drifts alone with the label Virion: does nothing on its own. It then slips into a tan host cell, and after a pause the host cell releases a crowd of new virus particles, with the label Copies itself only inside a host cell. Along the bottom, a size bar compares a 2 micrometre bacterium drawn as a long green bar with a 100 nanometre virus drawn as a small purple dot, and marks the light microscope limit of about 200 nanometres.",
+ title:"A virus is not a cell",
+ body:`<p>Bacteria are living cells. They take in food, make their own proteins on <b>ribosomes</b>, grow and divide. A virus can do none of this.</p>
+ <p>A virus is an <b>obligate intracellular parasite</b>: it can copy itself <b>only inside</b> a living host cell. Outside a cell, a complete virus particle is called a <b>virion</b>. A virion is inert, like a seed waiting for soil.</p>
+ <p>Other ways viruses differ from cells:</p>
+ <ul><li>They carry <b>DNA or RNA</b>, not both.</li><li>They have no ribosomes and make no energy (no ATP).</li><li>They are tiny: most are about 20 to 300 <b>nanometres</b> (nm). A typical bacterium is about 1 to 5 micrometres, 10 to 100 times bigger. Most viruses are too small to see with a light microscope; we use an <b>electron microscope</b>.</li></ul>
+ <p class="tx"><b>Why it matters:</b> antibiotics attack bacterial parts such as cell walls and ribosomes. Viruses have none of these, so <b>antibiotics do not work on viruses</b>.</p>`,
+ analogy:"A bacterium is a small factory with its own machines. A virus is just a set of blueprints in an envelope. Blueprints build nothing until they reach a factory that will follow them.",
+ terms:[["Obligate intracellular parasite","Something that can multiply only inside a living host cell."],["Virion","A complete, infectious virus particle outside a cell."],["Nanometre (nm)","One billionth of a metre. 1,000 nm = 1 micrometre (µm)."]],
+ check:{q:"A friend with a cold asks for antibiotics. Why will they not help?",opts:[
+  ["Colds are caused by viruses, which have no cell wall or ribosomes for antibiotics to attack.",1,"Yes. Antibiotics target bacterial structures. A virus has none of them, so the drug has nothing to hit."],
+  ["Viruses are too big for antibiotics to reach.",0,"Viruses are much smaller than bacteria, not bigger. The real problem is that they lack the parts antibiotics target."],
+  ["Antibiotics only work after the cold is over.",0,"Timing is not the issue. Antibiotics never work on viruses because viruses lack cell walls and ribosomes."],
+  ["Viruses are alive and grow too fast for antibiotics.",0,"Viruses do not grow on their own at all. They lack the bacterial parts antibiotics act on."]]},
+ caption:"Bacteria grow and divide on their own. A virion does nothing until it gets inside a host cell.",
+ legend:[["bact","Bacterium (a cell)","s"],["capsid","Virus particle"],["host","Host cell"],["ribo","Ribosomes"]]},
+
+{act:1,scene:"structure",desc:"In the middle, a virus builds itself in four timed stages. First a blue coiled strand of nucleic acid appears, labelled DNA or RNA. Next, small purple protein pieces fly in from all sides and click into place around it, forming a six-sided outline, labelled Capsid made of capsomeres. Then the label Nucleocapsid appears around the finished coat and genome. Last, a tan double ring of membrane wraps around the outside and red-orange knobbed spikes poke out, labelled Envelope from host membrane and Spikes. A checklist on the right ticks each part as it appears: nucleic acid, capsid, envelope (some viruses), spikes.",
+ title:"The parts of a virus",
+ body:`<p>Every virus has two basic parts:</p>
+ <ol><li><b>Nucleic acid</b>, the genome: <b>DNA or RNA</b>, never both. It can be single-stranded or double-stranded, in one piece or in several segments.</li>
+ <li><b>Capsid</b>: a protein coat that protects the genome. It is built from many identical protein subunits called <b>capsomeres</b>, which lock together like tiles.</li></ol>
+ <p>Together, capsid plus genome is called the <b>nucleocapsid</b>.</p>
+ <p>Some viruses also have an <b>envelope</b>: an outer layer of lipid membrane stolen from the host cell as the virus leaves. Viral proteins called <b>spikes</b> (glycoproteins) stick out of it. Spikes help the virus grab onto its next host cell. Viruses without an envelope are called <b>naked</b> (non-enveloped) viruses.</p>`,
+ analogy:"The genome is a message. The capsid is the hard case it rides in. An envelope is a soft gift wrap around the case, with hooks (spikes) that catch on the right door.",
+ terms:[["Capsid","Protein coat around the viral genome."],["Capsomere","One protein subunit of the capsid."],["Envelope","Lipid membrane outside the capsid, taken from the host cell."],["Spikes","Viral proteins on the surface that attach to host cells."]],
+ check:{q:"A virus's envelope is made mostly of lipids from:",opts:[
+  ["The membrane of the last host cell it came out of",1,"Right. Enveloped viruses wrap themselves in a piece of host membrane as they leave, then add their own spike proteins."],
+  ["Proteins the virus makes on its own ribosomes",0,"Viruses have no ribosomes. Spike proteins are made by the host's ribosomes, and the lipid comes from the host membrane."],
+  ["The capsomeres folded into a new shape",0,"Capsomeres build the capsid. The envelope is a separate lipid layer taken from the host cell."],
+  ["A cell wall like the one bacteria have",0,"Viruses have no cell wall. The envelope is a lipid membrane borrowed from the host."]]},
+ caption:"Genome first, then capsomeres build the capsid. Some viruses add an envelope with spikes.",
+ legend:[["dna","Nucleic acid (DNA or RNA)"],["capsid","Capsid / capsomeres","s"],["env","Envelope (lipid)"],["spike","Spikes"]]},
+
+{act:1,scene:"shapes",desc:"Three panels sit side by side. The left panel, Helical, shows an orange RNA strand being covered by purple disc-shaped capsomeres one after another until it forms a long hollow rod, with the example Tobacco mosaic virus; rabies and influenza have helical nucleocapsids. The middle panel, Icosahedral, shows a purple six-sided capsid with triangle faces turning slowly, a blue genome coil inside, and the note 20 triangular faces, 12 corners, with examples poliovirus, adenovirus and herpesviruses. The right panel, Complex, shows a grey-blue bacteriophage with a head, a tail and six bent tail fibres that sway, with examples phage T4 and poxviruses.",
+ title:"Virus shapes: helical, icosahedral, complex",
+ body:`<p>Capsomeres can fit together in a few basic ways, which gives viruses their shapes:</p>
+ <ul><li><b>Helical</b>: capsomeres spiral around the genome like a spiral staircase, making a rod or a long flexible tube. Example: <b>tobacco mosaic virus</b>. Rabies and influenza viruses have helical nucleocapsids inside their envelopes.</li>
+ <li><b>Icosahedral</b>: a near-sphere with <b>20 triangular faces</b> and 12 corners, like a twenty-sided game die. Examples: <b>poliovirus</b>, <b>adenovirus</b> (naked) and <b>herpesviruses</b> (enveloped).</li>
+ <li><b>Complex</b>: shapes that are neither, such as the head-and-tail <b>bacteriophage T4</b> or the brick-shaped <b>poxviruses</b>.</li></ul>
+ <p>Shape, genome type and envelope are three of the main features used to <b>classify</b> viruses.</p>`,
+ analogy:"Think of building with the same tiles in different ways: stack them in a spiral and you get a tube; snap them into triangles and you get a soccer ball; add extra parts and you get a lunar lander.",
+ terms:[["Helical","Rod or tube of capsomeres spiralling around the genome."],["Icosahedral","Capsid with 20 triangular faces, nearly spherical."],["Complex","Viruses with extra structures, such as phage tails."]],
+ check:{q:"A virus seen in an electron microscope looks like a 20-sided ball. What shape is it?",opts:[
+  ["Icosahedral",1,"Yes. An icosahedron has 20 triangular faces. Poliovirus and adenovirus look like this."],
+  ["Helical",0,"Helical viruses are rods or tubes, with capsomeres spiralling around the genome."],
+  ["Complex",0,"Complex viruses have extra parts, such as a phage's tail. A plain 20-sided ball is icosahedral."],
+  ["Bacillus",0,"Bacillus is a rod-shaped bacterium, not a virus shape."]]},
+ caption:"Helical rods, 20-sided icosahedral capsids, and complex phages with heads and tails.",
+ legend:[["capsid","Capsomeres","s"],["rna","RNA"],["dna","DNA"],["phage","Phage T4"]]},
+
+{act:1,scene:"envnaked",desc:"Two lanes run across the picture. In the top lane, an enveloped virus with a tan membrane ring and orange spikes sits in the path of blue soap and alcohol droplets moving in from the left. When the droplets hit, the tan membrane breaks into small fragments, the spikes drift away, and the inner purple capsid is left bare, with a red X label Envelope destroyed: cannot attach. In the bottom lane, a naked purple six-sided virus meets the same droplets, which bounce off, and a label reads Capsid holds up: still infectious. A table on the right compares the two: enveloped viruses are fragile to soap, alcohol and drying and spread by close contact, droplets or blood; naked viruses are tough, last on surfaces and often spread by the fecal-oral route.",
+ title:"Enveloped vs naked viruses",
+ body:`<p>The envelope is a <b>lipid</b> membrane, so anything that dissolves fats can destroy it: <b>soap</b>, <b>alcohol</b>, detergents and drying. Without its envelope, the virus loses its spikes and <b>can no longer attach</b> to host cells.</p>
+ <p>So <b>enveloped viruses</b> (influenza, HIV, herpes, coronaviruses) are fairly fragile outside the body. They spread mostly by close contact, respiratory droplets, sex or blood.</p>
+ <p><b>Naked viruses</b> (norovirus, poliovirus, hepatitis A, rotavirus) have only a tough protein capsid. They <b>survive</b> drying, stomach acid and many disinfectants, and can last for days on surfaces. Many spread by the <b>fecal-oral</b> route.</p>
+ <p class="tx"><b>Infection control idea:</b> alcohol hand rubs work well on enveloped viruses. For norovirus outbreaks, <b>soap and water</b> handwashing is preferred, because scrubbing and rinsing physically remove the tough naked virus.</p>`,
+ analogy:"An enveloped virus is like a soap bubble with hooks: easy to pop. A naked virus is like a walnut: a hard shell that rolls around unharmed.",
+ terms:[["Enveloped virus","Virus with an outer lipid membrane. Easily inactivated by soap, alcohol and drying."],["Naked virus","Virus with no envelope, only a capsid. More resistant outside the body."],["Fecal-oral route","Spread when traces of stool reach the mouth, often by hands, food or water."]],
+ check:{q:"On a cruise ship, many passengers have vomiting and diarrhea from norovirus, a naked virus. Which statement is best?",opts:[
+  ["The virus can survive on surfaces, so soap-and-water handwashing and careful cleaning matter most.",1,"Yes. Naked viruses resist drying and many disinfectants. Washing physically removes them, and surfaces need thorough cleaning."],
+  ["Alcohol hand rub alone will destroy its envelope.",0,"Norovirus has no envelope to destroy. That is why alcohol rubs alone are not enough for it."],
+  ["It will die within minutes on a dry surface.",0,"That is more true of enveloped viruses. Naked viruses like norovirus can last for days."],
+  ["Antibiotics given to all passengers will stop the outbreak.",0,"Antibiotics do not act on viruses. Hygiene and cleaning break the chain of spread."]]},
+ caption:"Soap and alcohol break the lipid envelope. A naked capsid shrugs them off.",
+ legend:[["env","Envelope (lipid)"],["spike","Spikes"],["capsid","Capsid","s"],["act1","Soap / alcohol droplets"]]},
+
+{act:1,scene:"tropism",desc:"A purple virus with orange cup-shaped spikes drifts along a row of three host cells. The first cell, a liver cell, has green square receptors; the virus bumps it, the spikes do not fit, and a label No matching receptor appears. The second cell, a helper T cell, has orange receptors shaped to fit the spikes; the virus docks, a green tick appears, and the label reads Spike fits receptor: infection. The third cell, a nerve cell, has blue receptors and is skipped. Along the bottom, four example chips read HIV to CD4 helper T cells, Influenza to airway cells, Hepatitis B to liver cells, and Phage T4 to E. coli only.",
+ title:"Host range and tropism",
+ body:`<p>A virus can only infect a cell if its <b>spikes</b> (or capsid proteins) fit a <b>receptor</b> on that cell's surface, like a key in a lock. Receptors are normal host molecules that the virus has evolved to grab.</p>
+ <p>The <b>host range</b> is the set of species a virus can infect. Some are narrow: poliovirus infects only humans and other primates, and phage T4 infects only certain <i>E. coli</i>. Others, such as rabies and some influenza viruses, infect many animals.</p>
+ <p><b>Tropism</b> is the preference for certain tissues or cells inside a host:</p>
+ <ul><li><b>HIV</b> binds <b>CD4</b> on helper T cells.</li><li><b>Influenza</b> binds sugars on <b>airway</b> lining cells.</li><li><b>Hepatitis B</b> targets <b>liver</b> cells.</li><li><b>Rabies</b> travels in <b>nerve</b> cells.</li></ul>
+ <p>Tropism explains symptoms: a liver virus causes jaundice; an airway virus causes cough.</p>`,
+ analogy:"A key ring of one key: it opens only the doors with the matching lock. The doors it fits decide which rooms the virus can enter.",
+ terms:[["Receptor","Molecule on a host cell surface that a virus binds to."],["Host range","The species a virus can infect."],["Tropism","The specific tissues or cell types a virus infects."]],
+ check:{q:"Why does HIV mainly infect helper T cells and not skin cells?",opts:[
+  ["Helper T cells carry the CD4 receptor that HIV's spikes bind; skin cells do not.",1,"Right. Without the matching receptor, the virus cannot attach, so it cannot get in."],
+  ["Skin cells kill HIV with antibiotics they make.",0,"Skin cells do not make antibiotics, and antibiotics do not act on viruses. The receptor match decides."],
+  ["HIV is too large to reach skin cells.",0,"Size is not the reason. Attachment needs a matching receptor, and skin cells lack CD4."],
+  ["Helper T cells have no cell membrane.",0,"All human cells have a membrane. HIV binds CD4 receptors on it."]]},
+ caption:"Spikes must fit a receptor. No match, no infection: that sets host range and tropism.",
+ legend:[["spike","Viral spikes"],["spike","Matching receptor","s"],["accent","Liver cell receptor","s"],["dna","Nerve cell receptor","s"]]},
+
+/* ---------- Part 2 ---------- */
+{act:2,scene:"phageattach",desc:"A wide band across the lower part of the picture is the wall of a green bacterium, with the cytoplasm below it. A grey-blue phage with a six-sided head and long tail floats down from the top. Its bent tail fibres touch small receptor knobs on the wall and spread out, and the base plate settles flat. The tail sheath then squeezes shorter and wider, and the hollow inner tube punches through the wall with a small yellow flash labelled Lysozyme weakens wall. A blue DNA strand then flows out of the head, down the tail and coils inside the cell, while the head empties. The empty phage coat stays outside, labelled Empty capsid stays outside. A step bar at the top lights 1 Attachment then 2 Penetration.",
+ title:"Lytic cycle 1: attachment and penetration",
+ body:`<p><b>Bacteriophages</b> (phages) are viruses that infect bacteria. Phage T4 infects <i>E. coli</i> and follows the <b>lytic cycle</b>, which ends with the host cell bursting.</p>
+ <p><b>1. Attachment:</b> the phage's <b>tail fibres</b> bind to specific receptors on the bacterial cell wall. Without the right receptor, nothing happens.</p>
+ <p><b>2. Penetration:</b> a little phage <b>lysozyme</b> weakens the cell wall. The tail <b>sheath contracts</b>, driving the hollow tail core through the wall like a syringe, and the phage <b>injects its DNA</b> into the cell.</p>
+ <p>The <b>capsid stays outside</b> as an empty coat. Only the genome goes in.</p>`,
+ analogy:"A tiny syringe landing on a balloon. Its legs grip the surface, a bit of enzyme softens a spot, then the plunger pushes and only the liquid inside goes in.",
+ terms:[["Bacteriophage (phage)","A virus that infects bacteria."],["Tail fibres","Phage legs that bind receptors on the bacterial wall."],["Lytic cycle","Phage cycle that ends with the host cell bursting (lysis)."]],
+ check:{q:"During penetration by phage T4, what enters the bacterium?",opts:[
+  ["Only the phage DNA",1,"Yes. The tail injects the DNA; the protein capsid and tail stay outside."],
+  ["The whole phage, coat and all",0,"That is true for many animal viruses, but phage T4 injects only its DNA and leaves the empty coat outside."],
+  ["Only the tail fibres",0,"The fibres grab the wall and stay outside. The DNA is what goes in."],
+  ["Bacterial DNA from a previous host",0,"In the lytic cycle the phage injects its own DNA."]]},
+ caption:"Tail fibres grab receptors, the sheath contracts, and the phage injects its DNA.",
+ legend:[["phage","Phage T4"],["bact-edge","Bacterial cell wall","s"],["dna","Phage DNA"],["glow","Lysozyme"]]},
+
+{act:2,scene:"phagebuild",desc:"The whole picture is the inside of one large green bacterium. At first, the cell's own long blue chromosome breaks into short pieces and small dots, labelled Host DNA broken down. Then darker blue phage DNA loops copy themselves until many float in the cell, labelled Phage DNA copied. Next, separate phage parts appear: empty grey-blue six-sided heads, tail tubes and bent tail fibres, labelled Proteins made by host ribosomes, while a note says Eclipse: no whole phages yet. In the last stage, DNA loops are packed into the heads, tails click onto heads and fibres attach, and complete phages pile up, labelled Maturation: parts assemble. A step bar at the top lights 3 Biosynthesis then 4 Maturation, and a counter shows the number of complete phages rising.",
+ title:"Lytic cycle 2: biosynthesis and maturation",
+ body:`<p><b>3. Biosynthesis:</b> the phage takes over. Phage genes shut down the host's own work and <b>break down the host's DNA</b>. The nucleotides are recycled.</p>
+ <p>The cell's own enzymes and <b>ribosomes</b> now follow phage instructions. They copy phage DNA again and again and make phage proteins: heads, tails and tail fibres.</p>
+ <p>For a while there are only parts, no complete phages. If you broke the cell open now, you would find nothing infectious. This is the <b>eclipse period</b>.</p>
+ <p><b>4. Maturation:</b> the parts <b>assemble</b>. DNA is packed into heads, tails attach to heads, and fibres attach to tails. Each finished phage can infect a new cell.</p>`,
+ analogy:"Hijackers take over a car factory, scrap the old car plans, and use the same robots and workers to make parts for their own model. At first the floor is full of loose parts. Then the assembly line clicks them together.",
+ terms:[["Biosynthesis","Making phage DNA and proteins using host enzymes, ribosomes and building blocks."],["Eclipse period","Time after entry when no complete, infectious virions exist yet."],["Maturation","Assembly of new virions from the parts."]],
+ check:{q:"Whose ribosomes make the phage's head and tail proteins?",opts:[
+  ["The host bacterium's ribosomes",1,"Yes. Phages have no ribosomes. They use the host's protein-making machinery."],
+  ["The phage's own ribosomes, carried in its head",0,"Phages carry no ribosomes, only DNA in a protein coat."],
+  ["Ribosomes from the phage's tail fibres",0,"Tail fibres are proteins for attachment. The host's ribosomes do all the building."],
+  ["No ribosomes are needed",0,"All proteins are made on ribosomes. The phage borrows the host's."]]},
+ caption:"Host DNA is broken down, phage DNA and parts are made, then parts assemble into new phages.",
+ legend:[["bact","Host cytoplasm","s"],["dna","Host DNA / phage DNA"],["phage","Phage heads, tails, fibres"],["ribo","Host ribosomes"]]},
+
+{act:2,scene:"phagerelease",desc:"On the left, a green bacterium is packed with grey-blue phages. Small yellow enzyme dots, labelled Lysozyme, gather at the wall, and the wall outline thins. The cell then bursts: the wall breaks into pieces and about thirty phages fly outward, labelled Burst size: about 50 to 200 per cell. On the right, a graph titled One-step growth curve plots the number of phages on a log scale against minutes since infection. The line stays flat through a shaded region labelled Latent period, about 20 to 30 minutes, with an inner band labelled Eclipse, then jumps up and levels off at the burst. A moving dot on the curve keeps time with the burst on the left.",
+ title:"Lytic cycle 3: release and the burst",
+ body:`<p><b>5. Release:</b> late in the cycle, the phage makes <b>lysozyme</b>, an enzyme that breaks down the bacterial cell wall from inside. The cell bursts (<b>lysis</b>) and dies, releasing the new phages.</p>
+ <p>The number released from one cell is the <b>burst size</b>. For T4 it is often about 50 to 200. Each new phage can infect a neighbouring cell, so numbers grow very fast.</p>
+ <p>A <b>one-step growth curve</b> shows this. After infection, the phage count stays flat during the <b>latent period</b> (about 20 to 30 minutes for T4 in ideal conditions), because new phages are still inside cells. Then the cells burst and the count jumps.</p>
+ <p>The five lytic steps: <b>attachment, penetration, biosynthesis, maturation, release</b>.</p>`,
+ analogy:"A popcorn kernel: quiet for a while as pressure builds inside, then it bursts open all at once. Here, each kernel releases dozens of new kernels.",
+ terms:[["Lysis","Bursting of a cell, which kills it."],["Burst size","Number of new virions released from one infected cell."],["Latent period","Time from infection until new virions are released."]],
+ check:{q:"On a one-step growth curve, why does the phage count stay flat at first?",opts:[
+  ["New phages are being built inside the cells and have not been released yet.",1,"Right. During the latent period, phages are inside cells. The count jumps only at lysis."],
+  ["The phages are all dead.",0,"They are not dead. They are busy inside cells being copied."],
+  ["Bacteria are destroying the phages.",0,"The phages have taken over the cells. The count rises once the cells burst."],
+  ["The phages are waiting for antibiotics.",0,"Antibiotics have nothing to do with it. Flat means new phages are not yet released."]]},
+ caption:"Lysozyme breaks the wall, the cell bursts, and 50 to 200 phages spill out after the latent period.",
+ legend:[["phage","New phages"],["glow","Lysozyme"],["act2","Phage count","l"],["sunk","Latent period","s"]]},
+
+{act:2,scene:"lysogeny",desc:"At the top, a small fork shows one arrow labelled Lytic and another labelled Lysogenic, with the lysogenic arrow lit. Below, a grey-blue lambda phage lands on a green bacterium and injects a blue DNA strand. The strand closes into a small loop, then slides into the cell's own blue chromosome loop, where it shows as a thick grey-blue band labelled Prophage. A small orange block labelled Repressor sits on the band, keeping lytic genes off. The cell then grows and divides into two, then four cells, and every daughter cell carries the grey-blue prophage band, labelled Lysogens: every daughter cell carries the prophage.",
+ title:"The lysogenic cycle",
+ body:`<p>Some phages, called <b>temperate phages</b> (such as phage <b>lambda</b>), have a choice. They can go lytic, or they can lie low.</p>
+ <p>In the <b>lysogenic cycle</b>, after attachment and injection, the phage DNA forms a circle and <b>inserts into the bacterial chromosome</b>. The inserted phage DNA is called a <b>prophage</b>. A cell that carries a prophage is a <b>lysogen</b>.</p>
+ <p>A phage protein called a <b>repressor</b> keeps the lytic genes switched off. The cell is not harmed. Each time it divides, it copies the prophage along with its own DNA, so <b>all the daughter cells carry it</b>.</p>
+ <p>A lysogen is also protected from being infected again by the same kind of phage.</p>`,
+ analogy:"A stowaway who hides in the ship's records instead of attacking. Every time the ship's logbook is copied for a new ship, the stowaway's page gets copied too.",
+ terms:[["Temperate phage","A phage that can follow either the lytic or the lysogenic cycle."],["Prophage","Phage DNA inserted into the bacterial chromosome."],["Lysogen","A bacterium carrying a prophage."]],
+ check:{q:"A lysogen divides 5 times. How many of its daughter cells carry the prophage?",opts:[
+  ["All of them",1,"Yes. The prophage is part of the chromosome, so it is copied every time the cell copies its DNA."],
+  ["Only the first daughter cell",0,"The prophage sits in the chromosome, and every daughter gets a copy of the chromosome."],
+  ["None, the prophage is lost at division",0,"It is not lost. It is copied with the chromosome each time."],
+  ["Half of them",0,"Both daughters receive a full chromosome, including the prophage."]]},
+ caption:"Phage DNA joins the chromosome as a prophage and is copied into every daughter cell.",
+ legend:[["phage","Lambda phage / prophage"],["dna","Bacterial chromosome"],["rt","Repressor","s"],["bact","Lysogen","s"]]},
+
+{act:2,scene:"induction",desc:"Three green lysogen cells sit in a row, each with a blue chromosome loop and a grey-blue prophage band. Purple lightning bolts labelled UV light strike from above, and small yellow damage stars appear on the chromosomes. The orange repressor blocks fall off, and each prophage band pops out of its chromosome as a small loop, labelled Prophage excises. Phage DNA then copies and new phage heads fill the cells, labelled Lytic cycle begins. Finally the three cells burst, their walls breaking into pieces, and dozens of new phages scatter outward. A timeline along the bottom marks Stress, Excision, Lytic growth and Burst.",
+ title:"Induction: from lysogenic to lytic",
+ body:`<p>A prophage can stay quiet for many generations. But if the bacterium is in danger, the prophage can leave. This switch is called <b>induction</b>.</p>
+ <p>Triggers are things that <b>damage DNA</b> or stress the cell: <b>ultraviolet (UV) light</b>, X-rays or certain chemicals. The damage leads to the <b>repressor being destroyed</b>.</p>
+ <p>Without the repressor, the lytic genes turn on. The prophage <b>cuts itself out</b> of the chromosome (excision), copies itself, builds new phages and <b>bursts the cell</b>.</p>
+ <p>From the phage's point of view, this is like leaving a sinking ship: if the host may die, it is time to make copies and escape.</p>`,
+ analogy:"A sleeper agent who stays quiet for years, until an alarm sounds. Then the agent wakes up, makes copies of the plan and leaves before the building falls.",
+ terms:[["Induction","Switch of a prophage from lysogenic to lytic, often after DNA damage."],["Excision","The prophage cutting itself out of the bacterial chromosome."],["Repressor","Phage protein that keeps lytic genes off in a lysogen."]],
+ check:{q:"A culture of lysogens is placed under a UV lamp. What is most likely to happen over the next hour?",opts:[
+  ["Many cells switch to the lytic cycle and burst, releasing phages.",1,"Yes. UV damages DNA, the repressor is destroyed, prophages excise and the lytic cycle runs."],
+  ["The prophages become permanent and can never leave.",0,"UV does the opposite: it is a classic trigger for induction."],
+  ["The cells become immune to all viruses.",0,"Lysogens resist reinfection by the same phage, but UV triggers induction, not new immunity."],
+  ["Nothing happens because prophages ignore the cell's condition.",0,"Prophages respond to DNA damage. That is how induction works."]]},
+ caption:"UV damages DNA, the repressor is lost, the prophage pops out and goes lytic.",
+ legend:[["uv","UV light"],["rt","Repressor","s"],["phage","Prophage / new phages"],["glow","DNA damage","d"]]},
+
+{act:2,scene:"conversion",desc:"On the left, a green rod bacterium labelled Harmless strain makes nothing. A grey-blue phage lands on it and injects DNA, which joins the chromosome as a grey-blue prophage band carrying a red segment labelled tox gene. From then on, small red two-part toxin molecules stream out of the cell, and its label changes to Toxin-making strain. On the right, a panel titled What the toxin does shows a row of tan gut lining cells; red toxin molecules land on them and blue water drops pour out of the cells into the gut, labelled Cholera toxin: cells pump out salt and water. Along the bottom, chips list Diphtheria toxin, Cholera toxin, Botulinum toxin and Shiga toxin as toxins carried by prophages.",
+ title:"Lysogenic conversion: phages that add toxins",
+ body:`<p>A prophage is not always silent. Some prophages carry genes that the <b>bacterium uses</b>. When a bacterium gains new traits from a prophage, it is called <b>lysogenic conversion</b>.</p>
+ <p>Several dangerous toxins are coded by phage genes:</p>
+ <ul><li><b>Diphtheria toxin</b> (<i>Corynebacterium diphtheriae</i>): only strains carrying the phage make it. The toxin stops protein synthesis in throat and heart cells.</li>
+ <li><b>Cholera toxin</b> (<i>Vibrio cholerae</i>): makes gut lining cells pump out salt and water, causing severe watery diarrhea.</li>
+ <li><b>Botulinum toxin</b> (some <i>Clostridium botulinum</i>) and <b>Shiga toxin</b> (<i>E. coli</i> O157:H7).</li></ul>
+ <p>So the same species can be harmless or deadly depending on whether it carries a prophage.</p>
+ <p class="tx"><b>Prevention idea:</b> the diphtheria vaccine (in DTaP and Tdap) trains the body to make antibodies against the toxin itself, a <b>toxoid</b> vaccine.</p>`,
+ analogy:"A software update installed by a stranger. The phone works as before, but now it has an app that can do real harm.",
+ terms:[["Lysogenic conversion","Change in a bacterium's traits caused by genes on a prophage."],["Toxigenic","Able to make a toxin."],["Toxoid","An inactivated toxin used as a vaccine."]],
+ check:{q:"Two strains of Corynebacterium diphtheriae look identical, but only one causes diphtheria. The best explanation is:",opts:[
+  ["The disease-causing strain carries a prophage with the toxin gene.",1,"Right. Diphtheria toxin is coded by a phage gene, so only lysogenized strains make it."],
+  ["The harmless strain has a thicker capsule.",0,"Capsules affect immune escape, but diphtheria toxin depends on the prophage."],
+  ["The disease strain is a virus, not a bacterium.",0,"Both are bacteria. One carries a phage's gene inside its chromosome."],
+  ["The harmless strain makes extra antibiotics.",0,"The difference is the toxin gene supplied by a prophage."]]},
+ caption:"A prophage brings a toxin gene, turning a harmless strain into a toxin-maker.",
+ legend:[["phage","Prophage"],["toxin","Toxin gene / toxin"],["host","Gut lining cell"],["dna","Water loss"]]},
+
+/* ---------- Part 3 ---------- */
+{act:3,scene:"entry",desc:"Two lanes show the top edge of a tan host cell, with its membrane as a curved line. In the left lane, Endocytosis, a purple virus binds receptors, the membrane folds inward around it and pinches off as a pink bubble called an endosome that moves deeper into the cell. In the right lane, Fusion, an enveloped virus with a tan membrane and orange spikes touches the cell, its envelope melts into the cell membrane, and the inner capsid slips into the cell. In both lanes, the capsid then breaks apart into pieces and an orange genome strand comes free, labelled Uncoating: genome released. A step bar at the top lights Attachment, Entry and Uncoating.",
+ title:"Animal viruses 1: attachment, entry, uncoating",
+ body:`<p>Animal viruses have no tail to inject DNA. Instead, the <b>whole virus</b> usually gets inside.</p>
+ <p><b>1. Attachment:</b> spikes or capsid proteins bind receptors on the host cell.</p>
+ <p><b>2. Entry</b>, two main ways:</p>
+ <ul><li><b>Endocytosis</b>: the cell membrane folds around the virus and pulls it in inside a bubble (endosome). Both naked and enveloped viruses use this.</li>
+ <li><b>Fusion</b>: an <b>enveloped</b> virus melts its envelope into the cell membrane, dropping its nucleocapsid into the cell. HIV does this.</li></ul>
+ <p><b>3. Uncoating:</b> the capsid comes apart and the <b>genome is released</b>. Host enzymes (for example, in acidic endosomes or lysosomes) or viral enzymes break the capsid.</p>`,
+ analogy:"Endocytosis is the cell opening the door and bringing the parcel in. Fusion is the parcel's wrapping melting into the wall so the box slides through. Uncoating is opening the box to get the letter out.",
+ terms:[["Endocytosis","Cell membrane wraps around something and brings it in inside a vesicle."],["Fusion","Viral envelope merges with the host membrane."],["Uncoating","Removal of the capsid to free the genome."]],
+ check:{q:"Which kind of virus can enter by fusing with the host cell membrane?",opts:[
+  ["An enveloped virus",1,"Yes. Fusion needs a lipid envelope that can merge with the host's lipid membrane."],
+  ["A naked virus",0,"Naked viruses have no lipid envelope to fuse. They enter by endocytosis or other routes."],
+  ["Only bacteriophages",0,"Phages inject DNA through a tail. Fusion is used by enveloped animal viruses."],
+  ["Prions",0,"Prions are proteins, not viruses, and have no envelope."]]},
+ caption:"Viruses bind, enter by endocytosis or fusion, then uncoat to free their genome.",
+ legend:[["host","Host cell"],["endo","Endosome","s"],["env","Envelope"],["rna","Viral genome"]]},
+
+{act:3,scene:"dnavirus",desc:"A large tan host cell fills the picture, with a big lilac nucleus in the centre. A blue viral DNA loop enters the nucleus. Short orange messenger RNA pieces leave the nucleus into the cytoplasm, where grey ribosome dots make teal enzyme shapes labelled Early proteins: enzymes, which travel back into the nucleus. The blue DNA loops then multiply inside the nucleus, labelled DNA copied. More orange messenger RNA leaves and makes purple capsid pieces labelled Late proteins: capsid, which move into the nucleus and close around DNA loops, forming new purple six-sided capsids. A note in the corner reads Most DNA viruses copy themselves in the nucleus, using host enzymes.",
+ title:"Animal viruses 2: DNA viruses",
+ body:`<p><b>4. Biosynthesis:</b> once uncoated, the genome must be copied and its genes turned into proteins. How that happens depends on whether the virus has <b>DNA or RNA</b>.</p>
+ <p><b>DNA viruses</b> (herpesviruses, adenoviruses, papillomaviruses) work much like the host cell's own genes. Most of them enter the <b>nucleus</b>:</p>
+ <ul><li>The host's RNA polymerase reads viral DNA into <b>messenger RNA (mRNA)</b>.</li>
+ <li>Host ribosomes in the cytoplasm make <b>early proteins</b>, mostly <b>enzymes</b>, such as the polymerase that copies viral DNA.</li>
+ <li>The viral DNA is copied many times.</li>
+ <li>Later, <b>late proteins</b> are made: the <b>capsid</b> proteins. New capsids assemble around DNA copies, often in the nucleus.</li></ul>
+ <p>One exception: <b>poxviruses</b> (smallpox) carry their own enzymes and work entirely in the cytoplasm.</p>`,
+ analogy:"A DNA virus is like a document slipped into an office's filing room. The office staff treat it like any other file: photocopy it, read it, and order the parts it asks for.",
+ terms:[["Messenger RNA (mRNA)","An RNA copy of a gene that ribosomes read to make protein."],["Early proteins","Viral proteins made first, mostly enzymes for copying the genome."],["Late proteins","Viral proteins made later, mostly capsid parts."]],
+ check:{q:"Where do most DNA viruses copy their genome?",opts:[
+  ["In the host cell's nucleus",1,"Yes. That is where the host's DNA-copying and RNA-making enzymes are."],
+  ["On the outside of the cell membrane",0,"Copying needs host enzymes found inside the cell, mostly in the nucleus."],
+  ["Inside the capsid before entry",0,"The capsid is just a coat. Copying happens after uncoating, inside the host."],
+  ["In the host's ribosomes",0,"Ribosomes make proteins. DNA is copied in the nucleus."]]},
+ caption:"Viral DNA goes to the nucleus. Early proteins (enzymes) first, then DNA copies, then late capsid proteins.",
+ legend:[["dna","Viral DNA"],["rna","Messenger RNA"],["rdrp","Early proteins (enzymes)","d"],["capsid","Late proteins (capsid)","s"]]},
+
+{act:3,scene:"rnavirus",desc:"The cytoplasm of a tan host cell is split into two lanes. In the top lane, Plus-strand RNA, an orange RNA strand tagged plus goes straight to grey ribosomes, which make proteins including a teal enzyme labelled RdRp. The enzyme makes a dashed minus copy, and from it many new orange plus strands appear and are packed into purple capsids. In the bottom lane, Minus-strand RNA, a darker strand tagged minus enters with its own teal RdRp enzyme already attached, labelled Brought its own RdRp. The enzyme first makes orange plus strands, which go to ribosomes to make proteins, and also serve as templates for new minus strands that are packed with RdRp into new nucleocapsids. A banner at the top reads Host cells cannot copy RNA from RNA.",
+ title:"Animal viruses 3: RNA viruses",
+ body:`<p>Host cells have no enzyme that copies <b>RNA from an RNA template</b>. So RNA viruses must make or bring their own: <b>RNA-dependent RNA polymerase (RdRp)</b>. Most RNA viruses multiply in the <b>cytoplasm</b>.</p>
+ <ul><li><b>Positive-sense (+) single-stranded RNA</b> (poliovirus, hepatitis A, rhinoviruses, SARS-CoV-2): the genome <b>acts as mRNA right away</b>. Ribosomes read it to make proteins, including RdRp. RdRp makes a (−) copy, then uses it as a template for many new (+) genomes.</li>
+ <li><b>Negative-sense (−) single-stranded RNA</b> (influenza, measles, mumps, rabies): the genome <b>cannot be read</b> by ribosomes. The virus <b>carries its own RdRp</b> in the virion, which first makes (+) strands. These act as mRNA and as templates for new (−) genomes.</li></ul>
+ <p>Double-stranded RNA viruses such as rotavirus also carry their own RdRp.</p>
+ <p>RdRp makes many copying mistakes, so RNA viruses <b>mutate quickly</b>. This is one reason we need a new flu vaccine most years.</p>`,
+ analogy:"A (+) strand is a recipe written in plain English: the cook (ribosome) can read it right away. A (−) strand is the recipe written as a mirror image: someone must first copy it the right way round, so the virus brings its own copier.",
+ terms:[["RdRp","RNA-dependent RNA polymerase: viral enzyme that makes RNA from an RNA template."],["Positive-sense (+) RNA","Genome that can be read directly as mRNA."],["Negative-sense (−) RNA","Genome that must be copied into (+) RNA before proteins can be made."]],
+ check:{q:"Why must a negative-sense RNA virus such as influenza carry RdRp inside the virion?",opts:[
+  ["Its genome cannot be read as mRNA, and host cells have no enzyme to copy RNA from RNA.",1,"Exactly. Without its own RdRp packed inside, a (−) genome would sit unread."],
+  ["RdRp helps the virus attach to receptors.",0,"Spikes handle attachment. RdRp makes (+) RNA from the (−) genome."],
+  ["Host ribosomes need RdRp to work.",0,"Ribosomes work fine on their own. The problem is that a (−) strand is not mRNA."],
+  ["Its genome is DNA and must be turned into RNA.",0,"Influenza's genome is RNA. RdRp copies RNA to RNA."]]},
+ caption:"(+) RNA is read at once; (−) RNA needs the RdRp it brought along. Both copy RNA from RNA.",
+ legend:[["rna","(+) RNA / mRNA"],["rna","(−) RNA (dashed)","dl"],["rdrp","RdRp enzyme","d"],["ribo","Ribosomes"]]},
+
+{act:3,scene:"retro",desc:"A virion with a tan envelope, orange spikes and a cone-shaped purple core fuses with the top of a tan host cell. The cone opens and releases two orange RNA strands and small amber enzyme dots labelled Reverse transcriptase. Along one RNA strand, a blue DNA strand grows, then a second blue strand forms, making double-stranded DNA, labelled RNA to DNA. The blue DNA moves into the lilac nucleus, where a gold enzyme labelled Integrase cuts the host chromosome and inserts the viral DNA as a highlighted blue segment labelled Provirus. The provirus is then read into new orange RNA strands that leave the nucleus, and new virions bud from the cell membrane at the top right.",
+ title:"Animal viruses 4: retroviruses",
+ body:`<p><b>Retroviruses</b>, such as <b>HIV</b>, have a (+) RNA genome but do something unusual: they turn their RNA <b>back into DNA</b>. "Retro" means backward.</p>
+ <ol><li>The virion carries an enzyme called <b>reverse transcriptase</b>. After entry and uncoating, it uses the RNA as a template to make a <b>DNA copy</b>, then makes it double-stranded.</li>
+ <li>The DNA enters the nucleus. A second viral enzyme, <b>integrase</b>, inserts it into a host chromosome. The inserted viral DNA is now a <b>provirus</b>.</li>
+ <li>The host reads the provirus like its own genes, making new viral RNA and proteins, and new virions bud from the cell.</li></ol>
+ <p>A provirus <b>never leaves</b>: it is copied every time the cell divides, and it can sit silent for years. That is why HIV can be controlled with medicines but not yet cured.</p>
+ <p class="tx"><b>Treatment idea:</b> HIV medicines include <b>reverse transcriptase inhibitors</b>, <b>integrase inhibitors</b> and protease inhibitors, used together.</p>`,
+ analogy:"Reverse transcriptase is a translator who rewrites the virus's notes into the host's own language and handwriting. Integrase then glues the page into the host's instruction book, where it looks like it always belonged.",
+ terms:[["Retrovirus","RNA virus that makes a DNA copy of its genome using reverse transcriptase."],["Reverse transcriptase","Viral enzyme that makes DNA from an RNA template."],["Provirus","Viral DNA inserted into a host chromosome (animal viruses)."]],
+ check:{q:"What does reverse transcriptase do?",opts:[
+  ["Makes DNA using the viral RNA as a template",1,"Yes. It works backward from the usual DNA to RNA direction."],
+  ["Makes RNA from RNA",0,"That is RdRp, used by other RNA viruses."],
+  ["Inserts viral DNA into the host chromosome",0,"That is integrase. Reverse transcriptase makes the DNA first."],
+  ["Cuts new viral proteins to size",0,"That is protease. Reverse transcriptase makes DNA from RNA."]]},
+ caption:"Reverse transcriptase makes DNA from RNA; integrase inserts it as a provirus that is read again and again.",
+ legend:[["rna","Viral RNA"],["dna","Viral DNA / provirus"],["rt","Reverse transcriptase","d"],["integ","Integrase","d"]]},
+
+{act:3,scene:"release",desc:"Two host cells sit side by side. On the left, Budding, orange spikes cluster in a patch of the tan cell membrane, a purple nucleocapsid moves to that patch, the membrane bulges out around it and pinches off as a new enveloped virion with spikes, and this repeats while the cell stays intact, labelled Cell can keep making virus for a while. On the right, Lysis, a cell fills with more and more purple six-sided naked virions and swells, then its membrane tears open and the virions spill out while the cell turns grey, labelled Cell dies. A step bar at the top lights 5 Assembly then 6 Release.",
+ title:"Animal viruses 5: assembly and release",
+ body:`<p><b>5. Assembly (maturation):</b> new genomes and capsid proteins come together into nucleocapsids. Most DNA viruses assemble in the nucleus; most RNA viruses in the cytoplasm.</p>
+ <p><b>6. Release</b>, two main ways:</p>
+ <ul><li><b>Budding</b>: <b>enveloped</b> viruses push out through a patch of membrane where viral spikes have been inserted. The membrane wraps around them and becomes their <b>envelope</b>. The cell may survive for a while and keep shedding virus.</li>
+ <li><b>Lysis</b>: many <b>naked</b> viruses build up inside until the cell <b>bursts</b> and dies, releasing them all at once.</li></ul>
+ <p>So the full animal virus cycle is: <b>attachment, entry, uncoating, biosynthesis, assembly, release</b>. Cell damage from release and from the immune attack on infected cells causes many symptoms.</p>`,
+ analogy:"Budding is like blowing bubbles from a bubble wand: each bubble takes a bit of film with it and the wand is still there. Lysis is like a water balloon that keeps filling until it pops.",
+ terms:[["Budding","Release of enveloped virions through the host membrane, which becomes their envelope."],["Assembly","Putting genomes and capsids together into new virions."],["Cytopathic","Causing visible damage to cells."]],
+ check:{q:"A virus is released by budding. What can you predict about it?",opts:[
+  ["It is enveloped, and its envelope came from the host membrane.",1,"Right. Budding is how enveloped viruses get their envelope."],
+  ["It is a naked virus that always kills the cell at once.",0,"Naked viruses are usually released by lysis. Budding makes an envelope."],
+  ["It must be a bacteriophage.",0,"Phages usually burst their hosts. Budding is typical of enveloped animal viruses."],
+  ["It has no capsid.",0,"It still has a capsid inside the envelope."]]},
+ caption:"Enveloped viruses bud out wearing host membrane; naked viruses pile up until the cell bursts.",
+ legend:[["env","Envelope"],["spike","Spikes"],["capsid","Capsid","s"],["host","Host cell"]]},
+
+/* ---------- Part 4 ---------- */
+{act:4,scene:"patterns",desc:"Three graphs are stacked, each plotting the amount of virus made over time, with a cursor sweeping left to right. The top graph, Acute, rises to a single peak and falls back to zero, with the example influenza, common cold. The middle graph, Persistent or chronic, rises and then stays high as a long plateau, with the examples hepatitis B, hepatitis C, HIV. The bottom graph, Latent, rises, drops to zero and runs along as a dotted line labelled Virus hiding: no new virus, then shows two short spikes labelled Reactivation, with the examples herpes simplex and chickenpox virus. A small icon on the right of each graph glows when the cursor passes a peak.",
+ title:"Acute, persistent and latent infections",
+ body:`<p>Viruses do not all behave the same way over time:</p>
+ <ul><li><b>Acute infection</b>: the virus multiplies fast, causes illness, and is <b>cleared</b> by the immune system within days to weeks. Examples: influenza, the common cold.</li>
+ <li><b>Persistent (chronic) infection</b>: the virus keeps being made for <b>months to years</b>, sometimes with few symptoms. Examples: hepatitis B, hepatitis C, HIV.</li>
+ <li><b>Latent infection</b>: the virus stays inside cells but <b>makes no new virus</b> for long periods. Later it can <b>reactivate</b> and cause disease again. Examples: herpes simplex (cold sores) and varicella-zoster (chickenpox, then shingles).</li></ul>
+ <p>Persistent and latent infections are a big reason some viruses are so hard to get rid of.</p>`,
+ analogy:"An acute infection is a storm that passes. A persistent infection is a leaky tap that keeps dripping. A latent infection is a sleeping volcano that can erupt again.",
+ terms:[["Acute infection","Rapid onset, short course, virus cleared."],["Persistent infection","Virus produced continuously over a long time."],["Latent infection","Virus present but silent, able to reactivate later."]],
+ check:{q:"A person had chickenpox as a child. At age 70 they develop shingles. This is an example of:",opts:[
+  ["A latent infection that reactivated",1,"Yes. Varicella-zoster virus hid in nerve cells for decades, then reactivated as shingles."],
+  ["A new acute infection with an unrelated virus",0,"Shingles is caused by the same virus as chickenpox, reactivating."],
+  ["A persistent infection that made virus nonstop for 60 years",0,"In latency the virus is silent. It did not keep multiplying the whole time."],
+  ["A bacterial infection",0,"Shingles is caused by a herpesvirus, not a bacterium."]]},
+ caption:"Acute: in and out. Persistent: steady production. Latent: hides, then reactivates.",
+ legend:[["act1","Acute","l"],["act3","Persistent","l"],["act4","Latent","l"],["ink-soft","Virus hiding","dl"]]},
+
+{act:4,scene:"herpes",desc:"A simple side outline of a face sits on the left, with a yellow sensory nerve running from the lip up to a round yellow ganglion near the brain. First, a small rounded bump labelled Cold sore appears on the lip with purple virus dots in it. The virus dots travel up the nerve fibre to the ganglion. Inside the nerve cell body, the viral DNA becomes a small blue ring labelled Latent: no new virus made, and the cold sore fades. Three trigger icons then light up: a sun, a lightning-bolt stress sign and a thermometer labelled Fever. The virus dots travel back down the same nerve and the bump returns at the same spot, labelled Reactivation: same spot. A side note reads Varicella-zoster: chickenpox, then shingles years later.",
+ title:"Latency up close: herpes simplex",
+ body:`<p><b>Herpes simplex virus type 1 (HSV-1)</b> causes cold sores. During the first infection, the virus multiplies in skin cells of the lip, making small blisters.</p>
+ <p>Some virus particles enter the endings of <b>sensory nerves</b> and travel up the nerve to the nerve cell bodies in a <b>ganglion</b> (a cluster of nerve cells). There, the viral DNA stays inside the nucleus as a quiet loop. <b>No new virus is made</b>, so the immune system has nothing to attack. This is <b>latency</b>.</p>
+ <p>Triggers such as <b>stress, fever, sunlight (UV)</b> or a weakened immune system can <b>reactivate</b> it. The virus travels back down the same nerve and causes a new sore at <b>about the same spot</b>.</p>
+ <p><b>Varicella-zoster virus</b> does the same: chickenpox first, then years later it can reactivate as painful <b>shingles</b> along one nerve's skin area.</p>
+ <p class="tx"><b>Treatment idea:</b> antiviral drugs such as acyclovir block viral DNA copying during an outbreak, but cannot remove latent virus. A shingles vaccine lowers the risk of reactivation.</p>`,
+ analogy:"A spy who slips into a quiet office and waits, saying nothing, for years. When the alarms of stress or illness go off, the spy walks back out the same door.",
+ terms:[["Ganglion","A cluster of nerve cell bodies outside the brain and spinal cord."],["Latency","Virus present in cells but not making new virions."],["Reactivation","A latent virus starting to multiply again."]],
+ check:{q:"Why do cold sores tend to come back in the same place?",opts:[
+  ["The virus hides in the ganglion of the nerve that serves that spot, and travels back down the same nerve.",1,"Yes. The nerve is a fixed route from the ganglion to the same patch of skin."],
+  ["The virus lives in the skin at that spot the whole time and keeps multiplying.",0,"Between outbreaks the virus is latent in the nerve ganglion, not multiplying in the skin."],
+  ["The immune system is missing from that spot.",0,"The immune system is present. The virus returns along a fixed nerve route."],
+  ["A new virus from someone else always lands there.",0,"Repeat sores usually come from the person's own latent virus reactivating."]]},
+ caption:"HSV-1 travels up a nerve to hide in a ganglion, then travels back down when reactivated.",
+ legend:[["nerve","Sensory nerve / ganglion"],["capsid","Virus particles"],["dna","Latent viral DNA"],["glow","Triggers","s"]]},
+
+{act:4,scene:"onco",desc:"On the left, a normal tan cell sits beside a cell-cycle wheel with two teal brake blocks labelled Tumor suppressors (p53, Rb). The wheel turns only a little, and below it a single neat row of cells stops growing when they touch, labelled Normal: divides only when needed. On the right, a cell carries a blue viral DNA segment in its nucleus; purple viral proteins grab the teal brake blocks and pull them off, so the wheel spins freely. Below it, cells keep dividing and pile up into a lump, labelled Viral proteins remove the brakes. Along the bottom, chips list HPV: cervical and throat cancer, Hepatitis B and C: liver cancer, Epstein-Barr virus: some lymphomas, and HHV-8: Kaposi sarcoma.",
+ title:"Oncogenic viruses",
+ body:`<p>Some viruses can help cause <b>cancer</b>. They are called <b>oncogenic</b> (tumour) viruses. A cell that has been pushed toward uncontrolled growth is called <b>transformed</b>.</p>
+ <p>Normal cells have <b>tumour suppressor</b> proteins, such as <b>p53</b> and <b>Rb</b>, that act like brakes on cell division. Some viral proteins <b>block these brakes</b>. Other viruses insert their DNA near genes that drive growth. Transformed cells divide when they should not and pile up instead of stopping when they touch.</p>
+ <p>Examples: <b>human papillomavirus (HPV)</b> (cervical, throat and anal cancers), <b>hepatitis B and C</b> (liver cancer), <b>Epstein-Barr virus</b> (some lymphomas), <b>HHV-8</b> (Kaposi sarcoma), and <b>HTLV-1</b> (a T-cell leukemia).</p>
+ <p class="tx"><b>Prevention idea:</b> the <b>HPV</b> and <b>hepatitis B</b> vaccines prevent infections that can lead to cancer. They are, in effect, cancer-prevention vaccines.</p>`,
+ analogy:"Cell division is a car with good brakes. Some viruses cut the brake lines, so the car keeps rolling downhill.",
+ terms:[["Oncogenic virus","A virus that can contribute to cancer."],["Tumour suppressor","A protein that slows or stops cell division, such as p53."],["Transformation","Change of a normal cell into one that grows out of control."]],
+ check:{q:"How does the HPV vaccine help prevent cervical cancer?",opts:[
+  ["It prevents infection with the HPV types whose proteins disable tumour suppressors.",1,"Yes. No infection means no viral proteins blocking p53 and Rb in cervical cells."],
+  ["It kills cancer cells directly.",0,"It is a preventive vaccine. It blocks infection before cell changes begin."],
+  ["It replaces the cell's p53 protein.",0,"It does not change cell proteins. It trains the immune system to block HPV."],
+  ["It is an antibiotic that clears HPV.",0,"Antibiotics do not act on viruses. The vaccine prevents HPV infection."]]},
+ caption:"Viral proteins can pull the brakes off cell division. Vaccines can prevent some virus-linked cancers.",
+ legend:[["brake","Tumour suppressors (brakes)","s"],["capsid","Viral proteins"],["dna","Viral DNA"],["onc","Transformed cells"]]},
+
+/* ---------- Part 5 ---------- */
+{act:5,scene:"plaque",desc:"Across the top, a row of test tubes shows a serial dilution: a pipette moves a drop from each tube to the next, and the labels read 10 to the minus 5, minus 6 and minus 7. Below, three petri dishes fill in as time passes. Each dish slowly turns cloudy tan as a bacterial lawn grows, and clear round spots called plaques appear and widen. The left dish, 10 to the minus 5, has so many plaques they merge, labelled Too many to count. The middle dish, 10 to the minus 6, has about 150 separate plaques, labelled Countable: 30 to 300. The right dish, 10 to the minus 7, has about 15, labelled Too few. A zoom circle shows one plaque forming: a phage bursts one cell and the clear zone spreads outward as neighbouring cells burst. At the bottom, the sum 150 divided by (10 to the minus 6 times 0.1 millilitres) equals 1.5 times 10 to the 9 PFU per millilitre is written out.",
+ title:"Counting phages: the plaque assay",
+ body:`<p>To count viruses that you cannot see, let them make holes you <b>can</b> see.</p>
+ <ol><li>Make a <b>serial dilution</b> of the phage sample: each tube is 10 times weaker than the last (10⁻¹, 10⁻², and so on).</li>
+ <li>Mix a small volume (often 0.1 mL) of each dilution with <b>host bacteria</b> in soft agar and pour it over a nutrient agar plate.</li>
+ <li>Incubate. The bacteria grow into a cloudy layer, the <b>lawn</b>. Wherever one phage infected a cell, repeated rounds of lysis clear a round hole: a <b>plaque</b>.</li>
+ <li>Count a plate with <b>30 to 300</b> plaques. Each plaque came from one infectious phage, a <b>plaque-forming unit (PFU)</b>.</li></ol>
+ <p><b>Titer (PFU/mL) = plaques ÷ (dilution × volume plated in mL)</b>. Example: 150 plaques on the 10⁻⁶ plate with 0.1 mL plated gives 150 ÷ (10⁻⁶ × 0.1) = <b>1.5 × 10⁹ PFU/mL</b>.</p>
+ <p>Animal viruses can be counted the same way on a layer of cultured cells.</p>`,
+ analogy:"Counting raindrops by the dry spots they leave on a dusty car. You do not see each drop, but each one leaves one mark you can count.",
+ terms:[["Plaque","Clear zone in a bacterial lawn where phages have lysed the cells."],["PFU","Plaque-forming unit: one infectious virus that makes one plaque."],["Serial dilution","A series of dilutions, each a fixed step (often 10-fold) weaker than the last."]],
+ check:{q:"A plate made with 0.1 mL of a 10⁻⁵ dilution shows 80 plaques. What is the titer?",opts:[
+  ["8 × 10⁷ PFU/mL",1,"Yes. 80 ÷ (10⁻⁵ × 0.1) = 80 ÷ 10⁻⁶ = 8 × 10⁷ PFU/mL."],
+  ["8 × 10⁶ PFU/mL",0,"Do not forget the 0.1 mL. 80 ÷ (10⁻⁵ × 0.1) = 80 × 10⁶ = 8 × 10⁷."],
+  ["80 PFU/mL",0,"80 is the plaque count. Divide by the dilution and the volume plated to get the titer."],
+  ["8 × 10⁴ PFU/mL",0,"Dividing by a tiny dilution makes the number bigger, not smaller: 80 ÷ 10⁻⁶ = 8 × 10⁷."]]},
+ caption:"Dilute, plate on a bacterial lawn, count 30 to 300 plaques, then divide by dilution and volume.",
+ legend:[["lawn","Bacterial lawn","s"],["agar","Plaque (clear)","s"],["phage","Phage"],["act5","Pipette transfer","l"]]},
+
+{act:5,scene:"culture",desc:"On the left, a panel titled Cell culture shows a neat layer of tan, many-sided cells packed like tiles. Purple virus dots are added from above. Over time the cells change: some round up and float away leaving gaps, several neighbours merge into one giant cell with many nuclei labelled Syncytium, and dark specks appear inside some cells labelled Inclusion bodies. A heading reads Cytopathic effect (CPE). On the right, a panel titled Embryonated egg shows a cross-section of a chicken egg with a chick embryo, a yellow yolk sac, an air sac, and a pink membrane under the shell labelled Chorioallantoic membrane. A needle enters through a small hole in the shell and delivers virus, and small white spots called pocks appear on the membrane. Labels mark the amniotic cavity, allantoic cavity and yolk sac as other places to inject virus, and a note says Many flu vaccines are grown in eggs.",
+ title:"Growing animal viruses: cells and eggs",
+ body:`<p>Viruses need living cells, so you cannot grow them on plain agar. Labs use:</p>
+ <ul><li><b>Cell culture</b>: animal cells grown in flasks as a single layer (a <b>monolayer</b>). Some cell lines are <b>continuous</b> and can divide for many generations.</li>
+ <li><b>Embryonated (fertilized) chicken eggs</b>: virus is injected through a small hole into the <b>chorioallantoic membrane</b>, the <b>amniotic</b> or <b>allantoic</b> cavity, or the <b>yolk sac</b>. Growth shows as embryo death or white spots (<b>pocks</b>) on the membrane. Many <b>influenza vaccines</b> are made this way.</li>
+ <li><b>Lab animals</b>, for some viruses.</li></ul>
+ <p>In cell culture, virus damage is called the <b>cytopathic effect (CPE)</b>: cells <b>round up and detach</b>, <b>lyse</b>, <b>fuse</b> into giant cells with many nuclei (<b>syncytia</b>, for example with measles, RSV or herpes), or show <b>inclusion bodies</b> (clumps of viral parts). The pattern of CPE helps identify the virus.</p>`,
+ analogy:"Viruses are like a plant that only grows in one kind of soil: living cells. Cell culture is a garden bed of cells; an egg is a ready-made greenhouse.",
+ terms:[["Cytopathic effect (CPE)","Visible damage to cultured cells caused by a virus."],["Syncytium","A giant cell with many nuclei formed when infected cells fuse."],["Embryonated egg","Fertilized egg with a developing embryo, used to grow some viruses."]],
+ check:{q:"Why can't a lab grow influenza virus on a nutrient agar plate?",opts:[
+  ["Viruses can only multiply inside living cells.",1,"Right. Agar has nutrients but no cells, so the virus has no machinery to use."],
+  ["Influenza needs more sugar than agar has.",0,"Viruses do not eat sugar. They need living host cells."],
+  ["Agar kills all viruses.",0,"Agar does not kill them. They simply cannot multiply without cells."],
+  ["Influenza is too large for a plate.",0,"Size is not the issue. Viruses need living cells to replicate."]]},
+ caption:"Cells round up, fuse and break down (CPE); eggs grow virus on their membranes.",
+ legend:[["host","Cultured cells"],["capsid","Virus"],["cam","Chorioallantoic membrane","s"],["yolk","Yolk sac","s"]]},
+
+/* ---------- Part 6 ---------- */
+{act:6,scene:"viroid",desc:"On the left, a potato plant grows from soil with green leaves and tubers. Over time, the plant on the infected side becomes stunted with curled leaves, and its potato changes from round to long and spindle-shaped with cracks, labelled Potato spindle tuber disease. On the right, a zoom circle into a plant cell nucleus shows a gold closed loop of RNA shaped like a long rod, labelled Viroid: a small circle of RNA. A host RNA polymerase, drawn as a grey bead, rolls around the loop and spins off a long gold chain of copies, which is cut into single lengths that close into new loops. A size bar compares the viroid, about 250 to 400 nucleotides, with a small virus genome of thousands of nucleotides, and a label reads No capsid, no proteins made.",
+ title:"Viroids: naked RNA",
+ body:`<p><b>Viroids</b> are the smallest known infectious agents. A viroid is just a short <b>circle of single-stranded RNA</b>, about 250 to 400 nucleotides long. It has:</p>
+ <ul><li><b>No capsid</b> or envelope.</li><li><b>No protein-coding genes</b>: it makes no proteins at all.</li></ul>
+ <p>So how does it copy itself? It uses the <b>host cell's own RNA polymerase</b>, which rolls around the circle making a long chain of copies. The chain is cut into single lengths that close into new circles.</p>
+ <p>Viroids cause diseases in <b>plants</b>, such as <b>potato spindle tuber disease</b> (long, cracked potatoes) and coconut cadang-cadang. They spread through damaged plant tissue, tools, seeds and pollen. The RNA seems to interfere with the plant's own gene control.</p>
+ <p>In humans, <b>hepatitis D</b> has a viroid-like RNA, but it needs proteins from hepatitis B virus to make its coat.</p>`,
+ analogy:"If a virus is a letter in an envelope, a viroid is a single sticky note with no envelope at all. It still gets the office photocopier to make more of it.",
+ terms:[["Viroid","Infectious, short, circular RNA with no capsid that codes for no protein."],["Nucleotide","One building block of DNA or RNA."],["Plant pathogen","An agent that causes disease in plants."]],
+ check:{q:"What makes a viroid different from a virus?",opts:[
+  ["It is RNA only, with no protein coat and no protein-coding genes.",1,"Yes. A virus always has a capsid; a viroid is bare RNA."],
+  ["It has DNA and RNA together.",0,"Viroids have only RNA, and no viruses have both in the virion."],
+  ["It is a misfolded protein.",0,"That describes a prion. A viroid is RNA."],
+  ["It is bigger than most bacteria.",0,"Viroids are far smaller than any virus, let alone a bacterium."]]},
+ caption:"A bare RNA circle, copied by the plant's own enzyme, stunts plants and warps potatoes.",
+ legend:[["viroid","Viroid RNA"],["ribo","Host RNA polymerase"],["leaf","Plant","s"],["potato","Tuber","s"]]},
+
+{act:6,scene:"prion",desc:"Teal spring-shaped proteins labelled Normal PrP float near the edge of a tan nerve cell at the bottom. A red flat zig-zag protein labelled Misfolded PrP touches one teal spring, and the spring flattens and turns red. Now there are two red proteins; each touches another teal spring and converts it, then four, then eight, with a counter at the top right showing the number of misfolded copies doubling. The red proteins stack together into a long layered fibre on the right, labelled Clumps (amyloid fibres). A label reads Same protein, wrong shape: no DNA or RNA.",
+ title:"Prions: infectious proteins",
+ body:`<p>A <b>prion</b> (proteinaceous infectious particle) is an infectious <b>protein</b> with <b>no DNA or RNA</b> at all.</p>
+ <p>Our nerve cells normally make a protein called <b>PrP</b>, which folds into mostly coiled shapes (<b>normal PrP</b>). A <b>misfolded</b> form folds into flat sheets instead. When a misfolded PrP touches a normal one, it <b>forces the normal one to refold</b> into the misfolded shape.</p>
+ <p>Each new misfolded protein converts others, so the number doubles again and again: a <b>chain reaction</b>. Misfolded PrP sticks together into clumps (<b>amyloid fibres</b>) that cells cannot break down, and nerve cells die.</p>
+ <p>Because the prion protein is the body's own, the immune system does not react: there is no fever and no inflammation.</p>`,
+ analogy:"One bad apple in a barrel turns the apples it touches bad, and those turn their neighbours bad, until the whole barrel is spoiled.",
+ terms:[["Prion","Infectious misfolded protein with no nucleic acid."],["PrP","Prion protein: a normal nerve cell protein that can misfold."],["Amyloid","Insoluble clumps of misfolded protein."]],
+ check:{q:"How does a prion multiply without DNA or RNA?",opts:[
+  ["Misfolded PrP converts normal PrP into more misfolded PrP.",1,"Yes. No genes are copied; the protein shape is copied."],
+  ["It uses reverse transcriptase to make DNA.",0,"That is a retrovirus. Prions have no nucleic acid to copy."],
+  ["It injects RNA into nerve cells.",0,"Prions contain no RNA. They spread by refolding proteins."],
+  ["It divides by binary fission.",0,"Prions are not cells. They convert existing proteins."]]},
+ caption:"Misfolded PrP refolds normal PrP: 1, 2, 4, 8... then clumps into fibres.",
+ legend:[["prpc","Normal PrP"],["prpsc","Misfolded PrP"],["host","Nerve cell"],["prpsc","Amyloid fibre","s"]]},
+
+{act:6,scene:"priondis",desc:"On the left, a simple brain outline fills over time with more and more small round white holes, labelled Spongy holes: spongiform encephalopathy. In the middle, four route cards light up in turn: Inherited (a DNA icon), Sporadic (a single misfolding spark), Contaminated instruments or tissue (a surgical tool), and Eating infected beef, BSE to vCJD (a cow outline). On the right, two autoclave panels compare results. The first, labelled 121 degrees C for 15 minutes, shows bacteria and viruses crossed out in green but a red prion still present with the label Prions survive. The second, labelled 134 degrees C extended, plus sodium hydroxide, or incinerate, shows the prion crossed out too.",
+ title:"Prion diseases and why they are hard to destroy",
+ body:`<p>Prion diseases are called <b>transmissible spongiform encephalopathies</b>: the brain develops tiny holes and looks like a sponge under the microscope. They have very long incubation periods (often years), then a rapid decline with <b>memory loss, jerky movements</b> and <b>loss of coordination</b>. They are always <b>fatal</b>.</p>
+ <ul><li><b>Creutzfeldt-Jakob disease (CJD)</b> in humans: mostly <b>sporadic</b> (random misfolding), some <b>inherited</b> (PrP gene mutation), rarely <b>acquired</b> from contaminated instruments, tissue grafts or hormone extracts.</li>
+ <li><b>Variant CJD</b>: linked to eating beef from cattle with <b>bovine spongiform encephalopathy (BSE)</b>, "mad cow disease".</li>
+ <li>Animal forms: <b>scrapie</b> (sheep) and <b>chronic wasting disease</b> (deer and elk). <b>Kuru</b> spread through funeral practices in Papua New Guinea.</li></ul>
+ <p>Prions <b>resist normal sterilization</b>: standard autoclaving (121 °C, 15 minutes), boiling, alcohol, formalin and radiation do not reliably destroy them.</p>
+ <p class="tx"><b>Control idea:</b> special protocols, such as <b>longer autoclaving at 134 °C</b> combined with strong chemicals like <b>sodium hydroxide</b>, or single-use instruments that are incinerated.</p>`,
+ analogy:"Most germs are like ice sculptures: heat melts them. Prions are like knots in a steel cable: ordinary heat does not untie them.",
+ terms:[["Spongiform encephalopathy","Brain disease with sponge-like holes, caused by prions."],["CJD","Creutzfeldt-Jakob disease, the main human prion disease."],["BSE","Bovine spongiform encephalopathy (mad cow disease); linked to variant CJD."]],
+ check:{q:"Surgical tools used on a patient later found to have CJD were autoclaved at 121 °C for 15 minutes. What is the concern?",opts:[
+  ["Prions can survive standard autoclaving, so the tools may still be infectious.",1,"Right. Prions need special, harsher treatment or the tools must be destroyed."],
+  ["Autoclaving made the tools too hot to use.",0,"The concern is infection: prions resist standard autoclave settings."],
+  ["None: 121 °C for 15 minutes destroys every infectious agent.",0,"It kills bacteria, spores and viruses, but not reliably prions."],
+  ["The tools may now carry bacterial spores.",0,"Standard autoclaving does kill spores. The problem is prions."]]},
+ caption:"Prions cause fatal spongy brain disease and survive standard autoclaving.",
+ legend:[["prpsc","Prion"],["good","Destroyed","s"],["bad","Survives","s"],["host","Brain tissue"]]},
+
+{act:0,scene:"recap",desc:"Six cards are stacked down the right side, each with a coloured number badge and a one-line summary: What a virus is, Bacteriophages, Animal viruses, Infection patterns, Growing and counting, and Viroids and prions. They light up one after another. On the left, a fork shows a phage infecting a green bacterium; one branch, Lytic, ends with the cell bursting and phages flying out, and the other, Lysogenic, shows the cell dividing with a prophage band in each daughter. The two branches light in turn.",
+ title:"Recap: viruses, viroids and prions",
+ body:`<ol><li><b>What a virus is:</b> DNA or RNA in a protein capsid, sometimes inside an envelope with spikes. An obligate intracellular parasite. Helical, icosahedral or complex. Spikes must fit receptors (host range and tropism).</li>
+ <li><b>Bacteriophages:</b> lytic cycle = attachment, penetration, biosynthesis, maturation, release. Lysogenic cycle = prophage copied with the chromosome; induction by UV; lysogenic conversion adds toxins (diphtheria, cholera).</li>
+ <li><b>Animal viruses:</b> attachment, entry (endocytosis or fusion), uncoating, biosynthesis (DNA in nucleus; +RNA read directly; −RNA brings RdRp; retroviruses use reverse transcriptase), assembly, release (budding or lysis).</li>
+ <li><b>Infection patterns:</b> acute, persistent, latent (herpes in ganglia); some viruses are oncogenic.</li>
+ <li><b>Growing and counting:</b> plaque assay (PFU/mL), cell culture with CPE, embryonated eggs.</li>
+ <li><b>Viroids and prions:</b> bare RNA in plants; misfolded PrP chain reactions in brains, resistant to normal sterilization.</li></ol>
+ <p>Next, try the <a href="Viruses-Lab.html">Viruses Lab</a>: run a phage infection, count plaques, classify unknown viruses, and sort and order the cycles.</p>`,
+ analogy:"Viruses, viroids and prions are three levels of minimalism: a message in a case, a bare message, and a misprinted copy that misprints others.",
+ terms:[["Titer","Concentration of virus, for example PFU/mL."],["Key numbers","Viruses about 20 to 300 nm; burst size often 50 to 200; count plates with 30 to 300 plaques."]],
+ check:null,caption:"Six parts in review: structure, phages, animal viruses, patterns, lab methods, viroids and prions.",
+ legend:[["act1","Structure","s"],["act2","Phages","s"],["act3","Animal viruses","s"],["act4","Patterns","s"],["act5","Lab methods","s"],["act6","Viroids and prions","s"]]}
+];
+
+/* ---------------- DOM ---------------- */
+const $=s=>document.querySelector(s);
+const chainEl=$("#chain");
+const done=new Set();
+let cur=0;
+function buildChain(){
+  chainEl.innerHTML="";
+  const groups=[[0,"Start","accent",[0]]];
+  for(let a=1;a<=NACT;a++)groups.push([a,ACTS[a].name,ACTS[a].col,[]]);
+  groups.push([NACT+1,"Finish","accent",[STEPS.length-1]]);
+  STEPS.forEach((s,i)=>{if(s.act>0)groups[s.act][3].push(i)});
+  groups.forEach(g=>{
+    const d=document.createElement("div");d.className="actgrp";
+    if(g[0]===0||g[0]===NACT+1)d.style.flex="0 0 auto";
+    d.innerHTML=`<div class="an"><i style="background:var(--${g[2]})"></i>${g[1]}</div>`;
+    const dots=document.createElement("div");dots.className="dots";
+    g[3].forEach(i=>{const b=document.createElement("button");b.type="button";b.className="dot";b.textContent=i===0?"★":(i===STEPS.length-1?"✓":i);
+      b.setAttribute("aria-label",(i===0?"Start":i===STEPS.length-1?"Finish":"Step "+i)+": "+STEPS[i].title);b.onclick=()=>go(i);b.dataset.i=i;dots.appendChild(b)});
+    d.appendChild(dots);chainEl.appendChild(d);
+  });
+}
+function refreshDots(){document.querySelectorAll(".dot").forEach(b=>{const i=+b.dataset.i;b.classList.toggle("cur",i===cur);b.classList.toggle("done",done.has(i));if(i===cur)b.setAttribute("aria-current","step");else b.removeAttribute("aria-current")})}
+function legendHTML(l){const v="--"+l[0];const sh=l[2]||"c";
+  if(sh==="dl")return `<span><i class="dl" style="border-top-color:var(${v})"></i>${l[1]}</span>`;
+  if(sh==="t")return `<span><i class="t" style="border-bottom-color:var(${v})"></i>${l[1]}</span>`;
+  if(sh==="y")return `<span><i class="y" style="--yc:var(${v})"></i>${l[1]}</span>`;
+  return `<span><i class="${sh}" style="background:var(${v})"></i>${l[1]}</span>`}
+function render(){
+  const s=STEPS[cur];
+  const a=ACTS[s.act];
+  $("#stepno").innerHTML=(s.act?`<span class="actchip" style="--c:var(--${a.col})">${a.name}</span>`:"")+
+    (cur>0&&cur<STEPS.length-1?`<span>Step ${cur} of ${STEPS.length-2}</span>`:"");
+  $("#title").textContent=s.title;
+  $("#body").innerHTML=s.body;
+  $("#analogy p").textContent=s.analogy;
+  $("#terms").innerHTML=s.terms.map(t=>`<div><dt>${t[0]}</dt><dd>${t[1]}</dd></div>`).join("");
+  $("#caption").textContent=s.caption;
+  cv.setAttribute("aria-label","Animation: "+s.caption);if(window.gkDescribe)window.gkDescribe(s.desc);
+  $("#legend").innerHTML=(s.legend||[]).map(legendHTML).join("");
+  const ck=$("#check");
+  if(!s.check){ck.style.display="none"}else{
+    ck.style.display="";
+    $("#q").textContent=s.check.q;
+    const fb=$("#fb");fb.textContent="";fb.className="fb";
+    const box=$("#opts");box.innerHTML="";
+    s.check.opts.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];
+      b.onclick=()=>{box.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));
+        if(o[1]){b.classList.add("right");fb.className="fb ok";fb.textContent="✓ "+o[2];done.add(cur);refreshDots()}
+        else{b.classList.add("wrong");fb.className="fb no";fb.textContent="Not quite. "+o[2]}};
+      box.appendChild(b)});
+  }
+  $("#prev").disabled=cur===0;
+  $("#next").textContent=cur===STEPS.length-1?"Start over":"Next →";
+  $("#progbar").style.width=(cur/(STEPS.length-1)*100)+"%";
+  refreshDots();
+}
+function go(i){cur=Math.max(0,Math.min(STEPS.length-1,i));T=0;render();}
+$("#prev").onclick=()=>go(cur-1);
+$("#next").onclick=()=>go(cur===STEPS.length-1?0:cur+1);
+document.addEventListener("keydown",e=>{if(e.target.tagName==="INPUT"||e.altKey||e.ctrlKey||e.metaKey)return;if(e.key==="ArrowRight")go(cur+1);if(e.key==="ArrowLeft")go(cur-1)});
+let paused=false;
+$("#pauseBtn").onclick=()=>{paused=!paused;$("#pauseBtn").textContent=paused?"Play":"Pause"};
+$("#replayBtn").onclick=()=>{T=0};
+let speed=1;$("#speed").oninput=e=>speed=+e.target.value;
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";
+  r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+
+/* ---------------- canvas ---------------- */
+const W=800,H=480;
+const cv=document.getElementById("stage");ctx=cv.getContext("2d");
+let K=1;
+function fit(){const w=cv.parentElement.clientWidth;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);K=cv.width/W}
+window.addEventListener("resize",fit);
+
+/* ================= scenes: start + Part 1 + Part 2 ================= */
+const PANEL_TOP=40;
+function phaseOf(T,L,stops){const p=P(T,L)*L;for(let i=0;i<stops.length;i++)if(p<stops[i])return i;return stops.length}
+
+/* ================= scenes: start + Part 1 + Part 2 (first half) ================= */
+const tt=(T,L)=>P(T,L)*L;
+/* mini lytic loop used by the start map */
+function miniLytic(x,y,w,h,T){const L=8,t=tt(T,L);const cx=x+w/2,cy=y+h*.58,bw=w*.56,bh=h*.24,s=Math.min(16,w*.045);
+  const burst=seg(t,5.4,6.3),regrow=seg(t,7,7.9);
+  const top=cy-bh/2;const y0=top-s*2.15;const py=lerp(y+30,y0,smooth(seg(t,0,1.8)));
+  if(t<6.3||t>=7)bacterium(cx,cy,bw,bh,0,{burst:t<7?burst:0,a:t>=7?regrow:1,chrom:t<3.4||t>=7,inner:(W_,H_)=>{
+    if(t>2.6&&t<6.3){genome(-W_*.18,0,H_*.32,C.dna,T,{lw:2,a:seg(t,2.6,3.4)})}
+    const n=Math.floor(seg(t,3.4,5.2)*6);for(let k=0;k<n&&t<6.3;k++){phage(-W_*.3+k*W_*.12,-H_*.05+(k%2)*H_*.18,5,Math.PI/2+.4*(k%2?1:-1),{})}}});
+  if(t<6.6){const c=smooth(seg(t,1.9,2.4));phage(cx,py,s,Math.PI/2,{contract:c,full:1-seg(t,2.2,3.2),t:T,a:t>5.4?1-seg(t,5.4,6.6):1});
+    if(t>2.2&&t<3.2)strand(cx,py,cx,cy,C.dna,T*4,{a:1,amp:2})}
+  if(t>=5.4&&t<7.4)burstPhages(cx,cy,10,seg(t,5.4,7.4),5,1,w*.42);
+  const on=t<1.9?0:t<3.3?1:t<5.4?2:3;stepRow(x+12,y+h-36,w-24,["Attach","Inject","Build","Burst"],on,C.act2)}
+function sceneMap(T){
+  panelBox(12,12,380,456);title(26,32,"A virus at work");miniLytic(12,40,380,428,T);
+  const cards=[["What a virus is","act1"],["Bacteriophages","act2"],["Animal viruses","act3"],["Infection patterns","act4"],["Growing and counting","act5"],["Viroids and prions","act6"]];
+  const on=Math.floor(T/2.2)%6;
+  cards.forEach((c,i)=>{const x=404+(i%2)*194,y=12+Math.floor(i/2)*154,w=188,h=146;const lit=i===on;
+    panelBox(x,y,w,h,{stroke:lit?C[c[1]]:C.rule,lw:lit?3:1.2,fill:hexA(C.panel,lit?.97:.85)});
+    const cx=x+w/2,cy=y+58;ctx.save();ctx.globalAlpha*=lit?1:.62;
+    if(i===0){icosa(cx-40,cy,22,{genome:C.dna,t:T,rot:T*.2});envVirus(cx+40,cy,18,{t:T,core:"helix"})}
+    else if(i===1){bacterium(cx,cy+34,120,34,0,{});const b=Math.sin(T*2)*3;phage(cx,cy-6+b,8,Math.PI/2,{contract:.5+.5*Math.sin(T*2),t:T})}
+    else if(i===2){aCell(cx,cy+46,48,{t:T,nr:14});const p=P(T,3);envVirus(cx,cy-4-p*30,12,{t:T,a:1-seg(p,.8,1)})}
+    else if(i===3){const gx=cx-70,gw=140,gh=56,gy=cy-30;line(gx,gy+gh,gx+gw,gy+gh,C.rule,1.2);const f=P(T,4);
+      plotFn(u=>gauss(u,.25,.08),0,1,gx,gy,gw,gh,0,1.1,hexA(C.act1,.9),2.2,null,f);plotFn(u=>.12+gauss(u,.15,.05)*.8+.7*gauss(u,.7,.03),0,1,gx,gy,gw,gh,0,1.1,hexA(C.act4,.9),2.2,[4,3],f)}
+    else if(i===4){const g=seg(P(T,4),.1,.8);const pl=[];for(let k=0;k<12;k++){const a=rnd(k*3)*TAU,d=Math.sqrt(rnd(k*5+1))*24;pl.push([Math.cos(a)*d,Math.sin(a)*d,4])}petri(cx,cy,32,{plaques:pl,grow:g})}
+    else{const m=smooth(seg(P(T,3),.3,.7));prp(cx-34,cy,18,m,{t:T});prp(cx+30,cy,18,1,{t:T})}
+    ctx.restore();
+    txt(cx,y+h-30,c[0],{size:14,weight:700,align:"center"});txt(cx,y+h-12,"Part "+(i+1),{size:12,mono:true,align:"center",color:C["ink-soft"],weight:600})});
+}
+
+/* ---------- 1 not a cell ---------- */
+function sceneNotCell(T){
+  panelBox(12,12,380,330);title(26,32,"A bacterium is a cell");
+  const f=P(T,6);const grow=smooth(seg(f,0,.55)),split=smooth(seg(f,.6,.9));const cx=202,cy=170;
+  const rib=(W_,H_)=>{for(let k=0;k<14;k++)circ((rnd(k*2)-.5)*W_*.8,(rnd(k*2+1)-.5)*H_*.6,2.2,C.ribo)};
+  if(split<=0){const w=lerp(110,200,grow);bacterium(cx,cy,w,62,0,{inner:rib})}
+  else{const w=100;[-1,1].forEach(sd=>bacterium(cx+sd*(52+split*40),cy,w,62,0,{inner:rib}))}
+  label(cx,250,"Makes its own proteins (ribosomes),",{size:12.5,weight:600,align:"center"});label(cx,272,"grows and divides on its own",{size:12.5,weight:600,align:"center"});
+  label(cx,312,f<.6?"Growing":"Dividing (binary fission)",{size:12.5,weight:700,align:"center",border:C["bact-edge"]});
+  panelBox(404,12,384,330);title(418,32,"A virus is not a cell");
+  const L=12,t=tt(T,L);const hx_=650,hy=220;aCell(hx_,hy,74,{t:T,nr:24});
+  const enter=smooth(seg(t,3.5,5.5));const vx=lerp(480,hx_-10,enter),vy=lerp(110,hy-6,enter);
+  if(t<5.6)icosa(vx,vy,16,{genome:C.dna,t:T,rot:Math.sin(T)*.2,a:1-seg(t,5.2,5.6)});
+  if(t<3.6)label(560,70,"Virion: does nothing on its own",{size:12.5,weight:700,align:"center",border:C.capsid});
+  if(t>5.4&&t<9.6){genome(hx_-30,hy-20,14,C.dna,T,{lw:1.6});const n=Math.floor(seg(t,6,9)*8);for(let k=0;k<n;k++){const a=k/8*TAU;icosa(hx_+Math.cos(a)*44,hy+Math.sin(a)*40,8,{genome:C.dna})}}
+  if(t>=9.4){const r=seg(t,9.4,11.8);for(let k=0;k<12;k++){const a=k/12*TAU+.2;const d=46+r*90;icosa(hx_+Math.cos(a)*d,hy+Math.sin(a)*d*.8,8,{genome:C.dna,a:1-seg(r,.85,1)})}
+    label(596,320,"Copies itself only inside a host cell",{size:12.5,weight:700,align:"center",border:C.capsid})}
+  else if(t>5.4)label(596,320,"Inside: the host cell's machinery copies it",{size:12.5,weight:600,align:"center"});
+  // size scale
+  panelBox(12,354,776,114);title(26,372,"Size (to scale)");
+  const x0=60,pxu=200,by=408;rr(x0,by-13,2*pxu,26,13);ctx.fillStyle=C.bact;ctx.fill();ctx.strokeStyle=C["bact-edge"];ctx.lineWidth=2;ctx.stroke();
+  txt(x0+pxu,by,"Bacterium (E. coli), about 2 µm long",{size:12,weight:700,align:"center"});
+  for(let k=0;k<=4;k++){const X=x0+k*pxu/2;line(X,by+18,X,by+26,C["ink-soft"],1.2);txt(X,by+38,(k/2)+" µm",{size:11.5,mono:true,align:"center",color:C["ink-soft"]})}
+  icosa(x0+2*pxu+70,by,10,{genome:C.dna});txt(x0+2*pxu+86,by,"Virus, about 100 nm",{size:12,weight:700});
+  const lx=x0+2*pxu+70-20;line(lx,by+22,lx+40,by+22,C.warn,2.5);line(lx,by+17,lx,by+27,C.warn,2);line(lx+40,by+17,lx+40,by+27,C.warn,2);
+  txt(lx+50,by+26,"Light microscope limit ≈ 200 nm",{size:12,weight:600,color:C["warn-ink"]})}
+
+/* ---------- 2 structure ---------- */
+function capsoPts(x,y,r){const H=hexPts(x,y,r,0);const pts=[];H.forEach((p,k)=>{const q=H[(k+1)%6];for(let j=0;j<3;j++)pts.push([lerp(p[0],q[0],j/3),lerp(p[1],q[1],j/3)])});
+  [1,3,5].forEach(k=>{const a=k*Math.PI/3-Math.PI/2+Math.PI/3;pts.push([x+Math.cos(a)*r*.5,y+Math.sin(a)*r*.5])});return pts}
+function sceneStructure(T){const L=15,t=tt(T,L);const cx=290,cy=245,r=105;
+  const gA=seg(t,0,1.2);genome(cx,cy,r*.55,C.dna,T,{lw:3,a:gA,seed:1});
+  if(t>.6&&t<4)label(cx,cy+r*.9,"Nucleic acid: DNA or RNA",{size:13,weight:700,align:"center",border:C.dna,a:seg(t,.6,1.2)});
+  const pts=capsoPts(cx,cy,r);const done=seg(t,6.2,6.9);
+  if(t>1.3&&done<1)pts.forEach((p,i)=>{const t0=1.3+i*.2;const f=smooth(seg(t,t0,t0+.9));if(f<=0)return;const a=rnd(i*7)*TAU,d=260;const x=lerp(cx+Math.cos(a)*d,p[0],f),y=lerp(cy+Math.sin(a)*d*.8,p[1],f);
+    withA(1-done,()=>{tri(x,y,9,C.capsid,a*3*(1-f),1);if(f>=1)circ(x,y,4,C["capsid-2"])})});
+  if(done>0){icosa(cx,cy,r,{genome:C.dna,t:T,caps:true,a:done,seed:1})}
+  if(t>2.2&&t<6.8)label(cx,48,"Capsomeres lock together",{size:13,weight:700,align:"center",border:C.capsid});
+  if(t>6.6)lead(cx+r*.86,cy-r*.5,470,92,"Capsid made of capsomeres",{a:seg(t,6.6,7.2),border:C.capsid});
+  if(t>7.4&&t<9.6){const a=seg(t,7.4,8);withA(a,()=>{ctx.setLineDash([6,5]);circ(cx,cy,r+10,null,C["ink-soft"],1.5);ctx.setLineDash([])});label(cx,cy+r+28,"Nucleocapsid = capsid + genome",{size:13,weight:700,align:"center",a,border:C["ink-soft"]})}
+  const env=smooth(seg(t,9.4,10.8)),sp=smooth(seg(t,10.6,11.8));const r2=r*1.32;
+  if(env>0){ctx.save();ctx.globalAlpha*=env;ctx.beginPath();ctx.arc(cx,cy,r2,-Math.PI/2,-Math.PI/2+TAU*env);ctx.strokeStyle=C.env;ctx.lineWidth=12;ctx.stroke();ctx.strokeStyle=hexA(C.panel,.75);ctx.lineWidth=2;ctx.stroke();ctx.restore()}
+  if(sp>0)for(let k=0;k<16;k++){const a=k/16*TAU+.1;spike(cx+Math.cos(a)*(r2+6),cy+Math.sin(a)*(r2+6),a,24*sp,C.spike,{r:5})}
+  if(env>.5)lead(cx-r2*.72,cy+r2*.7,40,440,"Envelope from host membrane",{a:seg(t,10,10.6),border:C.env,align:"left"});
+  if(sp>.5)lead(cx+(r2+28)*Math.cos(-.5),cy+(r2+28)*Math.sin(-.5),470,140,"Spikes (glycoproteins)",{a:seg(t,11.2,11.8),border:C.spike});
+  panelBox(560,200,228,180);title(574,220,"Parts");
+  const items=[["Nucleic acid (DNA or RNA)",t>1,C.dna],["Capsid (capsomeres)",t>6.8,C.capsid],["Envelope (some viruses)",t>10.4,C.env],["Spikes",t>11.6,C.spike]];
+  items.forEach((it,i)=>{const y=252+i*32;rr(574,y-10,20,20,4);ctx.fillStyle=it[1]?hexA(it[2],.25):C.panel;ctx.fill();ctx.strokeStyle=it[1]?it[2]:C.rule;ctx.lineWidth=1.5;ctx.stroke();if(it[1])tick(584,y,6,C.good);txt(602,y,it[0],{size:12.5,weight:it[1]?700:500,color:it[1]?C.ink:C["ink-soft"]})})}
+
+/* ---------- 3 shapes ---------- */
+function sceneShapes(T){const L=10,t=tt(T,L);
+  const P3=[[12,"Helical"],[274,"Icosahedral"],[536,"Complex"]];P3.forEach(p=>{panelBox(p[0],12,252,456);title(p[0]+14,32,p[1])});
+  const b=smooth(seg(t,.5,7));helical(138,215,300,46,Math.PI/2,{show:b,t:T*1.5,step:8});
+  label(138,400,"Tobacco mosaic virus",{size:12.5,weight:700,align:"center"});wrapText("Rabies and influenza have helical nucleocapsids inside an envelope.",28,428,220,16,{size:12,color:C["ink-soft"]});
+  icosa(400,200,84,{rot:T*.25,genome:C.dna,caps:true,t:T});
+  label(400,316,"20 triangular faces, 12 corners",{size:12.5,weight:700,align:"center",border:C.capsid});
+  label(400,400,"Poliovirus, adenovirus",{size:12.5,weight:700,align:"center"});wrapText("Herpesviruses are icosahedral inside an envelope.",290,428,220,16,{size:12,color:C["ink-soft"]});
+  phage(662,175,30,Math.PI/2,{spread:.85+.15*Math.sin(T*2),t:T,contract:0});
+  lead(662+28,95,740,70,"Head",{size:12});lead(662+10,215,740,215,"Tail",{size:12});lead(662+40,262,780,300,"Tail fibres",{size:12,align:"right"});
+  label(662,400,"Phage T4, poxviruses",{size:12.5,weight:700,align:"center"});wrapText("Extra parts that are not simple rods or spheres.",552,428,220,16,{size:12,color:C["ink-soft"]})}
+
+/* ---------- 4 enveloped vs naked ---------- */
+function sceneEnvNaked(T){const L=9,t=tt(T,L);
+  panelBox(12,12,508,214);title(26,32,"Enveloped virus");panelBox(12,238,508,230);title(26,258,"Naked virus");
+  const vx=340,y1=124,y2=356;const hit=3;
+  for(let k=0;k<6;k++){const d=k*.22;const f=seg(t,d,hit+d*.3);// droplets
+    [y1,y2].forEach((yy,j)=>{let x=lerp(40,vx-70,f);let y=yy+(k-2.5)*14;if(j===1&&t>hit+d*.3){const b=seg(t,hit+d*.3,hit+2+d*.3);x=vx-70-b*160;y+= (k-2.5)*b*30}
+      if(j===0&&t>hit+d*.3)return;withA(j===0?1:1-seg(t,7,8.5),()=>{circ(x,y,6,hexA(C.act1,.75),C.act1,1.2)})})}
+  txt(48,y1-62,"Soap / alcohol",{size:12,weight:700,color:C.act1});txt(48,y2-70,"Soap / alcohol",{size:12,weight:700,color:C.act1});
+  const k=smooth(seg(t,hit,hit+1.8));
+  if(k<=0)envVirus(vx,y1,52,{t:T,core:"icosa",genome:C.rna});
+  else{for(let i=0;i<12;i++){const a=i/12*TAU+.2;const d=52+k*44;ctx.save();ctx.globalAlpha*=1-k*.85;ctx.beginPath();ctx.arc(vx+Math.cos(a)*k*30,y1+Math.sin(a)*k*24,d*.98,a-.2,a+.2);ctx.strokeStyle=C.env;ctx.lineWidth=6;ctx.stroke();
+      spike(vx+Math.cos(a)*(d+k*20),y1+Math.sin(a)*(d+k*12),a+k*2,16,C.spike,{r:4});ctx.restore()}
+    icosa(vx,y1,32,{genome:C.rna,t:T})}
+  if(t>hit+1.6){label(vx-30,y1-62,"Envelope destroyed: cannot attach",{size:12.5,weight:700,align:"center",border:C.bad,a:seg(t,hit+1.6,hit+2.2)});cross(vx+96,y1+62,9,C.bad)}
+  icosa(vx,y2,42,{genome:C.rna,t:T,caps:true});
+  if(t>hit+1)label(vx+60,y2-72,"Capsid holds up: still infectious",{size:12.5,weight:700,align:"center",border:C.good,a:seg(t,hit+1,hit+1.6)});
+  // table
+  panelBox(532,12,256,456);title(546,32,"Compare");
+  const rows=[["Soap, alcohol","Destroyed","Resistant"],["Drying","Dies fast","Lasts days"],["Spread","Contact, droplets, blood, sex","Fecal-oral, surfaces"],["Examples","Flu, HIV, herpes, COVID-19","Norovirus, polio, hepatitis A"]];
+  txt(620,58,"Enveloped",{size:12,weight:700,color:C["warn-ink"]});txt(710,58,"Naked",{size:12,weight:700,color:C.good});
+  rows.forEach((r_,i)=>{const y=82+i*96;line(544,y-10,778,y-10,C.rule,1);txt(546,y+4,r_[0],{size:12,mono:true,weight:700,color:C["ink-soft"]});
+    wrapText(r_[1],546,y+26,84,16,{size:12.5});wrapText(r_[2],690,y+26,90,16,{size:12.5})});
+  line(680,70,680,450,C["rule-soft"],1)}
+
+/* ---------- 5 tropism ---------- */
+function sceneTropism(T){const L=12,t=tt(T,L);
+  const cells=[[150,"Liver cell",C.accent,"sq"],[400,"Helper T cell",C.spike,"cup"],[650,"Nerve cell",C.dna,"sq"]];const cy=280,r=82;
+  cells.forEach((c,i)=>{aCell(c[0],cy,r,{t:T*.5,seed:i*3+2,nr:24});for(let k=0;k<5;k++){const a=-2.45+k*.42;receptor(c[0]+Math.cos(a)*r,cy+Math.sin(a)*r,a,c[2],{shape:c[3]==="sq"?"sq":"cup",len:12})}
+    txt(c[0],cy+r+22,c[1],{size:13,weight:700,align:"center"})});
+  const top=cy-r-12-8-24-6;
+  let vx,vy;if(t<2){vx=150;vy=lerp(60,top+4,smooth(seg(t,0,2)))}else if(t<3.4){vx=150;vy=lerp(top+4,90,smooth(seg(t,2,3.4)))}else if(t<5.4){vx=lerp(150,400,smooth(seg(t,3.4,5.4)));vy=90-Math.sin(seg(t,3.4,5.4)*Math.PI)*30}else{vx=400;vy=lerp(90,top,smooth(seg(t,5.4,7)))}
+  envVirus(vx,vy,24,{t:T,core:"cone",n:12,spikeCol:C.spike});
+  if(t>1.8&&t<4){cross(150+50,top-20,8,C.bad);label(150,top-50,"No matching receptor",{size:12.5,weight:700,align:"center",border:C.bad})}
+  if(t>7){pulseRing(400,top,40,C.good,P(T,1));tick(400+52,top-24,8,C.good);label(400,top-56,"Spike fits receptor: infection",{size:12.5,weight:700,align:"center",border:C.good})}
+  const ex=[["HIV → CD4 helper T cells",C.spike],["Influenza → airway cells",C.act1],["Hepatitis B → liver cells",C.accent],["Phage T4 → E. coli only",C.phage]];
+  ex.forEach((e,i)=>{const x=105+i*197;label(x,454,e[0],{size:12,weight:700,align:"center",border:e[1]})})}
+
+/* ---------- 6 phage attachment and penetration ---------- */
+function bactWall(y0,y1,T){ctx.fillStyle=C.bact;ctx.fillRect(0,y1,800,480-y1);
+  ctx.fillStyle=hexA(C["bact-edge"],.28);ctx.fillRect(0,y0,800,y1-y0);line(0,y0,800,y0,C["bact-edge"],2.5);line(0,y1,800,y1,C["bact-edge"],2);
+  for(let x=10;x<800;x+=16)line(x,y0+4,x+8,y1-4,hexA(C["bact-edge"],.35),1.2);
+  for(let k=0;k<16;k++)circ(30+k*50,y0-4,4,C["bact-edge"]);
+  for(let k=0;k<22;k++)circ(20+rnd(k)*760,y1+30+rnd(k+4)*120,2.4,C.ribo)}
+function scenePhageAttach(T){const L=11,t=tt(T,L);const y0=300,y1=338;bactWall(y0,y1,T);
+  txt(16,y1+16,"Bacterial cytoplasm",{size:12,weight:700,color:C["bact-edge"]});txt(16,y0-20,"Outside",{size:12,weight:700,color:C["ink-soft"]});
+  const s=34,cx=400;const fy=y0-s*2.15;const py=lerp(30,fy,smooth(seg(t,0,2.5)));const spread=lerp(.45,1,smooth(seg(t,2.4,3.1)));const con=smooth(seg(t,3.6,4.4));const full=1-smooth(seg(t,4.6,8));
+  phage(cx,py,s,Math.PI/2,{spread,contract:con,full,t:T});
+  if(con>.3){line(cx,y0,cx,y1+8,mix(C.phage,C.ink,.25),s*.24*con)}
+  if(t>3.2&&t<4.6)glow(cx,y0+10,36,C.glow,.9*Math.sin(seg(t,3.2,4.6)*Math.PI));
+  if(t>4.6){const g=seg(t,4.6,8);ctx.save();ctx.globalAlpha*=1;line(cx,py-s*1.2,cx,y1+10,hexA(C.dna,.85*(1-seg(t,8,9))),3);ctx.restore();genome(cx+6,y1+60,10+g*40,C.dna,T,{lw:2.6,a:g})}
+  if(t>2.4&&t<4.6)lead(cx-40,y0-8,170,200,"Tail fibres bind receptors",{a:seg(t,2.4,2.9)});
+  if(t>3.3&&t<5.6)lead(cx+12,y0+12,600,250,"Lysozyme weakens wall",{a:seg(t,3.3,3.8),border:C.glow});
+  if(t>3.8&&t<6)lead(cx+14,y0-30,600,150,"Sheath contracts",{a:seg(t,3.8,4.3)});
+  if(t>5&&t<9)lead(cx+40,y1+60,600,y1+80,"Phage DNA injected",{a:seg(t,5,5.5),border:C.dna});
+  if(t>8)lead(cx-30,py-s*1.6,60,90,"Empty capsid stays outside",{a:seg(t,8,8.5),border:C.phage,align:"left"});
+  stepRow(220,14,360,["Attachment","Penetration"],t<3.4?0:1,C.act2)}
+
+/* ---------- 7 phage biosynthesis and maturation ---------- */
+function emptyHead(x,y,s,a){withA(a,()=>{const hw=s*.95,hh=s*1.35;fillPoly([[x,y-hh],[x+hw,y-hh*.5],[x+hw,y+hh*.5],[x,y+hh],[x-hw,y+hh*.5],[x-hw,y-hh*.5]],mix(C.phage,C["phage-2"],.6),mix(C.phage,C.ink,.3),1.5)})}
+function tailPart(x,y,s,a){withA(a,()=>{rr(x-s*.34,y,s*.68,s*2.1,s*.1);ctx.fillStyle=mix(C.phage,C["phage-2"],.25);ctx.fill();ctx.strokeStyle=mix(C.phage,C.ink,.3);ctx.lineWidth=1;ctx.stroke();rr(x-s*.6,y+s*2.1,s*1.2,s*.22,3);ctx.fillStyle=C.phage;ctx.fill()})}
+function fibrePart(x,y,s,a){withA(a,()=>{poly([[x-s*.8,y-s*.3],[x,y+s*.2],[x+s*.6,y-s*.5]],mix(C.phage,C.ink,.2),2)})}
+function scenePhageBuild(T){const L=13,t=tt(T,L);
+  bacterium(400,264,770,400,0,{chrom:false,lw:6,inner:(W_,H_)=>{
+    for(let k=0;k<26;k++)circ((rnd(k*3)-.5)*W_*.86,(rnd(k*3+1)-.5)*H_*.7,2.4,C.ribo);
+    const frag=seg(t,.8,2.6);
+    if(frag<1){ctx.save();ctx.globalAlpha*=1-seg(t,2,3);if(frag<=0)genome(0,10,150,C.dna,0,{lw:3,sy:.6,seed:2});else{ctx.setLineDash([18*(1-frag)+4,10+frag*30]);genome(0,10,150+frag*20,C.dna,0,{lw:3,sy:.6,seed:2});ctx.setLineDash([])}ctx.restore()}
+    if(frag>0)for(let k=0;k<40;k++){circ((rnd(k*7)-.5)*W_*.7,(rnd(k*7+2)-.5)*H_*.6,2,hexA(C.dna,.6*frag*(1-seg(t,6,8))))}
+  }});
+  const slots=[];for(let k=0;k<8;k++)slots.push([180+(k%4)*145,170+Math.floor(k/4)*170]);
+  const nDNA=t<2.2?0:1+Math.floor(seg(t,2.2,5.4)*7);const nParts=Math.floor(seg(t,4,7.4)*8);const nDone=Math.floor(seg(t,7.6,12.2)*8.99);
+  slots.forEach((p,k)=>{if(k<nDone){phage(p[0],p[1]-6,15,Math.PI/2,{t:T,spread:.9});return}
+    if(k<nDNA)genome(p[0]-34,p[1]+14,16,mix(C.dna,C.ink,.2),T+k,{lw:2.2,seed:k});
+    if(k<nParts){emptyHead(p[0]+4,p[1]-34,15,1);tailPart(p[0]+38,p[1]-24,13,1);fibrePart(p[0]+10,p[1]+26,14,1)}});
+  if(t>.8&&t<3.4)label(400,110,"Host DNA broken down",{size:13,weight:700,align:"center",border:C.dna});
+  if(t>3&&t<6)label(400,442,"Phage DNA copied",{size:13,weight:700,align:"center",border:C.dna});
+  if(t>4.4&&t<7.6)label(200,442,"Proteins made by host ribosomes",{size:12.5,weight:700,align:"center",border:C.phage});
+  if(t>2.2&&t<7.6)label(620,442,"Eclipse: no whole phages yet",{size:12.5,weight:700,align:"center",border:C.warn});
+  if(t>7.6)label(400,442,"Maturation: parts assemble",{size:13,weight:700,align:"center",border:C.act2});
+  label(700,90,"Complete phages: "+nDone,{size:12.5,mono:true,weight:700,align:"center",border:nDone?C.act2:C.rule});
+  stepRow(220,14,360,["Biosynthesis","Maturation"],t<7.6?0:1,C.act2,2)}
+
+/* ================= scenes: Part 2 (second half) + Part 3 ================= */
+/* ---------- 8 release + one-step growth curve ---------- */
+function scenePhageRelease(T){const L=10,t=tt(T,L);const cx=200,cy=250;
+  panelBox(12,12,388,456);title(26,32,"Release by lysis");
+  const burst=seg(t,4.5,5.6);
+  if(t<5.6){const lw=lerp(5,1.4,seg(t,2,4.5));bacterium(cx,cy,300,150,0,{burst,lw,chrom:false,inner:(W_,H_)=>{for(let k=0;k<14;k++){const x=(-.38+(k%7)*.127)*W_,y=(k<7?-.17:.17)*H_;phage(x,y+8,7,Math.PI/2+(rnd(k)-.5)*.6,{})}
+      const ly=seg(t,1.6,3);for(let k=0;k<22;k++){const a=k/22*TAU;const ex=Math.cos(a)*W_*.44,ey=Math.sin(a)*H_*.4;circ(ex,ey,3.6,hexA(C.glow,ly))}}})}
+  if(t>1.8&&t<4.6)lead(cx+150,cy-60,300,90,"Lysozyme",{a:seg(t,1.8,2.3),border:C.glow});
+  if(t>4.5){const f=seg(t,4.5,9.5);burstPhages(cx,cy,30,f,6,4,190)}
+  if(t>5.2)label(cx,440,"Burst size: about 50 to 200 per cell",{size:12.5,weight:700,align:"center",border:C.act2,a:seg(t,5.2,5.8)});
+  // graph
+  graphBox(412,12,376,456,"One-step growth curve");const gx=470,gy=60,gw=290,gh=320;
+  const X=m=>gx+m/60*gw,Y=l=>gy+gh-(l-2.5)/3*gh;const curve=m=>3+2*smooth(seg(m,25,36));
+  ctx.fillStyle=hexA(C.sunk,.7);ctx.fillRect(X(0),gy,X(25)-X(0),gh);ctx.fillStyle=hexA(C.act2,.12);ctx.fillRect(X(0),gy,X(15)-X(0),gh);
+  txt(X(7.5),gy+14,"Eclipse",{size:12,weight:700,align:"center",color:C.act2});txt(X(12.5),gy+gh-14,"Latent period",{size:12,weight:700,align:"center"});txt(X(12.5),gy+gh+2-30,"about 20 to 30 min",{size:11.5,align:"center",color:C["ink-soft"]});
+  line(gx,gy,gx,gy+gh,C["ink-soft"],1.4);line(gx,gy+gh,gx+gw,gy+gh,C["ink-soft"],1.4);
+  [3,4,5].forEach(l=>{txt(gx-6,Y(l),"10"+["³","⁴","⁵"][l-3],{size:12,mono:true,align:"right"});line(gx,Y(l),gx+gw,Y(l),hexA(C.rule,.7),1,[3,4])});
+  [0,20,40,60].forEach(m=>txt(X(m),gy+gh+14,String(m),{size:12,mono:true,align:"center"}));txt(gx+gw/2,gy+gh+34,"Minutes after infection",{size:12,weight:600,align:"center"});
+  ctx.save();ctx.translate(424,gy+gh/2);ctx.rotate(-Math.PI/2);txt(0,0,"Phages (log scale)",{size:12,weight:600,align:"center"});ctx.restore();
+  const m=t<4.5?lerp(0,25,t/4.5):t<6?lerp(25,36,(t-4.5)/1.5):lerp(36,60,seg(t,6,10));
+  plotFn(curve,0,60,gx,Y(5.5),gw,Y(2.5)-Y(5.5),2.5,5.5,hexA(C.act2,.25),2);plotFn(curve,0,60,gx,Y(5.5),gw,Y(2.5)-Y(5.5),2.5,5.5,C.act2,3.5,null,m);
+  circ(X(m),Y(curve(m)),6,C.act2,C.panel,2);
+  if(m>34)label(X(48),Y(5)-18,"Burst",{size:12.5,weight:700,align:"center",border:C.act2})}
+
+/* ---------- 9 lysogeny ---------- */
+function forkMini(x,y,lytOn,lysOn){txt(x,y,"Temperate phage:",{size:12,weight:700});arrow(x+112,y,x+160,y-14,lytOn?C.act2:C.rule,2);arrow(x+112,y,x+160,y+14,lysOn?C.act2:C.rule,2);
+  label(x+170,y-15,"Lytic",{size:12,weight:700,border:lytOn?C.act2:null,color:lytOn?C.ink:C["ink-soft"]});label(x+170,y+15,"Lysogenic",{size:12,weight:700,border:lysOn?C.act2:null,color:lysOn?C.ink:C["ink-soft"]})}
+function repressor(cxl,cyl,w,h,a){const ang=-.35;const x=cxl+Math.cos(ang)*w*.28,y=cyl+Math.sin(ang)*h*.22;withA(a,()=>{rr(x-6,y-6,12,12,3);ctx.fillStyle=C.rt;ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.lineWidth=1;ctx.stroke()})}
+function sceneLysogeny(T){const L=13,t=tt(T,L);forkMini(24,40,false,true);
+  const f1=smooth(seg(t,6,7.6)),f2=smooth(seg(t,9.2,10.8));let cells=[[400,240,110]];
+  if(f1>0)cells=[-1,1].map(sd=>[400+sd*170*f1,lerp(240,190,f1),lerp(110,90,f1)]);
+  if(f2>0)cells=[-1,1].flatMap(sd=>[-1,1].map(s2=>[400+sd*170+s2*85*f2,lerp(190,140,f2),lerp(90,72,f2)]));
+  const cy=260;const integ=smooth(seg(t,3.6,5));
+  cells.forEach(c=>{bacterium(c[0],cy,c[1],c[2],0,{pro:integ>0,proCol:hexA(C.phage,integ)});if(t>5)repressor(c[0],cy,c[1],c[2],seg(t,5,5.5))});
+  if(t<3.6){const s=16;const py=lerp(60,cy-55-s*2.15,smooth(seg(t,0,1.4)));phage(400,py,s,Math.PI/2,{contract:smooth(seg(t,1.3,1.6)),full:1-seg(t,1.5,2.4),a:1-seg(t,3,3.6),t:T});
+    if(t>1.5){const c=seg(t,2.4,3.4);if(c<1)strand(400,cy-50,400,cy+30*(1-c),C.phage,T*3,{amp:3});circ(400+20*c,cy-10,12*c,null,hexA(C.phage,c),3)}}
+  else if(t<5){const m=seg(t,3.6,5);circ(lerp(420,400+Math.cos(-.35)*240*.28,m),lerp(cy-10,cy+Math.sin(-.35)*110*.22,m),12*(1-m),null,C.phage,3)}
+  if(t>4.6&&t<8.6)lead(400+Math.cos(-.6)*240*.28,cy+Math.sin(-.6)*110*.22,560,120,"Prophage",{a:seg(t,4.6,5.1),border:C.phage});
+  if(t>5.3&&t<8.6)lead(400+Math.cos(-.35)*240*.28+6,cy+Math.sin(-.35)*110*.22,600,190,"Repressor keeps lytic genes off",{a:seg(t,5.3,5.8),border:C.rt});
+  if(t>1&&t<3.6)label(560,150,t<2.4?"Phage DNA injected":"DNA closes into a loop",{size:12.5,weight:700,align:"center",border:C.phage});
+  if(t>6)label(400,420,"Lysogens: every daughter cell carries the prophage",{size:13,weight:700,align:"center",border:C.act2,a:seg(t,6,6.6)});
+  txt(400,452,t<6?"1 cell":t<9.2?"2 cells":"4 cells",{size:12.5,mono:true,weight:700,align:"center",color:C["ink-soft"]})}
+
+/* ---------- 10 induction ---------- */
+function sceneInduction(T){const L=13,t=tt(T,L);const xs=[150,400,650],cy=230,w=200,h=96;
+  const exc=smooth(seg(t,4,5.4)),grow=seg(t,5.6,8.6),burst=seg(t,8.6,9.6);
+  xs.forEach((x,i)=>{if(t<9.6)bacterium(x,cy,w,h,0,{burst,pro:exc<1,proCol:hexA(C.phage,1-exc),inner:(W_,H_)=>{
+      if(t>2.6&&t<5.4)for(let k=0;k<3;k++)diamond(-W_*.2+k*W_*.2,Math.sin(k*2)*H_*.18,5,C.glow,1-seg(t,4.6,5.4));
+      if(exc>0&&grow<1){const ex=Math.cos(-.35)*W_*.28,ey=Math.sin(-.35)*H_*.22;circ(lerp(ex,0,exc),lerp(ey-4,0,exc),lerp(4,12,exc),null,C.phage,3)}
+      const n=Math.floor(grow*7);for(let k=0;k<n;k++)phage(-W_*.33+k*W_*.11,(k%2?.14:-.12)*H_,5,Math.PI/2,{})}});
+    if(t<4.2){const fall=seg(t,3,4.2);const ex=x+Math.cos(-.35)*w*.28,ey=cy+Math.sin(-.35)*h*.22+fall*40;withA(1-fall,()=>{rr(ex-6,ey-6,12,12,3);ctx.fillStyle=C.rt;ctx.fill()})}
+    if(t>1.4&&t<3.4){const f=seg(t,1.4,2.8);uvBolt(x-30+i*6,lerp(40,cy-80,f),16,1-seg(t,2.9,3.4));uvBolt(x+30,lerp(20,cy-90,f),13,1-seg(t,2.9,3.4))}
+    if(t>9.6)burstPhages(x,cy,16,seg(t,9.6,12.6),5,i*5,130)});
+  if(t>1.4&&t<3.6)label(400,70,"UV light damages DNA",{size:12.5,weight:700,align:"center",border:C.uv});
+  if(t>4&&t<5.8)label(400,330,"Repressor lost: prophage excises",{size:12.5,weight:700,align:"center",border:C.phage});
+  if(t>5.8&&t<8.8)label(400,330,"Lytic cycle begins: new phages built",{size:12.5,weight:700,align:"center",border:C.act2});
+  if(t>8.8)label(400,350,"Cells burst",{size:12.5,weight:700,align:"center",border:C.act2});
+  timeBar(80,420,640,t/L,[[1.4/13,"Stress"],[4/13,"Excision"],[5.8/13,"Lytic growth"],[8.6/13,"Burst"]],{col:C.act2})}
+
+/* ---------- 11 lysogenic conversion ---------- */
+function sceneConversion(T){const L=14,t=tt(T,L);panelBox(12,12,508,358);title(26,32,"Lysogenic conversion");
+  const cx=250,cy=200,w=300,h=120;const integ=smooth(seg(t,3.6,5));const tox=t>5.2;
+  bacterium(cx,cy,w,h,0,{pro:integ>0,proCol:hexA(C.phage,integ),inner:(W_,H_)=>{if(integ>0){ctx.beginPath();for(let i=0;i<=6;i++){const a=-.55+i/6*.3;ctx.lineTo(Math.cos(a)*W_*.28+Math.sin(a*5)*W_*.025,Math.sin(a)*H_*.22+Math.cos(a*6)*H_*.04)}ctx.strokeStyle=hexA(C.toxin,integ);ctx.lineWidth=6;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt"}
+    if(tox)for(let k=0;k<5;k++)circ(-W_*.3+k*W_*.14,H_*.28,2.6,C.ribo)}});
+  if(t<3.8){const s=15;const py=lerp(50,cy-h/2-s*2.15,smooth(seg(t,1,2.2)));phage(cx-60,py,s,Math.PI/2,{contract:smooth(seg(t,2.1,2.4)),full:1-seg(t,2.3,3.2),a:(t<1?seg(t,0,1):1)*(1-seg(t,3.2,3.8)),t:T})}
+  if(integ>.5)lead(cx+Math.cos(-.4)*w*.28,cy+Math.sin(-.4)*h*.22,330,64,"tox gene on prophage",{a:seg(t,4.4,5),border:C.toxin});
+  if(tox)for(let k=0;k<9;k++){const p=P(T*.35+k/9,1);const a=-1.2+k*.32;toxinA(cx+Math.cos(a)*(w*.5+p*110),cy+Math.sin(a)*(h*.5+p*80),5,(t<5.8?seg(t,5.2,5.8):1)*(1-seg(p,.8,1)))}
+  label(cx,cy+h/2+30,tox?"Toxin-making strain":"Harmless strain",{size:13,weight:700,align:"center",border:tox?C.toxin:C["bact-edge"]});
+  // what the toxin does
+  panelBox(532,12,256,358);title(546,32,"What the toxin does");txt(546,58,"Cholera toxin on gut cells",{size:12.5,weight:600});
+  txt(660,92,"Gut lumen",{size:12,mono:true,weight:700,align:"center",color:C["ink-soft"]});
+  for(let k=0;k<4;k++){const x=548+k*58;rr(x,210,54,110,6);ctx.fillStyle=C.host;ctx.fill();ctx.strokeStyle=C["host-edge"];ctx.lineWidth=1.6;ctx.stroke();circ(x+27,280,9,C.nucf,C["nuc-edge"],1.2)}
+  if(tox){for(let k=0;k<4;k++){const p=seg(P(T*.4+k*.25,1),0,.5);toxinA(560+k*58,lerp(110,200,p),5,1-seg(P(T*.4+k*.25,1),.85,1))}
+    for(let k=0;k<12;k++){const p=P(T*.5+k/12,1);const x=556+(k%4)*58+rnd(k)*30;ell(x,lerp(205,110,p),4,6,0,hexA(C.act1,(1-p)*seg(t,6,7)))}
+    label(660,342,"Cells pump out salt and water",{size:12,weight:700,align:"center",border:C.act1,a:seg(t,6,6.6)})}
+  // chips
+  panelBox(12,382,776,86);title(26,400,"Toxins carried by prophages");
+  [["Diphtheria toxin","C. diphtheriae"],["Cholera toxin","V. cholerae"],["Botulinum toxin","C. botulinum"],["Shiga toxin","E. coli O157:H7"]].forEach((c,i)=>{const x=110+i*194;label(x,428,c[0],{size:12.5,weight:700,align:"center",border:C.toxin});txt(x,452,c[1],{size:12,align:"center",color:C["ink-soft"]})})}
+
+/* ---------- 12 entry + uncoating ---------- */
+function membraneDip(x0,x1,cx,y,d,col){ctx.beginPath();ctx.moveTo(x0,y);if(d>1){ctx.lineTo(cx-56,y);ctx.bezierCurveTo(cx-36,y,cx-44,y+d,cx,y+d+6);ctx.bezierCurveTo(cx+44,y+d,cx+36,y,cx+56,y)}ctx.lineTo(x1,y);ctx.strokeStyle=col;ctx.lineWidth=5;ctx.stroke()}
+function uncoat(x,y,r,u,T,gcol){for(let k=0;k<6;k++){const a=k/6*TAU+.3;const d=u*r*1.3;tri(x+Math.cos(a)*d,y+Math.sin(a)*d,r*.45,C.capsid,a+u*2,1-seg(u,.7,1))}
+  strand(x,y,x+lerp(0,110,u),y+lerp(0,70,u),gcol||C.rna,T*3,{a:u,amp:4})}
+function sceneEntry(T){const L=11,t=tt(T,L);const my=200;
+  [[12,"Endocytosis"],[408,"Fusion (enveloped viruses)"]].forEach((l,i)=>{const x=l[0];ctx.save();rr(x,12,380,456,8);ctx.clip();ctx.fillStyle=C.host;ctx.fillRect(x,my,380,300);
+    for(let k=0;k<14;k++)circ(x+20+rnd(k+i*20)*340,my+60+rnd(k*3+i)*190,2,C.ribo);ctx.restore();panelBox(x,12,380,456,{fill:"rgba(0,0,0,0)"});title(x+14,32,l[1]);});
+  // left: endocytosis
+  const cx=202;const d=t<2?0:t<4?smooth(seg(t,2,4))*74:0;const vy0=my-26-14;
+  membraneDip(14,390,cx,my,d,C["host-edge"]);for(let k=0;k<2;k++)receptor(cx-30+k*60,my,-Math.PI/2,C.spike,{len:8});
+  if(t<4){const vy=t<2?lerp(60,vy0,smooth(seg(t,0,2))):vy0+d;icosa(cx,vy,26,{genome:C.rna,t:T})}
+  else{const v=smooth(seg(t,4,5.4));const vy=lerp(my+74-4,330,v);const u=seg(t,5.6,8);circ(cx,vy,42,hexA(C.endo,.25+.55*v),C["endo-edge"],2.5);
+    if(u<=0)icosa(cx,vy,26,{genome:C.rna,t:T});else uncoat(cx,vy,22,u,T)}
+  if(t>4.2&&t<6)lead(cx+44,330,340,270,"Endosome",{a:seg(t,4.2,4.6),border:C["endo-edge"],align:"right"});
+  // right: fusion
+  const fx=598;const fu=smooth(seg(t,2,4.4));const vyF=my-30-10-6;
+  ctx.beginPath();ctx.moveTo(410,my);ctx.lineTo(786,my);ctx.strokeStyle=C["host-edge"];ctx.lineWidth=5;ctx.stroke();
+  if(fu>0&&fu<1){ctx.beginPath();ctx.ellipse(fx,my-2,lerp(30,70,fu),lerp(30,4,fu),0,Math.PI,TAU);ctx.strokeStyle=hexA(C.env,1-fu*.6);ctx.lineWidth=5;ctx.stroke()}
+  if(fu>=1){line(fx-70,my,fx+70,my,hexA(C.env,.8),5)}
+  if(t<2)envVirus(fx,lerp(60,vyF,smooth(seg(t,0,2))),30,{t:T,core:"icosa",genome:C.rna});
+  else if(fu<1){envVirus(fx,vyF,30,{t:T,core:false,a:1-fu});icosa(fx,lerp(vyF,my+20,fu),18,{genome:C.rna,t:T})}
+  else{const v=smooth(seg(t,4.4,5.6));const u=seg(t,5.6,8);const y=lerp(my+20,320,v);if(u<=0)icosa(fx,y,18,{genome:C.rna,t:T});else uncoat(fx,y,16,u,T)}
+  if(t>2.2&&t<5.4)lead(fx+60,my-4,760,120,"Envelope merges with membrane",{a:seg(t,2.2,2.7),border:C.env,align:"right"});
+  if(t>6.4){label(202,440,"Uncoating: genome released",{size:12.5,weight:700,align:"center",border:C.rna,a:seg(t,6.4,7)});label(598,440,"Uncoating: genome released",{size:12.5,weight:700,align:"center",border:C.rna,a:seg(t,6.4,7)})}
+  stepRow(220,392,360,["Attachment","Entry","Uncoating"],t<2?0:t<5.6?1:2,C.act3)}
+
+/* ---------- 13 DNA viruses ---------- */
+function cellBox(){rr(16,16,768,448,70);ctx.fillStyle=C.host;ctx.fill();ctx.strokeStyle=C["host-edge"];ctx.lineWidth=3;ctx.stroke()}
+function sceneDNAVirus(T){const L=13,t=tt(T,L);cellBox();const nx=400,ny=236;ell(nx,ny,175,120,0,C.nucf,C["nuc-edge"],2.5);txt(nx,ny-102,"Nucleus",{size:12,mono:true,weight:700,align:"center",color:C["nuc-edge"]});
+  const rL=[110,236],rR=[690,236];[rL,rR].forEach((r,j)=>{for(let k=0;k<9;k++)circ(r[0]+(rnd(k+j*9)-.5)*60,r[1]+(rnd(k*2+j)-.5)*90,3,C.ribo)});
+  txt(rL[0],rL[1]+64,"Ribosomes",{size:12,align:"center",color:C["ink-soft"]});txt(rR[0],rR[1]+64,"Ribosomes",{size:12,align:"center",color:C["ink-soft"]});
+  const e=smooth(seg(t,0,1.6));genome(lerp(nx,nx-20,e),lerp(40,190,e),16,C.dna,T,{lw:2.4});
+  // early mRNA out, enzymes back
+  for(let i=0;i<4;i++){const p=seg(t,1.6+i*.35,2.8+i*.35);if(p>0&&p<1)rna(lerp(nx-150,rL[0]-10,p),ny-30+i*18,26,T*3,C.rna,2.2);
+    const q=seg(t,3.3+i*.3,4.6+i*.3);if(q>0&&t<8.5){const x=lerp(rL[0]+10,nx-90+i*20,q),y=lerp(ny-20+i*16,ny+50,q);diamond(x,y,7,C.rdrp,q<1?1:1-seg(t,7.5,8.5))}}
+  if(t>2.8&&t<6.4)lead(rL[0],rL[1]-50,120,64,"Early proteins: enzymes",{a:seg(t,2.8,3.3),border:C.rdrp,align:"left"});
+  const nD=t<5?1:1+Math.floor(seg(t,5,7)*5);const pos=[[nx-20,190],[nx-90,230],[nx+60,200],[nx+100,262],[nx-40,280],[nx+20,250]];
+  const nCap=Math.floor(seg(t,9.2,12.4)*5.99);
+  pos.slice(0,nD).forEach((p,k)=>{if(k<nCap)icosa(p[0],p[1],16,{genome:C.dna,t:T});else if(k>0||t>1.6)genome(p[0],p[1],13,C.dna,T+k,{lw:2})});
+  if(t>5&&t<8)label(nx,ny+96,"DNA copied",{size:12.5,weight:700,align:"center",border:C.dna});
+  for(let i=0;i<4;i++){const p=seg(t,6.8+i*.3,7.8+i*.3);if(p>0&&p<1)rna(lerp(nx+150,rR[0]-20,p),ny-30+i*18,26,T*3,C.rna,2.2);
+    const q=seg(t,7.9+i*.3,9.2+i*.3);if(q>0&&t<11)tri(lerp(rR[0]-10,nx+80-i*30,q),lerp(ny-30+i*14,ny-10+i*16,q),7,C.capsid,q*3,q<1?1:1-seg(t,10,11))}
+  if(t>7.8&&t<11)lead(rR[0],rR[1]-50,680,64,"Late proteins: capsid",{a:seg(t,7.8,8.3),border:C.capsid,align:"right"});
+  if(t>9.6)label(nx,ny+96,"New capsids assemble",{size:12.5,weight:700,align:"center",border:C.capsid});
+  label(nx,438,"Most DNA viruses copy themselves in the nucleus, using host enzymes",{size:12.5,weight:600,align:"center"})}
+
+/* ---------- 14 RNA viruses ---------- */
+function sgn(x,y,s,col){label(x,y,s,{size:13,weight:700,mono:true,align:"center",border:col,color:C.ink})}
+function sceneRNAVirus(T){const L=12,t=tt(T,L);cellBox();const neg=mix(C.rna,C.ink,.35);
+  label(400,40,"Host cells cannot copy RNA from RNA",{size:13,weight:700,align:"center",border:C.rdrp});
+  line(40,250,760,250,hexA(C["host-edge"],.6),1.2,[6,6]);
+  txt(44,80,"Plus-strand RNA (+): polio, SARS-CoV-2",{size:12.5,weight:700});txt(44,280,"Minus-strand RNA (−): flu, measles, rabies",{size:12.5,weight:700});
+  // top lane
+  const ex=lerp(-100,60,smooth(seg(t,0,1.4)));rnaS(ex,120,150,T*2,C.rna,false,2.6);sgn(ex+75,100,"+",C.rna);
+  for(let k=0;k<5;k++)circ(ex+20+k*26,132,4,C.ribo,null);
+  if(t>1.6){const p=smooth(seg(t,1.6,3.2));diamond(lerp(ex+80,250,p),lerp(140,170,p),9,C.rdrp,1);if(t>2&&t<6)lead(250,180,250,214,"RdRp made",{size:12,a:seg(t,2,2.4),border:C.rdrp})}
+  if(t>4){const p=seg(t,4,5.8);rnaS(60,150,150*p,T*2,neg,true,2.4);if(p>.5)sgn(60+150*p+14,150,"−",neg)}
+  const nP=Math.floor(seg(t,6,8.8)*4.99);for(let k=0;k<nP;k++){rnaS(300+(k%2)*130,110+Math.floor(k/2)*42,110,T*2+k,C.rna,false,2.2)}
+  const nC=Math.floor(seg(t,9,11.6)*3.99);for(let k=0;k<nC;k++)icosa(620+k*44,150,18,{genome:C.rna,t:T});
+  if(t>6&&t<9)label(430,214,"Many new (+) genomes",{size:12,weight:700,align:"center",border:C.rna});
+  if(t>9)label(686,214,"Packed into capsids",{size:12,weight:700,align:"center",border:C.capsid});
+  // bottom lane
+  const bx=lerp(-120,60,smooth(seg(t,0,1.4)));rnaS(bx,330,150,T*2,neg,true,2.6);sgn(bx+75,310,"−",neg);diamond(bx+8,330,10,C.rdrp,1);
+  if(t>.6&&t<4.2)lead(bx+8,340,90,400,"Brought its own RdRp",{a:seg(t,.6,1),border:C.rdrp,align:"left"});
+  for(let k=0;k<3;k++){const p=smooth(seg(t,1.6+k*.5,3.2+k*.5));if(p>0)rnaS(lerp(80,260,p),lerp(340,300+k*28,p),70,T*2+k,C.rna,false,2.2)}
+  for(let k=0;k<6;k++)circ(350+(k%3)*18,316+Math.floor(k/3)*28,4,C.ribo);
+  const nProt=Math.floor(seg(t,3.6,6)*6.99);for(let k=0;k<nProt;k++)circ(420+(k%4)*14,300+Math.floor(k/4)*16,4.5,C.capsid,hexA(C.ink,.3),.8);
+  if(t>3.6&&t<7)lead(440,330,470,420,"(+) strands = mRNA: proteins",{size:12,a:seg(t,3.6,4),border:C.rna});
+  const nN=Math.floor(seg(t,4.6,7)*3.99);for(let k=0;k<nN;k++)rnaS(500,310+k*26,90,T*2+k,neg,true,2.2);
+  const nH=Math.floor(seg(t,7.4,11.4)*3.99);for(let k=0;k<nH;k++){helical(690,300+k*34,110,22,0,{t:T,gcol:neg});diamond(632,300+k*34,6,C.rdrp,1)}
+  if(t>7.4)label(690,430,"New nucleocapsids with RdRp",{size:12,weight:700,align:"center",border:C.capsid})}
+
+/* ---------- 15 retroviruses ---------- */
+function sceneRetro(T){const L=14,t=tt(T,L);const my=120;
+  ctx.fillStyle=C.host;ctx.fillRect(0,my,800,360);line(0,my,800,my,C["host-edge"],5);
+  const nx=430,ny=320;ell(nx,ny,230,110,0,C.nucf,C["nuc-edge"],2.5);txt(nx-200,ny-70,"Nucleus",{size:12,mono:true,weight:700,color:C["nuc-edge"]});
+  // host chromosome with insertion gap
+  const ins=smooth(seg(t,8.6,10));const gap=ins*60;const hy=ny+30;
+  strand(250,hy,nx-gap/2,hy,C["nuc-edge"],0,{ds:true,amp:5,waves:5});strand(nx+gap/2,hy,610,hy,C["nuc-edge"],0,{ds:true,amp:5,waves:5});
+  if(ins>0){strand(nx-gap/2,hy,nx+gap/2,hy,C.dna,0,{ds:true,amp:6,waves:2,lw:3});ctx.save();ctx.globalAlpha*=ins;rr(nx-gap/2-4,hy-12,gap+8,24,6);ctx.strokeStyle=C.dna;ctx.lineWidth=2;ctx.stroke();ctx.restore()}
+  // virion and fusion
+  const vx=180;if(t<3){const d=smooth(seg(t,0,1.5));const f=smooth(seg(t,1.5,3));envVirus(vx,lerp(20,my-40,d)+f*60,34,{t:T,core:"cone",genome:C.rna,a:1-f*.9});if(f>0)line(vx-50,my,vx+50,my,hexA(C.env,f),5)}
+  if(t>=3&&t<4.2){const o=seg(t,3,4.2);for(let k=0;k<4;k++){const a=k/4*TAU+.6;tri(vx+Math.cos(a)*o*30,190+Math.sin(a)*o*20,10,C.capsid,a,1-o)}}
+  const rtP=seg(t,4.2,6.2),ds=seg(t,6.2,7.2),move=smooth(seg(t,7.2,8.6));
+  if(t>=3&&t<8.6){const rx=lerp(140,nx-40,move),ry=lerp(185,hy-44,move);
+    if(move<=0){rna(rx,ry,80,T*3,hexA(C.rna,1-ds),2.4);rna(rx,ry+16,80,T*3+1,hexA(C.rna,1-ds),2.4);for(let k=0;k<3;k++)diamond(rx-14+k*44,ry-16,6,C.rt,1)}
+    if(rtP>0)strand(rx,ry+30,rx+80*rtP,ry+30,C.dna,T,{amp:4,ds:ds>0,a:1})}
+  if(t>4.2&&t<7.4)lead(196,170,320,150,"Reverse transcriptase: RNA to DNA",{a:seg(t,4.2,4.7),border:C.rt});
+  if(t>8.2&&t<10.4){for(let k=0;k<2;k++)diamond(nx-30+k*60,hy-24,7,C.integ,1);lead(nx+30,hy-24,640,220,"Integrase",{a:seg(t,8.2,8.6),border:C.integ})}
+  if(t>9.6)lead(nx,hy+12,nx+40,440,"Provirus",{a:seg(t,9.6,10),border:C.dna});
+  if(t>10.4){for(let k=0;k<4;k++){const p=seg(t,10.4+k*.4,12+k*.4);if(p>0&&p<1)rna(lerp(nx+20,640,p),lerp(hy-30,my+40,p),40,T*3,C.rna,2.2)}
+    const b=seg(t,11.6,13.6);for(let k=0;k<2;k++){const bx=640+k*90;const by=lerp(my,my-48,smooth(seg(b,k*.3,.7+k*.3)));envVirus(bx,by,22,{t:T,core:"cone",genome:C.rna,a:seg(b,k*.3,k*.3+.2)})}
+    label(560,my+26,"New virions bud",{size:12.5,weight:700,align:"center",border:C.env,a:seg(t,11.6,12)})}}
+
+/* ---------- 16 assembly and release ---------- */
+function sceneRelease(T){const t=tt(T,10);
+  [[12,"Budding (enveloped)"],[408,"Lysis (naked)"]].forEach(l=>{panelBox(l[0],12,380,456);title(l[0]+14,32,l[1])});
+  // budding: repeats every 5 s
+  const cx=202,cy=262,r=112;aCell(cx,cy,r,{t:T*.3,nr:30,wob:.02});const b=tt(T,5);const top=cy-r;
+  for(let k=0;k<5;k++){const a=-Math.PI/2-.5+k*.25;spike(cx+Math.cos(a)*r,cy+Math.sin(a)*r,a,10,C.spike,{r:3.4})}
+  const up=smooth(seg(b,0,1.4));const bud=smooth(seg(b,1.4,3.4));const off=smooth(seg(b,3.4,4.8));
+  if(bud<=0)icosa(cx,lerp(cy-40,top+16,up),14,{genome:C.rna,t:T});
+  else{const by=lerp(top+16,top-26,bud)-off*90;envVirus(cx,by,22,{t:T,core:"icosa",genome:C.rna,n:10});if(off<.2){ctx.save();ctx.globalAlpha*=1-off*5;line(cx-10,top,cx-8,by+20,C["host-edge"],2);line(cx+10,top,cx+8,by+20,C["host-edge"],2);ctx.restore()}}
+  const prev=seg(b,0,4.8);envVirus(cx+40+prev*60,top-90-prev*30,22,{t:T,core:"icosa",genome:C.rna,n:10,a:1-prev});
+  label(cx,448,"Cell can keep making virus for a while",{size:12.5,weight:700,align:"center",border:C.env});
+  // lysis
+  const lx=598,ly=262;const fill=seg(t,0,6),rup=seg(t,6.2,7.2),out=seg(t,6.4,9.6);const R=lerp(100,116,fill)*(1+.03*Math.sin(T*6)*fill);
+  const dead=rup>0;
+  if(!dead)aCell(lx,ly,R,{t:T*.3,nr:30,seed:5});
+  else{ctx.save();ctx.globalAlpha*=1-seg(t,8,9.8)*.6;for(let k=0;k<10;k++){const a0=k/10*TAU,a1=a0+TAU/10-.18;ctx.beginPath();ctx.arc(lx+Math.cos(a0+.3)*rup*16,ly+Math.sin(a0+.3)*rup*16,R,a0,a1);ctx.strokeStyle=mix(C["host-edge"],C.sunk,rup);ctx.lineWidth=2.5;ctx.stroke()}
+    circ(lx,ly,34,mix(C.nucf,C.sunk,.6),mix(C["nuc-edge"],C.sunk,.5),1.4);ctx.restore()}
+  const n=Math.floor(fill*16);for(let k=0;k<n;k++){const a=rnd(k*4)*TAU,d=40+rnd(k*4+1)*(R-54);const dd=d+out*(120+rnd(k)*50);icosa(lx+Math.cos(a)*dd,ly+Math.sin(a)*dd,11,{genome:C.rna,a:1-seg(out,.8,1)})}
+  if(dead)label(lx,448,"Cell dies",{size:12.5,weight:700,align:"center",border:C.bad,a:seg(t,6.4,7)});else label(lx,448,"Virions pile up inside",{size:12.5,weight:600,align:"center"});
+  stepRow(220,404,360,["Assembly","Release"],(b<1.4&&t<6)?0:1,C.act3,4)}
+
+/* ================= scenes: Parts 4 to 6 + recap + loop ================= */
+/* ---------- 17 infection patterns ---------- */
+const PAT=[["Acute","act1","Influenza, common cold",u=>gauss(u,.22,.07)],
+  ["Persistent (chronic)","act3","Hepatitis B, hepatitis C, HIV",u=>.78*smooth(seg(u,.08,.28))+.04*Math.sin(u*40)],
+  ["Latent","act4","Herpes simplex, chickenpox virus",u=>gauss(u,.14,.05)+.75*gauss(u,.58,.022)+.62*gauss(u,.84,.022)]];
+function scenePatterns(T){const f=P(T,10);
+  PAT.forEach((p,i)=>{const y=12+i*152,h=144;panelBox(12,y,640,h);txt(26,y+18,p[0].toUpperCase(),{size:12.5,mono:true,weight:700,color:C[p[1]]});txt(636,y+18,p[2],{size:12.5,weight:600,align:"right",color:C["ink-soft"]});
+    const gx=60,gy=y+34,gw=570,gh=94;line(gx,gy+gh,gx+gw,gy+gh,C["ink-soft"],1.2);line(gx,gy,gx,gy+gh,C["ink-soft"],1.2);
+    ctx.save();ctx.translate(40,gy+gh/2);ctx.rotate(-Math.PI/2);txt(0,0,"Virus made",{size:11.5,align:"center",color:C["ink-soft"]});ctx.restore();
+    plotFn(p[3],0,1,gx,gy,gw,gh,0,1,hexA(C[p[1]],.22),2);plotFn(p[3],0,1,gx,gy,gw,gh,0,1,C[p[1]],3.2,null,f);
+    if(i===2){const hid=[[.25,.53],[.63,.79],[.89,1]];hid.forEach(h_=>{const a=gx+h_[0]*gw,b=gx+Math.min(h_[1],f)*gw;if(b>a)line(a,gy+gh-8,b,gy+gh-8,C["ink-soft"],2,[3,4])});
+      if(f>.3)label(gx+.39*gw,gy+gh-26,"Virus hiding: no new virus",{size:12,weight:600,align:"center",a:seg(f,.3,.36)});
+      if(f>.58)label(gx+.58*gw,gy+8,"Reactivation",{size:12,weight:700,align:"center",border:C.act4,a:seg(f,.58,.62)})}
+    if(i===1&&f>.4)label(gx+.65*gw,gy+8,"Virus keeps being made",{size:12,weight:600,align:"center",a:seg(f,.4,.46)});
+    if(i===0&&f>.4)label(gx+.6*gw,gy+gh-26,"Cleared",{size:12,weight:700,align:"center",border:C.act1,a:seg(f,.4,.46)});
+    const v=p[3](f);circ(gx+f*gw,gy+gh-clamp(v,0,1)*gh,5.5,C[p[1]],C.panel,2);
+    const ix=726,iy=y+h/2;panelBox(664,y,124,h);if(v>.45)glow(ix,iy,56,C[p[1]],.5*clamp((v-.45)*2,0,1));
+    envVirus(ix,iy,26,{t:T,core:i===0?"helix":"icosa",genome:i===0?C.rna:C.dna})});
+  txt(346,474,"Time",{size:12,weight:600,align:"center",color:C["ink-soft"]})}
+
+/* ---------- 18 herpes latency ---------- */
+const HNERVE=[[322,306],[296,296],[262,272],[236,244],[216,214]];
+function headProfile(){ctx.save();ctx.fillStyle=C.skin;ctx.strokeStyle=C["skin-edge"];ctx.lineWidth=2;
+  rr(150,330,100,150,20);ctx.fill();ctx.stroke();
+  ctx.beginPath();ctx.ellipse(190,215,140,150,0,0,TAU);ctx.fill();ctx.stroke();
+  ctx.beginPath();ctx.moveTo(318,200);ctx.lineTo(352,252);ctx.lineTo(322,266);ctx.quadraticCurveTo(334,286,322,298);ctx.quadraticCurveTo(334,310,320,318);ctx.quadraticCurveTo(312,350,270,362);ctx.lineTo(240,330);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.moveTo(318,200);ctx.lineTo(352,252);ctx.lineTo(322,266);ctx.quadraticCurveTo(334,286,322,298);ctx.quadraticCurveTo(334,310,320,318);ctx.quadraticCurveTo(312,350,270,362);ctx.stroke();
+  circ(270,180,5,C.ink);ctx.restore()}
+function sceneHerpes(T){const L=14,t=tt(T,L);panelBox(12,12,476,456);title(26,32,"Herpes simplex type 1");headProfile();
+  ell(150,150,70,60,0,hexA(C.nucf,.5),hexA(C["nuc-edge"],.4),1.2);txt(150,150,"Brain",{size:12,align:"center",color:C["ink-soft"]});
+  poly(HNERVE,C.nerve,5);poly([[216,214],[190,182]],hexA(C.nerve,.6),4);circ(216,214,22,C.ganglion,mix(C.nerve,C.ink,.3),2);
+  const sore=Math.max(smooth(seg(t,0,1.6))*(1-smooth(seg(t,3.6,5.6))),smooth(seg(t,11.4,12.6)));
+  if(sore>0){ell(326,306,12*sore+2,9*sore+1,0,C.blister,C["skin-edge"],1.6);for(let k=0;k<3;k++)circ(322+k*5,305+(k%2)*3,2.4,C.capsid,null)}
+  if(sore>.4)lead(330,312,400,380,t<8?"Cold sore":"Reactivation: same spot",{a:sore,border:t<8?C["skin-edge"]:C.act4});
+  const up=seg(t,2.4,5),down=seg(t,9.4,11.6);
+  if(up>0&&up<1)for(let k=0;k<3;k++){const [x,y]=along(HNERVE,clamp(up-k*.12,0,1));icosa(x,y,6,{genome:C.dna})}
+  if(down>0&&down<1)for(let k=0;k<3;k++){const [x,y]=along(HNERVE,clamp(1-down+k*.12,0,1));icosa(x,y,6,{genome:C.dna})}
+  const lat=t>4.8&&t<10.4;if(lat){circ(216,214,9,null,C.dna,3);lead(216,214,90,300,"Latent: no new virus made",{a:seg(t,4.8,5.4),border:C.dna,align:"left"})}
+  lead(206,230,90,262,"Ganglion",{size:12});
+  // triggers
+  panelBox(500,12,288,280);title(514,32,"Triggers");const trig=t>8&&t<11.6;
+  const tr=[["Sunlight (UV)",(x,y)=>sun(x,y,12,T)],["Stress",(x,y)=>uvBolt(x,y,14,1)],["Fever",(x,y)=>thermo(x,y-20,34,.8)],["Weakened immunity",(x,y)=>{circ(x,y,13,null,C["ink-soft"],2);line(x-9,y+9,x+9,y-9,C["ink-soft"],2)}]];
+  tr.forEach((r_,i)=>{const y=74+i*54;const lit=trig&&i<=Math.floor(seg(t,8,9.5)*3.99);rr(512,y-22,264,44,8);ctx.fillStyle=lit?hexA(C.glow,.25):hexA(C.panel,.9);ctx.fill();ctx.strokeStyle=lit?C.glow:C.rule;ctx.lineWidth=lit?2.4:1.2;ctx.stroke();
+    withA(lit?1:.5,()=>r_[1](540,y));txt(570,y,r_[0],{size:13,weight:lit?700:500})});
+  panelBox(500,304,288,164);title(514,324,"Same idea");wrapText("Varicella-zoster: chickenpox first, then shingles years later along one nerve's skin area.",514,352,262,18,{size:13});
+  wrapText("Antivirals block DNA copying in outbreaks, but cannot remove latent virus.",514,412,262,18,{size:12.5,color:C["ink-soft"]})}
+
+/* ---------- 19 oncogenic viruses ---------- */
+function wheel(x,y,r,ang,col){circ(x,y,r,hexA(C.panel,.9),col,4);for(let k=0;k<6;k++){const a=ang+k/6*TAU;line(x,y,x+Math.cos(a)*r,y+Math.sin(a)*r,col,2.5)}circ(x,y,6,col)}
+function brake(x,y,a){rr(x-8,y-14,16,28,4);ctx.fillStyle=hexA(C.brake,a);ctx.fill();ctx.strokeStyle=hexA(mix(C.brake,C.ink,.3),a);ctx.lineWidth=1.4;ctx.stroke()}
+function sceneOnco(T){const L=10,t=tt(T,L);
+  panelBox(12,12,380,390);title(26,32,"Normal cell");panelBox(408,12,380,390);title(422,32,"Virus-transformed cell");
+  wheel(110,150,58,.25*Math.sin(T*1.2),C["ink-soft"]);brake(178,128,1);brake(178,172,1);lead(186,128,220,72,"Tumour suppressors (p53, Rb)",{size:12,border:C.brake,align:"left"});
+  txt(110,226,"Cell cycle",{size:12,mono:true,weight:700,align:"center",color:C["ink-soft"]});aCell(300,150,50,{t:T*.4,nr:16,seed:2});
+  const nN=Math.min(6,1+Math.floor(seg(t,0,4)*6));for(let k=0;k<nN;k++)aCell(56+k*56,318,26,{t:T*.3,seed:k,nr:9,wob:.02});
+  label(202,370,"Normal: divides only when needed",{size:12.5,weight:700,align:"center",border:C.good});
+  // transformed
+  const pull=smooth(seg(t,.8,2.4));wheel(506,150,58,T*(.3+3*pull),C["ink-soft"]);
+  [128,172].forEach((by,k)=>{const bx=574+pull*(60+k*20),byy=by+pull*(k?40:-40);brake(bx,byy,1);circ(lerp(640,bx+14,smooth(seg(t,0,.8))),byy+(k?6:-6),8,C.capsid,hexA(C.ink,.3),1)});
+  aCell(706,150,50,{t:T*.4,nr:18,seed:4,chromatin:false});strand(690,150,722,150,C.dna,T,{amp:3,ds:true});lead(722,146,740,214,"Viral DNA",{size:12,border:C.dna,align:"right"});
+  if(pull>.5)label(600,240,"Viral proteins remove the brakes",{size:12.5,weight:700,align:"center",border:C.capsid,a:seg(t,1.8,2.4)});
+  const nP=Math.floor(lerp(1,21,seg(t,1.5,9.5)));const pile=[];for(let row=0;row<6;row++)for(let k=0;k<6-row;k++)pile.push([598-(5-row)*21+k*42+(row%2)*0,354-row*28]);
+  for(let k=0;k<nP&&k<pile.length;k++){const p=pile[k];aCell(p[0],p[1],20,{t:T*.4,seed:k+3,nr:7,fill:mix(C.host,C.onc,.35),edge:C.onc,wob:.05})}
+  label(598,390,"Cells pile up into a lump",{size:12.5,weight:700,align:"center",border:C.onc});
+  panelBox(12,412,776,56);[["HPV: cervical, throat cancer",C.capsid],["Hepatitis B and C: liver cancer",C.capsid],["Epstein-Barr virus: some lymphomas",C.capsid],["HHV-8: Kaposi sarcoma",C.capsid]].forEach((c,i)=>{const x=i<2?210+i*380:210+(i-2)*380;const y=i<2?428:452;label(x,y,c[0],{size:12,weight:700,align:"center",border:c[1]})})}
+
+/* ---------- 20 plaque assay ---------- */
+function plaqueSet(n,rad,seed,R){const out=[];for(let k=0;k<n;k++){const a=rnd(k*1.3+seed)*TAU,d=Math.sqrt(rnd(k*2.1+seed*3+1))*(R-rad-2);out.push([Math.cos(a)*d,Math.sin(a)*d,rad*(.75+rnd(k+seed*7)*.5)])}return out}
+const PLQ=[plaqueSet(320,7,11,92),plaqueSet(150,3.6,23,92),plaqueSet(15,4.4,37,92)];
+function scenePlaque(T){const L=14,t=tt(T,L);
+  panelBox(12,12,480,128);title(26,30,"Serial dilution (10-fold steps)");
+  const tx=[90,190,290,390],labs=["10⁻⁴","10⁻⁵","10⁻⁶","10⁻⁷"];
+  tx.forEach((x,i)=>{tube(x,44,26,62,.6,hexA(C["env-2"],.9),{lab:labs[i]});for(let k=0;k<Math.max(0,8-i*3);k++)circ(x-7+rnd(k+i*9)*14,84+rnd(k*2+i)*18,1.6,C.phage)});
+  const pp=seg(t,0,3)*3;const seg_=Math.min(2,Math.floor(pp)),f=pp-seg_;if(t<3.2){const x=lerp(tx[seg_],tx[seg_+1],smooth(seg(f,.2,.8))),y=36-Math.sin(f*Math.PI)*12;rr(x-3,y-40,6,44,2);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C.act5;ctx.lineWidth=2;ctx.stroke();circ(x,y+6,3,C.act5)}
+  txt(478,30,"1 mL into 9 mL each step",{size:12,align:"right",weight:600,color:C.act5});
+  const lawn=smooth(seg(t,3.4,7)),grow=smooth(seg(t,6,10));
+  const px=[150,400,650],py=264,R=92;const labs2=[["10⁻⁵","Too many to count",C.bad],["10⁻⁶","Countable: 30 to 300",C.good],["10⁻⁷","Too few",C.warn]];
+  px.forEach((x,i)=>{petri(x,py,R,{lawn,plaques:PLQ[i],grow});txt(x,py-R-16,labs2[i][0]+" plate",{size:12.5,mono:true,weight:700,align:"center"});
+    if(grow>.6)label(x,py+R+20,labs2[i][1]+(i===1?" · 150":i===2?" · 15":""),{size:12.5,weight:700,align:"center",border:labs2[i][2],a:seg(grow,.6,.9)})});
+  if(t>3.4&&t<6)label(400,py,"Lawn of bacteria growing",{size:12.5,weight:700,align:"center"});
+  // zoom: one plaque forming
+  const zx=650,zy=76,zr=60;ctx.save();ctx.beginPath();ctx.arc(zx,zy,zr,0,TAU);ctx.fillStyle=C.agar;ctx.fill();ctx.clip();const rad=seg(t,6,10.5)*58;
+  for(let k=0;k<44;k++){const x=zx-56+(k%9)*14+(Math.floor(k/9)%2)*7,y=zy-50+Math.floor(k/9)*24;const d=Math.hypot(x-zx,y-zy);const b=clamp((rad-d)/14,0,1);if(b>=1)continue;bacterium(x,y,12,6,(k%3)*.6,{burst:b,chrom:false,a:lawn})}
+  if(rad>4&&rad<56){for(let k=0;k<8;k++){const a=k/8*TAU+T;circ(zx+Math.cos(a)*rad,zy+Math.sin(a)*rad,2.2,C.phage)}}
+  ctx.restore();circ(zx,zy,zr,null,C["ink-soft"],2);txt(zx+zr+8,zy-40,"Zoom:",{size:12,weight:700});txt(zx+zr+8,zy-24,"one plaque",{size:12,weight:600});txt(zx+zr+8,zy-8,"forming",{size:12,weight:600});
+  panelBox(12,400,776,68);const show=seg(t,10,10.8);
+  withA(.35+.65*show,()=>{txt(26,420,"Titer = plaques ÷ (dilution × volume plated)",{size:13,weight:700});txt(26,446,"= 150 ÷ (10⁻⁶ × 0.1 mL) = 1.5 × 10⁹ PFU/mL",{size:14,mono:true,weight:700,color:C.accent})})}
+
+/* ---------- 21 cell culture + eggs ---------- */
+const CC=[];for(let r_=0;r_<5;r_++)for(let c=0;c<6;c++)CC.push([60+c*56+(r_%2)*20,90+r_*58,r_*6+c]);
+const ROUND=[2,9,13,22,27],SYN=[15,16,21],INCL=[4,7,19,25];
+function cobble(x,y,s,seed){ctx.beginPath();for(let k=0;k<6;k++){const a=k/6*TAU+.5;const rr_=s*(.92+rnd(seed*6+k)*.16);const X=x+Math.cos(a)*rr_,Y=y+Math.sin(a)*rr_*.95;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function eggShape(x,y,rx,ry){ctx.beginPath();ctx.moveTo(x,y-ry);ctx.bezierCurveTo(x+rx*.9,y-ry,x+rx*1.05,y+ry*.25,x+rx*.9,y+ry*.55);ctx.bezierCurveTo(x+rx*.7,y+ry*1.02,x-rx*.7,y+ry*1.02,x-rx*.9,y+ry*.55);ctx.bezierCurveTo(x-rx*1.05,y+ry*.25,x-rx*.9,y-ry,x,y-ry);ctx.closePath()}
+function sceneCulture(T){const L=11,t=tt(T,L);panelBox(12,12,380,456);title(26,32,"Cell culture");
+  const cpe=seg(t,2,9);
+  CC.forEach((c,i)=>{const ri=ROUND.indexOf(i);if(SYN.includes(i)&&cpe>.45)return;
+    if(ri>=0){const rd=seg(cpe,.1+ri*.08,.4+ri*.08),fl=seg(cpe,.45+ri*.08,.8+ri*.08);if(fl>=1)return;withA(1-fl,()=>{const y=c[1]-fl*40;if(rd<1){cobble(c[0],y,30*(1-rd*.4),c[2]);ctx.fillStyle=C.host;ctx.fill();ctx.strokeStyle=C["host-edge"];ctx.lineWidth=1.4;ctx.stroke()}else circ(c[0],y,18,mix(C.host,C.panel,.2),C["host-edge"],1.6);circ(c[0],y,6,C.nucf,C["nuc-edge"],1)});return}
+    cobble(c[0],c[1],30,c[2]);ctx.fillStyle=C.host;ctx.fill();ctx.strokeStyle=C["host-edge"];ctx.lineWidth=1.4;ctx.stroke();circ(c[0],c[1],7,C.nucf,C["nuc-edge"],1);
+    if(INCL.includes(i)&&cpe>.55)for(let k=0;k<3;k++)circ(c[0]+8+k*4,c[1]-10+k*5,2.6,hexA(C.capsid,seg(cpe,.55,.7)))});
+  if(cpe>.45){const sx=SYN.reduce((a,i)=>a+CC[i][0],0)/3,sy=SYN.reduce((a,i)=>a+CC[i][1],0)/3;blobPath(sx,sy,52,4,T*.5,.08);ctx.fillStyle=mix(C.host,C.capsid,.12);ctx.fill();ctx.strokeStyle=C["host-edge"];ctx.lineWidth=2;ctx.stroke();for(let k=0;k<4;k++)circ(sx-18+k*12,sy-6+(k%2)*12,6,C.nucf,C["nuc-edge"],1)}
+  if(t<2.6)for(let k=0;k<10;k++){const p=seg(t,k*.1,1.6+k*.1);circ(40+k*34,lerp(40,90+rnd(k)*200,p),3.2,C.capsid,null)}
+  if(cpe>.2)lead(CC[9][0],CC[9][1]-20,28,62,"Rounding and detaching",{size:12,a:seg(cpe,.2,.3),align:"left"});
+  if(cpe>.5){const sx=SYN.reduce((a,i)=>a+CC[i][0],0)/3;lead(sx+30,CC[15][1]+20,376,404,"Syncytium",{size:12,a:seg(cpe,.5,.6),border:C.capsid,align:"right"})}
+  if(cpe>.6)lead(CC[4][0]+10,CC[4][1]-8,376,62,"Inclusion bodies",{size:12,a:seg(cpe,.6,.7),align:"right"});
+  label(202,440,"Cytopathic effect (CPE)",{size:13,weight:700,align:"center",border:C.capsid});
+  // egg
+  panelBox(404,12,384,456);title(418,32,"Embryonated egg");const ex=586,ey=262,rx=118,ry=170;
+  eggShape(ex,ey,rx,ry);ctx.fillStyle=C.egg;ctx.fill();ctx.strokeStyle=C["egg-edge"];ctx.lineWidth=3;ctx.stroke();
+  ctx.save();eggShape(ex,ey,rx-10,ry-10);ctx.strokeStyle=C.cam;ctx.lineWidth=6;ctx.stroke();ctx.restore();
+  ctx.save();eggShape(ex,ey,rx,ry);ctx.clip();ell(ex,ey-ry+18,rx*.7,28,0,hexA(C.panel,.9),C["egg-edge"],1.5);ctx.restore();
+  circ(ex+10,ey+90,46,C.yolk,mix(C.yolk,C.ink,.3),1.6);circ(ex-20,ey+6,56,hexA(C.panel,.6),C["ink-soft"],1.4);
+  ctx.save();ctx.translate(ex-22,ey+8);blobPath(0,8,24,2,T*.3,.12);ctx.fillStyle=C.skin;ctx.fill();ctx.strokeStyle=C["skin-edge"];ctx.lineWidth=1.4;ctx.stroke();circ(-12,-16,14,C.skin,C["skin-edge"],1.4);circ(-16,-18,2.4,C.ink);ctx.restore();
+  const nd=smooth(seg(t,.6,2.4));const nx0=760,ny0=96,nx1=ex+rx*.62,ny1=ey-ry*.62;line(lerp(nx0,nx1+30,1)+(1-nd)*40,lerp(ny0,ny1-30,1)-(1-nd)*40,lerp(nx0+40,nx1,nd)+(1-nd)*40,lerp(ny0-40,ny1,nd)-(1-nd)*40,C["ink-soft"],3);
+  if(t>2.2&&t<4)circ(nx1,ny1,5,C.capsid);
+  const pk=seg(t,3.6,9);for(let k=0;k<8;k++){if(pk<k/8)continue;const a=-1.2+k*.32;const X=ex+Math.cos(a)*(rx-14)*.95,Y=ey+Math.sin(a)*(ry-14)*.9;circ(X,Y,4,C.panel,C["ink-soft"],1)}
+  lead(ex+rx*.85,ey-40,690,150,"Chorioallantoic membrane",{size:12,border:C.cam,align:"right"});lead(ex-60,ey-10,520,180,"Amniotic cavity",{size:12,align:"left"});
+  lead(ex+60,ey-40,690,200,"Allantoic cavity",{size:12,align:"right"});lead(ex+40,ey+110,690,380,"Yolk sac",{size:12,border:C.yolk,align:"right"});lead(ex,ey-ry+18,520,84,"Air sac",{size:12,align:"left"});
+  if(pk>.2)lead(ex+Math.cos(-.88)*(rx-14)*.95,ey+Math.sin(-.88)*(ry-14)*.9,700,120,"Pocks",{size:12,a:seg(pk,.2,.3),align:"right"});
+  label(596,452,"Many flu vaccines are grown in eggs",{size:12.5,weight:700,align:"center",border:C.act5})}
+
+/* ---------- 22 viroids ---------- */
+function potatoPlant(x,soil,m,T,infected){const h=lerp(170,95,m);line(x,soil,x,soil-h,C["leaf-edge"],4);
+  for(let k=0;k<5;k++){const y=soil-h*(.3+k*.16),sd=k%2?1:-1;const curl=m*.9;ctx.save();ctx.translate(x+sd*4,y);ctx.rotate(sd*(.5+curl*.6)+Math.sin(T+k)*.05);ell(sd*22*(1-curl*.35),0,24*(1-curl*.35),10*(1-curl*.2),0,C.leaf,C["leaf-edge"],1.4);ctx.restore()}
+  for(let k=0;k<2;k++){const tx=x-30+k*60,ty=soil+50+k*14;const rx=lerp(30,46,m),ry=lerp(24,12,m);ell(tx,ty,rx,ry,k?.2:-.2,C.potato,C["potato-edge"],1.6);
+    if(m>.3)for(let j=0;j<3;j++)line(tx-rx*.5+j*rx*.4,ty-ry*.5,tx-rx*.4+j*rx*.4,ty+ry*.4,hexA(C["potato-edge"],m),1.4)}}
+function sceneViroid(T){const L=12,t=tt(T,L);panelBox(12,12,380,456);title(26,32,"Potato spindle tuber disease");
+  const soil=270;ctx.fillStyle=hexA(C.potato,.35);ctx.fillRect(13,soil,378,160);line(13,soil,391,soil,C["potato-edge"],2);
+  const m=smooth(seg(t,1,6));potatoPlant(110,soil,0,T,false);potatoPlant(290,soil,m,T,true);
+  txt(110,446,"Healthy",{size:13,weight:700,align:"center"});txt(290,446,m>.5?"Infected: stunted":"Infected",{size:13,weight:700,align:"center",color:m>.5?C.bad:C.ink});
+  if(m>.6)lead(306,soil+60,320,400,"Long, cracked tubers",{size:12,a:seg(m,.6,.8),align:"right"});
+  panelBox(404,12,384,456);title(418,32,"Inside a plant cell nucleus");
+  const zx=596,zy=200,zr=140;circ(zx,zy,zr,C.nucf,C["nuc-edge"],2.5);
+  // viroid: rod-shaped closed loop
+  const vx=zx,vy=150,vl=190,vh=26;rr(vx-vl/2,vy-vh/2,vl,vh,vh/2);ctx.strokeStyle=C.viroid;ctx.lineWidth=3.5;ctx.stroke();for(let k=0;k<16;k++){const X=vx-vl/2+14+k*10.5;line(X,vy-vh/2+4,X,vy+vh/2-4,hexA(C.viroid,.55),1.4)}
+  lead(vx+vl/2,vy,760,80,"Viroid: a small circle of RNA",{size:12,border:C.viroid,align:"right"});
+  const per=[[vx-vl/2+13,vy-vh/2],[vx+vl/2-13,vy-vh/2],[vx+vl/2,vy],[vx+vl/2-13,vy+vh/2],[vx-vl/2+13,vy+vh/2],[vx-vl/2,vy],[vx-vl/2+13,vy-vh/2]];
+  const pp=P(T,4);const [bx,by]=along(per,pp);circ(bx,by,11,C.ribo,hexA(C.ink,.4),1.2);
+  lead(bx,by-10,420,108,"Host RNA polymerase",{size:12,align:"left"});
+  const chain=seg(t,0,8);const len=chain*230;ctx.save();ctx.beginPath();for(let i=0;i<=40;i++){const f=i/40;const X=vx-100+f*len*.8,Y=vy+60+Math.sin(f*14+T*2)*6;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=C.viroid;ctx.lineWidth=3;ctx.stroke();ctx.restore();
+  if(len>20)for(let k=1;k<Math.floor(len/48);k++)line(vx-100+k*38,vy+50,vx-100+k*38,vy+70,C.bad,2);
+  txt(vx-100,vy+84,"Long chain of copies, cut to size",{size:12,weight:600});
+  const nl=Math.floor(seg(t,4,11)*4.99);for(let k=0;k<nl;k++){rr(zx-110+k*56,262,44,14,7);ctx.strokeStyle=C.viroid;ctx.lineWidth=2.6;ctx.stroke()}
+  if(nl)txt(zx,292,"New circles",{size:12,weight:600,align:"center"});
+  // size bars
+  title(418,366,"Genome size");rr(420,380,18,12,3);ctx.fillStyle=C.viroid;ctx.fill();txt(446,386,"Viroid: about 250 to 400 nucleotides",{size:12,weight:600});
+  rr(420,404,350,12,3);ctx.fillStyle=C.rna;ctx.fill();txt(420,428,"Small virus genome: thousands of nucleotides",{size:12,weight:600});
+  label(596,452,"No capsid, no proteins made",{size:12.5,weight:700,align:"center",border:C.viroid})}
+
+/* ---------- 23 prion chain reaction ---------- */
+const PSLOT=[];for(let k=0;k<16;k++)PSLOT.push([80+(k%4)*120+(Math.floor(k/4)%2)*40,140+Math.floor(k/4)*58]);
+function pGen(k){return k===0?0:Math.floor(Math.log2(k))+1}
+function pTime(k){return k===0?0:1+(pGen(k)-1)*1.5}
+function sceneprion(T){const L=13,t=tt(T,L);
+  rr(16,392,560,76,30);ctx.fillStyle=C.host;ctx.fill();ctx.strokeStyle=C["host-edge"];ctx.lineWidth=2.5;ctx.stroke();txt(296,440,"Nerve cell surface",{size:12.5,weight:600,align:"center",color:C["ink-soft"]});
+  let n=0;const fib=smooth(seg(t,7.4,10));
+  PSLOT.forEach((p,k)=>{let x=p[0],y=p[1];if(k===0){x=lerp(-30,p[0],smooth(seg(t,0,.8)))}
+    const tc=pTime(k);const m=k===0?1:smooth(seg(t,tc,tc+.9));if(m>.5)n++;
+    if(k>0&&t>tc-.4&&t<tc+.6){const par=PSLOT[k-Math.pow(2,pGen(k)-1)];line(par[0],par[1],x,y,hexA(C.prpsc,.6),2,[4,4]);pulseRing(x,y,34,C.prpsc,seg(t,tc-.4,tc+.6))}
+    if(fib>0&&m>0){const j=k;const fx=690,fy=380-j*17;const g=smooth(seg(t,7.4+k*.12,8.6+k*.12));x=lerp(x,fx,g);y=lerp(y,fy,g)}
+    prp(x,y,22,m,{t:T+k})});
+  if(fib>.6){rr(640,100,100,296,10);ctx.strokeStyle=hexA(C.prpsc,.6);ctx.lineWidth=2;ctx.setLineDash([5,4]);ctx.stroke();ctx.setLineDash([]);label(690,86,"Clumps (amyloid fibres)",{size:12.5,weight:700,align:"center",border:C.prpsc})}
+  label(700,36,"Misfolded copies: "+n,{size:13,mono:true,weight:700,align:"center",border:C.prpsc});
+  label(300,30,"Same protein, wrong shape: no DNA or RNA",{size:13,weight:700,align:"center"});
+  if(t<2.5){lead(PSLOT[1][0],PSLOT[1][1]+20,PSLOT[1][0]+40,PSLOT[1][1]+44,"Normal PrP",{size:12,border:C.prpc,align:"left"});lead(PSLOT[0][0]-10,PSLOT[0][1]-14,40,84,"Misfolded PrP",{size:12,border:C.prpsc,align:"left"})}}
+
+/* ---------- 24 prion diseases ---------- */
+function brainOutline(x,y){ctx.beginPath();ctx.ellipse(x,y,100,72,0,0,TAU);ctx.fillStyle=mix(C.host,C.panel,.2);ctx.fill();ctx.strokeStyle=C["host-edge"];ctx.lineWidth=2.5;ctx.stroke();
+  ctx.beginPath();ctx.ellipse(x+62,y+62,36,24,.3,0,TAU);ctx.fill();ctx.stroke();line(x+10,y+60,x+20,y+120,C["host-edge"],12);
+  ctx.strokeStyle=hexA(C["host-edge"],.6);ctx.lineWidth=1.6;for(let k=0;k<5;k++){ctx.beginPath();ctx.arc(x-60+k*30,y-10+(k%2)*16,18,.3,2.6);ctx.stroke()}}
+function cow(x,y){ctx.save();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=2;rr(x-26,y-12,50,24,8);ctx.stroke();rr(x+22,y-20,18,14,4);ctx.stroke();[-18,-6,8,18].forEach(dx=>line(x+dx,y+12,x+dx,y+26,C["ink-soft"],2));line(x-26,y-6,x-34,y+6,C["ink-soft"],2);ctx.restore()}
+function scenePrionDis(T){const L=12,t=tt(T,L);
+  panelBox(12,12,252,456);title(26,32,"Brain over months");brainOutline(128,190);
+  const nh=Math.floor(seg(t,0,9)*38);for(let k=0;k<nh;k++){const a=rnd(k*3.3)*TAU,d=Math.sqrt(rnd(k*5.1+2));circ(128+Math.cos(a)*d*86,190+Math.sin(a)*d*58,3+rnd(k)*4,C.panel,hexA(C["host-edge"],.6),1)}
+  label(138,350,"Spongy holes:",{size:12.5,weight:700,align:"center",border:C.prpsc});label(138,378,"spongiform encephalopathy",{size:12.5,weight:700,align:"center"});
+  txt(138,420,"Fatal; no fever or inflammation",{size:12,align:"center",color:C["ink-soft"]});
+  panelBox(276,12,250,456);title(290,32,"How people get it");const on=Math.floor(t/3)%4;
+  const R=[["Inherited","PrP gene mutation"],["Sporadic","Random misfolding"],["Instruments, tissue","Rare, from surgery"],["Eating BSE beef","Variant CJD"]];
+  R.forEach((r_,i)=>{const y=50+i*102;const lit=i===on;panelBox(286,y,230,92,{stroke:lit?C.act6:C.rule,lw:lit?2.6:1.2,fill:hexA(C.panel,lit?.97:.8)});
+    const ix=322,iy=y+46;withA(lit?1:.55,()=>{if(i===0)strand(ix-24,iy,ix+24,iy,C.dna,T,{ds:true,amp:6,waves:1.5});else if(i===1){prp(ix,iy,16,.5+.5*Math.sin(T*2))}else if(i===2){line(ix-22,iy+12,ix+14,iy-14,C["ink-soft"],4);ell(ix+18,iy-17,8,4,-.6,C["ink-soft"])}else cow(ix,iy)});
+    txt(360,y+36,r_[0],{size:13,weight:700});txt(360,y+58,r_[1],{size:12,color:C["ink-soft"]})});
+  panelBox(538,12,250,456);title(552,32,"Sterilizing tools");
+  const done=seg(t%6,1.5,2.5);
+  [[60,"121 °C, 15 min",false],[260,"134 °C, extended,",true]].forEach((b,i)=>{const y=b[0];panelBox(548,y,230,184);txt(560,y+20,b[1],{size:13,weight:700});if(i)txt(560,y+38,"+ sodium hydroxide, or incinerate",{size:12,weight:600,color:C["ink-soft"]});
+    thermo(764,y+50,90,i?.95:.75);for(let k=0;k<3;k++){const p=P(T*.6+k/3,1);ctx.save();ctx.globalAlpha*=1-p;poly([[600+k*40,y+170-p*30],[606+k*40,y+160-p*30],[600+k*40,y+150-p*30]],C["ink-soft"],1.6);ctx.restore()}
+    bacterium(590,y+86,46,20,0,{});icosa(660,y+86,14,{genome:C.dna});prp(720,y+90,16,1,{t:T});
+    if(done>0){withA(done,()=>{cross(590,y+86,13,C.good);cross(660,y+86,13,C.good);if(i)cross(720,y+90,13,C.good)})}
+    if(done>.5)label(655,y+132,i?"Prions destroyed too":"Prions survive",{size:12.5,weight:700,align:"center",border:i?C.good:C.bad})})}
+
+/* ---------- recap ---------- */
+function sceneRecap(T){const t=tt(T,12);const lyt=t<6;
+  panelBox(12,12,380,456);title(26,32,"Two paths after infection");
+  const s=12;phage(200,92-Math.sin(T*2)*3,s,Math.PI/2,{t:T,contract:.5+.5*Math.sin(T*2)});bacterium(200,150,140,52,0,{});
+  arrow(170,182,100,250,lyt?C.act2:C.rule,2.5);arrow(230,182,300,250,!lyt?C.act2:C.rule,2.5);
+  label(100,268,"Lytic",{size:13,weight:700,align:"center",border:lyt?C.act2:null});label(300,268,"Lysogenic",{size:13,weight:700,align:"center",border:!lyt?C.act2:null});
+  withA(lyt?1:.45,()=>{const f=lyt?seg(t,1,5):0;if(f<.2)bacterium(100,350,110,46,0,{chrom:false,inner:(W_,H_)=>{for(let k=0;k<5;k++)phage(-W_*.3+k*W_*.15,0,4,Math.PI/2,{})}});burstPhages(100,350,12,f,5,2,80);txt(100,440,"Cell bursts",{size:12.5,weight:600,align:"center"})});
+  withA(!lyt?1:.45,()=>{const f=!lyt?smooth(seg(t,7,9)):0;[-1,1].forEach(sd=>bacterium(300+sd*44*f,350,lerp(150,84,f),lerp(46,40,f),0,{pro:true}));txt(300,440,"Prophage copied",{size:12.5,weight:600,align:"center"})});
+  const parts=[["What a virus is","act1","DNA or RNA in a capsid; envelope; receptors"],["Bacteriophages","act2","Lytic 5 steps; lysogeny, induction, toxins"],["Animal viruses","act3","Entry, uncoating, +/−RNA, retroviruses, budding"],["Infection patterns","act4","Acute, persistent, latent; oncogenic viruses"],["Growing and counting","act5","Plaques and PFU/mL; CPE; eggs"],["Viroids and prions","act6","Bare RNA in plants; misfolded PrP in brains"]];
+  const lit=Math.floor(P(T,13)*7);
+  parts.forEach((pt,i)=>{const x=404,y=12+i*77,w=384,h=70;const l=i<=lit;panelBox(x,y,w,h,{stroke:l?C[pt[1]]:C.rule,lw:l?2.5:1.2,fill:hexA(C.panel,l?.97:.6)});
+    ctx.save();ctx.globalAlpha=l?1:.45;badge(x+24,y+h/2,i+1,C[pt[1]],12);txt(x+46,y+24,pt[0],{size:14,weight:700});wrapText(pt[2],x+46,y+48,w-60,16,{size:12.5,color:C["ink-soft"]});ctx.restore()})}
+
+/* ---------------- loop ---------------- */
+let T=0,last=performance.now();
+const SCENES={map:sceneMap,notcell:sceneNotCell,structure:sceneStructure,shapes:sceneShapes,envnaked:sceneEnvNaked,tropism:sceneTropism,
+  phageattach:scenePhageAttach,phagebuild:scenePhageBuild,phagerelease:scenePhageRelease,lysogeny:sceneLysogeny,induction:sceneInduction,conversion:sceneConversion,
+  entry:sceneEntry,dnavirus:sceneDNAVirus,rnavirus:sceneRNAVirus,retro:sceneRetro,release:sceneRelease,
+  patterns:scenePatterns,herpes:sceneHerpes,onco:sceneOnco,plaque:scenePlaque,culture:sceneCulture,viroid:sceneViroid,prion:sceneprion,priondis:scenePrionDis,recap:sceneRecap};
+function draw(){
+  ctx.setTransform(K,0,0,K,0,0);ctx.clearRect(0,0,W,H);ctx.globalAlpha=1;bg(C.ecf);
+  const s=STEPS[cur];
+  try{(SCENES[s.scene]||sceneRecap)(T)}catch(e){console.error(e)}
+  ctx.globalAlpha=1;
+}
+function frame(now){
+  const dt=Math.min(.05,(now-last)/1000);last=now;if(!paused)T+=dt*speed;
+  draw();
+  requestAnimationFrame(frame);
+}
+window.__setT=v=>{T=v;paused=true;draw()};
+window.__go=i=>go(i);
+window.__n=()=>STEPS.length;
+readColors();buildChain();fit();render();requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

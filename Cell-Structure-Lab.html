@@ -1,0 +1,1045 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cell Structure Lab</title>
+<meta name="description" content="An osmosis bench, a chemotaxis track, lab unknowns and sorting games for prokaryotic and eukaryotic cell structure.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#1E7A4C;--accent-ink:#155A37;--accent-wash:#DDEFE4;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#2E8A7A;--act2:#4F6F94;--act3:#7B5CC9;--act4:#D98A1C;--act5:#C4644F;--act6:#A04E8C;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#8A6D12;
+  /* cell structure palette */
+  --ecf:#EEF4F0;--grid:#D6E2DA;
+  --gpos:#6B3FA0;--gneg:#C2417A;--pg:#C98A1E;--nag:#2E8A7A;--nam:#D96B2B;--pep:#4F6F94;--enz:#8A2E62;
+  --lipid:#D9893B;--tail:#EBD6B0;--cyto:#E4F1E8;--cell-edge:#2F6F4F;--dna:#1B6E88;--plasmid:#D9531E;--ribo:#5B3F9C;--incl:#A08C68;
+  --lps:#2F7FC1;--lipa:#A9372F;--porin:#5E7A2A;--teich:#2E8A7A;--myc:#C9A227;
+  --water:#2F7FC1;--salt:#D9531E;--sugar:#B8901C;--atp:#D98A1C;
+  --capsule:#7FB3D9;--slime:#9CC48A;--flag:#7A5A2E;--attr:#D98A1C;
+  --spore:#2E8A4A;--cortex:#C9A227;--coat:#6E5A8A;--heat:#E0563A;--drug:#C2392F;
+  --nucl:#4F6F94;--er:#A0609A;--golgi:#C4644F;--mito:#D96B5A;--chloro:#4E9A3A;--chitin:#8A6D3B;--ergo:#E06A2F;--chol:#2F7FC1;
+  --fungus:#B07A1E;--proto:#5E7A2A;--macro:#E6D3B3;--macro-edge:#A5854F;--nuc:#5B3F9C;--host:#F3DCCB;--host-edge:#B5866A;--glow:#F2B33B;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#B5EDD0;--accent-wash:#16301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5CC4B0;--act2:#8FB1D9;--act3:#A98BEF;--act4:#F2A93B;--act5:#E08A74;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#111A16;--grid:#22332A;
+  --gpos:#B79BEF;--gneg:#F08FB8;--pg:#E8B456;--nag:#5CC4B0;--nam:#F2945B;--pep:#8FB1D9;--enz:#E58FC0;
+  --lipid:#E8A45E;--tail:#4A3E2C;--cyto:#18291F;--cell-edge:#6BC293;--dna:#6FC3DD;--plasmid:#F28A50;--ribo:#B49BF0;--incl:#C9B48C;
+  --lps:#5AA9E6;--lipa:#E07067;--porin:#A3C95A;--teich:#5CC4B0;--myc:#E0BE48;
+  --water:#6FA3F0;--salt:#F28A50;--sugar:#E0BE48;--atp:#F2A93B;
+  --capsule:#4F7FA6;--slime:#5E8A4E;--flag:#D9B47A;--attr:#F2A93B;
+  --spore:#6BC28A;--cortex:#E0BE48;--coat:#A992CC;--heat:#F27A5E;--drug:#E8786A;
+  --nucl:#8FB1D9;--er:#D9A3D1;--golgi:#E08A74;--mito:#F09080;--chloro:#8FD07A;--chitin:#C9A86E;--ergo:#F28A50;--chol:#6FA3F0;
+  --fungus:#E0B050;--proto:#A3C95A;--macro:#4A4030;--macro-edge:#C9A66E;--nuc:#B49BF0;--host:#3E2E25;--host-edge:#C9997A;--glow:#F2B33B;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#B5EDD0;--accent-wash:#16301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5CC4B0;--act2:#8FB1D9;--act3:#A98BEF;--act4:#F2A93B;--act5:#E08A74;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#111A16;--grid:#22332A;
+  --gpos:#B79BEF;--gneg:#F08FB8;--pg:#E8B456;--nag:#5CC4B0;--nam:#F2945B;--pep:#8FB1D9;--enz:#E58FC0;
+  --lipid:#E8A45E;--tail:#4A3E2C;--cyto:#18291F;--cell-edge:#6BC293;--dna:#6FC3DD;--plasmid:#F28A50;--ribo:#B49BF0;--incl:#C9B48C;
+  --lps:#5AA9E6;--lipa:#E07067;--porin:#A3C95A;--teich:#5CC4B0;--myc:#E0BE48;
+  --water:#6FA3F0;--salt:#F28A50;--sugar:#E0BE48;--atp:#F2A93B;
+  --capsule:#4F7FA6;--slime:#5E8A4E;--flag:#D9B47A;--attr:#F2A93B;
+  --spore:#6BC28A;--cortex:#E0BE48;--coat:#A992CC;--heat:#F27A5E;--drug:#E8786A;
+  --nucl:#8FB1D9;--er:#D9A3D1;--golgi:#E08A74;--mito:#F09080;--chloro:#8FD07A;--chitin:#C9A86E;--ergo:#F28A50;--chol:#6FA3F0;
+  --fungus:#E0B050;--proto:#A3C95A;--macro:#4A4030;--macro-edge:#C9A66E;--nuc:#B49BF0;--host:#3E2E25;--host-edge:#C9997A;--glow:#F2B33B;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1180px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:9px 14px;cursor:pointer;font-weight:500;font-size:15px}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 13px;cursor:pointer;font-size:14.5px}
+.tbtn:hover{border-color:var(--accent)}
+.tbtn:disabled{opacity:.45;cursor:default}
+.tbtn[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:10px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.btn:disabled{opacity:.45;cursor:default}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;min-width:0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid,.grid2{grid-template-columns:1fr}}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%;touch-action:manipulation}
+.stagebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2)}
+.legend i.s{border-radius:2px}
+.legend i.ln{width:20px;height:0;border-radius:0;border:0;border-top:3px solid}
+.legend i.t{width:0;height:0;border-radius:0;border:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid;background:none!important}
+.rounds{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.round{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 13px;cursor:pointer;font-size:14px}
+.round[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.round .ok{color:var(--gold-ink);margin-left:4px}
+.mode{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-soft)}
+.mode input{accent-color:var(--accent);width:18px;height:18px}
+.lvl-n{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.lvl-t{font-family:var(--serif);font-size:22px;font-weight:600;margin:4px 0 8px;line-height:1.25}
+.goal{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:15px}
+.goal b.h{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.msg{margin:10px 0 0;padding:10px 12px;border-radius:var(--r);font-size:15px;display:none}
+.msg.show{display:block}
+.msg.good{background:var(--good-wash);color:var(--ink);border:1px solid var(--good)}
+.msg.warn{background:var(--warn-wash);color:var(--ink);border:1px solid var(--warn)}
+.msg.info{background:var(--panel-2);color:var(--ink);border:1px solid var(--rule)}
+.stars{font-size:22px;letter-spacing:2px;color:var(--gold-ink)}
+.side h3{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+.side p,.side li{font-size:14.5px}
+.side ul{padding-left:18px;margin:6px 0}
+.small{font-size:13px;color:var(--ink-soft)}
+.typebtns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.typebtn{background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 0;cursor:pointer;font-family:var(--mono);font-weight:600;font-size:15px}
+.typebtn:hover{border-color:var(--accent)}
+.typebtn.right{border-color:var(--good);background:var(--good-wash)}
+.typebtn.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.typebtn:disabled{cursor:default}
+.prog{height:8px;background:var(--sunk);border-radius:99px;overflow:hidden;margin:6px 0 10px}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.timer{font-family:var(--mono);font-size:18px;font-weight:600}
+/* bags */
+.bags{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0 4px}
+.bag{position:relative;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:6px 4px 4px;cursor:grab;touch-action:none;user-select:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--mono);font-weight:700;font-size:14px}
+.bag svg{width:34px;height:44px;display:block}
+.bag.sel{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
+.bag.ok{border-color:var(--good);background:var(--good-wash)}
+.bag.no{border-color:var(--warn);background:var(--warn-wash)}
+.bag .mk{position:absolute;top:3px;right:5px;font-size:13px}
+.bag.ghost{position:fixed;z-index:50;pointer-events:none;opacity:.9;box-shadow:0 10px 24px -8px rgba(0,0,0,.4)}
+.droptarget{outline:3px dashed var(--accent);outline-offset:-3px}
+.abbox{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:10px 12px;font-size:14.5px;margin-top:10px}
+/* sim */
+.ctl{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ctl label{font-size:14.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.ctl output{font-family:var(--mono);font-weight:600;color:var(--accent-ink)}
+.ctl input[type=range]{accent-color:var(--accent);width:100%}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-faint);font-family:var(--mono)}
+.readouts{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+.readouts th{text-align:left;font-weight:500;color:var(--ink-soft);padding:5px 6px 5px 0;border-top:1px solid var(--rule-soft)}
+.srhead th,.srhead td,.readouts caption.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0;border:0}
+.readouts td{padding:5px 0;border-top:1px solid var(--rule-soft);font-family:var(--mono);font-size:13.5px;text-align:right;white-space:nowrap}
+.chal{list-style:none;padding:0;margin:6px 0}
+.chal li{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14px}
+.chal .ck{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-size:13px;font-family:var(--mono)}
+.chal li.done .ck{background:var(--good);border-color:var(--good);color:var(--on-accent)}
+.status{font-size:14.5px;padding:8px 10px;border-radius:var(--r);margin-top:8px;border:1px solid var(--rule);background:var(--panel-2)}
+.status.warn{background:var(--warn-wash);border-color:var(--warn)}
+.status.bad{background:var(--bad-wash);border-color:var(--bad)}
+.status.good{background:var(--good-wash);border-color:var(--good)}
+/* sequencer */
+ol.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.item{display:flex;align-items:center;gap:10px;background:var(--panel);border:1.5px solid var(--rule);border-left:6px solid var(--act4);border-radius:var(--r);padding:7px 8px 7px 10px;touch-action:none;user-select:none;cursor:grab;transition:background .15s,border-color .15s}
+.item.drag{box-shadow:0 10px 24px -8px rgba(0,0,0,.4);cursor:grabbing;border-color:var(--accent);z-index:2;position:relative}
+.item .pos{font-family:var(--mono);font-size:13px;color:var(--ink-faint);width:20px;text-align:right;flex:0 0 auto}
+.item .grip{color:var(--ink-faint);font-size:18px;line-height:1;flex:0 0 auto}
+.item .txt{flex:1;font-size:15px;line-height:1.35}
+.item .mv{display:flex;flex-direction:column;gap:2px}
+.mv button{width:30px;height:24px;border:1px solid var(--rule);background:var(--panel-2);border-radius:4px;cursor:pointer;font-size:12px;padding:0;line-height:1}
+.mv button:hover{border-color:var(--accent)}
+.item.right{background:var(--good-wash);border-color:var(--good)}
+.item.off{background:var(--warn-wash);border-color:var(--warn)}
+.item.hinted{box-shadow:0 0 0 3px var(--gold)}
+.sc-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.sc-n{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.sc-title{font-family:var(--serif);font-size:22px;font-weight:600;margin:2px 0 6px}
+.qlab{font-weight:600;margin:12px 0 8px}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opt{text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:8px 0 0;font-size:14.5px;padding:8px 10px;border-radius:4px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--good-wash);border-left:4px solid var(--good)}
+.fb.no{background:var(--warn-wash);border-left:4px solid var(--warn)}
+.explain{margin-top:14px;padding:12px 14px;background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;display:none}
+.explain.show{display:block}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-family:var(--mono);font-size:12.5px;background:var(--panel-2);cursor:pointer;padding:0}
+.chip.cur{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.chip.done{border-color:var(--good);background:var(--good-wash);color:var(--good)}
+.chip.done.cur{background:var(--accent);color:var(--on-accent)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+.subtabs{display:flex;gap:6px;margin:0 0 12px;flex-wrap:wrap}
+footer{max-width:1180px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+kbd{font-family:var(--mono);font-size:12.5px;border:1px solid var(--rule);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--panel-2)}
+sub,sup{line-height:0}
+[hidden]{display:none!important}
+/* heart lab */
+.sbank{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-top:10px}
+.sbtn{background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:7px 9px;cursor:pointer;font-size:14px;text-align:left;line-height:1.25}
+.sbtn:hover{border-color:var(--accent)}
+.sbtn.done{border-color:var(--good);background:var(--good-wash)}
+.sbtn.no{border-color:var(--warn);background:var(--warn-wash)}
+.sbtn.hint{box-shadow:0 0 0 3px var(--gold)}
+.paint{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.paint button{display:inline-flex;align-items:center;gap:8px}
+.paint i{width:16px;height:16px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.25)}
+.rhythms{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.rhythms .tbtn{text-align:left;font-size:14px;line-height:1.25}
+.mopts{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0}
+.slwrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 4px 0}
+.slwrap input[type=range]{flex:1 1 260px;accent-color:var(--accent)}
+.slwrap output{font-family:var(--mono);font-weight:600;min-width:72px}
+.qcard{margin-top:12px;border:1px solid var(--rule);border-radius:var(--r);padding:12px 14px;background:var(--panel-2)}
+.qcard h3{margin-top:0}
+.scen{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
+.big{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1.1}
+select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:var(--r);padding:4px 6px}
+/* genetics case lab */
+.gtgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.gtgrid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.gbtn{font-family:var(--mono);font-weight:600;font-size:15px;padding:8px 4px;text-align:center}
+.gbtn sup{font-size:10.5px;line-height:0}
+.modes{display:grid;grid-template-columns:1fr;gap:6px}
+.modes .tbtn{text-align:left;line-height:1.3}
+.modes .tbtn small{display:block;font-size:12.5px;color:var(--ink-soft);font-weight:500}
+.modes .tbtn[aria-pressed="true"] small{color:var(--accent-ink)}
+.kidbtns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0}
+.kidbtns .btn{padding:10px 6px;font-size:14.5px}
+.readouts td.l{font-family:var(--sans);text-align:left;white-space:normal}
+.readouts thead th{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;border-top:0}
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.case{grid-template-columns:1fr}}
+.casechips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.casechip{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 12px;cursor:pointer;font-size:14px}
+.casechip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.casechip .ok{color:var(--good);margin-left:4px;font-weight:700}
+.story{font-size:15.5px;margin:0 0 8px}
+.qblock{border-top:1px solid var(--rule-soft);padding-top:8px;margin-top:10px}
+.hintbox{margin:8px 0 0;padding:8px 10px;border-radius:4px;background:var(--gold-wash);border-left:4px solid var(--gold);font-size:14.5px}
+.meter{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--ink-soft);margin-bottom:6px}
+.meter b{color:var(--ink);font-family:var(--mono)}
+/* sort game */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:10px;border:1.5px dashed var(--rule);border-radius:var(--r);background:var(--panel-2);margin:8px 0 12px}
+.scard{background:var(--panel);border:1.5px solid var(--rule);border-left:5px solid var(--accent);border-radius:var(--r);padding:8px 10px;cursor:grab;font-size:14.5px;line-height:1.3;text-align:left;touch-action:none;user-select:none;max-width:100%}
+.scard:hover{border-color:var(--accent)}
+.scard[aria-pressed="true"]{box-shadow:0 0 0 3px var(--accent);border-color:var(--accent)}
+.scard.ghost{position:fixed;z-index:60;pointer-events:none;opacity:.92;box-shadow:0 10px 24px -8px rgba(0,0,0,.45)}
+.scard.placed{cursor:default;border-left-color:var(--good);background:var(--good-wash);font-size:13.5px;padding:6px 8px}
+.scard.hinted{box-shadow:0 0 0 3px var(--gold)}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.bin{border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);padding:8px;display:flex;flex-direction:column;gap:6px;min-height:150px}
+.bin.over{outline:3px dashed var(--accent);outline-offset:-3px}
+.bin.hintbin{box-shadow:0 0 0 3px var(--gold)}
+.binhead{display:flex;align-items:center;gap:8px;width:100%;background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:6px;cursor:pointer;font-weight:600;font-size:14.5px;text-align:left;line-height:1.25}
+.binhead:hover{border-color:var(--accent)}
+.binhead svg{width:56px;height:46px;flex:0 0 auto}
+.binitems{display:flex;flex-direction:column;gap:5px}
+.sortbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:4px 0 8px}
+.sorthead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h2.sec{font-family:var(--serif);font-size:21px;margin:2px 0 6px;font-weight:600}
+.sim-note{font-size:13.5px;color:var(--ink-soft);margin:6px 0 0}
+.readouts td{padding-left:10px}
+.legend i.o{background:transparent!important;border:2.5px solid}
+.scard svg{width:54px;height:30px;display:block;margin:0 auto 4px}
+.scard.pic{text-align:center;min-width:120px}
+.bench{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 2px}
+.ord-help{font-size:13.5px;color:var(--ink-soft);margin:4px 0 8px}
+.tbtn.sm{padding:5px 9px;font-size:13.5px}
+.arena-note{font-size:13px;color:var(--ink-soft);margin:6px 4px 0}
+.ctlrow{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.mode{margin:4px 0}
+</style>
+<script src="micro-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">Microbiology &middot; Module 2 &middot; Prokaryotic and eukaryotic cell structure</div>
+    <h1>Cell Structure Lab</h1>
+    <p class="sub">Swell and shrink cells on the osmosis bench, steer bacteria toward food, solve lab unknowns at the microscope, and sort cell parts. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+<div class="wrap">
+  <div class="tabs" role="tablist" aria-label="Lab parts">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="tab-osm" data-tab="osm" id="tabbtn-osm" type="button">Part 1 &middot; Osmosis Bench</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-che" data-tab="che" id="tabbtn-che" type="button" tabindex="-1">Part 2 &middot; Chemotaxis Track</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-unk" data-tab="unk" id="tabbtn-unk" type="button" tabindex="-1">Part 3 &middot; Lab Unknowns</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-sort" data-tab="sort" id="tabbtn-sort" type="button" tabindex="-1">Part 4 &middot; Sort and Build</button>
+  </div>
+
+  <!-- PART 1: osmosis bench -->
+  <section id="tab-osm" role="tabpanel" aria-labelledby="tabbtn-osm">
+    <h2 class="gk-sr">Part 1: Osmosis Bench</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvOsm" role="img" aria-label="A cell in a beaker of water."></canvas></div>
+        <div class="stagebar"><span class="caption" id="osmCap"></span></div>
+        <div class="legend">
+          <span><i style="background:var(--cyto);border-color:var(--cell-edge)"></i>Cytoplasm</span>
+          <span><i class="o" style="border-color:var(--pg)"></i>Cell wall</span>
+          <span><i style="background:var(--salt)"></i>Salt</span>
+          <span><i class="s" style="background:var(--sugar)"></i>Sugar</span>
+          <span><i class="l" style="background:var(--water)"></i>Water flow (arrows)</span>
+        </div>
+      </div>
+      <aside class="card side" aria-label="Osmosis bench controls">
+        <h3 id="osmCellLab">1. Choose a cell</h3>
+        <div class="modes" id="osmCells" role="group" aria-labelledby="osmCellLab"></div>
+        <h3 id="osmSolLab">2. What is dissolved in the water</h3>
+        <div class="gtgrid two" id="osmSol" role="group" aria-labelledby="osmSolLab"></div>
+        <div class="ctl"><label for="osmConc">3. How much <output id="osmConcOut" for="osmConc">0%</output></label>
+          <input type="range" id="osmConc" min="0" max="25" step="0.5" value="0"><div class="ticks" aria-hidden="true"><span>0%</span><span id="osmTickMax">25%</span></div></div>
+        <h3 id="osmPreLab">Quick settings</h3>
+        <div class="scen" id="osmPresets" role="group" aria-labelledby="osmPreLab"></div>
+        <table class="readouts" id="osmRead"><caption class="sr">Osmosis bench readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody></tbody></table>
+        <div class="status" id="osmStatus" role="status"></div>
+        <div class="bar"><button class="tbtn" type="button" id="osmNew">New cell</button></div>
+        <h3>Challenges</h3>
+        <ul class="chal" id="osmChal"></ul>
+        <p class="small">A teaching model with rounded numbers. Real cells also adjust their own solutes, and growth depends on much more than water.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 2: chemotaxis -->
+  <section id="tab-che" role="tabpanel" aria-labelledby="tabbtn-che" hidden>
+    <h2 class="gk-sr">Part 2: Chemotaxis Track</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvChe" role="img" aria-label="Bacteria swimming in an arena with food."></canvas></div>
+        <p class="arena-note">Tap or click anywhere in the arena to move the food, or use the buttons. The highlighted cell leaves a full trail.</p>
+        <div class="stagebar"><span class="caption" id="cheCap"></span></div>
+        <div class="legend">
+          <span><i style="background:var(--attr)"></i>Attractant (food)</span>
+          <span><i style="background:var(--drug)"></i>Repellent</span>
+          <span><i class="l" style="background:var(--accent)"></i>Tracked cell's path</span>
+          <span><i style="background:var(--warn)"></i>Tumble</span>
+          <span><i class="l" style="background:var(--lps)"></i>Average distance (graph)</span>
+        </div>
+      </div>
+      <aside class="card side" aria-label="Chemotaxis controls">
+        <h3 id="cheFoodLab">Food position</h3>
+        <div class="ctlrow" id="cheFood" role="group" aria-labelledby="cheFoodLab">
+          <button class="tbtn sm" type="button" data-pos="left">Left</button><button class="tbtn sm" type="button" data-pos="centre">Centre</button><button class="tbtn sm" type="button" data-pos="right">Right</button><button class="tbtn sm" type="button" data-pos="corner">Top corner</button>
+        </div>
+        <div class="ctl"><label for="cheStr">Chemical strength <output id="cheStrOut" for="cheStr">medium</output></label>
+          <input type="range" id="cheStr" min="0" max="3" step="0.5" value="1.5"><div class="ticks" aria-hidden="true"><span>none</span><span>strong</span></div></div>
+        <h3 id="cheKindLab">The chemical is</h3>
+        <div class="gtgrid two" id="cheKind" role="group" aria-labelledby="cheKindLab">
+          <button class="tbtn" type="button" data-k="attr" aria-pressed="true">An attractant (food)</button><button class="tbtn" type="button" data-k="rep" aria-pressed="false">A repellent</button>
+        </div>
+        <h3 id="cheNLab">How many bacteria</h3>
+        <div class="gtgrid" id="cheN" role="group" aria-labelledby="cheNLab"><button class="tbtn" type="button" data-n="1" aria-pressed="false">1</button><button class="tbtn" type="button" data-n="10" aria-pressed="true">10</button><button class="tbtn" type="button" data-n="30" aria-pressed="false">30</button></div>
+        <label class="mode"><input type="checkbox" id="cheSense" checked> Chemoreceptors working (sensing on)</label>
+        <label class="mode"><input type="checkbox" id="cheFlag" checked> Flagella working</label>
+        <div class="bar"><button class="btn" type="button" id="cheRelease">Release new bacteria</button></div>
+        <table class="readouts" id="cheRead"><caption class="sr">Chemotaxis readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody></tbody></table>
+        <h3>Challenges</h3>
+        <ul class="chal" id="cheChal"></ul>
+        <p class="small">A teaching model: cells swim much faster than real scale, and the tumble rule is simplified.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 3: unknowns -->
+  <section id="tab-unk" role="tabpanel" aria-labelledby="tabbtn-unk" hidden>
+    <h2 class="gk-sr">Part 3: Lab Unknowns</h2>
+    <div class="casechips" id="caseChips" role="group" aria-label="Choose an unknown"></div>
+    <div class="meter"><span>Unknown <b id="cN">1</b> of <b id="cT">8</b></span><span>Questions solved <b id="cSolved">0</b></span><span>First try <b id="cFirst">0</b></span></div>
+    <div class="case">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvUnk" role="img" aria-label="Microscope view and lab bench card."></canvas></div>
+        <div class="legend">
+          <span><i style="background:#5B2C91"></i>Crystal violet (purple)</span>
+          <span><i style="background:#D14A86"></i>Safranin (pink)</span>
+          <span><i style="background:#C2272D"></i>Carbol fuchsin (red)</span>
+          <span><i style="background:#2F5DA8"></i>Methylene blue</span>
+          <span><i style="background:#1E9C5A"></i>Malachite green</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="sc-n" id="cWho"></div>
+        <h2 class="sc-title" id="cTitle"></h2>
+        <p class="story" id="cStory"></p>
+        <div id="cQs"></div>
+        <div class="bar" style="margin-top:12px">
+          <button class="tbtn" id="cHint" type="button">Hint</button>
+          <button class="tbtn" id="cShow" type="button">Show answer</button>
+          <button class="tbtn" id="cPrev" type="button">&larr; Previous</button>
+          <button class="btn" id="cNext" type="button">Next unknown &rarr;</button>
+        </div>
+        <div class="hintbox" id="cHintBox" role="status" hidden></div>
+        <div class="explain" id="cExp"></div>
+        <p class="calm">Wrong answers are fine here. Each one tells you why.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 4: sort and build -->
+  <section id="tab-sort" role="tabpanel" aria-labelledby="tabbtn-sort" hidden>
+    <h2 class="gk-sr">Part 4: Sort and Build</h2>
+    <div class="rounds" id="sRounds" role="group" aria-label="Rounds"></div>
+    <div class="card">
+      <div class="sorthead">
+        <div><div class="lvl-n" id="sN"></div><h2 class="sec" id="sTitle"></h2></div>
+        <div class="sortbar">
+          <label class="mode"><input type="checkbox" id="sRelaxed" checked> Relaxed mode (no timer)</label>
+          <span class="timer" id="sTimer" hidden>0:00</span>
+          <span class="stars" id="sStars" role="img" aria-label="Stars appear when the round is done"></span>
+        </div>
+      </div>
+      <p class="goal"><b class="h">Your job</b><span id="sGoal"></span></p>
+      <div id="sortArea">
+        <p class="small">Drag a card onto a box, or tap a card and then tap the box's name. Cards are buttons, so Tab and Enter work too.</p>
+        <div class="pool" id="sPool" aria-label="Cards to sort"></div>
+        <div class="bins" id="sBins"></div>
+      </div>
+      <div id="orderArea" hidden>
+        <p class="ord-help">Drag the cards by their grip, or use the arrow buttons, to put them in order (top = first). Then press Check order.</p>
+        <ol class="list" id="oList" aria-label="Cards to put in order"></ol>
+      </div>
+      <div class="bar">
+        <button class="btn" id="oCheck" type="button" hidden>Check order</button>
+        <button class="tbtn" id="sHint" type="button">Hint</button>
+        <button class="tbtn" id="sShow" type="button">Show answer</button>
+        <button class="tbtn" id="sShuffle" type="button">Start round over</button>
+        <button class="btn" id="sNext" type="button">Next round &rarr;</button>
+      </div>
+      <div class="msg" id="sMsg" role="status"></div>
+      <p class="small" id="sBest"></p>
+    </div>
+  </section>
+</div>
+<footer>Dr. Akash Garg &middot; Microbiology Study Tools &middot; Diagrams are simplified and not to scale. For learning only, not medical advice. CC BY-NC-SA 4.0<br>Pair with the <a href="Cell-Structure-Walkthrough.html">Cell Structure Walkthrough</a>. The lab unknowns are fictional teaching examples. The simulators are simple teaching models with rounded numbers: water availability values are approximate, and the bacteria swim far faster than real scale.</footer>
+
+<script>
+(function(){
+"use strict";
+const KEYS=["ground","panel","panel-2","sunk","ink","ink-soft","ink-faint","rule","rule-soft","accent","accent-ink","accent-wash","warn","warn-wash","bad","bad-wash","good","good-wash","on-accent","warn-ink","act1","act2","act3","act4","act5","act6","gold","gold-wash","gold-ink",
+"ecf","grid","gpos","gneg","pg","nag","nam","pep","enz","lipid","tail","cyto","cell-edge","dna","plasmid","ribo","incl","lps","lipa","porin","teich","myc","water","salt","sugar","atp","capsule","slime","flag","attr","spore","cortex","coat","heat","drug","nucl","er","golgi","mito","chloro","chitin","ergo","chol","fungus","proto","macro","macro-edge","nuc","host","host-edge","glow"];
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"left";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase(),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+function timeBar(x,y,w,f,marks,o){o=o||{};rr(x,y,w,8,4);ctx.fillStyle=C.sunk;ctx.fill();rr(x,y,w*clamp(f,0,1),8,4);ctx.fillStyle=o.col||C.accent;ctx.fill();
+  (marks||[]).forEach(m=>{const X=x+w*m[0];line(X,y-3,X,y+11,C["ink-soft"],1.2);txt(X,y+22,m[1],{size:11.5,mono:true,align:m[0]<=0?"left":m[0]>=1?"right":"center",color:C["ink-soft"]})});
+  circ(x+w*clamp(f,0,1),y+4,6,o.col||C.accent,C.panel,2)}
+function stepRow(x,y,w,items,on,col){const n=items.length,gap=6,bw=(w-gap*(n-1))/n;items.forEach((s,i)=>{const X=x+i*(bw+gap);const lit=i===on,past=i<on;rr(X,y,bw,24,12);ctx.fillStyle=lit?(col||C.accent):past?hexA(col||C.accent,.18):hexA(C.panel,.9);ctx.fill();ctx.strokeStyle=lit||past?(col||C.accent):C.rule;ctx.lineWidth=1.3;ctx.stroke();
+  txt(X+bw/2,y+12.5,(i+1)+" "+s,{size:12,weight:700,align:"center",color:lit?onFill():C.ink})})}
+function thermo(x,y,h,f,o){o=o||{};rr(x-6,y,12,h,6);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();
+  const fh=(h-8)*clamp(f,0,1);rr(x-3,y+h-fh-2,6,fh+4,3);ctx.fillStyle=C.heat;ctx.fill();circ(x,y+h+6,9,C.heat,C["ink-soft"],1.4);
+  if(o.lab)txt(x,y+h+24,o.lab,{size:12,mono:true,weight:700,align:"center",color:o.labCol||C.ink})}
+function gauge(x,y,r,v,v0,v1,o){o=o||{};const a0=Math.PI*.8,a1=Math.PI*2.2;ctx.lineCap="round";
+  ctx.beginPath();ctx.arc(x,y,r,a0,a1);ctx.strokeStyle=C.sunk;ctx.lineWidth=r*.18;ctx.stroke();
+  (o.zones||[]).forEach(z=>{ctx.beginPath();ctx.arc(x,y,r,a0+(a1-a0)*seg(z[0],v0,v1),a0+(a1-a0)*seg(z[1],v0,v1));ctx.strokeStyle=hexA(z[2],.75);ctx.lineWidth=r*.18;ctx.stroke()});
+  ctx.lineCap="butt";const a=a0+(a1-a0)*seg(v,v0,v1);line(x,y,x+Math.cos(a)*r*.82,y+Math.sin(a)*r*.82,C.ink,3);circ(x,y,4.5,C.ink);
+  if(o.title)txt(x,y+r*.42,o.title,{size:11.5,mono:true,weight:700,align:"center",color:C["ink-soft"]});
+  if(o.val)txt(x,y+r*.78,o.val,{size:14,mono:true,weight:700,align:"center",color:o.valCol||C.ink})}
+
+/* ================= cell-structure drawing kit ================= */
+function hexagon(x,y,r,fill,stroke,lab,rot){ctx.beginPath();for(let k=0;k<6;k++){const a=(rot||0)+k/6*TAU+Math.PI/6;const X=x+Math.cos(a)*r,Y=y+Math.sin(a)*r;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();
+  if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1.3;ctx.stroke()}
+  if(lab&&r>=8){ctx.font=`700 ${Math.max(10,Math.round(r*1.05))}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(lab,x,y+.5)}}
+/* NAG / NAM sugar */
+function sugar(x,y,r,kind,a){withA(a==null?1:a,()=>hexagon(x,y,r,kind==="M"?C.nam:kind==="T"?C.porin:C.nag,hexA(C.ink,.35),kind))}
+/* rod-shaped bacterium centred at x,y */
+function rodCell(x,y,len,wid,ang,o){o=o||{};const L=len/2,Hh=wid/2;const t=o.t||0;ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  if(o.capsule){const c=o.capsule;rr(-L-c,-Hh-c,2*(L+c),2*(Hh+c),Hh+c);ctx.fillStyle=hexA(o.capCol||C.capsule,o.capA==null?.35:o.capA);ctx.fill();ctx.strokeStyle=hexA(o.capCol||C.capsule,.9);ctx.lineWidth=1.3;ctx.setLineDash(o.slime?[4,4]:[]);ctx.stroke();ctx.setLineDash([])}
+  if(o.flag)flagSet(L,Hh,o.flag,t,o.bundle==null?1:o.bundle,o.flagLen||len*.9);
+  if(o.pili){ctx.strokeStyle=hexA(C.flag,.85);ctx.lineWidth=1.2;const n=o.pili;for(let k=0;k<n;k++){const f=(k+.5)/n;const px=-L+Hh*.6+f*(2*L-Hh*1.2);[-1,1].forEach(sd=>{ctx.beginPath();ctx.moveTo(px,sd*Hh);ctx.lineTo(px+Math.sin(k*1.7+t*2)*2,sd*(Hh+wid*.32));ctx.stroke()})}}
+  const wallW=o.wallW==null?3:o.wallW;
+  rr(-L,-Hh,2*L,2*Hh,Hh);ctx.fillStyle=o.stain||o.fill||C.cyto;ctx.fill();
+  if(o.shrink){// plasmolysis: space between wall and shrunken membrane
+    ctx.fillStyle=hexA(C.water,.12);ctx.fill();const s=o.shrink;const iL=L*(1-.32*s),iH=Hh*(1-.42*s);rr(-iL,-iH,2*iL,2*iH,iH);ctx.fillStyle=o.stain||o.fill||C.cyto;ctx.fill();ctx.strokeStyle=o.edge||C["cell-edge"];ctx.lineWidth=1.6;ctx.stroke()}
+  if(wallW>0){rr(-L,-Hh,2*L,2*Hh,Hh);ctx.strokeStyle=o.wall||C.pg;ctx.lineWidth=wallW;ctx.stroke()}
+  if(!o.shrink&&o.mem!==false&&wallW>0){rr(-L+wallW,-Hh+wallW,2*(L-wallW),2*(Hh-wallW),Hh-wallW);ctx.strokeStyle=hexA(o.edge||C["cell-edge"],.8);ctx.lineWidth=1.2;ctx.stroke()}
+  if(wallW===0){rr(-L,-Hh,2*L,2*Hh,Hh);ctx.strokeStyle=o.edge||C["cell-edge"];ctx.lineWidth=1.6;ctx.stroke()}
+  if(o.dna&&!o.stain){const s=o.shrink?1-.35*o.shrink:1;nucleoid(0,0,L*.9*s,Hh*.95*s,t,o.dnaCol)}
+  if(o.ribo&&!o.stain){for(let k=0;k<o.ribo;k++){const rx=(rnd(k*3+1)*2-1)*(L-Hh*.6)*.95,ry=(rnd(k*5+2)*2-1)*Hh*.6;circ(rx,ry,Math.max(1.4,Math.min(3,wid*.03)),C.ribo)}}
+  if(o.lab){ctx.rotate(-(ang||0));txt(0,0,o.lab,{size:o.labSize||12,weight:700,align:"center",color:o.labCol||C.ink})}
+  ctx.restore()}
+/* flagella attached to a rod in local coordinates */
+function flagSet(L,Hh,kind,t,bundle,len){const tip=(sd)=>[sd*L,0];
+  const one=(bx,by,ang,phase)=>flagellum(bx,by,ang,len,t+phase,{lw:len<24?1.1:1.8,amp:Math.min(4.5,len*.16)});
+  if(kind==="mono")one(-L,0,Math.PI,0);
+  else if(kind==="lopho"){for(let k=-2;k<=2;k++)one(-L+1,k*Hh*.25,Math.PI+k*.16*bundle+k*.32*(1-bundle),k*.2)}
+  else if(kind==="amphi"){one(-L,0,Math.PI,0);one(L,0,0,.5)}
+  else if(kind==="peri"){const pts=[[-L*.5,-Hh,-2.2],[L*.1,-Hh,-2.0],[L*.6,-Hh,-1.9],[-L*.4,Hh,2.2],[L*.2,Hh,2.0],[L*.7,Hh,1.9],[-L,0,Math.PI]];
+    pts.forEach((p,i)=>{const free=p[2]+(Math.sin(i*2.1+t*.9))*.5;const bun=Math.PI+(i-3)*.05;const a=lerp(free,bun,bundle);one(p[0],p[1],a,i*.37)})}}
+function flagellum(x,y,ang,len,t,o){o=o||{};const n=36;ctx.beginPath();for(let i=0;i<=n;i++){const f=i/n;const d=f*len;const w=Math.sin(f*TAU*2.2-t*14)*Math.min(1,f*4)*(o.amp||4.5);
+    const X=x+Math.cos(ang)*d-Math.sin(ang)*w,Y=y+Math.sin(ang)*d+Math.cos(ang)*w;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}
+  ctx.strokeStyle=o.col||C.flag;ctx.lineWidth=o.lw||2;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt"}
+/* tangled nucleoid loop */
+function nucleoid(x,y,w,h,t,col){ctx.beginPath();const N=160;for(let i=0;i<=N;i++){const a=i/N*TAU;const X=x+w*.55*Math.sin(a*3+.4*Math.sin(t*.7))*Math.cos(a*.5)*.95,Y=y+h*.55*Math.sin(a*5+t*.5)*.8;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}
+  ctx.strokeStyle=col||C.dna;ctx.lineWidth=1.6;ctx.lineJoin="round";ctx.stroke()}
+function plasmid(x,y,r,t,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);circ(x,y,r,null,o.col||C.plasmid,2.4);circ(x,y,r-3.2,null,hexA(o.col||C.plasmid,.55),1.2);
+  const a=(t||0)*1.4;circ(x+Math.cos(a)*r,y+Math.sin(a)*r,2.4,o.col||C.plasmid);ctx.restore()}
+/* ribosome: big subunit on top, small below */
+function ribosome(x,y,s,kind,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const big=kind==="80S";const col=o.col||C.ribo;
+  ell(x,y-s*.32,s*(big?1.05:.9),s*(big?.62:.55),0,mix(col,C.panel,.15),hexA(C.ink,.35),1);ell(x,y+s*.42,s*(big?.8:.68),s*(big?.38:.33),0,mix(col,C.panel,.5),hexA(C.ink,.35),1);
+  if(o.lab){txt(x,y-s*.32,big?"60S":"50S",{size:Math.max(11,s*.36),mono:true,weight:700,align:"center",color:onFill()});txt(x,y+s*.42,big?"40S":"30S",{size:Math.max(10.5,s*.3),mono:true,weight:700,align:"center",color:C.ink})}
+  ctx.restore()}
+/* phospholipid bilayer between x0 and x1, centre y. skip=[[xa,xb]] leaves gaps for proteins */
+function bilayer(x0,x1,y,t,o){o=o||{};const sp=o.sp||11,hr=o.hr||4.4,th=o.th||13;const skip=o.skip||[];
+  for(let x=x0+sp/2;x<x1;x+=sp){if(skip.some(s=>x>s[0]-sp*.4&&x<s[1]+sp*.4))continue;const w=Math.sin(x*.21+t*2.2)*1.6;
+    [-1,1].forEach(sd=>{const hy=y+sd*th;ctx.strokeStyle=o.tail||mix(C.tail,C.ink,.25);ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(x-1.6,hy);ctx.lineTo(x-1.6+w*.6,y+sd*2);ctx.moveTo(x+1.6,hy);ctx.lineTo(x+1.6+w,y+sd*2);ctx.stroke();circ(x+w*.2,hy,hr,o.head||C.lipid,hexA(C.ink,.3),.8)})}}
+/* protein channel through a bilayer */
+function channel(x,y,w,h,col,open){const c=col||C.porin;rr(x-w/2,y-h/2,w*.36,h,5);ctx.fillStyle=c;ctx.fill();rr(x+w/2-w*.36,y-h/2,w*.36,h,5);ctx.fill();
+  if(open===false){rr(x-w*.14,y-h*.15,w*.28,h*.3,3);ctx.fillStyle=mix(c,C.ink,.3);ctx.fill()}}
+/* glycan strand of alternating NAG/NAM with peptide stubs; returns positions of NAM sugars */
+function glycan(x0,y,n,r,o){o=o||{};const step=r*2.05;const out=[];
+  line(x0,y,x0+(n-1)*step,y,hexA(C.ink,.45),2);
+  for(let i=0;i<n;i++){const X=x0+i*step;const m=(i+(o.off||0))%2===1;if(o.cut&&o.cut(i)){continue}sugar(X,y,r,m?"M":"G",o.a);if(m)out.push([X,y])}return out}
+/* endospore: core, cortex, coat */
+function sporeShape(x,y,rx,ry,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  ell(x,y,rx,ry,o.ang||0,o.coatCol||C.coat,hexA(C.ink,.4),1.2);ell(x,y,rx*.8,ry*.78,o.ang||0,o.stain||C.cortex);ell(x,y,rx*.55,ry*.52,o.ang||0,o.stain?mix(o.stain,C.ink,.2):mix(C.spore,C.panel,.35));
+  if(o.dna!==false&&!o.stain){ctx.save();ctx.translate(x,y);ctx.rotate(o.ang||0);nucleoid(0,0,rx*.6,ry*.5,0,C.dna);ctx.restore()}ctx.restore()}
+function macroph(x,y,r,o){o=o||{};const t=o.t||0;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  blobPath(x,y,r,o.seed||5,t,o.amp==null?.11:o.amp);ctx.fillStyle=C.macro;ctx.fill();ctx.strokeStyle=C["macro-edge"];ctx.lineWidth=Math.max(1.5,r*.05);ctx.stroke();
+  ctx.beginPath();ctx.ellipse(x-r*.18,y+r*.08,r*.3,r*.22,.4,0,TAU);ctx.fillStyle=mix(C["macro-edge"],C.nuc,.5);ctx.fill();ctx.restore()}
+function yeastCell(x,y,s,bud,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.col||C.fungus;ctx.translate(x,y);ctx.rotate(o.ang||0);
+  if(bud>0)ell(s*(.78+bud*.42),0,s*.58*bud,s*.5*bud,0,mix(col,C.panel,.6),col,2);
+  ell(0,0,s,s*.82,0,mix(col,C.panel,.6),col,2.4);circ(-s*.2,-s*.05,s*.3,mix(C.nucl,C.panel,.35),C.nucl,1.2);circ(s*.3,s*.25,s*.16,hexA(C.water,.3));
+  if(o.scar)circ(-s*.88,-s*.2,s*.12,null,mix(col,C.ink,.3),1.4);ctx.restore()}
+function mito(x,y,w,h,ang,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  ell(0,0,w/2,h/2,0,mix(C.mito,C.panel,.45),C.mito,1.8);ell(0,0,w/2-3.5,h/2-3.5,0,null,hexA(C.mito,.8),1);
+  ctx.beginPath();const n=6;for(let i=0;i<=n*2;i++){const X=-w/2+6+i*(w-12)/(n*2);const Y=(i%2?1:-1)*(h/2-5)*.8;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=C.mito;ctx.lineWidth=1.4;ctx.stroke();
+  if(o.dna){circ(w*.18,0,h*.16,null,C.dna,1.4)}if(o.ribo){for(let k=0;k<4;k++)circ(-w*.22+k*w*.12,h*.18*(k%2?1:-1),1.8,C.ribo)}ctx.restore()}
+function chloro(x,y,w,h,ang,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  ell(0,0,w/2,h/2,0,mix(C.chloro,C.panel,.55),C.chloro,1.8);ell(0,0,w/2-3.5,h/2-3.5,0,null,hexA(C.chloro,.8),1);
+  for(let k=0;k<4;k++){const X=-w*.3+k*w*.2;for(let j=0;j<3;j++)rr(X-6,-5+j*4-2,12,3,1.5),ctx.fillStyle=C.chloro,ctx.fill()}
+  if(o.dna)circ(w*.3,h*.15,h*.12,null,C.dna,1.4);ctx.restore()}
+function nucleusE(x,y,r,o){o=o||{};circ(x,y,r,mix(C.nucl,C.panel,.62),C.nucl,3);circ(x,y,r-4,null,hexA(C.nucl,.7),1.2);
+  for(let k=0;k<10;k++){const a=k/10*TAU+.2;circ(x+Math.cos(a)*(r-2),y+Math.sin(a)*(r-2),2.2,C.panel)}
+  ctx.save();ctx.beginPath();ctx.arc(x,y,r-6,0,TAU);ctx.clip();for(let k=0;k<4;k++){ctx.beginPath();for(let i=0;i<=30;i++){const f=i/30;const X=x-r*.6+f*r*1.2,Y=y-r*.45+k*r*.3+Math.sin(f*9+k+(o.t||0))*4;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=hexA(C.dna,.8);ctx.lineWidth=1.6;ctx.stroke()}ctx.restore();
+  circ(x+r*.25,y+r*.2,r*.2,mix(C.nucl,C.ink,.25))}
+function drugPill(x,y,s,lab,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ctx.translate(x,y);ctx.rotate(o.ang||0);rr(-s,-s*.45,s*2,s*.9,s*.45);ctx.fillStyle=o.col||C.drug;ctx.fill();
+  ctx.beginPath();ctx.moveTo(0,-s*.45);ctx.lineTo(0,s*.45);ctx.strokeStyle=hexA(C.panel,.8);ctx.lineWidth=1.4;ctx.stroke();ctx.restore();if(lab)txt(x,y+s+10,lab,{size:12,weight:700,align:"center",color:o.labCol||C.ink})}
+/* beta-lactam ring icon */
+function lactam(x,y,s,a){withA(a==null?1:a,()=>{rr(x-s,y-s,s*2,s*2,2);ctx.fillStyle=C.drug;ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.lineWidth=1;ctx.stroke();circ(x+s*1.25,y,s*.75,mix(C.drug,C.panel,.35),hexA(C.ink,.4),1)})}
+/* transpeptidase (penicillin-binding protein): a pac-man */
+function pbp(x,y,r,open,o){o=o||{};const m=.12+.5*clamp(open,0,1);ctx.beginPath();ctx.moveTo(x,y);ctx.arc(x,y,r,(o.dir||0)+m,(o.dir||0)+TAU-m);ctx.closePath();ctx.fillStyle=o.col||C.enz;ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.lineWidth=1;ctx.stroke()}
+function scissors(x,y,s,open,col){ctx.save();ctx.translate(x,y);const a=.15+.35*open;[-1,1].forEach(sd=>{ctx.save();ctx.rotate(sd*a);line(0,0,s*1.4,0,col||C.enz,3);circ(-s*.45,sd*s*.12,s*.32,null,col||C.enz,2.4);ctx.restore()});circ(0,0,2,C.ink);ctx.restore()}
+function beaker(x,y,w,h,liq,o){o=o||{};const lh=h*(o.level||.78);rr(x,y+h-lh,w,lh,6);ctx.fillStyle=liq;ctx.fill();
+  ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+h-6);ctx.quadraticCurveTo(x,y+h,x+6,y+h);ctx.lineTo(x+w-6,y+h);ctx.quadraticCurveTo(x+w,y+h,x+w,y+h-6);ctx.lineTo(x+w,y);ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=2;ctx.stroke()}
+function dots(x,y,w,h,n,col,r,t,seed){for(let i=0;i<n;i++){const s=(seed||0)+i;const X=x+((rnd(s*3+1)*w+Math.sin(t*1.3+s)*6)%w+w)%w,Y=y+((rnd(s*7+2)*h+Math.cos(t*1.1+s*1.7)*6)%h+h)%h;circ(X,Y,r||2.6,col)}}
+function waterArrow(x1,y1,x2,y2,a){withA(a==null?1:a,()=>arrow(x1,y1,x2,y2,C.water,2.4))}
+function hTag(x,y,t,col){chipText(x,y,t,col||C.accent)}
+function diamond(x,y,s,col,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.beginPath();ctx.moveTo(x,y-s);ctx.lineTo(x+s,y);ctx.lineTo(x,y+s);ctx.lineTo(x-s,y);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.3);ctx.lineWidth=1;ctx.stroke();ctx.restore()}
+
+/* ================= lab utilities ================= */
+const $=s=>document.querySelector(s);
+function makeStage(id,W,H){const cv=document.getElementById(id);const st={cv,ctx:cv.getContext("2d"),W,H,K:1};
+  st.fit=()=>{const w=cv.parentElement.clientWidth;if(!w)return;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);st.K=cv.width/W};return st}
+function use(st){ctx=st.ctx;ctx.setTransform(st.K,0,0,st.K,0,0);ctx.clearRect(0,0,st.W,st.H);ctx.globalAlpha=1;ctx.setLineDash([])}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function fmt(s){s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+const store={get:k=>{try{return localStorage.getItem("cell-lab-"+k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem("cell-lab-"+k,v)}catch(e){}}};
+function interp(tab,x){if(x<=tab[0][0])return tab[0][1];for(let i=1;i<tab.length;i++){if(x<=tab[i][0]){const a=tab[i-1],b=tab[i];return lerp(a[1],b[1],(x-a[0])/(b[0]-a[0]))}}return tab[tab.length-1][1]}
+function inv(tab,y){for(let i=1;i<tab.length;i++){const a=tab[i-1],b=tab[i];if((y<=a[1]&&y>=b[1])){return lerp(a[0],b[0],(a[1]-y)/((a[1]-b[1])||1))}}return null}
+function chalList(el,list,done){el.innerHTML=list.map((c,i)=>`<li class="${done.has(i)?"done":""}"><span class="ck" aria-hidden="true">${done.has(i)?"✓":i+1}</span><span>${c[0]}${done.has(i)?' <span class="gk-sr">(done)</span>':""}</span></li>`).join("")}
+
+/* ================= PART 1: osmosis bench ================= */
+const AW_SALT=[[0,1],[0.9,.995],[2,.989],[5,.97],[7.5,.955],[10,.935],[15,.90],[20,.86],[25,.78]];
+const AW_SUGAR=[[0,1],[10,.994],[20,.986],[30,.977],[40,.963],[50,.94],[60,.90],[65,.86],[70,.82]];
+const OCELLS=[["typ","Typical bacterium","has a peptidoglycan cell wall"],["myco","Mycoplasma","no cell wall, sterols in membrane"],["proto","Bacterium + lysozyme","wall removed: a protoplast"],["staph","Staphylococcus aureus","cell wall, salt tolerant"]];
+const AIN=.995;
+const OS={cell:"typ",sol:"salt",conc:0,V:1,ain:AIN,burst:0,bt:0,hist:[],done:new Set(),t0:performance.now(),keep:0,sugarOff:0,flagT:0};
+function awOut(){return OS.sol==="salt"?interp(AW_SALT,OS.conc):interp(AW_SUGAR,OS.conc)}
+function walled(){return OS.cell==="typ"||OS.cell==="staph"}
+function vTarget(){const d=awOut()-OS.ain;if(walled())return d>=0?1:clamp(1+d*8,.4,1);return d>0?1+d*60:clamp(1+d*8,.4,1)}
+function tonicity(){const d=awOut()-OS.ain;return d>.0015?"Hypotonic":d<-.0015?"Hypertonic":"Isotonic"}
+function growth(){const a=awOut();if(OS.burst)return ["Dead: burst (lysis)","bad"];
+  if(OS.cell==="typ")return a>=.97?["Grows well","good"]:a>=.96?["Slow growth","warn"]:["No growth (plasmolysed)","bad"];
+  if(OS.cell==="staph")return a>=.935?["Grows well","good"]:a>=.90?["Slow growth","warn"]:["No growth","bad"];
+  if(OS.cell==="myco")return a>=.97&&a<=.997?["Grows (needs an isotonic, rich medium)","good"]:a>.997?["Swelling: at risk of bursting","warn"]:["No growth (shrunken)","bad"];
+  return a>=.975&&a<=.997?["Survives, but fragile","warn"]:a>.997?["Swelling: at risk of bursting","warn"]:["Shrunken, cannot grow","bad"]}
+function osmStep(dt,now){if(OS.burst){if(now-OS.bt>4000)osmNew();return}
+  if(OS.cell==="staph"){const tgt=Math.min(AIN,Math.max(awOut(),.90));OS.ain=lerp(OS.ain,tgt,clamp(dt/3,0,1))}else OS.ain=AIN;
+  const Vt=vTarget();OS.V+=(Vt-OS.V)*clamp(dt/.8,0,1);
+  const lim=OS.cell==="myco"?1.28:1.25;if(!walled()&&OS.V>lim){OS.burst=1;OS.bt=now}
+  const d=Math.abs(awOut()-OS.ain);if(OS.cell==="proto"&&!OS.burst&&d<.004)OS.keep+=dt;else OS.keep=0}
+function osmNew(){OS.V=1;OS.burst=0;OS.ain=AIN;OS.keep=0;OS.hist=[];osmUI()}
+function osmUI(){
+  const cb=$("#osmCells");if(!cb.children.length){OCELLS.forEach(c=>{const b=document.createElement("button");b.type="button";b.className="tbtn";b.dataset.c=c[0];b.innerHTML=`${c[1]}<small>${c[2]}</small>`;b.onclick=()=>{OS.cell=c[0];osmNew()};cb.appendChild(b)})}
+  cb.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.c===OS.cell));
+  const sb=$("#osmSol");if(!sb.children.length){[["salt","Salt"],["sugar","Sugar"]].forEach(s=>{const b=document.createElement("button");b.type="button";b.className="tbtn";b.dataset.s=s[0];b.textContent=s[1];
+    b.onclick=()=>{if(OS.sol===s[0])return;const a=awOut();OS.sol=s[0];const tab=OS.sol==="salt"?AW_SALT:AW_SUGAR;OS.conc=Math.round((inv(tab,a)||0)*2)/2;osmUI()};sb.appendChild(b)})}
+  sb.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.s===OS.sol));
+  const sl=$("#osmConc");sl.max=OS.sol==="salt"?25:70;sl.step=OS.sol==="salt"?.5:1;sl.value=OS.conc;$("#osmTickMax").textContent=sl.max+"%";
+  $("#osmConcOut").textContent=OS.conc+"% "+OS.sol;sl.setAttribute("aria-valuetext",OS.conc+" percent "+OS.sol);
+  const pb=$("#osmPresets");if(!pb.children.length){[["Distilled water","salt",0],["Body fluid (0.9% salt)","salt",.9],["Pickle brine (10% salt)","salt",10],["Mannitol salt agar (7.5%)","salt",7.5],["Jam (65% sugar)","sugar",65],["Very salty (25%)","salt",25]].forEach(p=>{const b=document.createElement("button");b.type="button";b.className="tbtn sm";b.textContent=p[0];b.onclick=()=>{OS.sol=p[1];OS.conc=p[2];osmUI()};pb.appendChild(b)})}
+  osmRead()}
+$("#osmConc").oninput=e=>{OS.conc=+e.target.value;osmUI()};
+$("#osmNew").onclick=()=>osmNew();
+function equivText(){const a=awOut();const s=inv(AW_SALT,a),g=inv(AW_SUGAR,a);return OS.sol==="salt"?(g!=null?`about ${Math.round(g)}% sugar`:"more sugar than will dissolve"):(s!=null?`about ${s.toFixed(1)}% salt`:"?")}
+function osmRead(){const a=awOut(),t=tonicity(),g=growth();const flow=OS.burst?"Burst":t==="Isotonic"?"Balanced":t==="Hypotonic"?(walled()?"In, but the wall pushes back":"In: the cell swells"):"Out: the cell shrinks";
+  const rows=[["Water availability (aw)",a.toFixed(3)],["Same water pull as",equivText()],["Outside vs the cell",t],["Water movement",flow],["Cytoplasm volume",OS.burst?"—":Math.round(OS.V*100)+"%"],["Growth",g[0]]];
+  $("#osmRead tbody").innerHTML=rows.map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td></tr>`).join("");
+  const st=$("#osmStatus");st.className="status "+(g[1]==="good"?"good":g[1]==="warn"?"warn":"bad");
+  const name=OCELLS.find(c=>c[0]===OS.cell)[1];
+  st.textContent=OS.burst?`${name} burst: with no wall, water rushed in until the membrane tore (osmotic lysis). A new cell appears in a few seconds.`:
+    t==="Hypertonic"?(OS.V<.93?`${name}: water is leaving and the cytoplasm has shrunk${walled()?" away from the wall (plasmolysis)":""}.`:`${name}: slightly hypertonic; little change yet.`)+(OS.cell==="staph"&&a>=.90?" Staphylococcus builds up its own solutes to hold on to water.":""):
+    t==="Hypotonic"?(walled()?`${name}: water pushes in, but the cell wall holds the pressure.`:`${name}: water pushes in and the cell swells; nothing stops it.`):`${name}: no net water movement.`;
+  $("#osmCap").textContent=`${name} in ${OS.conc}% ${OS.sol} (aw ${a.toFixed(3)}): ${t.toLowerCase()}. ${g[0]}.`;
+  osmChal()}
+const OSMCH=[["Make a wall-less cell burst in water",()=>OS.burst&&!walled()],["Plasmolyse a typical bacterium with salt",()=>OS.cell==="typ"&&OS.sol==="salt"&&OS.V<.8],["Plasmolyse a typical bacterium with sugar",()=>OS.cell==="typ"&&OS.sol==="sugar"&&OS.V<.8],
+  ["Find a salt level where Staphylococcus grows well but a typical bacterium cannot",()=>OS.cell==="staph"&&OS.sol==="salt"&&awOut()<.96&&awOut()>=.935],["Keep a lysozyme-treated protoplast alive for 3 seconds",()=>OS.cell==="proto"&&OS.keep>=3],["Show that jam-level sugar stops a typical bacterium",()=>OS.cell==="typ"&&OS.sol==="sugar"&&OS.conc>=60]];
+function osmChal(){let ch=false;OSMCH.forEach((c,i)=>{if(!OS.done.has(i)&&c[1]()){OS.done.add(i);ch=true}});const el=$("#osmChal");if(ch||!el.children.length)chalList(el,OSMCH,OS.done)}
+function drawOsm(now){use(S1);const t=now/1000;const a=awOut();const f=clamp((1-a)/.22,0,1);
+  panelBox(10,10,494,440,{fill:hexA(C.panel,.6)});
+  beaker(30,40,454,396,OS.sol==="salt"?hexA(C.water,.1+.12*f):mix(hexA(C.water,.1),C.sugar,.0),{level:.9});
+  if(OS.sol==="sugar"){rr(30,76,454,360,6);ctx.fillStyle=hexA(C.sugar,.05+.22*f);ctx.fill()}
+  const n=Math.round(4+f*150);const cx=257,cy=250;
+  for(let k=0;k<n;k++){const X=40+((rnd(k*3+1)*434+Math.sin(t*.8+k)*5)%434+434)%434,Y=86+((rnd(k*7+2)*340+Math.cos(t*.7+k*1.3)*5)%340+340)%340;
+    if(Math.abs(X-cx)<170&&Math.abs(Y-cy)<100)continue;if(OS.sol==="salt")circ(X,Y,2.6,C.salt);else hexagon(X,Y,3.6,C.sugar,null)}
+  const name=OCELLS.find(c=>c[0]===OS.cell)[1];txt(257,26,name+" in "+OS.conc+"% "+OS.sol,{size:13.5,weight:700,align:"center"});
+  if(OS.burst){const b=clamp((now-OS.bt)/1200,0,1);for(let k=0;k<10;k++){const an=k/10*TAU;ctx.beginPath();ctx.arc(cx+Math.cos(an)*b*90,cy+Math.sin(an)*b*70,112,an,an+.4);ctx.strokeStyle=hexA(C["cell-edge"],1-b*.8);ctx.lineWidth=3;ctx.stroke()}
+    for(let k=0;k<26;k++){const an=k*.73;circ(cx+Math.cos(an)*(20+b*150),cy+Math.sin(an)*(14+b*110),2.6,hexA(C.salt,1-b*.6))}label(cx,cy,"Burst (osmotic lysis)",{size:14,weight:700,align:"center",border:C.bad,color:C.bad})}
+  else{const V=OS.V;const d=awOut()-OS.ain;
+    if(OS.cell==="typ"){const s=clamp((1-V)/.6,0,1);if(d>0){ctx.save();ctx.globalAlpha*=.3+.3*Math.sin(t*6);rr(cx-150,cy-75,300,150,75);ctx.strokeStyle=C.pg;ctx.lineWidth=12;ctx.stroke();ctx.restore()}
+      rodCell(cx,cy,300,150,0,{shrink:s,dna:true,t,wallW:6,ribo:0});inDots(cx,cy,120*(1-.32*s),46*(1-.42*s),t)}
+    else if(OS.cell==="staph"){const R=96;if(d>0){glow(cx,cy,R+30,C.pg,.25)}circ(cx,cy,R,hexA(C.water,.12),C.pg,7);circ(cx,cy,(R-6)*Math.sqrt(V),C.cyto,C["cell-edge"],1.8);nucleoid(cx,cy,R*.8*Math.sqrt(V),R*.6*Math.sqrt(V),t);inDots(cx,cy,R*.55*Math.sqrt(V),R*.55*Math.sqrt(V),t)}
+    else{const R=90*Math.sqrt(V);blobPath(cx,cy,R,OS.cell==="myco"?3:1,t*.6,OS.cell==="myco"?.07:.015);ctx.fillStyle=C.cyto;ctx.fill();ctx.strokeStyle=C["cell-edge"];ctx.lineWidth=2.4;ctx.stroke();
+      if(OS.cell==="myco")for(let k=0;k<9;k++){const an=k/9*TAU;diamond(cx+Math.cos(an)*R,cy+Math.sin(an)*R,4,C.chol)}nucleoid(cx,cy,R*.9,R*.7,t);inDots(cx,cy,R*.6,R*.6,t)}
+    const Vt=vTarget();const rate=(Vt-V)/.8;let dir=0,al=0;if(Math.abs(rate)>.01){dir=Math.sign(rate);al=clamp(Math.abs(rate)*3,.35,1)}else if(walled()&&d>.0015){dir=1;al=.45}
+    if(dir){const q=P(t,1.4);for(let k=0;k<8;k++){const an=k/8*TAU+.2;const r0=walled()&&OS.cell==="typ"?[160,84]:[118,118];const ox=cx+Math.cos(an)*(r0[0]+46),oy=cy+Math.sin(an)*(r0[1]+46),ix=cx+Math.cos(an)*(r0[0]+6),iy=cy+Math.sin(an)*(r0[1]+6);
+      const A=dir>0?[ox,oy]:[ix,iy],B=dir>0?[ix,iy]:[ox,oy];const o=q*.3;withA(al,()=>arrow(lerp(A[0],B[0],o),lerp(A[1],B[1],o),lerp(A[0],B[0],o+.6),lerp(A[1],B[1],o+.6),C.water,2.6))}}
+    if(OS.cell==="typ"&&V<.93)label(cx,cy+108,"Plasmolysis: cytoplasm pulled away from the wall",{size:12.5,weight:700,align:"center",border:C.water});
+    if(walled()&&d>.0015)label(cx,cy+(OS.cell==="typ"?108:126),"Turgor: the wall holds the pressure",{size:12.5,weight:700,align:"center",border:C.pg});
+    if(!walled()&&V>1.08)label(cx,cy+128,"Swelling: no wall to stop it",{size:12.5,weight:700,align:"center",border:C.bad})}
+  // graph
+  panelBox(516,10,274,230);txt(530,28,"CYTOPLASM VOLUME (%)",{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  const gx=552,gy=44,gw=224,gh=168;const ys=v=>gy+gh-clamp(v/1.4,0,1)*gh;
+  [0,50,100,125].forEach(v=>{line(gx,ys(v/100),gx+gw,ys(v/100),v===125?hexA(C.bad,.8):C["rule-soft"],1.2,v===125?[5,4]:[]);txt(gx-6,ys(v/100),String(v),{size:12,mono:true,align:"right",color:C["ink-soft"]})});
+  txt(gx+gw,ys(1.25)-9,"bursts (no wall)",{size:12,align:"right",color:C.bad});
+  const h=OS.hist;if(h.length>1){ctx.beginPath();h.forEach((v,i)=>{const X=gx+gw*(i/(200-1));const Y=ys(v);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)});ctx.strokeStyle=C.accent;ctx.lineWidth=2.6;ctx.lineJoin="round";ctx.stroke()}
+  txt(gx,gy+gh+16,"20 s ago",{size:12,color:C["ink-soft"]});txt(gx+gw,gy+gh+16,"now",{size:12,align:"right",color:C["ink-soft"]});
+  // aw scale
+  panelBox(516,252,274,198);txt(530,270,"WATER AVAILABILITY (aw)",{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  const sx=536,sw=236,sy=318;const X=v=>sx+sw*(v-.78)/(1-.78);rr(sx,sy,sw,14,7);const gr=ctx.createLinearGradient(sx,0,sx+sw,0);gr.addColorStop(0,hexA(C.bad,.55));gr.addColorStop(.6,hexA(C.warn,.55));gr.addColorStop(1,hexA(C.good,.55));ctx.fillStyle=gr;ctx.fill();
+  [.8,.85,.9,.95,1].forEach(v=>{line(X(v),sy+14,X(v),sy+20,C["ink-soft"],1.2);txt(X(v),sy+30,v.toFixed(2),{size:12,mono:true,align:"center",color:C["ink-soft"]})});
+  const mk=[[.96,"Typical",C["cell-edge"],-1],[.90,"S. aureus",C.gpos,-1]];mk.forEach((m,i)=>{line(X(m[0]),sy-14,X(m[0]),sy,m[2],2.2);txt(X(m[0]),sy-22-i*0,m[1],{size:12,weight:700,align:"center",color:m[2]})});
+  const ax=X(a);ctx.beginPath();ctx.moveTo(ax,sy+46);ctx.lineTo(ax-8,sy+60);ctx.lineTo(ax+8,sy+60);ctx.closePath();ctx.fillStyle=C.ink;ctx.fill();label(clamp(ax,570,750),sy+76,"Now: "+a.toFixed(3),{size:12.5,mono:true,weight:700,align:"center"});
+  wrapText("Lines show the lowest aw each one can grow at (rounded).",530,sy+104,250,16,{size:12,color:C["ink-soft"]});
+}
+function inDots(cx,cy,rx,ry,t){for(let k=0;k<22;k++){const an=rnd(k*5+1)*TAU,r=Math.sqrt(rnd(k*9+4));circ(cx+Math.cos(an)*rx*r*.9+Math.sin(t+k)*1.5,cy+Math.sin(an)*ry*r*.9,2.2,C.salt)}}
+function osmA11y(){const a=awOut();const name=OCELLS.find(c=>c[0]===OS.cell)[1];const t=tonicity();const g=growth();const vol=OS.burst?"burst":Math.round(OS.V/0.05)*5+" percent volume";
+  const lab=`${name} in ${OS.conc}% ${OS.sol}. ${t}. ${OS.burst?"The cell has burst.":"Cytoplasm at "+vol+"."} ${g[0]}.`;
+  const shape=OS.cell==="staph"?"a round coccus with an amber wall":OS.cell==="typ"?"a green rod-shaped bacterium with an amber wall":"a soft round cell with no wall"+(OS.cell==="myco"?", dotted with blue sterol diamonds":"");
+  const d=`A beaker of water holds ${shape}. The water is dotted with ${OS.sol==="salt"?"orange salt dots":"gold sugar hexagons"}, ${OS.conc<1?"very few":OS.conc<10&&OS.sol==="salt"||OS.conc<40&&OS.sol==="sugar"?"a moderate number":"very many"}. `+
+    (OS.burst?"The cell has torn into fragments that drift outward: it burst. ":t==="Hypotonic"?(walled()?"Blue arrows point inward and the wall glows as it holds the pressure. ":"Blue arrows point inward and the cell swells. "):t==="Hypertonic"?"Blue arrows point outward and the cytoplasm shrinks"+(walled()?" away from the wall. ":". "):"No arrows: water is balanced. ")+
+    `A graph on the right tracks cytoplasm volume, now ${OS.burst?"gone":Math.round(OS.V*100)+" percent"}; a dashed red line at 125 percent marks where wall-less cells burst. Below it, a water availability scale shows the current value ${a.toFixed(3)}, with marks at 0.96 for typical bacteria and 0.90 for Staphylococcus aureus.`;
+  return [lab,d]}
+
+/* ================= PART 2: chemotaxis track ================= */
+const AR={x0:14,y0:14,x1:530,y1:446};
+const CH={src:[420,230],str:1.5,kind:"attr",n:10,sense:true,flag:true,cells:[],hist:[],runs:{up:[0,0],down:[0,0]},tumbles:0,tt:0,done:new Set(),offT:0,flagOffT:0,ht:0};
+function conc(x,y){const d=Math.hypot(x-CH.src[0],y-CH.src[1]);return CH.str*Math.exp(-d/120)}
+function cheRelease(){CH.cells=[];for(let i=0;i<CH.n;i++){const x=60+Math.random()*50,y=AR.y1-70+Math.random()*40;const a=Math.random()*TAU;CH.cells.push({x,y,a,run:1,timer:0,tl:0,c:conc(x,y),trail:[[x,y]],tum:[],rs:0,up:0})}
+  CH.hist=[];CH.runs={up:[0,0],down:[0,0]};CH.tumbles=0;CH.tt=0}
+function cheStep(dt){if(dt<=0)return;CH.tt+=dt;const sp=CH.flag?65:0;
+  CH.cells.forEach((c,i)=>{if(!CH.flag){c.x+=(Math.random()-.5)*20*dt;c.y+=(Math.random()-.5)*20*dt;c.run=0;c.a+=(Math.random()-.5)*dt*2}
+    else if(c.run){const ox=c.x,oy=c.y;c.x+=Math.cos(c.a)*sp*dt;c.y+=Math.sin(c.a)*sp*dt;
+      if(c.x<AR.x0+10||c.x>AR.x1-10){c.a=Math.PI-c.a;c.x=clamp(c.x,AR.x0+10,AR.x1-10)}if(c.y<AR.y0+10||c.y>AR.y1-10){c.a=-c.a;c.y=clamp(c.y,AR.y0+10,AR.y1-10)}
+      const cn=conc(c.x,c.y);const dc=(cn-c.c)/dt;c.c=cn;const r=dc/(cn+.03);const sgn=CH.kind==="attr"?1:-1;
+      let lam=1.3;if(CH.sense&&CH.str>0)lam=clamp(1.3*Math.exp(-3*CH.str*sgn*r),.08,5);c.rs+=dt;
+      if(Math.random()<lam*dt){const tox=CH.src[0]-ox,toy=CH.src[1]-oy;const toward=(Math.cos(c.a)*tox+Math.sin(c.a)*toy)>0;const good=CH.kind==="attr"?toward:!toward;const k=good?"up":"down";CH.runs[k][0]+=c.rs;CH.runs[k][1]++;c.rs=0;
+        c.run=0;c.timer=.28;c.a0=c.a;c.a1=c.a+(Math.random()*2-1)*Math.PI;CH.tumbles++;c.tum.push([c.x,c.y]);if(c.tum.length>(i===0?400:6))c.tum.shift()}}
+    else{c.timer-=dt;const f=1-clamp(c.timer/.28,0,1);c.a=lerp(c.a0,c.a1,f);if(c.timer<=0){c.run=1;c.c=conc(c.x,c.y)}}
+    const last=c.trail[c.trail.length-1];if(Math.hypot(c.x-last[0],c.y-last[1])>4){c.trail.push([c.x,c.y]);if(c.trail.length>(i===0?900:40))c.trail.shift()}});
+  CH.ht+=dt;if(CH.ht>.25){CH.ht=0;CH.hist.push(avgDist());if(CH.hist.length>160)CH.hist.shift()}
+  if(!CH.sense)CH.offT+=dt;else CH.offT=0;if(!CH.flag)CH.flagOffT+=dt;else CH.flagOffT=0}
+function avgDist(){if(!CH.cells.length)return 0;return CH.cells.reduce((s,c)=>s+Math.hypot(c.x-CH.src[0],c.y-CH.src[1]),0)/CH.cells.length}
+function nearCount(){return CH.cells.filter(c=>Math.hypot(c.x-CH.src[0],c.y-CH.src[1])<70).length}
+function strWord(v){return v===0?"none":v<=1?"weak":v<=2?"medium":"strong"}
+function cheUI(){$("#cheStrOut").textContent=strWord(CH.str);$("#cheStr").setAttribute("aria-valuetext",strWord(CH.str));
+  document.querySelectorAll("#cheKind button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===CH.kind));
+  document.querySelectorAll("#cheN button").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.n===CH.n))}
+const FOODPOS={left:[110,120],centre:[272,230],right:[440,230],corner:[470,60]};
+document.querySelectorAll("#cheFood button").forEach(b=>b.onclick=()=>{CH.src=FOODPOS[b.dataset.pos].slice();CH.cells.forEach(c=>c.c=conc(c.x,c.y))});
+$("#cheStr").oninput=e=>{CH.str=+e.target.value;cheUI()};
+document.querySelectorAll("#cheKind button").forEach(b=>b.onclick=()=>{CH.kind=b.dataset.k;cheUI()});
+document.querySelectorAll("#cheN button").forEach(b=>b.onclick=()=>{CH.n=+b.dataset.n;cheRelease();cheUI()});
+$("#cheSense").onchange=e=>{CH.sense=e.target.checked};$("#cheFlag").onchange=e=>{CH.flag=e.target.checked};
+$("#cheRelease").onclick=()=>cheRelease();
+$("#cvChe").addEventListener("click",e=>{const r=e.currentTarget.getBoundingClientRect();const x=(e.clientX-r.left)/r.width*800,y=(e.clientY-r.top)/r.height*460;if(x>AR.x0+20&&x<AR.x1-20&&y>AR.y0+20&&y<AR.y1-20){CH.src=[x,y];CH.cells.forEach(c=>c.c=conc(c.x,c.y))}});
+const CHECH=[["Get at least 8 of 10 (or more) cells close to the food",()=>CH.n>=10&&CH.kind==="attr"&&CH.flag&&nearCount()>=.8*CH.n],["Turn sensing off and watch for 5 seconds: cells only wander",()=>CH.offT>=5],
+  ["Make it a repellent and clear the cells away from it",()=>CH.kind==="rep"&&CH.str>0&&CH.n>=10&&nearCount()===0&&avgDist()>220&&CH.tt>6],["See runs toward food last at least 1.5 times longer than runs away",()=>CH.kind==="attr"&&CH.runs.up[1]>=15&&CH.runs.down[1]>=10&&(CH.runs.up[0]/CH.runs.up[1])>=1.5*(CH.runs.down[0]/CH.runs.down[1])],
+  ["Switch off the flagella for 5 seconds: no swimming, no chemotaxis",()=>CH.flagOffT>=5]];
+function cheChal(){let ch=false;CHECH.forEach((c,i)=>{if(!CH.done.has(i)&&c[1]()){CH.done.add(i);ch=true}});const el=$("#cheChal");if(ch||!el.children.length)chalList(el,CHECH,CH.done)}
+function cheRead(){const au=CH.runs.up[1]?CH.runs.up[0]/CH.runs.up[1]:0,ad=CH.runs.down[1]?CH.runs.down[0]/CH.runs.down[1]:0;
+  const rows=[["Average distance to the chemical",Math.round(avgDist())+" px"],["Cells close to it",nearCount()+" of "+CH.cells.length],["Average run, heading the good way",au?au.toFixed(1)+" s":"—"],["Average run, heading the bad way",ad?ad.toFixed(1)+" s":"—"],["Tumbles per cell per second",CH.tt>1&&CH.cells.length?(CH.tumbles/CH.cells.length/CH.tt).toFixed(2):"—"]];
+  $("#cheRead tbody").innerHTML=rows.map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td></tr>`).join("");
+  $("#cheCap").textContent=(CH.flag?"":"Flagella off: cells only jiggle. ")+(CH.sense?"":"Sensing off: tumbles happen at random. ")+`${CH.kind==="attr"?"Attractant":"Repellent"}, ${strWord(CH.str)}. ${nearCount()} of ${CH.cells.length} cells close to it; average distance ${Math.round(avgDist())} px.`;cheChal()}
+function drawChe(now){use(S2);const t=now/1000;
+  panelBox(AR.x0-4,AR.y0-4,AR.x1-AR.x0+8,AR.y1-AR.y0+8,{fill:hexA(C.panel,.5)});ctx.save();rr(AR.x0,AR.y0,AR.x1-AR.x0,AR.y1-AR.y0,6);ctx.clip();
+  const col=CH.kind==="attr"?C.attr:C.drug;if(CH.str>0){const g=ctx.createRadialGradient(CH.src[0],CH.src[1],0,CH.src[0],CH.src[1],380);g.addColorStop(0,hexA(col,.18+.14*CH.str));g.addColorStop(1,hexA(col,0));ctx.fillStyle=g;ctx.fillRect(0,0,800,460)}
+  for(let r=70;r<400;r+=90){ctx.beginPath();ctx.arc(CH.src[0],CH.src[1],r,0,TAU);ctx.strokeStyle=hexA(col,.18);ctx.lineWidth=1;ctx.setLineDash([4,6]);ctx.stroke();ctx.setLineDash([])}
+  CH.cells.forEach((c,i)=>{if(i===0||c.trail.length<2)return;poly(c.trail,hexA(C["ink-soft"],.25),1.2)});
+  const c0=CH.cells[0];if(c0&&c0.trail.length>1){poly(c0.trail,hexA(C.accent,.9),2.4);c0.tum.forEach(p=>star(p[0],p[1],4.5,C.warn))}
+  for(let k=0;k<7;k++){const an=k/7*TAU+t*.3;if(CH.kind==="attr")hexagon(CH.src[0]+Math.cos(an)*13,CH.src[1]+Math.sin(an)*13,5.5,C.sugar,hexA(C.ink,.3));else circ(CH.src[0]+Math.cos(an)*12,CH.src[1]+Math.sin(an)*12,5,C.drug,hexA(C.ink,.3),1)}
+  CH.cells.forEach((c,i)=>{rodCell(c.x,c.y,i===0?26:20,i===0?10:8,c.a,{flag:CH.flag?"peri":null,t,bundle:c.run?1:0,flagLen:i===0?20:15,wallW:1.4,fill:i===0?mix(C.cyto,C.accent,.35):C.cyto})});
+  ctx.restore();
+  label(CH.src[0],CH.src[1]+30,CH.kind==="attr"?"Food (attractant)":"Repellent",{size:12,weight:700,align:"center",border:col});
+  // graph
+  panelBox(544,10,246,232);txt(556,28,"AVERAGE DISTANCE TO IT",{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  const gx=580,gy=44,gw=196,gh=168;const ys=v=>gy+gh-clamp(v/500,0,1)*gh;[0,100,200,300,400,500].forEach(v=>{line(gx,ys(v),gx+gw,ys(v),C["rule-soft"],1);if(v%200===0)txt(gx-6,ys(v),String(v),{size:12,mono:true,align:"right",color:C["ink-soft"]})});
+  if(CH.hist.length>1){ctx.beginPath();CH.hist.forEach((v,i)=>{const X=gx+gw*i/159,Y=ys(v);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)});ctx.strokeStyle=C.lps;ctx.lineWidth=2.6;ctx.stroke()}
+  txt(gx,gy+gh+14,"40 s ago",{size:12,color:C["ink-soft"]});txt(gx+gw,gy+gh+14,"now",{size:12,align:"right",color:C["ink-soft"]});
+  // tracked cell
+  panelBox(544,254,246,196);txt(556,272,"TRACKED CELL",{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  if(c0){const run=c0.run&&CH.flag;rodCell(667,330,90,34,0,{flag:CH.flag?"peri":null,t,bundle:run?1:0,flagLen:40,wallW:2.2,fill:mix(C.cyto,C.accent,.35)});
+    label(667,388,!CH.flag?"No flagella: just jiggling":run?"RUN: counterclockwise, bundled":"TUMBLE: clockwise, flies apart",{size:12.5,weight:700,align:"center",border:!CH.flag?C.rule:run?C.accent:C.warn});
+    txt(667,418,"Chemical here: "+(conc(c0.x,c0.y)/Math.max(.01,CH.str)*100).toFixed(0)+"% of the peak",{size:12,align:"center",color:C["ink-soft"]})}
+}
+function cheA11y(){const near=nearCount();const lab=`${CH.cells.length} bacteria. ${CH.kind==="attr"?"Attractant":"Repellent"} ${strWord(CH.str)}. ${near} close to it. Sensing ${CH.sense?"on":"off"}, flagella ${CH.flag?"working":"off"}.`;
+  const sx=CH.src[0]<200?"left":CH.src[0]>360?"right":"middle",sy=CH.src[1]<150?"top":CH.src[1]>300?"bottom":"middle";
+  const d=`An arena with a ${CH.kind==="attr"?"gold food cluster and an orange glow":"red repellent cluster and a red glow"} near the ${sy} ${sx}. ${CH.cells.length} small rod-shaped bacteria swim in straight runs and stop to tumble. One highlighted cell leaves a green trail with orange stars where it tumbled. ${near} of ${CH.cells.length} cells are now within reach of the chemical and the average distance is ${Math.round(avgDist()/20)*20} pixels. A graph on the right plots that average distance over time, and a large picture of the tracked cell shows whether its flagella are bundled for a run or flying apart in a tumble.`;
+  return [lab,d]}
+function star(x,y,r,col){ctx.beginPath();for(let k=0;k<10;k++){const a=k/10*TAU-Math.PI/2;const rr_=k%2?r*.45:r;const X=x+Math.cos(a)*rr_,Y=y+Math.sin(a)*rr_;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+
+/* ================= PART 3: lab unknowns ================= */
+const SL={bg:"#EFECE2",CV:"#5B2C91",SAF:"#D14A86",CF:"#C2272D",MB:"#2F5DA8",MG:"#1E9C5A",I:"#7A4A1C",AL:"#9DB7C9",INK:"#2B2A28",AA:"#C9A227"};
+const RG={CV:["Crystal violet",SL.CV],I:["Iodine",SL.I],AL:["Alcohol",SL.AL],SAF:["Safranin",SL.SAF],CF:["Carbol fuchsin",SL.CF],AA:["Acid-alcohol",SL.AA],MB:["Methylene blue",SL.MB],MG:["Malachite green",SL.MG],INK:["India ink",SL.INK],NONE:["No stain","#B9C6CF"]};
+function o3(q,hint,right,w1,w2,w3){return {q,hint,opts:shuffleFixed([[right[0],1,right[1]],[w1[0],0,w1[1]],[w2[0],0,w2[1]],[w3[0],0,w3[1]]],q.length)}}
+function shuffleFixed(a,seed){const out=a.slice();for(let i=out.length-1;i>0;i--){const j=Math.floor(rnd(seed*7+i*13)*(i+1));[out[i],out[j]]=[out[j],out[i]]}return out}
+const CASES=[
+{name:"Purple clusters",who:"Skin swab · Gram stain",title:"Round purple cells in clusters",
+ story:"A swab from an infected skin cut is Gram stained. Under oil immersion you see round cells in grape-like clusters, all purple.",
+ field:{type:"gram",shape:"coccus",arr:"cluster",col:"CV"},bench:{stain:"Gram stain",rg:["CV","I","AL","SAF"],notes:["Shape: cocci (round)","Arrangement: grape-like clusters","Colour after staining: purple"]},
+ qs:[o3("What is the Gram reaction?","Which colour stays when the wall is thick?",["Gram-positive","Yes. Purple after the full Gram stain means the crystal violet stayed in: Gram-positive."],["Gram-negative","Gram-negative cells lose the purple and look pink from safranin."],["Acid-fast","Acid-fast is a different stain that uses red carbol fuchsin. This was a Gram stain."],["Cannot tell without a capsule stain","The Gram stain alone gives the Gram reaction. Capsules are a separate question."]),
+  o3("Why did these cells keep the purple dye?","Think about what the alcohol does to a thick mesh.",["Thick peptidoglycan trapped the crystal violet-iodine complex when the alcohol dried it","Right. The thick, dehydrated mesh holds the large dye complex inside."],["Their outer membrane blocked the alcohol","Gram-positives have no outer membrane. In Gram-negatives the alcohol dissolves it."],["They have a waxy mycolic acid coat","That is Mycobacterium, which is acid-fast and stains poorly with the Gram stain."],["They have no cell wall","Without a wall they could not hold the dye. Wall-less Mycoplasma stains poorly."]),
+  o3("Which of these would you NOT expect in this organism's envelope?","Which structure belongs only to Gram-negatives?",["Lipopolysaccharide (LPS) in an outer membrane","Right. LPS and an outer membrane belong to Gram-negative bacteria."],["Teichoic acids","Teichoic acids are typical of Gram-positive walls, so you would expect them."],["Thick peptidoglycan","Thick peptidoglycan is exactly what kept these cells purple."],["A plasma membrane","Every cell has a plasma membrane."])],
+ exp:"Gram-positive cocci in clusters suggest a staphylococcus, such as Staphylococcus aureus, a common skin pathogen; more tests would confirm it. Their thick, exposed peptidoglycan is the target of beta-lactam drugs, although many staphylococci now resist penicillin."},
+{name:"Pink rods",who:"Urine culture · Gram stain",title:"Short pink rods",
+ story:"A urine culture from a patient with a bladder infection is Gram stained. You see short rods scattered across the field, all pink.",
+ field:{type:"gram",shape:"rod",arr:"single",col:"SAF"},bench:{stain:"Gram stain",rg:["CV","I","AL","SAF"],notes:["Shape: bacilli (rods)","Arrangement: single cells","Colour after staining: pink"]},
+ qs:[o3("What is the Gram reaction?","Pink comes from the last dye.",["Gram-negative","Yes. They lost the purple and took up the pink safranin: Gram-negative."],["Gram-positive","Gram-positive cells stay purple."],["Acid-fast","Acid-fast cells are red in a different stain, the acid-fast stain."],["Gram-variable","Gram-variable means a mix of purple and pink in one culture. These are all pink."]),
+  o3("During which step did these cells lose the purple dye?","Which reagent strips lipids?",["The alcohol (decolorizer) step","Right. Alcohol dissolves the outer membrane and the thin wall cannot hold the dye complex."],["The iodine step","Iodine locks crystal violet into a larger complex. It does not remove colour."],["The safranin step","Safranin adds the pink. The purple was already gone by then."],["The crystal violet step","Every cell turns purple at this first step."]),
+  o3("If many of these bacteria die at once in the blood, which part of their envelope can trigger fever and a drop in blood pressure?","It is the anchor of LPS.",["Lipid A of LPS (endotoxin)","Yes. Lipid A is released when Gram-negative cells break apart and drives fever and, in large amounts, septic shock."],["Teichoic acid","Teichoic acids are in Gram-positive walls, not Gram-negative ones."],["The capsule","Capsules help bacteria avoid phagocytes. Endotoxin is lipid A."],["Porins","Porins are channels that let small molecules through the outer membrane."])],
+ exp:"Gram-negative rods in urine fit E. coli, the most common cause of bladder infections, which grips the bladder lining with fimbriae. The outer membrane shields the thin wall from lysozyme and from some penicillins, and its lipid A is endotoxin."},
+{name:"Pink staph?",who:"Lab practice · Gram stain of a known control",title:"What went wrong: a Gram-positive that came out pink",
+ story:"A student Gram stains a known Staphylococcus control. The cocci in clusters came out mostly pink, with only a few purple. Her notes say she left the alcohol on for 45 seconds, and the culture was 3 days old.",
+ field:{type:"gram",shape:"coccus",arr:"cluster",col:"SAF",mix:.18},bench:{stain:"Gram stain",rg:["CV","I","AL","SAF"],notes:["Expected: purple cocci in clusters","Alcohol time: 45 s (usually a few seconds)","Culture age: 3 days"],warn:true},
+ qs:[o3("What most likely made the Gram-positive cells look pink?","Look at the alcohol time in her notes.",["Over-decolorizing: the alcohol was left on far too long","Right. Long enough in alcohol pulls the dye complex out even from thick walls."],["She forgot the safranin","Without safranin, decolorized cells would be colourless, not pink."],["She used too much crystal violet","Extra crystal violet would make cells darker purple, not pink."],["Staphylococcus is really Gram-negative","Staphylococcus is a classic Gram-positive. The method, not the organism, changed."]),
+  o3("What else in her notes could make Gram-positive cells stain poorly?","How old was the culture?",["The culture was old: aging cells have weaker walls that lose the dye","Yes. Older Gram-positive cultures often stain unevenly or look Gram-negative."],["The slide was heat-fixed","Heat fixing is a normal step that sticks the cells to the slide."],["She used oil immersion","Oil immersion only sharpens the view at 1000×."],["The cells were in clusters","Clusters are normal for staphylococci."]),
+  o3("How should she repeat it?","Fix both problems.",["Use a young (18 to 24 hour) culture and decolorize only a few seconds, until the runoff is clear","Right. Fresh cells and a short, careful decolorizing step give a reliable result."],["Skip the alcohol step","Without decolorizing, Gram-negatives would stay purple too, so the stain could not tell the groups apart."],["Add a second round of safranin","More pink dye does not bring back lost purple."],["Use a capsule stain instead","A capsule stain answers a different question."])],
+ exp:"The alcohol step is the most time-sensitive part of the Gram stain. Too long and even Gram-positive cells lose the purple; too short and Gram-negatives stay purple. Young cultures give the most reliable results, and known Gram-positive and Gram-negative controls catch these errors."},
+{name:"Red rods",who:"Sputum · acid-fast stain",title:"Thin red rods on a blue background",
+ story:"A sputum sample from a patient with a months-long cough, night sweats and weight loss is stained with the acid-fast (Ziehl-Neelsen) method. Thin red rods, some in small clumps, stand out against a blue background.",
+ field:{type:"acid"},bench:{stain:"Acid-fast stain",rg:["CF","AA","MB"],notes:["Heat drives the red dye in","Red: kept the dye after acid-alcohol","Blue: everything else"]},
+ qs:[o3("What does red mean in this stain?","Which cells survive the acid-alcohol wash?",["The cells are acid-fast: they kept carbol fuchsin through the acid-alcohol wash","Yes. Acid-fast cells stay red; others are decolorized and turn blue."],["They are Gram-negative","Gram reaction comes from the Gram stain. This is the acid-fast stain."],["They are dead cells","Colour here reflects the wall, not whether the cell is alive."],["They have capsules","Capsules are shown with a negative stain as clear halos."]),
+  o3("What in their wall holds on to the red dye?","It is waxy.",["A thick, waxy layer of mycolic acid","Right. Mycolic acid repels water-based dyes and the acid-alcohol wash, so the red stays in."],["Teichoic acid","Teichoic acids are in ordinary Gram-positive walls and do not make cells acid-fast."],["Lipopolysaccharide","LPS is in Gram-negative outer membranes."],["Chitin","Chitin is in fungal walls."]),
+  o3("Which organism group does this point to?","Think of tuberculosis.",["Mycobacterium, as in tuberculosis","Yes. Acid-fast rods with these symptoms raise concern for Mycobacterium tuberculosis."],["Mycoplasma","Mycoplasma has no wall at all, so it is not acid-fast."],["Staphylococcus","Staphylococci are Gram-positive cocci, not acid-fast rods."],["Bacillus","Bacillus is a spore-forming rod, identified with the endospore stain."])],
+ exp:"Acid-fast rods in sputum with these symptoms raise concern for tuberculosis, which spreads through the air. The waxy mycolic acid wall makes Mycobacterium hard to stain, slow growing, and resistant to many drugs and disinfectants, which is why TB treatment lasts months and uses several drugs together."},
+{name:"Green ovals",who:"Deep puncture wound · endospore stain",title:"Pink rods with green swellings",
+ story:"A culture from a deep puncture wound (a nail through a shoe) is stained with the endospore stain: malachite green driven in with steam, then safranin. You see pink rods, many with a green oval at one end like a drumstick, and some free green ovals.",
+ field:{type:"spore"},bench:{stain:"Endospore stain",rg:["MG","SAF"],notes:["Steam drives the green dye into spores","Green: endospores","Pink: active (vegetative) cells"]},
+ qs:[o3("What are the green ovals?","Which structure resists most dyes until steamed?",["Endospores","Right. The tough spore coat only takes up malachite green with heat, and keeps it."],["Capsules","Capsules show as clear halos in a negative stain."],["Stored phosphate inclusions","Inclusions are inside active cells and do not stain green here."],["Nuclei","Bacteria have no nucleus."]),
+  o3("This sample was boiled for 10 minutes before culturing, yet it still grew. Why?","What protects the spore core?",["Endospores survive boiling: a dry core, Ca-DPA, a thick cortex and a tough coat","Yes. Boiling kills active cells but not most endospores."],["Boiling only kills Gram-positive bacteria","Boiling kills most active cells of both groups. Spores are the exception."],["The pink rods are heat resistant","The pink cells are active cells, which boiling kills. The spores survived."],["Boiling never kills bacteria","Boiling kills most active bacteria. Spores need an autoclave."]),
+  o3("Which genus fits rods with drumstick spores at one end from a deep wound?","It grows without oxygen and causes lockjaw.",["Clostridium, such as C. tetani (tetanus)","Right. Clostridium tetani grows without oxygen deep in wounds and shows terminal drumstick spores."],["Mycobacterium","Mycobacterium is identified with the acid-fast stain and does not form endospores."],["Staphylococcus","Staphylococci are cocci and do not form endospores."],["Escherichia","E. coli is a Gram-negative rod with no endospores."])],
+ exp:"Endospores are made by Bacillus and Clostridium. Spores are killed reliably by autoclaving (121 °C, 15 psi, about 15 minutes or more) or by sporicidal chemicals. Tetanus is prevented by vaccination and proper wound care."},
+{name:"Clear halos",who:"Pneumonia sample · negative (capsule) stain",title:"Cells inside clear halos",
+ story:"A sample from a patient with pneumonia is mixed with India ink and the cells are lightly counterstained. The background is dark, the cells are coloured, and each cell or pair of cells sits inside a wide, clear halo.",
+ field:{type:"neg"},bench:{stain:"Negative (capsule) stain",rg:["INK","SAF"],notes:["Ink darkens the background","Cells take the counterstain","Clear zone around each cell"]},
+ qs:[o3("What is the clear halo?","It is outside the wall.",["A capsule","Right. The capsule keeps the ink away, so it shows as a clear zone."],["The periplasm","The periplasm is inside the cell envelope of Gram-negatives, not a halo outside."],["An endospore coat","Spores are inside cells or free ovals, and need an endospore stain."],["An air bubble","Bubbles would not sit neatly around every cell."]),
+  o3("Why does the capsule look clear instead of coloured?","Think about which way the ink goes.",["Most capsules do not take up common stains, and the ink cannot enter them, so they stay unstained","Yes. That is why we stain the background (a negative stain) to see them."],["Capsules are made of DNA","Capsules are usually made of sugars (some are protein), not DNA."],["The alcohol dissolved it","There is no alcohol step in this stain."],["Capsules are hollow","Capsules are a gel-like coat, not hollow."]),
+  o3("Why does this capsule matter for the patient's infection?","What do phagocytes have trouble doing?",["It helps the bacteria avoid being eaten by phagocytes","Right. Encapsulated bacteria resist phagocytosis, so they cause more serious disease."],["It releases endotoxin","Endotoxin is lipid A of the Gram-negative outer membrane."],["It moves the bacteria toward food","Movement is the job of flagella."],["It lets the bacteria survive boiling","Surviving boiling is what endospores do."])],
+ exp:"Encapsulated bacteria such as Streptococcus pneumoniae and Klebsiella pneumoniae resist phagocytosis, which makes their capsules major virulence factors. Pneumococcal vaccines target the capsule sugars. Capsule stains avoid strong heat fixing, which can shrink or destroy the capsule."},
+{name:"Shrunken cells",who:"Pickle brine · wet mount",title:"Cytoplasm pulled away from the wall",
+ story:"A student makes a wet mount of bacteria from a jar of homemade pickle brine (about 10% salt), using a drop of the brine itself. Under high power, many cells look odd: the cytoplasm has pulled away from the cell outline, leaving a clear gap.",
+ field:{type:"plasmo"},bench:{stain:"Wet mount, no stain",rg:["NONE"],notes:["Liquid: pickle brine, about 10% salt","Outer outline: cell wall","Inner dark shape: shrunken cytoplasm"]},
+ qs:[o3("What is the student seeing?","Water has moved.",["Plasmolysis","Right. The cytoplasm has shrunk away from the wall as water left the cell."],["Endospores forming","Forming spores appear as dense ovals inside the cell, usually at one end."],["Binary fission","Dividing cells pinch in the middle; the wall and membrane stay together."],["Capsules","Capsules are outside the wall and show as halos in a negative stain."]),
+  o3("Why did it happen?","Compare the salt outside and inside.",["The brine is hypertonic, so water left the cells by osmosis","Yes. More solute outside pulls water out of the cells."],["The brine is hypotonic, so water rushed in","Water rushing in would press the membrane against the wall, not pull it away."],["Salt dissolved the cell wall","The wall is still there: it is the outer outline you can see."],["The cells are Gram-negative","Plasmolysis happens to walled cells of both Gram types."]),
+  o3("Which organism would most likely keep growing in a 7.5% salt medium?","Mannitol salt agar selects for it.",["Staphylococcus aureus, which is salt tolerant","Right. Staphylococci grow at salt levels that stop most other bacteria."],["Mycoplasma","Mycoplasma has no wall and needs isotonic, rich conditions."],["Most gut Gram-negative rods","Most of them are inhibited at this salt level."],["A freshwater amoeba","Freshwater protozoa live in hypotonic water and pump water out."])],
+ exp:"Hypertonic salt and sugar preserve food by plasmolysis: cells lose water and stop growing, although they are not always killed. Salt-tolerant microbes such as Staphylococcus aureus and many molds can still grow, which is why mannitol salt agar uses 7.5% salt to select for staphylococci."},
+{name:"Tiny, shapeless",who:"Pneumonia culture · Gram stain",title:"Tiny cells that barely stain",
+ story:"A young adult has a mild pneumonia that did not improve on a penicillin-type drug. A culture on a special rich medium grows very slowly. The cells are tiny, vary in shape, and barely take up the Gram stain.",
+ field:{type:"myco"},bench:{stain:"Gram stain",rg:["CV","I","AL","SAF"],notes:["Cells: very small, many shapes","Stain: faint and uneven","Penicillin-type drug: no effect"]},
+ qs:[o3("Which feature best explains all of these findings?","What does penicillin attack, and what holds the Gram stain?",["The organism has no cell wall","Right. No wall means no shape, a poor Gram stain and no target for penicillin."],["It has a thick waxy wall","A waxy wall describes Mycobacterium, which is acid-fast and has a defined rod shape."],["It has a large capsule","A capsule would show as a halo and does not stop the Gram stain."],["It forms endospores","Spore formers are rods with a firm wall that stain well."]),
+  o3("Which organism fits?","Walking pneumonia.",["Mycoplasma pneumoniae","Yes. Mycoplasma has no wall, is tiny and shape-changing, and causes walking pneumonia."],["Mycobacterium tuberculosis","TB bacteria are acid-fast rods with a waxy wall."],["Streptococcus pneumoniae","S. pneumoniae is a Gram-positive coccus with a capsule, and it has a wall for penicillin to act on."],["Bacillus anthracis","B. anthracis is a large spore-forming rod."]),
+  o3("Which kind of drug makes more sense here?","Pick a target Mycoplasma actually has.",["One that targets bacterial 70S ribosomes, such as a macrolide","Right. Mycoplasma has 70S ribosomes, so protein-synthesis inhibitors work."],["Another drug that blocks cell wall cross-links","There is no wall to build, so wall-targeting drugs cannot work."],["Lysozyme","Lysozyme cuts peptidoglycan, which Mycoplasma lacks."],["An azole antifungal","Azoles target ergosterol in fungi."])],
+ exp:"Mycoplasma has no cell wall, so beta-lactam drugs cannot work, and it stains poorly because the Gram stain depends on the wall. Sterols in its membrane give it some strength. Drugs that target 70S ribosomes, such as macrolides or tetracyclines, are used instead."}
+];
+const CS={i:0,solved:{},first:{},wrong:{},shown:{}};
+function csKey(i,q){return i+"-"+q}
+function caseMeta(){const c=CASES[CS.i];
+  $("#cSolved").textContent=Object.keys(CS.solved).length+" of "+CASES.reduce((s,k)=>s+k.qs.length,0);$("#cFirst").textContent=Object.keys(CS.first).length;
+  $("#caseChips").querySelectorAll("button").forEach((b,i)=>{const done=CASES[i].qs.every((q,j)=>CS.solved[csKey(i,j)]);if(done&&!b.querySelector(".ok"))b.insertAdjacentHTML("beforeend",'<span class="ok" aria-label="solved">✓</span>')});
+  const all=c.qs.every((q,j)=>CS.solved[csKey(CS.i,j)]);const ex=$("#cExp");ex.className="explain"+(all?" show":"");ex.innerHTML=all?`<b>Summary.</b> ${c.exp}`:""}
+function caseUI(){const c=CASES[CS.i];
+  $("#caseChips").innerHTML=CASES.map((k,i)=>`<button type="button" class="casechip" aria-pressed="${i===CS.i}" data-i="${i}">${i+1}. ${k.name}${k.qs.every((q,j)=>CS.solved[csKey(i,j)])?'<span class="ok" aria-label="solved">✓</span>':""}</button>`).join("");
+  $("#caseChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{CS.i=+b.dataset.i;caseUI()});
+  $("#cN").textContent=CS.i+1;$("#cT").textContent=CASES.length;$("#cWho").textContent=`Unknown ${CS.i+1} · ${c.who}`;$("#cTitle").textContent=c.title;$("#cStory").textContent=c.story;
+  const box=$("#cQs");box.innerHTML="";let open=true;
+  c.qs.forEach((q,j)=>{const k=csKey(CS.i,j);const d=document.createElement("div");d.className="qblock";if(!open)d.hidden=true;
+    d.innerHTML=`<p class="qlab">${j+1}. ${q.q}</p><div class="opts"></div><div class="fb" role="status"></div>`;const ob=d.querySelector(".opts"),fb=d.querySelector(".fb");
+    q.opts.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];if(CS.solved[k]&&o[1])b.classList.add("right");
+      b.onclick=()=>{if(o[1]){b.classList.add("right");fb.className="fb show ok";fb.textContent="✓ "+o[2];if(!CS.solved[k]){CS.solved[k]=1;if(!CS.wrong[k]&&!CS.shown[k])CS.first[k]=1}$("#cHintBox").hidden=true;const nx=d.nextElementSibling;if(nx)nx.hidden=false;caseMeta()}
+        else{b.classList.add("wrong");CS.wrong[k]=1;fb.className="fb show no";fb.textContent="Not quite. "+o[2]}};ob.appendChild(b)});
+    box.appendChild(d);if(!CS.solved[k])open=false});
+  caseMeta();$("#cPrev").disabled=CS.i===0;$("#cNext").textContent=CS.i===CASES.length-1?"Back to unknown 1 →":"Next unknown →";$("#cHintBox").hidden=true;a11yKey=""}
+$("#cHint").onclick=()=>{const c=CASES[CS.i];const j=c.qs.findIndex((q,j)=>!CS.solved[csKey(CS.i,j)]);const hb=$("#cHintBox");hb.hidden=false;hb.textContent=j<0?"All questions here are solved. Try the next unknown.":"Hint for question "+(j+1)+": "+c.qs[j].hint};
+$("#cShow").onclick=()=>{const c=CASES[CS.i];c.qs.forEach((q,j)=>{const k=csKey(CS.i,j);if(!CS.solved[k]){CS.shown[k]=1;CS.solved[k]=1}});caseUI();
+  $("#cQs").querySelectorAll(".qblock").forEach((d,j)=>{const fb=d.querySelector(".fb");fb.className="fb show ok";fb.textContent="✓ "+c.qs[j].opts.find(o=>o[1])[2]})};
+$("#cPrev").onclick=()=>{if(CS.i>0){CS.i--;caseUI()}};$("#cNext").onclick=()=>{CS.i=(CS.i+1)%CASES.length;caseUI()};
+/* slide drawing (fixed stain colours: a real slide looks the same in light or dark mode) */
+function sCoc(x,y,r,col){circ(x,y,r,col,mix(col,"#000000",.3),1)}
+function sRod(x,y,l,w,a,col){ctx.save();ctx.translate(x,y);ctx.rotate(a);rr(-l/2,-w/2,l,w,w/2);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=mix(col,"#000000",.3);ctx.lineWidth=1;ctx.stroke();ctx.restore()}
+function drawField(f,t){const cx=300,cy=238,R=222;ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,TAU);ctx.fillStyle=f.type==="neg"?SL.INK:f.type==="plasmo"?"#DDE3E2":SL.bg;ctx.fill();ctx.clip();
+  const seedXY=(k,s)=>{const an=rnd(k*3+s)*TAU,rd=Math.sqrt(rnd(k*7+s+1))*(R-30);return [cx+Math.cos(an)*rd,cy+Math.sin(an)*rd]};
+  if(f.type==="gram"){const col=SL[f.col];if(f.shape==="coccus"){for(let g=0;g<11;g++){const [gx,gy]=seedXY(g,1);for(let k=0;k<7;k++){const an=rnd(g*11+k)*TAU,d=rnd(g*13+k*3)*13;const c=f.mix&&rnd(g*5+k)<f.mix?SL.CV:col;sCoc(gx+Math.cos(an)*d,gy+Math.sin(an)*d,6.5,c)}}}
+    else{for(let k=0;k<38;k++){const [x,y]=seedXY(k,5);sRod(x,y,22,9,rnd(k*9)*Math.PI,col)}}}
+  else if(f.type==="acid"){for(let k=0;k<14;k++){const [x,y]=seedXY(k,40);ell(x,y,22+rnd(k)*16,14+rnd(k+3)*10,rnd(k)*3,hexA(SL.MB,.25))}
+    for(let k=0;k<26;k++){const [x,y]=seedXY(k,60);sCoc(x,y,5,SL.MB)}for(let k=0;k<8;k++){const [x,y]=seedXY(k,90);sRod(x,y,18,7,rnd(k*4)*3,SL.MB)}
+    for(let g=0;g<6;g++){const [gx,gy]=seedXY(g,120);for(let k=0;k<4;k++){sRod(gx+(rnd(g*9+k)*2-1)*14,gy+(rnd(g*7+k)*2-1)*10,20,4.5,rnd(g*5+k)*3,SL.CF)}}}
+  else if(f.type==="spore"){for(let k=0;k<20;k++){const [x,y]=seedXY(k,7);const a=rnd(k*9)*Math.PI;sRod(x,y,28,9,a,SL.SAF);if(rnd(k*3)<.7){ell(x+Math.cos(a)*15,y+Math.sin(a)*15,7.5,6,a,SL.MG,mix(SL.MG,"#000000",.3),1)}}
+    for(let k=0;k<9;k++){const [x,y]=seedXY(k,77);ell(x,y,6.5,5,rnd(k)*3,SL.MG,mix(SL.MG,"#000000",.3),1)}}
+  else if(f.type==="neg"){for(let k=0;k<12;k++){const [x,y]=seedXY(k,9);const a=rnd(k*5)*Math.PI;ctx.save();ctx.translate(x,y);ctx.rotate(a);ell(0,0,26,17,0,"#F4F2EA");sCoc(-6,0,6,SL.SAF);sCoc(6,0,6,SL.SAF);ctx.restore()}}
+  else if(f.type==="plasmo"){for(let k=0;k<16;k++){const [x,y]=seedXY(k,13);const a=rnd(k*5)*Math.PI;ctx.save();ctx.translate(x,y);ctx.rotate(a);rr(-30,-13,60,26,13);ctx.fillStyle="rgba(120,140,140,.12)";ctx.fill();ctx.strokeStyle="#5E6F6E";ctx.lineWidth=1.6;ctx.stroke();
+    const s=.5+rnd(k)*.3;ell(rnd(k*3)*8-4,0,20*s+3,10*s,0,"#4E5E5C");ctx.restore()}}
+  else if(f.type==="myco"){for(let k=0;k<44;k++){const [x,y]=seedXY(k,17);ctx.save();ctx.globalAlpha=.55;blobPath(x,y,2.5+rnd(k)*3.5,k,t*.3,.3);ctx.fillStyle=SL.SAF;ctx.fill();ctx.restore()}}
+  let pt;if(f.type==="gram")pt=seedXY(0,f.shape==="coccus"?1:5);else if(f.type==="acid")pt=seedXY(0,120);else if(f.type==="spore"){let k=0;while(rnd(k*3)>=.7)k++;const q=seedXY(k,7),a=rnd(k*9)*Math.PI;pt=[q[0]+Math.cos(a)*15,q[1]+Math.sin(a)*15]}else pt=seedXY(0,{neg:9,plasmo:13,myco:17}[f.type]);
+  ctx.restore();circ(cx,cy,R,null,"#2B2F33",6);
+  // pointer ring on a feature
+  const bob=Math.sin(t*2.5)*4;
+  circ(pt[0],pt[1],26+bob,null,C.glow,2.5);txt(cx,cy+R+14,"1000× oil immersion",{size:12,mono:true,align:"center",color:C["ink-soft"]})}
+function drawUnk(now){use(S3);const c=CASES[CS.i];const t=now/1000;drawField(c.field,t);
+  panelBox(10,488,580,124,{fill:hexA(C.panel,.95),stroke:c.bench.warn?C.warn:C.rule,lw:c.bench.warn?2.2:1.2});txt(24,506,"BENCH CARD",{size:12,mono:true,weight:700,color:C["ink-soft"]});txt(112,506,c.bench.stain,{size:14,weight:700});
+  c.bench.rg.forEach((r,i)=>{const g=RG[r];const x=44+i*(c.bench.rg.length<4?84:68),y=522;rr(x-12,y,24,36,5);ctx.fillStyle=g[1];ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.lineWidth=1;ctx.stroke();rr(x-7,y-8,14,10,3);ctx.fillStyle=C["ink-soft"];ctx.fill();
+    wrapText(g[0],x,y+50,64,14,{size:12,align:"center"});if(i<c.bench.rg.length-1)arrow(x+15,y+18,x+(c.bench.rg.length<4?68:52),y+18,C["ink-faint"],1.3)});
+  let yy=528;c.bench.notes.forEach(n=>{const hi=n.indexOf("usually")>=0||n.indexOf("3 days")>=0;yy=wrapText("• "+n,322,yy,258,16,{size:12.5,weight:hi?700:500,color:hi?C["warn-ink"]:C.ink})+19});
+  const solved=c.qs.filter((q,j)=>CS.solved[csKey(CS.i,j)]).length;txt(578,600,"Solved "+solved+" of "+c.qs.length,{size:12,mono:true,align:"right",color:C["ink-soft"]})}
+function unkA11y(){const c=CASES[CS.i];const lab=`Unknown ${CS.i+1}: ${c.title}. ${c.bench.stain}.`;
+  const F={gram:()=>`${c.field.shape==="coccus"?"round cocci in grape-like clusters":"short rods scattered singly"}, coloured ${c.field.col==="CV"?"purple":"pink"}${c.field.mix?", with a few purple ones mixed in":""}`,acid:()=>"blue cocci, short blue rods and pale blue smudges of host material, with small clumps of thin red rods",
+    spore:()=>"pink rods, many with a green oval at one end like a drumstick, plus some free green ovals",neg:()=>"a dark background with clear oval halos, each surrounding a pair of pink cells",plasmo:()=>"grey rod outlines, each with a darker shrunken shape inside that has pulled away from the outline",myco:()=>"many tiny, faint pink specks of different shapes"};
+  const d=`A round microscope field at 1000 times shows ${F[c.field.type]()}. A yellow ring circles one example. A bench card on the right lists the stain, ${c.bench.stain}, with reagent bottles in order: ${c.bench.rg.map(r=>RG[r][0]).join(", ")}, and notes: ${c.bench.notes.join("; ")}.`;return [lab,d]}
+
+/* ================= PART 4: sort and build ================= */
+function wavy(x,y,dx,dy,n){let d=`M${x} ${y}`;for(let i=1;i<=n;i++){const px=x+dx*i/n,py=y+dy*i/n;const ox=-dy/Math.hypot(dx,dy)*(i%2?2.4:-2.4),oy=dx/Math.hypot(dx,dy)*(i%2?2.4:-2.4);d+=` Q${(x+dx*(i-.5)/n+ox).toFixed(1)} ${(y+dy*(i-.5)/n+oy).toFixed(1)} ${px.toFixed(1)} ${py.toFixed(1)}`}return `<path d="${d}" fill="none" stroke="var(--flag)" stroke-width="1.6"/>`}
+const ROD=(x,y,w,h,f)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${h/2}" fill="${f||"var(--cyto)"}" stroke="var(--cell-edge)" stroke-width="1.6"/>`;
+function flagPic(kind,v){const s=b=>`<svg viewBox="0 0 54 30" aria-hidden="true" focusable="false">${b}</svg>`;const x=v?18:16,w=v?20:22;
+  if(kind==="mono")return s(wavy(x,15,-14,v?-6:0,4)+ROD(x,10,w,10));
+  if(kind==="lopho")return s(wavy(x,13,-14,-6,4)+wavy(x,15,-15,0,4)+wavy(x,17,-14,6,4)+ROD(x,10,w,10));
+  if(kind==="amphi")return s(wavy(x,15,-14,v?-5:0,4)+wavy(x+w,15,14,v?5:0,4)+ROD(x,10,w,10));
+  return s(wavy(x+4,10,-6,-9,3)+wavy(x+w-4,10,6,-9,3)+wavy(x+4,20,-6,9,3)+wavy(x+w-4,20,6,9,3)+wavy(x+w/2,10,0,-9,3)+wavy(x+w/2,20,0,9,3)+wavy(x,15,-12,0,3)+ROD(x,10,w,10))}
+function binSVG(k){const s=b=>`<svg viewBox="0 0 56 46" aria-hidden="true" focusable="false">${b}</svg>`;
+  const coc=(x,y,c)=>`<circle cx="${x}" cy="${y}" r="6" fill="${c}" stroke="var(--ink)" stroke-opacity=".35"/>`;
+  switch(k){
+    case "gp":return s(coc(20,18,"var(--gpos)")+coc(31,16,"var(--gpos)")+coc(26,27,"var(--gpos)")+coc(37,26,"var(--gpos)")+coc(15,29,"var(--gpos)"));
+    case "gn":return s(`<rect x="6" y="10" width="26" height="11" rx="5.5" fill="var(--gneg)"/><rect x="22" y="26" width="26" height="11" rx="5.5" fill="var(--gneg)"/>`);
+    case "both":return s(coc(16,23,"var(--gpos)")+`<rect x="26" y="17" width="24" height="11" rx="5.5" fill="var(--gneg)"/>`);
+    case "pro":return s(ROD(6,12,44,22)+`<path d="M14 23 C18 15 22 31 27 22 S35 16 40 24" fill="none" stroke="var(--dna)" stroke-width="1.8"/>`);
+    case "euk":return s(`<ellipse cx="28" cy="23" rx="25" ry="19" fill="var(--panel)" stroke="var(--proto)" stroke-width="2"/><circle cx="24" cy="23" r="8" fill="var(--nucl)" fill-opacity=".45" stroke="var(--nucl)"/><ellipse cx="41" cy="16" rx="6" ry="3" fill="var(--mito)"/>`);
+    case "cap":return s(`<rect x="3" y="6" width="50" height="34" rx="17" fill="var(--capsule)" fill-opacity=".45" stroke="var(--capsule)"/>`+ROD(12,15,32,16));
+    case "flag":return s(wavy(20,23,-18,0,4)+ROD(20,15,30,16));
+    case "fim":{let h="";for(let i=0;i<8;i++){const x=14+i*4;h+=`<line x1="${x}" y1="15" x2="${x}" y2="8" stroke="var(--flag)" stroke-width="1.2"/><line x1="${x}" y1="31" x2="${x}" y2="38" stroke="var(--flag)" stroke-width="1.2"/>`}return s(h+ROD(10,15,36,16))}
+    case "pil":return s(ROD(2,8,22,12)+ROD(32,26,22,12)+`<line x1="22" y1="15" x2="35" y2="30" stroke="var(--flag)" stroke-width="2.2"/>`);
+    case "spo":return s(ROD(5,13,46,20)+`<ellipse cx="40" cy="23" rx="7" ry="6" fill="var(--cortex)" stroke="var(--coat)" stroke-width="2"/>`);
+    case "pla":return s(`<circle cx="28" cy="23" r="15" fill="none" stroke="var(--plasmid)" stroke-width="3"/><circle cx="28" cy="23" r="10.5" fill="none" stroke="var(--plasmid)" stroke-opacity=".5" stroke-width="1.4"/>`);
+    case "mono":case "lopho":case "amphi":case "peri":return flagPic(k,0).replace('viewBox="0 0 54 30"','viewBox="-1 -8 56 46"');
+  }return s("")}
+const PICDESC={mono:"a rod with one flagellum at one end",lopho:"a rod with a tuft of several flagella at one end",amphi:"a rod with one flagellum at each end",peri:"a rod with flagella all around it"};
+const SROUNDS=[
+{name:"Gram-positive or Gram-negative?",goal:"Sort each feature: Gram-positive, Gram-negative, or both.",bins:[["gp","Gram-positive"],["gn","Gram-negative"],["both","Both"]],
+ cards:[["Thick peptidoglycan wall","gp","Many layers of peptidoglycan trap the purple dye."],["Teichoic acids","gp","They are threaded through Gram-positive walls."],["Stains purple in the Gram stain","gp","The thick wall keeps the crystal violet."],["Staphylococcus and Streptococcus","gp","Both are classic Gram-positive cocci."],
+  ["Outer membrane","gn","An extra membrane sits outside the thin wall."],["Lipopolysaccharide (LPS) with lipid A","gn","LPS forms the outer face of the outer membrane."],["Periplasm with a thin wall","gn","The space between the two membranes holds the thin peptidoglycan."],["Porins","gn","Channels in the outer membrane."],["Stains pink in the Gram stain","gn","Alcohol washes the purple out; safranin turns them pink."],["E. coli and Pseudomonas","gn","Both are Gram-negative rods."],
+  ["Contains peptidoglycan","both","Both have it: thick in Gram-positives, thin in Gram-negatives."],["Plasma membrane","both","Every cell has a plasma membrane."],["Can have flagella or a capsule","both","Surface structures occur in both groups."]]},
+{name:"Prokaryote, eukaryote or both?",goal:"Sort each feature: prokaryote, eukaryote, or both.",bins:[["pro","Prokaryote"],["euk","Eukaryote"],["both","Both"]],
+ cards:[["DNA in a nucleoid, no nuclear membrane","pro","Prokaryotes have no nucleus."],["70S ribosomes in the cytoplasm","pro","Bacteria and archaea use 70S ribosomes."],["Peptidoglycan cell wall","pro","Peptidoglycan is found only in bacteria."],["Divides by binary fission","pro","Prokaryotes split in two after copying their DNA."],
+  ["Nucleus with a double membrane","euk","A true nucleus defines a eukaryote."],["80S ribosomes in the cytoplasm","euk","Eukaryotic cytoplasmic ribosomes are 80S."],["Mitochondria","euk","Mitochondria are eukaryotic organelles, once bacteria themselves."],["Endoplasmic reticulum and Golgi","euk","Membrane-bound organelles are eukaryotic."],["Chitin cell wall (fungi)","euk","Fungi are eukaryotes with chitin walls."],
+  ["Plasma membrane","both","All cells have a plasma membrane."],["Ribosomes","both","All cells make proteins on ribosomes (70S or 80S)."],["DNA as the genetic material","both","All cells store genes in DNA."],["Can have flagella","both","Both can, although they are built differently."]]},
+{name:"Which structure does the job?",goal:"Match each job to the structure that does it.",bins:[["cap","Capsule"],["flag","Flagellum"],["fim","Fimbriae"],["pil","Sex pilus"],["spo","Endospore"],["pla","Plasmid"]],
+ cards:[["Helps a bacterium avoid being eaten by phagocytes","cap","Slippery capsules are hard for phagocytes to grab."],["Shows as a clear halo in a negative stain","cap","Capsules do not take up common stains."],["Spins to push the cell in runs and tumbles","flag","Flagella rotate like propellers."],["Made of flagellin, the H antigen","flag","Flagellin builds the filament."],
+  ["Many short hairs that grip the bladder lining","fim","Fimbriae are for attachment."],["Keeps bacteria from being flushed away by urine","fim","Attachment by fimbriae resists flow."],["Pulls two cells together to pass DNA","pil","The conjugation pilus connects donor and recipient."],["Found on F+ donor cells","pil","F+ cells make the sex pilus."],
+  ["Survives boiling and alcohol","spo","Endospores are extremely resistant."],["Formed by Bacillus and Clostridium when food runs out","spo","Sporulation is triggered by starvation."],["Small circle of extra DNA that can carry resistance genes","pla","Plasmids are optional DNA loops."],["Copied into a recipient during conjugation","pla","A plasmid copy crosses the conjugation bridge."]]},
+{name:"Name the flagella arrangement",goal:"Look at each picture and put it in the box for its flagella arrangement.",bins:[["mono","Monotrichous"],["lopho","Lophotrichous"],["amphi","Amphitrichous"],["peri","Peritrichous"]],pics:true,
+ cards:[["Cell A","mono","One flagellum at one end: monotrichous, like Vibrio cholerae.",0],["Cell B","peri","Flagella all around: peritrichous, like E. coli.",0],["Cell C","lopho","A tuft at one end: lophotrichous, like Helicobacter pylori.",0],["Cell D","amphi","One at each end: amphitrichous, like Campylobacter.",0],
+  ["Cell E","mono","One flagellum at one end: monotrichous, like Pseudomonas aeruginosa.",1],["Cell F","amphi","One at each end: amphitrichous.",1],["Cell G","lopho","A tuft at one end: lophotrichous.",1],["Cell H","peri","Flagella all around: peritrichous, like Proteus.",1]]},
+{name:"Order: sporulation",type:"order",goal:"Put the stages of endospore formation and germination in order, first at the top.",
+ items:["Nutrients run low","DNA is copied","A septum walls off a small forespore","The mother cell engulfs the forespore","A cortex forms and the core dries out","A protein coat forms","The mother cell breaks open and the spore is released","The spore germinates when conditions improve"]},
+{name:"Build a Gram-negative envelope",type:"order",goal:"Build the Gram-negative envelope from the outside in: outermost layer at the top.",
+ items:["O antigen sugar chains","Core sugars of LPS","Lipid A, anchored in the outer membrane","Periplasm with a thin peptidoglycan layer","Plasma membrane","Cytoplasm"]},
+{name:"Order: Gram stain",type:"order",goal:"Put the Gram stain steps in order, first at the top.",
+ items:["Heat-fix the smear","Crystal violet","Iodine","Alcohol (decolorizer)","Safranin","Blot dry and view under oil immersion"]}];
+const SG={r:0,placed:{},mist:0,sel:null,t0:0,timer:null,hint:null,doneRounds:{},order:[],seq:[],checked:false};
+function sRoundsUI(){$("#sRounds").innerHTML=SROUNDS.map((r,i)=>`<button type="button" class="round" aria-pressed="${i===SG.r}" data-i="${i}">Round ${i+1}: ${r.name}${SG.doneRounds[i]?`<span class="ok" aria-label="${SG.doneRounds[i]} stars">${"★".repeat(SG.doneRounds[i])}</span>`:""}</button>`).join("");
+  $("#sRounds").querySelectorAll("button").forEach(b=>b.onclick=()=>sLoad(+b.dataset.i))}
+function isOrder(){return SROUNDS[SG.r].type==="order"}
+function sLoad(i){SG.r=i;SG.placed={};SG.mist=0;SG.sel=null;SG.hint=null;SG.t0=Date.now();SG.checked=false;const R=SROUNDS[i];
+  $("#sN").textContent=`Round ${i+1} of ${SROUNDS.length}`;$("#sTitle").textContent=R.name;$("#sGoal").textContent=R.goal;
+  $("#sortArea").hidden=isOrder();$("#orderArea").hidden=!isOrder();$("#oCheck").hidden=!isOrder();
+  if(isOrder()){let s;do{s=shuffle(R.items.map((x,k)=>k))}while(s.every((v,k)=>v===k));SG.seq=s;oRender()}
+  else{SG.order=shuffle(R.cards.map((c,k)=>k));const bins=$("#sBins");bins.innerHTML="";R.bins.forEach(b=>{const d=document.createElement("div");d.className="bin";d.dataset.k=b[0];
+    d.innerHTML=`<button type="button" class="binhead" data-k="${b[0]}">${binSVG(b[0])}<span>${b[1]}</span></button><div class="binitems"></div>`;
+    d.querySelector(".binhead").onclick=()=>{if(SG.sel!=null)sDrop(SG.sel,b[0]);else sMsg("info","Pick a card first, then tap a box.")};bins.appendChild(d)});sRender()}
+  const best=store.get("best-"+i);$("#sBest").textContent=best?`Best for this round: ${"★".repeat(+best)}`:"";$("#sMsg").className="msg";$("#sStars").textContent="";$("#sStars").setAttribute("aria-label","Stars appear when the round is done");sRoundsUI();sTimerUI();a11yKey=""}
+function cardInner(R,c){return R.pics?`${flagPic(c[1],c[3])}<span>${c[0]}</span>`:c[0]}
+function sRender(){const R=SROUNDS[SG.r];const pool=$("#sPool");pool.innerHTML="";
+  SG.order.forEach(k=>{if(SG.placed[k])return;const c=R.cards[k];const b=document.createElement("button");b.type="button";b.className="scard"+(R.pics?" pic":"")+(SG.hint===k?" hinted":"");b.innerHTML=cardInner(R,c);b.dataset.k=k;
+    if(R.pics)b.setAttribute("aria-label",c[0]+": "+PICDESC[c[1]]);
+    b.setAttribute("aria-pressed",SG.sel===k);b.onclick=()=>{if(b.dataset.dragged){delete b.dataset.dragged;return}SG.sel=SG.sel===k?null:k;sRender();const nb=pool.querySelector(`[data-k="${k}"]`);if(nb)nb.focus()};
+    b.addEventListener("pointerdown",e=>sDragStart(e,b,k));pool.appendChild(b)});
+  if(!pool.children.length)pool.innerHTML='<span class="small">All cards sorted.</span>';
+  document.querySelectorAll("#sBins .bin").forEach(d=>{const items=d.querySelector(".binitems");items.innerHTML="";d.classList.toggle("hintbin",SG.hint!=null&&R.cards[SG.hint][1]===d.dataset.k);
+    R.cards.forEach((c,k)=>{if(SG.placed[k]&&c[1]===d.dataset.k){const s=document.createElement("div");s.className="scard placed"+(R.pics?" pic":"");s.innerHTML=R.pics?cardInner(R,c):"✓ "+c[0];if(R.pics)s.setAttribute("aria-label",c[0]+", "+PICDESC[c[1]]);items.appendChild(s)}})});
+  const n=Object.keys(SG.placed).length,tot=R.cards.length;if(n===tot){$("#sStars").textContent="★".repeat(sStars())+"☆".repeat(3-sStars());$("#sStars").setAttribute("aria-label",sStars()+" of 3 stars")}}
+function sStars(){return SG.mist===0?3:SG.mist<=2?2:1}
+function sMsg(cls,t){const m=$("#sMsg");m.className="msg show "+cls;m.textContent=t}
+function sDrop(k,bin){const R=SROUNDS[SG.r];const c=R.cards[k];SG.sel=null;SG.hint=null;
+  if(c[1]===bin){SG.placed[k]=1;sMsg("good","✓ "+c[0]+": "+c[2])}else{SG.mist++;const nm=R.bins.find(b=>b[0]===bin)[1];sMsg("warn",`Not quite. "${c[0]}" does not go in ${nm}. Try another box, or press Hint.`)}
+  sRender();if(Object.keys(SG.placed).length===R.cards.length)sFinish();else{const f=$("#sPool .scard");if(f&&document.activeElement===document.body)f.focus()}}
+function sFinish(){const st=sStars();SG.doneRounds[SG.r]=Math.max(SG.doneRounds[SG.r]||0,st);const best=+(store.get("best-"+SG.r)||0);if(st>best)store.set("best-"+SG.r,st);
+  const tm=!$("#sRelaxed").checked?` Time: ${fmt((Date.now()-SG.t0)/1000)}.`:"";$("#sStars").textContent="★".repeat(st)+"☆".repeat(3-st);$("#sStars").setAttribute("aria-label",st+" of 3 stars");
+  sMsg("good",`Round complete with ${SG.mist} ${SG.mist===1?"mistake":"mistakes"}: ${st} of 3 stars.${tm} `+(SG.r<SROUNDS.length-1?"Press Next round when you are ready.":"That was the last round. Well done."));sRoundsUI()}
+let drag=null;
+function sDragStart(e,b,k){if(e.button>0)return;const r=b.getBoundingClientRect();drag={k,b,sx:e.clientX,sy:e.clientY,dx:e.clientX-r.left,dy:e.clientY-r.top,g:null,over:null,id:e.pointerId};
+  window.addEventListener("pointermove",sDragMove);window.addEventListener("pointerup",sDragEnd);window.addEventListener("pointercancel",sDragEnd)}
+function sDragMove(e){if(!drag||e.pointerId!==drag.id)return;if(!drag.g){if(Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)<6)return;const g=drag.b.cloneNode(true);g.classList.add("ghost");g.removeAttribute("id");g.setAttribute("aria-hidden","true");g.tabIndex=-1;g.style.width=drag.b.offsetWidth+"px";document.body.appendChild(g);drag.g=g;drag.b.style.opacity=".35"}
+  e.preventDefault();drag.g.style.left=(e.clientX-drag.dx)+"px";drag.g.style.top=(e.clientY-drag.dy)+"px";
+  const el=document.elementFromPoint(e.clientX,e.clientY);const bin=el&&el.closest?el.closest(".bin"):null;document.querySelectorAll(".bin.over").forEach(x=>x!==bin&&x.classList.remove("over"));if(bin)bin.classList.add("over");drag.over=bin}
+function sDragEnd(e){if(!drag)return;window.removeEventListener("pointermove",sDragMove);window.removeEventListener("pointerup",sDragEnd);window.removeEventListener("pointercancel",sDragEnd);
+  const d=drag;drag=null;document.querySelectorAll(".bin.over").forEach(x=>x.classList.remove("over"));if(!d.g)return;d.g.remove();d.b.style.opacity="";d.b.dataset.dragged="1";if(d.over)sDrop(d.k,d.over.dataset.k);else sRender()}
+/* ordering rounds */
+function oRender(focusIdx,focusDir){const R=SROUNDS[SG.r];const ol=$("#oList");ol.innerHTML="";
+  SG.seq.forEach((k,pos)=>{const li=document.createElement("li");li.className="item";li.dataset.k=k;
+    li.innerHTML=`<span class="pos">${pos+1}</span><span class="grip" aria-hidden="true">⋮⋮</span><span class="txt">${R.items[k]}</span><span class="mv"><button type="button" aria-label="Move up: ${R.items[k]}">▲</button><button type="button" aria-label="Move down: ${R.items[k]}">▼</button></span>`;
+    const [up,dn]=li.querySelectorAll(".mv button");up.disabled=pos===0;dn.disabled=pos===SG.seq.length-1;
+    up.onclick=()=>oMove(pos,-1);dn.onclick=()=>oMove(pos,1);
+    li.addEventListener("pointerdown",e=>oDragStart(e,li));ol.appendChild(li)});
+  if(focusIdx!=null){const li=ol.children[focusIdx];if(li){const bs=li.querySelectorAll(".mv button");const b=focusDir<0?(bs[0].disabled?bs[1]:bs[0]):(bs[1].disabled?bs[0]:bs[1]);b.focus()}}}
+function oMove(pos,dir){const np=pos+dir;if(np<0||np>=SG.seq.length)return;[SG.seq[pos],SG.seq[np]]=[SG.seq[np],SG.seq[pos]];SG.checked=false;oRender(np,dir)}
+let odrag=null;
+function oDragStart(e,li){if(e.button>0||e.target.closest(".mv"))return;e.preventDefault();odrag={li,sy:e.clientY,base:li.offsetTop,id:e.pointerId};li.classList.add("drag");try{li.setPointerCapture(e.pointerId)}catch(err){}
+  li.addEventListener("pointermove",oDragMove);li.addEventListener("pointerup",oDragEnd);li.addEventListener("pointercancel",oDragEnd)}
+function oDragMove(e){if(!odrag||e.pointerId!==odrag.id)return;const li=odrag.li,ol=li.parentElement;const dy=e.clientY-odrag.sy;
+  const r=li.getBoundingClientRect();const mid=r.top+r.height/2;
+  const prev=li.previousElementSibling,next=li.nextElementSibling;
+  if(prev){const pr=prev.getBoundingClientRect();if(mid<pr.top+pr.height/2)ol.insertBefore(prev,li.nextSibling)}
+  if(next){const nr=next.getBoundingClientRect();if(mid>nr.top+nr.height/2)ol.insertBefore(next,li)}
+  li.style.transform=`translateY(${dy-(li.offsetTop-odrag.base)}px)`}
+function oDragEnd(e){if(!odrag)return;const li=odrag.li;li.removeEventListener("pointermove",oDragMove);li.removeEventListener("pointerup",oDragEnd);li.removeEventListener("pointercancel",oDragEnd);li.style.transform="";li.classList.remove("drag");odrag=null;
+  SG.seq=Array.from($("#oList").children).map(x=>+x.dataset.k);SG.checked=false;oRender()}
+$("#oCheck").onclick=()=>{const wrong=SG.seq.filter((k,pos)=>k!==pos).length;const lis=$("#oList").children;SG.seq.forEach((k,pos)=>{lis[pos].classList.toggle("right",k===pos);lis[pos].classList.toggle("off",k!==pos)});
+  if(!wrong){if(!SG.checked){SG.checked=true;sFinish()}}else{SG.mist++;sMsg("warn",`Not quite: ${SG.seq.length-wrong} of ${SG.seq.length} are in the right place (green). Move the orange ones and check again, or press Hint.`)}};
+$("#sHint").onclick=()=>{const R=SROUNDS[SG.r];if(isOrder()){const pos=SG.seq.findIndex((k,p)=>k!==p);if(pos<0){sMsg("info","Everything is in order. Press Check order.");return}const lis=$("#oList").children;Array.from(lis).forEach(l=>l.classList.remove("hinted"));
+    const at=SG.seq.indexOf(pos);lis[at].classList.add("hinted");sMsg("info",`Hint: "${R.items[pos]}" (glowing) belongs in position ${pos+1}.`);return}
+  const k=SG.sel!=null?SG.sel:SG.order.find(k=>!SG.placed[k]);if(k==null){sMsg("info","Everything is sorted.");return}SG.hint=k;const bn=R.bins.find(b=>b[0]===R.cards[k][1])[1];sMsg("info",`Hint: "${R.cards[k][0]}" goes in the glowing box (${bn}).`);sRender()};
+$("#sShow").onclick=()=>{const R=SROUNDS[SG.r];SG.mist=Math.max(SG.mist,3);if(isOrder()){SG.seq=R.items.map((x,k)=>k);oRender();Array.from($("#oList").children).forEach(l=>l.classList.add("right"));SG.checked=true;sFinish();sMsg("info","Here is the correct order. Read it top to bottom, then try another round.");return}
+  R.cards.forEach((c,k)=>SG.placed[k]=1);sRender();sFinish();sMsg("info","All cards placed. Read each box to see why they belong there.")};
+$("#sShuffle").onclick=()=>sLoad(SG.r);$("#sNext").onclick=()=>sLoad((SG.r+1)%SROUNDS.length);
+function sTimerUI(){const relaxed=$("#sRelaxed").checked;$("#sTimer").hidden=relaxed;clearInterval(SG.timer);if(!relaxed){SG.timer=setInterval(()=>{$("#sTimer").textContent=fmt((Date.now()-SG.t0)/1000)},500)}}
+$("#sRelaxed").onchange=()=>{SG.t0=Date.now();sTimerUI()};
+function sortA11y(){const R=SROUNDS[SG.r];if(isOrder())return [null,`Round ${SG.r+1}, ${R.name}. A list of ${R.items.length} cards to put in order. Current order: `+SG.seq.map((k,p)=>(p+1)+". "+R.items[k]).join("; ")+"."];
+  const n=Object.keys(SG.placed).length;return [null,`Round ${SG.r+1}, ${R.name}. ${n} of ${R.cards.length} cards sorted. Each box has a small drawing: `+R.bins.map(b=>b[1]).join(", ")+`. Cards still to sort: `+(SG.order.filter(k=>!SG.placed[k]).map(k=>R.pics?R.cards[k][0]+", "+PICDESC[R.cards[k][1]]:R.cards[k][0]).join("; ")||"none")+"."]}
+
+/* ---------------- accessibility, tabs, loop ---------------- */
+const A11Y={osm:{cv:"#cvOsm",f:osmA11y},che:{cv:"#cvChe",f:cheA11y},unk:{cv:"#cvUnk",f:unkA11y},sort:{cv:null,f:sortA11y}};
+let a11yKey="",a11yT=0;
+function a11yTick(){const n=performance.now();if(n-a11yT<600)return;a11yT=n;const a=A11Y[curTab];const [lab,d]=a.f();const key=curTab+"|"+lab+"|"+d;if(key===a11yKey)return;a11yKey=key;
+  if(a.cv&&lab)$(a.cv).setAttribute("aria-label",lab);if(window.gkDescribe)window.gkDescribe(d);
+  const box=document.getElementById("gk-desc");if(box){const host=a.cv?$(a.cv).closest(".canvas-holder"):$("#sGoal").closest(".goal");if(host&&host.nextElementSibling!==box)host.after(box);if(a.cv)$(a.cv).setAttribute("aria-describedby","gk-desc")}}
+let curTab="osm";const TABS=["osm","che","unk","sort"];
+function showTab(k,focus){curTab=k;document.querySelectorAll(".tab").forEach(x=>{const on=x.dataset.tab===k;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;if(on&&focus)x.focus()});
+  TABS.forEach(t=>$("#tab-"+t).hidden=t!==k);fitAll();a11yKey=""}
+document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>showTab(t.dataset.tab);t.onkeydown=e=>{const i=TABS.indexOf(t.dataset.tab);
+  if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();showTab(TABS[(i+(e.key==="ArrowRight"?1:TABS.length-1))%TABS.length],true)}
+  if(e.key==="Home"){e.preventDefault();showTab(TABS[0],true)}if(e.key==="End"){e.preventDefault();showTab(TABS[TABS.length-1],true)}}});
+const S1=makeStage("cvOsm",800,460),S2=makeStage("cvChe",800,460),S3=makeStage("cvUnk",600,620);
+function fitAll(){[S1,S2,S3].forEach(s=>s.fit())}
+window.addEventListener("resize",fitAll);
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+let last=performance.now(),rdT=0,hT=0;
+function frame(now){const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;
+  try{if(curTab==="osm"){osmStep(dt,now);hT+=dt;if(hT>=.1){hT=0;OS.hist.push(OS.burst?1.3:OS.V);if(OS.hist.length>200)OS.hist.shift()}drawOsm(now);rdT+=dt;if(rdT>.3){rdT=0;osmRead()}}
+    else if(curTab==="che"){cheStep(dt);drawChe(now);rdT+=dt;if(rdT>.4){rdT=0;cheRead()}}
+    else if(curTab==="unk")drawUnk(now)}catch(err){console.error(err)}
+  try{a11yTick()}catch(err){console.error(err)}
+  requestAnimationFrame(frame)}
+window.__cl={tab:k=>showTab(k),osm:(cell,sol,conc)=>{OS.cell=cell;OS.sol=sol;OS.conc=conc;osmNew()},osmRun:s=>{const t0=performance.now();for(let i=0;i<s*50;i++)osmStep(.02,t0);osmRead()},osmState:()=>({V:OS.V,burst:OS.burst,aw:awOut(),done:[...OS.done],g:growth()[0]}),
+  che:(o)=>{Object.assign(CH,o||{});cheRelease();cheUI()},cheRun:s=>{for(let i=0;i<s*50;i++)cheStep(.02);cheRead()},cheState:()=>({near:nearCount(),avg:avgDist(),up:CH.runs.up,down:CH.runs.down,done:[...CH.done]}),
+  caseGo:i=>{CS.i=i;caseUI()},caseShow:()=>$("#cShow").click(),sortGo:i=>sLoad(i),sortShow:()=>$("#sShow").click(),sortDrop:(k,b)=>sDrop(k,b),sortState:()=>({r:SG.r,placed:Object.keys(SG.placed).length,mist:SG.mist,seq:SG.seq.slice(),order:SG.order.slice()}),n:()=>SROUNDS.length};
+readColors();osmUI();cheRelease();cheUI();cheRead();caseUI();sLoad(0);fitAll();requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Urogenital and Nervous System Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#1E7A4C;--accent-ink:#145A37;--accent-wash:#DDEFE4;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#2F7FC1;--act2:#7B5CC9;--act3:#D98A1C;--act4:#C4644F;--act5:#2E8A7A;--act6:#A04E8C;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#8A6D12;
+  /* virus palette */
+  --ecf:#EEF3EF;--grid:#D3DED6;
+  --dna:#2F6FD0;--rna:#D9531E;--capsid:#7B5CC9;--capsid-2:#C9B8EE;--env:#C9962E;--env-2:#F2E2B8;--spike:#C4644F;
+  --phage:#5E6E9A;--phage-2:#C3CBE3;--tail:#6E7A8A;
+  --bact:#B9DDB9;--bact-edge:#3E7E4A;--gpos:#6A3FA0;--gneg:#C2457A;
+  --host:#F3DCCB;--host-edge:#B5866A;--nucf:#E3D8EE;--nuc-edge:#7B5CA0;--ribo:#6E7A8A;--endo:#F1C7C0;--endo-edge:#B05A4E;
+  --rt:#D98A1C;--rdrp:#2E8A7A;--integ:#B8901C;--prot:#4F6F94;
+  --toxin:#C2392F;--uv:#7B3FC9;
+  --prpc:#2E8A7A;--prpsc:#C2392F;--plaqueb:#C9A99A;
+  --viroid:#B8901C;--leaf:#8DBB64;--leaf-edge:#4E7A34;--potato:#E2C98E;--potato-edge:#9A7E44;
+  --agar:#F2E6BF;--lawn:#CDB46A;--plate:#C9D6DE;
+  --egg:#F4EAD8;--egg-edge:#B59A70;--yolk:#E8B93A;--cam:#E9A9A0;
+  --nerve:#D9A514;--ganglion:#E8C24A;--skin:#EAC9A8;--skin-edge:#B9937A;--blister:#F6E4C8;
+  --onc:#C4644F;--brake:#2E8A7A;
+  --glow:#F2B33B;--heat:#E0563A;
+  /* module 13 palette */
+  --urine:#E2C23C;--urine-2:#F6EBB2;--kidney:#DDA294;--kidney-edge:#9A4F40;--bladder:#F2D0C2;--bladder-edge:#B0705A;
+  --mucosa:#F3D9CF;--mucosa-edge:#C08070;--neut:#B9D4EE;--neut-edge:#2F6FA8;--lymph:#CFC8F0;--lymph-edge:#5B4CB0;
+  --capsule:#A8DCCB;--capsule-edge:#2E8A7A;--csf:#DCEBF2;--cloudy:#E8DDAA;--spiro:#1F7F8F;
+  --yeast:#F1DFA0;--yeast-edge:#A8862A;--lacto:#5C9E4A;--trich:#4F7FC0;--glycogen:#E0A82E;
+  --muscle:#E3A4A0;--muscle-edge:#A04848;--ach:#1F8A6A;--inhib:#7B5CC9;--myelin:#F4EAD8;
+  --brain:#F0CDD2;--brain-edge:#B07080;--blood:#C94040;--vessel:#F2D4D4;--vessel-edge:#B05050;
+  --mosq:#4E5A66;--water:#A9D2EC;--body:#EAC9A8;--body-edge:#B9937A;
+  --cath:#ECE4D4;--cath-edge:#8F7E62;--biofilm:#7FB069;--matrix:#D3E6BE;--field:#F6EEEA;--dfield:#0A0F12;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A9EBC6;--accent-wash:#14301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5AA9E6;--act2:#A98BEF;--act3:#F2A93B;--act4:#E08A74;--act5:#5CC4B0;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#22302A;
+  --dna:#6FA3F0;--rna:#F28A50;--capsid:#A98BEF;--capsid-2:#3D3360;--env:#E0B860;--env-2:#3E3420;--spike:#E08A74;
+  --phage:#9FB0D9;--phage-2:#2C3550;--tail:#A3B2BA;
+  --bact:#22402A;--bact-edge:#7FC48A;--gpos:#B48BF0;--gneg:#F08AB8;
+  --host:#3E2E25;--host-edge:#C9997A;--nucf:#352C44;--nuc-edge:#B49BF0;--ribo:#A3B2BA;--endo:#4A2A26;--endo-edge:#E08A7E;
+  --rt:#F2A93B;--rdrp:#5CC4B0;--integ:#E0BE48;--prot:#8FB1D9;
+  --toxin:#F07067;--uv:#B48BF0;
+  --prpc:#5CC4B0;--prpsc:#F07067;--plaqueb:#6E5A50;
+  --viroid:#E0BE48;--leaf:#3E5A2A;--leaf-edge:#A3C95A;--potato:#4A3E26;--potato-edge:#C9A866;
+  --agar:#3A3320;--lawn:#7A6A38;--plate:#33424C;
+  --egg:#3A3428;--egg-edge:#C9AE84;--yolk:#E0B040;--cam:#7A4A44;
+  --nerve:#E8C24A;--ganglion:#A88A2A;--skin:#5A4434;--skin-edge:#B9937A;--blister:#4A3E30;
+  --onc:#E08A74;--brake:#5CC4B0;
+  --glow:#F2B33B;--heat:#F27A5E;
+  --urine:#D9B83A;--urine-2:#3A3418;--kidney:#6E3E36;--kidney-edge:#E0A090;--bladder:#4E3028;--bladder-edge:#D99A80;
+  --mucosa:#45302C;--mucosa-edge:#D79A88;--neut:#2C4A66;--neut-edge:#8DC0EE;--lymph:#3A3466;--lymph-edge:#B4A8F0;
+  --capsule:#2E5A50;--capsule-edge:#7FD8C4;--csf:#23343C;--cloudy:#5A5230;--spiro:#6FD0DF;
+  --yeast:#4A4020;--yeast-edge:#E0C060;--lacto:#7FCB6A;--trich:#8FB8EE;--glycogen:#E0B850;
+  --muscle:#6E3A3A;--muscle-edge:#E09090;--ach:#5CD0A8;--inhib:#A98BEF;--myelin:#3A3428;
+  --brain:#4A2E33;--brain-edge:#E0A0B0;--blood:#F08080;--vessel:#3A2424;--vessel-edge:#E09090;
+  --mosq:#B0BAC4;--water:#1E3A50;--body:#5A4434;--body-edge:#B9937A;
+  --cath:#4A4438;--cath-edge:#C9B890;--biofilm:#5E9A4A;--matrix:#2E4426;--field:#22201E;--dfield:#05080A;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A9EBC6;--accent-wash:#14301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5AA9E6;--act2:#A98BEF;--act3:#F2A93B;--act4:#E08A74;--act5:#5CC4B0;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#22302A;
+  --dna:#6FA3F0;--rna:#F28A50;--capsid:#A98BEF;--capsid-2:#3D3360;--env:#E0B860;--env-2:#3E3420;--spike:#E08A74;
+  --phage:#9FB0D9;--phage-2:#2C3550;--tail:#A3B2BA;
+  --bact:#22402A;--bact-edge:#7FC48A;--gpos:#B48BF0;--gneg:#F08AB8;
+  --host:#3E2E25;--host-edge:#C9997A;--nucf:#352C44;--nuc-edge:#B49BF0;--ribo:#A3B2BA;--endo:#4A2A26;--endo-edge:#E08A7E;
+  --rt:#F2A93B;--rdrp:#5CC4B0;--integ:#E0BE48;--prot:#8FB1D9;
+  --toxin:#F07067;--uv:#B48BF0;
+  --prpc:#5CC4B0;--prpsc:#F07067;--plaqueb:#6E5A50;
+  --viroid:#E0BE48;--leaf:#3E5A2A;--leaf-edge:#A3C95A;--potato:#4A3E26;--potato-edge:#C9A866;
+  --agar:#3A3320;--lawn:#7A6A38;--plate:#33424C;
+  --egg:#3A3428;--egg-edge:#C9AE84;--yolk:#E0B040;--cam:#7A4A44;
+  --nerve:#E8C24A;--ganglion:#A88A2A;--skin:#5A4434;--skin-edge:#B9937A;--blister:#4A3E30;
+  --onc:#E08A74;--brake:#5CC4B0;
+  --glow:#F2B33B;--heat:#F27A5E;
+  --urine:#D9B83A;--urine-2:#3A3418;--kidney:#6E3E36;--kidney-edge:#E0A090;--bladder:#4E3028;--bladder-edge:#D99A80;
+  --mucosa:#45302C;--mucosa-edge:#D79A88;--neut:#2C4A66;--neut-edge:#8DC0EE;--lymph:#3A3466;--lymph-edge:#B4A8F0;
+  --capsule:#2E5A50;--capsule-edge:#7FD8C4;--csf:#23343C;--cloudy:#5A5230;--spiro:#6FD0DF;
+  --yeast:#4A4020;--yeast-edge:#E0C060;--lacto:#7FCB6A;--trich:#8FB8EE;--glycogen:#E0B850;
+  --muscle:#6E3A3A;--muscle-edge:#E09090;--ach:#5CD0A8;--inhib:#A98BEF;--myelin:#3A3428;
+  --brain:#4A2E33;--brain-edge:#E0A0B0;--blood:#F08080;--vessel:#3A2424;--vessel-edge:#E09090;
+  --mosq:#B0BAC4;--water:#1E3A50;--body:#5A4434;--body-edge:#B9937A;
+  --cath:#4A4438;--cath-edge:#C9B890;--biofilm:#5E9A4A;--matrix:#2E4426;--field:#22201E;--dfield:#05080A;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1180px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:9px 14px;cursor:pointer;font-weight:500;font-size:15px}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 13px;cursor:pointer;font-size:14.5px}
+.tbtn:hover{border-color:var(--accent)}
+.tbtn:disabled{opacity:.45;cursor:default}
+.tbtn[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:10px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.btn:disabled{opacity:.45;cursor:default}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;min-width:0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%;touch-action:manipulation}
+.stagebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2)}
+.legend i.s{border-radius:2px}
+.legend i.ln{width:20px;height:0;border-radius:0;border:0;border-top:3px solid}
+.legend i.dl{width:20px;height:0;border-radius:0;border:0;border-top:3px dashed}
+.rounds{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.round{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 13px;cursor:pointer;font-size:14px}
+.round[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.round .ok{color:var(--gold-ink);margin-left:4px}
+.mode{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-soft)}
+.mode input{accent-color:var(--accent);width:18px;height:18px}
+.lvl-n{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.lvl-t{font-family:var(--serif);font-size:22px;font-weight:600;margin:4px 0 8px;line-height:1.25}
+.goal{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:15px}
+.goal b.h{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.msg{margin:10px 0 0;padding:10px 12px;border-radius:var(--r);font-size:15px;display:none}
+.msg.show{display:block}
+.msg.good{background:var(--good-wash);color:var(--ink);border:1px solid var(--good)}
+.msg.warn{background:var(--warn-wash);color:var(--ink);border:1px solid var(--warn)}
+.msg.info{background:var(--panel-2);color:var(--ink);border:1px solid var(--rule)}
+.stars{font-size:22px;letter-spacing:2px;color:var(--gold-ink)}
+.side h3{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+.side p,.side li{font-size:14.5px}
+.small{font-size:13px;color:var(--ink-soft)}
+.timer{font-family:var(--mono);font-size:18px;font-weight:600}
+.ctl{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ctl label{font-size:14.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.ctl output{font-family:var(--mono);font-weight:600;color:var(--accent-ink)}
+.ctl input[type=range]{accent-color:var(--accent);width:100%}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);font-family:var(--mono)}
+.readouts{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+.readouts th{text-align:left;font-weight:500;color:var(--ink-soft);padding:5px 6px 5px 0;border-top:1px solid var(--rule-soft)}
+.srhead th,.readouts caption.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0;border:0}
+.readouts td{padding:5px 0;border-top:1px solid var(--rule-soft);font-family:var(--mono);font-size:13.5px;text-align:right}
+.chal{list-style:none;padding:0;margin:6px 0}
+.chal li{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14px}
+.chal .ck{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-size:13px;font-family:var(--mono)}
+.chal li.done .ck{background:var(--good);border-color:var(--good);color:var(--on-accent)}
+.status{font-size:14.5px;padding:8px 10px;border-radius:var(--r);margin-top:8px;border:1px solid var(--rule);background:var(--panel-2)}
+.status.warn{background:var(--warn-wash);border-color:var(--warn)}
+.status.bad{background:var(--bad-wash);border-color:var(--bad)}
+.status.good{background:var(--good-wash);border-color:var(--good)}
+.trt{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.trt .tbtn{text-align:left;line-height:1.25}
+.sc-n{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.sc-title{font-family:var(--serif);font-size:22px;font-weight:600;margin:2px 0 6px}
+.story{font-size:15px}
+.story p{margin:0 0 8px}
+.qlab{font-weight:600;margin:12px 0 8px}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opt{text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:8px 0 0;font-size:14.5px;padding:8px 10px;border-radius:4px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--good-wash);border-left:4px solid var(--good)}
+.fb.no{background:var(--warn-wash);border-left:4px solid var(--warn)}
+.fb.hint{background:var(--gold-wash);border-left:4px solid var(--gold)}
+.qnav{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{min-width:30px;height:30px;border-radius:99px;border:1.5px solid var(--rule);display:inline-grid;place-items:center;font-family:var(--mono);font-size:12.5px;background:var(--panel-2);cursor:pointer;padding:0 8px}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.chip.done:not([aria-pressed="true"]){border-color:var(--good);background:var(--good-wash);color:var(--good)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+/* sorter */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:70px;padding:10px;border:1px solid var(--rule);border-radius:var(--r);background:var(--panel-2);margin-bottom:12px}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.bin{border:2px dashed var(--rule);border-radius:var(--r);min-height:170px;padding:8px;background:var(--panel);display:flex;flex-direction:column;gap:6px;cursor:pointer}
+.bin:hover,.bin.target{border-color:var(--accent);background:var(--accent-wash)}
+.binhead{display:block;width:100%;background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;text-align:left;cursor:pointer;border-radius:4px}
+.binhead:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.bin .bh{font-weight:700;font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;display:flex;gap:8px;align-items:center}
+.bin .bsub{display:block;font-size:13px;color:var(--ink-soft);margin:2px 0 4px}
+.bin .bitems{display:flex;flex-wrap:wrap;gap:6px}
+.tok{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:5px 10px 5px 5px;cursor:grab;touch-action:none;user-select:none;font-size:14.5px;line-height:1.25;text-align:left;font-family:var(--sans);color:var(--ink)}
+.tok svg{width:38px;height:38px;flex:0 0 auto;display:block}
+.tok:hover{border-color:var(--accent)}
+.tok.sel{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
+.tok.ok{border-color:var(--good);background:var(--good-wash)}
+.tok.no{border-color:var(--warn);background:var(--warn-wash)}
+.tok.hinted{box-shadow:0 0 0 3px var(--gold)}
+.tok .mk{font-family:var(--mono);font-weight:700}
+.tok{max-width:100%}.tok>span{min-width:0;overflow-wrap:anywhere;hyphens:auto}
+.tok.ghost{position:fixed;z-index:60;pointer-events:none;opacity:.92;box-shadow:0 10px 24px -8px rgba(0,0,0,.4)}
+.abbox{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:10px 12px;font-size:14.5px;margin-top:10px}
+footer{max-width:1180px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+sub,sup{line-height:0}
+[hidden]{display:none!important}
+select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:var(--r);padding:4px 6px}
+.radios{display:flex;gap:6px;flex-wrap:wrap}
+ol.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.item{display:flex;align-items:center;gap:10px;background:var(--panel);border:1.5px solid var(--rule);border-left:6px solid var(--act4);border-radius:var(--r);padding:7px 8px 7px 10px;touch-action:none;user-select:none;cursor:grab;transition:background .15s,border-color .15s}
+.item.drag{box-shadow:0 10px 24px -8px rgba(0,0,0,.4);cursor:grabbing;border-color:var(--accent);z-index:2;position:relative}
+.item .pos{font-family:var(--mono);font-size:13px;color:var(--ink-faint);width:20px;text-align:right;flex:0 0 auto}
+.item .grip{color:var(--ink-faint);font-size:18px;line-height:1;flex:0 0 auto}
+.item .txt{flex:1;font-size:15px;line-height:1.35}
+.item .mv{display:flex;flex-direction:column;gap:2px}
+.mv button{width:30px;height:24px;border:1px solid var(--rule);background:var(--panel-2);border-radius:4px;cursor:pointer;font-size:12px;padding:0;line-height:1}
+.mv button:hover{border-color:var(--accent)}
+.item.right{background:var(--good-wash);border-color:var(--good)}
+.item.off{background:var(--warn-wash);border-color:var(--warn)}
+.item.hinted{box-shadow:0 0 0 3px var(--gold)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid2{grid-template-columns:1fr}}
+.seg{display:inline-flex;gap:0;border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:12px}
+.seg button{border:0;border-right:1px solid var(--rule);background:var(--panel);padding:8px 14px;cursor:pointer;font-size:15px}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);font-weight:600}
+.calc{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center;font-size:14.5px;margin:8px 0}
+.calc input{font:inherit;font-family:var(--mono);background:var(--panel);color:var(--ink);border:1.5px solid var(--rule);border-radius:var(--r);padding:6px 8px;width:100%;min-width:0}
+.calc input:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.platebtns{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.formula{font-family:var(--mono);font-size:14px;background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 10px;margin:6px 0;overflow-wrap:anywhere}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:6px;margin:6px 0}
+.pgrid .tbtn{text-align:left;line-height:1.3;font-size:14px}
+.steps{display:flex;flex-direction:column;gap:6px;margin:6px 0}
+.steps .tbtn{text-align:left}
+.dx{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.cnt{font-family:var(--mono);font-size:15px;font-weight:600}
+</style>
+<script src="micro-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">Microbiology &middot; Module 13 &middot; Urogenital and nervous system infections</div>
+    <h1>Urogenital and Nervous System Lab</h1>
+    <p class="sub">Read spinal fluid at a CSF bench, watch tetanus and botulism toxins at a synapse, count a urine culture plate, work through patient cases, and sort the organisms. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+<main class="wrap" id="main">
+  <div class="tabs" role="tablist" aria-label="Lab activities">
+    <button class="tab" role="tab" aria-selected="true" data-tab="csf" id="tabbtn-csf" aria-controls="tab-csf" type="button">Part 1 &middot; CSF Bench</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="nmj" id="tabbtn-nmj" aria-controls="tab-nmj" type="button" tabindex="-1">Part 2 &middot; Toxin Synapse Simulator</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="uc" id="tabbtn-uc" aria-controls="tab-uc" type="button" tabindex="-1">Part 3 &middot; Urine Culture Bench</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="case" id="tabbtn-case" aria-controls="tab-case" type="button" tabindex="-1">Part 4 &middot; Patient Case Files</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="sort" id="tabbtn-sort" aria-controls="tab-sort" type="button" tabindex="-1">Part 5 &middot; Sorting Games</button>
+  </div>
+
+  <!-- PART 1: CSF bench -->
+  <section id="tab-csf" role="tabpanel" aria-labelledby="tabbtn-csf">
+    <h2 class="gk-sr">Part 1: CSF Bench</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvCsf" role="img" aria-label="CSF bench: spine, collection tubes and results."></canvas></div>
+        <div class="stagebar"><span class="caption" id="kCap"></span></div>
+        <div class="legend"><span><i style="background:var(--neut)"></i>Neutrophils</span><span><i style="background:var(--lymph)"></i>Lymphocytes</span><span><i class="s" style="background:var(--good)"></i>Normal range</span><span><i style="background:var(--gneg)"></i>Gram-negative</span><span><i style="background:var(--gpos)"></i>Gram-positive</span></div>
+      </div>
+      <aside class="card side" aria-live="polite">
+        <h3 style="margin-top:0">1. Choose a patient</h3>
+        <div class="pgrid" id="kPat" role="group" aria-label="Patients"></div>
+        <p class="small" id="kStory"></p>
+        <h3>2. Run the bench</h3>
+        <div class="steps" id="kSteps">
+          <button class="tbtn" id="kLP" type="button">Lumbar puncture: collect 3 tubes</button>
+          <button class="tbtn" id="kChem" type="button">Tube 1: glucose and protein</button>
+          <div class="bar" style="margin:0"><button class="tbtn" id="kGram" type="button">Tube 2: Gram stain</button><button class="tbtn" id="kInk" type="button">Tube 2: India ink</button></div>
+          <button class="tbtn" id="kCells" type="button">Tube 3: cell count and differential</button>
+        </div>
+        <h3>3. Your call</h3>
+        <div class="dx" role="group" aria-label="Diagnosis"><button class="tbtn" type="button" data-dx="bact">Bacterial</button><button class="tbtn" type="button" data-dx="viral">Viral</button><button class="tbtn" type="button" data-dx="fungal">Fungal</button><button class="tbtn" type="button" data-dx="normal">Normal CSF</button></div>
+        <div class="msg" id="kMsg" role="status"></div>
+        <h3>Challenges</h3>
+        <ul class="chal" id="kChal"></ul>
+        <p class="small" id="kChalStars"></p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 2: NMJ toxin simulator -->
+  <section id="tab-nmj" role="tabpanel" aria-labelledby="tabbtn-nmj" hidden>
+    <h2 class="gk-sr">Part 2: Toxin Synapse Simulator</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvNmj" role="img" aria-label="Neuromuscular junction, spinal cord inset and muscle tension graph."></canvas></div>
+        <div class="stagebar"><button class="tbtn" id="nOne" type="button">Send one nerve signal</button><button class="tbtn" id="nReset" type="button">Reset</button><span class="caption" id="nCap"></span></div>
+        <div class="legend"><span><i style="background:var(--ach)"></i>ACh</span><span><i style="background:var(--toxin)"></i>Toxin</span><span><i style="background:var(--inhib)"></i>Inhibitory neuron</span><span><i class="ln" style="border-top-color:var(--accent)"></i>Muscle tension</span></div>
+      </div>
+      <aside class="card side" aria-live="polite">
+        <h3 style="margin-top:0">1. Choose the condition</h3>
+        <div class="radios" role="group" aria-label="Condition">
+          <button class="tbtn" id="nNorm" type="button" aria-pressed="true">Normal</button>
+          <button class="tbtn" id="nBot" type="button" aria-pressed="false">Botulism</button>
+          <button class="tbtn" id="nTet" type="button" aria-pressed="false">Tetanus</button>
+        </div>
+        <div class="ctl"><label for="nDose">Toxin amount <output id="nDoseOut">60%</output></label><input type="range" id="nDose" min="0" max="100" step="10" value="60"></div>
+        <div class="ctl"><label for="nRate">Voluntary nerve signals <output id="nRateOut">1 per second</output></label><input type="range" id="nRate" min="0" max="4" step="0.5" value="1"></div>
+        <button class="btn" id="nAnti" type="button">Give antitoxin</button>
+        <table class="readouts"><caption class="sr">Synapse readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody id="nRead"></tbody></table>
+        <div class="status" id="nStatus" role="status"></div>
+        <h3>Challenges</h3>
+        <ul class="chal" id="nChal"></ul>
+        <p class="small" id="nChalStars"></p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 3: urine culture bench -->
+  <section id="tab-uc" role="tabpanel" aria-labelledby="tabbtn-uc" hidden>
+    <h2 class="gk-sr">Part 3: Urine Culture Bench</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvUc" role="img" aria-label="Urine sample, calibrated loop and agar plate."></canvas></div>
+        <div class="stagebar"><span class="caption" id="uCap"></span></div>
+      </div>
+      <aside class="card side" aria-live="polite">
+        <div class="sc-n" id="uN">Sample 1</div>
+        <p class="small" id="uStory" style="margin:4px 0 6px"></p>
+        <h3 style="margin-top:4px">1. Choose a loop and plate it</h3>
+        <div class="radios" role="group" aria-label="Calibrated loop"><button class="tbtn" id="uL1" type="button" aria-pressed="true">0.001 mL loop</button><button class="tbtn" id="uL2" type="button" aria-pressed="false">0.01 mL loop</button></div>
+        <div class="bar"><button class="btn" id="uGo" type="button">Streak and incubate</button><button class="tbtn" id="uNew" type="button">Next sample</button></div>
+        <h3>2. Count the colonies</h3>
+        <p class="small" style="margin:0 0 4px">Tap colonies on the plate to tally them, or use the counter.</p>
+        <div class="bar"><span class="cnt" id="uTally">Tally: 0</span><button class="tbtn" id="uAuto" type="button">Count for me</button><button class="tbtn" id="uClear" type="button">Clear tally</button></div>
+        <div class="formula">CFU/mL = colonies &divide; loop volume (mL)</div>
+        <div class="calc"><label for="uAns">Your CFU/mL</label><input id="uAns" type="text" inputmode="numeric" autocomplete="off" placeholder="for example 120000"></div>
+        <h3>3. Interpret</h3>
+        <div class="steps" role="group" aria-label="Interpretation"><button class="tbtn" type="button" data-ui="sig">Significant: one type, 100,000 CFU/mL or more</button><button class="tbtn" type="button" data-ui="low">Not significant: low count, one type</button><button class="tbtn" type="button" data-ui="cont">Contaminated: three or more types, recollect</button></div>
+        <div class="bar"><button class="btn" id="uCheck" type="button">Check</button><button class="tbtn" id="uHint" type="button">Hint</button><button class="tbtn" id="uShow" type="button">Show answer</button></div>
+        <div class="msg" id="uMsg" role="status"></div>
+        <h3>Challenges</h3>
+        <ul class="chal" id="uChal"></ul>
+        <p class="small" id="uChalStars"></p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 4: cases -->
+  <section id="tab-case" role="tabpanel" aria-labelledby="tabbtn-case" hidden>
+    <h2 class="gk-sr">Part 4: Patient Case Files</h2>
+    <div class="chips" id="cChips" role="group" aria-label="Choose a case"></div>
+    <div class="grid" style="margin-top:12px">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvCase" role="img" aria-label="Patient chart with vitals, labs and a microscope or culture result."></canvas></div>
+        <div class="story" id="cStory" style="padding:12px 6px 2px"></div>
+      </div>
+      <aside class="card side" aria-live="polite">
+        <div class="sc-n" id="cN"></div>
+        <h3 class="sc-title" id="cT" style="text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:21px;color:var(--ink);margin:2px 0 6px"></h3>
+        <div class="qnav" id="cQnav" role="group" aria-label="Questions"></div>
+        <p class="qlab" id="cQ"></p>
+        <div class="opts" id="cOpts"></div>
+        <p class="fb" id="cFb"></p>
+        <div class="bar"><button class="tbtn" id="cHint" type="button">Hint</button><button class="tbtn" id="cShow" type="button">Show answer</button><button class="btn" id="cNext" type="button">Next question &rarr;</button></div>
+        <p class="calm">Wrong answers are fine here. Read why, then try again.</p>
+        <p class="small" id="cScore"></p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 5: sorting -->
+  <section id="tab-sort" role="tabpanel" aria-labelledby="tabbtn-sort" hidden>
+    <h2 class="gk-sr">Part 5: Sorting Games</h2>
+    <div class="rounds" id="sRounds" role="group" aria-label="Sorting rounds"></div>
+    <div class="grid">
+      <div class="card">
+        <p class="small" style="margin-top:0">Tap a card, then tap a bin. Or drag the card into a bin.</p>
+        <div class="pool" id="sPool" role="group" aria-label="Cards to sort"></div>
+        <div class="bins" id="sBins"></div>
+      </div>
+      <aside class="card side" aria-live="polite">
+        <div class="lvl-n" id="sN"></div>
+        <h3 class="lvl-t" id="sT" style="text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:22px;color:var(--ink)"></h3>
+        <div class="goal"><b class="h">Your job</b><span id="sGoal"></span></div>
+        <div class="bar">
+          <button class="btn" id="sCheck" type="button">Check</button>
+          <button class="tbtn" id="sHint" type="button">Hint</button>
+          <button class="tbtn" id="sShow" type="button">Show answer</button>
+          <button class="tbtn" id="sReset" type="button">Start over</button>
+        </div>
+        <div class="bar"><label class="mode"><input type="checkbox" id="sRelaxed" checked> Relaxed mode (no timer)</label><span class="timer" id="sTimer" hidden>0:00</span></div>
+        <div class="msg" id="sMsg" role="status"></div>
+        <div class="abbox" id="sWhy"><b>Tip:</b> after checking, tap any card to read why it belongs where it does.</div>
+      </aside>
+    </div>
+  </section>
+</main>
+<footer>Dr. Akash Garg &middot; Microbiology Study Tools &middot; Diagrams are simplified and not to scale. For learning only, not medical advice. CC BY-NC-SA 4.0<br>Learn the ideas first in the <a href="Uro-Neuro-Walkthrough.html">Urogenital and Nervous System Infections Walkthrough</a>. Lab values are rounded teaching numbers and real labs use their own reference ranges. The synapse simulator is a simple teaching model, not a physiology calculator. All patients are fictional.</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "gold", "gold-wash", "gold-ink", "ecf", "grid", "dna", "rna", "capsid", "capsid-2", "env", "env-2", "spike", "phage", "phage-2", "tail", "bact", "bact-edge", "gpos", "gneg", "host", "host-edge", "nucf", "nuc-edge", "ribo", "endo", "endo-edge", "rt", "rdrp", "integ", "prot", "toxin", "uv", "prpc", "prpsc", "plaqueb", "viroid", "leaf", "leaf-edge", "potato", "potato-edge", "agar", "lawn", "plate", "egg", "egg-edge", "yolk", "cam", "nerve", "ganglion", "skin", "skin-edge", "blister", "onc", "brake", "glow", "heat", "urine", "urine-2", "kidney", "kidney-edge", "bladder", "bladder-edge", "mucosa", "mucosa-edge", "neut", "neut-edge", "lymph", "lymph-edge", "capsule", "capsule-edge", "csf", "cloudy", "spiro", "yeast", "yeast-edge", "lacto", "trich", "glycogen", "muscle", "muscle-edge", "ach", "inhib", "myelin", "brain", "brain-edge", "blood", "vessel", "vessel-edge", "mosq", "water", "body", "body-edge", "cath", "cath-edge", "biofilm", "matrix", "field", "dfield"];
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"left";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase(),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+function bodyFig(cx,top,s,o){o=o||{};ctx.save();ctx.translate(cx,top);ctx.scale(s,s);ctx.lineCap="round";ctx.lineJoin="round";
+  const col=o.col||C.body,ed=o.edge||C["body-edge"];
+  const limbs=[[-38,40,-80,175],[38,40,80,175],[-20,170,-28,330],[20,170,28,330]];
+  ctx.strokeStyle=ed;ctx.lineWidth=31;limbs.forEach(l=>{ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.stroke()});
+  ctx.strokeStyle=col;ctx.lineWidth=28;limbs.forEach(l=>{ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.stroke()});
+  rr(-45,26,90,155,22);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=ed;ctx.lineWidth=1.5;ctx.stroke();
+  ctx.fillStyle=col;ctx.fillRect(-11,8,22,22);circ(0,-12,26,col,ed,1.5);
+  ctx.restore()}
+function bp(cx,top,s,x,y){return [cx+x*s,top+y*s]}
+
+function gauge(x,y,r,v,v0,v1,o){o=o||{};const a0=Math.PI*.8,a1=Math.PI*2.2;ctx.lineCap="round";
+  ctx.beginPath();ctx.arc(x,y,r,a0,a1);ctx.strokeStyle=C.sunk;ctx.lineWidth=r*.18;ctx.stroke();
+  (o.zones||[]).forEach(z=>{ctx.beginPath();ctx.arc(x,y,r,a0+(a1-a0)*seg(z[0],v0,v1),a0+(a1-a0)*seg(z[1],v0,v1));ctx.strokeStyle=hexA(z[2],.75);ctx.lineWidth=r*.18;ctx.stroke()});
+  ctx.lineCap="butt";const a=a0+(a1-a0)*seg(v,v0,v1);line(x,y,x+Math.cos(a)*r*.82,y+Math.sin(a)*r*.82,C.ink,3);circ(x,y,4.5,C.ink);
+  if(o.title)txt(x,y+r*.42,o.title,{size:11.5,mono:true,weight:700,align:"center",color:C["ink-soft"]});
+  if(o.val)txt(x,y+r*.78,o.val,{size:14,mono:true,weight:700,align:"center",color:o.valCol||C.ink})}
+function thermo(x,y,h,f,o){o=o||{};rr(x-6,y,12,h,6);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();
+  const fh=(h-8)*clamp(f,0,1);rr(x-3,y+h-fh-2,6,fh+4,3);ctx.fillStyle=C.heat;ctx.fill();circ(x,y+h+6,9,C.heat,C["ink-soft"],1.4);
+  if(o.lab)txt(x,y+h+24,o.lab,{size:12,mono:true,weight:700,align:"center",color:o.labCol||C.ink})}
+function dna(x,y,w,h,t,col,o){o=o||{};const n=o.n||16;for(let i=0;i<=n;i++){const f=i/n;const X=x+f*w;const a=f*TAU*2+t;const y1=y+Math.sin(a)*h/2,y2=y-Math.sin(a)*h/2;line(X,y1,X,y2,hexA(col,.45),1.4)}
+  [0,Math.PI].forEach(ph=>{ctx.beginPath();for(let i=0;i<=60;i++){const f=i/60;const X=x+f*w,Y=y+Math.sin(f*TAU*2+t+ph)*h/2;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=2.4;ctx.stroke()})}
+function rna(x,y,w,t,col,lw){ctx.beginPath();for(let i=0;i<=40;i++){const f=i/40;const X=x+f*w,Y=y+Math.sin(f*TAU*2.5+t)*4;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=lw||2.2;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt"}
+function face(x,y,r,o){o=o||{};circ(x,y,r,C.skin,C["skin-edge"],1.6);
+  if(o.rash){ctx.save();ctx.globalAlpha*=o.rash;ctx.fillStyle=hexA(C.rash,.7);ctx.beginPath();ctx.ellipse(x-r*.42,y+r*.12,r*.3,r*.2,-.3,0,TAU);ctx.ellipse(x+r*.42,y+r*.12,r*.3,r*.2,.3,0,TAU);ctx.fill();rr(x-r*.14,y-r*.05,r*.28,r*.28,r*.1);ctx.fill();ctx.restore()}
+  if(o.puffy){ell(x-r*.35,y-r*.08,r*.2,r*.12*(1+o.puffy*.6),0,hexA(C["skin-edge"],.5));ell(x+r*.35,y-r*.08,r*.2,r*.12*(1+o.puffy*.6),0,hexA(C["skin-edge"],.5))}
+  circ(x-r*.35,y-r*.18,r*.08,C.ink);circ(x+r*.35,y-r*.18,r*.08,C.ink);ctx.beginPath();ctx.arc(x,y+r*.3,r*.25,.2*Math.PI,.8*Math.PI);ctx.strokeStyle=C.ink;ctx.lineWidth=1.6;ctx.stroke()}
+function timeBar(x,y,w,f,marks,o){o=o||{};rr(x,y,w,8,4);ctx.fillStyle=C.sunk;ctx.fill();rr(x,y,w*clamp(f,0,1),8,4);ctx.fillStyle=o.col||C.accent;ctx.fill();
+  (marks||[]).forEach(m=>{const X=x+w*m[0];line(X,y-3,X,y+11,C["ink-soft"],1.2);txt(X,y+22,m[1],{size:11.5,mono:true,align:m[0]<=0?"left":m[0]>=1?"right":"center",color:C["ink-soft"]})});
+  circ(x+w*clamp(f,0,1),y+4,6,o.col||C.accent,C.panel,2)}
+function stepRow(x,y,w,items,on,col,st){const n=items.length,gap=6,bw=(w-gap*(n-1))/n;items.forEach((s,i)=>{const X=x+i*(bw+gap);const lit=i===on,past=i<on;rr(X,y,bw,24,12);ctx.fillStyle=lit?(col||C.accent):past?hexA(col||C.accent,.18):hexA(C.panel,.9);ctx.fill();ctx.strokeStyle=lit||past?(col||C.accent):C.rule;ctx.lineWidth=1.3;ctx.stroke();
+  txt(X+bw/2,y+12.5,(i+1+(st||0))+" "+s,{size:12,weight:700,align:"center",color:lit?onFill():C.ink})})}
+
+/* ---- HIV teaching model (rounded, typical untreated course; ART started at year artStart) ---- */
+
+/* ================= virus drawing kit ================= */
+/* coiled genome inside a radius (DNA blue, RNA orange) */
+function genome(x,y,r,col,t,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ctx.beginPath();const N=90;
+  for(let i=0;i<=N;i++){const f=i/N;const a=f*TAU*2.6+(t||0)*.35+(o.seed||0);const rad=r*(.18+.62*(.5+.5*Math.sin(f*11.3+(o.seed||0)*2)));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad*(o.sy||1);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}
+  ctx.strokeStyle=col;ctx.lineWidth=o.lw||2;ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt";ctx.restore()}
+/* a strand drawn along a path: double helix (dna) or single wavy line (rna) */
+function strand(x1,y1,x2,y2,col,t,o){o=o||{};const L=Math.hypot(x2-x1,y2-y1);if(L<1)return;const a=Math.atan2(y2-y1,x2-x1);ctx.save();ctx.translate(x1,y1);ctx.rotate(a);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const amp=o.amp||4,waves=o.waves||L/22;
+  if(o.ds){for(let i=0;i<=Math.floor(L/7);i++){const X=i*7;const s=Math.sin(X/L*waves*TAU+(t||0));line(X,s*amp,X,-s*amp,hexA(col,.45),1.2)}
+    [0,Math.PI].forEach(ph=>{ctx.beginPath();for(let i=0;i<=60;i++){const X=i/60*L;const Y=Math.sin(X/L*waves*TAU+(t||0)+ph)*amp;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=o.lw||2.2;ctx.stroke()})}
+  else{ctx.beginPath();for(let i=0;i<=60;i++){const X=i/60*L;const Y=Math.sin(X/L*waves*TAU+(t||0))*amp*.7;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=o.lw||2.2;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt"}
+  ctx.restore()}
+/* icosahedral capsid seen down its 3-fold axis */
+function hexPts(x,y,r,rot){const p=[];for(let k=0;k<6;k++){const a=rot+k*Math.PI/3-Math.PI/2;p.push([x+Math.cos(a)*r,y+Math.sin(a)*r])}return p}
+function fillPoly(pts,fill,stroke,lw){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.2;ctx.lineJoin="round";ctx.stroke()}}
+function icosa(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const rot=o.rot||0;const col=o.col||C.capsid,lite=o.lite||C["capsid-2"];
+  const H=hexPts(x,y,r,rot);const I=[1,3,5].map(k=>{const a=rot+k*Math.PI/3-Math.PI/2+Math.PI/3;return [x+Math.cos(a)*r*.5,y+Math.sin(a)*r*.5]});
+  const open=o.open||0;
+  if(open>0){ctx.translate(0,0)}
+  fillPoly(H,mix(col,lite,.35),null);
+  // side facets darker, front triangle lighter
+  for(let k=0;k<6;k++){const a=H[k],b=H[(k+1)%6];const near=I.reduce((m,p)=>Math.hypot(p[0]-(a[0]+b[0])/2,p[1]-(a[1]+b[1])/2)<Math.hypot(m[0]-(a[0]+b[0])/2,m[1]-(a[1]+b[1])/2)?p:m,I[0]);
+    fillPoly([a,b,near],k%2?mix(col,lite,.15):mix(col,lite,.5),hexA(C.ink,.35),1)}
+  fillPoly(I,mix(col,lite,.7),hexA(C.ink,.35),1);
+  if(o.genome){ctx.save();ctx.globalAlpha*=.9;genome(x,y,r*.55,o.genome,o.t||0,{lw:Math.max(1.4,r*.06),seed:o.seed||0});ctx.restore()}
+  if(o.caps&&r>14){const pts=[];H.forEach((p,k)=>{const q=H[(k+1)%6];for(let j=0;j<3;j++)pts.push([lerp(p[0],q[0],j/3),lerp(p[1],q[1],j/3)])});I.forEach(p=>pts.push(p));pts.forEach(p=>circ(p[0],p[1],Math.max(1.8,r*.07),lite,hexA(C.ink,.3),.8))}
+  fillPoly(H,null,mix(col,C.ink,.25),Math.max(1.2,r*.05));
+  ctx.restore()}
+/* helical nucleocapsid: stacked capsomeres around an RNA helix */
+function helical(x,y,len,w,ang,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const col=o.col||C.capsid,lite=o.lite||C["capsid-2"];const n=Math.max(4,Math.round(len/(o.step||7)));const st=len/n;const show=o.show==null?1:o.show;
+  if(o.genome!==false){ctx.beginPath();for(let i=0;i<=80;i++){const X=-len/2+i/80*len;const Y=Math.sin(i/80*n*Math.PI+(o.t||0))*w*.22;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=o.gcol||C.rna;ctx.lineWidth=Math.max(1.6,w*.1);ctx.stroke()}
+  for(let i=0;i<n*show;i++){const X=-len/2+(i+.5)*st;ell(X,0,st*.55,w/2,.32,hexA(i%2?col:mix(col,lite,.45),.82),hexA(C.ink,.3),.8)}
+  ctx.restore()}
+/* spike: stalk with a knob, pointing outward at angle a from (x,y) */
+function spike(x,y,a,len,col,o){o=o||{};const x2=x+Math.cos(a)*len,y2=y+Math.sin(a)*len;line(x,y,x2,y2,mix(col,C.ink,.25),o.lw||1.6);
+  if(o.knob==="T"){const px=Math.cos(a+Math.PI/2)*len*.32,py=Math.sin(a+Math.PI/2)*len*.32;line(x2-px,y2-py,x2+px,y2+py,col,2.6)}else circ(x2,y2,o.r||Math.max(2,len*.26),col,hexA(C.ink,.35),.8)}
+/* enveloped virion: lipid bilayer + spikes around an icosahedral or helical core */
+function envVirus(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const t=o.t||0;
+  const n=o.n||14;for(let k=0;k<n;k++){const a=k/n*TAU+t*.15+(o.rot||0);spike(x+Math.cos(a)*r,y+Math.sin(a)*r,a,r*.34,o.spikeCol||C.spike,{knob:o.knob})}
+  circ(x,y,r,o.fill||C["env-2"],null);ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.strokeStyle=C.env;ctx.lineWidth=Math.max(2,r*.12);ctx.stroke();
+  ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.strokeStyle=hexA(C.panel,.7);ctx.lineWidth=Math.max(.8,r*.03);ctx.stroke();
+  if(o.core==="helix"){for(let k=0;k<3;k++){const a=k*1.1+.4;helical(x+Math.cos(a)*r*.25,y+Math.sin(a)*r*.25-r*.05,r*1.1,r*.26,a*1.7,{t,gcol:o.genome||C.rna})}}
+  else if(o.core==="cone"){fillPoly([[x-r*.15,y-r*.55],[x+r*.15,y-r*.55],[x+r*.38,y+r*.5],[x-r*.38,y+r*.5]],mix(C.capsid,C["capsid-2"],.4),hexA(C.ink,.35));genome(x,y,r*.32,o.genome||C.rna,t,{lw:1.5,sy:1.5})}
+  else if(o.core!==false)icosa(x,y,r*.62,{genome:o.genome||C.dna,t,caps:false});
+  ctx.restore()}
+/* bacteriophage (T4-like). tail points along ang (default down). contract 0..1, full = DNA in head 0..1 */
+function phage(x,y,s,ang,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate((ang==null?Math.PI/2:ang)-Math.PI/2);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const col=o.col||C.phage,lite=C["phage-2"];const c=clamp(o.contract||0,0,1);const full=o.full==null?1:o.full;
+  // head: elongated hexagon above origin
+  const hw=s*.95,hh=s*1.35,hy=-s*1.55;const head=[[0,hy-hh],[hw,hy-hh*.5],[hw,hy+hh*.5],[0,hy+hh],[-hw,hy+hh*.5],[-hw,hy-hh*.5]];
+  fillPoly(head,mix(col,lite,.55),null);fillPoly([[0,hy-hh],[hw,hy-hh*.5],[0,hy],[-hw,hy-hh*.5]],mix(col,lite,.75),null);fillPoly([[0,hy],[hw,hy-hh*.5],[hw,hy+hh*.5],[0,hy+hh]],mix(col,lite,.35),null);
+  if(full>0.02){ctx.save();ctx.beginPath();head.forEach((p,i)=>i?ctx.lineTo(p[0]*.8,hy+(p[1]-hy)*.8):ctx.moveTo(p[0]*.8,hy+(p[1]-hy)*.8));ctx.closePath();ctx.clip();genome(0,hy+hh*(1-full)*.6,s*.95,C.dna,o.t||0,{lw:Math.max(1.3,s*.13),sy:1.25,a:clamp(full*1.5,0,1)});ctx.restore()}
+  fillPoly(head,null,mix(col,C.ink,.3),Math.max(1.2,s*.1));
+  // collar
+  rr(-s*.42,-s*.25,s*.84,s*.25,s*.08);ctx.fillStyle=col;ctx.fill();
+  // tail: core tube + sheath
+  const L=s*2.1,Ls=L*(1-.45*c);const sw=s*.34*(1+.55*c);
+  rr(-s*.12,0,s*.24,L+s*.05,s*.1);ctx.fillStyle=mix(col,C.ink,.25);ctx.fill();
+  rr(-sw,0,sw*2,Ls,s*.1);ctx.fillStyle=mix(col,lite,.25);ctx.fill();ctx.strokeStyle=mix(col,C.ink,.3);ctx.lineWidth=1;ctx.stroke();
+  for(let k=1;k<6;k++){line(-sw,Ls*k/6,sw,Ls*k/6,hexA(C.ink,.3),.8)}
+  // base plate
+  const by=c>0?Ls+(L-Ls)*.05:L;rr(-s*.6,by,s*1.2,s*.22,s*.06);ctx.fillStyle=col;ctx.fill();
+  // tail fibres
+  const sp=o.spread==null?1:o.spread;ctx.strokeStyle=mix(col,C.ink,.2);ctx.lineWidth=Math.max(1.1,s*.1);ctx.lineJoin="round";
+  [-1,1].forEach(sd=>{[0,1].forEach(j=>{const kx=sd*s*(1+.35*j)*(.7+.5*sp),ky=by+s*(.1+.25*j)-s*.3*(1-sp);const tx=sd*s*(1.25+.3*j)*(.6+.6*sp),ty=by+s*(1.15+.1*j)*(.6+.4*sp);
+    ctx.beginPath();ctx.moveTo(sd*s*.5,by+s*.1);ctx.lineTo(kx,ky);ctx.lineTo(tx,ty);ctx.stroke()})});
+  ctx.restore()}
+/* position of the phage tail tip (for injection paths) */
+function phageTip(x,y,s,ang,contract){ang=ang==null?Math.PI/2:ang;const L=s*2.1+s*.05;return [x+Math.cos(ang)*L,y+Math.sin(ang)*L]}
+/* rod-shaped bacterium. o.inner(fn) draws inside clip; o.chrom chromosome loop; o.pro prophage band; o.burst 0..1 */
+function bacterium(x,y,w,h,ang,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const b=o.burst||0;
+  const fill=o.fill||C.bact,edge=o.edge||C["bact-edge"];
+  if(b>0){// wall pieces fly apart and fade
+    const n=10;for(let k=0;k<n;k++){const a=k/n*TAU;const d=b*w*.5;ctx.save();ctx.translate(Math.cos(a)*(w*.45+d),Math.sin(a)*(h*.45+d*.6));ctx.rotate(a+Math.PI/2);ctx.globalAlpha*=1-b;line(-w*.12,0,w*.12,0,edge,2.4);ctx.restore()}
+    ctx.globalAlpha*=clamp(1-b*1.6,0,1)}
+  rr(-w/2,-h/2,w,h,h/2);ctx.fillStyle=fill;ctx.fill();
+  if(o.inner||o.chrom!==false){ctx.save();rr(-w/2,-h/2,w,h,h/2);ctx.clip();
+    if(o.chrom!==false){ctx.beginPath();const N=60;for(let i=0;i<=N;i++){const f=i/N;const a=f*TAU;const X=Math.cos(a)*w*.28+Math.sin(a*5)*w*.025,Y=Math.sin(a)*h*.22+Math.cos(a*6)*h*.04;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=hexA(o.chromCol||C.dna,o.chromA==null?.75:o.chromA);ctx.lineWidth=Math.max(1.4,h*.05);ctx.stroke();
+      if(o.pro){ctx.beginPath();for(let i=0;i<=14;i++){const a=-.9+i/14*1.1;ctx.lineTo(Math.cos(a)*w*.28+Math.sin(a*5)*w*.025,Math.sin(a)*h*.22+Math.cos(a*6)*h*.04)}ctx.strokeStyle=o.proCol||C.phage;ctx.lineWidth=Math.max(3,h*.12);ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt"}}
+    if(o.inner)o.inner(w,h);ctx.restore()}
+  rr(-w/2,-h/2,w,h,h/2);ctx.strokeStyle=edge;ctx.lineWidth=o.lw||clamp(h*.05,1.6,4);ctx.stroke();
+  ctx.restore()}
+/* animal host cell with nucleus */
+function aCell(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  blobPath(x,y,r,o.seed||7,o.t||0,o.wob==null?.035:o.wob);ctx.fillStyle=o.fill||C.host;ctx.fill();ctx.strokeStyle=o.edge||C["host-edge"];ctx.lineWidth=2;ctx.stroke();
+  if(o.nuc!==false){const nx=x+(o.nx||0),ny=y+(o.ny||0),nr=o.nr||r*.34;circ(nx,ny,nr,C.nucf,C["nuc-edge"],1.6);if(o.chromatin!==false)genome(nx,ny,nr*.8,hexA(C["nuc-edge"],.55),0,{lw:1.2,seed:3})}
+  if(o.ribo){for(let k=0;k<o.ribo;k++){const a=rnd(k*3+1)*TAU,d=r*(.5+rnd(k*5+2)*.38);circ(x+Math.cos(a)*d,y+Math.sin(a)*d,1.8,C.ribo)}}
+  ctx.restore()}
+/* receptor on a membrane: stalk + cup, pointing outward along a */
+function receptor(x,y,a,col,o){o=o||{};const L=o.len||12;const x2=x+Math.cos(a)*L,y2=y+Math.sin(a)*L;line(x,y,x2,y2,col,2.2);
+  ctx.beginPath();if(o.shape==="sq"){const px=Math.cos(a+Math.PI/2)*5,py=Math.sin(a+Math.PI/2)*5;ctx.moveTo(x2-px,y2-py);ctx.lineTo(x2-px+Math.cos(a)*6,y2-py+Math.sin(a)*6);ctx.moveTo(x2+px,y2+py);ctx.lineTo(x2+px+Math.cos(a)*6,y2+py+Math.sin(a)*6);ctx.moveTo(x2-px,y2-py);ctx.lineTo(x2+px,y2+py)}
+  else ctx.arc(x2+Math.cos(a)*4,y2+Math.sin(a)*4,5,a+Math.PI*1.5+Math.PI,a+Math.PI*.5+Math.PI,true);
+  ctx.strokeStyle=col;ctx.lineWidth=2.4;ctx.stroke()}
+/* prion protein: normal (coiled helices) morphing to misfolded (flat zigzag sheet) */
+function prp(x,y,s,mis,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(o.ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  if(mis<1){ctx.save();ctx.globalAlpha*=1-mis;ctx.beginPath();for(let i=0;i<=60;i++){const f=i/60;const X=-s+f*2*s;const Y=Math.sin(f*TAU*3+(o.t||0))*s*.35;const Z=Math.cos(f*TAU*3+(o.t||0))*s*.18;i?ctx.lineTo(X+Z,Y):ctx.moveTo(X+Z,Y)}ctx.strokeStyle=C.prpc;ctx.lineWidth=Math.max(2.4,s*.22);ctx.lineCap="round";ctx.stroke();ctx.restore()}
+  if(mis>0){ctx.save();ctx.globalAlpha*=mis;ctx.strokeStyle=C.prpsc;ctx.fillStyle=C.prpsc;ctx.lineWidth=Math.max(2.2,s*.2);ctx.lineJoin="round";
+    for(let r_=0;r_<3;r_++){const Y=(r_-1)*s*.38;const dir=r_%2?-1:1;ctx.beginPath();for(let i=0;i<=6;i++){const X=dir*(-s+i/6*2*s*.86);ctx.lineTo(X,Y+(i%2?-s*.08:s*.08))}ctx.stroke();
+      const ex=dir*(s*.72),ah=s*.22;ctx.beginPath();ctx.moveTo(ex+dir*ah,Y);ctx.lineTo(ex-dir*ah*.2,Y-ah*.8);ctx.lineTo(ex-dir*ah*.2,Y+ah*.8);ctx.closePath();ctx.fill()}
+    ctx.restore()}
+  ctx.restore()}
+/* petri dish with agar, bacterial lawn, and clear plaques */
+function petri(x,y,r,o){o=o||{};circ(x,y,r+6,C.plate,mix(C.plate,C.ink,.35),1.6);circ(x,y,r,C.agar,null);
+  const lawn=o.lawn==null?1:o.lawn;if(lawn>0){ctx.save();ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.clip();ctx.globalAlpha*=clamp(lawn,0,1);circ(x,y,r,hexA(C.lawn,.85));
+    for(let k=0;k<160;k++){const a=rnd(k*1.7)*TAU,d=Math.sqrt(rnd(k*2.3+1))*r;circ(x+Math.cos(a)*d,y+Math.sin(a)*d,1.6,hexA(mix(C.lawn,C.ink,.2),.5))}ctx.restore()}
+  (o.plaques||[]).forEach(p=>{const pr=p[2]*(o.grow==null?1:o.grow);if(pr<=.3)return;circ(x+p[0],y+p[1],pr,C.agar,hexA(C.plaqueb,.9),1)});
+  ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.strokeStyle=hexA(C.ink,.25);ctx.lineWidth=1;ctx.stroke()}
+/* erlenmeyer flask with liquid of a given turbidity (0 clear .. 1 cloudy) */
+function flask(x,y,s,turb,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+  const P_=[[-12,-60],[-12,-28],[-46,40],[46,40],[12,-28],[12,-60]];
+  ctx.beginPath();ctx.moveTo(-40,28);ctx.lineTo(-24,-4);ctx.lineTo(24,-4);ctx.lineTo(40,28);ctx.quadraticCurveTo(46,40,34,40);ctx.lineTo(-34,40);ctx.quadraticCurveTo(-46,40,-40,28);ctx.closePath();
+  ctx.fillStyle=mix(C["env-2"],C.lawn,clamp(turb,0,1)*.9);ctx.fill();
+  if(turb>0.05){for(let k=0;k<Math.round(turb*40);k++){circ(-30+rnd(k)*60,2+rnd(k+9)*34,1.2/s*1.4,hexA(mix(C.lawn,C.ink,.3),.6))}}
+  ctx.beginPath();P_.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=2.2/s;ctx.lineJoin="round";ctx.stroke();
+  rr(-15,-66,30,8,3);ctx.fillStyle=C.sunk;ctx.fill();ctx.restore()}
+/* test tube */
+function tube(x,y,w,h,liq,col,o){o=o||{};ctx.save();rr(x-w/2,y,w,h,w/2);ctx.save();ctx.clip();ctx.fillStyle=col;ctx.fillRect(x-w/2,y+h*(1-liq),w,h*liq);ctx.restore();
+  ctx.beginPath();ctx.moveTo(x-w/2,y);ctx.lineTo(x-w/2,y+h-w/2);ctx.arc(x,y+h-w/2,w/2,Math.PI,0,true);ctx.lineTo(x+w/2,y);ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.6;ctx.stroke();
+  if(o.lab)txt(x,y+h+14,o.lab,{size:12,mono:true,weight:700,align:"center",color:o.labCol||C.ink});ctx.restore()}
+/* small UV bolt icon */
+function uvBolt(x,y,s,a){withA(a==null?1:a,()=>{fillPoly([[x-s*.2,y-s],[x+s*.45,y-s*.1],[x+s*.05,y-s*.05],[x+s*.3,y+s],[x-s*.45,y+s*.05],[x-s*.05,y]],C.uv,hexA(C.ink,.35),1)})}
+/* cone-shaped sign of a cell under stress (sun/UV) */
+function sun(x,y,r,t){circ(x,y,r,C.glow,mix(C.glow,C.ink,.3),1.4);for(let k=0;k<10;k++){const a=k/10*TAU+(t||0)*.4;line(x+Math.cos(a)*(r+3),y+Math.sin(a)*(r+3),x+Math.cos(a)*(r+9),y+Math.sin(a)*(r+9),mix(C.glow,C.ink,.25),2)}}
+function graphBox(x,y,w,h,t){panelBox(x,y,w,h,{fill:hexA(C.panel,.95)});if(t)txt(x+10,y+14,t.toUpperCase(),{size:11.5,mono:true,weight:700,color:C["ink-soft"]})}
+/* toxin molecule: small bean of two subunits (A-B toxin) */
+function toxinA(x,y,s,a){withA(a==null?1:a,()=>{circ(x,y,s,C.toxin,hexA(C.ink,.35),1);circ(x+s*1.1,y,s*.7,mix(C.toxin,C.panel,.4),hexA(C.ink,.35),1)})}
+function diamond(x,y,s,col,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.beginPath();ctx.moveTo(x,y-s);ctx.lineTo(x+s,y);ctx.lineTo(x,y+s);ctx.lineTo(x-s,y);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.3);ctx.lineWidth=1;ctx.stroke();ctx.restore()}
+function tri(x,y,s,col,ang,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.translate(x,y);ctx.rotate(ang||0);ctx.beginPath();ctx.moveTo(0,-s);ctx.lineTo(s*.9,s*.7);ctx.lineTo(-s*.9,s*.7);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.35);ctx.lineWidth=1;ctx.stroke();ctx.restore()}
+function dotM(x,y,r,col,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);circ(x,y,r,col,hexA(C.ink,.25),.8);ctx.restore()}
+
+function tick(x,y,s,col){ctx.save();ctx.strokeStyle=col||C.good;ctx.lineWidth=3;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(x-s,y);ctx.lineTo(x-s*.3,y+s*.7);ctx.lineTo(x+s,y-s*.7);ctx.stroke();ctx.restore()}
+function cross(x,y,s,col){ctx.save();ctx.strokeStyle=col||C.bad;ctx.lineWidth=3;ctx.lineCap="round";line(x-s,y-s,x+s,y+s,col||C.bad,3);line(x+s,y-s,x-s,y+s,col||C.bad,3);ctx.restore()}
+/* small phages scattered outward from a burst */
+function burstPhages(cx,cy,n,f,s,seed,spread){for(let k=0;k<n;k++){const a=k/n*TAU+rnd(k+(seed||0))*.5;const d=(14+rnd(k*3+(seed||0))*spread)*f;phage(cx+Math.cos(a)*d,cy+Math.sin(a)*d*.8,s,a+Math.PI,{a:1-seg(f,.75,1)})}}
+function rnaS(x,y,w,t,col,dash,lw){ctx.save();if(dash)ctx.setLineDash([7,5]);rna(x,y,w,t,col,lw);ctx.restore()}
+
+/* ================= module 13 drawing kit ================= */
+/* coccus */
+function coccus(x,y,r,fill,edge,a){withA(a,()=>circ(x,y,r,fill,edge||mix(fill,C.ink,.35),1.2))}
+/* diplococcus: kidney-bean pair (Neisseria) or lancet pair (pneumococcus). o.capsule halo, o.pili */
+function diplo(x,y,r,ang,col,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const edge=mix(col,C.ink,.35);
+  if(o.capsule){ell(0,0,r*2.55,r*1.75,0,hexA(C.capsule,.55),C["capsule-edge"],1.2)}
+  if(o.pili){const n=o.pili;for(let k=0;k<n;k++){const a=k/n*TAU+(o.t||0)*.3;const sx=Math.cos(a)*r*1.6,sy=Math.sin(a)*r*1.05;const L=r*(o.piliLen||1.1);
+    line(sx,sy,sx+Math.cos(a)*L,sy+Math.sin(a)*L,o.piliCol||mix(col,C.ink,.2),1.4)}}
+  if(o.lancet){[-1,1].forEach(sd=>{ctx.beginPath();ctx.ellipse(sd*r*.95,0,r*1.05,r*.8,0,0,TAU);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=edge;ctx.lineWidth=1.1;ctx.stroke()})}
+  else{[-1,1].forEach(sd=>{ctx.beginPath();ctx.arc(sd*r*.92,0,r,sd>0?-Math.PI*.62:Math.PI*.38,sd>0?Math.PI*.62:Math.PI*1.62);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=edge;ctx.lineWidth=1.1;ctx.stroke()})}
+  ctx.restore()}
+/* rod bacterium with optional fimbriae, flagella, capsule */
+function rod(x,y,w,h,ang,col,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const edge=o.edge||mix(col,C.ink,.38);
+  if(o.capsule){rr(-w/2-h*.35,-h/2-h*.35,w+h*.7,h*1.7,h);ctx.fillStyle=hexA(C.capsule,.55);ctx.fill();ctx.strokeStyle=C["capsule-edge"];ctx.lineWidth=1;ctx.stroke()}
+  if(o.flag){const t=o.t||0;ctx.beginPath();for(let i=0;i<=24;i++){const f=i/24;const X=-w/2-f*w*.9,Y=Math.sin(f*TAU*1.6-t*8)*h*.28*f;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=mix(col,C.ink,.35);ctx.lineWidth=1.3;ctx.stroke()}
+  if(o.fim){const n=o.fim,L=o.fimLen||h*.42;for(let k=0;k<n;k++){const f=(k+.5)/n;const X=-w/2+h*.3+f*(w-h*.6);[-1,1].forEach(sd=>{const wob=Math.sin((o.t||0)*3+k+sd)*1.2;line(X,sd*h/2,X+wob,sd*(h/2+L),o.fimCol||mix(col,C.ink,.25),1.2);if(o.tip)circ(X+wob,sd*(h/2+L),1.8,o.tip)})}}
+  rr(-w/2,-h/2,w,h,h/2);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=edge;ctx.lineWidth=o.lw||1.3;ctx.stroke();
+  if(o.spore){ell(w/2-h*.1,0,h*.62,h*.62,0,mix(C.panel,col,.15),edge,1.3)}
+  ctx.restore()}
+/* spirochete: corkscrew moving along its own axis; o.hook adds hooked ends (Leptospira) */
+function spiro(x,y,len,ang,t,col,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const turns=o.turns||8,amp=o.amp||len*.045;ctx.beginPath();const N=90;
+  for(let i=0;i<=N;i++){const f=i/N;const X=-len/2+f*len;let Y=Math.sin(f*turns*TAU-(t||0)*6)*amp;
+    if(o.hook){const e=f<.08?(.08-f)/.08:f>.92?(f-.92)/.08:0;Y+=e*e*amp*3.2*(f<.5?1:-1)}
+    i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}
+  ctx.strokeStyle=col;ctx.lineWidth=o.lw||2.2;ctx.lineCap="round";ctx.lineJoin="round";ctx.stroke();ctx.lineCap="butt";ctx.restore()}
+/* yeast cell, optional bud (0..1) and capsule halo */
+function yeast(x,y,r,o){o=o||{};withA(o.a,()=>{
+  if(o.capsule){circ(x,y,r*1.9,o.capFill||hexA(C.panel,.95),o.capEdge||hexA(C.ink,.25),1)}
+  ell(x,y,r,r*.88,o.ang||0,C.yeast,C["yeast-edge"],1.5);circ(x-r*.2,y-r*.1,r*.28,hexA(C["yeast-edge"],.35));
+  if(o.bud){const a=(o.ang||0)+.6,br=r*.55*o.bud;circ(x+Math.cos(a)*(r+br*.75),y+Math.sin(a)*(r+br*.75),br,C.yeast,C["yeast-edge"],1.3)}})}
+/* chain of elongated yeast cells (pseudohypha) */
+function pseudohypha(x,y,n,ang,s,grow){ctx.save();ctx.translate(x,y);ctx.rotate(ang);const m=Math.max(0,Math.min(n,n*(grow==null?1:grow)));
+  for(let k=0;k<Math.ceil(m);k++){const f=Math.min(1,m-k);ell(k*s*1.9+s*.95,Math.sin(k*1.3)*s*.25,s*.95*f,s*.42*f,Math.sin(k)*.12,C.yeast,C["yeast-edge"],1.3)}ctx.restore()}
+/* Trichomonas: pear-shaped protozoan with 4 front flagella and undulating membrane */
+function trich(x,y,s,t,ang,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const col=C.trich;for(let k=0;k<4;k++){ctx.beginPath();for(let i=0;i<=16;i++){const f=i/16;const X=-s*1.05-f*s*1.3,Y=(k-1.5)*s*.18+Math.sin(f*TAU*1.3-t*14+k)*s*.16*f;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=mix(col,C.ink,.25);ctx.lineWidth=1.2;ctx.stroke()}
+  ctx.beginPath();ctx.moveTo(-s*1.05,0);ctx.bezierCurveTo(-s*1.05,-s*.75,s*.6,-s*.7,s*.95,0);ctx.bezierCurveTo(s*.6,s*.7,-s*1.05,s*.75,-s*1.05,0);ctx.fillStyle=mix(col,C.panel,.6);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.stroke();
+  ctx.beginPath();for(let i=0;i<=20;i++){const f=i/20;const X=-s*.9+f*s*1.7,Y=-s*.55+f*s*.2-Math.sin(f*TAU*2-t*10)*s*.09;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=1.4;ctx.stroke();
+  line(-s*.9,0,s*1.35,0,mix(col,C.ink,.3),1.1);ell(-s*.45,0,s*.22,s*.3,0,mix(col,C.ink,.15),null);ctx.restore()}
+/* neutrophil: multi-lobed nucleus; o.inside(x,y) draws ingested microbes */
+function neutrophil(x,y,r,o){o=o||{};withA(o.a,()=>{blobPath(x,y,r,o.seed||2,o.t||0,.05);ctx.fillStyle=C.neut;ctx.fill();ctx.strokeStyle=C["neut-edge"];ctx.lineWidth=1.5;ctx.stroke();
+  const lob=[[-.32,-.12],[0,.1],[.3,-.1]];ctx.strokeStyle=mix(C["neut-edge"],C.ink,.25);ctx.lineWidth=r*.12;ctx.lineCap="round";ctx.beginPath();lob.forEach((p,i)=>i?ctx.lineTo(x+p[0]*r,y+p[1]*r):ctx.moveTo(x+p[0]*r,y+p[1]*r));ctx.stroke();ctx.lineCap="butt";
+  lob.forEach(p=>circ(x+p[0]*r,y+p[1]*r,r*.2,mix(C["neut-edge"],C.panel,.15)));
+  if(o.inside)o.inside(x,y)})}
+function lympho(x,y,r,o){o=o||{};withA(o.a,()=>{circ(x,y,r,C.lymph,C["lymph-edge"],1.4);circ(x+r*.05,y,r*.72,mix(C["lymph-edge"],C.panel,.25))})}
+/* Y antibody */
+function antibody(x,y,s,ang,col,a){ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.strokeStyle=col||C.act1;ctx.lineWidth=Math.max(1.8,s*.22);ctx.lineCap="round";
+  ctx.beginPath();ctx.moveTo(0,s);ctx.lineTo(0,0);ctx.lineTo(-s*.7,-s*.8);ctx.moveTo(0,0);ctx.lineTo(s*.7,-s*.8);ctx.stroke();ctx.lineCap="butt";ctx.restore()}
+/* row of epithelial cells along x0..x1 at y (top surface), height h */
+function epiRow(x0,x1,y,h,o){o=o||{};const n=o.n||Math.max(3,Math.round((x1-x0)/(o.cw||36)));const w=(x1-x0)/n;const pts=[];
+  for(let i=0;i<n;i++){const X=x0+i*w;rr(X+1,y,w-2,h,o.r==null?6:o.r);ctx.fillStyle=o.fill||C.mucosa;ctx.fill();ctx.strokeStyle=o.edge||C["mucosa-edge"];ctx.lineWidth=1.2;ctx.stroke();
+    if(o.nuc!==false)ell(X+w/2,y+h*.62,w*.17,h*.16,0,hexA(o.nucCol||C["nuc-edge"],.55),null);pts.push(X+w/2)}return pts}
+/* circular microscope field; fn draws inside the clip */
+function microField(x,y,r,bgc,fn,o){o=o||{};circ(x,y,r+7,C.sunk,C["ink-soft"],1.5);ctx.save();ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.clip();ctx.fillStyle=bgc;ctx.fillRect(x-r,y-r,2*r,2*r);fn&&fn();ctx.restore();
+  ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.strokeStyle=hexA(C.ink,.35);ctx.lineWidth=1.5;ctx.stroke();if(o.lab)txt(x,y+r+20,o.lab,{size:12,weight:700,align:"center",color:o.labCol||C.ink})}
+/* urine dipstick with pads [[label,colour],...] */
+function dipstick(x,y,w,pads,o){o=o||{};const ph=26,gap=8;const h=pads.length*(ph+gap)+18;rr(x,y,w,h,4);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.3;ctx.stroke();
+  pads.forEach((p,i)=>{const Y=y+10+i*(ph+gap);rr(x+6,Y,w-12,ph,3);ctx.fillStyle=p[1];ctx.fill();ctx.strokeStyle=hexA(C.ink,.3);ctx.lineWidth=1;ctx.stroke();
+    if(p[0])txt(x+w+8,Y+ph/2,p[0],{size:12.5,weight:600,color:p[2]||C.ink})});return h}
+/* agar plate with colonies [[dx,dy,r],...] grown by g (0..1) */
+function plateC(x,y,r,cols,g,o){o=o||{};circ(x,y,r+6,C.plate,mix(C.plate,C.ink,.35),1.6);circ(x,y,r,o.agar||C.agar,null);
+  ctx.save();ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.clip();(cols||[]).forEach((c,i)=>{const cr=c[2]*clamp(g==null?1:g,0,1);if(cr<.3)return;circ(x+c[0],y+c[1],cr,c[3]||o.col||mix(C.agar,C.ink,.3),hexA(C.ink,.3),.8)});ctx.restore();
+  ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.strokeStyle=hexA(C.ink,.25);ctx.lineWidth=1;ctx.stroke()}
+/* mosquito */
+function mosquito(x,y,s,t,ang){ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);const col=C.mosq;const fl=Math.sin((t||0)*40)*.5;
+  ctx.globalAlpha*=.55;ell(-s*.2,-s*.55,s*.75,s*.25,-.6+fl,hexA(C.water,.9),col,1);ell(s*.15,-s*.55,s*.75,s*.25,.6-fl,hexA(C.water,.9),col,1);ctx.globalAlpha/=.55;
+  ell(-s*.55,0,s*.85,s*.2,0,col,null);circ(s*.45,0,s*.22,col);circ(s*.72,-s*.02,s*.13,col);line(s*.8,0,s*1.45,s*.25,col,1.3);
+  for(let k=0;k<3;k++){line(s*.3-k*s*.25,s*.1,s*.1-k*s*.45,s*.85,col,1.1)}ctx.restore()}
+/* bird silhouette */
+function bird(x,y,s,t){const f=Math.sin((t||0)*6)*.5;ctx.save();ctx.translate(x,y);ell(0,0,s,s*.55,0,mix(C.tail,C.panel,.25),C.tail,1.2);circ(s*.9,-s*.35,s*.4,mix(C.tail,C.panel,.25),C.tail,1.2);
+  fillPoly([[s*1.25,-s*.35],[s*1.65,-s*.25],[s*1.25,-s*.2]],C.glow,null);circ(s*1,-s*.42,s*.07,C.ink);
+  fillPoly([[-s*.2,-s*.2],[s*.4,-s*.2],[-s*.3,-s*(1.1+f)]],mix(C.tail,C.ink,.15),null);fillPoly([[-s*.9,0],[-s*1.6,-s*.3],[-s*1.5,s*.25]],C.tail,null);ctx.restore()}
+/* rat silhouette */
+function rat(x,y,s,t){ctx.save();ctx.translate(x,y);const col=mix(C.tail,C.ink,.2);ell(0,0,s,s*.55,0,col,null);ell(s*.95,-s*.1,s*.5,s*.36,.2,col,null);circ(s*.82,-s*.48,s*.2,mix(col,C.panel,.3));circ(s*1.22,-s*.18,s*.06,C.panel);
+  ctx.beginPath();ctx.moveTo(-s*.95,s*.1);ctx.quadraticCurveTo(-s*1.7,s*.5+Math.sin((t||0)*3)*s*.2,-s*2.3,s*.1);ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke();
+  [-.5,.5].forEach(k=>line(s*k,s*.45,s*k,s*.7,col,2.5));ctx.restore()}
+/* simple human silhouette head/torso used for "where" maps (no anatomy detail) */
+function personOutline(cx,top,s,o){bodyFig(cx,top,s,o)}
+/* motor neuron + axon to muscle drawn horizontally; returns axon end */
+function axonLine(x1,y1,x2,y2,o){o=o||{};line(x1,y1,x2,y2,C.nerve,o.lw||5);if(o.myelin){const n=Math.floor(Math.hypot(x2-x1,y2-y1)/28);for(let k=0;k<n;k++){const f=(k+.5)/n;const X=lerp(x1,x2,f),Y=lerp(y1,y2,f);const a=Math.atan2(y2-y1,x2-x1);ctx.save();ctx.translate(X,Y);ctx.rotate(a);rr(-10,-6,20,12,6);ctx.fillStyle=C.myelin;ctx.fill();ctx.strokeStyle=hexA(C.ink,.3);ctx.lineWidth=1;ctx.stroke();ctx.restore()}}}
+function neuronBody(x,y,r,o){o=o||{};blobPath(x,y,r,o.seed||4,o.t||0,.12);ctx.fillStyle=mix(C.nerve,C.panel,.45);ctx.fill();ctx.strokeStyle=mix(C.nerve,C.ink,.35);ctx.lineWidth=1.6;ctx.stroke();circ(x,y,r*.38,C.nucf,C["nuc-edge"],1.2);
+  for(let k=0;k<5;k++){const a=k/5*TAU+.4+(o.rot||0);line(x+Math.cos(a)*r*.9,y+Math.sin(a)*r*.9,x+Math.cos(a)*r*1.6,y+Math.sin(a)*r*1.6,mix(C.nerve,C.ink,.2),2.4)}}
+/* small timeline with labelled marks */
+function tline(x,y,w,marks,f,col){line(x,y,x+w,y,C.rule,4);line(x,y,x+w*clamp(f,0,1),y,col||C.accent,4);marks.forEach(m=>{const X=x+w*m[0];circ(X,y,5,f>=m[0]?(col||C.accent):C.panel,C["ink-soft"],1.3);txt(X,y+(m[2]||18),m[1],{size:11.5,mono:true,align:"center",color:C["ink-soft"],weight:600})});circ(x+w*clamp(f,0,1),y,7,col||C.accent,C.panel,2)}
+/* bar gauge for lab values, with normal band */
+function hbar(x,y,w,v,v0,v1,lo,hi,col,lab,val){rr(x,y,w,12,6);ctx.fillStyle=C.sunk;ctx.fill();const X0=x+w*seg(lo,v0,v1),X1=x+w*seg(hi,v0,v1);rr(X0,y,Math.max(3,X1-X0),12,3);ctx.fillStyle=hexA(C.good,.35);ctx.fill();
+  const X=x+w*seg(v,v0,v1);rr(x,y+3,Math.max(4,X-x),6,3);ctx.fillStyle=col;ctx.fill();circ(X,y+6,6,col,C.panel,2);if(lab)txt(x,y-10,lab,{size:12,weight:700,color:C.ink});if(val)txt(x+w,y-10,val,{size:12,mono:true,weight:700,align:"right",color:C.ink})}
+/* host cell outline with inclusion etc. */
+function hostCell(x,y,r,o){aCell(x,y,r,Object.assign({},o||{}))}
+/* bean-shaped kidney */
+function kidney(x,y,s,flip,fill,edge){ctx.save();ctx.translate(x,y);ctx.scale(flip?-1:1,1);ctx.beginPath();ctx.moveTo(0,-s);ctx.bezierCurveTo(s*.85,-s*1.05,s*.95,s*1.05,0,s);ctx.bezierCurveTo(-s*.6,s*1,-s*.45,s*.35,-s*.25,s*.15);ctx.quadraticCurveTo(-s*.12,0,-s*.25,-s*.15);ctx.bezierCurveTo(-s*.45,-s*.35,-s*.6,-s,0,-s);ctx.closePath();
+  ctx.fillStyle=fill||C.kidney;ctx.fill();ctx.strokeStyle=edge||C["kidney-edge"];ctx.lineWidth=2;ctx.stroke();ctx.restore()}
+/* urinary tract schematic: returns named points. o.female/o.male sets urethra length */
+function urinary(cx,top,s,o){o=o||{};const kL=[cx-95*s,top+60*s],kR=[cx+95*s,top+60*s];
+  kidney(kL[0],kL[1],48*s,true,o.kFillL,o.kEdgeL);kidney(kR[0],kR[1],48*s,false,o.kFillR,o.kEdgeR);
+  const bl=[cx,top+250*s];const uL=[[kL[0]+18*s,kL[1]+8*s],[kL[0]+30*s,top+150*s],[bl[0]-40*s,bl[1]-30*s]],uR=[[kR[0]-18*s,kR[1]+8*s],[kR[0]-30*s,top+150*s],[bl[0]+40*s,bl[1]-30*s]];
+  [uL,uR].forEach(u=>poly(u,C["bladder-edge"],7*s));[uL,uR].forEach(u=>poly(u,o.uFill||C.urine,3.5*s));
+  ctx.beginPath();ctx.ellipse(bl[0],bl[1],62*s,48*s,0,0,TAU);ctx.fillStyle=o.bFill||C.bladder;ctx.fill();ctx.strokeStyle=C["bladder-edge"];ctx.lineWidth=2.4;ctx.stroke();
+  if(o.urine!=null){ctx.save();ctx.beginPath();ctx.ellipse(bl[0],bl[1],56*s,42*s,0,0,TAU);ctx.clip();ctx.fillStyle=hexA(C.urine,.55);ctx.fillRect(bl[0]-60*s,bl[1]+42*s-84*s*o.urine,120*s,84*s);ctx.restore()}
+  const uLen=(o.uLen||1)*60*s;const ue=[bl[0],bl[1]+46*s+uLen];line(bl[0],bl[1]+46*s,ue[0],ue[1],C["bladder-edge"],9*s);line(bl[0],bl[1]+46*s,ue[0],ue[1],o.uFill||C.urine,4*s);
+  return {kL,kR,bl,uL,uR,ue,uTop:[bl[0],bl[1]+46*s]}}
+/* simple side view brain with meninges band */
+function brainShape(x,y,s,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+  ctx.beginPath();ctx.moveTo(-95,10);ctx.bezierCurveTo(-110,-60,-30,-95,20,-85);ctx.bezierCurveTo(85,-80,115,-30,100,15);ctx.bezierCurveTo(92,45,55,55,30,50);ctx.bezierCurveTo(10,48,0,62,-20,58);ctx.bezierCurveTo(-60,55,-90,40,-95,10);ctx.closePath();
+  if(o.mening){ctx.save();ctx.lineWidth=o.mw||16;ctx.lineJoin="round";ctx.strokeStyle=o.mening;ctx.stroke();ctx.restore()}
+  ctx.fillStyle=o.fill||C.brain;ctx.fill();ctx.strokeStyle=C["brain-edge"];ctx.lineWidth=2;ctx.stroke();
+  ctx.strokeStyle=hexA(C["brain-edge"],.6);ctx.lineWidth=1.6;[[-70,-30,-40,-50,-20,-30],[-10,-60,20,-40,40,-62],[50,-40,70,-20,85,-35],[-60,10,-30,-5,-10,15],[10,0,40,15,70,0]].forEach(c=>{ctx.beginPath();ctx.moveTo(c[0],c[1]);ctx.quadraticCurveTo(c[2],c[3],c[4],c[5]);ctx.stroke()});
+  // brainstem + cerebellum
+  ell(40,62,26,16,.2,o.fill||C.brain,C["brain-edge"],1.6);rr(-6,48,16,52,6);ctx.fillStyle=o.fill||C.brain;ctx.fill();ctx.strokeStyle=C["brain-edge"];ctx.lineWidth=1.6;ctx.stroke();
+  ctx.restore()}
+/* lumbar puncture style CSF tube with liquid of given clarity (0 clear..1 cloudy) */
+function csfTube(x,y,w,h,cl,o){o=o||{};const col=mix(C.csf,C.cloudy,cl);tube(x,y,w,h,o.fill==null?.7:o.fill,col,{lab:o.lab,labCol:o.labCol});
+  if(cl>.15){for(let k=0;k<Math.round(cl*22);k++){const X=x-w*.35+rnd(k*2+(o.seed||1))*w*.7,Y=y+h*(1-(o.fill==null?.7:o.fill))+4+rnd(k*3+1)*h*(o.fill==null?.7:.7)*.9;circ(X,Y,1.3,hexA(mix(C.cloudy,C.ink,.4),.7))}}}
+/* tiny warning triangle icon */
+function warnIcon(x,y,s,col){fillPoly([[x,y-s],[x+s*1.1,y+s*.8],[x-s*1.1,y+s*.8]],col||C.warn,null);txt(x,y+s*.15,"!",{size:s*1.2,weight:700,align:"center",color:onFill()})}
+
+/* ================= shared lab helpers ================= */
+const $=s=>document.querySelector(s);
+const store={get(k){try{return JSON.parse(localStorage.getItem("mk-uro-"+k))}catch(e){return null}},set(k,v){try{localStorage.setItem("mk-vir-"+k,JSON.stringify(v))}catch(e){}}};
+function makeStage(id,W_,H_){const cv=document.getElementById(id);const st={cv,ctx:cv.getContext("2d"),W:W_,H:H_,K:1};
+  st.fit=()=>{const w=cv.parentElement.clientWidth;if(!w)return;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H_/W_)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H_/W_*dpr);st.K=cv.width/W_};return st}
+let W=800,H=440;
+function use(st){ctx=st.ctx;W=st.W;H=st.H;ctx.setTransform(st.K,0,0,st.K,0,0);ctx.clearRect(0,0,st.W,st.H);ctx.globalAlpha=1;bg(C.ecf)}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function fmt(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+function setMsg(id,t,c){const m=$(id);m.className="msg"+(t?" show "+c:"");m.innerHTML=t}
+function starStr(n){return `<span class="stars" aria-hidden="true">${"★".repeat(n)}${"☆".repeat(3-n)}</span><span class="gk-sr">${n} of 3 stars</span>`}
+function chalList(id,items,done){$(id).innerHTML=items.map((c,i)=>`<li class="${done[i]?"done":""}"><span class="ck" aria-hidden="true">${done[i]?"✓":i+1}</span><span>${c}<span class="gk-sr">${done[i]?" (done)":" (not yet)"}</span></span></li>`).join("")}
+function pressed(a,b,on){$(a).setAttribute("aria-pressed",on?"true":"false");$(b).setAttribute("aria-pressed",on?"false":"true")}
+const SUP={"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","-":"⁻"};
+function sup(n){return String(n).split("").map(c=>SUP[c]||c).join("")}
+function sci(v,d){if(!(v>0))return "0";if(v<1000)return String(Math.round(v));const e=Math.floor(Math.log10(v));const m=v/Math.pow(10,e);return m.toFixed(d==null?1:d)+" × 10"+sup(e)}
+function sciWords(v){if(!(v>0))return "zero";if(v<1000)return String(Math.round(v));const e=Math.floor(Math.log10(v));const m=v/Math.pow(10,e);return m.toFixed(1)+" times 10 to the "+e}
+function chalStars(n,tot){return n?`${n} of ${tot} done `+starStr(Math.min(3,n<2?1:n<tot?2:3)):"Try each challenge. Your progress is kept in this browser only."}
+function draggable(el,{onTap,targetSel,onDrop,canDrag}){let sx=0,sy=0,down=false,ghost=null,pid=null,lastT=null;
+  el.addEventListener("pointerdown",e=>{if(canDrag&&!canDrag())return;down=true;sx=e.clientX;sy=e.clientY;pid=e.pointerId;try{el.setPointerCapture(pid)}catch(_){}});
+  el.addEventListener("pointermove",e=>{if(!down)return;if(!ghost&&Math.hypot(e.clientX-sx,e.clientY-sy)>7){ghost=el.cloneNode(true);ghost.classList.add("ghost");ghost.removeAttribute("id");ghost.setAttribute("aria-hidden","true");ghost.style.width=el.offsetWidth+"px";document.body.appendChild(ghost)}
+    if(ghost){ghost.style.left=(e.clientX-20)+"px";ghost.style.top=(e.clientY-20)+"px";const t=document.elementFromPoint(e.clientX,e.clientY);const tg=t&&t.closest(targetSel);if(lastT&&lastT!==tg)lastT.classList.remove("target");if(tg)tg.classList.add("target");lastT=tg}});
+  const end=e=>{if(!down)return;down=false;if(lastT)lastT.classList.remove("target");
+    if(ghost){ghost.remove();ghost=null;const t=document.elementFromPoint(e.clientX,e.clientY);const tg=t&&t.closest(targetSel);if(tg)onDrop(tg)}else if(e.type==="pointerup")onTap();lastT=null};
+  el.addEventListener("pointerup",end);el.addEventListener("pointercancel",end);
+  el.addEventListener("click",e=>{if(e.detail===0)onTap()})}
+
+/* ================= PART 1: CSF bench ================= */
+const S1=makeStage("cvCsf",800,440);
+const PATS=[
+ {name:"Maya, 19",story:"College student living in a dorm. Fever 39.4 °C, severe headache, stiff neck, and small purple spots on her legs that do not fade when pressed.",kind:"bact",clar:.85,op:34,wbc:2400,N:90,glu:22,prot:260,gram:"gnd",ink:false,org:"Neisseria meningitidis (meningococcus)",
+  tx:"Start IV antibiotics at once (a third-generation cephalosporin). Her roommates and other close contacts get preventive antibiotics, and meningococcal vaccines prevent it."},
+ {name:"Luis, 68",story:"Had pneumonia last week. Now fever 38.9 °C, confusion and a stiff neck.",kind:"bact",clar:.8,op:32,wbc:1800,N:88,glu:28,prot:230,gram:"gpd",ink:false,org:"Streptococcus pneumoniae (pneumococcus)",
+  tx:"Start IV antibiotics at once, often a third-generation cephalosporin plus vancomycin. Pneumococcal vaccines lower the risk."},
+ {name:"Priya, 24",story:"It is summer. She has a headache, light hurts her eyes, mild fever of 38.1 °C. She is alert and talking normally.",kind:"viral",clar:0,op:18,wbc:120,N:15,glu:62,prot:60,gram:"none",ink:false,org:"a virus, most likely an enterovirus",
+  tx:"Usually rest, fluids and pain relief; most people recover in 7 to 10 days. Antibiotics will not help a virus."},
+ {name:"Daniel, 41",story:"Advanced HIV with a very low CD4 count. Headache and low fever for three weeks, slowly getting worse.",kind:"fungal",clar:.2,op:40,wbc:40,N:10,glu:35,prot:120,gram:"faint",ink:true,org:"Cryptococcus neoformans",
+  tx:"Antifungal drugs (amphotericin B with flucytosine, then fluconazole). The high pressure may need to be lowered by removing CSF."},
+ {name:"Grace, 72",story:"Takes drugs that weaken her immune system. Ate cold deli meat last week. Fever, confusion and a stiff neck.",kind:"bact",clar:.5,op:28,wbc:600,N:70,glu:38,prot:150,gram:"gpr",ink:false,org:"Listeria monocytogenes",
+  tx:"IV antibiotics with ampicillin added, because Listeria is naturally resistant to cephalosporins."},
+ {name:"Sam, 30",story:"Headache after a long overnight flight. No fever, and his neck moves freely.",kind:"normal",clar:0,op:15,wbc:2,N:0,glu:65,prot:30,gram:"none",ink:false,org:"no infection",
+  tx:"No antimicrobial is needed. His headache has another cause."}];
+const KS={p:0,lp:-1,chem:-1,stain:null,stainT:-1,cells:-1,dx:null};
+const kDone=store.get("csf-done")||{};const kChalDone=store.get("csf-chal")||[0,0,0,0];
+const K_CHAL=["Correctly identify a <b>bacterial</b> meningitis patient.","Correctly identify a <b>viral</b> meningitis patient.","Use the <b>India ink</b> stain and identify the <b>fungal</b> case.","Correctly classify <b>all six</b> patients."];
+function kChalUI(){chalList("#kChal",K_CHAL,kChalDone);$("#kChalStars").innerHTML=chalStars(kChalDone.reduce((a,b)=>a+b,0),4)}
+function kMark(i){if(!kChalDone[i]){kChalDone[i]=1;store.set("csf-chal",kChalDone);kChalUI()}}
+function kPatUI(){const b=$("#kPat");b.innerHTML="";PATS.forEach((p,i)=>{const x=document.createElement("button");x.type="button";x.className="tbtn";x.setAttribute("aria-pressed",i===KS.p?"true":"false");x.innerHTML=p.name+(kDone[i]?' <span aria-hidden="true">✓</span><span class="gk-sr"> (solved)</span>':"");x.onclick=()=>kSelect(i);b.appendChild(x)});$("#kStory").textContent=PATS[KS.p].story}
+function kSelect(i){KS.p=i;KS.lp=-1;KS.chem=-1;KS.stain=null;KS.stainT=-1;KS.cells=-1;KS.dx=null;kPatUI();setMsg("#kMsg","","");kBtns();a11yKey=""}
+function kBtns(){const lp=KS.lp>=0;["#kChem","#kGram","#kInk","#kCells"].forEach(id=>$(id).disabled=!lp);$("#kLP").disabled=lp;
+  $("#kChem").setAttribute("aria-pressed",KS.chem>=0?"true":"false");$("#kCells").setAttribute("aria-pressed",KS.cells>=0?"true":"false");$("#kGram").setAttribute("aria-pressed",KS.stain==="gram"?"true":"false");$("#kInk").setAttribute("aria-pressed",KS.stain==="ink"?"true":"false");
+  document.querySelectorAll("#tab-csf [data-dx]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.dx===KS.dx?"true":"false"))}
+const now_=()=>performance.now()/1000+1000;
+$("#kLP").onclick=()=>{KS.lp=now_();kBtns();setMsg("#kMsg","Collecting CSF into three sterile tubes. Then run the tests on each tube.","info");a11yKey=""};
+$("#kChem").onclick=()=>{if(KS.chem<0)KS.chem=now_();kBtns();a11yKey=""};
+$("#kCells").onclick=()=>{if(KS.cells<0)KS.cells=now_();kBtns();a11yKey=""};
+$("#kGram").onclick=()=>{KS.stain="gram";KS.stainT=now_();kBtns();a11yKey=""};
+$("#kInk").onclick=()=>{KS.stain="ink";KS.stainT=now_();kBtns();a11yKey="";if(PATS[KS.p].kind==="fungal")KS.inkUsed=KS.p};
+const DXN={bact:"bacterial",viral:"viral",fungal:"fungal",normal:"normal"};
+function kExplain(p,g){const N=p.N,L=100-p.N;
+  const facts=`CSF: ${p.clar>.6?"cloudy":p.clar>.1?"slightly hazy":"clear"}, ${p.wbc.toLocaleString()} white cells per µL (${N}% neutrophils), glucose ${p.glu} mg/dL, protein ${p.prot} mg/dL, opening pressure ${p.op} cm H₂O.`;
+  if(g===p.kind){const why={bact:"Many white cells, mostly neutrophils, low glucose and high protein is the bacterial pattern.",viral:"Clear fluid, a modest rise in mostly lymphocytes, normal glucose and near-normal protein is the viral pattern.",fungal:"Lymphocytes with low glucose, high protein and very high pressure, plus capsules in India ink, is the fungal pattern.",normal:"Every value sits inside the normal range and no organisms are seen."}[p.kind];
+    return `<b>Yes: ${DXN[p.kind]}.</b> ${why} ${facts} Most likely cause: <b>${p.org}</b>. <br><b>Treatment idea:</b> ${p.tx}`}
+  const miss={bact:{viral:"Viral meningitis would give clear fluid, lymphocytes and normal glucose. Here neutrophils dominate and glucose is low.",fungal:"Fungal meningitis usually shows lymphocytes, not mostly neutrophils, and India ink would show capsules.",normal:"These values are far outside the normal range."},
+    viral:{bact:"Bacterial meningitis would give cloudy fluid, mostly neutrophils and low glucose. Here the glucose is normal and lymphocytes dominate.",fungal:"Fungal meningitis usually has low glucose and a positive India ink or antigen test. Here glucose is normal.",normal:"The white cell count is above the normal 0 to 5 per µL, so something is inflaming the meninges."},
+    fungal:{bact:"Bacterial meningitis usually has thousands of neutrophils and organisms on Gram stain. Here there are few cells, mostly lymphocytes. Try the India ink stain.",viral:"Viral meningitis usually keeps glucose normal. Here glucose is low and protein high. Try the India ink stain.",normal:"Glucose is low, protein high and pressure very high; that is not normal."},
+    normal:{bact:"Bacterial meningitis would raise the white cells and protein and lower glucose. All values here are normal.",viral:"Viral meningitis still raises the white cell count. Here it is 2 per µL, which is normal.",fungal:"Fungal meningitis lowers glucose and raises protein and pressure. All values here are normal."}};
+  return `Not quite. ${miss[p.kind][g]||"Look again at the cells, glucose and protein."}`}
+document.querySelectorAll("#tab-csf [data-dx]").forEach(b=>b.onclick=()=>{const p=PATS[KS.p];
+  if(KS.lp<0){setMsg("#kMsg","Start with the lumbar puncture, then run at least the chemistry and cell count.","warn");return}
+  if(KS.chem<0||KS.cells<0){setMsg("#kMsg","Run the chemistry (tube 1) and the cell count (tube 3) first. They carry most of the clues.","warn");return}
+  KS.dx=b.dataset.dx;kBtns();const ok=KS.dx===p.kind;setMsg("#kMsg",kExplain(p,KS.dx),ok?"good":"warn");
+  if(ok){kDone[KS.p]=1;store.set("csf-done",kDone);kPatUI();if(p.kind==="bact")kMark(0);if(p.kind==="viral")kMark(1);if(p.kind==="fungal"&&KS.stain==="ink")kMark(2);if(PATS.every((q,i)=>kDone[i]))kMark(3)}});
+/* drawing */
+function kStainView(p,mx,my,T){
+  if(KS.stain==="ink"){if(p.ink){[[mx-30,my-20,12],[mx+28,my-6,10],[mx-4,my+32,11],[mx+40,my+38,8]].forEach((y_,k)=>yeast(y_[0],y_[1],y_[2],{capsule:true,capFill:"#EFE9DC",capEdge:"#C9BFA8",bud:k===0?P(T/4,1):0}))}
+    else{for(let k=0;k<5;k++)circ(mx-50+rnd(k)*100,my-40+rnd(k+5)*80,5,hexA("#EFE9DC",.35))}return}
+  const nN=Math.round(p.wbc>500?4:p.wbc>50?2:p.wbc>5?1:0);
+  for(let k=0;k<nN;k++){const x=mx-44+(k%2)*60+rnd(k)*10,y=my-34+Math.floor(k/2)*52;
+    if(p.N>50)neutrophil(x,y,18,{seed:k,t:T,inside:p.gram==="gnd"?(a,b)=>{diplo(a+4,b+6,3.2,k,C.gneg,{});diplo(a-6,b-4,3.2,k+1,C.gneg,{})}:null});else lympho(x,y,12)}
+  if(p.gram==="gnd"){for(let k=0;k<5;k++)diplo(mx-60+rnd(k*3)*120,my-50+rnd(k*7)*100,3.6,k,C.gneg,{})}
+  else if(p.gram==="gpd"){for(let k=0;k<7;k++)diplo(mx-60+rnd(k*3)*120,my-50+rnd(k*7)*100,4,k,C.gpos,{lancet:true})}
+  else if(p.gram==="gpr"){for(let k=0;k<6;k++)rod(mx-60+rnd(k*3)*120,my-50+rnd(k*7)*100,12,5,k,C.gpos,{})}
+  else if(p.gram==="faint"){for(let k=0;k<3;k++)circ(mx-40+rnd(k*3)*80,my-30+rnd(k*7)*60,7,hexA(C.gpos,.35),hexA(C.gpos,.5),1)}}
+function drawCsf(now){use(S1);const T=now/1000;const p=PATS[KS.p];const tn=now_();
+  panelBox(10,10,240,420);title(22,30,"Lumbar puncture");
+  for(let k=0;k<5;k++){rr(26,56+k*56,74,44,10);ctx.fillStyle=mix(C.sunk,C.panel,.3);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.3;ctx.stroke();rr(104,64+k*56,22,28,6);ctx.fill();ctx.stroke()}
+  rr(130,50,22,300,10);ctx.fillStyle=mix(C.csf,C.cloudy,p.clar);ctx.fill();ctx.strokeStyle=C.act1;ctx.lineWidth=1.3;ctx.stroke();txt(141,368,"CSF",{size:12,weight:700,align:"center"});
+  const lpT=KS.lp<0?-1:tn-KS.lp;const nIn=lpT<0?0:smooth(clamp(lpT/1,0,1));
+  line(lerp(236,170,nIn),236,lerp(236,170,nIn)-30*nIn,236,C["ink-soft"],2.4);rr(lerp(236,170,nIn),229,20,14,3);ctx.fillStyle=C.cath;ctx.fill();ctx.strokeStyle=C["cath-edge"];ctx.lineWidth=1.2;ctx.stroke();
+  // manometer
+  const mx=214,my0=70,mh=230;rr(mx-7,my0,14,mh,6);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.3;ctx.stroke();
+  const band0=my0+mh*(1-20/50),band1=my0+mh*(1-10/50);rr(mx+9,band0,5,band1-band0,2);ctx.fillStyle=C.good;ctx.fill();
+  const pr=lpT<0?0:p.op*smooth(clamp((lpT-.8)/1.6,0,1));const fy=my0+mh*(1-pr/50);rr(mx-5,fy,10,my0+mh-fy-2,4);ctx.fillStyle=mix(C.csf,C.act1,.45);ctx.fill();
+  txt(mx,my0-14,"pressure",{size:12,align:"center",color:C["ink-soft"],weight:600});
+  if(lpT>2.4){label(140,402,"Opening pressure "+p.op+" cm H₂O",{size:12,weight:700,align:"center",border:p.op>25?C.warn:C.good})}
+  else txt(130,402,lpT<0?"Press Lumbar puncture to start":"Measuring pressure...",{size:12,align:"center",color:C["ink-soft"],weight:600});
+  // tubes
+  panelBox(260,10,200,420);title(272,30,"Collection tubes");
+  const names=["1 Chem","2 Micro","3 Cells"];const act=[KS.chem,KS.stainT,KS.cells];
+  for(let k=0;k<3;k++){const x=300+k*60,fill=lpT<0?0:clamp((lpT-1-k*.7)/1.2,0,1)*.7;
+    const recent=act[k]>=0&&tn-act[k]<1.4;if(recent)pulseRing(x,170,46,C.accent,P(T,1));
+    csfTube(x,70,34,200,p.clar,{fill:Math.max(.001,fill),seed:k+1});txt(x,296,names[k],{size:12,weight:700,align:"center"});
+    if(fill>0&&lpT>1.2&&k===0)for(let d=0;d<2;d++){const q=P(T*1.6+d/2,1);if(lpT<4)circ(236,lerp(246,262,q),2.2,C.act1)}}
+  if(lpT>3.4)wrapText("Appearance: "+(p.clar>.6?"cloudy":p.clar>.1?"slightly hazy":"clear"),272,330,180,16,{size:13,weight:700});
+  // results
+  panelBox(470,10,320,420);title(482,30,"Results");
+  const g1=KS.chem<0?0:smooth(clamp((tn-KS.chem-.6)/1,0,1)),g3=KS.cells<0?0:smooth(clamp((tn-KS.cells-.6)/1,0,1));
+  if(g3>0){hbar(486,64,288,Math.sqrt(p.wbc)*g3,0,Math.sqrt(3000),0,Math.sqrt(5),p.N>50?C["neut-edge"]:C["lymph-edge"],"White cells per µL",Math.round(p.wbc*g3).toLocaleString());
+    const by=94;rr(486,by,288,12,4);ctx.fillStyle=C.lymph;ctx.fill();rr(486,by,288*p.N/100*g3,12,4);ctx.fillStyle=C.neut;ctx.fill();ctx.strokeStyle=C.rule;ctx.lineWidth=1;rr(486,by,288,12,4);ctx.stroke();
+    txt(486,118,p.wbc<=5?"No differential needed":`${p.N}% neutrophils · ${100-p.N}% lymphocytes`,{size:12,mono:true,weight:600,color:C["ink-soft"]})}
+  else txt(486,64,"White cells: tube 3 not tested yet",{size:12.5,color:C["ink-soft"]});
+  if(g1>0){hbar(486,156,288,p.glu*g1,0,100,45,80,p.glu<45?C.warn:C.good,"Glucose mg/dL",String(Math.round(p.glu*g1)));
+    hbar(486,206,288,p.prot*g1,0,300,15,45,p.prot>45?C.warn:C.good,"Protein mg/dL",String(Math.round(p.prot*g1)))}
+  else txt(486,156,"Glucose and protein: tube 1 not tested yet",{size:12.5,color:C["ink-soft"]});
+  const mxc=630,myc=330;const ink=KS.stain==="ink";
+  if(KS.stain){const sg=clamp((tn-KS.stainT-.5)/.8,0,1);microField(mxc,myc,82,ink?"#1A1410":C.field,()=>{if(sg>0)withA(sg,()=>kStainView(p,mxc,myc,T))});txt(mxc,myc-96,ink?"India ink (negative stain)":"Gram stain",{size:12.5,weight:700,align:"center"})}
+  else{microField(mxc,myc,82,C.sunk,()=>{});txt(mxc,myc,"No stain yet",{size:12.5,align:"center",color:C["ink-soft"],weight:600})}
+  const cap=KS.lp<0?`${p.name}: press Lumbar puncture to collect CSF.`:`${p.name}: `+[KS.chem>=0?`glucose ${p.glu}, protein ${p.prot}`:"chemistry not run",KS.cells>=0?`${p.wbc.toLocaleString()} white cells/µL, ${p.N}% neutrophils`:"cell count not run",KS.stain?(ink?(p.ink?"India ink: encapsulated yeast":"India ink: no capsules"):({gnd:"Gram stain: Gram-negative diplococci",gpd:"Gram stain: Gram-positive diplococci",gpr:"Gram stain: Gram-positive rods",faint:"Gram stain: a few faint round shapes",none:"Gram stain: no organisms"}[p.gram])):"no stain yet"].join("; ")+".";
+  if($("#kCap").textContent!==cap)$("#kCap").textContent=cap}
+function csfA11y(){const p=PATS[KS.p];const lab="CSF bench. "+$("#kCap").textContent;
+  const d=`Left: a schematic lower spine with a needle into the pale blue CSF and a pressure tube${KS.lp>=0?` reading ${p.op} cm of water (normal band 10 to 20 marked green)`:""}. Middle: three collection tubes${KS.lp>=0?`, ${p.clar>.6?"cloudy":p.clar>.1?"slightly hazy":"clear"}`:", empty"}. Right: result bars with green normal bands for white cells, glucose and protein${KS.chem<0&&KS.cells<0?", not tested yet":""}, and a round microscope view${KS.stain?` showing the ${KS.stain==="ink"?"India ink":"Gram"} stain`:" with no stain yet"}.`;
+  return [lab,d]}
+
+/* ================= PART 2: toxin synapse simulator ================= */
+const S2=makeStage("cvNmj",800,440);
+const NM={mode:"norm",dose:.6,rate:1,free:0,bBot:0,bTet:0,imps:[],hist:[],acc:0,acc2:0,t:0,singles:0,rigidT:0,anti:false,histT:0,last:"",flash:-9};
+const nChalDone=store.get("nmj-chal")||[0,0,0,0];
+const N_CHAL=["<b>Normal:</b> send three single nerve signals and see three separate twitches.","<b>Botulism:</b> let ACh release fall below 20% (flaccid paralysis).","<b>Tetanus:</b> reach a rigid contraction (tension above 80% for 3 seconds).","<b>Botulism:</b> give antitoxin while ACh release is still above 50%."];
+function nChalUI(){chalList("#nChal",N_CHAL,nChalDone);$("#nChalStars").innerHTML=chalStars(nChalDone.reduce((a,b)=>a+b,0),4)}
+function nMark(i){if(!nChalDone[i]){nChalDone[i]=1;store.set("nmj-chal",nChalDone);nChalUI()}}
+function nReset(){NM.free=NM.mode==="norm"?0:NM.dose;NM.bBot=0;NM.bTet=0;NM.imps=[];NM.hist=[];NM.acc=0;NM.acc2=0;NM.singles=0;NM.rigidT=0;NM.anti=false;a11yKey="";nUI()}
+function nMode(m){NM.mode=m;["norm","bot","tet"].forEach(k=>$("#n"+{norm:"Norm",bot:"Bot",tet:"Tet"}[k]).setAttribute("aria-pressed",k===m?"true":"false"));$("#nDose").disabled=m==="norm";$("#nAnti").disabled=m==="norm";nReset()}
+$("#nNorm").onclick=()=>nMode("norm");$("#nBot").onclick=()=>nMode("bot");$("#nTet").onclick=()=>nMode("tet");
+$("#nDose").oninput=e=>{NM.dose=+e.target.value/100;$("#nDoseOut").textContent=e.target.value+"%";nReset()};
+$("#nRate").oninput=e=>{NM.rate=+e.target.value;$("#nRateOut").textContent=NM.rate===0?"none":(NM.rate===1?"1 per second":NM.rate+" per second")};
+$("#nReset").onclick=nReset;
+$("#nOne").onclick=()=>{nFire(NM.t,1);if(NM.mode==="norm"){NM.singles++;if(NM.singles>=3)nMark(0)}};
+$("#nAnti").onclick=()=>{if(NM.mode==="norm")return;NM.free=0;NM.anti=true;if(NM.mode==="bot"&&NM.bBot<.5)nMark(3);nUI();a11yKey=""};
+function nFire(t,src){const amp=NM.mode==="bot"?1-NM.bBot:1;NM.imps.push([t,amp,src]);NM.flash=t}
+function tensionAt(t){let s=0;for(const im of NM.imps){const d=t-im[0];if(d<0||d>2)continue;s+=im[1]*1.05*twitch(d)}return 1-Math.exp(-s)}
+function twitch(d){if(d<0)return 0;const k=d/.15;return k*Math.exp(1-k)}
+function nStep(dt){NM.t+=dt;const t=NM.t;
+  const bind=NM.free*.35*dt;NM.free-=bind;if(NM.mode==="bot")NM.bBot=Math.min(1,NM.bBot+bind);if(NM.mode==="tet")NM.bTet=Math.min(1,NM.bTet+bind);
+  if(NM.rate>0){NM.acc+=dt*NM.rate;while(NM.acc>=1){NM.acc-=1;nFire(t,0)}}
+  if(NM.mode==="tet"&&NM.bTet>.05){NM.acc2+=dt*NM.bTet*18;while(NM.acc2>=1){NM.acc2-=1;nFire(t,2)}}
+  NM.imps=NM.imps.filter(im=>t-im[0]<2.2);
+  NM.histT+=dt;if(NM.histT>=.04){NM.histT=0;NM.hist.push([t,tensionAt(t)]);while(NM.hist.length&&t-NM.hist[0][0]>10)NM.hist.shift()}
+  const ten=tensionAt(t);if(ten>.8)NM.rigidT+=dt;else NM.rigidT=0;
+  if(NM.mode==="tet"&&NM.rigidT>=3)nMark(2);if(NM.mode==="bot"&&NM.bBot>=.8)nMark(1)}
+function nState(){const ten=tensionAt(NM.t);if(NM.mode==="tet"&&NM.bTet>.35)return ["Rigid (spastic): the motor neuron fires nonstop","bad"];
+  if(NM.mode==="bot"&&NM.bBot>.6)return ["Limp (flaccid): signals arrive but little ACh is released","bad"];
+  if(NM.mode!=="norm"&&NM.free>.02)return ["Toxin is still binding. Antitoxin can neutralize only the free toxin.","warn"];
+  if(NM.rate===0&&ten<.05)return ["Relaxed. Send a signal to see a twitch.","good"];return ["Working normally: each signal gives a twitch, then the muscle relaxes.","good"]}
+function nUI(){const rows=[["ACh released per signal",Math.round((NM.mode==="bot"?1-NM.bBot:1)*100)+"%"],["Inhibitory signals getting through",Math.round((NM.mode==="tet"?1-NM.bTet:1)*100)+"%"],["Free toxin (antitoxin can reach)",Math.round(NM.free*100)+"%"],["Bound toxin (antitoxin cannot reach)",Math.round((NM.bBot+NM.bTet)*100)+"%"],["Muscle tension now",Math.round(tensionAt(NM.t)*100)+"%"]];
+  $("#nRead").innerHTML=rows.map(r_=>`<tr><th scope="row">${r_[0]}</th><td>${r_[1]}</td></tr>`).join("");const st=nState();const s=$("#nStatus");s.className="status "+st[1];s.textContent=st[0]+(NM.anti?" Antitoxin given: no more toxin can bind, but bound toxin stays until nerve endings recover (weeks to months).":"")}
+function drawNmj(now){use(S2);const T=now/1000;const t=NM.t;const ten=tensionAt(t);
+  panelBox(10,10,470,282);title(22,30,"Neuromuscular junction");
+  const cx=230;line(cx,40,cx,78,C.nerve,7);ell(cx,110,120,40,0,mix(C.nerve,C.panel,.55),mix(C.nerve,C.ink,.3),1.8);
+  const fl=t-NM.flash;if(fl>=0&&fl<.25)circ(cx,lerp(42,78,fl/.25),6,C.glow);
+  for(let k=0;k<7;k++){const vx=cx-90+k*30,vy=110+(k%2)*8;circ(vx,vy,10,C.panel,mix(C.nerve,C.ink,.3),1.3);for(let j=0;j<3;j++)circ(vx-3+j*3,vy-2+(j%2)*4,2,C.ach);
+    if(NM.mode==="bot"&&k/7<NM.bBot+.01)toxinA(vx+4,vy+12,4.2)}
+  // released ACh
+  NM.imps.forEach(im=>{const d=t-im[0];if(d<0||d>.5)return;const n=Math.round(im[1]*14);for(let k=0;k<n;k++){const p=d/.5;circ(cx-80+k*12+Math.sin(k)*3,lerp(150,182,p),2.8,C.ach)}});
+  // receptors and muscle
+  for(let k=0;k<9;k++){const X=cx-96+k*24;ctx.beginPath();ctx.arc(X,190,5,Math.PI,0);ctx.strokeStyle=C.ach;ctx.lineWidth=2.2;ctx.stroke()}
+  const fw=420*(1-.18*ten);rr(cx-fw/2,194,fw,62,18);ctx.fillStyle=C.muscle;ctx.fill();ctx.strokeStyle=C["muscle-edge"];ctx.lineWidth=1.8;ctx.stroke();
+  for(let k=1;k<16;k++){const X=cx-fw/2+fw*k/16;line(X,198,X,252,hexA(C["muscle-edge"],.5),1.2)}
+  txt(cx,274,"muscle fibre: "+(ten>.6?"contracted":ten>.15?"twitching":"relaxed"),{size:12.5,weight:700,align:"center"});
+  if(NM.mode==="bot"&&NM.bBot>.05)label(370,62,"Toxin blocks ACh release",{size:12,weight:700,align:"center",border:C.toxin});
+  // spinal cord inset
+  panelBox(490,10,300,282);title(502,30,"Spinal cord (inset)");
+  const mnx=620,mny=150;neuronBody(mnx,mny,26,{seed:3});txt(mnx,mny+48,"motor neuron",{size:12,align:"center",weight:600});
+  const inx=730,iny=80;ctx.save();ctx.translate(inx,iny);blobPath(0,0,18,5,0,.12);ctx.fillStyle=mix(C.inhib,C.panel,.55);ctx.fill();ctx.strokeStyle=C.inhib;ctx.lineWidth=1.6;ctx.stroke();ctx.restore();
+  txt(inx,iny+30,"inhibitory",{size:12,align:"center",weight:600});txt(inx,iny+44,"neuron",{size:12,align:"center",weight:600});
+  const ip=[[inx-16,iny+8],[680,120],[mnx+28,mny-10]];poly(ip,C.inhib,4);circ(mnx+28,mny-10,6,C.inhib);
+  if(NM.mode==="tet"){const n=Math.round(NM.bTet*5);for(let k=0;k<n;k++)toxinA(mnx+30+k*6-12,mny-24-(k%2)*6,3.6)}
+  for(let k=0;k<3;k++){const p=P(T*.8+k/3,1);const blocked=NM.mode==="tet"&&rnd(k+Math.floor(T*.8+k/3)*7)<NM.bTet;const q=along(ip,blocked?Math.min(p,.8):p);if(!(blocked&&p>.85))circ(q[0],q[1],4,C.inhib)}
+  label(706,262,NM.mode==="tet"&&NM.bTet>.3?"Inhibition blocked":"Inhibition calms it",{size:12,weight:700,align:"center",border:NM.mode==="tet"&&NM.bTet>.3?C.toxin:C.inhib});
+  line(mnx,mny+26,mnx,286,C.nerve,5);if(fl>=0&&fl<.3)circ(mnx,lerp(mny+30,284,fl/.3),5,C.glow);
+  txt(520,262,"to muscle",{size:12,color:C["ink-soft"]});
+  // tension graph
+  graphBox(10,302,780,128,"Muscle tension, last 10 seconds");
+  const gx=60,gy=328,gw=710,gh=86;line(gx,gy+gh,gx+gw,gy+gh,C.rule,1.2);line(gx,gy,gx,gy+gh,C.rule,1.2);
+  ctx.save();ctx.setLineDash([5,4]);line(gx,gy+gh*.2,gx+gw,gy+gh*.2,hexA(C.bad,.6),1.2);ctx.restore();txt(gx+gw-4,gy+gh*.2-8,"80%",{size:11.5,mono:true,align:"right",color:C["ink-soft"]});
+  txt(gx-8,gy,"100%",{size:11.5,mono:true,align:"right",color:C["ink-soft"]});txt(gx-8,gy+gh,"0",{size:11.5,mono:true,align:"right",color:C["ink-soft"]});
+  ctx.beginPath();NM.hist.forEach((h_,i)=>{const X=gx+gw*(1-(t-h_[0])/10),Y=gy+gh*(1-h_[1]);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)});ctx.strokeStyle=C.accent;ctx.lineWidth=2.2;ctx.stroke();
+  const cap=`${{norm:"Normal",bot:"Botulism",tet:"Tetanus"}[NM.mode]}: tension ${Math.round(ten*100)}%. ${nState()[0]}`;if($("#nCap").textContent!==cap)$("#nCap").textContent=cap}
+function nmjA11y(){const ten=tensionAt(NM.t);const st=nState()[0];const lab=`${{norm:"Normal",bot:"Botulism",tet:"Tetanus"}[NM.mode]} synapse. ${st}`;
+  const d=`Left: a yellow nerve ending full of round vesicles sits above a pink muscle fibre. ${NM.mode==="bot"?`Red toxin sits on about ${Math.round(NM.bBot*100)}% of the vesicles, so few green ACh dots fall into the gap.`:"Green ACh dots fall into the gap with each signal."} The fibre is ${ten>.6?"short and contracted":ten>.15?"twitching":"long and relaxed"}. Top right: a spinal cord inset with a yellow motor neuron and a purple inhibitory neuron${NM.mode==="tet"?`; red tetanus toxin blocks about ${Math.round(NM.bTet*100)}% of its calming signals`:""}. Bottom: a graph of muscle tension over the last 10 seconds, now about ${Math.round(ten*10)*10}%.`;
+  return [lab+" Tension about "+Math.round(ten*10)*10+" percent.",d]}
+
+/* ================= PART 3: urine culture bench ================= */
+const S3=makeStage("cvUc",800,440);
+const SAMP=[
+ {name:"Ana, 26",story:"Burning urination and frequency for 2 days. Clean-catch midstream sample. Dipstick: leukocyte esterase and nitrite positive.",cfu:120000,cols:["ecoli"],ans:"sig",org:"one colony type (a Gram-negative rod such as E. coli)"},
+ {name:"Ben, 70",story:"Has had a urinary catheter for 3 weeks. Fever and confusion. Sample taken from the catheter sampling port.",cfu:250000,cols:["kleb"],ans:"sig",org:"one large, shiny (mucoid) colony type, such as Klebsiella"},
+ {name:"Carla, 31",story:"No symptoms. Sample collected without cleaning first and left on the counter for 3 hours before reaching the lab.",cfu:60000,cols:["ecoli","staph","entero"],ans:"cont",org:"three different colony types, typical of skin and urethral microbes"},
+ {name:"Dee, 22",story:"No symptoms. Routine check before a procedure. Clean-catch midstream sample.",cfu:3000,cols:["ecoli"],ans:"low",org:"a few colonies of one type"},
+ {name:"Eli, 19",story:"Burning and urgency for a day. Clean-catch midstream sample. Dipstick: leukocyte esterase positive, nitrite negative.",cfu:150000,cols:["staph"],ans:"sig",org:"one type of small white colony, such as Staphylococcus saprophyticus (it does not make nitrite)"}];
+const UC={i:0,vol:.001,t0:null,cols:[],marked:new Set(),ui:null,solved:{},tntc:false,shown:false};
+const uChalDone=store.get("uc-chal")||[0,0,0,0];
+const U_CHAL=["Get a correct CFU/mL and interpretation for a countable plate.","Spot a <b>contaminated</b> sample.","Plate a high-count sample with the <b>0.01 mL</b> loop and see a plate too crowded to count.","Solve all <b>five</b> samples."];
+function uChalUI(){chalList("#uChal",U_CHAL,uChalDone);$("#uChalStars").innerHTML=chalStars(uChalDone.reduce((a,b)=>a+b,0),4)}
+function uMark(i){if(!uChalDone[i]){uChalDone[i]=1;store.set("uc-chal",uChalDone);uChalUI()}}
+const PX=520,PY=222,PR=176;
+function uMakeCols(){const s=SAMP[UC.i];const n=Math.round(s.cfu*UC.vol*(.92+.16*rnd(UC.i*3.1+UC.vol*1e3)));UC.tntc=n>300;const out=[];
+  const m=Math.min(n,UC.tntc?900:n);for(let k=0;k<m;k++){const a=rnd(k*2.37+UC.i*11+UC.vol*7)*TAU,d=Math.sqrt(rnd(k*5.13+UC.i*3+1))*(PR-14);const type=s.cols[k%s.cols.length];out.push({x:PX+Math.cos(a)*d,y:PY+Math.sin(a)*d,type,r:{ecoli:4.6,kleb:7,staph:3.2,entero:2.6}[type]*(UC.tntc?.8:1)*(.85+.3*rnd(k+.5))})}
+  UC.cols=out;UC.n=n}
+function uLoad(){const s=SAMP[UC.i];$("#uN").textContent="Sample "+(UC.i+1)+" of "+SAMP.length+" · "+s.name;$("#uStory").textContent=s.story;UC.t0=null;UC.cols=[];UC.marked=new Set();UC.ui=null;UC.shown=false;$("#uAns").value="";setMsg("#uMsg","","");uUI();a11yKey=""}
+function uUI(){$("#uL1").setAttribute("aria-pressed",UC.vol===.001?"true":"false");$("#uL2").setAttribute("aria-pressed",UC.vol===.01?"true":"false");$("#uTally").textContent="Tally: "+UC.marked.size;
+  document.querySelectorAll("#tab-uc [data-ui]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.ui===UC.ui?"true":"false"))}
+$("#uL1").onclick=()=>{UC.vol=.001;UC.t0=null;UC.cols=[];UC.marked=new Set();uUI();a11yKey=""};$("#uL2").onclick=()=>{UC.vol=.01;UC.t0=null;UC.cols=[];UC.marked=new Set();uUI();a11yKey=""};
+$("#uGo").onclick=()=>{uMakeCols();UC.marked=new Set();UC.t0=performance.now();uUI();setMsg("#uMsg","Streaking, then incubating overnight at 35 °C...","info");a11yKey=""};
+$("#uNew").onclick=()=>{UC.i=(UC.i+1)%SAMP.length;uLoad()};
+const uReady=()=>UC.t0!=null&&performance.now()-UC.t0>5200;
+$("#uAuto").onclick=()=>{if(!uReady()){setMsg("#uMsg","Streak and incubate first, then wait for the colonies to grow.","warn");return}if(UC.tntc){setMsg("#uMsg","This plate is too crowded to count (TNTC). Use the 0.001 mL loop and plate again.","warn");return}UC.cols.forEach((c,k)=>UC.marked.add(k));uUI();a11yKey="";setMsg("#uMsg",`Counted ${UC.n} colonies${SAMP[UC.i].cols.length>1?" of "+SAMP[UC.i].cols.length+" different types":""}. Now work out CFU/mL.`,"info")};
+$("#uClear").onclick=()=>{UC.marked=new Set();uUI()};
+S3.cv.addEventListener("click",e=>{if(!uReady()||UC.tntc)return;const r=S3.cv.getBoundingClientRect();const x=(e.clientX-r.left)/r.width*800,y=(e.clientY-r.top)/r.height*440;let best=-1,bd=14;UC.cols.forEach((c,k)=>{if(UC.marked.has(k))return;const d=Math.hypot(c.x-x,c.y-y);if(d<bd){bd=d;best=k}});if(best>=0){UC.marked.add(best);uUI()}});
+document.querySelectorAll("#tab-uc [data-ui]").forEach(b=>b.onclick=()=>{UC.ui=b.dataset.ui;uUI()});
+function parseNum(s){s=String(s).trim().replace(/,/g,"").replace(/\s+/g,"").replace(/[×x*]10\^?/i,"e").replace(/−/g,"-");const v=Number(s);return isFinite(v)?v:NaN}
+function uTruth(){return UC.n/UC.vol}
+const UIN={sig:"significant",low:"not significant",cont:"contaminated"};
+$("#uCheck").onclick=()=>{const s=SAMP[UC.i];if(!uReady()){setMsg("#uMsg","Streak and incubate the plate first.","warn");return}
+  if(UC.tntc){uMark(2);setMsg("#uMsg","This plate is <b>TNTC</b> (too numerous to count): the 0.01 mL loop carried too many bacteria. Choose the 0.001 mL loop and plate again.","warn");return}
+  const v=parseNum($("#uAns").value);if(!(v>0)){setMsg("#uMsg","Type your CFU/mL first (for example 120000).","warn");return}
+  if(!UC.ui){setMsg("#uMsg","Choose an interpretation too.","warn");return}
+  const tv=uTruth();const numOk=Math.abs(v-tv)/tv<=.03;const intOk=UC.ui===s.ans;const mult=UC.vol===.001?"1,000":"100";
+  if(numOk&&intOk){UC.solved[UC.i]=1;uMark(0);if(s.ans==="cont")uMark(1);if(SAMP.every((q,i)=>UC.solved[i]))uMark(3);
+    setMsg("#uMsg",`<b>Correct.</b> ${UC.n} colonies × ${mult} = <b>${Math.round(tv).toLocaleString()} CFU/mL</b>. The plate shows ${s.org}, so the result is <b>${UIN[s.ans]}</b>. ${{sig:"A pure count of 100,000 CFU/mL or more points to a true infection; the lab would identify it and test antibiotic susceptibility.",low:"A low count of one type in someone without symptoms is usually not treated.",cont:"Three or more types means skin or urethral microbes got in, or the sample sat too long. The fix is a new, properly collected sample."}[s.ans]}`,"good");return}
+  let m="";if(!numOk)m+=`Your count is off. CFU/mL = colonies ÷ loop volume: with the ${UC.vol} mL loop, multiply the colonies by ${mult}. `;
+  if(!intOk)m+={sig:"Look at the count again: one colony type at or above 100,000 CFU/mL counts as significant.",low:"This count is well below 100,000 CFU/mL with only one type, and the person has no symptoms.",cont:"Look at the colony types: there are three different sizes and colours on the plate. That means contamination, whatever the count."}[s.ans];
+  setMsg("#uMsg","Not quite. "+m,"warn")};
+$("#uHint").onclick=()=>setMsg("#uMsg","Hint: count the colonies (or press Count for me). Multiply by 1,000 for the 0.001 mL loop or by 100 for the 0.01 mL loop. Then ask: how many colony types grew, and is the count 100,000 or more?","info");
+$("#uShow").onclick=()=>{const s=SAMP[UC.i];if(!uReady()||UC.tntc){UC.vol=.001;uMakeCols();UC.t0=performance.now()-6000}UC.cols.forEach((c,k)=>UC.marked.add(k));UC.ui=s.ans;$("#uAns").value=String(Math.round(uTruth()));uUI();
+  setMsg("#uMsg",`Answer: ${UC.n} colonies with the ${UC.vol} mL loop = ${Math.round(uTruth()).toLocaleString()} CFU/mL; ${s.org}; <b>${UIN[s.ans]}</b>. Press Next sample to try another.`,"info");a11yKey=""};
+function drawUc(now){use(S3);const T=now/1000;const s=SAMP[UC.i];const el=UC.t0==null?-1:(now-UC.t0)/1000;
+  panelBox(10,10,230,420);title(22,30,"Sample and loop");
+  ctx.beginPath();ctx.moveTo(60,80);ctx.lineTo(180,80);ctx.lineTo(168,200);ctx.lineTo(72,200);ctx.closePath();ctx.fillStyle=hexA(C.panel,.9);ctx.fill();
+  ctx.save();ctx.beginPath();ctx.moveTo(64,112);ctx.lineTo(176,112);ctx.lineTo(168,200);ctx.lineTo(72,200);ctx.closePath();ctx.fillStyle=hexA(C.urine,s.ans==="cont"?.75:.6);ctx.fill();ctx.restore();
+  ctx.beginPath();ctx.moveTo(60,80);ctx.lineTo(72,200);ctx.lineTo(168,200);ctx.lineTo(180,80);ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.8;ctx.stroke();
+  txt(120,220,s.name,{size:12.5,weight:700,align:"center"});
+  const lr=UC.vol===.001?6:10;line(70,280,120,262,C["ink-soft"],2.4);circ(126,260,lr,null,C["ink-soft"],2);txt(120,300,UC.vol+" mL loop",{size:12.5,mono:true,weight:700,align:"center"});
+  txt(120,322,"multiply by "+(UC.vol===.001?"1,000":"100"),{size:12,align:"center",color:C["ink-soft"]});
+  const stp=el<0?0:el<1.6?1:el<3.6?2:3;stepRow(22,360,206,["Streak","Incubate","Count"],stp-1,C.accent);
+  if(stp===2){const cx=120,cy=404;circ(cx,cy,14,C.panel,C["ink-soft"],1.6);line(cx,cy,cx+Math.cos(T*6)*10,cy+Math.sin(T*6)*10,C.ink,2);txt(cx+22,cy,"overnight, 35 °C",{size:12,weight:600})}
+  // plate
+  panelBox(250,10,540,420);title(262,30,"Agar plate");
+  plateC(PX,PY,PR,[],1,{});
+  if(el>=0){const sk=clamp(el/1.5,0,1);ctx.beginPath();const N=60;for(let i=0;i<=N*sk;i++){const f=i/N;const X=PX-130+f*260,Y=PY-130+Math.abs(((f*10)%2)-1)*260;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=hexA(C.ink,.22);ctx.lineWidth=1.2;ctx.stroke();
+    if(el<1.6){const f=sk;circ(PX-130+f*260,PY-130+Math.abs(((f*10)%2)-1)*260,lr,null,C["ink-soft"],2)}}
+  const g=el<0?0:clamp((el-3.6)/1.4,0,1);
+  if(g>0){ctx.save();ctx.beginPath();ctx.arc(PX,PY,PR,0,TAU);ctx.clip();
+    if(UC.tntc){ctx.globalAlpha=g;circ(PX,PY,PR,hexA(mix(C.agar,C.ink,.25),.55))}
+    UC.cols.forEach((c,k)=>{const col={ecoli:mix(C.agar,C.ink,.3),kleb:mix(C.agar,C.panel,.65),staph:mix(C.panel,"#FFFFFF",.5),entero:mix(C.agar,C.act1,.45)}[c.type];circ(c.x,c.y,c.r*g,col,hexA(C.ink,.35),.8);
+      if(c.type==="kleb")circ(c.x-c.r*.3,c.y-c.r*.3,c.r*.3*g,hexA("#FFFFFF",.6));if(UC.marked.has(k))circ(c.x,c.y,2.4,C.good)});ctx.restore()}
+  if(g>=1&&UC.tntc)label(PX,PY,"TNTC: too numerous to count",{size:14,weight:700,align:"center",border:C.warn});
+  if(g>=1&&!UC.tntc&&UC.marked.size)label(PX,PY+PR+0,"Tallied: "+UC.marked.size,{size:13,weight:700,align:"center",mono:true,border:C.good});
+  if(el<0)label(PX,PY,"Choose a loop, then press Streak and incubate",{size:13,weight:600,align:"center"});
+  const cap=el<0?`${s.name}: plate not streaked yet.`:g<1?`${s.name}: ${stp===1?"streaking the plate":"incubating"}.`:UC.tntc?`${s.name}: plate too crowded to count with the 0.01 mL loop.`:`${s.name}: ${UC.n} colonies${s.cols.length>1?" of "+s.cols.length+" different types":", one type"} grew with the ${UC.vol} mL loop. Tallied ${UC.marked.size}.`;
+  if($("#uCap").textContent!==cap)$("#uCap").textContent=cap;
+  if(g>=1&&/incubating/.test($("#uMsg").textContent))setMsg("#uMsg","Colonies have grown. Count them, then work out CFU/mL.","info")}
+function ucA11y(){const s=SAMP[UC.i];const lab="Urine culture bench. "+$("#uCap").textContent;
+  const grown=uReady();const d=`Left: a urine cup labelled ${s.name} and a ${UC.vol} mL calibrated loop. Right: a large agar plate${!grown?" waiting to be streaked or incubating":UC.tntc?" so crowded with colonies that it is cloudy and labelled too numerous to count":` with ${UC.n} small colonies spread across it${s.cols.length>1?", in three different sizes and colours":", all the same size and colour"}`}. Tallied colonies get a green dot.`;
+  return [lab,d]}
+
+/* ================= PART 4: patient case files ================= */
+const CASES=[
+{name:"Case 1",title:"Jasmine, 23: burning when she urinates",img:"gnrods",imgT:"Gram stain of urine",
+ vit:[["Temp","37.1 °C",0],["Heart rate","84",0],["BP","116/74",0]],labs:[["Leukocyte esterase","Positive",1],["Nitrite","Positive",1],["Urine culture","150,000 CFU/mL, one type",1]],
+ story:`<p>Jasmine has had burning urination, urgency and frequency for two days. No fever, no back or side pain. A clean-catch midstream sample was sent to the lab.</p>`,
+ qs:[{q:"Where did the bacteria most likely come from?",hint:"The bladder is normally sterile. Where do Gram-negative rods like E. coli normally live?",opts:[
+   ["Her own gut microbiota, moving from the anal area to the urethra and climbing up",1,"Yes. Most UTIs are caused by the person's own gut E. coli ascending the short urethra."],
+   ["The bladder's own normal microbiota",0,"The bladder is normally sterile. The bacteria came from outside, usually the gut."],
+   ["Spread through the blood from another site",0,"Blood spread to the bladder is rare. UTIs nearly always ascend from the urethra."],
+   ["A partner with gonorrhea",0,"Gonorrhea is a Gram-negative diplococcus. This stain shows rods, typical of gut bacteria."]]},
+  {q:"Why does a positive nitrite test fit this organism?",hint:"Which bacteria change nitrate in urine into nitrite?",opts:[
+   ["Many Gram-negative rods, such as E. coli, turn nitrate into nitrite",1,"Right. Nitrite suggests these bacteria. Leukocyte esterase is the white cell sign."],
+   ["White blood cells release nitrite",0,"White cells give the leukocyte esterase result. Nitrite comes from bacteria."],
+   ["Nitrite shows the kidneys are damaged",0,"Nitrite comes from bacterial metabolism, not kidney damage."],
+   ["Nitrite is made by yeast in the bladder",0,"Yeast do not make nitrite. Many Gram-negative rods do."]]},
+  {q:"She has no fever and no flank pain. Which diagnosis fits best?",hint:"Which level of the urinary tract causes fever, chills and flank pain?",opts:[
+   ["Cystitis (bladder infection)",1,"Yes. Burning, urgency and frequency without fever or flank pain point to the bladder."],
+   ["Pyelonephritis",0,"Kidney infection usually brings fever, chills and flank pain, which she does not have."],
+   ["Urosepsis",0,"Sepsis would cause fever, a fast heart rate and low blood pressure. Her vitals are normal."],
+   ["Leptospirosis",0,"Leptospirosis comes from animal urine in water and causes fever and muscle aches, not simple burning urination."]]}]},
+{name:"Case 2",title:"Robert, 74: fever with a urinary catheter",img:"plate",imgT:"Urine culture plate",
+ vit:[["Temp","38.8 °C",1],["Heart rate","108",1],["BP","104/66",1]],labs:[["Catheter","In place 3 weeks",1],["Urine culture","250,000 CFU/mL, Gram-negative rod",1],["Blood white cells","16,000 per µL (high)",1]],
+ story:`<p>Robert had hip surgery three weeks ago and still has a urinary catheter. Today he has a fever and is confused. The catheter tubing has a cloudy coating inside.</p>`,
+ qs:[{q:"Why does a urinary catheter raise the risk of infection?",hint:"Think about routes up the tube, the flushing defense, and what grows on surfaces.",opts:[
+   ["Microbes climb along the tube, the bladder never fully empties, and a biofilm forms on the catheter",1,"Yes. The catheter is a highway and a surface for biofilm, and it removes the flushing defense."],
+   ["Catheters are made from bacteria",0,"Catheters are sterile when inserted. Bacteria reach them from the skin or the drainage bag."],
+   ["Catheters make urine more acidic",0,"Acidity slows bacteria. The problem is the route and the biofilm."],
+   ["Catheters block the immune system everywhere in the body",0,"The effect is local: a surface for biofilm and a path into the bladder."]]},
+  {q:"Which step would best prevent this in other patients?",hint:"The biggest risk factor is how long the catheter stays in.",opts:[
+   ["Use catheters only when needed, insert them sterilely, keep a closed system, and remove them as soon as possible",1,"Right. Fewer catheter days means fewer infections."],
+   ["Give every patient with a catheter daily antibiotics",0,"Routine antibiotics breed resistant bacteria and do not clear biofilms."],
+   ["Lift the drainage bag above the bladder",0,"The bag should stay below the bladder, so urine does not flow back up."],
+   ["Use a bigger catheter",0,"Size does not prevent biofilm. Shorter use and good technique do."]]},
+  {q:"Why might antibiotics fail if the catheter is left in place?",hint:"What protects bacteria living on the tube?",opts:[
+   ["The biofilm matrix shields bacteria from drugs, so the catheter usually needs to be replaced or removed",1,"Yes. Biofilm bacteria can survive drug levels that kill free cells."],
+   ["Antibiotics cannot enter urine",0,"Many antibiotics reach high levels in urine. The biofilm is the barrier."],
+   ["The bacteria are viruses",0,"These are Gram-negative rods, not viruses."],
+   ["Fever destroys antibiotics",0,"Fever does not destroy antibiotics. Biofilm protects the bacteria."]]}]},
+{name:"Case 3",title:"Marcus, 27: urethral discharge",img:"gono",imgT:"Gram stain of discharge",
+ vit:[["Temp","37.0 °C",0],["Heart rate","78",0],["BP","124/80",0]],labs:[["Gram stain","Gram-negative diplococci inside neutrophils",1],["NAAT gonorrhea","Positive",1],["NAAT chlamydia","Pending",0]],
+ story:`<p>Marcus has had burning urination and a thick discharge for 3 days, starting a few days after sex with a new partner. He had the same infection two years ago and was treated.</p>`,
+ qs:[{q:"Which organism fits the Gram stain?",hint:"Pink pairs of beans inside neutrophils.",opts:[
+   ["Neisseria gonorrhoeae",1,"Yes. Gram-negative diplococci inside neutrophils in a man's urethral discharge is classic gonorrhea."],
+   ["Chlamydia trachomatis",0,"Chlamydia is obligate intracellular and does not show up as diplococci on a Gram stain."],
+   ["Treponema pallidum",0,"T. pallidum is a thin spirochete seen by darkfield, not a Gram-negative diplococcus."],
+   ["Escherichia coli",0,"E. coli is a Gram-negative rod, not a diplococcus."]]},
+  {q:"Why did his earlier infection not protect him?",hint:"What does N. gonorrhoeae keep changing?",opts:[
+   ["It keeps changing its pili and outer proteins (antigenic variation), so old antibodies do not fit",1,"Right. That is why reinfection is common and there is no vaccine yet."],
+   ["Antibiotics erase all immune memory",0,"Antibiotics do not erase immune memory. The bacterium changes its surface."],
+   ["Gonorrhea hides in nerve ganglia",0,"That is herpes. Gonorrhea dodges antibodies by antigenic variation."],
+   ["He was infected by a virus this time",0,"The Gram stain shows bacteria, the same species as before."]]},
+  {q:"Besides treating Marcus, what else should happen?",hint:"STIs travel together, and partners can be silent carriers.",opts:[
+   ["His partners are tested and treated, and he is tested for other STIs such as chlamydia, syphilis and HIV",1,"Yes. Treating partners prevents reinfection, and other STIs are common alongside gonorrhea."],
+   ["Nothing: partners always have symptoms if infected",0,"Many partners, especially women, have no symptoms."],
+   ["Give him the gonorrhea vaccine",0,"There is no gonorrhea vaccine."],
+   ["Wait two weeks to see if it clears alone",0,"Untreated gonorrhea can spread and cause complications. It should be treated now."]]}]},
+{name:"Case 4",title:"Nina, 22: a routine screening test",img:"naat",imgT:"NAAT result",
+ vit:[["Temp","36.8 °C",0],["Heart rate","72",0],["BP","110/70",0]],labs:[["NAAT chlamydia","Positive",1],["NAAT gonorrhea","Negative",0],["Symptoms","None",0]],
+ story:`<p>Nina came in for a yearly check-up. She feels completely well. Because she is sexually active and under 25, a urine NAAT screen was done.</p>`,
+ qs:[{q:"Why was a NAAT used instead of growing the organism on agar?",hint:"Where can Chlamydia multiply?",opts:[
+   ["Chlamydia is obligate intracellular, so it does not grow on ordinary agar; NAAT detects its DNA",1,"Yes. NAAT is fast, sensitive and works on a simple urine sample."],
+   ["Chlamydia grows too fast on agar to count",0,"Chlamydia cannot grow on agar at all; it needs living cells."],
+   ["Agar would kill the patient's lactobacilli",0,"Agar is a lab medium. The issue is that Chlamydia only grows inside cells."],
+   ["NAAT shows the stage of syphilis",0,"NAAT here detects Chlamydia DNA. Syphilis is found mainly by blood tests."]]},
+  {q:"She feels fine. Why should she still be treated?",hint:"What can silent infection do to the fallopian tubes?",opts:[
+   ["Untreated infection can climb and cause PID, scarring the tubes and leading to infertility or ectopic pregnancy",1,"Right. Silent does not mean harmless; that is why screening exists."],
+   ["It will turn into gonorrhea",0,"Chlamydia does not turn into another species. The risk is PID and scarring."],
+   ["Treatment gives lifelong immunity",0,"Reinfection can happen. Treatment cures the current infection."],
+   ["It only matters if she gets a rash",0,"Chlamydia does not usually cause a rash. Silent infection can still scar the tubes."]]},
+  {q:"Which drug class fits an obligate intracellular bacterium like Chlamydia?",hint:"The drug has to work inside host cells.",opts:[
+   ["A tetracycline (doxycycline) or a macrolide (azithromycin)",1,"Yes. These reach inside cells where Chlamydia lives."],
+   ["An azole antifungal",0,"Azoles treat fungi such as Candida. Chlamydia is a bacterium."],
+   ["An antiviral like acyclovir",0,"Acyclovir treats herpes viruses, not bacteria."],
+   ["No drug: it always clears in a week",0,"It can persist silently for months and cause damage, so it should be treated."]]}]},
+{name:"Case 5",title:"Tom, 35: a rash on his palms",img:"sero",imgT:"Syphilis blood tests",
+ vit:[["Temp","37.9 °C",1],["Heart rate","88",0],["BP","122/78",0]],labs:[["RPR (nontreponemal)","Reactive, 1:64",1],["TP-PA (treponemal)","Reactive",1],["HIV test","Negative",0]],
+ story:`<p>Tom has a non-itchy rash on his palms and the soles of his feet, mild fever and swollen lymph nodes. About two months ago he had a painless sore that healed on its own.</p>`,
+ qs:[{q:"Which stage of syphilis is this?",hint:"A painless sore first, then a rash on the palms and soles weeks later.",opts:[
+   ["Secondary syphilis",1,"Yes. The healed chancre and the palm and sole rash are classic secondary syphilis."],
+   ["Primary syphilis",0,"Primary syphilis is the chancre itself, which has already healed."],
+   ["Latent syphilis",0,"Latent syphilis has no symptoms. He has a rash and fever."],
+   ["Tertiary syphilis",0,"Tertiary syphilis comes years to decades later with gummas, heart or nervous system damage."]]},
+  {q:"Why are two different blood tests used?",hint:"One is a screen that falls after treatment; the other targets the organism itself.",opts:[
+   ["The nontreponemal RPR screens and tracks treatment; the treponemal TP-PA confirms T. pallidum infection",1,"Right. Together they confirm infection and let doctors follow the cure."],
+   ["Both tests grow the bacteria from blood",0,"T. pallidum cannot be grown on lab media. These tests detect antibodies."],
+   ["One test is for HIV and one for syphilis",0,"Both RPR and TP-PA are syphilis tests. HIV is tested separately."],
+   ["Two tests are needed because darkfield works only on blood",0,"Darkfield is used on fluid from sores, not blood."]]},
+  {q:"What is the treatment idea?",hint:"T. pallidum has not become resistant to the classic drug.",opts:[
+   ["A penicillin injection",1,"Yes. Penicillin is still the drug of choice for syphilis."],
+   ["No treatment, because the rash will fade",0,"The rash fades, but the infection continues into latency and can cause tertiary damage."],
+   ["An azole antifungal",0,"Azoles treat fungi. Syphilis is caused by a bacterium."],
+   ["An antiviral such as acyclovir",0,"Acyclovir treats herpes. Syphilis is bacterial."]]}]},
+{name:"Case 6",title:"Kayla, 19: fever, stiff neck and spots",img:"csf",imgT:"CSF Gram stain",
+ vit:[["Temp","39.6 °C",1],["Heart rate","124",1],["BP","92/58",1]],labs:[["CSF","Cloudy, 2,600 white cells (90% neutrophils)",1],["CSF glucose","18 mg/dL (low)",1],["CSF protein","280 mg/dL (high)",1]],
+ story:`<p>Kayla lives in a college dorm. Since this morning she has had a high fever, a severe headache, a stiff neck and small purple spots on her legs that do not fade when pressed.</p>`,
+ qs:[{q:"Which organism fits best?",hint:"Gram-negative diplococci in the CSF of a young adult in a dorm.",opts:[
+   ["Neisseria meningitidis",1,"Yes. Gram-negative diplococci, a dorm setting and a purple rash point to meningococcus."],
+   ["Streptococcus pneumoniae",0,"Pneumococcus is a Gram-positive (purple) diplococcus, more common in older adults."],
+   ["Listeria monocytogenes",0,"Listeria is a Gram-positive rod, seen mostly in newborns, older adults, pregnancy and weak immunity."],
+   ["Cryptococcus neoformans",0,"Cryptococcus is a yeast seen with India ink, mostly in advanced AIDS."]]},
+  {q:"Why is her blood pressure low and why does she have a rash?",hint:"What does the outer membrane of a Gram-negative bacterium carry?",opts:[
+   ["Endotoxin from the Gram-negative outer membrane triggers shock and damages small blood vessels",1,"Right. Meningococcal endotoxin can cause shock and bleeding into the skin within hours."],
+   ["The capsule turns the blood purple",0,"The capsule blocks phagocytosis. The rash comes from endotoxin damaging vessels."],
+   ["The meninges press on her heart",0,"The meninges cover the brain and spinal cord. Shock comes from endotoxin in the blood."],
+   ["She has a separate skin infection",0,"The spots are part of the meningococcal infection, from damaged blood vessels."]]},
+  {q:"Her roommate feels fine. What should the roommate get?",hint:"Close contacts of meningococcal disease are at higher risk.",opts:[
+   ["Preventive antibiotics (prophylaxis), and a check that her meningococcal vaccines are up to date",1,"Yes. Close contacts get prophylaxis because meningococcus spreads by droplets."],
+   ["Nothing unless she gets a fever",0,"Waiting is risky; meningococcal disease can kill within hours. Contacts get prophylaxis."],
+   ["A lumbar puncture",0,"A healthy contact does not need a spinal tap; she needs preventive antibiotics."],
+   ["An antifungal drug",0,"Meningococcus is a bacterium, so antifungals would not help."]]}]},
+{name:"Case 7",title:"Henry, 58: a stiff jaw after a garden injury",img:"spores",imgT:"Gram stain of wound",
+ vit:[["Temp","37.8 °C",1],["Heart rate","110",1],["BP","150/90",1]],labs:[["Wound","Deep puncture from a nail, 9 days ago",1],["Last tetanus shot","About 25 years ago",1],["Wound Gram stain","Gram-positive rods with end spores",1]],
+ story:`<p>Henry stepped on a nail while gardening. Now his jaw is stiff, he has trouble opening his mouth, and painful muscle spasms come with noise or touch.</p>`,
+ qs:[{q:"Why are his muscles stiff rather than limp?",hint:"Which neurons does tetanus toxin silence?",opts:[
+   ["Tetanus toxin blocks inhibitory neurons, so motor neurons fire nonstop (spastic paralysis)",1,"Yes. Without the calming GABA and glycine signals, muscles stay contracted."],
+   ["The toxin blocks ACh release at the muscle",0,"That is botulism, which causes limp (flaccid) paralysis."],
+   ["The bacteria destroy his motor neurons",0,"Destroying motor neurons, as in polio, causes limp paralysis."],
+   ["His muscles are infected with bacteria",0,"The bacteria stay in the wound. The toxin travels to the spinal cord."]]},
+  {q:"Why did a deep puncture wound matter?",hint:"Clostridium tetani is an obligate anaerobe.",opts:[
+   ["Spores from soil germinate in the low-oxygen depth of the wound and make toxin",1,"Right. Deep, dirty wounds give the anaerobe the conditions it needs."],
+   ["Deep wounds let air in, which the bacteria need",0,"C. tetani is killed by oxygen. It grows where oxygen is low."],
+   ["The nail was coated in toxin",0,"The toxin is made by bacteria growing in the wound, not carried on the nail."],
+   ["Puncture wounds always cause tetanus",0,"Vaccinated people are protected. Henry's protection had lapsed."]]},
+  {q:"What would most likely have prevented this?",hint:"What does the tetanus vaccine contain, and how long does it last?",opts:[
+   ["A tetanus toxoid booster every 10 years (and after a dirty wound if his last dose was over 5 years ago)",1,"Yes. Toxoid vaccine trains antibodies against the toxin; protection fades without boosters."],
+   ["Washing the wound with alcohol only",0,"Cleaning helps, but vaccination is the key protection against the toxin."],
+   ["Taking antibiotics every day",0,"Daily antibiotics are not used for prevention. The toxoid vaccine is."],
+   ["Having had tetanus before",0,"Tetanus disease does not give lasting immunity; the toxin is too potent in tiny amounts."]]}]},
+{name:"Case 8",title:"Rosa, 34: itching after antibiotics",img:"koh",imgT:"KOH prep",
+ vit:[["Temp","36.9 °C",0],["Heart rate","76",0],["BP","118/72",0]],labs:[["Vaginal pH","4.2 (normal)",0],["KOH prep","Budding yeast and pseudohyphae",1],["Whiff test","Negative",0]],
+ story:`<p>Rosa finished a course of an antibacterial drug for a sinus infection last week. Now she has itching, burning and a thick white discharge.</p>`,
+ qs:[{q:"Which diagnosis fits the findings?",hint:"Normal pH plus budding yeast and pseudohyphae.",opts:[
+   ["Vulvovaginal candidiasis (yeast infection)",1,"Yes. Normal pH, yeast and pseudohyphae on KOH and a negative whiff test fit Candida."],
+   ["Bacterial vaginosis",0,"BV gives a pH above 4.5, clue cells and a fishy whiff test."],
+   ["Trichomoniasis",0,"Trichomoniasis gives a pH above 4.5 and swimming protozoa on a saline wet mount."],
+   ["Gonorrhea",0,"Gonorrhea would show Gram-negative diplococci, not yeast."]]},
+  {q:"Why did this start after the antibiotic?",hint:"Which normal microbes keep the pH low, and does an antibacterial drug harm fungi?",opts:[
+   ["The drug killed lactobacilli but not the yeast, so Candida overgrew",1,"Right. Losing the acid-making lactobacilli lets the opportunistic yeast take over."],
+   ["The antibiotic turned bacteria into yeast",0,"Bacteria cannot turn into yeast. The yeast was already present and overgrew."],
+   ["The sinus infection spread to the vagina",0,"The cause is the disturbed microbiota, not spread of the sinus infection."],
+   ["Antibiotics feed fungi directly",0,"They do not feed fungi; they remove competing bacteria."]]},
+  {q:"Which drug class treats this infection?",hint:"These drugs block ergosterol in the fungal membrane.",opts:[
+   ["An azole antifungal",1,"Yes. Azoles block ergosterol synthesis in the fungal cell membrane."],
+   ["Another antibacterial drug",0,"More antibacterials would make the imbalance worse and do not act on fungi."],
+   ["Metronidazole",0,"Metronidazole treats BV and trichomoniasis, not yeast."],
+   ["A penicillin injection",0,"Penicillin acts on bacterial cell walls; fungi do not have them."]]}]}];
+let cI=0,cQ=0;const cSolved=store.get("cases")||{};const cTried={};
+function cChips(){const b=$("#cChips");b.innerHTML="";CASES.forEach((c,i)=>{const nq=c.qs.length;const n=[...Array(nq).keys()].filter(q=>cSolved[i+"-"+q]).length;const x=document.createElement("button");x.type="button";x.className="chip"+(n===nq?" done":"");x.setAttribute("aria-pressed",i===cI?"true":"false");x.textContent=(i+1)+(n===nq?" ✓":"");x.setAttribute("aria-label",(i+1)+", "+c.name+": "+c.title+(n===nq?", solved":", "+n+" of "+nq+" answered"));x.onclick=()=>{cI=i;cQ=0;cLoad()};b.appendChild(x)})}
+function cLoad(){const c=CASES[cI];$("#cN").textContent=c.name+" of "+CASES.length;$("#cT").textContent=c.title;$("#cStory").innerHTML=c.story;cChips();cQLoad();a11yKey=""}
+function shuffleStable(a,seed){return a.map((x,i)=>[x,rnd(seed*13+i*3.7)]).sort((p,q)=>p[1]-q[1]).map(p=>p[0])}
+function cQLoad(){const c=CASES[cI],q=c.qs[cQ];const nav=$("#cQnav");nav.innerHTML="";c.qs.forEach((x,i)=>{const b=document.createElement("button");b.type="button";b.className="chip"+(cSolved[cI+"-"+i]?" done":"");b.setAttribute("aria-pressed",i===cQ?"true":"false");b.textContent="Q"+(i+1);b.setAttribute("aria-label","Q"+(i+1)+", question "+(i+1)+(cSolved[cI+"-"+i]?", answered":""));b.onclick=()=>{cQ=i;cQLoad()};nav.appendChild(b)});
+  $("#cQ").textContent=q.q;const fb=$("#cFb");fb.className="fb";fb.textContent="";const box=$("#cOpts");box.innerHTML="";const key=cI+"-"+cQ;
+  shuffleStable(q.opts,cI*7+cQ).forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];b.onclick=()=>{box.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));
+    if(o[1]){b.classList.add("right");fb.className="fb show ok";fb.textContent="✓ "+o[2];if(!cSolved[key]){cSolved[key]=cTried[key]?1:2;store.set("cases",cSolved)}cChips();cQnavDone();cScore()}else{cTried[key]=1;b.classList.add("wrong");fb.className="fb show no";fb.textContent="Not quite. "+o[2]}};box.appendChild(b)});
+  $("#cNext").textContent=cQ<c.qs.length-1?"Next question →":cI<CASES.length-1?"Next case →":"Back to case 1";cScore()}
+function cQnavDone(){[...$("#cQnav").children].forEach((b,i)=>b.classList.toggle("done",!!cSolved[cI+"-"+i]))}
+function cScore(){const vals=Object.values(cSolved);const tot=CASES.reduce((a,c)=>a+c.qs.length,0);const first=vals.filter(v=>v===2).length;$("#cScore").textContent=vals.length?`Answered ${vals.length} of ${tot} questions, ${first} on the first try.`:"Pick an answer. Every option explains itself."}
+$("#cHint").onclick=()=>{const fb=$("#cFb");fb.className="fb show hint";fb.textContent="Hint: "+CASES[cI].qs[cQ].hint};
+$("#cShow").onclick=()=>{const q=CASES[cI].qs[cQ];const ans=q.opts.find(o=>o[1]);$("#cOpts").querySelectorAll(".opt").forEach(b=>{if(b.textContent===ans[0])b.classList.add("right")});const fb=$("#cFb");fb.className="fb show ok";fb.textContent="Answer: "+ans[0]+". "+ans[2];cTried[cI+"-"+cQ]=1};
+$("#cNext").onclick=()=>{if(cQ<CASES[cI].qs.length-1){cQ++;cQLoad()}else{cI=(cI+1)%CASES.length;cQ=0;cLoad()}};
+const S4=makeStage("cvCase",800,300);
+function caseImg(kind,x,y,T){
+  if(kind==="gnrods")microField(x,y,96,C.field,()=>{neutrophil(x-40,y-20,22,{seed:1,t:T});neutrophil(x+36,y+30,22,{seed:2,t:T});for(let k=0;k<12;k++)rod(x-70+rnd(k)*140,y-60+rnd(k+3)*120,14,6,rnd(k+7)*3,C.gneg,{})});
+  else if(kind==="plate"){plateC(x,y,92,Array.from({length:110},(_,k)=>{const a=rnd(k*2.3)*TAU,d=Math.sqrt(rnd(k*3.1))*84;return [Math.cos(a)*d,Math.sin(a)*d,3.5+rnd(k)*1.5]}),.85+.15*Math.sin(T),{col:mix(C.agar,C.ink,.3)})}
+  else if(kind==="gono")microField(x,y,96,C.field,()=>{[[x-40,y-26],[x+34,y-10],[x-6,y+44]].forEach((n,k)=>neutrophil(n[0],n[1],26,{seed:k,t:T,inside:(a,b)=>{for(let q=0;q<4;q++)diplo(a-12+q*8,b+8-(q%2)*14,3.4,q,C.gneg,{})}}))});
+  else if(kind==="naat"){const gx=x-120,gy=y-80,gw=240,gh=150;line(gx,gy+gh,gx+gw,gy+gh,C.rule,1.4);line(gx,gy,gx,gy+gh,C.rule,1.4);const f=P(T,6);
+    plotFn(u=>1/(1+Math.exp(-(u-22)/2.2)),0,40,gx,gy,gw,gh,0,1.1,C.bad,2.6,null,f*40);plotFn(u=>.02,0,40,gx,gy,gw,gh,0,1.1,C["ink-soft"],2,[5,4],f*40);
+    txt(gx+gw,gy+20,"Chlamydia: positive",{size:12,weight:700,align:"right",color:C.bad});txt(gx+gw,gy+gh-14,"Gonorrhea: negative",{size:12,weight:700,align:"right",color:C["ink-soft"]});txt(gx+gw/2,gy+gh+16,"amplification cycles",{size:11.5,mono:true,align:"center",color:C["ink-soft"]})}
+  else if(kind==="sero"){[[x-70,"RPR","1:64"],[x+70,"TP-PA","reactive"]].forEach((c,i)=>{circ(c[0],y-6,52,hexA(C.sunk,.6),C["ink-soft"],1.4);for(let k=0;k<18;k++){const a=rnd(k*2+i)*TAU+T*.4,d=Math.sqrt(rnd(k*1.3+i))*38;circ(c[0]+Math.cos(a)*d,y-6+Math.sin(a)*d,2+3*rnd(k+3),hexA(i?C.act1:C.ink,.6))}
+    txt(c[0],y+64,c[1],{size:13,mono:true,weight:700,align:"center"});txt(c[0],y+82,c[2],{size:12,align:"center",weight:600,color:C.bad})})}
+  else if(kind==="csf"){csfTube(x-110,y-90,28,150,.85,{fill:.7,seed:3});microField(x+30,y,94,C.field,()=>{neutrophil(x,y-20,24,{seed:4,t:T,inside:(a,b)=>{diplo(a+4,b+6,3.4,1,C.gneg,{});diplo(a-8,b-4,3.4,2,C.gneg,{})}});neutrophil(x+60,y+36,22,{seed:5,t:T});for(let k=0;k<6;k++)diplo(x-50+rnd(k)*150,y-60+rnd(k+4)*120,3.6,k,C.gneg,{})})}
+  else if(kind==="spores")microField(x,y,96,C.field,()=>{for(let k=0;k<9;k++)rod(x-70+rnd(k*2)*140,y-60+rnd(k*3+1)*120,28,7,rnd(k+5)*3,C.gpos,{spore:true})});
+  else if(kind==="koh")microField(x,y,96,C.field,()=>{pseudohypha(x-80,y-20,6,.2,10,1);[[x-30,y-50],[x+40,y-30],[x+20,y+40],[x-50,y+40],[x+60,y+20]].forEach((p,k)=>yeast(p[0],p[1],9,{bud:P(T/4+k/5,1),ang:k}))})}
+function drawCase(now){use(S4);const T=now/1000;const c=CASES[cI];
+  panelBox(10,10,380,280);title(22,30,"Patient chart");
+  c.vit.forEach((v,i)=>{const x=22+i*122;panelBox(x,44,114,56,{stroke:v[2]?C.bad:C.rule,lw:v[2]?2:1.2});txt(x+10,60,v[0],{size:12,weight:600,color:C["ink-soft"]});txt(x+10,82,v[1],{size:15,mono:true,weight:700,color:v[2]?C.bad:C.ink});if(v[2])warnIcon(x+98,64,6,C.bad)});
+  c.labs.forEach((r_,i)=>{const y=126+i*52;line(22,y+30,378,y+30,C.rule,1);txt(24,y,r_[0],{size:12.5,weight:600,color:C["ink-soft"]});wrapText(r_[1],32,y+16,340,15,{size:13,weight:700,color:r_[2]?C.accent:C.ink});if(r_[2])circ(24,y+16,3.5,C.accent)});
+  panelBox(400,10,390,280);title(412,30,c.imgT);caseImg(c.img,595,160,T)}
+function caseA11y(){const c=CASES[cI];const lab=`${c.name} chart: ${c.vit.map(v=>v[0]+" "+v[1]).join(", ")}. ${c.imgT}.`;
+  const img={gnrods:"a round microscope view with light-blue neutrophils and many small pink rods",plate:"an agar plate covered with many cream colonies of one type",gono:"a microscope view of light-blue neutrophils, each holding several small pink bean-shaped pairs",naat:"a graph where the chlamydia curve rises in an S shape while the gonorrhea line stays flat",sero:"two test circles: dark clumps in the RPR circle, labelled 1 to 64, and blue clumps in the TP-PA circle, labelled reactive",csf:"a cloudy tube of spinal fluid and a microscope view with neutrophils and pink bean-shaped pairs",spores:"purple rods, each with a round swelling at one end, like drumsticks",koh:"oval yeast cells with buds and a chain of long pseudohyphae"}[c.img];
+  return [lab,`Left: a patient chart with three vital sign boxes (${c.vit.map(v=>v[0]+" "+v[1]+(v[2]?", flagged red":"")).join("; ")}) and lab lines: ${c.labs.map(r_=>r_[0]+": "+r_[1]).join("; ")}. Key findings are marked with a green dot. Right: ${img}.`]}
+
+/* ================= PART 5: sorting games ================= */
+const SICON={
+ dip:`<g fill="var(--gneg)" stroke="var(--ink-soft)" stroke-width="1"><path d="M22 12 A10 12 0 1 0 22 36 Z"/><path d="M26 12 A10 12 0 1 1 26 36 Z"/></g>`,
+ spi:`<path d="M4 24 q4 -10 8 0 t8 0 t8 0 t8 0 t8 0" stroke="var(--spiro)" stroke-width="3" fill="none" stroke-linecap="round"/>`,
+ rodn:`<rect x="6" y="17" width="36" height="14" rx="7" fill="var(--gneg)" stroke="var(--ink-soft)" stroke-width="1"/>`,
+ rodp:`<rect x="6" y="17" width="36" height="14" rx="7" fill="var(--gpos)" stroke="var(--ink-soft)" stroke-width="1"/>`,
+ yst:`<ellipse cx="20" cy="26" rx="12" ry="10" fill="var(--yeast)" stroke="var(--yeast-edge)" stroke-width="2"/><circle cx="34" cy="16" r="6" fill="var(--yeast)" stroke="var(--yeast-edge)" stroke-width="2"/>`,
+ vir:`<polygon points="24,6 39,15 39,33 24,42 9,33 9,15" fill="var(--capsid-2)" stroke="var(--capsid)" stroke-width="2.2"/><circle cx="24" cy="24" r="7" fill="none" stroke="var(--dna)" stroke-width="2"/>`,
+ pro:`<path d="M10 24 C10 12 34 12 40 24 C34 36 10 36 10 24 Z" fill="var(--trich)" fill-opacity=".45" stroke="var(--trich)" stroke-width="2"/><path d="M10 22 l-8 -6 M10 24 l-9 0 M10 26 l-8 6" stroke="var(--trich)" stroke-width="1.6"/>`,
+ tubeB:`<rect x="17" y="4" width="14" height="40" rx="7" fill="var(--cloudy)" stroke="var(--ink-soft)" stroke-width="1.6"/>`,
+ tubeV:`<rect x="17" y="4" width="14" height="40" rx="7" fill="var(--csf)" stroke="var(--ink-soft)" stroke-width="1.6"/>`,
+ halo:`<circle cx="24" cy="24" r="20" fill="#1A1410"/><circle cx="24" cy="24" r="13" fill="#EFE9DC"/><circle cx="24" cy="24" r="7" fill="var(--yeast)" stroke="var(--yeast-edge)" stroke-width="1.6"/>`,
+ spa:`<rect x="12" y="16" width="24" height="16" rx="8" fill="var(--muscle)" stroke="var(--muscle-edge)" stroke-width="2"/><path d="M6 24 h5 M37 24 h5" stroke="var(--muscle-edge)" stroke-width="2"/>`,
+ fla:`<path d="M4 18 Q24 40 44 18 L44 28 Q24 50 4 28 Z" fill="var(--muscle)" stroke="var(--muscle-edge)" stroke-width="2"/>`,
+ sex:`<circle cx="17" cy="24" r="10" fill="none" stroke="var(--act3)" stroke-width="2.4"/><circle cx="31" cy="24" r="10" fill="none" stroke="var(--act4)" stroke-width="2.4"/>`,
+ bite:`<ellipse cx="18" cy="26" rx="12" ry="4" fill="var(--mosq)"/><circle cx="32" cy="24" r="4" fill="var(--mosq)"/><path d="M35 25 L45 30" stroke="var(--mosq)" stroke-width="2"/><ellipse cx="20" cy="15" rx="9" ry="4" fill="none" stroke="var(--mosq)" stroke-width="1.4"/>`,
+ food:`<path d="M10 30 h28 a14 10 0 0 1 -28 0 Z" fill="var(--water)" stroke="var(--ink-soft)" stroke-width="1.6"/><path d="M16 22 q2 -6 0 -12 M24 22 q2 -6 0 -12 M32 22 q2 -6 0 -12" stroke="var(--ink-soft)" stroke-width="1.6" fill="none"/>`,
+ own:`<path d="M8 30 q8 -16 16 0 t16 0" stroke="var(--mucosa-edge)" stroke-width="7" fill="none" stroke-linecap="round"/><rect x="18" y="12" width="12" height="6" rx="3" fill="var(--gneg)"/>`,
+ eb:`<circle cx="24" cy="24" r="18" fill="var(--host)" stroke="var(--host-edge)" stroke-width="2"/><circle cx="26" cy="26" r="10" fill="var(--panel)" stroke="var(--lymph-edge)" stroke-width="1.4"/><g fill="var(--inhib)"><circle cx="23" cy="23" r="2.6"/><circle cx="29" cy="24" r="2.6"/><circle cx="25" cy="30" r="2.6"/></g>`,
+ q:`<circle cx="24" cy="24" r="18" fill="var(--panel-2)" stroke="var(--ink-soft)" stroke-width="2"/><text x="24" y="31" text-anchor="middle" font-size="22" font-weight="700" fill="var(--ink-soft)" font-family="sans-serif">?</text>`};
+const SROUNDS=[
+ {name:"Round 1 · STI organisms",tok:"sex",title:"Which STI has this feature?",goal:"Sort each feature to gonorrhea, chlamydia, syphilis or trichomoniasis. Think about shape, how it is seen in the lab, and what it does.",
+  bins:[["G","Gonorrhea","Neisseria gonorrhoeae","dip"],["C","Chlamydia","Chlamydia trachomatis","eb"],["S","Syphilis","Treponema pallidum","spi"],["T","Trichomoniasis","Trichomonas vaginalis","pro"]],
+  items:[["Gram-negative diplococci inside neutrophils","G","The classic Gram stain of gonorrhea in men with discharge."],["Pili that keep changing (antigenic variation)","G","Antigenic variation is why gonorrhea gives no lasting immunity."],["Grown on Thayer-Martin agar for drug testing","G","Thayer-Martin is a selective agar for Neisseria."],["Obligate intracellular bacterium","C","Chlamydia multiplies only inside host cells."],["Elementary and reticulate bodies","C","EBs infect; RBs divide inside the inclusion."],["Most commonly reported bacterial STI in the U.S.","C","Chlamydia, often with no symptoms."],["Thin corkscrew spirochete","S","Treponema pallidum is a spirochete."],["Painless chancre","S","The sore of primary syphilis."],["Rash on palms and soles","S","A sign of secondary syphilis."],["Seen glowing by darkfield microscopy","S","T. pallidum is too thin for normal stains."],["Flagellated protozoan","T","Trichomonas is a protozoan, not a bacterium."],["Jerky swimming on a saline wet mount","T","Its flagella make it move in a jerky way."]]},
+ {name:"Round 2 · Meningitis CSF",tok:"q",title:"Bacterial, viral or fungal?",goal:"Sort each finding to bacterial, viral or fungal meningitis. Ask: which cells, what glucose, and what organism?",
+  bins:[["B","Bacterial","Cloudy, neutrophils, low glucose","tubeB"],["V","Viral","Clear, lymphocytes, normal glucose","tubeV"],["F","Fungal","Lymphocytes, low glucose, capsule","halo"]],
+  items:[["Cloudy CSF with thousands of white cells","B","Bacterial meningitis gives the most cells and cloudy fluid."],["Mostly neutrophils","B","Neutrophils dominate in bacterial meningitis."],["Gram stain shows diplococci","B","Meningococcus and pneumococcus are diplococci."],["Prevented by Hib, pneumococcal and meningococcal vaccines","B","These vaccines target bacterial capsules."],["Clear CSF with normal glucose","V","Viruses do not use up CSF glucose."],["Mostly lymphocytes and normal glucose","V","Lymphocytes with normal glucose is the viral pattern."],["Most often caused by enteroviruses","V","Enteroviruses are the top cause of viral meningitis."],["West Nile virus from a mosquito bite","V","West Nile is an arbovirus that can cause meningitis or encephalitis."],["India ink shows a clear halo around yeast","F","The halo is the Cryptococcus capsule."],["Inhaled from soil with pigeon droppings","F","Cryptococcus neoformans lives in bird-dropping soil."],["Mostly seen in advanced AIDS","F","Cryptococcal meningitis is an opportunistic infection."],["Lymphocytes, low glucose, positive capsule antigen","F","The cryptococcal antigen test is very sensitive."]]},
+ {name:"Round 3 · Spastic or flaccid",tok:"q",title:"Stiff or limp?",goal:"Sort each item: spastic (stiff, contracted) or flaccid (limp, weak) paralysis. Ask: are muscles getting too many signals, or none?",
+  bins:[["S","Spastic","Muscles stay contracted","spa"],["F","Flaccid","Muscles go limp","fla"]],
+  items:[["Tetanus","S","Tetanus toxin causes spastic paralysis."],["Lockjaw","S","Jaw muscles locked in spasm: a tetanus sign."],["Blocks GABA and glycine release","S","Without inhibitory signals, motor neurons fire nonstop."],["Inhibitory neurons in the spinal cord are silenced","S","That is how tetanospasmin works."],["Deep puncture wound with soil","S","The setting for Clostridium tetani spores."],["Muscles keep contracting with painful spasms","S","Constant firing means constant contraction."],["Botulism","F","Botulinum toxin causes flaccid paralysis."],["Blocks ACh release at the neuromuscular junction","F","No ACh, no contraction."],["Double vision and drooping eyelids come first","F","Botulism weakness starts in the head and moves down."],["Infant fed honey","F","Honey can carry C. botulinum spores (infant botulism)."],["Polio","F","Poliovirus destroys motor neurons, so muscles go limp."],["Motor neurons destroyed","F","No neuron, no signal, so the muscle hangs limp."]]},
+ {name:"Round 4 · What kind of microbe?",tok:"q",title:"Bacterium, virus, fungus or protozoan?",goal:"Sort each organism by its type. Bacteria are cells without a nucleus; fungi and protozoa are eukaryotes; viruses are not cells.",
+  bins:[["B","Bacterium","Prokaryotic cell","rodn"],["V","Virus","Genome in a protein coat","vir"],["F","Fungus","Yeast or mould","yst"],["P","Protozoan","Single-celled eukaryote","pro"]],
+  items:[["Escherichia coli","B","A Gram-negative rod."],["Leptospira interrogans","B","A spirochete bacterium."],["Gardnerella vaginalis","B","A small bacterium involved in BV."],["Mycobacterium leprae","B","An acid-fast rod that causes Hansen disease."],["Listeria monocytogenes","B","A Gram-positive rod."],["Herpes simplex virus 2","V","An enveloped DNA virus."],["Human papillomavirus","V","A naked DNA virus."],["Rabies virus","V","A bullet-shaped RNA virus."],["West Nile virus","V","A mosquito-borne RNA virus."],["Candida albicans","F","A yeast."],["Cryptococcus neoformans","F","An encapsulated yeast."],["Trichomonas vaginalis","P","A flagellated protozoan."],["Trypanosoma brucei","P","The protozoan of African sleeping sickness."],["Naegleria fowleri","P","A free-living amoeba."]]},
+ {name:"Round 5 · How it spreads",tok:"q",title:"How does it reach you?",goal:"Sort each disease by its main route: sexual contact, a bite, food or water, or the person's own microbiota.",
+  bins:[["X","Sexual contact","Person to person during sex","sex"],["B","A bite","Animal or insect","bite"],["W","Food or water","Swallowed or water contact","food"],["O","Own microbiota","Microbes already on the body","own"]],
+  items:[["Gonorrhea","X","Spread by sexual contact."],["Genital warts (HPV)","X","Spread by skin-to-skin sexual contact."],["Trichomoniasis","X","A sexually transmitted protozoan."],["Rabies","B","Spread by the bite of an infected mammal."],["West Nile encephalitis","B","Spread by mosquito bites."],["African sleeping sickness","B","Spread by tsetse fly bites."],["Listeriosis","W","From contaminated food such as deli meats and soft cheeses."],["Foodborne botulism","W","From toxin in improperly canned food."],["Polio","W","Fecal-oral spread through contaminated water, food or hands."],["Leptospirosis","W","Water contaminated by animal urine, through cuts."],["Uncomplicated UTI","O","Usually the person's own gut E. coli."],["Vaginal yeast infection","O","Candida from the normal microbiota overgrows."],["Bacterial vaginosis","O","A shift in the normal vaginal community."]]}];
+let sR=0,sSel=null,sChecks=0,sHints=0,sSolved=false,sT0=0;const sBest=store.get("sort")||{};
+function sItem(id){return SROUNDS[sR].items[id]}
+function sRounds(){const box=$("#sRounds");box.innerHTML="";SROUNDS.forEach((r,i)=>{const b=document.createElement("button");b.type="button";b.className="round";b.setAttribute("aria-pressed",i===sR?"true":"false");b.innerHTML=r.name+(sBest[i]?`<span class="ok" aria-hidden="true">${"★".repeat(sBest[i])}</span><span class="gk-sr">, ${sBest[i]} stars</span>`:"");b.onclick=()=>{sR=i;sNew()};box.appendChild(b)})}
+function sTok(i){const it=sItem(i);const el=document.createElement("button");el.type="button";el.className="tok";el.dataset.i=i;
+  el.innerHTML=`<svg viewBox="0 0 48 48" aria-hidden="true">${SICON[SROUNDS[sR].tok]}</svg><span>${it[0]}</span><span class="mk" aria-hidden="true"></span><span class="gk-sr st"></span>`;
+  draggable(el,{targetSel:".bin,#sPool",canDrag:()=>!sSolved,onTap:()=>sTap(el),onDrop:tg=>sPlace(el,tg)});return el}
+function sTap(el){const it=sItem(+el.dataset.i);if(el.classList.contains("no")&&!sSolved)$("#sWhy").innerHTML=`<b>Clue · ${it[0]}:</b> look again at the bin descriptions. ${SROUNDS[sR].goal.split(". ")[1]||""}`;else if(el.classList.contains("ok")||sSolved)$("#sWhy").innerHTML=`<b>${it[0]}:</b> ${it[2]}`;if(sSolved)return;
+  document.querySelectorAll("#tab-sort .tok.sel").forEach(x=>x.classList.remove("sel"));if(sSel===el){sSel=null;return}sSel=el;el.classList.add("sel")}
+function sPlace(el,tg){if(sSolved)return;const dest=tg.id==="sPool"?$("#sPool"):tg.querySelector(".bitems");dest.appendChild(el);el.classList.remove("sel","ok","no","hinted");el.querySelector(".mk").textContent="";const b=el.closest(".bin");el.querySelector(".st").textContent=b?" (in "+b.dataset.name+")":"";sSel=null;try{el.focus()}catch(_){}}
+function sNew(){const r=SROUNDS[sR];sSel=null;sChecks=0;sHints=0;sSolved=false;sT0=performance.now();
+  const bins=$("#sBins");bins.innerHTML="";r.bins.forEach(b=>{const d=document.createElement("div");d.className="bin";d.dataset.bin=b[0];d.dataset.name=b[1];d.setAttribute("role","group");d.setAttribute("aria-label",b[1]+" bin");
+    d.innerHTML=`<button type="button" class="binhead"><span class="bh"><svg width="22" height="22" viewBox="0 0 48 48" aria-hidden="true">${SICON[b[3]]}</svg>${b[1]}</span><span class="bsub">${b[2]}</span><span class="gk-sr"> Place the selected card here.</span></button><span class="bitems"></span>`;
+    d.addEventListener("click",e=>{if(sSel&&!e.target.closest(".tok"))sPlace(sSel,d)});bins.appendChild(d)});
+  const pool=$("#sPool");pool.innerHTML="";shuffle(r.items.map((x,i)=>i)).forEach(i=>pool.appendChild(sTok(i)));
+  $("#sN").textContent=r.name+" · "+r.items.length+" cards";$("#sT").textContent=r.title;$("#sGoal").textContent=r.goal;setMsg("#sMsg","","");$("#sWhy").innerHTML="<b>Tip:</b> after checking, tap any card to read why it belongs where it does.";sRounds()}
+$("#sPool").addEventListener("click",e=>{if(sSel&&!e.target.closest(".tok")&&sSel.parentElement!==$("#sPool"))sPlace(sSel,$("#sPool"))});
+function sWhere(el){const b=el.closest(".bin");return b?b.dataset.bin:null}
+$("#sCheck").onclick=()=>{if(sSolved)return;const toks=[...document.querySelectorAll("#tab-sort .tok")];const un=toks.filter(t=>!sWhere(t));
+  if(un.length){setMsg("#sMsg",`Place all the cards first. ${un.length} still in the tray.`,"warn");return}
+  sChecks++;let n=0;toks.forEach(t=>{const ok=sWhere(t)===sItem(+t.dataset.i)[1];t.classList.toggle("ok",ok);t.classList.toggle("no",!ok);t.querySelector(".mk").textContent=ok?"✓":"✕";const b=t.closest(".bin");t.querySelector(".st").textContent=" (in "+b.dataset.name+", "+(ok?"correct":"not quite")+")";if(ok)n++});
+  if(n===toks.length){sSolved=true;const el=(performance.now()-sT0)/1000;const st=sHints===0&&sChecks===1?3:sHints<=2&&sChecks<=3?2:1;if(!sBest[sR]||st>sBest[sR])sBest[sR]=st;store.set("sort",sBest);sRounds();
+    setMsg("#sMsg",`${starStr(st)}<br><b>All sorted!</b> ${$("#sRelaxed").checked?"":"Time "+fmt(el)+". "}Tap any card to read why.${sR<SROUNDS.length-1?' <button class="tbtn" id="sNextR" type="button">Next round →</button>':""}`,"good");const nb=$("#sNextR");if(nb)nb.onclick=()=>{sR++;sNew()}}
+  else setMsg("#sMsg",`<b>${n} of ${toks.length}</b> are right. Tap a ✕ card for a clue, move it, and check again.`,"warn")};
+$("#sHint").onclick=()=>{if(sSolved)return;const toks=[...document.querySelectorAll("#tab-sort .tok")];const t=toks.find(t=>sWhere(t)!==sItem(+t.dataset.i)[1]);if(!t)return;sHints++;const it=sItem(+t.dataset.i);
+  sPlace(t,document.querySelector(`#sBins .bin[data-bin="${it[1]}"]`));t.classList.add("hinted");$("#sWhy").innerHTML=`<b>Hint · ${it[0]}:</b> ${it[2]}`};
+$("#sShow").onclick=()=>{[...document.querySelectorAll("#tab-sort .tok")].forEach(t=>{const it=sItem(+t.dataset.i);sPlace(t,document.querySelector(`#sBins .bin[data-bin="${it[1]}"]`));t.classList.add("ok");t.querySelector(".mk").textContent="✓"});
+  sSolved=true;setMsg("#sMsg","Here is the answer. Tap any card to read why, then press <b>Start over</b> to try it yourself.","info")};
+$("#sReset").onclick=sNew;$("#sRelaxed").onchange=e=>{$("#sTimer").hidden=e.target.checked;sT0=performance.now()};
+function sTimerTick(){if(!$("#sRelaxed").checked&&!sSolved)$("#sTimer").textContent=fmt((performance.now()-sT0)/1000)}
+
+/* ---------------- accessibility: live canvas labels and picture descriptions ---------------- */
+const A11Y={csf:{cv:"#cvCsf",f:csfA11y},nmj:{cv:"#cvNmj",f:nmjA11y},uc:{cv:"#cvUc",f:ucA11y},case:{cv:"#cvCase",f:caseA11y}};
+let a11yKey="",a11yT=0;
+function a11yTick(){const n=performance.now();if(n-a11yT<500)return;a11yT=n;
+  if(curTab==="sort"){if(a11yKey!=="sortgame"){a11yKey="sortgame";if(window.gkDescribe)window.gkDescribe("This part has no picture. Sort cards appear as buttons with small icons; use Tab and Enter to pick a card and then a bin.")}return}
+  const a=A11Y[curTab];if(!a)return;const [lab,d]=a.f();const key=curTab+"|"+lab;if(key===a11yKey)return;a11yKey=key;
+  const cv=$(a.cv);if(lab)cv.setAttribute("aria-label",lab);if(window.gkDescribe)window.gkDescribe(d);
+  const box=document.getElementById("gk-desc");const h=cv.closest(".canvas-holder");if(box&&h&&h.nextElementSibling!==box)h.after(box);if(box)cv.setAttribute("aria-describedby","gk-desc")}
+/* ---------------- tabs / theme / loop ---------------- */
+let curTab="csf";const TABS=["csf","nmj","uc","case","sort"];
+function setTab(k,focus){curTab=k;document.querySelectorAll(".tab").forEach(x=>{const on=x.dataset.tab===k;x.setAttribute("aria-selected",on?"true":"false");x.tabIndex=on?0:-1;if(on&&focus)x.focus()});TABS.forEach(t=>$("#tab-"+t).hidden=t!==k);a11yKey="";fitAll()}
+document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>setTab(t.dataset.tab);t.addEventListener("keydown",e=>{const i=TABS.indexOf(t.dataset.tab),n=TABS.length;if(e.key==="ArrowRight"){e.preventDefault();setTab(TABS[(i+1)%n],true)}if(e.key==="ArrowLeft"){e.preventDefault();setTab(TABS[(i+n-1)%n],true)}if(e.key==="Home"){e.preventDefault();setTab(TABS[0],true)}if(e.key==="End"){e.preventDefault();setTab(TABS[n-1],true)}})});
+function fitAll(){[S1,S2,S3,S4].forEach(s=>s.fit())}
+window.addEventListener("resize",fitAll);
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+let last=performance.now(),rdT=0;
+function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;
+  try{if(curTab==="csf")drawCsf(now);else if(curTab==="nmj"){nStep(dt);rdT+=dt;if(rdT>.25){rdT=0;nUI()}drawNmj(now)}else if(curTab==="uc")drawUc(now);else if(curTab==="case")drawCase(now);else sTimerTick()}catch(err){console.error(err)}
+  try{a11yTick()}catch(err){console.error(err)}
+  requestAnimationFrame(frame)}
+window.__lab={tab:k=>setTab(k),pat:i=>kSelect(i),csfAll:()=>{KS.lp=now_()-10;KS.chem=now_()-10;KS.cells=now_()-10;KS.stain="gram";KS.stainT=now_()-10;kBtns()},
+  nmj:(m,dose,secs)=>{nMode(m);if(dose!=null){NM.dose=dose;$("#nDose").value=Math.round(dose*100);$("#nDoseOut").textContent=Math.round(dose*100)+"%";nReset()}let t=0;while(t<secs){nStep(.02);t+=.02}nUI()},nmjState:()=>({b:NM.bBot,t:NM.bTet,ten:tensionAt(NM.t)}),
+  uc:(i,vol)=>{UC.i=i;uLoad();UC.vol=vol||.001;uMakeCols();UC.t0=performance.now()-6000;uUI()},ucState:()=>({n:UC.n,tntc:UC.tntc}),
+  caseGo:(i,q)=>{cI=i;cQ=q||0;cLoad()},sortRound:i=>{sR=i;sNew()},sortShow:()=>$("#sShow").click()};
+readColors();kSelect(0);kChalUI();nMode("norm");nChalUI();uLoad();uChalUI();cLoad();sNew();setTab("csf");requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

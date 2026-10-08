@@ -1,0 +1,1249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Adaptive Immunity Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#1E7A4C;--accent-ink:#145A37;--accent-wash:#DDEFE4;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#2F7FC1;--act2:#7B5CC9;--act3:#D98A1C;--act4:#2E8A7A;--act5:#C4644F;--act6:#A04E8C;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#8A6D12;
+  /* adaptive immunity palette */
+  --ecf:#EEF3EF;--grid:#D3DED6;
+  --bact:#B9DDB9;--bact-edge:#3E7E4A;--gpos:#6A3FA0;--gneg:#C2457A;--virus:#7B5CC9;--virus-2:#C9B8EE;
+  --host:#F3DCCB;--host-edge:#B5866A;--nucf:#E3D8EE;--nuc-edge:#7B5CA0;
+  --ag:#E07A1F;--hapten:#C2392F;--carrier:#4F6F94;
+  --mhc1:#1F8F8A;--mhc2:#B0479A;--pepin:#C2392F;--pepout:#E07A1F;
+  --th:#2F7FC1;--tc:#C2392F;--treg:#2E8A7A;--bcell:#7B5CC9;--plasma:#8A5CC9;--mem:#B8901C;--dc:#C98A3C;--macro:#9A7B5A;--nk:#6E7A8A;
+  --igg:#2F6FD0;--igm:#C4644F;--iga:#2E8A7A;--ige:#B8901C;--igd:#A04E8C;
+  --perforin:#C2392F;--granzyme:#7B3FC9;--comp:#4F6F94;--cyto:#E0A21F;
+  --node:#E8EEDF;--node-edge:#8BA27A;--follicle:#D9E6F2;--thymus:#F2E2D0;
+  --mast:#B07FB8;--hist:#C2392F;--rbc:#D9534F;--rbc-edge:#9E2F2B;
+  --skin:#EAC9A8;--skin-edge:#B9937A;--rash:#D9534F;
+  --well:#FFFFFF;--well-edge:#9AA8B0;--substrate:#E2B214;--enzyme:#2E8A7A;--np:#A8326E;--strip:#FBFBF7;--pad:#E6DCC6;
+  --fluor:#2EA44F;--laser:#2F6FD0;--sag:#E07A1F;
+  --mrna:#D9531E;--lnp:#C9962E;--lnp-2:#F2E2B8;--vector:#5E6E9A;--alum:#8A99A3;--dna:#2F6FD0;
+  --glow:#F2B33B;--heat:#E0563A;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A9EBC6;--accent-wash:#14301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5AA9E6;--act2:#A98BEF;--act3:#F2A93B;--act4:#5CC4B0;--act5:#E08A74;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#22302A;
+  --bact:#22402A;--bact-edge:#7FC48A;--gpos:#B48BF0;--gneg:#F08AB8;--virus:#A98BEF;--virus-2:#3D3360;
+  --host:#3E2E25;--host-edge:#C9997A;--nucf:#352C44;--nuc-edge:#B49BF0;
+  --ag:#F2A04A;--hapten:#F07067;--carrier:#8FB1D9;
+  --mhc1:#4FC9C2;--mhc2:#E07FCB;--pepin:#F07067;--pepout:#F2A04A;
+  --th:#5AA9E6;--tc:#F07067;--treg:#5CC4B0;--bcell:#A98BEF;--plasma:#B89BF0;--mem:#E0BE48;--dc:#E0A860;--macro:#C9A884;--nk:#A3B2BA;
+  --igg:#6FA3F0;--igm:#E08A74;--iga:#5CC4B0;--ige:#E0BE48;--igd:#D186C0;
+  --perforin:#F07067;--granzyme:#B48BF0;--comp:#8FB1D9;--cyto:#F2C04A;
+  --node:#1C2A20;--node-edge:#7FA06A;--follicle:#1D2C3A;--thymus:#3A2E22;
+  --mast:#C99BD0;--hist:#F07067;--rbc:#D9625E;--rbc-edge:#F09A96;
+  --skin:#5A4434;--skin-edge:#B9937A;--rash:#E07067;
+  --well:#0F171C;--well-edge:#5A6A74;--substrate:#E8C030;--enzyme:#5CC4B0;--np:#E07FB0;--strip:#22302A;--pad:#3A3428;
+  --fluor:#5FE08A;--laser:#6FA3F0;--sag:#F2A04A;
+  --mrna:#F28A50;--lnp:#E0B860;--lnp-2:#3E3420;--vector:#9FB0D9;--alum:#8D9EA7;--dna:#6FA3F0;
+  --glow:#F2B33B;--heat:#F27A5E;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A9EBC6;--accent-wash:#14301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5AA9E6;--act2:#A98BEF;--act3:#F2A93B;--act4:#5CC4B0;--act5:#E08A74;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A17;--grid:#22302A;
+  --bact:#22402A;--bact-edge:#7FC48A;--gpos:#B48BF0;--gneg:#F08AB8;--virus:#A98BEF;--virus-2:#3D3360;
+  --host:#3E2E25;--host-edge:#C9997A;--nucf:#352C44;--nuc-edge:#B49BF0;
+  --ag:#F2A04A;--hapten:#F07067;--carrier:#8FB1D9;
+  --mhc1:#4FC9C2;--mhc2:#E07FCB;--pepin:#F07067;--pepout:#F2A04A;
+  --th:#5AA9E6;--tc:#F07067;--treg:#5CC4B0;--bcell:#A98BEF;--plasma:#B89BF0;--mem:#E0BE48;--dc:#E0A860;--macro:#C9A884;--nk:#A3B2BA;
+  --igg:#6FA3F0;--igm:#E08A74;--iga:#5CC4B0;--ige:#E0BE48;--igd:#D186C0;
+  --perforin:#F07067;--granzyme:#B48BF0;--comp:#8FB1D9;--cyto:#F2C04A;
+  --node:#1C2A20;--node-edge:#7FA06A;--follicle:#1D2C3A;--thymus:#3A2E22;
+  --mast:#C99BD0;--hist:#F07067;--rbc:#D9625E;--rbc-edge:#F09A96;
+  --skin:#5A4434;--skin-edge:#B9937A;--rash:#E07067;
+  --well:#0F171C;--well-edge:#5A6A74;--substrate:#E8C030;--enzyme:#5CC4B0;--np:#E07FB0;--strip:#22302A;--pad:#3A3428;
+  --fluor:#5FE08A;--laser:#6FA3F0;--sag:#F2A04A;
+  --mrna:#F28A50;--lnp:#E0B860;--lnp-2:#3E3420;--vector:#9FB0D9;--alum:#8D9EA7;--dna:#6FA3F0;
+  --glow:#F2B33B;--heat:#F27A5E;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1180px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:9px 14px;cursor:pointer;font-weight:500;font-size:15px}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 13px;cursor:pointer;font-size:14.5px}
+.tbtn:hover{border-color:var(--accent)}
+.tbtn:disabled{opacity:.45;cursor:default}
+.tbtn[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:10px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.btn:disabled{opacity:.45;cursor:default}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;min-width:0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%;touch-action:manipulation}
+.stagebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2)}
+.legend i.s{border-radius:2px}
+.legend i.ln{width:20px;height:0;border-radius:0;border:0;border-top:3px solid}
+.legend i.dl{width:20px;height:0;border-radius:0;border:0;border-top:3px dashed}
+.rounds{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.round{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 13px;cursor:pointer;font-size:14px}
+.round[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.round .ok{color:var(--gold-ink);margin-left:4px}
+.mode{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-soft)}
+.mode input{accent-color:var(--accent);width:18px;height:18px}
+.lvl-n{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.lvl-t{font-family:var(--serif);font-size:22px;font-weight:600;margin:4px 0 8px;line-height:1.25}
+.goal{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:15px}
+.goal b.h{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.msg{margin:10px 0 0;padding:10px 12px;border-radius:var(--r);font-size:15px;display:none}
+.msg.show{display:block}
+.msg.good{background:var(--good-wash);color:var(--ink);border:1px solid var(--good)}
+.msg.warn{background:var(--warn-wash);color:var(--ink);border:1px solid var(--warn)}
+.msg.info{background:var(--panel-2);color:var(--ink);border:1px solid var(--rule)}
+.stars{font-size:22px;letter-spacing:2px;color:var(--gold-ink)}
+.side h3{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+.side p,.side li{font-size:14.5px}
+.small{font-size:13px;color:var(--ink-soft)}
+.timer{font-family:var(--mono);font-size:18px;font-weight:600}
+.ctl{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ctl label{font-size:14.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.ctl output{font-family:var(--mono);font-weight:600;color:var(--accent-ink)}
+.ctl input[type=range]{accent-color:var(--accent);width:100%}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);font-family:var(--mono)}
+.readouts{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+.readouts th{text-align:left;font-weight:500;color:var(--ink-soft);padding:5px 6px 5px 0;border-top:1px solid var(--rule-soft)}
+.srhead th,.readouts caption.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0;border:0}
+.readouts td{padding:5px 0;border-top:1px solid var(--rule-soft);font-family:var(--mono);font-size:13.5px;text-align:right}
+.chal{list-style:none;padding:0;margin:6px 0}
+.chal li{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14px}
+.chal .ck{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-size:13px;font-family:var(--mono)}
+.chal li.done .ck{background:var(--good);border-color:var(--good);color:var(--on-accent)}
+.status{font-size:14.5px;padding:8px 10px;border-radius:var(--r);margin-top:8px;border:1px solid var(--rule);background:var(--panel-2)}
+.status.warn{background:var(--warn-wash);border-color:var(--warn)}
+.status.bad{background:var(--bad-wash);border-color:var(--bad)}
+.status.good{background:var(--good-wash);border-color:var(--good)}
+.trt{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.trt .tbtn{text-align:left;line-height:1.25}
+.sc-n{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.sc-title{font-family:var(--serif);font-size:22px;font-weight:600;margin:2px 0 6px}
+.story{font-size:15px}
+.story p{margin:0 0 8px}
+.qlab{font-weight:600;margin:12px 0 8px}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opt{text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:8px 0 0;font-size:14.5px;padding:8px 10px;border-radius:4px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--good-wash);border-left:4px solid var(--good)}
+.fb.no{background:var(--warn-wash);border-left:4px solid var(--warn)}
+.fb.hint{background:var(--gold-wash);border-left:4px solid var(--gold)}
+.qnav{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{min-width:30px;height:30px;border-radius:99px;border:1.5px solid var(--rule);display:inline-grid;place-items:center;font-family:var(--mono);font-size:12.5px;background:var(--panel-2);cursor:pointer;padding:0 8px}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.chip.done:not([aria-pressed="true"]){border-color:var(--good);background:var(--good-wash);color:var(--good)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+/* sorter */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:70px;padding:10px;border:1px solid var(--rule);border-radius:var(--r);background:var(--panel-2);margin-bottom:12px}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.bin{border:2px dashed var(--rule);border-radius:var(--r);min-height:170px;padding:8px;background:var(--panel);display:flex;flex-direction:column;gap:6px;cursor:pointer}
+.bin:hover,.bin.target{border-color:var(--accent);background:var(--accent-wash)}
+.binhead{display:block;width:100%;background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;text-align:left;cursor:pointer;border-radius:4px}
+.binhead:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.bin .bh{font-weight:700;font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;display:flex;gap:8px;align-items:center}
+.bin .bsub{display:block;font-size:13px;color:var(--ink-soft);margin:2px 0 4px}
+.bin .bitems{display:flex;flex-wrap:wrap;gap:6px}
+.tok{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:5px 10px 5px 5px;cursor:grab;touch-action:none;user-select:none;font-size:14.5px;line-height:1.25;text-align:left;font-family:var(--sans);color:var(--ink)}
+.tok svg{width:38px;height:38px;flex:0 0 auto;display:block}
+.tok:hover{border-color:var(--accent)}
+.tok.sel{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
+.tok.ok{border-color:var(--good);background:var(--good-wash)}
+.tok.no{border-color:var(--warn);background:var(--warn-wash)}
+.tok.hinted{box-shadow:0 0 0 3px var(--gold)}
+.tok .mk{font-family:var(--mono);font-weight:700}
+.tok{max-width:100%}.tok>span{min-width:0;overflow-wrap:anywhere;hyphens:auto}
+.tok.ghost{position:fixed;z-index:60;pointer-events:none;opacity:.92;box-shadow:0 10px 24px -8px rgba(0,0,0,.4)}
+.abbox{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:10px 12px;font-size:14.5px;margin-top:10px}
+footer{max-width:1180px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+sub,sup{line-height:0}
+[hidden]{display:none!important}
+select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:var(--r);padding:4px 6px}
+.radios{display:flex;gap:6px;flex-wrap:wrap}
+ol.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.item{display:flex;align-items:center;gap:10px;background:var(--panel);border:1.5px solid var(--rule);border-left:6px solid var(--act4);border-radius:var(--r);padding:7px 8px 7px 10px;touch-action:none;user-select:none;cursor:grab;transition:background .15s,border-color .15s}
+.item.drag{box-shadow:0 10px 24px -8px rgba(0,0,0,.4);cursor:grabbing;border-color:var(--accent);z-index:2;position:relative}
+.item .pos{font-family:var(--mono);font-size:13px;color:var(--ink-faint);width:20px;text-align:right;flex:0 0 auto}
+.item .grip{color:var(--ink-faint);font-size:18px;line-height:1;flex:0 0 auto}
+.item .txt{flex:1;font-size:15px;line-height:1.35}
+.item .mv{display:flex;flex-direction:column;gap:2px}
+.mv button{width:30px;height:24px;border:1px solid var(--rule);background:var(--panel-2);border-radius:4px;cursor:pointer;font-size:12px;padding:0;line-height:1}
+.mv button:hover{border-color:var(--accent)}
+.item.right{background:var(--good-wash);border-color:var(--good)}
+.item.off{background:var(--warn-wash);border-color:var(--warn)}
+.item.hinted{box-shadow:0 0 0 3px var(--gold)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid2{grid-template-columns:1fr}}
+.seg{display:inline-flex;gap:0;border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:12px}
+.seg button{border:0;border-right:1px solid var(--rule);background:var(--panel);padding:8px 14px;cursor:pointer;font-size:15px}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);font-weight:600}
+.calc{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center;font-size:14.5px;margin:8px 0}
+.calc input{font:inherit;font-family:var(--mono);background:var(--panel);color:var(--ink);border:1.5px solid var(--rule);border-radius:var(--r);padding:6px 8px;width:100%;min-width:0}
+.calc input:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.platebtns{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.formula{font-family:var(--mono);font-size:14px;background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 10px;margin:6px 0;overflow-wrap:anywhere}
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.qgrid .tbtn{text-align:left;line-height:1.25}
+.log{list-style:none;padding:0;margin:6px 0;display:flex;flex-wrap:wrap;gap:6px}
+.log li{font-size:13px;font-family:var(--mono);background:var(--panel-2);border:1px solid var(--rule);border-radius:99px;padding:3px 9px}
+.protocol{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.protocol .tbtn{text-align:left;line-height:1.25}
+.anslabel{font-weight:600;font-size:14.5px;margin:10px 0 4px}
+</style>
+<script src="micro-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">Microbiology &middot; Module 11 &middot; Adaptive immunity, vaccines and diagnostics</div>
+    <h1>Adaptive Immunity Lab</h1>
+    <p class="sub">Run an immune response with vaccines and boosters, build and read an ELISA plate, interpret rapid tests and lab results, and sort and order what you learned. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+<main class="wrap" id="main">
+  <div class="tabs" role="tablist" aria-label="Lab activities">
+    <button class="tab" role="tab" aria-selected="true" data-tab="sim" id="tabbtn-sim" aria-controls="tab-sim" type="button">Part 1 &middot; Immune Response Simulator</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="elisa" id="tabbtn-elisa" aria-controls="tab-elisa" type="button" tabindex="-1">Part 2 &middot; ELISA Plate Bench</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="case" id="tabbtn-case" aria-controls="tab-case" type="button" tabindex="-1">Part 3 &middot; Test Reader Cases</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="sort" id="tabbtn-sort" aria-controls="tab-sort" type="button" tabindex="-1">Part 4 &middot; Sort and Order</button>
+  </div>
+
+  <!-- PART 1: immune response simulator -->
+  <section id="tab-sim" role="tabpanel" aria-labelledby="tabbtn-sim">
+    <h2 class="gk-sr">Part 1: Immune Response Simulator</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvSim" role="img" aria-label="Lymph node and a graph of antibody levels over time."></canvas></div>
+        <div class="stagebar">
+          <button class="tbtn" id="mRun" type="button">Run</button>
+          <button class="tbtn" id="mReset" type="button">Reset</button>
+          <label class="mode">Speed <select id="mSpeed"><option value="6" selected>1 s = 6 days</option><option value="15">1 s = 15 days</option><option value="2">1 s = 2 days</option></select></label>
+          <span class="timer" id="mClock">Day 0</span>
+        </div>
+        <div class="legend">
+          <span><i class="ln" style="border-top-color:var(--igm)"></i>IgM</span><span><i class="ln" style="border-top-color:var(--igg)"></i>IgG</span><span><i class="s" style="background:var(--mem)"></i>Memory B cells (strip)</span><span><i class="dl" style="border-top-color:var(--good)"></i>Protective level</span>
+        </div>
+      </div>
+      <aside class="card side" aria-live="polite">
+        <h3 style="margin-top:0">1. What does the body meet on day 0?</h3>
+        <div class="trt" id="mTypes" role="group" aria-label="Exposure type"></div>
+        <h3>2. Plan a booster</h3>
+        <div class="ctl"><label for="mBoost">Booster dose <output id="mBoostOut">none</output></label><input type="range" id="mBoost" min="0" max="9" step="1" value="0"><div class="ticks"><span>none</span><span>day 28</span><span>day 180</span></div></div>
+        <p class="small" style="margin:2px 0 6px">Changing a setting resets the run.</p>
+        <h3>3. Meet the real germ</h3>
+        <button class="btn" id="mExpose" type="button">Expose to the real germ today</button>
+        <table class="readouts"><caption class="sr">Simulator readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody id="mRead"></tbody></table>
+        <div class="status" id="mStatus" role="status"></div>
+        <h3>Challenges</h3>
+        <ul class="chal" id="mChal"></ul>
+        <p class="small" id="mChalStars"></p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 2: ELISA bench -->
+  <section id="tab-elisa" role="tabpanel" aria-labelledby="tabbtn-elisa" hidden>
+    <h2 class="gk-sr">Part 2: ELISA Plate Bench</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvEl" role="img" aria-label="ELISA plate strip and a side view of one well."></canvas></div>
+        <div class="stagebar"><span class="caption" id="eCap"></span></div>
+        <p class="small" style="margin:6px 4px 0">Tap a well, or use the buttons, to see its layers in the side view.</p>
+        <div class="platebtns" id="eWellBtns" role="group" aria-label="Choose a row to inspect"></div>
+      </div>
+      <aside class="card side" aria-live="polite">
+        <div class="seg" role="group" aria-label="ELISA type"><button type="button" id="eInd" aria-pressed="true">Indirect (antibody)</button><button type="button" id="eSand" aria-pressed="false">Sandwich (antigen)</button></div>
+        <p class="small" id="eAbout" style="margin:0 0 6px"></p>
+        <h3 style="margin-top:4px">1. Run the protocol, in order</h3>
+        <div class="protocol" id="eSteps" role="group" aria-label="Protocol steps"></div>
+        <ul class="log" id="eLog" aria-label="Steps done so far"></ul>
+        <div class="bar"><button class="tbtn" id="eRestart" type="button">Start a new plate</button><button class="tbtn" id="eNew" type="button">New patients</button></div>
+        <h3>2. Report the results</h3>
+        <p class="anslabel" id="eQ1">Patient 1 titer</p><div class="platebtns" id="eA1" role="group" aria-label="Patient 1 titer"></div>
+        <p class="anslabel" id="eQ2">Patient 2 titer</p><div class="platebtns" id="eA2" role="group" aria-label="Patient 2 titer"></div>
+        <div class="bar"><button class="btn" id="eCheck" type="button">Check</button><button class="tbtn" id="eHint" type="button">Hint</button><button class="tbtn" id="eShow" type="button">Show answer</button></div>
+        <div class="msg" id="eMsg" role="status"></div>
+        <h3>Challenges</h3>
+        <ul class="chal" id="eChal"></ul>
+        <p class="small" id="eChalStars"></p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 3: cases -->
+  <section id="tab-case" role="tabpanel" aria-labelledby="tabbtn-case" hidden>
+    <h2 class="gk-sr">Part 3: Test Reader Cases</h2>
+    <div class="chips" id="cChips" role="group" aria-label="Choose a case"></div>
+    <div class="grid" style="margin-top:12px">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvCase" role="img" aria-label="Test result and lab report."></canvas></div>
+        <div class="story" id="cStory" style="padding:12px 6px 2px"></div>
+      </div>
+      <aside class="card side" aria-live="polite">
+        <div class="sc-n" id="cN"></div>
+        <h3 class="sc-title" id="cT" style="text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:21px;color:var(--ink);margin:2px 0 6px"></h3>
+        <div class="qnav" id="cQnav" role="group" aria-label="Questions"></div>
+        <p class="qlab" id="cQ"></p>
+        <div class="opts" id="cOpts"></div>
+        <p class="fb" id="cFb"></p>
+        <div class="bar"><button class="tbtn" id="cHint" type="button">Hint</button><button class="tbtn" id="cShow" type="button">Show answer</button><button class="btn" id="cNext" type="button">Next question &rarr;</button></div>
+        <p class="calm">Wrong answers are fine here. Read why, then try again.</p>
+        <p class="small" id="cScore"></p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 4: sort and order -->
+  <section id="tab-sort" role="tabpanel" aria-labelledby="tabbtn-sort" hidden>
+    <h2 class="gk-sr">Part 4: Sort and Order</h2>
+    <div class="seg" role="group" aria-label="Game type"><button type="button" id="gSort" aria-pressed="true">Sort into groups</button><button type="button" id="gOrder" aria-pressed="false">Put in order</button></div>
+    <div id="sortWrap">
+      <div class="rounds" id="sRounds" role="group" aria-label="Sorting rounds"></div>
+      <div class="grid">
+        <div class="card">
+          <p class="small" style="margin-top:0">Tap a card, then tap a bin. Or drag the card into a bin.</p>
+          <div class="pool" id="sPool" role="group" aria-label="Cards to sort"></div>
+          <div class="bins" id="sBins"></div>
+        </div>
+        <aside class="card side" aria-live="polite">
+          <div class="lvl-n" id="sN"></div>
+          <h3 class="lvl-t" id="sT" style="text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:22px;color:var(--ink)"></h3>
+          <div class="goal"><b class="h">Your job</b><span id="sGoal"></span></div>
+          <div class="bar">
+            <button class="btn" id="sCheck" type="button">Check</button>
+            <button class="tbtn" id="sHint" type="button">Hint</button>
+            <button class="tbtn" id="sShow" type="button">Show answer</button>
+            <button class="tbtn" id="sReset" type="button">Start over</button>
+          </div>
+          <div class="bar"><label class="mode"><input type="checkbox" id="sRelaxed" checked> Relaxed mode (no timer)</label><span class="timer" id="sTimer" hidden>0:00</span></div>
+          <div class="msg" id="sMsg" role="status"></div>
+          <div class="abbox" id="sWhy"><b>Tip:</b> after checking, tap any card to read why it belongs where it does.</div>
+        </aside>
+      </div>
+    </div>
+    <div id="orderWrap" hidden>
+      <div class="rounds" id="qRounds" role="group" aria-label="Ordering rounds"></div>
+      <div class="grid2">
+        <div class="card stage">
+          <div class="canvas-holder"><canvas id="cvSeq" role="img" aria-label="Process picture"></canvas></div>
+          <div class="stagebar"><span class="caption" id="qCap"></span></div>
+        </div>
+        <div class="card">
+          <div class="lvl-n" id="qN"></div>
+          <h3 class="lvl-t" id="qT" style="text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:22px;color:var(--ink)"></h3>
+          <div class="goal"><b class="h">Your job</b><span id="qGoal"></span></div>
+          <p class="small">Drag cards to reorder them, or use the arrow buttons on each card.</p>
+          <ol class="list" id="qList"></ol>
+          <div class="bar">
+            <button class="btn" id="qCheck" type="button">Check</button>
+            <button class="tbtn" id="qPlay" type="button">Play my order</button>
+            <button class="tbtn" id="qHint" type="button">Hint</button>
+            <button class="tbtn" id="qShow" type="button">Show answer</button>
+            <button class="tbtn" id="qShuffle" type="button">Shuffle again</button>
+          </div>
+          <div class="bar"><label class="mode"><input type="checkbox" id="qRelaxed" checked> Relaxed mode (no timer)</label><span class="timer" id="qTimer" hidden>0:00</span></div>
+          <div class="msg" id="qMsg" role="status"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>Dr. Akash Garg &middot; Microbiology Study Tools &middot; Diagrams are simplified and not to scale. For learning only, not medical advice. CC BY-NC-SA 4.0<br>Learn the ideas first in the <a href="Adaptive-Walkthrough.html">Adaptive Immunity, Vaccines and Diagnostics Walkthrough</a>. The immune response simulator is a simple teaching model with rounded, relative antibody units; real responses vary from person to person and vaccine to vaccine. ELISA values and cases are fictional teaching examples.</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "gold", "gold-wash", "gold-ink", "ecf", "grid", "bact", "bact-edge", "gpos", "gneg", "virus", "virus-2", "host", "host-edge", "nucf", "nuc-edge", "ag", "hapten", "carrier", "mhc1", "mhc2", "pepin", "pepout", "th", "tc", "treg", "bcell", "plasma", "mem", "dc", "macro", "nk", "igg", "igm", "iga", "ige", "igd", "perforin", "granzyme", "comp", "cyto", "node", "node-edge", "follicle", "thymus", "mast", "hist", "rbc", "rbc-edge", "skin", "skin-edge", "rash", "well", "well-edge", "substrate", "enzyme", "np", "strip", "pad", "fluor", "laser", "sag", "mrna", "lnp", "lnp-2", "vector", "alum", "dna", "glow", "heat"];
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"left";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase(),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+function bodyFig(cx,top,s,o){o=o||{};ctx.save();ctx.translate(cx,top);ctx.scale(s,s);ctx.lineCap="round";ctx.lineJoin="round";
+  const col=o.col||C.body,ed=o.edge||C["body-edge"];
+  const limbs=[[-38,40,-80,175],[38,40,80,175],[-20,170,-28,330],[20,170,28,330]];
+  ctx.strokeStyle=ed;ctx.lineWidth=31;limbs.forEach(l=>{ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.stroke()});
+  ctx.strokeStyle=col;ctx.lineWidth=28;limbs.forEach(l=>{ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.stroke()});
+  rr(-45,26,90,155,22);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=ed;ctx.lineWidth=1.5;ctx.stroke();
+  ctx.fillStyle=col;ctx.fillRect(-11,8,22,22);circ(0,-12,26,col,ed,1.5);
+  ctx.restore()}
+function bp(cx,top,s,x,y){return [cx+x*s,top+y*s]}
+
+function gauge(x,y,r,v,v0,v1,o){o=o||{};const a0=Math.PI*.8,a1=Math.PI*2.2;ctx.lineCap="round";
+  ctx.beginPath();ctx.arc(x,y,r,a0,a1);ctx.strokeStyle=C.sunk;ctx.lineWidth=r*.18;ctx.stroke();
+  (o.zones||[]).forEach(z=>{ctx.beginPath();ctx.arc(x,y,r,a0+(a1-a0)*seg(z[0],v0,v1),a0+(a1-a0)*seg(z[1],v0,v1));ctx.strokeStyle=hexA(z[2],.75);ctx.lineWidth=r*.18;ctx.stroke()});
+  ctx.lineCap="butt";const a=a0+(a1-a0)*seg(v,v0,v1);line(x,y,x+Math.cos(a)*r*.82,y+Math.sin(a)*r*.82,C.ink,3);circ(x,y,4.5,C.ink);
+  if(o.title)txt(x,y+r*.42,o.title,{size:11.5,mono:true,weight:700,align:"center",color:C["ink-soft"]});
+  if(o.val)txt(x,y+r*.78,o.val,{size:14,mono:true,weight:700,align:"center",color:o.valCol||C.ink})}
+function thermo(x,y,h,f,o){o=o||{};rr(x-6,y,12,h,6);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();
+  const fh=(h-8)*clamp(f,0,1);rr(x-3,y+h-fh-2,6,fh+4,3);ctx.fillStyle=C.heat;ctx.fill();circ(x,y+h+6,9,C.heat,C["ink-soft"],1.4);
+  if(o.lab)txt(x,y+h+24,o.lab,{size:12,mono:true,weight:700,align:"center",color:o.labCol||C.ink})}
+function dna(x,y,w,h,t,col,o){o=o||{};const n=o.n||16;for(let i=0;i<=n;i++){const f=i/n;const X=x+f*w;const a=f*TAU*2+t;const y1=y+Math.sin(a)*h/2,y2=y-Math.sin(a)*h/2;line(X,y1,X,y2,hexA(col,.45),1.4)}
+  [0,Math.PI].forEach(ph=>{ctx.beginPath();for(let i=0;i<=60;i++){const f=i/60;const X=x+f*w,Y=y+Math.sin(f*TAU*2+t+ph)*h/2;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=2.4;ctx.stroke()})}
+function rna(x,y,w,t,col,lw){ctx.beginPath();for(let i=0;i<=40;i++){const f=i/40;const X=x+f*w,Y=y+Math.sin(f*TAU*2.5+t)*4;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=lw||2.2;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt"}
+function face(x,y,r,o){o=o||{};circ(x,y,r,C.skin,C["skin-edge"],1.6);
+  if(o.rash){ctx.save();ctx.globalAlpha*=o.rash;ctx.fillStyle=hexA(C.rash,.7);ctx.beginPath();ctx.ellipse(x-r*.42,y+r*.12,r*.3,r*.2,-.3,0,TAU);ctx.ellipse(x+r*.42,y+r*.12,r*.3,r*.2,.3,0,TAU);ctx.fill();rr(x-r*.14,y-r*.05,r*.28,r*.28,r*.1);ctx.fill();ctx.restore()}
+  if(o.puffy){ell(x-r*.35,y-r*.08,r*.2,r*.12*(1+o.puffy*.6),0,hexA(C["skin-edge"],.5));ell(x+r*.35,y-r*.08,r*.2,r*.12*(1+o.puffy*.6),0,hexA(C["skin-edge"],.5))}
+  circ(x-r*.35,y-r*.18,r*.08,C.ink);circ(x+r*.35,y-r*.18,r*.08,C.ink);ctx.beginPath();ctx.arc(x,y+r*.3,r*.25,.2*Math.PI,.8*Math.PI);ctx.strokeStyle=C.ink;ctx.lineWidth=1.6;ctx.stroke()}
+function timeBar(x,y,w,f,marks,o){o=o||{};rr(x,y,w,8,4);ctx.fillStyle=C.sunk;ctx.fill();rr(x,y,w*clamp(f,0,1),8,4);ctx.fillStyle=o.col||C.accent;ctx.fill();
+  (marks||[]).forEach(m=>{const X=x+w*m[0];line(X,y-3,X,y+11,C["ink-soft"],1.2);txt(X,y+22,m[1],{size:11.5,mono:true,align:m[0]<=0?"left":m[0]>=1?"right":"center",color:C["ink-soft"]})});
+  circ(x+w*clamp(f,0,1),y+4,6,o.col||C.accent,C.panel,2)}
+function stepRow(x,y,w,items,on,col,st){const n=items.length,gap=6,bw=(w-gap*(n-1))/n;items.forEach((s,i)=>{const X=x+i*(bw+gap);const lit=i===on,past=i<on;rr(X,y,bw,24,12);ctx.fillStyle=lit?(col||C.accent):past?hexA(col||C.accent,.18):hexA(C.panel,.9);ctx.fill();ctx.strokeStyle=lit||past?(col||C.accent):C.rule;ctx.lineWidth=1.3;ctx.stroke();
+  txt(X+bw/2,y+12.5,(i+1+(st||0))+" "+s,{size:12,weight:700,align:"center",color:lit?onFill():C.ink})})}
+
+/* ---- HIV teaching model (rounded, typical untreated course; ART started at year artStart) ---- */
+
+
+/* ================= adaptive immunity drawing kit ================= */
+function fillPoly(pts,fill,stroke,lw){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.2;ctx.lineJoin="round";ctx.stroke()}}
+function diamond(x,y,s,col,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.beginPath();ctx.moveTo(x,y-s);ctx.lineTo(x+s,y);ctx.lineTo(x,y+s);ctx.lineTo(x-s,y);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.3);ctx.lineWidth=1;ctx.stroke();ctx.restore()}
+function tri(x,y,s,col,ang,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.translate(x,y);ctx.rotate(ang||0);ctx.beginPath();ctx.moveTo(0,-s);ctx.lineTo(s*.9,s*.7);ctx.lineTo(-s*.9,s*.7);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.35);ctx.lineWidth=1;ctx.stroke();ctx.restore()}
+function tick(x,y,s,col){ctx.save();ctx.strokeStyle=col||C.good;ctx.lineWidth=3;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(x-s,y);ctx.lineTo(x-s*.3,y+s*.7);ctx.lineTo(x+s,y-s*.7);ctx.stroke();ctx.restore()}
+function cross(x,y,s,col){line(x-s,y-s,x+s,y+s,col||C.bad,3);line(x+s,y-s,x-s,y+s,col||C.bad,3)}
+function graphBox(x,y,w,h,t){panelBox(x,y,w,h,{fill:hexA(C.panel,.95)});if(t)txt(x+10,y+14,t.toUpperCase(),{size:11.5,mono:true,weight:700,color:C["ink-soft"]})}
+/* epitope shapes: small marks that receptors and antibodies "fit" */
+function epi(x,y,s,shape,col,ang,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);col=col||C.ag;
+  if(shape==="tri")tri(x,y,s,col,ang||0);
+  else if(shape==="sq"){ctx.translate(x,y);ctx.rotate(ang||0);rr(-s*.8,-s*.8,s*1.6,s*1.6,1.5);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.35);ctx.lineWidth=1;ctx.stroke()}
+  else if(shape==="dia")diamond(x,y,s,col);
+  else if(shape==="star"){ctx.translate(x,y);ctx.rotate(ang||0);ctx.beginPath();for(let k=0;k<10;k++){const r_=k%2?s*.45:s;const an=k/10*TAU-Math.PI/2;k?ctx.lineTo(Math.cos(an)*r_,Math.sin(an)*r_):ctx.moveTo(Math.cos(an)*r_,Math.sin(an)*r_)}ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.35);ctx.lineWidth=1;ctx.stroke()}
+  else circ(x,y,s*.85,col,hexA(C.ink,.35),1);
+  ctx.restore()}
+/* rod bacterium. o.epi = shapes placed around the edge; o.burst 0..1 */
+function bacterium(x,y,w,h,ang,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const b=o.burst||0;
+  const fill=o.fill||C.bact,edge=o.edge||C["bact-edge"];
+  if(b>0){const n=10;for(let k=0;k<n;k++){const an=k/n*TAU;const d=b*w*.5;ctx.save();ctx.translate(Math.cos(an)*(w*.45+d),Math.sin(an)*(h*.45+d*.6));ctx.rotate(an+Math.PI/2);ctx.globalAlpha*=1-b;line(-w*.12,0,w*.12,0,edge,2.4);ctx.restore()}ctx.globalAlpha*=clamp(1-b*1.6,0,1)}
+  if(o.capsule){rr(-w/2-6,-h/2-6,w+12,h+12,h/2+6);ctx.fillStyle=hexA(edge,.12);ctx.fill();ctx.save();ctx.setLineDash([3,3]);ctx.strokeStyle=hexA(edge,.6);ctx.lineWidth=1.2;ctx.stroke();ctx.restore()}
+  rr(-w/2,-h/2,w,h,h/2);ctx.fillStyle=fill;ctx.fill();
+  if(o.chrom!==false){ctx.save();rr(-w/2,-h/2,w,h,h/2);ctx.clip();ctx.beginPath();for(let i=0;i<=60;i++){const f=i/60;const an=f*TAU;const X=Math.cos(an)*w*.26+Math.sin(an*5)*w*.02,Y=Math.sin(an)*h*.2+Math.cos(an*6)*h*.04;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=hexA(C.dna,.55);ctx.lineWidth=Math.max(1.2,h*.045);ctx.stroke();ctx.restore()}
+  rr(-w/2,-h/2,w,h,h/2);ctx.strokeStyle=edge;ctx.lineWidth=o.lw||clamp(h*.05,1.6,3.5);ctx.stroke();
+  if(o.epi){const n=o.epi.length;for(let k=0;k<n;k++){const q=epiPos(w,h,n,k);const s=o.es||Math.max(3,h*.11);epi(q[0]+Math.cos(q[2])*s*.6,q[1]+Math.sin(q[2])*s*.6,s,o.epi[k],o.ecol||C.ag,q[2]+Math.PI/2)}}
+  ctx.restore()}
+/* position and outward angle of epitope k of n around a rod of size w x h (local coords) */
+function epiPos(w,h,n,k){const per=2*(w-h)+Math.PI*h;let d=(k+.5)/n*per;let px,py,an;
+  if(d<w-h){px=-w/2+h/2+d;py=-h/2;an=-Math.PI/2}else if(d<w-h+Math.PI*h/2){const u=(d-(w-h))/(h/2);an=-Math.PI/2+u;px=w/2-h/2+Math.cos(an)*h/2;py=Math.sin(an)*h/2}
+  else if(d<2*(w-h)+Math.PI*h/2){const u=d-(w-h)-Math.PI*h/2;px=w/2-h/2-u;py=h/2;an=Math.PI/2}else{const u=(d-2*(w-h)-Math.PI*h/2)/(h/2);an=Math.PI/2+u;px=-w/2+h/2+Math.cos(an)*h/2;py=Math.sin(an)*h/2}
+  return [px,py,an]}
+/* enveloped virus with knobbed spikes */
+function virion(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const t=o.t||0;const n=o.n||12;const col=o.col||C.virus;
+  for(let k=0;k<n;k++){const an=k/n*TAU+t*.2;const x1=x+Math.cos(an)*r,y1=y+Math.sin(an)*r,x2=x+Math.cos(an)*r*1.38,y2=y+Math.sin(an)*r*1.38;line(x1,y1,x2,y2,mix(col,C.ink,.25),Math.max(1.2,r*.09));
+    if(o.shape)epi(x2,y2,Math.max(2.4,r*.2),o.shape,o.scol||C.ag,an+Math.PI/2);else circ(x2,y2,Math.max(1.8,r*.17),o.scol||C.ag,hexA(C.ink,.35),.8)}
+  circ(x,y,r,mix(col,C.panel,.65),col,Math.max(1.4,r*.1));circ(x,y,r*.45,hexA(col,.45));ctx.restore()}
+/* antibody (Y): stem at (x,y) side away from ang; arms point toward ang (default up) */
+function ab(x,y,s,ang,col,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate((ang==null?-Math.PI/2:ang)+Math.PI/2);ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const lw=o.lw||Math.max(1.6,s*.16);col=col||C.igg;ctx.lineCap="round";
+  ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.beginPath();ctx.moveTo(0,s*.9);ctx.lineTo(0,0);ctx.lineTo(-s*.62,-s*.72);ctx.moveTo(0,0);ctx.lineTo(s*.62,-s*.72);ctx.stroke();
+  if(o.tip){circ(-s*.62,-s*.72,lw*.7,o.tip);circ(s*.62,-s*.72,lw*.7,o.tip)}
+  if(o.enz){circ(0,s*.9+lw*1.3,lw*1.35,C.enzyme,hexA(C.ink,.35),.8)}
+  if(o.fl){glow(0,s*.9+lw,lw*4,C.fluor,.8);circ(0,s*.9+lw*1.2,lw*1.1,C.fluor)}
+  if(o.gold){circ(0,s*.9+lw*1.4,lw*1.5,C.np,hexA(C.ink,.35),.8)}
+  ctx.lineCap="butt";ctx.restore()}
+function abTips(x,y,s,ang){ang=ang==null?-Math.PI/2:ang;const r=ang+Math.PI/2;const c=Math.cos(r),sn=Math.sin(r);const f=(u,v)=>[x+u*c-v*sn,y+u*sn+v*c];return [f(-s*.62,-s*.72),f(s*.62,-s*.72),f(0,s*.9)]}
+/* IgM pentamer: five Ys joined at the stems */
+function igm(x,y,s,rot,col,o){o=o||{};col=col||C.igm;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  for(let k=0;k<5;k++){const an=(rot||0)+k/5*TAU;ab(x+Math.cos(an)*s*.95,y+Math.sin(an)*s*.95,s*.8,an,col,{lw:Math.max(1.6,s*.14)})}
+  circ(x,y,s*.3,mix(col,C.panel,.3),col,1.2);ctx.restore()}
+/* IgA dimer: two Ys joined tail to tail */
+function iga(x,y,s,rot,col,o){o=o||{};col=col||C.iga;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const r=rot||0;
+  ab(x+Math.cos(r)*s*.85,y+Math.sin(r)*s*.85,s*.8,r,col,{lw:Math.max(1.6,s*.14)});ab(x-Math.cos(r)*s*.85,y-Math.sin(r)*s*.85,s*.8,r+Math.PI,col,{lw:Math.max(1.6,s*.14)});
+  circ(x,y,s*.18,C.panel,col,1.4);ctx.restore()}
+/* MHC molecule: stalk + open cup holding a peptide */
+function mhc(x,y,ang,col,pep,a,s){s=s||1;ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);ctx.translate(x,y);ctx.rotate(ang+Math.PI/2);ctx.scale(s,s);
+  ctx.strokeStyle=col;ctx.lineWidth=3;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,-9);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(-7,-17);ctx.quadraticCurveTo(-7,-9,0,-9);ctx.quadraticCurveTo(7,-9,7,-17);ctx.stroke();ctx.lineCap="butt";
+  if(pep){rr(-5,-18,10,6,2);ctx.fillStyle=pep;ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.lineWidth=.8;ctx.stroke()}ctx.restore()}
+/* lymphocytes */
+const KIND={th:["th","CD4"],tc:["tc","CD8"],b:["bcell","B"],mem:["mem","M"],treg:["treg","Treg"],nk:["nk","NK"],t:["nk","T"]};
+function lymph(x,y,r,kind,o){o=o||{};const kk=KIND[kind]||KIND.t;const col=o.col||C[kk[0]];const t=o.t||0;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  if(o.glow)glow(x,y,r*2.1,o.glowCol||C.glow,.55*o.glow);
+  blobPath(x,y,r,o.seed||1,t,.035);ctx.fillStyle=o.fill||mix(col,C.panel,.62);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=Math.max(1.4,r*.07);ctx.stroke();
+  circ(x+r*.04,y-r*.03,r*.68,o.nucCol||col);
+  if(!o.norec){const n=o.nrec||10;for(let i=0;i<n;i++){const an=i/n*TAU+(o.rot||0);const px=x+Math.cos(an)*r,py=y+Math.sin(an)*r;
+    if(kind==="b"||o.bcr)ab(px+Math.cos(an)*r*.12,py+Math.sin(an)*r*.12,Math.max(4,r*.22),an,o.recCol||col,{lw:1.4});
+    else{const L=r*.22;line(px,py,px+Math.cos(an)*L,py+Math.sin(an)*L,o.recCol||col,1.6);const ex=px+Math.cos(an)*L,ey=py+Math.sin(an)*L;line(ex-Math.sin(an)*3,ey+Math.cos(an)*3,ex+Math.sin(an)*3,ey-Math.cos(an)*3,o.recCol||col,1.6)}}}
+  const lab=o.label!=null?o.label:kk[1];if(lab){ctx.font=`700 ${Math.max(10,Math.round(r*(lab.length>3?.42:.5)))}px ${FONT}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(lab,x+r*.04,y)}
+  ctx.restore()}
+function dendritic(x,y,r,o){o=o||{};const t=o.t||0;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  ctx.beginPath();const N=7;for(let i=0;i<=N*12;i++){const an=i/(N*12)*TAU;const arm=Math.pow(Math.max(0,Math.cos(an*N/2+(o.seed||0))),6);const rad=r*(.62+.75*arm+.04*Math.sin(t*2+an*3));const X=x+Math.cos(an)*rad,Y=y+Math.sin(an)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();
+  ctx.fillStyle=mix(C.dc,C.panel,.6);ctx.fill();ctx.strokeStyle=C.dc;ctx.lineWidth=1.6;ctx.stroke();circ(x,y,r*.34,mix(C.dc,C.ink,.25));
+  if(o.lab!==false){ctx.font=`700 ${Math.max(10,Math.round(r*.3))}px ${FONT}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(o.lab||"DC",x,y)}ctx.restore()}
+function macro(x,y,r,o){o=o||{};const t=o.t||0;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);if(o.glow)glow(x,y,r*1.8,C.glow,.5*o.glow);
+  blobPath(x,y,r,o.seed||5,t,o.amp==null?.11:o.amp);ctx.fillStyle=mix(C.macro,C.panel,.55);ctx.fill();ctx.strokeStyle=C.macro;ctx.lineWidth=Math.max(1.5,r*.05);ctx.stroke();
+  ctx.beginPath();ctx.ellipse(x-r*.18,y+r*.08,r*.3,r*.22,.4,0,TAU);ctx.fillStyle=mix(C.macro,C.ink,.25);ctx.fill();
+  if(o.lab!==false&&r>14)txt(x+r*.25,y-r*.35,o.lab||"Mφ",{size:Math.max(10,Math.round(r*.3)),weight:700,align:"center"});ctx.restore()}
+/* body cell with nucleus. o.shrink 0..1 (apoptosis), o.frag 0..1 breaks into blebs */
+function hostCell(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const sh=o.shrink||0,fr=o.frag||0;const R=r*(1-sh*.35);
+  if(fr>0){for(let k=0;k<6;k++){const an=k/6*TAU+.3;const d=R*.55*fr;circ(x+Math.cos(an)*d,y+Math.sin(an)*d,R*(.42-.12*fr),o.fill||C.host,o.edge||C["host-edge"],1.4)}ctx.restore();return}
+  blobPath(x,y,R,o.seed||7,o.t||0,.04+sh*.08);ctx.fillStyle=o.fill||C.host;ctx.fill();ctx.strokeStyle=o.edge||C["host-edge"];ctx.lineWidth=1.8;ctx.stroke();
+  if(o.nuc!==false){circ(x+R*.05,y+R*.05,R*.32*(1-sh*.4),C.nucf,C["nuc-edge"],1.4)}ctx.restore()}
+function plasmaC(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ctx.beginPath();ctx.ellipse(x,y,r*1.2,r*.9,o.ang||0,0,TAU);ctx.fillStyle=mix(C.plasma,C.panel,.7);ctx.fill();ctx.strokeStyle=C.plasma;ctx.lineWidth=1.6;ctx.stroke();
+  circ(x-r*.6,y,r*.42,C.plasma);ctx.strokeStyle=hexA(C.plasma,.75);ctx.lineWidth=1.2;for(let k=0;k<4;k++){ctx.beginPath();ctx.arc(x-r*.25,y,r*(.55+k*.15),-0.9,0.9);ctx.stroke()}
+  if(o.lab)txt(x,y+r+11,o.lab,{size:11.5,weight:600,align:"center",color:C["ink-soft"]});ctx.restore()}
+function mastC(x,y,r,deg,o){o=o||{};const t=o.t||0;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);blobPath(x,y,r,o.seed||4,t,.05);ctx.fillStyle=mix(C.mast,C.panel,.45);ctx.fill();ctx.strokeStyle=mix(C.mast,C.ink,.35);ctx.lineWidth=1.6;ctx.stroke();
+  circ(x,y,r*.3,mix(C.mast,C.ink,.3));const n=Math.round(20*(1-(deg||0)*.85));for(let i=0;i<n;i++){const an=rnd(i*9+2)*TAU,d=r*(.42+rnd(i*4)*.45);circ(x+Math.cos(an)*d,y+Math.sin(an)*d,Math.max(1.6,r*.08),C.hist)}
+  if(o.ige){const m=o.ige;for(let i=0;i<m;i++){const an=-Math.PI*.95+i/(m-1)*Math.PI*.9;ab(x+Math.cos(an)*(r+1),y+Math.sin(an)*(r+1),Math.max(6,r*.24),an,C.ige,{lw:2})}}
+  if(o.lab!==false)txt(x,y+r+12,o.lab||"Mast cell",{size:12,weight:600,align:"center",color:C["ink-soft"]});ctx.restore()}
+function rbc(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ell(x,y,r,r*(o.sq||1),o.rot||0,C.rbc,C["rbc-edge"],1.2);ell(x,y,r*.48,r*.48*(o.sq||1),o.rot||0,hexA(C.panel,.35));
+  if(o.ag){const n=o.agn||6;for(let k=0;k<n;k++){const an=k/n*TAU+(o.rot||0);epi(x+Math.cos(an)*r,y+Math.sin(an)*r*(o.sq||1),3.2,o.ag,o.agCol||C.ag,an+Math.PI/2)}}ctx.restore()}
+function syringe(x,y,s,col,ang){ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.scale(s,s);rr(-26,-7,40,14,4);ctx.fillStyle=col||C.accent;ctx.fill();ctx.strokeStyle=hexA(C.ink,.45);ctx.lineWidth=1.2;ctx.stroke();
+  rr(14,-4,10,8,2);ctx.fillStyle=C.panel;ctx.fill();ctx.stroke();line(24,0,36,0,C["ink-soft"],1.6);rr(-34,-5,8,10,2);ctx.fillStyle=mix(col||C.accent,C.ink,.3);ctx.fill();ctx.restore()}
+/* lymph node: bean with follicles (B zones) and paracortex (T zone) */
+function lymphNode(x,y,w,h,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  ctx.beginPath();ctx.ellipse(x,y,w/2,h/2,0,0,TAU);ctx.fillStyle=C.node;ctx.fill();ctx.strokeStyle=C["node-edge"];ctx.lineWidth=2.4;ctx.stroke();
+  ctx.beginPath();ctx.ellipse(x+w*.47,y,w*.08*(o.fs||1),h*.16*(o.fs||1),0,0,TAU);ctx.fillStyle=C.ecf;ctx.fill();
+  const n=o.fol||5;for(let k=0;k<n;k++){const an=Math.PI*.62+k/(n-1)*Math.PI*.76;const fs=o.fs||1;const fx=x+Math.cos(an)*w*(.5-.14*fs),fy=y+Math.sin(an)*h*(.5-.17*fs);ctx.beginPath();ctx.ellipse(fx,fy,w*.09*fs,h*.11*fs,an,0,TAU);ctx.fillStyle=C.follicle;ctx.fill();ctx.strokeStyle=hexA(C.bcell,.5);ctx.lineWidth=1.2;ctx.stroke()}
+  ctx.restore()}
+/* lipid nanoparticle with mRNA */
+function lnp(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);circ(x,y,r,C["lnp-2"],C.lnp,Math.max(1.6,r*.14));
+  ctx.beginPath();for(let i=0;i<=30;i++){const f=i/30;const an=f*TAU*1.6+(o.t||0);const rad=r*.55*(.4+.6*f);i?ctx.lineTo(x+Math.cos(an)*rad,y+Math.sin(an)*rad):ctx.moveTo(x+Math.cos(an)*rad,y+Math.sin(an)*rad)}ctx.strokeStyle=C.mrna;ctx.lineWidth=Math.max(1.4,r*.12);ctx.stroke();ctx.restore()}
+function mrnaStr(x,y,w,t,col,lw){ctx.beginPath();for(let i=0;i<=40;i++){const f=i/40;const X=x+f*w,Y=y+Math.sin(f*TAU*2.5+(t||0))*4;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col||C.mrna;ctx.lineWidth=lw||2.2;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt"}
+/* complement membrane attack complex: ring of proteins forming a pore */
+function macPore(x,y,r,f,ang){f=clamp(f==null?1:f,0,1);const n=10;for(let k=0;k<Math.round(n*f);k++){const an=(ang||0)+k/n*TAU;rr(x+Math.cos(an)*r-2.5,y+Math.sin(an)*r-2.5,5,5,1.5);ctx.fillStyle=C.comp;ctx.fill()}}
+/* graph axes with optional log labels */
+function axes(x,y,w,h,o){o=o||{};line(x,y,x,y+h,C["ink-soft"],1.4);line(x,y+h,x+w,y+h,C["ink-soft"],1.4);
+  if(o.xl)txt(x+w/2,y+h+30,o.xl,{size:12,align:"center",color:C["ink-soft"],weight:600});
+  if(o.yl){ctx.save();ctx.translate(x-(o.ylOff||30),y+h/2);ctx.rotate(-Math.PI/2);txt(0,0,o.yl,{size:12,align:"center",color:C["ink-soft"],weight:600});ctx.restore()}
+  (o.xt||[]).forEach(t_=>{const X=x+w*t_[0];line(X,y+h,X,y+h+5,C["ink-soft"],1.2);txt(X,y+h+15,t_[1],{size:11.5,mono:true,align:"center",color:C["ink-soft"]})});
+  (o.yt||[]).forEach(t_=>{const Y=y+h-h*t_[0];line(x-5,Y,x,Y,C["ink-soft"],1.2);if(o.grid)line(x,Y,x+w,Y,hexA(C.rule,.7),1);txt(x-8,Y,t_[1],{size:11.5,mono:true,align:"right",color:C["ink-soft"]})})}
+/* ELISA well seen from above. od 0..~3 sets yellow colour */
+function well(x,y,r,od,o){o=o||{};const f=clamp(od/2.2,0,1);circ(x,y,r,C.well,C["well-edge"],1.4);if(f>0.01)circ(x,y,r-2,hexA(C.substrate,.12+f*.88));
+  circ(x-r*.3,y-r*.3,r*.22,hexA(C.panel,.35));if(o.sel){ctx.beginPath();ctx.arc(x,y,r+3,0,TAU);ctx.strokeStyle=C.accent;ctx.lineWidth=2.4;ctx.stroke()}}
+/* lateral flow cassette, horizontal. o.wet 0..1 flow front, o.c / o.t line strength 0..1, o.labels */
+function flowStrip(x,y,w,h,o){o=o||{};rr(x,y,w,h,h*.35);ctx.fillStyle=mix(C.panel,C.sunk,.35);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.6;ctx.stroke();
+  const wx=x+w*.06,ww=w*.14;ctx.beginPath();ctx.ellipse(wx+ww/2,y+h/2,ww/2,h*.28,0,0,TAU);ctx.fillStyle=C.pad;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.2;ctx.stroke();
+  if(o.s!==false)txt(wx+ww/2,y+h+13,"S",{size:12,mono:true,weight:700,align:"center",color:C["ink-soft"]});
+  if(o.conj){rr(x+w*.22,y+h*.32,w*.09,h*.36,3);ctx.fillStyle=hexA(C.np,.35);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1;ctx.stroke()}
+  const rx=x+w*.32,rw=w*.52,ry=y+h*.3,rh=h*.4;rr(rx,ry,rw,rh,3);ctx.fillStyle=C.strip;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.2;ctx.stroke();
+  const wet=clamp(o.wet==null?1:o.wet,0,1);if(wet>0){rr(rx,ry,rw*wet,rh,3);ctx.fillStyle=hexA(C.np,.08+.06*Math.sin((o.time||0)*3));ctx.fill()}
+  const tx=rx+rw*.38,cx_=rx+rw*.72;
+  if((o.t||0)>0){ctx.fillStyle=hexA(C.np,clamp(o.t,0,1));ctx.fillRect(tx-3,ry+2,6,rh-4)}
+  if((o.c||0)>0){ctx.fillStyle=hexA(C.np,clamp(o.c,0,1));ctx.fillRect(cx_-3,ry+2,6,rh-4)}
+  if(o.t2!=null&&(o.t2||0)>0){const t2x=rx+rw*.18;ctx.fillStyle=hexA(C.np,clamp(o.t2,0,1));ctx.fillRect(t2x-3,ry+2,6,rh-4)}
+  if(o.labels!==false){const L=o.lab||["T","C"];txt(tx,y-10,L[0],{size:12,mono:true,weight:700,align:"center"});txt(cx_,y-10,L[1],{size:12,mono:true,weight:700,align:"center"});if(o.t2!=null)txt(rx+rw*.18,y-10,L[2]||"T2",{size:12,mono:true,weight:700,align:"center"})}
+  return {tx,cx:cx_,ry,rh,rx,rw}}
+/* small flask/test tube for diagnostics */
+function tube(x,y,w,h,liq,col,o){o=o||{};ctx.save();rr(x-w/2,y,w,h,w/2);ctx.save();ctx.clip();ctx.fillStyle=col;ctx.fillRect(x-w/2,y+h*(1-liq),w,h*liq);ctx.restore();
+  ctx.beginPath();ctx.moveTo(x-w/2,y);ctx.lineTo(x-w/2,y+h-w/2);ctx.arc(x,y+h-w/2,w/2,Math.PI,0,true);ctx.lineTo(x+w/2,y);ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.6;ctx.stroke();
+  if(o.lab)txt(x,y+h+14,o.lab,{size:12,mono:true,weight:700,align:"center",color:o.labCol||C.ink});ctx.restore()}
+/* small person icon for herd immunity grids. state: 0 susceptible, 1 immune, 2 infected */
+function person(x,y,s,state,a){ctx.save();ctx.globalAlpha*=a==null?1:clamp(a,0,1);const col=state===1?C.accent:state===2?C.bad:C["ink-soft"];
+  circ(x,y-s*.55,s*.32,state===0?C.panel:col,col,1.4);rr(x-s*.38,y-s*.15,s*.76,s*.8,s*.3);ctx.fillStyle=state===0?C.panel:col;ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=1.4;ctx.stroke();
+  if(state===1){ctx.strokeStyle=onFill();ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(x-s*.18,y+s*.25);ctx.lineTo(x-s*.03,y+s*.4);ctx.lineTo(x+s*.2,y+s*.08);ctx.stroke()}
+  if(state===2){ctx.strokeStyle=onFill();ctx.lineWidth=1.6;line(x-s*.15,y+.1*s,x+s*.15,y+s*.4,onFill(),1.6);line(x+s*.15,y+.1*s,x-s*.15,y+s*.4,onFill(),1.6)}ctx.restore()}
+/* microscope field circle */
+function field(x,y,r,fill){circ(x,y,r,fill||C.sunk,C["ink-soft"],2)}
+
+/* ================= shared lab helpers ================= */
+const $=s=>document.querySelector(s);
+const store={get(k){try{return JSON.parse(localStorage.getItem("mk-adp-"+k))}catch(e){return null}},set(k,v){try{localStorage.setItem("mk-vir-"+k,JSON.stringify(v))}catch(e){}}};
+function makeStage(id,W_,H_){const cv=document.getElementById(id);const st={cv,ctx:cv.getContext("2d"),W:W_,H:H_,K:1};
+  st.fit=()=>{const w=cv.parentElement.clientWidth;if(!w)return;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H_/W_)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H_/W_*dpr);st.K=cv.width/W_};return st}
+let W=800,H=440;
+function use(st){ctx=st.ctx;W=st.W;H=st.H;ctx.setTransform(st.K,0,0,st.K,0,0);ctx.clearRect(0,0,st.W,st.H);ctx.globalAlpha=1;bg(C.ecf)}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function fmt(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+function setMsg(id,t,c){const m=$(id);m.className="msg"+(t?" show "+c:"");m.innerHTML=t}
+function starStr(n){return `<span class="stars" aria-hidden="true">${"★".repeat(n)}${"☆".repeat(3-n)}</span><span class="gk-sr">${n} of 3 stars</span>`}
+function chalList(id,items,done){$(id).innerHTML=items.map((c,i)=>`<li class="${done[i]?"done":""}"><span class="ck" aria-hidden="true">${done[i]?"✓":i+1}</span><span>${c}<span class="gk-sr">${done[i]?" (done)":" (not yet)"}</span></span></li>`).join("")}
+function pressed(a,b,on){$(a).setAttribute("aria-pressed",on?"true":"false");$(b).setAttribute("aria-pressed",on?"false":"true")}
+const SUP={"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","-":"⁻"};
+function sup(n){return String(n).split("").map(c=>SUP[c]||c).join("")}
+function sci(v,d){if(!(v>0))return "0";if(v<1000)return String(Math.round(v));const e=Math.floor(Math.log10(v));const m=v/Math.pow(10,e);return m.toFixed(d==null?1:d)+" × 10"+sup(e)}
+function sciWords(v){if(!(v>0))return "zero";if(v<1000)return String(Math.round(v));const e=Math.floor(Math.log10(v));const m=v/Math.pow(10,e);return m.toFixed(1)+" times 10 to the "+e}
+function chalStars(n,tot){return n?`${n} of ${tot} done `+starStr(Math.min(3,n<2?1:n<tot?2:3)):"Try each challenge. Your progress is kept in this browser only."}
+
+
+
+/* ================= PART 1: immune response simulator ================= */
+const S1=makeStage("cvSim",800,460);
+const TMAXD=240,PROT=100;
+const VT={inf:{name:"Natural infection",short:"Infection",a:1,memF:.9,dur:10},
+ live:{name:"Live attenuated vaccine",short:"Live attenuated",a:.85,memF:.85,dur:8},
+ inact:{name:"Inactivated vaccine",short:"Inactivated",a:.35,memF:.45,dur:4},
+ sub:{name:"Subunit vaccine + adjuvant",short:"Subunit + adjuvant",a:.55,memF:.6,dur:6},
+ mrna:{name:"mRNA vaccine",short:"mRNA",a:.7,memF:.75,dur:5}};
+const VORD=["inf","live","inact","sub","mrna"];
+const BOOST=[0,7,14,21,28,56,90,120,150,180];
+const SM={type:"inact",bi:0,run:false,speed:6,t:0,ev:[],pending:[],sick:null,lastOut:"",maxPre:0,maxPost:0};
+let mChalDone=store.get("sim-chal")||[0,0,0,0,0];
+const M_CHAL=["Watch a <b>primary response</b>: see IgM peak before IgG (run to day 30).","Give a <b>booster</b> 3 weeks or more after dose 1 and reach an IgG peak at least <b>10 times</b> the first peak.","Try a booster <b>too soon</b> (day 7) and see that it adds little.","Show that one dose of <b>inactivated</b> vaccine stays under the protective line, but a booster lifts IgG over it.","After vaccinating, <b>meet the real germ</b> and stay well (blocked or mild)."];
+const lnp_=(x,pk,w)=>x<=0?0:Math.exp(-Math.pow(Math.log(x/pk),2)/w);
+function evResp(e,t){const tau=t-e.t0;if(tau<0)return [0,0];const a=e.aEff,m=e.m;
+  const igm=a*150*((1-m)*lnp_(tau-2,8,.35)+m*.12*lnp_(tau,4,.3));
+  const igg=a*((1-m)*200*smooth(seg(tau,7,20))*(.12+.88*Math.exp(-Math.max(0,tau-20)/30))+m*5000*smooth(seg(tau,2,9))*(.15+.85*Math.exp(-Math.max(0,tau-12)/45)));
+  return [igm,igg]}
+function tot(t){let m=0,g=0;SM.ev.forEach(e=>{const r=evResp(e,t);m+=r[0];g+=r[1]});return [m,g]}
+function memAt(t,evs){let s=0;(evs||SM.ev).forEach(e=>{if(t>e.t0)s+=e.aEff*e.memF*(1+e.m)*smooth(seg(t-e.t0,7,21))});return Math.min(1,s)}
+function agAt(t){let s=0;SM.ev.forEach(e=>{const tau=t-e.t0;if(tau>=0)s+=e.aEff*Math.exp(-tau/e.dur)*(e.germ&&!e.blocked?1+.6*Math.max(0,1-tau/8):1)});return s}
+function actAt(t){let s=0;SM.ev.forEach(e=>{const tau=t-e.t0;if(tau>=0)s+=e.aEff*((1-e.m)*gauss(tau,7,3)+e.m*1.6*gauss(tau,4,2))});return clamp(s,0,1)}
+function prodAt(t){let s=0;SM.ev.forEach(e=>{const tau=t-e.t0;if(tau>=0)s+=e.aEff*((1-e.m)*gauss(tau,12,5)+e.m*2.5*gauss(tau,7,4))});return clamp(s,0,1)}
+function addEvent(kind,germ){const t0=SM.t;const p=germ?VT.inf:VT[kind];const g=tot(t0)[1];const m=memAt(t0);
+  const e={t0,a:p.a,memF:p.memF,dur:p.dur,m,germ:!!germ,aEff:p.a/(1+g/400),lab:germ?"Germ":(SM.ev.length?"Booster":"Dose 1")};
+  if(germ){e.blocked=g>=PROT;e.mild=!e.blocked&&m>=.3;e.lab=t0<.5&&SM.type==="inf"?"Infection":SM.type==="inf"&&Math.abs(t0-BOOST[SM.bi])<.01?"Germ again":"Germ";
+    SM.sick=e.blocked?null:{from:t0+2,to:t0+(e.mild?5:12),mild:e.mild}}
+  SM.ev.push(e);return e}
+function mReset(){SM.t=0;SM.ev=[];SM.sick=null;SM.run=false;SM.lastOut="";SM.maxPre=0;SM.maxPost=0;SM.pending=[];$("#mRun").textContent="Run";
+  SM.pending=[{t:0,kind:SM.type,germ:SM.type==="inf"}];const bd=BOOST[SM.bi];if(bd>0)SM.pending.push({t:bd,kind:SM.type==="inf"?"inf":SM.type,germ:SM.type==="inf"});mFire();mUI()}
+function mFire(){while(SM.pending.length&&SM.pending[0].t<=SM.t+1e-9){const p=SM.pending.shift();const keep=SM.t;SM.t=p.t;addEvent(p.kind,p.germ);SM.t=keep}}
+function mStep(dd){const bd=BOOST[SM.bi];let left=dd;while(left>1e-9&&SM.t<TMAXD){const d=Math.min(.25,left);SM.t=Math.min(TMAXD,SM.t+d);left-=d;mFire();
+  const g=tot(SM.t)[1];if(bd>0&&SM.t<bd)SM.maxPre=Math.max(SM.maxPre,g);else if(bd>0)SM.maxPost=Math.max(SM.maxPost,g);else SM.maxPre=Math.max(SM.maxPre,g)}
+  if(SM.t>=TMAXD&&SM.run){SM.run=false;$("#mRun").textContent="Run"}mCheckChal()}
+function mTick(dtReal){if(SM.run)mStep(dtReal*SM.speed)}
+function mExpose(){if(SM.t<3){mStatus("Run the simulation for a while first, then expose the body to the real germ.","warn");return}
+  const e=addEvent("inf",true);SM.lastOut=e.blocked?"blocked":e.mild?"mild":"sick";
+  if(e.blocked)mStatus("<b>Blocked.</b> IgG was already above the protective level, so antibodies neutralized the germ before it could spread. No illness.","good");
+  else if(e.mild)mStatus("<b>Mild illness.</b> Antibody had waned below the protective level, but memory cells started a fast secondary response within a few days.","warn");
+  else mStatus("<b>Sick.</b> There was too little antibody and memory, so the body needed a slow primary response (about 1 to 2 weeks).","bad");
+  mCheckChal();mUI()}
+let statusMsg=null;
+function mStatus(h,c){statusMsg={h,c,t:performance.now()};const s=$("#mStatus");s.className="status "+(c||"");s.innerHTML=h}
+function mCheckChal(){let ch=false;const mark=i=>{if(!mChalDone[i]){mChalDone[i]=1;ch=true}};const bd=BOOST[SM.bi];
+  if(SM.t>=30&&SM.ev.length&&SM.ev[0].m===0&&(bd===0||bd>=30))mark(0);
+  if(SM.type!=="inf"&&bd>=21&&SM.t>=bd+14&&SM.maxPre>0&&SM.maxPost>=10*SM.maxPre)mark(1);
+  if(bd===7&&SM.t>=40)mark(2);
+  if(SM.type==="inact"&&bd>0&&SM.t>=bd+14&&SM.maxPre<PROT&&SM.maxPost>=PROT)mark(3);
+  if(SM.type!=="inf"&&(SM.lastOut==="blocked"||SM.lastOut==="mild"))mark(4);
+  if(ch){store.set("sim-chal",mChalDone);mChalUI()}}
+function mChalUI(){chalList("#mChal",M_CHAL,mChalDone);$("#mChalStars").innerHTML=chalStars(mChalDone.reduce((a,b)=>a+b,0),5)}
+function memWord(m){return m<.05?"none yet":m<.3?"a few":m<.65?"moderate":"many"}
+function protState(){const [im,g]=tot(SM.t);const m=memAt(SM.t);return g>=PROT?["Protected: IgG above the protective level","good"]:m>=.3?["Partly protected: memory cells ready, antibody low","warn"]:["Not protected yet","bad"]}
+function isSick(){return SM.sick&&SM.t>=SM.sick.from&&SM.t<=SM.sick.to}
+function mUI(){const [im,g]=tot(SM.t);const m=memAt(SM.t);const bd=BOOST[SM.bi];
+  $("#mClock").textContent="Day "+Math.floor(SM.t);
+  const ps=protState();
+  $("#mRead").innerHTML=[["Day",Math.floor(SM.t)],["IgM (relative units)",Math.round(im)],["IgG (relative units)",Math.round(g)],["Memory B cells",memWord(m)],["Booster",bd?"day "+bd:"none"],["How the body feels",isSick()?(SM.sick.mild?"mild symptoms":"sick, fever"):"well"]].map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td></tr>`).join("");
+  if(!statusMsg||performance.now()-statusMsg.t>7000){const s=$("#mStatus");s.className="status "+ps[1];s.textContent=ps[0]+"."}}
+function mTypesUI(){const b=$("#mTypes");b.innerHTML="";VORD.forEach(k=>{const x=document.createElement("button");x.type="button";x.className="tbtn";x.textContent=VT[k].name;x.setAttribute("aria-pressed",k===SM.type?"true":"false");x.onclick=()=>{SM.type=k;mTypesUI();statusMsg=null;$("#mBoostOut").textContent=BOOST[SM.bi]?"day "+BOOST[SM.bi]+(SM.type==="inf"?" (second infection)":""):"none";mReset()};b.appendChild(x)})}
+$("#mBoost").oninput=e=>{SM.bi=+e.target.value;$("#mBoostOut").textContent=BOOST[SM.bi]?"day "+BOOST[SM.bi]+(SM.type==="inf"?" (second infection)":""):"none";statusMsg=null;mReset()};
+$("#mRun").onclick=()=>{if(SM.t>=TMAXD)mReset();SM.run=!SM.run;$("#mRun").textContent=SM.run?"Pause":"Run"};
+$("#mReset").onclick=()=>{statusMsg=null;mReset()};
+$("#mSpeed").onchange=e=>SM.speed=+e.target.value;
+$("#mExpose").onclick=mExpose;
+/* ---- drawing ---- */
+const GX=386,GY=46,GW=384,GH=236;
+const gxOf=d=>GX+GW*d/TMAXD,gyOf=v=>GY+GH-GH*clamp(Math.log10(Math.max(1,v))/4,0,1);
+function drawSim(now){use(S1);const T=now/1000;const [im,g]=tot(SM.t);const m=memAt(SM.t);
+  // lymph node panel
+  panelBox(10,10,282,440);title(24,30,"Inside a lymph node");
+  lymphNode(150,190,240,180,{fs:.6});
+  const ag=agAt(SM.t);const nAg=Math.round(clamp(ag,0,2)*8);for(let k=0;k<nAg;k++){const p=P(T*.35+k/nAg,1);const x=lerp(30,120,p)+Math.sin(k*3+T)*6,y=lerp(70,150+((k*37)%60),p);epi(x,y,5,"star",C.ag,T+k)}
+  if(nAg)txt(40,62,"antigen arriving",{size:12,color:C["ink-soft"],weight:600});
+  const act=actAt(SM.t);const nB=1+Math.round(act*13);for(let k=0;k<nB;k++){const a=k/14*TAU+.3;const d=k?20+(k%3)*12:0;lymph(130+Math.cos(a)*d,195+Math.sin(a)*d*.7,10,"b",{t:T,label:"",nrec:6,glow:act>.2&&k===0?.5:0})}
+  const pr=prodAt(SM.t);const nP=Math.round(pr*3);for(let k=0;k<nP;k++){plasmaC(220,150+k*40,11,{})}
+  if(pr>.05){const early=SM.ev.length&&SM.t-SM.ev[SM.ev.length-1].t0<11&&SM.ev[SM.ev.length-1].m<.3;for(let k=0;k<6;k++){const p=P(T*.6+k/6,1);ab(lerp(232,284,p),150+((k*29)%90),8,0,early&&k%2?C.igm:C.igg,{a:pr*(1-seg(p,.8,1)),lw:2})}}
+  txt(150,300,act>.15?"B cell clone dividing":pr>.1?"Plasma cells releasing antibody":"Resting",{size:12.5,weight:700,align:"center"});
+  title(24,330,"Memory B cells");const nM=Math.round(m*8);for(let k=0;k<8;k++){if(k<nM)lymph(38+k*33,358,12,"mem",{t:T,label:"",nrec:5});else circ(38+k*33,358,10,null,C.rule,1.2)}
+  // person
+  const sick=isSick();bust(52,418,20,{col:sick?C.bad:C.accent});
+  label(90,410,sick?(SM.sick.mild?"Mild symptoms":"Sick: fever, aches"):"Feeling well",{size:12.5,weight:700,border:sick?C.bad:C.good,align:"left"});
+  // graph
+  panelBox(300,10,490,440);title(314,30,"Antibody level in blood");
+  axes(GX,GY,GW,GH,{xl:"Days after first dose",yl:"Relative units (log)",ylOff:62,xt:[0,30,60,90,120,150,180,210,240].map(d=>[d/TMAXD,String(d)]),yt:[[0,"1"],[.25,"10"],[.5,"100"],[.75,"1,000"],[1,"10,000"]],grid:true});
+  ctx.save();ctx.setLineDash([6,4]);line(GX,gyOf(PROT),GX+GW,gyOf(PROT),C.good,2);ctx.restore();label(GX+GW-4,gyOf(PROT)-12,"Protective level",{size:12,weight:700,align:"right",color:C.good});
+  // memory on 0..1 scale (dotted)
+  plotFn(u=>Math.log10(Math.max(1,tot(u)[0])),0,TMAXD,GX,GY,GW,GH,0,4,C.igm,2.8,null,SM.t);
+  plotFn(u=>Math.log10(Math.max(1,tot(u)[1])),0,TMAXD,GX,GY,GW,GH,0,4,C.igg,2.8,null,SM.t);
+  const X=gxOf(SM.t);line(X,GY,X,GY+GH,hexA(C.ink,.3),1.2);
+  if(g>1)circ(X,gyOf(g),4.5,C.igg,C.panel,1.5);if(im>1)circ(X,gyOf(im),4.5,C.igm,C.panel,1.5);
+  // memory strip
+  const my=330,mh=24;txt(GX-8,my+mh/2,"Memory",{size:12,weight:700,align:"right",color:C["ink-soft"]});rr(GX,my,GW,mh,4);ctx.fillStyle=hexA(C.sunk,.6);ctx.fill();
+  ctx.beginPath();ctx.moveTo(GX,my+mh);const NN=120;for(let i=0;i<=NN;i++){const u=i/NN*TAU*0+i/NN*TMAXD;if(u>SM.t)break;ctx.lineTo(GX+GW*u/TMAXD,my+mh-mh*memAt(u))}ctx.lineTo(GX+GW*Math.min(SM.t,TMAXD)/TMAXD,my+mh);ctx.closePath();ctx.fillStyle=hexA(C.mem,.75);ctx.fill();
+  // timeline of events
+  const ty=392;line(GX,ty,GX+GW,ty,C.rule,2);txt(GX-8,ty,"Events",{size:12,weight:700,align:"right",color:C["ink-soft"]});
+  const marks=SM.pending.map(p=>({t0:p.t,lab:p.germ?(p.t?"Germ again":"Infection"):(p.t?"Booster":"Dose 1"),germ:p.germ,plan:true})).concat(SM.ev);
+  marks.forEach((e,i)=>{const x=gxOf(e.t0);const yy=ty-(i%2?0:0);withA(e.plan?.45:1,()=>{if(e.germ)virion(x,ty-16,7,{t:T,n:8,col:C.bad,scol:C.bad});else syringe(x-2,ty-16,.42,C.accent,-Math.PI/2);
+    txt(x,ty+16+(i%2)*16,(e.lab||"")+(e.plan?" (planned)":""),{size:11.5,weight:600,align:"center"})})});
+  if(SM.sick){const x1=gxOf(SM.sick.from),x2=gxOf(Math.min(TMAXD,SM.sick.to));rr(x1,ty-4,Math.max(3,x2-x1),8,4);ctx.fillStyle=hexA(C.bad,.6);ctx.fill()}
+  if(SM.t<.01&&!SM.run)label(GX+GW/2,GY+GH/2,"Press Run to start the clock",{size:13,weight:700,align:"center",border:C.accent})}
+function bust(x,y,s,o){o=o||{};circ(x,y-s*.9,s*.5,C.skin,C["skin-edge"],1.4);ctx.beginPath();ctx.ellipse(x,y+s*.3,s*.85,s*.6,0,Math.PI,TAU);ctx.fillStyle=o.col||C.accent;ctx.fill()}
+function simA11y(){const [im,g]=tot(SM.t);const m=memAt(SM.t);const r=v=>v<1?"under 1":v<10?"about "+Math.round(v):"about "+(v<100?Math.round(v/5)*5:v<1000?Math.round(v/50)*50:Math.round(v/500)*500);
+  const day=Math.floor(SM.t/5)*5;const lab=`${VT[SM.type].name}, day ${day}: IgG ${r(g)}, IgM ${r(im)} relative units; memory ${memWord(m)}; ${isSick()?"person is sick":"person feels well"}.`;
+  const evs=SM.ev.map(e=>(e.lab||"")+" on day "+Math.round(e.t0)+(e.germ?(e.blocked?" (blocked)":e.mild?" (mild)":" (illness)"):"")).join(", ");
+  const d=`Left: a lymph node where ${actAt(SM.t)>.15?"a purple B cell clone is dividing":"B cells are resting"}${prodAt(SM.t)>.1?" and plasma cells release Y-shaped antibodies":""}; below it, ${Math.round(m*8)} of 8 gold memory cell slots are filled. Right: a log-scale graph of antibody level over 240 days, with a red-orange IgM line, a blue IgG line and a dashed green protective level at 100 units. A gold strip under the graph fills upward as memory B cells build up, and a timeline below marks each dose or germ exposure. At day ${day}, IgG is ${g>=PROT?"above":"below"} the protective line. Events so far: ${evs||"none"}.`;
+  return [lab,d]}
+
+
+/* ================= PART 2: ELISA plate bench ================= */
+const S2=makeStage("cvEl",800,440);
+const EDIL=[100,200,400,800,1600,3200,6400,12800],CUT=.3;
+const EROWS=["Patient 1","Patient 2","Positive control","Negative control"],EROWS_S=["P1","P2","+ ctrl","− ctrl"];
+const ESTEP=[["sample","Add samples and controls"],["wash","Wash"],["conj","Add enzyme-linked antibody"],["sub","Add substrate"],["read","Read the plate"]];
+const EL={mode:"ind",log:[],tSub:null,read:false,k:[2,-1],sel:[0,0],ans:[null,null],checked:false,sawInvalid:false};
+let eChalDone=store.get("el-chal")||[0,0,0,0];
+const E_CHAL=["Run a <b>valid</b> plate: the positive control turns yellow and the negative control stays clear.","Report <b>both</b> patients' results correctly from a valid plate.","Skip a <b>wash</b> on purpose, see the negative control turn yellow, and report the run as <b>invalid</b>.","Run a valid <b>sandwich</b> (antigen) ELISA and report it correctly."];
+function eT50(k){return k<0?100/30:EDIL[k]/2.85}
+function eNewPatients(){const pool=[-1,1,2,3,4,5,6,7];const a=pool[Math.floor(Math.random()*pool.length)];let b;do{b=pool[Math.floor(Math.random()*pool.length)]}while(b===a);EL.k=[a,b]}
+function eAnalyze(){const L=EL.log;const iS=L.indexOf("sample");const iSub=L.indexOf("sub");
+  let iC=-1;if(iS>=0)for(let i=iS+1;i<L.length;i++)if(L[i]==="conj"&&(iSub<0||i<iSub)){iC=i;break}
+  const wash1=iS>=0&&iC>=0&&L.slice(iS+1,iC).includes("wash");const wash2=iC>=0&&iSub>=0&&L.slice(iC+1,iSub).includes("wash");
+  return {sample:iS>=0,conj:iC>=0,wash1,wash2,sub:iSub>=0,conjEver:L.includes("conj")}}
+function eOD(row,col){const a=eAnalyze();if(!a.sub)return 0;const k=row<2?EL.k[row]:row===2?5:-99;
+  const sig=a.sample&&a.conj&&k>-99?2.4/(1+Math.pow(EDIL[col]/eT50(k),1.4)):0;
+  const bg=.06+(a.conj&&!a.wash2?1.7:0)+(a.conj&&!a.wash1?.45:0);return Math.min(3.2,sig+bg)}
+function eShown(row,col,now){const f=EL.tSub==null?0:smooth(seg((now-EL.tSub)/1000,0,3));return eOD(row,col)*f}
+function eValid(){const pos=eOD(2,0)>1,neg=[0,1,2,3,4,5,6,7].every(c=>eOD(3,c)<CUT);return {pos,neg,ok:pos&&neg}}
+function eAnswer(r){const v=eValid();if(!v.ok)return "inv";const k=EL.k[r];if(k<0)return "neg";return String(k)}
+function eAnsLabel(a){return a==="inv"?"Run invalid: repeat":a==="neg"?"Negative":"1:"+EDIL[+a].toLocaleString("en-US")}
+function eStepsUI(){const b=$("#eSteps");b.innerHTML="";const a=eAnalyze();ESTEP.forEach(s=>{const x=document.createElement("button");x.type="button";x.className=s[0]==="read"?"btn":"tbtn";x.textContent=s[1];
+  x.disabled=s[0]==="read"?!a.sub||EL.read:a.sub;x.onclick=()=>eDo(s[0]);b.appendChild(x)});
+  $("#eLog").innerHTML=(["Coated (done)"].concat(EL.log.map((k,i)=>(i+1)+". "+ESTEP.find(s=>s[0]===k)[1]))).map(t=>`<li>${t}</li>`).join("");
+  $("#eAbout").textContent=EL.mode==="ind"?"Indirect ELISA: the wells are coated with germ antigen. It detects antibodies in patient serum.":"Sandwich ELISA: the wells are coated with capture antibody. It detects germ antigen in a patient sample.";
+  $("#eQ1").textContent=EL.mode==="ind"?"Patient 1: antibody titer":"Patient 1: last dilution still positive";$("#eQ2").textContent=EL.mode==="ind"?"Patient 2: antibody titer":"Patient 2: last dilution still positive"}
+function eDo(k){if(k==="read"){EL.read=true;eStepsUI();setMsg("#eMsg","Plate read. Each well now shows its optical density (OD). Cutoff: OD 0.30. Report each patient's result below.","info");eCap();return}
+  EL.log.push(k);if(k==="sub"){EL.tSub=performance.now();const a=eAnalyze();setMsg("#eMsg",a.conj?"Substrate added. Watch the colour develop, then read the plate.":"Substrate added. Watch closely: is any colour developing?","info")}else setMsg("#eMsg","","");
+  eStepsUI();eCap()}
+function eAnsUI(){[0,1].forEach(r=>{const b=$(r?"#eA2":"#eA1");b.innerHTML="";["neg"].concat(EDIL.map((d,i)=>String(i))).concat(["inv"]).forEach(a=>{const x=document.createElement("button");x.type="button";x.className="tbtn";x.textContent=eAnsLabel(a);x.setAttribute("aria-pressed",EL.ans[r]===a?"true":"false");x.onclick=()=>{EL.ans[r]=a;eAnsUI()};b.appendChild(x)})})}
+function eRestart(newPts){EL.log=[];EL.tSub=null;EL.read=false;EL.ans=[null,null];if(newPts)eNewPatients();eStepsUI();eAnsUI();setMsg("#eMsg","","");eCap();e11yKey=""}
+function eMark(i){if(!eChalDone[i]){eChalDone[i]=1;store.set("el-chal",eChalDone);eChalUI()}}
+function eChalUI(){chalList("#eChal",E_CHAL,eChalDone);$("#eChalStars").innerHTML=chalStars(eChalDone.reduce((a,b)=>a+b,0),4)}
+$("#eCheck").onclick=()=>{if(!EL.read){setMsg("#eMsg","Finish the protocol and press <b>Read the plate</b> first.","warn");return}if(EL.ans[0]==null||EL.ans[1]==null){setMsg("#eMsg","Choose a result for both patients.","warn");return}
+  const v=eValid();const right=[0,1].map(r=>EL.ans[r]===eAnswer(r));
+  if(v.ok){eMark(0)}
+  if(right[0]&&right[1]){let why=v.ok?"Both correct. The controls behaved, so the run is valid, and each titer is the last dilution with OD above 0.30.":"Correct: the run is invalid. "+(!v.neg?"The negative control turned yellow, which usually means a wash was skipped and unbound enzyme stayed in the wells.":"The positive control did not turn yellow, so a step was missed or done out of order.")+" Never report patient results from an invalid run.";
+    setMsg("#eMsg","<b>✓ "+why+"</b>","good");if(v.ok)eMark(1);if(!v.ok&&!v.neg)eMark(2);if(v.ok&&EL.mode==="sand")eMark(3)}
+  else{const r=right[0]?1:0;const corr=eAnswer(r);let why="";
+    if(corr==="inv")why=(!v.neg?"Look at the negative control row: it should stay clear, but it is yellow.":"Look at the positive control row: it should be strongly yellow, but it is not.")+" When a control fails, the run is invalid.";
+    else if(EL.ans[r]==="inv")why="Both controls behaved (positive is yellow, negative stays clear), so this run is valid.";
+    else why="Find the last well in the row with OD above 0.30 (marked +). That dilution is the titer. If even 1:100 is below 0.30, the result is negative.";
+    setMsg("#eMsg",`Not quite for ${EROWS[r]}. ${why}`,"warn")}};
+$("#eHint").onclick=()=>{const a=eAnalyze();let h;
+  if(!a.sample)h="Start by adding the samples and controls. Antibodies (or antigen) must stick to the coated wells first.";
+  else if(!a.conj)h="Next: wash away anything unbound, then add the enzyme-linked antibody that will make the colour.";
+  else if(!a.sub)h="Wash again to remove unbound enzyme-linked antibody, then add substrate. Unwashed enzyme turns every well yellow.";
+  else if(!EL.read)h="Wait for the colour to develop, then read the plate.";
+  else h="Check the controls first: positive must be yellow and negative must be clear. Then, for each patient, the titer is the last dilution with OD above 0.30.";
+  setMsg("#eMsg","Hint: "+h,"info")};
+$("#eShow").onclick=()=>{if(!EL.read){setMsg("#eMsg","The correct order is: add samples and controls, wash, add enzyme-linked antibody, wash, add substrate, read the plate. Try it, or press <b>Start a new plate</b>.","info");return}
+  EL.ans=[eAnswer(0),eAnswer(1)];eAnsUI();const v=eValid();setMsg("#eMsg",`Answer: Patient 1 = ${eAnsLabel(EL.ans[0])}; Patient 2 = ${eAnsLabel(EL.ans[1])}. `+(v.ok?"The controls behaved, so the run is valid.":"A control failed, so the run is invalid and must be repeated."),"info")};
+$("#eRestart").onclick=()=>eRestart(false);$("#eNew").onclick=()=>eRestart(true);
+$("#eInd").onclick=()=>{pressed("#eInd","#eSand",true);EL.mode="ind";eRestart(false)};$("#eSand").onclick=()=>{pressed("#eInd","#eSand",false);EL.mode="sand";eRestart(false)};
+function eRowBtns(){const b=$("#eWellBtns");b.innerHTML="";EROWS.forEach((r,i)=>{const x=document.createElement("button");x.type="button";x.className="tbtn";x.textContent=r;x.setAttribute("aria-pressed",EL.sel[0]===i?"true":"false");x.onclick=()=>{EL.sel=[i,EL.sel[1]];eRowBtns();eCap()};b.appendChild(x)})}
+S2.cv.addEventListener("click",e=>{const r=S2.cv.getBoundingClientRect();const x=(e.clientX-r.left)/r.width*800,y=(e.clientY-r.top)/r.height*440;
+  for(let i=0;i<4;i++)for(let c=0;c<8;c++){if(Math.hypot(x-EWX(c),y-EWY(i))<24){EL.sel=[i,c];eRowBtns();eCap();return}}});
+const EWX=c=>118+c*50,EWY=r=>92+r*66;
+function eCap(){const a=eAnalyze();const s=EL.sel;const od=eOD(s[0],s[1]);const c=!a.sample?"Wells are coated. Add samples and controls to begin.":!a.sub?`Steps done: ${EL.log.length}. Inspecting ${EROWS[s[0]]} at 1:${EDIL[s[1]]}.`:EL.read?`${EROWS[s[0]]} at 1:${EDIL[s[1]]}: OD ${od.toFixed(2)} (${od>CUT?"positive":"negative"}).`:`Colour developing. Inspecting ${EROWS[s[0]]} at 1:${EDIL[s[1]]}.`;$("#eCap").textContent=c}
+function drawEl(now){use(S2);const T=now/1000;const a=eAnalyze();
+  panelBox(10,10,508,420);title(24,30,EL.mode==="ind"?"Indirect ELISA strip":"Sandwich ELISA strip");
+  EDIL.forEach((d,c)=>txt(EWX(c),58,"1:"+(d>=10000?(d/1000)+"k":d),{size:11.5,mono:true,weight:600,align:"center",color:C["ink-soft"]}));
+  EROWS_S.forEach((r,i)=>txt(28,EWY(i),r,{size:12.5,weight:700}));
+  for(let i=0;i<4;i++)for(let c=0;c<8;c++){const od=eShown(i,c,now);const wet=a.sample||EL.log.length?1:0;well(EWX(c),EWY(i),20,od,{sel:EL.sel[0]===i&&EL.sel[1]===c});
+    if(!a.sub&&a.sample)circ(EWX(c),EWY(i),16,hexA(C.carrier,.08));
+    if(EL.read){const v=eOD(i,c);txt(EWX(c),EWY(i)-1,v.toFixed(2),{size:11.5,mono:true,weight:700,align:"center",color:v/2.2>.45?"#2A2200":C.ink});txt(EWX(c)+17,EWY(i)-17,v>CUT?"+":"−",{size:13,weight:700,align:"center",color:v>CUT?C.accent:C["ink-soft"]})}}
+  // controls status
+  const yv=EWY(3)+44;
+  if(EL.read){const v=eValid();label(264,yv,v.ok?"Controls OK: run valid":"Control failed: run invalid",{size:12.5,weight:700,align:"center",border:v.ok?C.good:C.bad})}
+  else txt(264,yv,"Cutoff: OD 0.30. Titer = last dilution above cutoff.",{size:12.5,weight:600,align:"center",color:C["ink-soft"]});
+  // protocol chips
+  const steps=["sample","wash","conj","wash","sub"];const done=EL.log;stepRow(24,374,480,["Sample","Wash","Enzyme Ab","Wash","Substrate"],-1,C.act6);
+  steps.forEach((k,i)=>{const ok=(i===1?a.wash1:i===3?a.wash2:i===0?a.sample:i===2?a.conj:a.sub);const X=24+i*97.2;if(ok)tick(X+45,416,5,C.good);else if(a.sub)cross(X+45,416,4,C.bad)});
+  // side view of selected well
+  panelBox(528,10,262,420);title(542,30,"Side view of one well");
+  const s=EL.sel;txt(659,52,EROWS[s[0]]+" · 1:"+EDIL[s[1]],{size:12.5,weight:700,align:"center"});
+  const wx=574,wy=80,ww=170,wh=230;ctx.beginPath();ctx.moveTo(wx,wy);ctx.lineTo(wx,wy+wh);ctx.lineTo(wx+ww,wy+wh);ctx.lineTo(wx+ww,wy);ctx.strokeStyle=C["well-edge"];ctx.lineWidth=2.6;ctx.stroke();
+  const od=eShown(s[0],s[1],now);if(a.sample||a.sub){ctx.fillStyle=a.sub?hexA(C.substrate,.08+clamp(od/2.2,0,1)*.8):hexA(C.carrier,.08);ctx.fillRect(wx+2,wy+60,ww-4,wh-62)}
+  const k=s[0]<2?EL.k[s[0]]:s[0]===2?5:-99;const sig=k>-99?1/(1+Math.pow(EDIL[s[1]]/eT50(k),1.4)):0;const nb=a.sample?Math.round(sig*4):0;
+  const bx=[wx+24,wx+64,wx+104,wx+144],fy=wy+wh-6;
+  bx.forEach((x,j)=>{if(EL.mode==="ind")epi(x,fy-4,6,"star",C.ag);else ab(x,fy-4-12,12,-Math.PI/2,C.carrier,{lw:2.6})});
+  bx.forEach((x,j)=>{if(j>=nb)return;const layerY=EL.mode==="ind"?fy-30:fy-36;
+    if(EL.mode==="ind")ab(x,layerY,12,Math.PI/2,C.igg,{lw:2.6});else epi(x,layerY+4,6,"star",C.ag);
+    const stayConj=a.conj&&(a.wash2||!a.sub||true);if(a.conj)ab(x,layerY-30,12,Math.PI/2,C.igm,{lw:2.6,enz:true})});
+  // floating unbound things
+  if(a.conj&&!a.wash2){for(let k2=0;k2<4;k2++){const fx=wx+30+k2*36+Math.sin(T+k2)*6,fy2=wy+100+Math.cos(T*.8+k2)*14;ab(fx,fy2,10,T*.3+k2,C.igm,{lw:2.2,enz:true})}}
+  if(a.sample&&!a.conj&&!(EL.log.slice(EL.log.indexOf("sample")+1).includes("wash"))&&EL.mode==="ind"){for(let k2=0;k2<3;k2++){ab(wx+40+k2*45,wy+120+Math.sin(T+k2)*10,10,T*.4+k2,C.nk,{lw:2})}}
+  if(a.sub&&od>.2){for(let k2=0;k2<5;k2++){const p=P(T*.4+k2/5,1);circ(wx+30+k2*28,lerp(wy+wh-50,wy+80,p),3,hexA(C.substrate,1-p))}}
+  const leg=EL.mode==="ind"?[["Antigen (coat)",C.ag],["Patient antibody",C.igg],["Enzyme-linked anti-human Ab",C.igm]]:[["Capture antibody",C.carrier],["Antigen from sample",C.ag],["Enzyme-linked detection Ab",C.igm]];
+  leg.forEach((l,i)=>{circ(548,336+i*24,5,l[1]);txt(560,336+i*24,l[0],{size:12,weight:600})});
+  txt(548,410,a.sub?(od>CUT?"Yellow: enzyme present":"Clear: no enzyme bound"):"Substrate not added yet",{size:12,weight:700})}
+let e11yKey="";
+function elA11y(){const a=eAnalyze();const v=eValid();const lab=`${EL.mode==="ind"?"Indirect":"Sandwich"} ELISA strip, ${EL.log.length} steps done${a.sub?", substrate added":""}${EL.read?", plate read, run "+(v.ok?"valid":"invalid"):""}.`;
+  const rowDesc=a.sub?EROWS.map((r,i)=>{const n=[0,1,2,3,4,5,6,7].filter(c=>eOD(i,c)>CUT).length;return `${r}: ${n===0?"no wells":n===8?"all 8 wells":"first "+n+" wells"} yellow`}).join("; "):"all wells still clear";
+  const d=`Left: a strip of 4 rows by 8 round wells, diluted from 1:100 on the left to 1:12,800 on the right. Rows are Patient 1, Patient 2, positive control and negative control. ${rowDesc}. Right: a side view of the selected well showing the layers that have stuck so far.`;return [lab,d]}
+
+
+/* ================= PART 3: test reader cases ================= */
+const CASES=[
+{name:"Case 1",title:"Maria: a faint test line",kind:"lfaPos",
+ story:`<p>Maria, 34, has had a sore throat and fever for two days. The clinic runs a <b>rapid antigen test</b> for group A <i>Streptococcus</i> on a throat swab. After the stated 5 minutes, the strip shows a strong <b>C</b> line and a <b>faint</b> T line.</p>`,
+ report:[["Temperature","38.6 °C (fever)",""],["Test","Rapid strep antigen (lateral flow)",""],["Control line (C)","Present, strong","!"],["Test line (T)","Present, faint","!"],["Read time","5 minutes, as directed",""]],
+ qs:[{q:"How should this result be read?",hint:"The control line worked. Does a test line have to be dark to count?",opts:[
+   ["Positive: any visible T line counts when the C line is present",1,"Yes. A faint T line still means the target antigen was caught. The C line shows the test worked."],
+   ["Negative, because the T line is faint",0,"For most lateral flow tests, any visible T line within the read time counts as positive."],
+   ["Invalid, because the lines are different strengths",0,"A test is invalid only when the C line is missing. Different line strengths are normal."],
+   ["Unclear: it shows antibodies, not antigen",0,"This is an antigen test. It detects bacterial parts in the swab, not the patient's antibodies."]]},
+  {q:"What did this test actually detect?",hint:"Antigen tests look for parts of the germ itself.",opts:[
+   ["Strep antigen (bacterial parts) in the throat swab, showing infection now",1,"Right. Antigen tests detect the germ's own molecules, so a positive result points to a current infection."],
+   ["Maria's IgG against strep from an old infection",0,"That would be an antibody test on blood. This is an antigen test on a throat swab."],
+   ["Maria's white blood cell count",0,"Cell counts need a blood test, not a strep strip."],
+   ["Strep DNA copied by PCR",0,"PCR is a different method. A lateral flow strip uses antibodies to catch antigen."]]},
+  {q:"Why must the C line appear for any result to be trusted?",hint:"What does the control line catch?",opts:[
+   ["It catches the gold-tagged antibodies themselves, proving the liquid flowed and the reagents work",1,"Exactly. The C line forms whether or not antigen is present, so it checks the test, not the patient."],
+   ["It shows how much strep is present",0,"The T line relates to antigen. The C line only checks that the test ran properly."],
+   ["It shows the patient's own antibodies",0,"No. The control line catches the test's tagged antibodies, not the patient's."],
+   ["It only appears when the result is positive",0,"The C line should appear in every valid test, positive or negative."]]}]},
+{name:"Case 2",title:"Daniel: a line in the wrong place",kind:"lfaInv",
+ story:`<p>Daniel, 45, has a cough and takes a home <b>COVID-19 rapid antigen test</b>. He puts in only one drop instead of the four drops the instructions call for, and reads it at 3 minutes instead of 15. He sees a T line but <b>no C line</b>.</p>`,
+ report:[["Symptoms","Cough, tired, 1 day",""],["Test","Home rapid antigen (lateral flow)",""],["Drops added","1 (instructions: 4)","!"],["Read time","3 minutes (instructions: 15)","!"],["Lines","T present, C absent","!"]],
+ qs:[{q:"What is the result?",hint:"Which line must always appear?",opts:[
+   ["Invalid: with no control line the result cannot be trusted",1,"Right. Without the C line, you cannot tell whether the test worked, so even the T line means nothing."],
+   ["Positive, because a T line is visible",0,"A T line only counts when the C line is also present."],
+   ["Negative",0,"A missing control line does not mean negative. It means the test did not run properly."],
+   ["Positive for antibodies",0,"This is an antigen test, and without a control line it cannot be read at all."]]},
+  {q:"What most likely went wrong?",hint:"Look at the drops and the read time in the report.",opts:[
+   ["Too little liquid and reading too early, so the sample never reached the control line",1,"Yes. The liquid has to flow the whole length of the strip. One drop and a 3-minute read stopped it short."],
+   ["Daniel has too many antibodies",0,"Antibodies in Daniel's body do not stop the control line. The flow problem does."],
+   ["The virus destroyed the control line",0,"The virus cannot damage the strip's control line. This is a technique problem."],
+   ["The T line is always the only line in home tests",0,"Every lateral flow test needs a control line to be valid."]]},
+  {q:"What should Daniel do next?",hint:"Can this strip be fixed?",opts:[
+   ["Repeat with a new test, following the drop count and read time exactly",1,"Right. An invalid test is repeated with a new kit, used exactly as directed."],
+   ["Add more drops to the same strip and read it again",0,"Once a strip has run, adding more liquid can give false lines. Use a new test."],
+   ["Report the result as positive",0,"An invalid test should never be reported as positive or negative."],
+   ["Wait a day and read the same strip",0,"Lines that appear after the read window are not reliable. Use a new test."]]}]},
+{name:"Case 3",title:"Grace: antibody, but which class?",kind:"lfaAb",
+ story:`<p>Grace, 29, feels well. Her workplace offers a <b>rapid antibody test</b> on a finger-prick of blood for a virus that went around last winter. The cassette has three lines: <b>M</b> (IgM), <b>G</b> (IgG) and <b>C</b> (control). Her strip shows <b>G</b> and <b>C</b> only.</p>`,
+ report:[["Symptoms","None today",""],["Test","Rapid antibody (IgM and IgG)",""],["M line (IgM)","Absent","!"],["G line (IgG)","Present","!"],["C line","Present",""]],
+ qs:[{q:"What does an IgG line without an IgM line most likely mean?",hint:"Which class is made first, and which lasts?",opts:[
+   ["Past infection or vaccination, not a brand-new infection",1,"Yes. IgG appears later and lasts. Without IgM, a recent first infection is less likely."],
+   ["She is infected right now and contagious",0,"An antibody test does not show the virus is present. IgG alone usually points to the past."],
+   ["The test is invalid",0,"The C line is present, so the test is valid."],
+   ["She has never met this virus",0,"IgG against the virus means her immune system has met it, by infection or vaccine."]]},
+  {q:"A coworker's strip shows only M and C. What does that suggest?",hint:"IgM is the first class in a primary response.",opts:[
+   ["A recent infection: IgM is made first",1,"Right. IgM appears first in a primary response, so IgM alone suggests the infection is recent."],
+   ["An infection many years ago",0,"An old infection leaves IgG. IgM fades within weeks to months."],
+   ["Protection from a vaccine given years ago",0,"Old vaccine protection shows as IgG, not IgM alone."],
+   ["Allergy to the virus",0,"Allergy involves IgE, which this test does not measure."]]},
+  {q:"Why is an antibody test a poor choice on day 2 of symptoms?",hint:"How long is the lag in a primary response?",opts:[
+   ["Antibodies take about 1 to 2 weeks to appear, so early tests can be falsely negative",1,"Exactly. In a first infection, antibody levels are still low in the first days. An antigen or PCR test fits better."],
+   ["Antibodies disappear after 2 days",0,"Antibodies rise over the first weeks. They do not disappear after 2 days."],
+   ["Antibody tests only work on vaccinated people",0,"Antibody tests detect antibodies from infection or vaccination."],
+   ["Fingers have no antibodies",0,"Capillary blood has antibodies. The problem early on is that there are not enough yet."]]}]},
+{name:"Case 4",title:"James: typing before a transfusion",kind:"btype",
+ story:`<p>James, 52, has lost blood after surgery and may need a transfusion. The lab mixes drops of his red cells with <b>anti-A</b>, <b>anti-B</b> and <b>anti-D (Rh)</b> antibodies.</p><p>His cells <b>clump</b> with anti-B only. They stay smooth with anti-A and anti-D.</p>`,
+ report:[["Anti-A","No clumping",""],["Anti-B","Clumping (agglutination)","!"],["Anti-D (Rh)","No clumping","!"],["Reaction type","Agglutination",""]],
+ qs:[{q:"What is James's blood type?",hint:"Clumping means that antigen is on his red cells.",opts:[
+   ["B negative",1,"Right. Clumping with anti-B means B antigen; no clumping with anti-D means Rh negative."],
+   ["A positive",0,"Anti-A did not clump his cells, so he has no A antigen. Anti-D did not clump, so he is Rh negative."],
+   ["AB negative",0,"He would need clumping with anti-A too. Only anti-B clumped."],
+   ["O negative",0,"Type O cells clump with neither anti-A nor anti-B. His clumped with anti-B."]]},
+  {q:"Which antibodies are in James's plasma?",hint:"People make antibodies against the A or B antigens they do not have.",opts:[
+   ["Anti-A antibodies",1,"Yes. Type B people naturally have anti-A antibodies in their plasma."],
+   ["Anti-B antibodies",0,"That would attack his own red cells. Type B people make anti-A, not anti-B."],
+   ["Both anti-A and anti-B",0,"That is type O. James has B antigen, so he does not make anti-B."],
+   ["No antibodies at all",0,"Only type AB people lack both anti-A and anti-B."]]},
+  {q:"Why would giving James type A blood be dangerous?",hint:"Think about type II hypersensitivity.",opts:[
+   ["His anti-A antibodies would bind the donor red cells and complement would burst them",1,"Yes. That is a transfusion reaction, a type II (cytotoxic) hypersensitivity."],
+   ["Type A blood carries more germs",0,"The danger is immune: his antibodies attacking the donor cells."],
+   ["It would cause an IgE allergy within seconds",0,"Transfusion reactions are type II, driven by IgM and IgG with complement, not IgE."],
+   ["Type A cells would attack his own cells",0,"Red cells do not attack. His antibodies attack the donor cells."]]}]},
+{name:"Case 5",title:"Aisha: two titers, two weeks apart",kind:"paired",
+ story:`<p>Aisha, 38, has had fever and a dry cough for a week. A blood sample is taken now (acute) and again 2 weeks later (convalescent). Each serum is diluted 1:10, 1:20, 1:40 and so on, and tested for antibody against a bacterium that causes walking pneumonia.</p>`,
+ report:[["Acute serum titer","1:40","!"],["Convalescent titer","1:640","!"],["Change","16-fold rise",""],["Temperature","38.2 °C",""]],
+ qs:[{q:"How should these titers be read?",hint:"Look for a 4-fold or greater change.",opts:[
+   ["A 16-fold rise shows a current or recent infection",1,"Right. A 4-fold or greater rise between paired sera is the classic sign of an active infection."],
+   ["The infection was years ago",0,"An old infection gives a stable titer. A big rise means the immune system is responding now."],
+   ["The rise is too small to matter",0,"Any 4-fold or greater rise counts. 16-fold is well above that."],
+   ["She is immune and cannot be infected",0,"A rising titer shows a response to infection, not protection from it."]]},
+  {q:"Why is a single titer of 1:40 hard to interpret on its own?",hint:"Where else could some antibody come from?",opts:[
+   ["She may have antibody from a past exposure, so one value cannot show whether it is new",1,"Yes. A single moderate titer could be left over from the past. The change over time is what tells you."],
+   ["1:40 is always a negative result",0,"1:40 shows some antibody is present. The question is whether it is new."],
+   ["Titers can only be measured once",0,"Titers can be repeated. Paired samples are exactly how they are used."],
+   ["A titer measures the bacteria, not antibodies",0,"A titer here measures the patient's antibody level."]]},
+  {q:"Which antibody class would you expect to rise first in a first infection?",hint:"Primary response order.",opts:[
+   ["IgM",1,"Right. IgM leads in the primary response, followed by IgG."],
+   ["IgE",0,"IgE is for allergies and worms, not the first response to bacteria."],
+   ["IgA only",0,"IgA guards mucous membranes, but in blood the first antibody to rise is IgM."],
+   ["IgD",0,"IgD is mainly a receptor on naive B cells."]]}]},
+{name:"Case 6",title:"Robert: confirming a screening test",kind:"wb",
+ story:`<p>Robert, 41, had a tick bite and a spreading red rash on a summer hike. His <b>ELISA</b> screening test for Lyme disease antibodies is positive. The lab runs a <b>Western blot</b> as a second step.</p><p>His strip shows several dark bands at the same places as the positive control.</p>`,
+ report:[["Step 1: ELISA","Positive (screen)","!"],["Step 2: Western blot","Several specific bands","!"],["Positive control","Bands present",""],["Negative control","No bands",""]],
+ qs:[{q:"What does each dark band on Robert's strip show?",hint:"The germ's proteins were separated by size before the serum was added.",opts:[
+   ["His antibodies bound one specific protein of the bacterium",1,"Yes. Each band is a known bacterial protein that Robert's antibodies recognized."],
+   ["A different bacterium in his blood",0,"The strip holds proteins from one bacterium. Bands show which of its proteins his antibodies hit."],
+   ["His own blood proteins",0,"The strip carries bacterial proteins, not his own proteins."],
+   ["DNA from the bacterium",0,"Western blots use proteins, separated by size."]]},
+  {q:"Why run a blot after a positive ELISA instead of stopping?",hint:"Think about screening versus confirming.",opts:[
+   ["ELISA is a sensitive screen that can give false positives; the blot checks for specific proteins",1,"Right. Two-step testing combines a sensitive screen with a more specific confirmation."],
+   ["The ELISA cannot detect antibodies",0,"ELISA does detect antibodies. It is just less specific on its own."],
+   ["Western blots are faster and cheaper",0,"Blots are slower and more work. They are used because they add specificity."],
+   ["The blot measures the titer",0,"A blot shows which proteins are recognized, not a titer."]]}]},
+{name:"Case 7",title:"Lena: a slide that glows",kind:"ifa",
+ story:`<p>Lena, 27, has a positive screening test for syphilis. The lab runs an <b>indirect immunofluorescence</b> test. A slide coated with <i>Treponema pallidum</i> is covered with Lena's serum, washed, then covered with a <b>fluorescent anti-human antibody</b>.</p><p>Under the fluorescence microscope, the spiral bacteria <b>glow green</b>.</p>`,
+ report:[["Slide antigen","Treponema pallidum",""],["Step 1","Patient serum, then wash",""],["Step 2","Fluorescent anti-human antibody","!"],["Result","Spirals glow green","!"],["Negative control","No glow",""]],
+ qs:[{q:"What does the green glow show?",hint:"What does the fluorescent antibody stick to?",opts:[
+   ["Lena has antibodies that bound the bacteria; the glowing anti-human antibody stuck to them",1,"Yes. The glow appears only where her antibodies are attached to the spirals."],
+   ["Lena's serum contains live bacteria",0,"The bacteria were already on the slide. The test detects her antibodies."],
+   ["The bacteria glow naturally",0,"They glow only because a fluorescent antibody is attached. The negative control does not glow."],
+   ["She has an allergy to the bacteria",0,"This test detects antibodies binding the bacteria, not an allergy."]]},
+  {q:"Why is this called indirect, not direct, immunofluorescence?",hint:"Which antibody carries the dye?",opts:[
+   ["The dye is on a second antibody that binds the patient's antibody, not on an antibody that binds the germ",1,"Right. Direct tests use a labelled antibody against the germ itself; indirect tests label an anti-human antibody."],
+   ["Because the microscope is indirect",0,"The name comes from which antibody carries the label."],
+   ["Because no antibody is used",0,"Two antibodies are used: the patient's and the labelled anti-human antibody."],
+   ["Because the bacteria are dead",0,"Whether the bacteria are alive does not decide direct or indirect."]]},
+  {q:"What would happen if the slide were not washed after adding Lena's serum?",hint:"What might the anti-human antibody bind?",opts:[
+   ["Unbound human antibody would stay on the slide and catch the dye, giving false glow",1,"Yes. Washing removes antibodies that did not bind the bacteria, so only true binding glows."],
+   ["Nothing: washing never matters",0,"Washing is essential in every antibody-based test to remove unbound material."],
+   ["The bacteria would grow",0,"The slide antigen does not grow. The problem is leftover unbound antibody."],
+   ["The test would turn into an ELISA",0,"Skipping a wash does not change the test type. It causes false signal."]]}]},
+{name:"Case 8",title:"Sam: counting helper T cells",kind:"flow",
+ story:`<p>Sam, 36, is living with HIV and is starting treatment. A blood sample is mixed with <b>fluorescent anti-CD4 antibodies</b> and run through a <b>flow cytometer</b>. The machine counts cells one at a time as they pass a laser.</p>`,
+ report:[["CD4 T cells","180 cells per µL","!"],["Typical healthy range","about 500 to 1,500 per µL",""],["Method","Flow cytometry",""],["HIV antibody test","Positive",""]],
+ qs:[{q:"What did the flow cytometer measure?",hint:"What were the fluorescent antibodies aimed at?",opts:[
+   ["The number of CD4 T cells, counted one by one by their fluorescent tag",1,"Right. Each tagged cell flashes as it passes the laser, so the machine can count CD4 cells."],
+   ["The amount of HIV antibody",0,"Antibody levels are measured by ELISA-type tests. Flow cytometry counts cells."],
+   ["The HIV virus particles",0,"Virus amount is measured by viral load tests, not by counting tagged CD4 cells."],
+   ["The red blood cell type",0,"Blood typing uses agglutination. This test tagged CD4 cells."]]},
+  {q:"Why does a count of 180 CD4 cells per µL matter so much?",hint:"What do helper T cells do for both arms of immunity?",opts:[
+   ["Helper T cells direct both B cells and CD8 cells; so few means high risk of opportunistic infections",1,"Yes. Below 200 per µL, people with HIV are at high risk of opportunistic infections, which defines AIDS."],
+   ["CD4 cells make all antibodies themselves",0,"Plasma cells make antibodies. CD4 helpers direct B cells and others."],
+   ["It only affects allergies",0,"Losing helpers weakens defense against many germs, not just allergies."],
+   ["It is normal for adults",0,"Healthy adults usually have about 500 to 1,500 per µL."]]}]}];
+let cI=0,cQ=0;const cSolved=store.get("cases")||{};const cTried={};
+function cChips(){const b=$("#cChips");b.innerHTML="";CASES.forEach((c,i)=>{const nq=c.qs.length;const n=[...Array(nq).keys()].filter(q=>cSolved[i+"-"+q]).length;const x=document.createElement("button");x.type="button";x.className="chip"+(n===nq?" done":"");x.setAttribute("aria-pressed",i===cI?"true":"false");x.textContent=(i+1)+(n===nq?" ✓":"");x.setAttribute("aria-label",(i+1)+", Case "+(i+1)+": "+c.title+(n===nq?", solved":", "+n+" of "+nq+" answered"));x.onclick=()=>{cI=i;cQ=0;cLoad()};b.appendChild(x)})}
+function cLoad(){const c=CASES[cI];$("#cN").textContent=c.name+" of "+CASES.length;$("#cT").textContent=c.title;$("#cStory").innerHTML=c.story;cChips();cQLoad();cT0=performance.now()}
+function shuffleStable(a,seed){return a.map((x,i)=>[x,rnd(seed*13+i*3.7)]).sort((p,q)=>p[1]-q[1]).map(p=>p[0])}
+function cQLoad(){const c=CASES[cI],q=c.qs[cQ];const nav=$("#cQnav");nav.innerHTML="";c.qs.forEach((x,i)=>{const b=document.createElement("button");b.type="button";b.className="chip"+(cSolved[cI+"-"+i]?" done":"");b.setAttribute("aria-pressed",i===cQ?"true":"false");b.textContent="Q"+(i+1);b.setAttribute("aria-label","Q"+(i+1)+", question "+(i+1)+(cSolved[cI+"-"+i]?", answered":""));b.onclick=()=>{cQ=i;cQLoad()};nav.appendChild(b)});
+  $("#cQ").textContent=q.q;const fb=$("#cFb");fb.className="fb";fb.textContent="";const box=$("#cOpts");box.innerHTML="";const key=cI+"-"+cQ;
+  shuffleStable(q.opts,cI*7+cQ).forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];b.onclick=()=>{box.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));
+    if(o[1]){b.classList.add("right");fb.className="fb show ok";fb.textContent="✓ "+o[2];if(!cSolved[key]){cSolved[key]=cTried[key]?1:2;store.set("cases",cSolved)}cChips();cQnavDone();cScore()}else{cTried[key]=1;b.classList.add("wrong");fb.className="fb show no";fb.textContent="Not quite. "+o[2]}};box.appendChild(b)});
+  $("#cNext").textContent=cQ<c.qs.length-1?"Next question →":cI<CASES.length-1?"Next case →":"Back to case 1";cScore()}
+function cQnavDone(){[...$("#cQnav").children].forEach((b,i)=>b.classList.toggle("done",!!cSolved[cI+"-"+i]))}
+function cScore(){const vals=Object.values(cSolved);const tot_=CASES.reduce((a,c)=>a+c.qs.length,0);const first=vals.filter(v=>v===2).length;$("#cScore").textContent=vals.length?`Answered ${vals.length} of ${tot_} questions, ${first} on the first try.`:"Pick an answer. Every option explains itself."}
+$("#cHint").onclick=()=>{const fb=$("#cFb");fb.className="fb show hint";fb.textContent="Hint: "+CASES[cI].qs[cQ].hint};
+$("#cShow").onclick=()=>{const q=CASES[cI].qs[cQ];const ans=q.opts.find(o=>o[1]);$("#cOpts").querySelectorAll(".opt").forEach(b=>{if(b.textContent===ans[0])b.classList.add("right")});const fb=$("#cFb");fb.className="fb show ok";fb.textContent="Answer: "+ans[0]+". "+ans[2];cTried[cI+"-"+cQ]=1};
+$("#cNext").onclick=()=>{if(cQ<CASES[cI].qs.length-1){cQ++;cQLoad()}else{cI=(cI+1)%CASES.length;cQ=0;cLoad()}};
+const S3=makeStage("cvCase",800,300);let cT0=0;
+function drawResult(kind,T,el){const x0=24,y0=50;
+  if(kind==="lfaPos"||kind==="lfaInv"){const f=seg(el%7,0,4);flowStrip(40,110,330,70,{wet:f,t:kind==="lfaPos"?seg(el%7,2.5,4)*.35:seg(el%7,2.5,4)*.85,c:kind==="lfaPos"?seg(el%7,3,4.5)*.9:0,time:T});
+    if(el%7<.8)circ(40+330*.13,lerp(60,140,seg(el%7,0,.8)),6,hexA(C.laser,.7));
+    txt(205,230,kind==="lfaPos"?"T faint, C strong":"T present, C missing",{size:13,weight:700,align:"center",color:kind==="lfaInv"?C.bad:C.ink});if(kind==="lfaInv")txt(205,252,"liquid stopped short",{size:12,align:"center",color:C["ink-soft"]})}
+  else if(kind==="lfaAb"){const f=seg(el%7,0,4);flowStrip(40,110,330,70,{wet:f,t:seg(el%7,2.5,4)*.85,t2:0,c:seg(el%7,3,4.5)*.9,lab:["G","C","M"],time:T});txt(205,230,"M absent, G present, C present",{size:13,weight:700,align:"center"})}
+  else if(kind==="btype"){[["Anti-A",false],["Anti-B",true],["Anti-D",false]].forEach((r_,i)=>{const x=80+i*110,y=150;const f=seg(el%8,1+i*.5,3+i*.5);circ(x,y,44,mix(C.panel,C.sunk,.3),C["ink-soft"],1.4);
+    for(let k=0;k<28;k++){const a=rnd(k*5+i)*TAU,rd=Math.sqrt(rnd(k*2+i*9))*36;const cl=r_[1]?f:0;circ(x+Math.cos(a)*rd*(1-cl*.55)+Math.cos(Math.floor(k/7)*2)*cl*12,y+Math.sin(a)*rd*(1-cl*.55)+Math.sin(Math.floor(k/7)*2)*cl*12,3.4,C.rbc)}
+    txt(x,y+60,r_[0],{size:12.5,weight:700,align:"center"});if(f>.9)txt(x,y+78,r_[1]?"clumps":"smooth",{size:12,weight:600,align:"center",color:r_[1]?C.bad:C["ink-soft"]})})}
+  else if(kind==="paired"){const D=[10,20,40,80,160,320,640,1280];[["Acute",40],["2 weeks later",640]].forEach((r_,j)=>{const y=110+j*90;txt(36,y-32,r_[0],{size:12.5,weight:700});
+    D.forEach((d,i)=>{const x=50+i*42;const pos=d<=r_[1];const f=seg(el%8,1+j,2+j);circ(x,y,16,C.well,C["well-edge"],1.2);
+      if(pos)for(let k=0;k<8;k++){const a=rnd(k*3+i)*TAU,rd=Math.sqrt(rnd(k*7+i))*11;circ(x+Math.cos(a)*rd,y+Math.sin(a)*rd,lerp(1.6,3,f),hexA(C["bact-edge"],.8))}else circ(x,y,lerp(9,4,f),hexA(C["bact-edge"],.7));
+      if(j)txt(x,y+28,"1:"+(d>=1000?"1.3k":d),{size:11,mono:true,align:"center",color:C["ink-soft"]})})})}
+  else if(kind==="wb"){const f=seg(el%8,1,4);const bands=[.12,.28,.4,.55,.7,.85];[["Patient",[0,1,3,4,5]],["+ ctrl",[0,1,2,3,4,5]],["− ctrl",[]]].forEach((s_,i)=>{const x=90+i*90,y=56;rr(x-16,y,32,190,4);ctx.fillStyle=C.strip;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.2;ctx.stroke();
+    s_[1].forEach(b=>{ctx.fillStyle=hexA(C.ink,.8*f);ctx.fillRect(x-12,y+10+bands[b]*170,24,6)});txt(x,y+208,s_[0],{size:12,weight:700,align:"center"})});txt(330,70,"larger",{size:11.5,align:"right",color:C["ink-soft"]});txt(330,236,"smaller",{size:11.5,align:"right",color:C["ink-soft"]});arrow(336,80,336,224,C["ink-soft"],1.5)}
+  else if(kind==="ifa"){const fx=195,fy=150;field(fx,fy,104,isDark()?"#05090B":"#1A2328");const g=seg(el%8,1.5,3.5);
+    for(let k=0;k<7;k++){const a=rnd(k*3)*TAU,d=Math.sqrt(rnd(k*5))*72;const x=fx+Math.cos(a)*d,y=fy+Math.sin(a)*d;const rot=rnd(k*7)*3;ctx.save();ctx.translate(x,y);ctx.rotate(rot);
+      if(g>0)glow(0,0,26,C.fluor,.35*g*(.7+.3*Math.sin(T*3+k)));ctx.beginPath();for(let i=0;i<=24;i++){const u=i/24;ctx.lineTo(-22+u*44,Math.sin(u*TAU*3+T*2)*4)}ctx.strokeStyle=g>0?mix("#5A6A70",C.fluor,g):"#5A6A70";ctx.lineWidth=2.4;ctx.stroke();ctx.restore()}
+    txt(fx,270,"Spiral bacteria glow green",{size:12.5,weight:700,align:"center"})}
+  else if(kind==="flow"){rr(40,56,330,200,4);ctx.fillStyle=hexA(C.panel,.95);ctx.fill();ctx.strokeStyle=C.rule;ctx.lineWidth=1.2;ctx.stroke();
+    axes(70,66,280,160,{});txt(210,244,"CD4 brightness →",{size:11.5,mono:true,align:"center",color:C["ink-soft"]});
+    const n=Math.floor(seg(el%8,0,5)*70);for(let k=0;k<n;k++){const hi=k%5===0;const x=hi?220+rnd(k*2)*110:80+rnd(k*2)*90,y=hi?80+rnd(k*5)*70:150+rnd(k*5)*70;circ(x,y,2.4,hi?C.fluor:C["ink-soft"])}
+    rr(234,72,120,86,6);ctx.save();ctx.setLineDash([4,3]);ctx.strokeStyle=C.fluor;ctx.lineWidth=1.6;ctx.stroke();ctx.restore();txt(294,166,"CD4 cells",{size:12,weight:700,align:"center"})}}
+function drawCase(now){use(S3);const T=now/1000;const el=(now-cT0)/1000;const c=CASES[cI];
+  panelBox(10,10,370,280);title(22,30,{lfaPos:"Rapid antigen strip",lfaInv:"Rapid antigen strip",lfaAb:"Rapid antibody cassette",btype:"Blood typing card",paired:"Paired sera titers",wb:"Western blot strips",ifa:"Fluorescence microscope",flow:"Flow cytometry dot plot"}[c.kind]);
+  drawResult(c.kind,T,el);
+  panelBox(392,10,398,280);title(404,30,"Lab report");
+  c.report.forEach((r_,i)=>{const y=62+i*44;line(404,y+20,778,y+20,C.rule,1);txt(406,y,r_[0],{size:12.5,weight:600,color:C["ink-soft"]});const flag=r_[2]==="!";wrapText(r_[1],560,y,214,15,{size:13,weight:700,color:flag?C.accent:C.ink});if(flag)circ(552,y,3.5,C.accent)})}
+function caseA11y(){const c=CASES[cI];const lab=`${c.name}: ${c.title}. Test picture and lab report.`;
+  const pic={lfaPos:"a lateral flow strip where liquid flows from the sample pad; a faint pink T line and a strong pink C line appear",lfaInv:"a lateral flow strip where liquid flows only part way; a T line appears but no C line",lfaAb:"an antibody cassette where the G and C lines turn pink and the M line stays blank",btype:"three drops of red cells; the anti-B drop forms clumps while anti-A and anti-D stay smooth",paired:"two rows of dilution wells; the first row shows clumping up to 1:40 and the second row up to 1:640",wb:"three paper strips; the patient strip and positive control develop dark bands at matching heights and the negative control stays blank",ifa:"a dark microscope field where wavy spiral bacteria begin to glow green",flow:"a dot plot filling with dots: a small cluster of bright green CD4 cells at the upper right and many grey dots at the lower left"}[c.kind];
+  return [lab,`Left: ${pic}. Right: a lab report lists ${c.report.map(r_=>r_[0]+": "+r_[1]).join("; ")}. Key findings are marked with a green dot.`]}
+
+/* ================= PART 4a: sort into groups ================= */
+const Y_=(x,y,s,col,w)=>`<path d="M${x} ${y+s} V${y} M${x} ${y} L${x-s*.7} ${y-s*.8} M${x} ${y} L${x+s*.7} ${y-s*.8}" stroke="${col}" stroke-width="${w||3}" fill="none" stroke-linecap="round"/>`;
+const SICON={
+ ab:Y_(24,26,14,"var(--igg)",3.4),
+ igg:Y_(24,26,14,"var(--igg)",3.6),
+ igm:`<circle cx="24" cy="24" r="4" fill="var(--igm)"/>`+[0,1,2,3,4].map(k=>{const a=k/5*6.283;const x=24+Math.cos(a)*8,y=24+Math.sin(a)*8,x2=24+Math.cos(a)*15,y2=24+Math.sin(a)*15;const px=-Math.sin(a)*5,py=Math.cos(a)*5;return `<path d="M${x.toFixed(1)} ${y.toFixed(1)} L${x2.toFixed(1)} ${y2.toFixed(1)} M${x2.toFixed(1)} ${y2.toFixed(1)} l${(Math.cos(a)*5+px).toFixed(1)} ${(Math.sin(a)*5+py).toFixed(1)} M${x2.toFixed(1)} ${y2.toFixed(1)} l${(Math.cos(a)*5-px).toFixed(1)} ${(Math.sin(a)*5-py).toFixed(1)}" stroke="var(--igm)" stroke-width="2.4" fill="none" stroke-linecap="round"/>`}).join(""),
+ iga:`<path d="M24 24 H34 M34 24 l7 -7 M34 24 l7 7 M24 24 H14 M14 24 l-7 -7 M14 24 l-7 7" stroke="var(--iga)" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="24" cy="24" r="3.5" fill="var(--panel)" stroke="var(--iga)" stroke-width="2"/>`,
+ ige:`<circle cx="24" cy="34" r="12" fill="var(--mast)" opacity=".5" stroke="var(--mast)" stroke-width="2"/><circle cx="20" cy="34" r="2" fill="var(--hist)"/><circle cx="28" cy="37" r="2" fill="var(--hist)"/>`+Y_(24,14,8,"var(--ige)",3),
+ igd:`<circle cx="24" cy="32" r="12" fill="var(--bcell)" opacity=".35" stroke="var(--bcell)" stroke-width="2"/>`+Y_(24,14,8,"var(--igd)",3),
+ q:`<circle cx="24" cy="24" r="18" fill="var(--panel-2)" stroke="var(--ink-soft)" stroke-width="2"/><text x="24" y="31" text-anchor="middle" font-size="22" font-weight="700" fill="var(--ink-soft)" font-family="sans-serif">?</text>`,
+ vir:`<g stroke="var(--virus)" stroke-width="2">${Array.from({length:10},(_,k)=>{const a=k/10*6.283;return `<line x1="${(24+Math.cos(a)*12).toFixed(1)}" y1="${(24+Math.sin(a)*12).toFixed(1)}" x2="${(24+Math.cos(a)*19).toFixed(1)}" y2="${(24+Math.sin(a)*19).toFixed(1)}"/>`}).join("")}</g><circle cx="24" cy="24" r="12" fill="var(--virus-2)" stroke="var(--virus)" stroke-width="2.4"/>`,
+ syr:`<rect x="6" y="19" width="26" height="10" rx="3" fill="var(--accent)"/><rect x="32" y="21" width="6" height="6" fill="var(--panel)" stroke="var(--ink-soft)"/><path d="M38 24 H46" stroke="var(--ink-soft)" stroke-width="2"/><rect x="2" y="20" width="5" height="8" fill="var(--accent-ink)"/>`,
+ baby:`<circle cx="17" cy="14" r="7" fill="var(--skin)" stroke="var(--skin-edge)" stroke-width="1.5"/><path d="M5 36 a12 12 0 0 1 24 0 z" fill="var(--act3)"/><circle cx="35" cy="26" r="4.5" fill="var(--skin)" stroke="var(--skin-edge)" stroke-width="1.5"/><path d="M28 40 a7 7 0 0 1 14 0 z" fill="var(--act3)"/>`,
+ vial:`<rect x="16" y="12" width="16" height="30" rx="3" fill="var(--panel)" stroke="var(--ink-soft)" stroke-width="2"/><rect x="18" y="24" width="12" height="16" fill="var(--act3)" opacity=".45"/><rect x="14" y="7" width="20" height="6" rx="2" fill="var(--act3)"/>`+Y_(24,31,5,"var(--igg)",2),
+ mhc1:`<path d="M24 44 V28 M16 14 Q16 28 24 28 Q32 28 32 14" stroke="var(--mhc1)" stroke-width="3.4" fill="none" stroke-linecap="round"/><rect x="18" y="14" width="12" height="7" rx="2" fill="var(--pepin)"/>`,
+ mhc2:`<path d="M24 44 V28 M16 14 Q16 28 24 28 Q32 28 32 14" stroke="var(--mhc2)" stroke-width="3.4" fill="none" stroke-linecap="round"/><rect x="18" y="14" width="12" height="7" rx="2" fill="var(--pepout)"/>`,
+ live:`<g stroke="var(--virus)" stroke-width="2">${Array.from({length:8},(_,k)=>{const a=k/8*6.283;return `<line x1="${(20+Math.cos(a)*9).toFixed(1)}" y1="${(22+Math.sin(a)*9).toFixed(1)}" x2="${(20+Math.cos(a)*14).toFixed(1)}" y2="${(22+Math.sin(a)*14).toFixed(1)}"/>`}).join("")}</g><circle cx="20" cy="22" r="9" fill="var(--virus-2)" stroke="var(--virus)" stroke-width="2"/><circle cx="38" cy="36" r="5" fill="var(--virus-2)" stroke="var(--virus)" stroke-width="1.6" opacity=".7"/>`,
+ inact:`<circle cx="24" cy="24" r="12" fill="var(--panel-2)" stroke="var(--nk)" stroke-width="2.4"/><path d="M15 15 L33 33 M33 15 L15 33" stroke="var(--bad)" stroke-width="3" stroke-linecap="round"/>`,
+ sub:`<path d="M12 18 l5 -9 l5 9 z M28 22 l5 -9 l5 9 z M16 36 l5 -9 l5 9 z M30 38 l5 -9 l5 9 z" fill="var(--ag)"/>`,
+ tox:`<circle cx="19" cy="26" r="10" fill="var(--hapten)"/><circle cx="33" cy="26" r="7" fill="var(--hapten)" opacity=".55"/>`,
+ conj:`<path d="M6 14 H42" stroke="var(--ag)" stroke-width="3"/><circle cx="10" cy="14" r="3" fill="var(--ag)"/><circle cx="20" cy="14" r="3" fill="var(--ag)"/><circle cx="30" cy="14" r="3" fill="var(--ag)"/><circle cx="40" cy="14" r="3" fill="var(--ag)"/><path d="M24 14 V24" stroke="var(--ink)" stroke-width="2"/><circle cx="24" cy="33" r="9" fill="var(--carrier)" opacity=".7"/>`,
+ mrna:`<circle cx="24" cy="24" r="16" fill="var(--lnp-2)" stroke="var(--lnp)" stroke-width="3"/><path d="M14 26 C18 18 22 32 26 22 S32 30 34 22" stroke="var(--mrna)" stroke-width="2.6" fill="none" stroke-linecap="round"/>`};
+const SROUNDS=[
+ {name:"Round 1 · Antibody class to job",tok:"ab",title:"Which class does this?",goal:"Sort each job or feature to the antibody class that fits. Remember G-A-M-E-D: IgG most common, IgM first, IgA in secretions, IgE allergy, IgD on B cells.",
+  bins:[["G","IgG","Monomer, most in blood","igg"],["M","IgM","Pentamer, made first","igm"],["A","IgA","Dimer in secretions","iga"],["E","IgE","On mast cells","ige"],["D","IgD","On naive B cells","igd"]],
+  items:[["Crosses the placenta","G","Only IgG crosses the placenta, protecting the fetus."],["Most common antibody in blood","G","IgG is about 75 to 80% of antibody in blood."],["Main antibody of the secondary response","G","Memory B cells mostly make IgG on re-exposure."],["Pentamer with 10 binding sites","M","IgM is a pentamer: five units, ten arms."],["First antibody made in a primary response","M","IgM rises first, then IgG."],["Best at clumping germs and starting complement","M","Ten binding sites make IgM great at both."],["Dimer in mucus, tears and saliva","A","Secretory IgA guards mucous membranes."],["Passed to babies in breast milk","A","IgA in milk protects the baby's gut."],["Coats mast cells and triggers allergies","E","Allergen linking IgE on mast cells releases histamine."],["Helps fight parasitic worms","E","IgE and eosinophils target worms."],["Receptor on naive B cells, with IgM","D","IgD sits on the B cell surface; little is in blood."]]},
+ {name:"Round 2 · Active or passive, natural or artificial",tok:"q",title:"How did they become immune?",goal:"Sort each example into one of the four types of immunity. Ask: did their own body make the antibodies (active), and did medical care cause it (artificial)?",
+  bins:[["NA","Natural active","Getting the infection","vir"],["AA","Artificial active","Vaccines","syr"],["NP","Natural passive","Mother to baby","baby"],["AP","Artificial passive","Antibody injection","vial"]],
+  items:[["Recovering from chickenpox","NA","Your body made antibodies after a natural infection."],["Fighting off a cold","NA","A natural infection your own immune system responded to."],["Getting the MMR vaccine","AA","A vaccine makes your own body respond: artificial active."],["A tetanus booster","AA","A toxoid vaccine dose: your own body responds."],["An mRNA vaccine","AA","Your cells make the antigen and your immune system responds."],["IgG crossing the placenta","NP","The baby receives the mother's ready-made antibodies."],["IgA in breast milk","NP","Ready-made antibodies passed naturally to the baby."],["Antivenom after a snake bite","AP","Ready-made antibodies given by injection."],["Rabies immune globulin after a bite","AP","Borrowed antibodies for immediate protection."],["Botulism antitoxin","AP","Antibodies given to neutralize toxin quickly."]]},
+ {name:"Round 3 · MHC I or MHC II",tok:"q",title:"Which display molecule?",goal:"Sort each feature to MHC I or MHC II. MHC I: every nucleated cell, inside peptides, CD8. MHC II: antigen-presenting cells, outside peptides, CD4.",
+  bins:[["I","MHC I","All nucleated cells → CD8","mhc1"],["II","MHC II","Antigen-presenting cells → CD4","mhc2"]],
+  items:[["Found on all cells with a nucleus","I","Every nucleated cell carries MHC I."],["Shows peptides made inside the cell","I","MHC I displays endogenous (inside) proteins."],["Read by CD8 T cells","I","CD8 binds MHC I (1 × 8 = 8)."],["Lets killer T cells find virus-infected cells","I","Viral peptides on MHC I mark the cell for CD8 killing."],["Shows viral proteins made in an infected liver cell","I","A liver cell is not an APC; it uses MHC I."],["Found only on antigen-presenting cells","II","Dendritic cells, macrophages and B cells carry MHC II."],["Shows peptides from eaten germs","II","MHC II displays exogenous (outside) proteins."],["Read by CD4 T cells","II","CD4 binds MHC II (2 × 4 = 8)."],["Used by a B cell to get help from a TFH cell","II","B cells show peptides on MHC II to helper T cells."],["Superantigens clamp it to T cell receptors","II","Superantigens bind the outside of MHC II."]]},
+ {name:"Round 4 · Vaccine type",tok:"syr",title:"What kind of vaccine is it?",goal:"Sort each vaccine by type. Hint: MMR, chickenpox and yellow fever are live; tetanus and diphtheria are toxoids; Hib and pneumococcal are conjugates.",
+  bins:[["L","Live attenuated","Weakened, still copies","live"],["I","Inactivated","Whole germ, killed","inact"],["S","Subunit","Key pieces only","sub"],["T","Toxoid","Inactivated toxin","tox"],["C","Conjugate","Sugar joined to protein","conj"],["R","mRNA or viral vector","Cells make the antigen","mrna"]],
+  items:[["MMR (measles, mumps, rubella)","L","Live attenuated viruses."],["Chickenpox (varicella)","L","Live attenuated virus."],["Yellow fever","L","Live attenuated virus."],["Injected polio vaccine (IPV)","I","Killed poliovirus."],["Hepatitis A","I","Inactivated whole virus."],["Hepatitis B","S","Made from the virus's surface protein."],["HPV","S","Virus-like particles made of capsid protein only."],["Tetanus","T","Inactivated tetanus toxin."],["Diphtheria","T","Inactivated diphtheria toxin."],["Hib","C","Capsule sugar joined to a carrier protein."],["Pneumococcal conjugate","C","Capsule sugars joined to a carrier protein."],["COVID-19 mRNA vaccine","R","mRNA in a lipid nanoparticle."],["Ebola vaccine using a harmless carrier virus","R","A viral vector delivers the gene for one protein."]]}];
+let sR=0,sSel=null,sChecks=0,sHints=0,sSolved=false,sT0=0;const sBest=store.get("sort")||{};
+function draggable(el,{onTap,targetSel,onDrop,canDrag}){let sx=0,sy=0,down=false,ghost=null,pid=null,lastT=null;
+  el.addEventListener("pointerdown",e=>{if(canDrag&&!canDrag())return;down=true;sx=e.clientX;sy=e.clientY;pid=e.pointerId;try{el.setPointerCapture(pid)}catch(_){}});
+  el.addEventListener("pointermove",e=>{if(!down)return;if(!ghost&&Math.hypot(e.clientX-sx,e.clientY-sy)>7){ghost=el.cloneNode(true);ghost.classList.add("ghost");ghost.removeAttribute("id");ghost.setAttribute("aria-hidden","true");ghost.style.width=el.offsetWidth+"px";document.body.appendChild(ghost)}
+    if(ghost){ghost.style.left=(e.clientX-20)+"px";ghost.style.top=(e.clientY-20)+"px";const t=document.elementFromPoint(e.clientX,e.clientY);const tg=t&&t.closest(targetSel);if(lastT&&lastT!==tg)lastT.classList.remove("target");if(tg)tg.classList.add("target");lastT=tg}});
+  const end=e=>{if(!down)return;down=false;if(lastT)lastT.classList.remove("target");
+    if(ghost){ghost.remove();ghost=null;const t=document.elementFromPoint(e.clientX,e.clientY);const tg=t&&t.closest(targetSel);if(tg)onDrop(tg)}else if(e.type==="pointerup")onTap();lastT=null};
+  el.addEventListener("pointerup",end);el.addEventListener("pointercancel",end);
+  el.addEventListener("click",e=>{if(e.detail===0)onTap()})}
+function sItem(id){return SROUNDS[sR].items[id]}
+function sRounds(){const box=$("#sRounds");box.innerHTML="";SROUNDS.forEach((r,i)=>{const b=document.createElement("button");b.type="button";b.className="round";b.setAttribute("aria-pressed",i===sR?"true":"false");b.innerHTML=r.name+(sBest[i]?`<span class="ok" aria-hidden="true">${"★".repeat(sBest[i])}</span><span class="gk-sr">, ${sBest[i]} stars</span>`:"");b.onclick=()=>{sR=i;sNew()};box.appendChild(b)})}
+function sTok(i){const it=sItem(i);const el=document.createElement("button");el.type="button";el.className="tok";el.dataset.i=i;
+  el.innerHTML=`<svg viewBox="0 0 48 48" aria-hidden="true">${SICON[SROUNDS[sR].tok]}</svg><span>${it[0]}</span><span class="mk" aria-hidden="true"></span><span class="gk-sr st"></span>`;
+  draggable(el,{targetSel:".bin,#sPool",canDrag:()=>!sSolved,onTap:()=>sTap(el),onDrop:tg=>sPlace(el,tg)});return el}
+function sTap(el){const it=sItem(+el.dataset.i);if(el.classList.contains("no")&&!sSolved)$("#sWhy").innerHTML=`<b>Clue · ${it[0]}:</b> look again at the bin descriptions. ${SROUNDS[sR].goal.split(". ")[1]||""}`;else if(el.classList.contains("ok")||sSolved)$("#sWhy").innerHTML=`<b>${it[0]}:</b> ${it[2]}`;if(sSolved)return;
+  document.querySelectorAll("#tab-sort .tok.sel").forEach(x=>x.classList.remove("sel"));if(sSel===el){sSel=null;return}sSel=el;el.classList.add("sel")}
+function sPlace(el,tg){if(sSolved)return;const dest=tg.id==="sPool"?$("#sPool"):tg.querySelector(".bitems");dest.appendChild(el);el.classList.remove("sel","ok","no","hinted");el.querySelector(".mk").textContent="";const b=el.closest(".bin");el.querySelector(".st").textContent=b?" (in "+b.dataset.name+")":"";sSel=null;try{el.focus()}catch(_){}}
+function sNew(){const r=SROUNDS[sR];sSel=null;sChecks=0;sHints=0;sSolved=false;sT0=performance.now();
+  const bins=$("#sBins");bins.innerHTML="";r.bins.forEach(b=>{const d=document.createElement("div");d.className="bin";d.dataset.bin=b[0];d.dataset.name=b[1];d.setAttribute("role","group");d.setAttribute("aria-label",b[1]+" bin");
+    d.innerHTML=`<button type="button" class="binhead"><span class="bh"><svg width="22" height="22" viewBox="0 0 48 48" aria-hidden="true">${SICON[b[3]]}</svg>${b[1]}</span><span class="bsub">${b[2]}</span><span class="gk-sr"> Place the selected card here.</span></button><span class="bitems"></span>`;
+    d.addEventListener("click",e=>{if(sSel&&!e.target.closest(".tok"))sPlace(sSel,d)});bins.appendChild(d)});
+  const pool=$("#sPool");pool.innerHTML="";shuffle(r.items.map((x,i)=>i)).forEach(i=>pool.appendChild(sTok(i)));
+  $("#sN").textContent=r.name+" · "+r.items.length+" cards";$("#sT").textContent=r.title;$("#sGoal").textContent=r.goal;setMsg("#sMsg","","");$("#sWhy").innerHTML="<b>Tip:</b> after checking, tap any card to read why it belongs where it does.";sRounds()}
+$("#sPool").addEventListener("click",e=>{if(sSel&&!e.target.closest(".tok")&&sSel.parentElement!==$("#sPool"))sPlace(sSel,$("#sPool"))});
+function sWhere(el){const b=el.closest(".bin");return b?b.dataset.bin:null}
+$("#sCheck").onclick=()=>{if(sSolved)return;const toks=[...document.querySelectorAll("#tab-sort .tok")];const un=toks.filter(t=>!sWhere(t));
+  if(un.length){setMsg("#sMsg",`Place all the cards first. ${un.length} still in the tray.`,"warn");return}
+  sChecks++;let n=0;toks.forEach(t=>{const ok=sWhere(t)===sItem(+t.dataset.i)[1];t.classList.toggle("ok",ok);t.classList.toggle("no",!ok);t.querySelector(".mk").textContent=ok?"✓":"✕";const b=t.closest(".bin");t.querySelector(".st").textContent=" (in "+b.dataset.name+", "+(ok?"correct":"not quite")+")";if(ok)n++});
+  if(n===toks.length){sSolved=true;const el=(performance.now()-sT0)/1000;const st=sHints===0&&sChecks===1?3:sHints<=2&&sChecks<=3?2:1;if(!sBest[sR]||st>sBest[sR])sBest[sR]=st;store.set("sort",sBest);sRounds();
+    setMsg("#sMsg",`${starStr(st)}<br><b>All sorted!</b> ${$("#sRelaxed").checked?"":"Time "+fmt(el)+". "}Tap any card to read why.${sR<SROUNDS.length-1?' <button class="tbtn" id="sNextR" type="button">Next round →</button>':""}`,"good");const nb=$("#sNextR");if(nb)nb.onclick=()=>{sR++;sNew()}}
+  else setMsg("#sMsg",`<b>${n} of ${toks.length}</b> are right. Tap a ✕ card for a clue, move it, and check again.`,"warn")};
+$("#sHint").onclick=()=>{if(sSolved)return;const toks=[...document.querySelectorAll("#tab-sort .tok")];const t=toks.find(t=>sWhere(t)!==sItem(+t.dataset.i)[1]);if(!t)return;sHints++;const it=sItem(+t.dataset.i);
+  sPlace(t,document.querySelector(`#sBins .bin[data-bin="${it[1]}"]`));t.classList.add("hinted");$("#sWhy").innerHTML=`<b>Hint · ${it[0]}:</b> ${it[2]}`};
+$("#sShow").onclick=()=>{[...document.querySelectorAll("#tab-sort .tok")].forEach(t=>{const it=sItem(+t.dataset.i);sPlace(t,document.querySelector(`#sBins .bin[data-bin="${it[1]}"]`));t.classList.add("ok");t.querySelector(".mk").textContent="✓"});
+  sSolved=true;setMsg("#sMsg","Here is the answer. Tap any card to read why, then press <b>Start over</b> to try it yourself.","info")};
+$("#sReset").onclick=sNew;$("#sRelaxed").onchange=e=>{$("#sTimer").hidden=e.target.checked;sT0=performance.now()};
+function sTimerTick(){if(!$("#sRelaxed").checked&&!sSolved)$("#sTimer").textContent=fmt((performance.now()-sT0)/1000)}
+
+/* ================= PART 4b: put in order ================= */
+const QROUNDS=[
+ {id:"humoral",name:"From germ to antibodies",goal:"Put the steps of a T-dependent antibody response in order, from the first contact to memory.",
+  cards:[["A dendritic cell picks up the germ in the tissue","Pick up","dcpick"],["It shows a peptide on MHC II to a helper T cell in a lymph node","Present","present"],["A B cell's receptor binds the same antigen","B binds","bbind"],["A TFH helper cell gives the B cell the go signal","Help","help"],["The B cell divides into a clone","Expand","expand"],["Plasma cells release antibodies","Antibodies","plasma"],["Memory B cells remain","Memory","memory"]]},
+ {id:"ctl",name:"A killer T cell at work",goal:"Put the steps in order, from a virus entering a cell to that cell's tidy death.",
+  cards:[["A virus copies itself inside a body cell","Infect","infect"],["Viral peptides are loaded onto MHC I","MHC I","mhc1"],["A CD8 T cell's receptor binds MHC I + peptide","Bind","ctlbind"],["Perforin makes pores in the membrane","Perforin","perforin"],["Granzymes enter the cell","Granzymes","granzyme"],["The cell dies by apoptosis","Apoptosis","apop"]]},
+ {id:"elisa",name:"Running an indirect ELISA",goal:"Put the lab steps in order to test a patient's serum for antibodies.",
+  cards:[["Coat the wells with germ antigen","Coat","coat"],["Add the patient's serum","Serum","serum"],["Wash away unbound serum","Wash","wash"],["Add enzyme-linked anti-human antibody","Enzyme Ab","conj"],["Wash away unbound enzyme antibody","Wash","wash2"],["Add substrate and read the colour","Substrate","sub"]]},
+ {id:"lfa",name:"Inside a rapid test",goal:"Put the steps of a lateral flow antigen test in order.",
+  cards:[["Add the sample to the sample pad","Sample","lfsample"],["Liquid flows into the gold-tagged antibodies","Flow","lfflow"],["Gold-tagged antibodies grab any antigen","Grab","lfgrab"],["The test line catches antigen-antibody pairs","T line","lft"],["The control line catches leftover gold antibodies","C line","lfc"],["Read the result at the stated time","Read","lfread"]]},
+ {id:"allergy",name:"A type I allergy",goal:"Put the steps of an allergy in order, from first contact to symptoms.",
+  cards:[["First contact with pollen","Contact","pollen"],["TH2 cells help B cells","TH2","th2"],["B cells make IgE","IgE","ige"],["IgE coats mast cells","Coat","mastige"],["Pollen returns and links two IgE","Link","link"],["Mast cells release histamine","Histamine","hist"]]}];
+const S4=makeStage("cvSeq",640,400);
+let qR=0,qChecks=0,qHints=0,qSolved=false,qStart=0,qPlay=null;const qRes=store.get("seq")||{};
+const qList=$("#qList");
+function qRoundsUI(){const box=$("#qRounds");box.innerHTML="";QROUNDS.forEach((r,i)=>{const b=document.createElement("button");b.type="button";b.className="round";b.setAttribute("aria-pressed",i===qR?"true":"false");
+  b.innerHTML=`Round ${i+1}: ${r.name}`+(qRes[r.id]?`<span class="ok" aria-hidden="true">${"★".repeat(qRes[r.id])}</span><span class="gk-sr">, ${qRes[r.id]} stars</span>`:"");b.onclick=()=>{qR=i;qNew()};box.appendChild(b)})}
+function qItem(i){const r=QROUNDS[qR];const li=document.createElement("li");li.className="item";li.dataset.i=i;const txt_=r.cards[i][0];
+  li.innerHTML=`<span class="pos"></span><span class="grip" aria-hidden="true">⋮⋮</span><span class="txt">${txt_}</span><span class="mk qmk"></span><span class="mv"><button type="button" aria-label="Move up: ${txt_}">▲</button><button type="button" aria-label="Move down: ${txt_}">▼</button></span>`;
+  const [up,dn]=li.querySelectorAll(".mv button");
+  up.onclick=()=>{const p=li.previousElementSibling;if(p&&!qSolved){qList.insertBefore(li,p);qChanged();up.focus()}};
+  dn.onclick=()=>{const n=li.nextElementSibling;if(n&&!qSolved){qList.insertBefore(n,li);qChanged();dn.focus()}};
+  let dragging=false;
+  li.addEventListener("pointerdown",e=>{if(e.target.closest("button")||qSolved)return;dragging=true;li.classList.add("drag");try{li.setPointerCapture(e.pointerId)}catch(_){}});
+  li.addEventListener("pointermove",e=>{if(!dragging)return;const kids=[...qList.children];const me=kids.indexOf(li);
+    for(let k=0;k<kids.length;k++){const el=kids[k];if(el===li)continue;const rc=el.getBoundingClientRect();if(e.clientY>rc.top&&e.clientY<rc.bottom){const mid=rc.top+rc.height/2;
+      if(k>me&&e.clientY>mid){qList.insertBefore(el,li);qChanged()}else if(k<me&&e.clientY<mid){qList.insertBefore(el,li.nextElementSibling);qChanged()}break}}});
+  const end=()=>{if(!dragging)return;dragging=false;li.classList.remove("drag")};li.addEventListener("pointerup",end);li.addEventListener("pointercancel",end);return li}
+function qRenum(){[...qList.children].forEach((li,i)=>li.querySelector(".pos").textContent=i+1)}
+function qChanged(){qRenum();[...qList.children].forEach(li=>{li.classList.remove("right","off","hinted");li.querySelector(".qmk").innerHTML=""});qPlay=null;qA11yKey=""}
+const qOrder=()=>[...qList.children].map(li=>+li.dataset.i);
+function qNew(){const r=QROUNDS[qR];const n=r.cards.length;let o;do{o=shuffle([...Array(n).keys()])}while(o.filter((c,i)=>c===i).length>1);qList.innerHTML="";o.forEach(i=>qList.appendChild(qItem(i)));
+  qChecks=0;qHints=0;qSolved=false;qStart=performance.now();qPlay=null;$("#qN").textContent=`Round ${qR+1} of ${QROUNDS.length} · ${n} cards`;$("#qT").textContent=r.name;$("#qGoal").textContent=r.goal;
+  setMsg("#qMsg","","");qRenum();qRoundsUI();qA11yKey=""}
+$("#qCheck").onclick=()=>{if(qSolved)return;qChecks++;const o=qOrder();let n=0;[...qList.children].forEach((li,i)=>{const ok=o[i]===i;if(ok)n++;li.classList.toggle("right",ok);li.classList.toggle("off",!ok);li.querySelector(".qmk").innerHTML=ok?`<span aria-hidden="true">✓</span><span class="gk-sr">, in the right spot</span>`:`<span aria-hidden="true">✗</span><span class="gk-sr">, not yet</span>`});
+  if(n===o.length)qWin();else setMsg("#qMsg",`<b>${n} of ${o.length}</b> cards are in the right spot (marked ✓ with a green border; the others are marked ✗). Ask yourself: what has to happen before this step can happen? Press <b>Play my order</b> to see where it gets stuck.`,"warn")};
+$("#qHint").onclick=()=>{if(qSolved)return;const o=qOrder();const i=o.findIndex((c,k)=>c!==k);if(i<0)return;qHints++;const li=qList.querySelector(`[data-i="${i}"]`);qList.insertBefore(li,qList.children[i]);qChanged();li.classList.add("hinted");
+  setMsg("#qMsg",`Hint: step ${i+1} is <b>${QROUNDS[qR].cards[i][0]}</b>.`,"info")};
+$("#qShuffle").onclick=qNew;
+$("#qShow").onclick=()=>{const r=QROUNDS[qR];qList.innerHTML="";r.cards.forEach((c,i)=>{const li=qItem(i);li.classList.add("right");qList.appendChild(li)});qRenum();qSolved=true;qHints+=9;
+  setMsg("#qMsg","Here is the correct order. Watch it play, then press <b>Shuffle again</b> and try it yourself.","info");qStartPlay()};
+function qWin(){qSolved=true;const r=QROUNDS[qR];const el=(performance.now()-qStart)/1000;const stars=qHints===0&&qChecks<=2?3:qHints<=2?2:1;if(!qRes[r.id]||stars>qRes[r.id])qRes[r.id]=stars;store.set("seq",qRes);
+  setMsg("#qMsg",`${starStr(stars)} <b>In order! ${stars} of 3 stars.</b> ${$("#qRelaxed").checked?"":"Time "+fmt(el)+". "}Checks: ${qChecks}. Hints: ${Math.min(qHints,9)}. Watch it play in the picture.`+(qR<QROUNDS.length-1?` <button class="tbtn" id="qNextR" type="button">Next round &rarr;</button>`:""),"good");
+  const nb=$("#qNextR");if(nb)nb.onclick=()=>{qR++;qNew()};qRoundsUI();qStartPlay()}
+$("#qRelaxed").onchange=e=>{$("#qTimer").hidden=e.target.checked;qStart=performance.now()};
+const QDUR=1.3;
+function qStartPlay(){const o=qOrder();const fail=o.findIndex((c,i)=>c!==i);qPlay={o,fail,t0:performance.now()};qA11yKey=""}
+$("#qPlay").onclick=qStartPlay;
+function qStageNow(now){if(!qPlay)return {k:0,stuck:-1,p:0};const t=(now-qPlay.t0)/1000;const upto=qPlay.fail<0?qPlay.o.length:qPlay.fail;const k=Math.min(upto,Math.floor(t/QDUR)+1);const p=clamp((t-(k-1)*QDUR)/QDUR,0,1);
+  return {k,stuck:(qPlay.fail>=0&&t>upto*QDUR)?qPlay.fail:-1,p}}
+/* small step icons for the process picture, drawn around (x,y) */
+function pollen(x,y,r,t){circ(x,y,r,C.gold,mix(C.gold,C.ink,.35),1.2);for(let k=0;k<8;k++){const a=k/8*TAU+(t||0)*.3;circ(x+Math.cos(a)*r,y+Math.sin(a)*r,r*.22,mix(C.gold,C.ink,.25))}}
+function miniWell(x,y,col){ctx.beginPath();ctx.moveTo(x-26,y-16);ctx.lineTo(x-26,y+16);ctx.lineTo(x+26,y+16);ctx.lineTo(x+26,y-16);ctx.strokeStyle=C["well-edge"];ctx.lineWidth=2;ctx.stroke();if(col){ctx.fillStyle=col;ctx.fillRect(x-24,y-4,48,19)}}
+function seqIcon(key,x,y,T,on){
+  switch(key){
+  case"dcpick":dendritic(x+8,y,16,{t:T,lab:false});bacterium(x-22,y+6,22,9,.3,{chrom:false});break;
+  case"present":dendritic(x-14,y,14,{t:T,lab:false});mhc(x,y,0,C.mhc2,C.pepout,1);lymph(x+22,y,11,"th",{t:T,label:"",nrec:6});break;
+  case"bbind":lymph(x,y+4,15,"b",{t:T,label:"",nrec:8});epi(x,y-22,5,"star",C.ag);break;
+  case"help":lymph(x-14,y,12,"b",{t:T,label:"",nrec:6});lymph(x+16,y,12,"th",{t:T,label:"",nrec:6,glow:.5});break;
+  case"expand":for(let k=0;k<6;k++){const a=k/6*TAU;lymph(x+Math.cos(a)*16,y+Math.sin(a)*12,7,"b",{label:"",nrec:5})}break;
+  case"plasma":plasmaC(x-16,y,10,{});for(let k=0;k<3;k++){const p=P(T*.8+k/3,1);ab(x+lerp(-2,30,p),y-8+k*8,6,0,C.igg,{lw:1.8,a:1-seg(p,.8,1)})}break;
+  case"memory":for(let k=0;k<3;k++)lymph(x-20+k*20,y,9,"mem",{label:"",nrec:5,t:T});break;
+  case"infect":hostCell(x,y,22,{});virion(x-6,y+4,5,{t:T,n:7});virion(x+8,y-4,5,{t:T,n:7});break;
+  case"mhc1":hostCell(x,y+6,20,{});mhc(x,y-14,-Math.PI/2,C.mhc1,C.pepin,1,1.2);break;
+  case"ctlbind":hostCell(x+14,y,16,{});mhc(x-2,y,Math.PI,C.mhc1,C.pepin,1);lymph(x-24,y,12,"tc",{t:T,label:"",nrec:6});break;
+  case"perforin":hostCell(x,y,20,{});macPore(x-20,y,5,.6+.4*Math.sin(T*3),0);break;
+  case"granzyme":hostCell(x,y,20,{});for(let k=0;k<4;k++){const p=P(T*.7+k/4,1);circ(lerp(x-26,x+4,p),y-6+k*4,2.6,C.granzyme)}break;
+  case"apop":hostCell(x,y,20,{frag:.6+.2*Math.sin(T*2)});break;
+  case"coat":miniWell(x,y,null);for(let k=0;k<3;k++)epi(x-14+k*14,y+11,4,"star",C.ag);break;
+  case"serum":miniWell(x,y,null);for(let k=0;k<3;k++){epi(x-14+k*14,y+11,4,"star",C.ag);ab(x-14+k*14,y-2,7,Math.PI/2,C.igg,{lw:2})}break;
+  case"wash":case"wash2":miniWell(x,y,null);for(let k=0;k<4;k++){const p=P(T+k/4,1);circ(x-30+p*60,y-24,2.4,hexA(C.laser,1-p))}if(key==="wash2"){for(let k=0;k<3;k++){ab(x-14+k*14,y-2,7,Math.PI/2,C.igm,{lw:2,enz:true})}}else for(let k=0;k<3;k++)ab(x-14+k*14,y+2,7,Math.PI/2,C.igg,{lw:2});break;
+  case"conj":miniWell(x,y,null);for(let k=0;k<3;k++){ab(x-14+k*14,y+2,7,Math.PI/2,C.igg,{lw:2});ab(x-14+k*14,y-14,7,Math.PI/2,C.igm,{lw:2,enz:true})}break;
+  case"sub":miniWell(x,y,hexA(C.substrate,.5+.3*Math.sin(T*2)));break;
+  case"lfsample":flowStrip(x-40,y-8,80,18,{wet:.1,labels:false,s:false});circ(x-30,y-22+Math.sin(T*3)*3,3,hexA(C.laser,.8));break;
+  case"lfflow":flowStrip(x-40,y-8,80,18,{wet:.3+.2*Math.sin(T),labels:false,s:false,conj:true});break;
+  case"lfgrab":for(let k=0;k<3;k++){circ(x-14+k*14,y,4,C.np);epi(x-14+k*14+5,y,3,"star",C.ag)}break;
+  case"lft":flowStrip(x-40,y-8,80,18,{wet:1,t:.9,labels:false,s:false});break;
+  case"lfc":flowStrip(x-40,y-8,80,18,{wet:1,t:.9,c:.9,labels:false,s:false});break;
+  case"lfread":flowStrip(x-40,y-8,80,18,{wet:1,t:.9,c:.9,labels:false,s:false});tick(x+30,y-20,5,C.good);break;
+  case"pollen":pollen(x,y,9,T);break;
+  case"th2":lymph(x,y,15,"th",{t:T,label:"TH2",nrec:7});break;
+  case"ige":plasmaC(x-14,y,10,{});ab(x+18,y,9,-Math.PI/2,C.ige,{lw:2.4});break;
+  case"mastige":mastC(x,y+4,16,0,{t:T,ige:4,lab:false});break;
+  case"link":mastC(x,y+6,16,0,{t:T,ige:4,lab:false});pollen(x,y-18,5,T);break;
+  case"hist":mastC(x,y,16,.6,{t:T,lab:false});for(let k=0;k<6;k++){const p=P(T*.6+k/6,1);const a=k/6*TAU;circ(x+Math.cos(a)*(18+p*14),y+Math.sin(a)*(18+p*10),2,hexA(C.hist,1-p))}break}}
+function drawSeq(now){use(S4);const T=now/1000;const r=QROUNDS[qR];const st=qStageNow(now);const n=r.cards.length;
+  title(16,20,"How the steps connect");const cx=320,cy=212,rx=232,ry=138;
+  const pos=r.cards.map((c,i)=>{const a=-Math.PI/2+i/n*TAU;return [cx+Math.cos(a)*rx,cy+Math.sin(a)*ry]});
+  ctx.save();ctx.setLineDash([5,5]);ctx.beginPath();ctx.ellipse(cx,cy,rx,ry,0,0,TAU);ctx.strokeStyle=C.rule;ctx.lineWidth=2;ctx.stroke();ctx.restore();
+  pos.forEach((p,i)=>{const lit=qPlay&&i<st.k;const cur=qPlay&&i===st.k-1;rr(p[0]-52,p[1]-38,104,76,12);ctx.fillStyle=lit?hexA(C.accent,.15):hexA(C.panel,.95);ctx.fill();ctx.strokeStyle=cur?C.accent:lit?hexA(C.accent,.7):C.rule;ctx.lineWidth=cur?3:1.4;ctx.stroke();
+    const ci=qPlay?qPlay.o[i]:i;const card=r.cards[ci];
+    if(qPlay&&i<st.k){withA(1,()=>seqIcon(card[2],p[0],p[1]-8,T,cur));txt(p[0],p[1]+27,(i+1)+" "+card[1],{size:12,weight:700,align:"center"})}
+    else{txt(p[0],p[1]-4,String(i+1),{size:22,weight:700,align:"center",color:C["ink-soft"]});txt(p[0],p[1]+24,qPlay?"":"step "+(i+1),{size:12,align:"center",color:C["ink-soft"]})}
+    if(qPlay&&st.stuck===i){rr(p[0]-52,p[1]-38,104,76,12);ctx.strokeStyle=C.warn;ctx.lineWidth=3;ctx.stroke();cross(p[0]+40,p[1]-26,6,C.warn)}});
+  if(st.stuck>=0){const card=r.cards[qPlay.o[st.stuck]][1];label(cx,cy,`Stuck at step ${st.stuck+1}: "${card}" can't happen yet`,{size:12.5,weight:700,align:"center",border:C.warn})}
+  else if(qPlay&&st.k>=n)label(cx,cy,"The whole process played in order",{size:12.5,weight:700,align:"center",border:C.good});
+  else if(!qPlay)label(cx,cy,"Arrange the cards, then press Play my order",{size:12.5,weight:600,align:"center"});
+  const cap=!qPlay?"Arrange the cards, then press Play my order to watch it happen.":st.stuck>=0?`Playing stopped at card ${st.stuck+1}: it does not fit there yet.`:st.k>=n?"The whole process played in order.":st.k<1?"Playing...":`Playing step ${st.k}: ${r.cards[qPlay.o[st.k-1]][0]}`;
+  if($("#qCap").textContent!==cap){$("#qCap").textContent=cap;S4.cv.setAttribute("aria-label",r.name+" picture. "+cap)}}
+let qA11yKey="";
+function seqA11y(){const r=QROUNDS[qR];const st=qStageNow(performance.now());const lab=r.name+" picture. "+$("#qCap").textContent;
+  const d=`A dashed oval links ${r.cards.length} rounded boxes, one per step, going clockwise from the top. `+(!qPlay?"The boxes show only step numbers until you press Play my order.":`As your order plays, each box lights green with a small drawing and a short name: ${qPlay.o.slice(0,st.k).map((c,i)=>(i+1)+" "+r.cards[c][1]).join(", ")}.`+(st.stuck>=0?` The box for step ${st.stuck+1} is outlined in orange with an X, because that card cannot happen yet.`:""));return [lab,d]}
+$("#gSort").onclick=()=>{pressed("#gSort","#gOrder",true);$("#sortWrap").hidden=false;$("#orderWrap").hidden=true;curGame="sort";a11yKey=""};
+$("#gOrder").onclick=()=>{pressed("#gSort","#gOrder",false);$("#sortWrap").hidden=true;$("#orderWrap").hidden=false;curGame="order";S4.fit();a11yKey=""};
+let curGame="sort";
+
+
+/* ---------------- accessibility: live canvas labels and picture descriptions ---------------- */
+const A11Y={sim:{cv:"#cvSim",f:simA11y},elisa:{cv:"#cvEl",f:elA11y},case:{cv:"#cvCase",f:caseA11y},sort:{cv:"#cvSeq",f:seqA11y}};
+let a11yKey="",a11yT=0;
+function a11yTick(){const n=performance.now();if(n-a11yT<500)return;a11yT=n;const a=A11Y[curTab];if(!a)return;if(curTab==="sort"&&curGame!=="order"){if(a11yKey!=="sortgame"){a11yKey="sortgame";if(window.gkDescribe)window.gkDescribe("This part has no picture. Sort cards appear as buttons with small icons; use Tab and Enter to pick a card and then a bin.")}return}
+  const [lab,d]=a.f();const key=curTab+"|"+lab;if(key===a11yKey)return;a11yKey=key;
+  const cv=$(a.cv);if(lab)cv.setAttribute("aria-label",lab);if(window.gkDescribe)window.gkDescribe(d);
+  const box=document.getElementById("gk-desc");const h=cv.closest(".canvas-holder");if(box&&h&&h.nextElementSibling!==box)h.after(box);if(box)cv.setAttribute("aria-describedby","gk-desc")}
+/* ---------------- tabs / theme / loop ---------------- */
+let curTab="sim";const TABS=["sim","elisa","case","sort"];
+function setTab(k,focus){curTab=k;document.querySelectorAll(".tab").forEach(x=>{const on=x.dataset.tab===k;x.setAttribute("aria-selected",on?"true":"false");x.tabIndex=on?0:-1;if(on&&focus)x.focus()});TABS.forEach(t=>$("#tab-"+t).hidden=t!==k);a11yKey="";fitAll();if(k==="case")cT0=performance.now()}
+document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>setTab(t.dataset.tab);t.addEventListener("keydown",e=>{const i=TABS.indexOf(t.dataset.tab);if(e.key==="ArrowRight"){e.preventDefault();setTab(TABS[(i+1)%4],true)}if(e.key==="ArrowLeft"){e.preventDefault();setTab(TABS[(i+3)%4],true)}})});
+function fitAll(){[S1,S2,S3,S4].forEach(s=>s.fit())}
+window.addEventListener("resize",fitAll);
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+let last=performance.now(),rdT=0;
+function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;
+  try{if(curTab==="sim"){mTick(dt);rdT+=dt;if(rdT>.25){rdT=0;mUI()}drawSim(now)}else if(curTab==="elisa"){drawEl(now)}else if(curTab==="case")drawCase(now);else{sTimerTick();if(curGame==="order"){drawSeq(now);if(!$("#qRelaxed").checked&&!qSolved)$("#qTimer").textContent=fmt((performance.now()-qStart)/1000)}}}catch(err){console.error(err)}
+  try{a11yTick()}catch(err){console.error(err)}
+  requestAnimationFrame(frame)}
+window.__lab={tab:k=>setTab(k),sim:(type,bi,run,exposeAt)=>{SM.type=type||"inact";mTypesUI();SM.bi=bi||0;$("#mBoost").value=SM.bi;$("#mBoostOut").textContent=BOOST[SM.bi]?"day "+BOOST[SM.bi]:"none";mReset();let t=0;while(t<run){if(exposeAt!=null&&Math.abs(SM.t-exposeAt)<.13)mExpose();mStep(.25);t+=.25}mUI()},
+  simState:()=>({t:SM.t,igg:tot(SM.t)[1],igm:tot(SM.t)[0],mem:memAt(SM.t),pre:SM.maxPre,post:SM.maxPost,out:SM.lastOut,chal:mChalDone.slice()}),
+  el:()=>EL,elDo:ks=>{ks.forEach(k=>eDo(k));EL.tSub-=5000},elAns:(a,b)=>{EL.ans=[a,b];eAnsUI()},elAnswer:()=>[eAnswer(0),eAnswer(1)],elValid:()=>eValid(),
+  caseGo:(i,q)=>{cI=i;cQ=q||0;cLoad()},sortRound:i=>{$("#gSort").click();sR=i;sNew()},sortShow:()=>$("#sShow").click(),order:i=>{$("#gOrder").click();qR=i;qNew()},orderShow:()=>$("#qShow").click()};
+readColors();mTypesUI();mReset();mChalUI();eNewPatients();eRestart(false);eRowBtns();eChalUI();cLoad();sNew();qNew();setTab("sim");requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

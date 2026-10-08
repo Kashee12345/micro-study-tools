@@ -1,0 +1,1343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Antimicrobial Drugs Lab</title>
+<meta name="description" content="Kirby-Bauer and MIC bench, a resistance selection simulator, which-drug-and-why patient cases and sorting games for antimicrobial drugs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#1E7A4C;--accent-ink:#145A37;--accent-wash:#DDEFE5;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#7B5CC9;--act2:#C4644F;--act3:#D98A1C;--act4:#2F7FC1;--act5:#2E8A7A;--act6:#A04E8C;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#8A6D12;
+  /* microbe control palette */
+  --ecf:#EEF3EF;--bench:#E6ECE8;--grid:#D3DED7;
+  --bact:#3E8E41;--spore:#9A6A12;--spore-coat:#E9D3A0;--myco:#8A5A9E;--env:#B03A8C;--nonenv:#3F6DB3;--prion:#A9372F;--cyst:#5E7A2A;--fungus:#C77A12;--dead:#8B9094;
+  --gpos:#6B3FA0;--gneg:#D0457A;
+  --steam:#4F8FCB;--air:#8C969D;--heat:#E0563A;--cold:#2F7FC1;--uv:#7B5CC9;--ion:#C9A227;
+  --alc:#2E8A7A;--chlor:#7E9A2A;--iod:#8A4A1C;--phen:#A04E8C;--quat:#2F7FC1;--metal:#6E7F8C;--ald:#D98A1C;--perox:#1E9C7A;--gas:#5E6E7A;
+  --membrane:#C9A227;--protein:#C4644F;--dna:#2F6FD0;
+  --water:#CFE5F1;--agar:#EAD9A2;--agar-edge:#B9A160;--glass:#DCE8EE;--glass-edge:#7F99A6;
+  --steel:#C9D1D6;--steel-edge:#7A8790;--tape:#EFE3C2;--tape-ink:#3A2E1E;--bi-pass:#6B3FA0;--bi-fail:#D9B514;
+  --skin:#EAC9A8;--skin-edge:#B9937A;--body:#E9DCCB;--body-edge:#A88B6A;--soil:#B98A5A;
+  --milk:#F7F3E8;--food:#E8B86A;--organic:#9A5A3A;--glow:#F2B33B;
+  /* antimicrobials palette */
+  --act7:#5E7F1A;--pg:#A8782A;--pbp:#2F7FC1;--drug:#C4382F;--r30:#4F7FAA;--r50:#2F5F8A;--mrna:#2E8A7A;--trna:#D98A1C;--sus:#3F6DB3;--res:#B5301F;--plasmid:#D98A1C;--ergo:#C9A227;--chol:#8C969D;--lawn:#C2AE6E;--lawn-dot:#9A8650;--zone:#EFE2B4;--pus:#E9DFA8;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#15301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#E08A74;--act3:#F2A93B;--act4:#5AA9E6;--act5:#5CC4B0;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#141B1A;--bench:#1A2220;--grid:#26332F;
+  --bact:#6BC26E;--spore:#E0B050;--spore-coat:#5A4A2A;--myco:#C29AD6;--env:#E07AC4;--nonenv:#7FA6E6;--prion:#E07067;--cyst:#A3C95A;--fungus:#E0A050;--dead:#6F767B;
+  --gpos:#B08AE8;--gneg:#F08AB0;
+  --steam:#8FC0EC;--air:#7E8A92;--heat:#F27A5E;--cold:#5AA9E6;--uv:#A98BEF;--ion:#E0BE48;
+  --alc:#5CC4B0;--chlor:#B5CF5A;--iod:#D9925A;--phen:#D186C0;--quat:#5AA9E6;--metal:#A9B7C2;--ald:#F2A93B;--perox:#4FD0A8;--gas:#9AAAB6;
+  --membrane:#E0BE48;--protein:#E08A74;--dna:#6FA3F0;
+  --water:#1F3A4A;--agar:#4A4030;--agar-edge:#9C8A5A;--glass:#1E2C34;--glass-edge:#7F99A6;
+  --steel:#3A464E;--steel-edge:#8A98A2;--tape:#D9CDA8;--tape-ink:#2A2014;--bi-pass:#B08AE8;--bi-fail:#E8CC3A;
+  --skin:#5A4434;--skin-edge:#B9937A;--body:#3E3528;--body-edge:#B39773;--soil:#7A5A3A;
+  --milk:#3A3830;--food:#9A7A40;--organic:#C98A6A;--glow:#F2B33B;
+  --act7:#A3C95A;--pg:#D9AE5E;--pbp:#5AA9E6;--drug:#F27A6E;--r30:#8FB8DE;--r50:#6F9FCC;--mrna:#5CC4B0;--trna:#F2A93B;--sus:#7FA6E6;--res:#F07A62;--plasmid:#F2A93B;--ergo:#E0BE48;--chol:#A9B7C2;--lawn:#7E7048;--lawn-dot:#A8955E;--zone:#3A3226;--pus:#5A5232;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#6FD3A0;--accent-ink:#A8EBC6;--accent-wash:#15301F;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#E08A74;--act3:#F2A93B;--act4:#5AA9E6;--act5:#5CC4B0;--act6:#D186C0;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#141B1A;--bench:#1A2220;--grid:#26332F;
+  --bact:#6BC26E;--spore:#E0B050;--spore-coat:#5A4A2A;--myco:#C29AD6;--env:#E07AC4;--nonenv:#7FA6E6;--prion:#E07067;--cyst:#A3C95A;--fungus:#E0A050;--dead:#6F767B;
+  --gpos:#B08AE8;--gneg:#F08AB0;
+  --steam:#8FC0EC;--air:#7E8A92;--heat:#F27A5E;--cold:#5AA9E6;--uv:#A98BEF;--ion:#E0BE48;
+  --alc:#5CC4B0;--chlor:#B5CF5A;--iod:#D9925A;--phen:#D186C0;--quat:#5AA9E6;--metal:#A9B7C2;--ald:#F2A93B;--perox:#4FD0A8;--gas:#9AAAB6;
+  --membrane:#E0BE48;--protein:#E08A74;--dna:#6FA3F0;
+  --water:#1F3A4A;--agar:#4A4030;--agar-edge:#9C8A5A;--glass:#1E2C34;--glass-edge:#7F99A6;
+  --steel:#3A464E;--steel-edge:#8A98A2;--tape:#D9CDA8;--tape-ink:#2A2014;--bi-pass:#B08AE8;--bi-fail:#E8CC3A;
+  --skin:#5A4434;--skin-edge:#B9937A;--body:#3E3528;--body-edge:#B39773;--soil:#7A5A3A;
+  --milk:#3A3830;--food:#9A7A40;--organic:#C98A6A;--glow:#F2B33B;
+  --act7:#A3C95A;--pg:#D9AE5E;--pbp:#5AA9E6;--drug:#F27A6E;--r30:#8FB8DE;--r50:#6F9FCC;--mrna:#5CC4B0;--trna:#F2A93B;--sus:#7FA6E6;--res:#F07A62;--plasmid:#F2A93B;--ergo:#E0BE48;--chol:#A9B7C2;--lawn:#7E7048;--lawn-dot:#A8955E;--zone:#3A3226;--pus:#5A5232;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1180px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:9px 14px;cursor:pointer;font-weight:500;font-size:15px}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 13px;cursor:pointer;font-size:14.5px}
+.tbtn:hover{border-color:var(--accent)}
+.tbtn:disabled{opacity:.45;cursor:default}
+.tbtn[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:10px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.btn:disabled{opacity:.45;cursor:default}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;min-width:0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid,.grid2{grid-template-columns:1fr}}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%;touch-action:manipulation}
+.stagebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2)}
+.legend i.s{border-radius:2px}
+.legend i.ln{width:20px;height:0;border-radius:0;border:0;border-top:3px solid}
+.legend i.t{width:0;height:0;border-radius:0;border:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid;background:none!important}
+.rounds{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.round{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 13px;cursor:pointer;font-size:14px}
+.round[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.round .ok{color:var(--gold-ink);margin-left:4px}
+.mode{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-soft)}
+.mode input{accent-color:var(--accent);width:18px;height:18px}
+.lvl-n{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.lvl-t{font-family:var(--serif);font-size:22px;font-weight:600;margin:4px 0 8px;line-height:1.25}
+.goal{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:15px}
+.goal b.h{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.msg{margin:10px 0 0;padding:10px 12px;border-radius:var(--r);font-size:15px;display:none}
+.msg.show{display:block}
+.msg.good{background:var(--good-wash);color:var(--ink);border:1px solid var(--good)}
+.msg.warn{background:var(--warn-wash);color:var(--ink);border:1px solid var(--warn)}
+.msg.info{background:var(--panel-2);color:var(--ink);border:1px solid var(--rule)}
+.stars{font-size:22px;letter-spacing:2px;color:var(--gold-ink)}
+.side h3{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+.side p,.side li{font-size:14.5px}
+.side ul{padding-left:18px;margin:6px 0}
+.small{font-size:13px;color:var(--ink-soft)}
+.typebtns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.typebtn{background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 0;cursor:pointer;font-family:var(--mono);font-weight:600;font-size:15px}
+.typebtn:hover{border-color:var(--accent)}
+.typebtn.right{border-color:var(--good);background:var(--good-wash)}
+.typebtn.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.typebtn:disabled{cursor:default}
+.prog{height:8px;background:var(--sunk);border-radius:99px;overflow:hidden;margin:6px 0 10px}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.timer{font-family:var(--mono);font-size:18px;font-weight:600}
+/* bags */
+.bags{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0 4px}
+.bag{position:relative;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:6px 4px 4px;cursor:grab;touch-action:none;user-select:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--mono);font-weight:700;font-size:14px}
+.bag svg{width:34px;height:44px;display:block}
+.bag.sel{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
+.bag.ok{border-color:var(--good);background:var(--good-wash)}
+.bag.no{border-color:var(--warn);background:var(--warn-wash)}
+.bag .mk{position:absolute;top:3px;right:5px;font-size:13px}
+.bag.ghost{position:fixed;z-index:50;pointer-events:none;opacity:.9;box-shadow:0 10px 24px -8px rgba(0,0,0,.4)}
+.droptarget{outline:3px dashed var(--accent);outline-offset:-3px}
+.abbox{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:10px 12px;font-size:14.5px;margin-top:10px}
+/* sim */
+.ctl{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ctl label{font-size:14.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.ctl output{font-family:var(--mono);font-weight:600;color:var(--accent-ink)}
+.ctl input[type=range]{accent-color:var(--accent);width:100%}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-faint);font-family:var(--mono)}
+.readouts{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+.readouts th{text-align:left;font-weight:500;color:var(--ink-soft);padding:5px 6px 5px 0;border-top:1px solid var(--rule-soft)}
+.srhead th,.srhead td,.readouts caption.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0;border:0}
+.readouts td{padding:5px 0;border-top:1px solid var(--rule-soft);font-family:var(--mono);font-size:13.5px;text-align:right;white-space:nowrap}
+.chal{list-style:none;padding:0;margin:6px 0}
+.chal li{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14px}
+.chal .ck{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-size:13px;font-family:var(--mono)}
+.chal li.done .ck{background:var(--good);border-color:var(--good);color:var(--on-accent)}
+.status{font-size:14.5px;padding:8px 10px;border-radius:var(--r);margin-top:8px;border:1px solid var(--rule);background:var(--panel-2)}
+.status.warn{background:var(--warn-wash);border-color:var(--warn)}
+.status.bad{background:var(--bad-wash);border-color:var(--bad)}
+.status.good{background:var(--good-wash);border-color:var(--good)}
+/* sequencer */
+ol.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.item{display:flex;align-items:center;gap:10px;background:var(--panel);border:1.5px solid var(--rule);border-left:6px solid var(--act4);border-radius:var(--r);padding:7px 8px 7px 10px;touch-action:none;user-select:none;cursor:grab;transition:background .15s,border-color .15s}
+.item.drag{box-shadow:0 10px 24px -8px rgba(0,0,0,.4);cursor:grabbing;border-color:var(--accent);z-index:2;position:relative}
+.item .pos{font-family:var(--mono);font-size:13px;color:var(--ink-faint);width:20px;text-align:right;flex:0 0 auto}
+.item .grip{color:var(--ink-faint);font-size:18px;line-height:1;flex:0 0 auto}
+.item .txt{flex:1;font-size:15px;line-height:1.35}
+.item .mv{display:flex;flex-direction:column;gap:2px}
+.mv button{width:30px;height:24px;border:1px solid var(--rule);background:var(--panel-2);border-radius:4px;cursor:pointer;font-size:12px;padding:0;line-height:1}
+.mv button:hover{border-color:var(--accent)}
+.item.right{background:var(--good-wash);border-color:var(--good)}
+.item.off{background:var(--warn-wash);border-color:var(--warn)}
+.item.hinted{box-shadow:0 0 0 3px var(--gold)}
+.sc-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.sc-n{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.sc-title{font-family:var(--serif);font-size:22px;font-weight:600;margin:2px 0 6px}
+.qlab{font-weight:600;margin:12px 0 8px}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opt{text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:8px 0 0;font-size:14.5px;padding:8px 10px;border-radius:4px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--good-wash);border-left:4px solid var(--good)}
+.fb.no{background:var(--warn-wash);border-left:4px solid var(--warn)}
+.explain{margin-top:14px;padding:12px 14px;background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;display:none}
+.explain.show{display:block}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-family:var(--mono);font-size:12.5px;background:var(--panel-2);cursor:pointer;padding:0}
+.chip.cur{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.chip.done{border-color:var(--good);background:var(--good-wash);color:var(--good)}
+.chip.done.cur{background:var(--accent);color:var(--on-accent)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+.subtabs{display:flex;gap:6px;margin:0 0 12px;flex-wrap:wrap}
+footer{max-width:1180px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+kbd{font-family:var(--mono);font-size:12.5px;border:1px solid var(--rule);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--panel-2)}
+sub,sup{line-height:0}
+[hidden]{display:none!important}
+/* heart lab */
+.sbank{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-top:10px}
+.sbtn{background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:7px 9px;cursor:pointer;font-size:14px;text-align:left;line-height:1.25}
+.sbtn:hover{border-color:var(--accent)}
+.sbtn.done{border-color:var(--good);background:var(--good-wash)}
+.sbtn.no{border-color:var(--warn);background:var(--warn-wash)}
+.sbtn.hint{box-shadow:0 0 0 3px var(--gold)}
+.paint{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.paint button{display:inline-flex;align-items:center;gap:8px}
+.paint i{width:16px;height:16px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.25)}
+.rhythms{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.rhythms .tbtn{text-align:left;font-size:14px;line-height:1.25}
+.mopts{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0}
+.slwrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 4px 0}
+.slwrap input[type=range]{flex:1 1 260px;accent-color:var(--accent)}
+.slwrap output{font-family:var(--mono);font-weight:600;min-width:72px}
+.qcard{margin-top:12px;border:1px solid var(--rule);border-radius:var(--r);padding:12px 14px;background:var(--panel-2)}
+.qcard h3{margin-top:0}
+.scen{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
+.big{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1.1}
+select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:var(--r);padding:4px 6px}
+/* genetics case lab */
+.gtgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.gtgrid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.gbtn{font-family:var(--mono);font-weight:600;font-size:15px;padding:8px 4px;text-align:center}
+.gbtn sup{font-size:10.5px;line-height:0}
+.modes{display:grid;grid-template-columns:1fr;gap:6px}
+.modes .tbtn{text-align:left;line-height:1.3}
+.modes .tbtn small{display:block;font-size:12.5px;color:var(--ink-soft);font-weight:500}
+.modes .tbtn[aria-pressed="true"] small{color:var(--accent-ink)}
+.kidbtns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0}
+.kidbtns .btn{padding:10px 6px;font-size:14.5px}
+.readouts td.l{font-family:var(--sans);text-align:left;white-space:normal}
+.readouts thead th{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;border-top:0}
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.case{grid-template-columns:1fr}}
+.casechips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.casechip{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 12px;cursor:pointer;font-size:14px}
+.casechip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.casechip .ok{color:var(--good);margin-left:4px;font-weight:700}
+.story{font-size:15.5px;margin:0 0 8px}
+.qblock{border-top:1px solid var(--rule-soft);padding-top:8px;margin-top:10px}
+.hintbox{margin:8px 0 0;padding:8px 10px;border-radius:4px;background:var(--gold-wash);border-left:4px solid var(--gold);font-size:14.5px}
+.meter{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--ink-soft);margin-bottom:6px}
+.meter b{color:var(--ink);font-family:var(--mono)}
+/* sort game */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:10px;border:1.5px dashed var(--rule);border-radius:var(--r);background:var(--panel-2);margin:8px 0 12px}
+.scard{background:var(--panel);border:1.5px solid var(--rule);border-left:5px solid var(--accent);border-radius:var(--r);padding:8px 10px;cursor:grab;font-size:14.5px;line-height:1.3;text-align:left;touch-action:none;user-select:none;max-width:100%}
+.scard:hover{border-color:var(--accent)}
+.scard[aria-pressed="true"]{box-shadow:0 0 0 3px var(--accent);border-color:var(--accent)}
+.scard.ghost{position:fixed;z-index:60;pointer-events:none;opacity:.92;box-shadow:0 10px 24px -8px rgba(0,0,0,.45)}
+.scard.placed{cursor:default;border-left-color:var(--good);background:var(--good-wash);font-size:13.5px;padding:6px 8px}
+.scard.hinted{box-shadow:0 0 0 3px var(--gold)}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.bin{border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);padding:8px;display:flex;flex-direction:column;gap:6px;min-height:150px}
+.bin.over{outline:3px dashed var(--accent);outline-offset:-3px}
+.bin.hintbin{box-shadow:0 0 0 3px var(--gold)}
+.binhead{display:flex;align-items:center;gap:8px;width:100%;background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:6px;cursor:pointer;font-weight:600;font-size:14.5px;text-align:left;line-height:1.25}
+.binhead:hover{border-color:var(--accent)}
+.binhead svg{width:56px;height:46px;flex:0 0 auto}
+.binitems{display:flex;flex-direction:column;gap:5px}
+.sortbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:4px 0 8px}
+.sorthead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h2.sec{font-family:var(--serif);font-size:21px;margin:2px 0 6px;font-weight:600}
+.sim-note{font-size:13.5px;color:var(--ink-soft);margin:6px 0 0}
+.readouts td{padding-left:10px}
+.diskgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.diskgrid .tbtn{text-align:left;font-size:13.5px;line-height:1.25;padding:7px 8px}
+.diskgrid .tbtn b{font-family:var(--mono);display:inline-block;min-width:34px}
+.readouts.chart td{text-align:center;padding-left:4px}
+.readouts.chart th,.readouts.chart td{font-size:13px}
+.readouts thead th{color:var(--ink-soft)}
+.scen .tbtn{font-family:var(--mono);font-size:13.5px}
+.seg3 .tbtn.right,.scen .tbtn.right{border-color:var(--good);background:var(--good-wash)}
+.seg3 .tbtn.wrong,.scen .tbtn.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.ok-ic{color:var(--good);font-weight:700}
+.no-ic{color:var(--warn-ink);font-weight:700}
+.methods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.methods .tbtn{text-align:left;line-height:1.25;font-size:14px}
+.seg3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.seg3 .tbtn,.seg4 .tbtn{font-size:13.5px;line-height:1.2;padding:8px 6px}
+.seg4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.verdict{font-weight:700}
+</style>
+<script src="micro-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">Microbiology &middot; Module 8 &middot; Antimicrobial drugs and resistance</div>
+    <h1>Antimicrobial Drugs Lab</h1>
+    <p class="sub">Run a Kirby-Bauer plate and an MIC tray, watch resistance get selected, pick the right drug for each patient, and sort drugs by target. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+<div class="wrap">
+  <div class="tabs" role="tablist" aria-label="Lab parts">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="tab-bench" data-tab="bench" id="tabbtn-bench" type="button">Part 1 &middot; Susceptibility Bench</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-res" data-tab="res" id="tabbtn-res" type="button" tabindex="-1">Part 2 &middot; Resistance Simulator</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-cases" data-tab="cases" id="tabbtn-cases" type="button" tabindex="-1">Part 3 &middot; Which Drug and Why?</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-sort" data-tab="sort" id="tabbtn-sort" type="button" tabindex="-1">Part 4 &middot; Sort It Out</button>
+  </div>
+
+  <!-- PART 1: susceptibility bench -->
+  <section id="tab-bench" role="tabpanel" aria-labelledby="tabbtn-bench">
+    <h2 class="gk-sr">Part 1: Susceptibility Bench</h2>
+    <div class="subtabs" role="group" aria-label="Choose a test">
+      <button class="tbtn" type="button" id="modeKB" aria-pressed="true">Kirby-Bauer plate</button>
+      <button class="tbtn" type="button" id="modeMIC" aria-pressed="false">Broth MIC tray</button>
+    </div>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvBench" role="img" aria-label="Susceptibility test bench."></canvas></div>
+        <div class="stagebar"><span class="caption" id="benchCap"></span></div>
+        <div class="legend" id="benchLegend"></div>
+        <div id="kbMeasure" class="qcard" hidden>
+          <h3 class="lvl-n" id="kbMeasureTitle">Read the plate</h3>
+          <p class="small">Pick a disk to lay the ruler across its zone. Read the diameter, then use the chart to call it S, I or R.</p>
+          <div class="scen" id="kbDiskBtns" role="group" aria-label="Disks on the plate"></div>
+          <div id="kbCallBox" hidden>
+            <p class="qlab" id="kbCallQ"></p>
+            <div class="seg3" id="kbCall" role="group" aria-label="Your call"></div>
+            <div class="fb" id="kbFb" role="status"></div>
+          </div>
+        </div>
+        <div id="micPick" class="qcard" hidden>
+          <h3 class="lvl-n" id="micPickTitle">Read the tray</h3>
+          <p class="small" id="micPickHelp"></p>
+          <div class="scen" id="micWellBtns" role="group" aria-label="Wells"></div>
+          <div class="fb" id="micFb" role="status"></div>
+          <div class="bar"><button class="tbtn" type="button" id="micSub" hidden>Plate the clear wells (find the MBC)</button></div>
+        </div>
+      </div>
+      <aside class="card side" aria-label="Bench controls">
+        <h3 id="orgLab">1. Organism (patient isolate)</h3>
+        <div class="seg4" id="benchOrg" role="group" aria-labelledby="orgLab"></div>
+        <div id="kbCtl">
+          <h3 id="diskLab">2. Drug disks (pick up to 6)</h3>
+          <div class="diskgrid" id="kbDisks" role="group" aria-labelledby="diskLab"></div>
+          <p class="small" id="kbCount"></p>
+        </div>
+        <div id="micCtl" hidden>
+          <h3 id="micDrugLab">2. Drug</h3>
+          <div class="seg4" id="micDrug" role="group" aria-labelledby="micDrugLab"></div>
+        </div>
+        <div class="bar">
+          <button class="btn" type="button" id="benchRun">Incubate overnight</button>
+          <button class="tbtn" type="button" id="benchReset">Reset</button>
+        </div>
+        <div class="status" id="benchStatus" role="status"></div>
+        <div id="kbChartWrap">
+          <h3>Teaching chart: zone diameter (mm)</h3>
+          <table class="readouts chart" id="kbChart"><caption class="sr">Zone size cut-offs for each drug</caption><thead><tr><th scope="col">Drug</th><th scope="col">R</th><th scope="col">I</th><th scope="col">S</th></tr></thead><tbody></tbody></table>
+        </div>
+        <div id="micChartWrap" hidden>
+          <h3>Teaching chart: MIC (micrograms per mL)</h3>
+          <table class="readouts chart" id="micChart"><caption class="sr">MIC cut-offs for each drug</caption><thead><tr><th scope="col">Drug</th><th scope="col">S</th><th scope="col">I</th><th scope="col">R</th></tr></thead><tbody></tbody></table>
+        </div>
+        <h3>Results</h3>
+        <table class="readouts" id="benchRes"><caption class="sr">Your results</caption><thead><tr><th scope="col">Drug</th><th scope="col">Reading</th><th scope="col">Call</th></tr></thead><tbody></tbody></table>
+        <h3>Challenges</h3>
+        <ul class="chal" id="benchChal"></ul>
+        <p class="small">Teaching values, simplified. Real labs use the current published standards for each organism group.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 2: resistance simulator -->
+  <section id="tab-res" role="tabpanel" aria-labelledby="tabbtn-res" hidden>
+    <h2 class="gk-sr">Part 2: Resistance Simulator</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvRes" role="img" aria-label="Resistance simulator."></canvas></div>
+        <div class="stagebar"><span class="caption" id="resCap"></span></div>
+        <div class="legend">
+          <span><i style="background:var(--sus)"></i>Susceptible cells</span>
+          <span><i style="background:var(--res)"></i>Resistant mutants</span>
+          <span><i class="ln" style="border-top-color:var(--drug)"></i>Drug level</span>
+          <span><i class="s" style="background:var(--gold-wash);border-color:var(--gold)"></i>Selection window</span>
+        </div>
+        <p class="sim-note">A teaching model of one infection, about a billion bacteria to start. The graph is a log scale: each line is ten times more cells. Doses are given twice a day. A missed dose is drawn as an open circle.</p>
+      </div>
+      <aside class="card side" aria-label="Simulator controls">
+        <div class="ctl"><label for="resPeak">Drug strength at the infection <output id="resPeakOut" for="resPeak"></output></label>
+          <input type="range" id="resPeak" min="0" max="5" step="1" value="3"><div class="ticks" aria-hidden="true"><span>weak</span><span>strong</span></div></div>
+        <div class="ctl"><label for="resAdh">Doses taken <output id="resAdhOut" for="resAdh"></output></label>
+          <input type="range" id="resAdh" min="0" max="3" step="1" value="3"><div class="ticks" aria-hidden="true"><span>half</span><span>all</span></div></div>
+        <div class="ctl"><label for="resDays">Length of treatment <output id="resDaysOut" for="resDays"></output></label>
+          <input type="range" id="resDays" min="1" max="14" step="1" value="7"><div class="ticks" aria-hidden="true"><span>1 day</span><span>14 days</span></div></div>
+        <label class="mode"><input type="checkbox" id="resPre"> Start with some resistant mutants</label><br>
+        <label class="mode"><input type="checkbox" id="resWeak"> Weak immune system</label>
+        <div class="bar">
+          <button class="btn" type="button" id="resRun">Start treatment</button>
+          <button class="tbtn" type="button" id="resReset">Reset</button>
+        </div>
+        <table class="readouts" id="resRead"><caption class="sr">Simulator readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody></tbody></table>
+        <div class="status" id="resStatus" role="status"></div>
+        <h3>Challenges</h3>
+        <ul class="chal" id="resChal"></ul>
+        <p class="small">Simplified model with rounded numbers. It shows the ideas, not real drug levels; always follow the prescriber.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 3: what went wrong -->
+  <section id="tab-cases" role="tabpanel" aria-labelledby="tabbtn-cases" hidden>
+    <h2 class="gk-sr">Part 3: Which Drug and Why?</h2>
+    <div class="casechips" id="caseChips" role="group" aria-label="Choose a case"></div>
+    <div class="meter"><span>Case <b id="cN">1</b> of <b id="cT">8</b></span><span>Questions solved <b id="cSolved">0</b></span><span>First try <b id="cFirst">0</b></span></div>
+    <div class="case">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvCase" role="img" aria-label="Case picture."></canvas></div>
+        <div class="legend" id="caseLegend"></div>
+      </div>
+      <div class="card">
+        <div class="sc-n" id="cWho"></div>
+        <h2 class="sc-title" id="cTitle"></h2>
+        <p class="story" id="cStory"></p>
+        <div id="cQs"></div>
+        <div class="bar" style="margin-top:12px">
+          <button class="tbtn" id="cHint" type="button">Hint</button>
+          <button class="tbtn" id="cShow" type="button">Show answer</button>
+          <button class="tbtn" id="cPrev" type="button">&larr; Previous</button>
+          <button class="btn" id="cNext" type="button">Next case &rarr;</button>
+        </div>
+        <div class="hintbox" id="cHintBox" role="status" hidden></div>
+        <div class="explain" id="cExp"></div>
+        <p class="calm">Wrong answers are fine here. Each one tells you why.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 4: sorting game -->
+  <section id="tab-sort" role="tabpanel" aria-labelledby="tabbtn-sort" hidden>
+    <h2 class="gk-sr">Part 4: Sort It Out</h2>
+    <div class="rounds" id="sRounds" role="group" aria-label="Rounds"></div>
+    <div class="card">
+      <div class="sorthead">
+        <div><div class="lvl-n" id="sN"></div><h2 class="sec" id="sTitle"></h2></div>
+        <div class="sortbar">
+          <label class="mode"><input type="checkbox" id="sRelaxed" checked> Relaxed mode (no timer)</label>
+          <span class="timer" id="sTimer" hidden>0:00</span>
+          <span class="stars" id="sStars" role="img" aria-label="Stars appear when the round is done"></span>
+        </div>
+      </div>
+      <p class="goal"><b class="h">Your job</b><span id="sGoal"></span></p>
+      <p class="small">Drag a card onto a box, or tap a card and then tap the box's name. Cards are buttons, so Tab and Enter work too.</p>
+      <div class="pool" id="sPool" aria-label="Cards to sort"></div>
+      <div class="bins" id="sBins"></div>
+      <div class="bar">
+        <button class="tbtn" id="sHint" type="button">Hint</button>
+        <button class="tbtn" id="sShow" type="button">Show answer</button>
+        <button class="tbtn" id="sShuffle" type="button">Start round over</button>
+        <button class="btn" id="sNext" type="button">Next round &rarr;</button>
+      </div>
+      <div class="msg" id="sMsg" role="status"></div>
+      <p class="small" id="sBest"></p>
+    </div>
+  </section>
+</div>
+<footer>Dr. Akash Garg &middot; Microbiology Study Tools &middot; Diagrams are simplified and not to scale. For learning only, not medical advice. CC BY-NC-SA 4.0<br>Pair with the <a href="Antimicrobials-Walkthrough.html">Antimicrobial Drugs Walkthrough</a>. Patients and results are fictional. Zone sizes, MIC values and cut-offs are rounded teaching values, not a real interpretive standard, and drugs are named by class with no doses.</footer>
+
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "gold", "gold-wash", "gold-ink", "ecf", "bench", "grid", "bact", "spore", "spore-coat", "myco", "env", "nonenv", "prion", "cyst", "fungus", "dead", "gpos", "gneg", "steam", "air", "heat", "cold", "uv", "ion", "alc", "chlor", "iod", "phen", "quat", "metal", "ald", "perox", "gas", "membrane", "protein", "dna", "water", "agar", "agar-edge", "glass", "glass-edge", "steel", "steel-edge", "tape", "tape-ink", "bi-pass", "bi-fail", "skin", "skin-edge", "body", "body-edge", "soil", "milk", "food", "organic", "glow", "act7", "pg", "pbp", "drug", "r30", "r50", "mrna", "trna", "sus", "res", "plasmid", "ergo", "chol", "lawn", "lawn-dot", "zone", "pus"];
+/* ================= drawing kit (shared by both pages) ================= */
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"center";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase().replace(/Μ/g,"µ").replace(/µM/g,"µm"),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+
+/* ================= microbe drawing helpers ================= */
+function bact(x,y,ang,s,a,o){o=o||{};s=s||8;ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);ctx.globalAlpha*=a==null?1:clamp(a,0,1);
+  const L=s*1.6*(o.shrink?1-o.shrink*.25:1),Hh=s*.75*(o.shrink?1-o.shrink*.35:1);const col=o.dead?C.dead:(o.col||C.bact);
+  if(o.wax){rr(-L-s*.32,-Hh-s*.32,L*2+s*.64,Hh*2+s*.64,Hh+s*.32);ctx.fillStyle=hexA(col,.28);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke()}
+  if(o.wall){rr(-L-s*.2,-Hh-s*.2,L*2+s*.4,Hh*2+s*.4,Hh+s*.2);ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1.2;ctx.stroke()}
+  rr(-L,-Hh,L*2,Hh*2,Hh);ctx.fillStyle=col;ctx.fill();
+  if(o.dead){ctx.strokeStyle=hexA(C.ink,.55);ctx.setLineDash([3,2]);ctx.lineWidth=1.2;ctx.stroke();ctx.setLineDash([]);
+    ctx.strokeStyle=hexA(C.panel,.9);ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(-L*.2,-Hh);ctx.lineTo(0,-Hh*.2);ctx.lineTo(-L*.15,Hh*.3);ctx.lineTo(L*.05,Hh);ctx.stroke()}
+  else{ctx.strokeStyle=hexA(C.ink,.45);ctx.lineWidth=1;ctx.stroke();line(-L*.55,0,L*.55,0,hexA(C.panel,.55),1.2)}
+  if(o.flag&&!o.dead){ctx.strokeStyle=hexA(col,.85);ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(L,0);for(let k=1;k<=6;k++)ctx.lineTo(L+k*3,Math.sin(k*1.6+(o.t||0)*8)*2.5);ctx.stroke()}
+  if(o.sporeIn){ell(L*.55,0,s*.42,s*.34,0,C.spore,C.ink,1)}
+  ctx.restore()}
+function spore(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.spore;
+  ell(x,y,s*1.15,s*.8,o.ang||0,o.dead?hexA(C.dead,.35):C["spore-coat"],col,s*.28);
+  ell(x,y,s*.62,s*.4,o.ang||0,col);
+  if(o.dead){line(x-s*.6,y-s*.5,x+s*.6,y+s*.5,hexA(C.ink,.5),1.2)}
+  ctx.restore()}
+function envVirus(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.env;const t=o.t||0;const br=o.broken||0;
+  for(let k=0;k<12;k++){const an=k/12*TAU+t*.3;const d=r+br*r*.8*rnd(k);const X=x+Math.cos(an)*d,Y=y+Math.sin(an)*d;line(X,Y,X+Math.cos(an)*r*.38,Y+Math.sin(an)*r*.38,col,1.3);circ(X+Math.cos(an)*r*.45,Y+Math.sin(an)*r*.45,r*.13,col)}
+  if(br>0){ctx.setLineDash([4,3])}
+  circ(x,y,r,hexA(col,.25),col,1.8);ctx.setLineDash([]);
+  ctx.beginPath();for(let k=0;k<=6;k++){const an=k/6*TAU;const X=x+Math.cos(an)*r*.55,Y=y+Math.sin(an)*r*.55;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();ctx.fillStyle=col;ctx.fill();
+  ctx.restore()}
+function nakedVirus(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.nonenv;
+  ctx.beginPath();for(let k=0;k<=6;k++){const an=k/6*TAU+Math.PI/6;const X=x+Math.cos(an)*r,Y=y+Math.sin(an)*r;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1.2;ctx.stroke();
+  for(let k=0;k<6;k++){const an=k/6*TAU+Math.PI/6;line(x,y,x+Math.cos(an)*r,y+Math.sin(an)*r,hexA(C.panel,.6),1)}
+  ctx.restore()}
+function prion(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.prion;const t=o.t||0;
+  ctx.beginPath();for(let i=0;i<=30;i++){const f=i/30;const X=x-s+f*2*s;const Y=y+Math.sin(f*TAU*2.5+t)*s*.35+(i%6<3?-s*.18:s*.18);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}
+  ctx.strokeStyle=col;ctx.lineWidth=s*.28;ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();
+  ctx.beginPath();for(let i=0;i<=20;i++){const f=i/20;const X=x-s*.8+f*1.6*s;const Y=y+s*.55+Math.sin(f*TAU*2+t+1)*s*.25;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.lineWidth=s*.22;ctx.stroke();ctx.lineCap="butt";
+  ctx.restore()}
+function cyst(x,y,r,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.cyst;
+  circ(x,y,r,hexA(col,.25),col,r*.28);circ(x-r*.25,y-r*.1,r*.18,col);circ(x+r*.25,y+r*.15,r*.18,col);ctx.restore()}
+function yeast(x,y,s,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);const col=o.dead?C.dead:C.fungus;
+  ell(x,y,s,s*.82,0,col,hexA(C.ink,.45),1);ell(x+s*.95,y-s*.45,s*.48,s*.4,0,col,hexA(C.ink,.45),1);circ(x-s*.2,y,s*.3,hexA(C.panel,.4));ctx.restore()}
+function microbe(kind,x,y,s,o){o=o||{};
+  if(kind==="bact")bact(x,y,o.ang||0,s,o.a,o);else if(kind==="spore")spore(x,y,s*.9,o);else if(kind==="myco")bact(x,y,o.ang||0,s,o.a,Object.assign({col:C.myco,wax:true},o));
+  else if(kind==="env")envVirus(x,y,s*.9,o);else if(kind==="nonenv")nakedVirus(x,y,s*.85,o);else if(kind==="prion")prion(x,y,s,o);else if(kind==="cyst")cyst(x,y,s,o);else if(kind==="yeast")yeast(x,y,s*.8,o)}
+/* flame for Bunsen burners */
+function flame(x,y,s,t){ctx.save();const fl=1+.08*Math.sin(t*17)+.05*Math.sin(t*29);
+  ctx.beginPath();ctx.moveTo(x-s*.5,y);ctx.bezierCurveTo(x-s*.6,y-s*1.2*fl,x-s*.1,y-s*1.6*fl,x,y-s*2.4*fl);ctx.bezierCurveTo(x+s*.1,y-s*1.6*fl,x+s*.6,y-s*1.2*fl,x+s*.5,y);ctx.closePath();
+  ctx.fillStyle=hexA(C.heat,.85);ctx.fill();
+  ctx.beginPath();ctx.moveTo(x-s*.25,y);ctx.bezierCurveTo(x-s*.3,y-s*.8,x,y-s*1.1*fl,x,y-s*1.4*fl);ctx.bezierCurveTo(x,y-s*1.1*fl,x+s*.3,y-s*.8,x+s*.25,y);ctx.closePath();ctx.fillStyle=hexA(C.steam,.9);ctx.fill();ctx.restore()}
+function burner(x,y,t){rr(x-9,y-40,18,40,3);ctx.fillStyle=C.steel;ctx.fill();ctx.strokeStyle=C["steel-edge"];ctx.lineWidth=1.3;ctx.stroke();rr(x-24,y-4,48,8,3);ctx.fill();ctx.stroke();flame(x,y-40,14,t)}
+function heatWaves(x,y,w,h,t,col,n){n=n||5;for(let i=0;i<n;i++){const X=x+(i+.5)*w/n;const p=P(t*.8+i*.23,1);ctx.save();ctx.globalAlpha*=Math.sin(p*Math.PI)*.85;ctx.beginPath();for(let k=0;k<=12;k++){const f=k/12;const Y=y-f*h-p*h*.4;const X2=X+Math.sin(f*TAU+t*3+i)*5;k?ctx.lineTo(X2,Y):ctx.moveTo(X2,Y)}ctx.strokeStyle=col||C.heat;ctx.lineWidth=2.2;ctx.lineCap="round";ctx.stroke();ctx.lineCap="butt";ctx.restore()}}
+function snow(x,y,w,h,t,n){for(let i=0;i<(n||10);i++){const X=x+rnd(i*3)*w+Math.sin(t+i)*6;const Y=y+P(t*.12+rnd(i*7),1)*h;const r=3+rnd(i)*2;ctx.save();ctx.translate(X,Y);ctx.rotate(t*.5+i);for(let k=0;k<3;k++){ctx.rotate(Math.PI/3);line(-r,0,r,0,C.cold,1.4)}ctx.restore()}}
+function thermo(x,y,h,f,col,lab){rr(x-6,y,12,h,6);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.3;ctx.stroke();
+  const fh=(h-8)*clamp(f,0,1);rr(x-3,y+h-4-fh,6,fh+4,3);ctx.fillStyle=col||C.heat;ctx.fill();circ(x,y+h+6,9,col||C.heat,C["ink-soft"],1.3);
+  if(lab)txt(x+14,y+h*.15,lab,{size:12.5,mono:true,weight:700})}
+function gaugeDial(x,y,r,f,lab,val,col){circ(x,y,r,C.panel,C["ink-soft"],1.6);const a0=Math.PI*.75,a1=Math.PI*2.25;
+  ctx.beginPath();ctx.arc(x,y,r-5,a0,a1);ctx.strokeStyle=C["rule"];ctx.lineWidth=4;ctx.stroke();ctx.beginPath();ctx.arc(x,y,r-5,a0,a0+(a1-a0)*clamp(f,0,1));ctx.strokeStyle=col||C.steam;ctx.stroke();
+  const a=a0+(a1-a0)*clamp(f,0,1);line(x,y,x+Math.cos(a)*(r-9),y+Math.sin(a)*(r-9),C.ink,2.2);circ(x,y,3,C.ink);
+  if(val)txt(x,y+r*.5,val,{size:11.5,mono:true,weight:700,align:"center"});if(lab)txt(x,y+r+11,lab,{size:12,weight:600,align:"center",color:C["ink-soft"]})}
+function clock(x,y,r,f,col){circ(x,y,r,C.panel,C["ink-soft"],1.4);if(f>0){ctx.beginPath();ctx.moveTo(x,y);ctx.arc(x,y,r-3,-Math.PI/2,-Math.PI/2+TAU*clamp(f,0,1));ctx.closePath();ctx.fillStyle=hexA(col||C.accent,.45);ctx.fill()}
+  const a=-Math.PI/2+TAU*f;line(x,y,x+Math.cos(a)*(r-3),y+Math.sin(a)*(r-3),C.ink,1.8)}
+function petri(x,y,r,o){o=o||{};ell(x,y+4,r,r*.42,0,hexA(C.ink,.12));ell(x,y,r,r*.42,0,C.agar,C["agar-edge"],1.5);if(o.lawn){ctx.save();ell(x,y,r-4,r*.42-3,0);ctx.clip();ctx.globalAlpha*=o.lawn;
+  for(let i=0;i<160;i++){const a=rnd(i)*TAU,d=Math.sqrt(rnd(i+9))*(r-4);circ(x+Math.cos(a)*d,y+Math.sin(a)*d*.42,1.6,hexA(o.col||C.bact,.6))}ctx.restore()}
+  ell(x,y,r+2,r*.42+2,0,null,hexA(C["glass-edge"],.8),1.3)}
+function tube(x,y,w,h,fill,o){o=o||{};ctx.save();rr(x-w/2,y,w,h,w/2);ctx.fillStyle=hexA(C.glass,.6);ctx.fill();
+  if(fill!=null){ctx.save();rr(x-w/2,y,w,h,w/2);ctx.clip();ctx.fillStyle=o.col||C.water;ctx.fillRect(x-w/2,y+h*(1-fill),w,h*fill);
+    if(o.cloudy){for(let i=0;i<26;i++)circ(x-w/2+rnd(i+(o.seed||0))*w,y+h*(1-fill)+rnd(i*3+1)*h*fill,1.4,hexA(C.ink,.35*o.cloudy))}ctx.restore()}
+  rr(x-w/2,y,w,h,w/2);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.5;ctx.stroke();if(o.cap){rr(x-w/2-2,y-8,w+4,12,3);ctx.fillStyle=o.cap;ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.stroke()}ctx.restore()}
+function flask(x,y,s,fill,col){ctx.save();ctx.beginPath();ctx.moveTo(x-s*.18,y-s);ctx.lineTo(x-s*.18,y-s*.55);ctx.lineTo(x-s*.55,y);ctx.lineTo(x+s*.55,y);ctx.lineTo(x+s*.18,y-s*.55);ctx.lineTo(x+s*.18,y-s);ctx.closePath();
+  ctx.fillStyle=hexA(C.glass,.55);ctx.fill();ctx.save();ctx.clip();const fy=y-s*fill;ctx.fillStyle=col||C.water;ctx.fillRect(x-s,fy,2*s,s);ctx.restore();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.8;ctx.stroke();ctx.restore()}
+function handShape(x,y,s,o){o=o||{};ctx.save();ctx.translate(x,y);ctx.rotate(o.rot||0);ctx.scale(s*(o.flip?-1:1),s);const col=o.glove?C.steam:C.skin,ed=o.glove?C["glass-edge"]:C["skin-edge"];
+  rr(-22,-6,44,46,12);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle=ed;ctx.lineWidth=1.4/s;ctx.stroke();
+  const fx=[-17,-6,5,16],fl=[30,36,34,26];fx.forEach((f,i)=>{rr(f-4.5,-6-fl[i],9,fl[i]+6,4.5);ctx.fillStyle=col;ctx.fill();ctx.stroke()});
+  ctx.beginPath();ctx.moveTo(-22,22);ctx.quadraticCurveTo(-40,10,-36,-6);ctx.lineTo(-29,-8);ctx.quadraticCurveTo(-30,6,-20,12);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.stroke();
+  ctx.restore()}
+function bottle(x,y,s,col,lab){ctx.save();rr(x-s*.45,y-s*1.4,s*.9,s*1.4,s*.15);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.stroke();
+  ctx.save();rr(x-s*.45,y-s*1.4,s*.9,s*1.4,s*.15);ctx.clip();ctx.fillStyle=hexA(col,.55);ctx.fillRect(x-s*.45,y-s*.95,s*.9,s*.95);ctx.restore();
+  rr(x-s*.18,y-s*1.75,s*.36,s*.38,3);ctx.fillStyle=col;ctx.fill();if(lab){rr(x-s*.38,y-s*.85,s*.76,s*.42,3);ctx.fillStyle=C.panel;ctx.fill();txt(x,y-s*.64,lab,{size:Math.max(10.5,s*.2),weight:700,mono:true,align:"center"})}ctx.restore()}
+function sprayBottle(x,y,s,col,t,spray){bottle(x,y,s,col);ctx.save();rr(x-s*.25,y-s*2.05,s*.6,s*.32,4);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.stroke();
+  if(spray>0){for(let i=0;i<14;i++){const f=P(t*1.6+i/14,1);const a=-.35+rnd(i)*.7;const d=f*s*2.2;circ(x+s*.4+Math.cos(a)*d,y-s*1.9+Math.sin(a)*d+f*f*s*.8,1.8,hexA(col,(1-f)*spray))}}ctx.restore()}
+/* exponent label like 10^6 using superscripts */
+const SUPD={"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","-":"⁻"};
+function ten(n){return "10"+String(n).split("").map(c=>SUPD[c]||c).join("")}
+function fmtN(n){if(n>=1)return Math.round(n).toLocaleString("en-US");return n.toPrecision(1)}
+/* log-scale graph frame. returns mapping helpers */
+function logFrame(x,y,w,h,lo,hi,tmax,o){o=o||{};panelBox(x-46,y-32,w+60,h+(o.noX?48:66),{fill:hexA(C.panel,.94)});
+  if(o.title)txt(x-38,y-18,o.title,{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  const Y=v=>y+h-(clamp(v,lo,hi)-lo)/(hi-lo)*h,X=t=>x+w*clamp(t/tmax,0,1);
+  for(let e=lo;e<=hi;e+=(o.step||2)){line(x,Y(e),x+w,Y(e),hexA(C.rule,.7),1);txt(x-6,Y(e),ten(e),{size:11.5,mono:true,align:"right",color:C["ink-soft"]})}
+  line(x,y,x,y+h,C["ink-soft"],1.4);line(x,y+h,x+w,y+h,C["ink-soft"],1.4);
+  if(!o.noX){const nt=o.xt||4;for(let i=0;i<=nt;i++){const t=tmax*i/nt;txt(X(t),y+h+12,(o.xfmt?o.xfmt(t):Math.round(t)),{size:11.5,mono:true,align:"center",color:C["ink-soft"]})}
+    txt(x+w/2,y+h+28,o.xlab||"Time (minutes)",{size:12,align:"center",color:C["ink-soft"],weight:600})}
+  return {X,Y}}
+
+/* ================= antimicrobial drawing helpers ================= */
+function hexPath(x,y,r,rot){ctx.beginPath();for(let k=0;k<=6;k++){const a=k/6*TAU+(rot||0);const X=x+Math.cos(a)*r,Y=y+Math.sin(a)*r;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function ngon(x,y,r,n,rot){ctx.beginPath();for(let k=0;k<=n;k++){const a=k/n*TAU+(rot||0);const X=x+Math.cos(a)*r,Y=y+Math.sin(a)*r;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function fillStroke(f,s,lw){if(f){ctx.fillStyle=f;ctx.fill()}if(s){ctx.strokeStyle=s;ctx.lineWidth=lw||1.4;ctx.stroke()}}
+/* drug class colours (all are theme tokens) */
+const DRUGCOL={bl:"drug",van:"phen",amg:"ald",tet:"gold",mac:"alc",clin:"perox",chl:"iod",pmx:"nonenv",fq:"uv",rif:"heat",sul:"phen",tmp:"chlor",azole:"ald",polyene:"gold",ech:"alc",nuc:"uv",ni:"perox",pi:"drug",rti:"uv",fus:"alc",unc:"iod",lzd:"chlor"};
+function dcol(k){return C[DRUGCOL[k]||"drug"]}
+/* simple molecule tokens, one shape per drug class so classes look different */
+function drugMol(kind,x,y,s,o){o=o||{};s=s||10;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ctx.translate(x,y);ctx.rotate(o.rot||0);
+  const col=o.col||dcol(kind),ed=hexA(C.ink,.55);
+  switch(kind){
+    case "bl":rr(-s*1.1,-s*.5,s,s,1.5);fillStroke(col,ed,1.2);ngon(s*.35,0,s*.62,5,Math.PI);fillStroke(hexA(col,.55),ed,1.2);break;
+    case "van":ctx.beginPath();ctx.moveTo(-s*1.2,-s*.9);ctx.quadraticCurveTo(-s*1.3,s*1.1,0,s*1.05);ctx.quadraticCurveTo(s*1.3,s*1.1,s*1.2,-s*.9);ctx.lineTo(s*.6,-s*.9);ctx.quadraticCurveTo(s*.6,s*.45,0,s*.45);ctx.quadraticCurveTo(-s*.6,s*.45,-s*.6,-s*.9);ctx.closePath();fillStroke(col,ed,1.2);break;
+    case "amg":for(let k=0;k<3;k++){hexPath(-s*1.1+k*s*1.1,(k%2?-1:1)*s*.25,s*.55,0);fillStroke(k===1?hexA(col,.6):col,ed,1.1)}break;
+    case "tet":for(let k=0;k<4;k++){hexPath(-s*1.35+k*s*.9,0,s*.52,Math.PI/6);fillStroke(k%2?hexA(col,.7):col,ed,1.1)}break;
+    case "mac":circ(0,0,s*.95,hexA(col,.25),col,s*.32);hexPath(s*.95,-s*.7,s*.38,0);fillStroke(col,ed,1);hexPath(-s*.95,s*.7,s*.38,0);fillStroke(col,ed,1);break;
+    case "clin":hexPath(-s*.4,0,s*.55,0);fillStroke(col,ed,1.1);ngon(s*.55,0,s*.48,5,0);fillStroke(hexA(col,.6),ed,1.1);break;
+    case "chl":hexPath(-s*.3,0,s*.6,Math.PI/6);fillStroke(col,ed,1.1);line(s*.3,0,s*1.2,-s*.4,col,2.4);line(s*1.2,-s*.4,s*1.5,s*.2,col,2.4);break;
+    case "pmx":for(let k=0;k<7;k++){const a=k/7*TAU;circ(Math.cos(a)*s*.7,Math.sin(a)*s*.7,s*.3,col,ed,.8)}ctx.beginPath();ctx.moveTo(s*.9,0);for(let k=1;k<=6;k++)ctx.lineTo(s*.9+k*s*.32,(k%2?-1:1)*s*.2);ctx.strokeStyle=C.membrane;ctx.lineWidth=2.2;ctx.stroke();break;
+    case "fq":hexPath(-s*.45,0,s*.55,Math.PI/6);fillStroke(col,ed,1.1);hexPath(s*.5,0,s*.55,Math.PI/6);fillStroke(hexA(col,.6),ed,1.1);circ(s*1.2,s*.4,s*.22,C.ink);break;
+    case "rif":ctx.beginPath();ctx.ellipse(0,0,s*1.1,s*.75,0,0,TAU);ctx.strokeStyle=col;ctx.lineWidth=s*.38;ctx.stroke();hexPath(0,0,s*.4,0);fillStroke(col,ed,1);break;
+    case "sul":hexPath(-s*.2,0,s*.6,Math.PI/6);fillStroke(col,ed,1.1);circ(s*.85,0,s*.36,hexA(col,.6),ed,1);ctx.font=`700 ${Math.round(s*.6)}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=C.ink;ctx.fillText("S",s*.85,1);break;
+    case "tmp":hexPath(-s*.75,0,s*.5,0);fillStroke(col,ed,1.1);line(-s*.25,0,s*.25,0,col,2.4);hexPath(s*.75,0,s*.5,0);fillStroke(hexA(col,.6),ed,1.1);break;
+    case "azole":ngon(0,0,s*.65,5,-Math.PI/2);fillStroke(col,ed,1.2);line(s*.6,0,s*1.25,0,col,2.4);hexPath(s*1.7,0,s*.45,0);fillStroke(hexA(col,.6),ed,1);break;
+    case "polyene":ctx.beginPath();for(let k=0;k<=10;k++){const X=-s*1.6+k*s*.32,Y=(k%2?-1:1)*s*.18;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=col;ctx.lineWidth=s*.34;ctx.lineJoin="round";ctx.stroke();break;
+    case "ech":circ(0,0,s*.75,hexA(col,.3),col,s*.28);ctx.beginPath();ctx.moveTo(s*.75,0);for(let k=1;k<=5;k++)ctx.lineTo(s*.75+k*s*.3,(k%2?-1:1)*s*.18);ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke();break;
+    case "nuc":ngon(-s*.3,s*.2,s*.5,5,-Math.PI/2);fillStroke(col,ed,1.1);hexPath(s*.5,-s*.35,s*.45,0);fillStroke(hexA(col,.6),ed,1.1);break;
+    case "ni":ngon(0,0,s*.7,6,0);fillStroke(col,ed,1.2);line(-s*.7,0,-s*1.2,-s*.4,col,2.2);break;
+    case "pi":rr(-s*1.1,-s*.35,s*2.2,s*.7,s*.35);fillStroke(col,ed,1.1);hexPath(-s*.5,0,s*.28,0);fillStroke(C.panel,null);break;
+    case "fus":rr(-s*.4,-s*1.0,s*.8,s*2,s*.4);fillStroke(col,ed,1.1);break;
+    case "unc":circ(0,0,s*.65,col,ed,1.2);line(-s*.65,0,-s*1.1,0,col,2.4);break;
+    case "lzd":ngon(-s*.3,0,s*.55,5,0);fillStroke(col,ed,1.1);hexPath(s*.6,0,s*.45,0);fillStroke(hexA(col,.6),ed,1.1);break;
+    default:circ(0,0,s*.7,col,ed,1.2)}
+  ctx.restore()}
+/* bacterial rod with drawn envelope. o.gram "pos"|"neg"; o.bulge 0..1 (weak wall bulging), o.burst 0..1 */
+function rodCell(x,y,w,h,o){o=o||{};ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);ctx.translate(x,y);ctx.rotate(o.rot||0);
+  const g=o.gram||"pos";const wallC=g==="pos"?C.gpos:C.gneg;const burst=o.burst||0;
+  if(burst>0){// leaking contents
+    for(let k=0;k<14;k++){const a=rnd(k+3)*TAU;const d=(w*.3+burst*w*.6)*rnd(k+9);circ(Math.cos(a)*d,Math.sin(a)*d*.7,2.4,hexA(C.dna,.6*(1-burst*.6)))}}
+  const bw=g==="pos"?6:3;
+  if(g==="neg"){rr(-w/2-5,-h/2-5,w+10,h+10,h/2+5);ctx.strokeStyle=wallC;ctx.lineWidth=2.4;ctx.setLineDash(burst>0?[6,5]:[]);ctx.stroke();ctx.setLineDash([])}
+  rr(-w/2,-h/2,w,h,h/2);ctx.fillStyle=hexA(o.dead?C.dead:wallC,o.dead?.5:.28);ctx.fill();ctx.strokeStyle=o.dead?C.dead:wallC;ctx.lineWidth=bw;
+  if(burst>0)ctx.setLineDash([10,6]);ctx.stroke();ctx.setLineDash([]);
+  const iw=w-bw*2-4,ih=h-bw*2-4;rr(-iw/2,-ih/2,iw,ih,ih/2);ctx.fillStyle=o.dead?hexA(C.dead,.35):hexA(o.cyto||C.water,.95);ctx.fill();ctx.strokeStyle=C.membrane;ctx.lineWidth=1.8;ctx.stroke();
+  if(o.bulge){ctx.beginPath();ctx.arc(0,-h/2,h*.32*o.bulge,Math.PI,0);ctx.fillStyle=hexA(C.water,.95);ctx.fill();ctx.strokeStyle=C.membrane;ctx.lineWidth=1.8;ctx.stroke()}
+  if(!o.dead&&!o.noDNA){ctx.beginPath();for(let k=0;k<=24;k++){const f=k/24;const X=-iw*.3+f*iw*.6,Y=Math.sin(f*TAU*2+(o.t||0))*ih*.18;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=hexA(C.dna,.85);ctx.lineWidth=1.6;ctx.stroke()}
+  ctx.restore()}
+/* coccus */
+function coccus(x,y,r,col,o){o=o||{};circ(x,y,r,o.dead?C.dead:col,hexA(C.ink,.45),1);if(!o.dead)circ(x-r*.3,y-r*.3,r*.3,hexA(C.panel,.35))}
+/* human cell (no cell wall, 80S ribosomes) */
+function humanCell(x,y,r,t,o){o=o||{};blobPath(x,y,r,o.seed||1.3,t||0,.05);ctx.fillStyle=C.body;ctx.fill();ctx.strokeStyle=C["body-edge"];ctx.lineWidth=2;ctx.stroke();
+  circ(x+r*.12,y-r*.05,r*.34,hexA(C.r50,.35),C["body-edge"],1.5);circ(x+r*.18,y-r*.1,r*.1,hexA(C.r50,.6))}
+/* ribosomes. o.big for 80S, o.lab to draw subunit labels */
+function ribosome(x,y,s,o){o=o||{};const big=!!o.big;const c50=big?mix(C.r50,C.body,.25):C.r50,c30=big?mix(C.r30,C.body,.25):C.r30;
+  ell(x,y-s*.42,s*1.05*(big?1.15:1),s*.62*(big?1.1:1),0,c50,hexA(C.ink,.5),1.3);ell(x,y+s*.42,s*.85*(big?1.15:1),s*.42*(big?1.1:1),0,c30,hexA(C.ink,.5),1.3);
+  if(o.lab){txt(x,y-s*.45,big?"60S":"50S",{size:12,weight:700,mono:true,align:"center",color:onFill()});txt(x,y+s*.45,big?"40S":"30S",{size:12,weight:700,mono:true,align:"center",color:onFill()})}}
+function mrna(x1,x2,y,t,col){ctx.beginPath();for(let X=x1;X<=x2;X+=4){const Y=y+Math.sin((X+t*30)/9)*2;X===x1?ctx.moveTo(X,Y):ctx.lineTo(X,Y)}ctx.strokeStyle=col||C.mrna;ctx.lineWidth=3;ctx.stroke()}
+function trnaShape(x,y,s,col,aaCol){ctx.save();ctx.translate(x,y);rr(-s*.35,-s*1.3,s*.7,s*1.3,s*.2);ctx.fillStyle=col||C.trna;ctx.fill();ctx.strokeStyle=hexA(C.ink,.45);ctx.lineWidth=1;ctx.stroke();
+  if(aaCol!==null)circ(0,-s*1.55,s*.32,aaCol||C.protein,hexA(C.ink,.4),1);ctx.restore()}
+/* top-view agar plate. zones: [{x,y,r}] in px; lawn 0..1 */
+function plateTop(x,y,r,lawn,zones,o){o=o||{};circ(x,y,r+5,hexA(C.glass,.8),C["glass-edge"],2);circ(x,y,r,o.agar||C.agar,C["agar-edge"],1.2);
+  if(lawn>0){ctx.save();ctx.beginPath();ctx.arc(x,y,r-2,0,TAU);ctx.clip();ctx.globalAlpha*=clamp(lawn,0,1);ctx.fillStyle=C.lawn;ctx.fillRect(x-r,y-r,2*r,2*r);
+    const n=Math.round(r*r/40);for(let i=0;i<n;i++){const a=rnd(i*1.7)*TAU,d=Math.sqrt(rnd(i*2.3+1))*r;circ(x+Math.cos(a)*d,y+Math.sin(a)*d,1.3,C["lawn-dot"])}
+    ctx.globalAlpha=1;(zones||[]).forEach(z=>{if(z.r>0){circ(z.x,z.y,z.r,C.zone);circ(z.x,z.y,z.r,null,hexA(C["lawn-dot"],.9),1.2)}});ctx.restore()}}
+function disk(x,y,lab,o){o=o||{};circ(x,y,o.r||9,C.panel,o.sel?C.accent:C["ink-soft"],o.sel?2.6:1.3);if(lab)txt(x,y+.5,lab,{size:o.fs||10.5,weight:700,mono:true,align:"center"})}
+/* ruler drawn along a line, pxmm pixels per mm */
+function rulerMM(x1,y1,x2,y2,pxmm,o){o=o||{};const L=Math.hypot(x2-x1,y2-y1),a=Math.atan2(y2-y1,x2-x1);ctx.save();ctx.translate(x1,y1);ctx.rotate(a);
+  rr(-6,-1,L+12,22,3);ctx.fillStyle=hexA(o.bg||C.tape,.94);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.2;ctx.stroke();
+  const n=Math.floor(L/pxmm);for(let i=0;i<=n;i++){const X=i*pxmm;const big=i%10===0,mid=i%5===0;line(X,-1,X,big?12:mid?9:5,C["tape-ink"],big?1.4:1)
+    if(big&&o.labels!==false){ctx.font=`700 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=C["tape-ink"];ctx.fillText(String(i),X,15.5)}}
+  ctx.restore()}
+function dnaHelix(x,y,w,amp,t,col,o){o=o||{};const c=col||C.dna;const brk=o.breakAt;for(let s=0;s<2;s++){ctx.beginPath();let pen=false;for(let X=0;X<=w;X+=3){const Y=y+Math.sin(X/14+t+s*Math.PI)*amp;if(brk!=null&&Math.abs(X-brk)<(o.gap||0)){pen=false;continue}pen?ctx.lineTo(x+X,Y):(ctx.moveTo(x+X,Y),pen=true)}ctx.strokeStyle=c;ctx.lineWidth=2.4;ctx.stroke()}
+  for(let X=6;X<w;X+=12){if(brk!=null&&Math.abs(X-brk)<(o.gap||0))continue;const a=Math.sin(X/14+t)*amp;line(x+X,y+a,x+X,y-a,hexA(c,.45),1.4)}}
+function protozoan(x,y,s,t,o){o=o||{};const col=o.dead?C.dead:C.cyst;blobPath(x,y,s,2.1,t,.1);ctx.fillStyle=hexA(col,.35);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke();circ(x-s*.2,y,s*.28,hexA(col,.7));
+  if(!o.dead){ctx.beginPath();ctx.moveTo(x+s,y);for(let k=1;k<=8;k++)ctx.lineTo(x+s+k*4,y+Math.sin(k*1.1+t*8)*4);ctx.strokeStyle=col;ctx.lineWidth=1.6;ctx.stroke()}}
+function helminth(x,y,s,t,o){o=o||{};const col=o.dead?C.dead:C.soil;ctx.beginPath();for(let k=0;k<=30;k++){const f=k/30;const X=x-s+f*2*s,Y=y+Math.sin(f*TAU*1.2+(o.still?0:t*2.4))*s*.18;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}
+  ctx.strokeStyle=col;ctx.lineWidth=s*.16;ctx.lineCap="round";ctx.stroke();ctx.strokeStyle=hexA(C.panel,.4);ctx.lineWidth=s*.04;ctx.stroke();ctx.lineCap="butt"}
+function capsulePill(x,y,s,col,rot){ctx.save();ctx.translate(x,y);ctx.rotate(rot||0);rr(-s,-s*.42,s*2,s*.84,s*.42);ctx.fillStyle=C.panel;ctx.fill();ctx.save();rr(-s,-s*.42,s*2,s*.84,s*.42);ctx.clip();ctx.fillStyle=col;ctx.fillRect(-s,-s,s,2*s);ctx.restore();ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1.2;rr(-s,-s*.42,s*2,s*.84,s*.42);ctx.stroke();ctx.restore()}
+function crossMark(x,y,s,col){line(x-s,y-s,x+s,y+s,col||C.bad,3);line(x-s,y+s,x+s,y-s,col||C.bad,3)}
+function checkMark(x,y,s,col){poly([[x-s,y],[x-s*.3,y+s*.7],[x+s,y-s*.7]],col||C.good,3)}
+/* a pore/plug "blocked" sign */
+function blockSign(x,y,r,col){circ(x,y,r,hexA(C.panel,.85),col||C.bad,2.5);line(x-r*.7,y+r*.7,x+r*.7,y-r*.7,col||C.bad,2.5)}
+
+/* ---------------- lab helpers ---------------- */
+const $=s=>document.querySelector(s);
+function makeStage(id,W,H){const cv=document.getElementById(id);const st={cv,ctx:cv.getContext("2d"),W,H,K:1};
+  st.fit=()=>{const w=cv.parentElement.clientWidth;if(!w)return;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);st.K=cv.width/W};return st}
+function use(st){ctx=st.ctx;ctx.setTransform(st.K,0,0,st.K,0,0);ctx.clearRect(0,0,st.W,st.H);ctx.globalAlpha=1;bg(C.ecf)}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function fmt(s){s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+const store={get:k=>{try{return localStorage.getItem("amr-lab-"+k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem("ctl-lab-"+k,v)}catch(e){}}};
+function fmtMin(m){if(!isFinite(m))return "never";if(m<1/60)return "< 1 s";if(m<1)return Math.round(m*60)+" s";if(m<120)return (m<10?m.toFixed(1):Math.round(m))+" min";return (m/60).toFixed(1)+" h"}
+function segBtns(el,items,cur,onPick){el.innerHTML="";items.forEach(it=>{const b=document.createElement("button");b.type="button";b.className="tbtn";b.innerHTML=it[1];b.setAttribute("aria-pressed",String(it[0]===cur()));b.onclick=()=>{onPick(it[0]);el.querySelectorAll("button").forEach((x,i)=>x.setAttribute("aria-pressed",String(items[i][0]===cur())))};el.appendChild(b)})}
+function chalUI(el,list,done){el.innerHTML=list.map((c,i)=>`<li class="${done.has(i)?"done":""}"><span class="ck" aria-hidden="true">${done.has(i)?"✓":i+1}</span><span>${c}${done.has(i)?'<span class="gk-sr"> (done)</span>':""}</span></li>`).join("")}
+
+/* ================= PART 1: susceptibility bench ================= */
+const S1=makeStage("cvBench",720,520);
+/* code, name, R max, I min, I max, S min (zone diameter, mm; teaching values) */
+const DRUGS=[["P","Penicillin",28,null,null,29],["FOX","Cefoxitin (MRSA screen)",21,null,null,22],["CRO","Ceftriaxone",19,20,22,23],["IPM","Imipenem",19,20,22,23],
+  ["VA","Vancomycin",14,15,16,17],["GM","Gentamicin",12,13,14,15],["TE","Tetracycline",14,15,18,19],["E","Erythromycin",13,14,22,23],
+  ["CIP","Ciprofloxacin",15,16,20,21],["SXT","Trimethoprim-sulfa",10,11,15,16],["LZD","Linezolid",20,21,22,23]];
+const DCLASS={P:"penicillin",FOX:"cephalosporin (cephamycin)",CRO:"third-generation cephalosporin",IPM:"carbapenem",VA:"glycopeptide (wall)",GM:"aminoglycoside (30S)",TE:"tetracycline (30S)",E:"macrolide (50S)",CIP:"fluoroquinolone (DNA gyrase)",SXT:"folic acid blockers",LZD:"oxazolidinone (50S)"};
+const ORGS=[
+ {k:"sa",name:"S. aureus",full:"Staphylococcus aureus",gram:"pos",shape:"clusters",z:[14,26,25,36,17,21,24,26,25,26,27]},
+ {k:"mrsa",name:"MRSA",full:"methicillin-resistant Staphylococcus aureus",gram:"pos",shape:"clusters",z:[10,15,12,16,17,20,22,10,12,24,26]},
+ {k:"ec",name:"E. coli",full:"Escherichia coli",gram:"neg",shape:"rods",z:[6,24,30,29,6,21,21,8,32,26,6]},
+ {k:"esbl",name:"ESBL E. coli",full:"E. coli that makes an ESBL enzyme",gram:"neg",shape:"rods",z:[6,22,12,27,6,14,11,6,13,8,6]},
+ {k:"pa",name:"P. aeruginosa",full:"Pseudomonas aeruginosa",gram:"neg",shape:"rods",z:[6,6,15,24,6,18,8,6,29,6,6]},
+ {k:"vre",name:"VRE",full:"vancomycin-resistant Enterococcus faecium",gram:"pos",shape:"chains",z:[9,6,6,10,9,8,17,9,11,6,26]}];
+function dIdx(code){return DRUGS.findIndex(d=>d[0]===code)}
+function zoneOf(org,code){return ORGS.find(o=>o.k===org).z[dIdx(code)]}
+function callOf(code,mm){const d=DRUGS[dIdx(code)];if(mm<=d[2])return "R";if(mm>=d[5])return "S";return "I"}
+function chartText(code){const d=DRUGS[dIdx(code)];return d[3]==null?`R ≤${d[2]}, S ≥${d[5]} mm`:`R ≤${d[2]}, I ${d[3]}–${d[4]}, S ≥${d[5]} mm`}
+function noteFor(org,code){const o=ORGS.find(x=>x.k===org);
+  if(o.gram==="neg"&&["P","VA","E","LZD"].includes(code))return "Natural resistance: this drug cannot get past the Gram-negative outer membrane well enough to work.";
+  if(org==="pa"&&["FOX","TE","SXT","CRO"].includes(code))return "Pseudomonas is naturally resistant to many drugs: it has few porins and strong efflux pumps.";
+  if(org==="vre"){if(code==="VA")return "VRE builds wall ends that vancomycin cannot grab, so there is almost no zone.";if(["FOX","CRO"].includes(code))return "Enterococci are naturally resistant to cephalosporins.";if(code==="GM")return "Enterococci naturally resist aminoglycosides used alone.";if(code==="LZD")return "Linezolid blocks the 50S subunit and is one of the few drugs left for VRE.";if(["P","IPM"].includes(code))return "This E. faecium strain makes PBPs that beta-lactams bind poorly."}
+  if(org==="mrsa"&&["P","FOX","CRO","IPM"].includes(code))return "PBP2a: MRSA's changed PBP is not blocked by beta-lactams, so all of them fail.";
+  if(org==="mrsa"&&code==="VA")return "Vancomycin does not need PBPs, so PBP2a does not protect MRSA from it.";
+  if(org==="sa"&&code==="P")return "Most S. aureus make penicillinase, a beta-lactamase that destroys penicillin. Cefoxitin still works, so this is not MRSA.";
+  if(org==="esbl"){if(code==="CRO")return "The ESBL enzyme breaks down cephalosporins like ceftriaxone.";if(code==="IPM")return "Carbapenems resist ESBL enzymes, so they are a main choice for serious ESBL infections.";if(code==="FOX")return "Cefoxitin is less affected by ESBL enzymes; the lab still reports carefully.";if(["CIP","SXT","TE"].includes(code))return "ESBL plasmids often carry other resistance genes too."}
+  return ""}
+const KBSLOTS=6;
+const KB={org:"sa",disks:["P","FOX","E","CIP","SXT","VA"],phase:"setup",t:0,sel:null,calls:{},right:{},done:new Set()};
+const MDR=[["VA","Vancomycin",2,16,true],["GM","Gentamicin",4,16,true],["CIP","Ciprofloxacin",1,4,true],["TE","Tetracycline",4,16,false],["E","Erythromycin",0.5,8,false],["IPM","Imipenem",1,4,true]];
+const MICS={sa:[1,.5,.5,.5,.25,.125],mrsa:[1,1,32,1,999,16],ec:[999,1,.125,2,999,.25],esbl:[999,8,32,64,999,.25],pa:[999,2,.25,32,999,2],vre:[999,32,32,8,999,999]};
+const WELLS=[64,32,16,8,4,2,1,.5,.25,.125];
+const MIC={drug:"CIP",phase:"setup",t:0,sub:0,picked:null,mbcPicked:null,micOK:false,mbcOK:false,done:new Set()};
+let benchMode="kb";
+const KBCH=["Read all six disks on one plate correctly.","Show that MRSA is resistant to cefoxitin.","Find a drug on the panel that still works on VRE.","Find a drug that works on ESBL E. coli even though ceftriaxone fails.","Show that vancomycin makes no zone on a Gram-negative bacterium."];
+const MICCH=["Read an MIC correctly.","Find the MBC for a cidal drug (MBC close to the MIC).","Show a static drug: the MBC is far above the MIC. Try tetracycline.","Find an MIC at or above the resistant cut-off."];
+function fmtC(c){return c>=1?String(c):String(c)}
+function micVal(){const m=MICS[KB.org][MDR.findIndex(d=>d[0]===MIC.drug)];return m}
+function mbcVal(){const d=MDR.find(x=>x[0]===MIC.drug);const m=micVal();if(m>64)return 999;if(!d[4])return 999;return Math.min(999,m*2>64?999:m*2)}
+function micCall(m){const d=MDR.find(x=>x[0]===MIC.drug);if(m<=d[2])return "S";if(m>=d[3])return "R";return "I"}
+function micText(m){if(m>64)return "> 64";if(m<=.125)return "≤ 0.125";return String(m)}
+/* ---------- UI ---------- */
+function benchOrgUI(){segBtns($("#benchOrg"),ORGS.map(o=>[o.k,o.name]),()=>KB.org,k=>{KB.org=k;benchChanged()})}
+function kbDisksUI(){const el=$("#kbDisks");el.innerHTML="";DRUGS.forEach(d=>{const b=document.createElement("button");b.type="button";b.className="tbtn";b.innerHTML=`<b>${d[0]}</b> ${d[1]}`;
+  const on=KB.disks.includes(d[0]);b.setAttribute("aria-pressed",String(on));b.onclick=()=>{const i=KB.disks.indexOf(d[0]);if(i>=0)KB.disks.splice(i,1);else{if(KB.disks.length>=KBSLOTS){benchMsg("warn","The plate holds six disks. Remove one first.");return}KB.disks.push(d[0])}benchChanged();kbDisksUI();const nb=[...el.children].find(x=>x.textContent.startsWith(d[0]+" "));if(nb)nb.focus()};el.appendChild(b)});
+  $("#kbCount").textContent=KB.disks.length+" of 6 disks chosen."}
+function micDrugUI(){segBtns($("#micDrug"),MDR.map(d=>[d[0],d[1]]),()=>MIC.drug,k=>{MIC.drug=k;benchChanged()})}
+function chartUI(){$("#kbChart tbody").innerHTML=DRUGS.map(d=>`<tr><th scope="row">${d[0]}</th><td>≤${d[2]}</td><td>${d[3]==null?"–":d[3]+"–"+d[4]}</td><td>≥${d[5]}</td></tr>`).join("");
+  $("#micChart tbody").innerHTML=MDR.map(d=>{const iLo=d[2]*2,iHi=d[3]/2;return `<tr><th scope="row">${d[0]}</th><td>≤${d[2]}</td><td>${iLo>iHi?"–":iLo===iHi?iLo:iLo+"–"+iHi}</td><td>≥${d[3]}</td></tr>`}).join("")}
+function benchMsg(cls,t){const s=$("#benchStatus");s.className="status "+(cls||"");s.textContent=t}
+function benchChanged(){KB.phase="setup";KB.t=0;KB.sel=null;KB.calls={};KB.right={};MIC.phase="setup";MIC.t=0;MIC.sub=0;MIC.picked=null;MIC.mbcPicked=null;MIC.micOK=false;MIC.mbcOK=false;
+  $("#benchRun").disabled=false;$("#kbMeasure").hidden=true;$("#micPick").hidden=true;$("#micSub").hidden=true;
+  benchMsg("",benchMode==="kb"?"Choose an organism and up to six disks, then incubate.":"Choose an organism and a drug, then incubate the tray.");benchRes();benchChalUI();a11yKey=""}
+function setMode(m){benchMode=m;$("#modeKB").setAttribute("aria-pressed",String(m==="kb"));$("#modeMIC").setAttribute("aria-pressed",String(m==="mic"));
+  $("#kbCtl").hidden=m!=="kb";$("#micCtl").hidden=m!=="mic";$("#kbChartWrap").hidden=m!=="kb";$("#micChartWrap").hidden=m!=="mic";
+  $("#benchRun").textContent=m==="kb"?"Incubate overnight":"Incubate the tray";
+  $("#benchLegend").innerHTML=m==="kb"?'<span><i style="background:var(--lawn)"></i>Bacterial lawn</span><span><i style="background:var(--zone)"></i>Zone of inhibition</span><span><i class="s" style="background:var(--tape)"></i>Ruler (mm)</span>'
+    :'<span><i style="background:var(--water)"></i>Clear well: no growth</span><span><i style="background:var(--food)"></i>Cloudy well: growth</span><span><i style="background:var(--bact)"></i>Colonies after plating</span>';
+  benchChanged()}
+$("#modeKB").onclick=()=>setMode("kb");$("#modeMIC").onclick=()=>setMode("mic");
+$("#benchRun").onclick=()=>{if(benchMode==="kb"){if(!KB.disks.length){benchMsg("warn","Add at least one disk first.");return}KB.phase="inc";KB.t=0;benchMsg("","Incubating at 35 °C... the lawn grows and the drugs spread out.")}
+  else{MIC.phase="inc";MIC.t=0;benchMsg("","Incubating the tray overnight...")}$("#benchRun").disabled=true;a11yKey=""};
+$("#benchReset").onclick=()=>{benchChanged()};
+function kbFinish(){KB.phase="done";KB.t=1;benchMsg("good","Incubation done. Clear rings are zones of inhibition. Pick a disk below to measure it.");$("#kbMeasure").hidden=false;kbDiskBtns();benchRes();a11yKey=""}
+function kbDiskBtns(){const el=$("#kbDiskBtns");el.innerHTML="";KB.disks.forEach((c,i)=>{const b=document.createElement("button");b.type="button";b.className="tbtn";b.textContent=c+(KB.right[c]?" ✓":"");b.setAttribute("aria-pressed",String(KB.sel===i));
+  b.setAttribute("aria-label",(c+(KB.right[c]?" ✓":""))+": "+DRUGS[dIdx(c)][1]+(KB.right[c]?", read correctly":""));b.onclick=()=>kbSelect(i);el.appendChild(b)})}
+function kbSelect(i){KB.sel=i;kbDiskBtns();const c=KB.disks[i];const mm=zoneOf(KB.org,c);$("#kbCallBox").hidden=false;
+  $("#kbCallQ").textContent=`${DRUGS[dIdx(c)][1]} (${c}): the ruler reads ${mm} mm${mm<=6?" (no zone; the disk itself is 6 mm)":""}. Using the chart, is this S, I or R?`;
+  const box=$("#kbCall");box.innerHTML="";[["S","S: susceptible"],["I","I: intermediate"],["R","R: resistant"]].forEach(o=>{const b=document.createElement("button");b.type="button";b.className="tbtn";b.textContent=o[1];
+    if(KB.right[c]&&callOf(c,mm)===o[0])b.classList.add("right");
+    b.onclick=()=>{const ans=callOf(c,mm);const fb=$("#kbFb");box.querySelectorAll(".tbtn").forEach(x=>x.classList.remove("wrong"));const note=noteFor(KB.org,c);
+      if(o[0]===ans){b.classList.add("right");KB.calls[c]=ans;KB.right[c]=true;fb.className="fb show ok";fb.textContent=`✓ ${mm} mm is ${ans} for ${DRUGS[dIdx(c)][1].toLowerCase()} (${chartText(c)}). ${note}`;kbDiskBtns();kbCheck()}
+      else{b.classList.add("wrong");KB.calls[c]=o[0];fb.className="fb show no";fb.textContent=`Not quite. Find the ${c} row in the chart: ${chartText(c)}. Where does ${mm} mm fall?`}benchRes()};box.appendChild(b)});
+  $("#kbFb").className="fb";$("#kbFb").textContent="";a11yKey=""}
+function kbCheck(){const d=KB.done,o=KB.org,R=KB.right;
+  if(KB.disks.length===6&&KB.disks.every(c=>R[c]))d.add(0);
+  if(o==="mrsa"&&R.FOX)d.add(1);if(o==="vre"&&KB.disks.some(c=>R[c]&&callOf(c,zoneOf(o,c))==="S"))d.add(2);
+  if(o==="esbl"&&R.CRO&&R.IPM)d.add(3);if(ORGS.find(x=>x.k===o).gram==="neg"&&R.VA)d.add(4);benchChalUI()}
+function benchChalUI(){chalUI($("#benchChal"),benchMode==="kb"?KBCH:MICCH,benchMode==="kb"?KB.done:MIC.done)}
+function benchRes(){const tb=$("#benchRes tbody");
+  if(benchMode==="kb"){if(KB.phase!=="done"){tb.innerHTML=`<tr><td class="l" colspan="3">No readings yet.</td></tr>`;return}
+    tb.innerHTML=KB.disks.map(c=>{const mm=zoneOf(KB.org,c);const call=KB.calls[c];return `<tr><th scope="row">${c}</th><td>${mm} mm</td><td>${call?(KB.right[c]?`<span class="ok-ic">${call} ✓</span>`:`<span class="no-ic">${call} ✗</span>`):"–"}</td></tr>`}).join("")}
+  else{const m=micVal(),b=mbcVal();tb.innerHTML=`<tr><th scope="row">MIC</th><td>${MIC.micOK?micText(m)+" µg/mL":"–"}</td><td>${MIC.micOK?micCall(m):"–"}</td></tr><tr><th scope="row">MBC</th><td>${MIC.mbcOK?micText(b)+" µg/mL":"–"}</td><td>${MIC.mbcOK?(b<=4*m?"cidal":"static"):"–"}</td></tr>`}}
+/* MIC picking */
+function micFinish(){MIC.phase="mic";MIC.t=1;$("#micPick").hidden=false;$("#micPickTitle").textContent="Step 1: find the MIC";$("#micPickHelp").textContent="The MIC is the lowest drug level with no visible growth (a clear well). Pick that well.";
+  micBtns("mic");benchMsg("good","Tray read. Cloudy wells and a pellet at the bottom mean the bacteria grew.");a11yKey=""}
+function micBtns(kind){const el=$("#micWellBtns");el.innerHTML="";const m=micVal(),b=mbcVal();
+  const opts=WELLS.map(c=>[c,c+" µg/mL"]);opts.push([999,kind==="mic"?"No clear well (> 64)":"Nothing killed (> 64)"]);
+  opts.forEach(o=>{const bt=document.createElement("button");bt.type="button";bt.className="tbtn";bt.textContent=o[1];
+    if(kind==="mbc"&&o[0]<999&&o[0]<m)bt.disabled=true;
+    bt.onclick=()=>{const fb=$("#micFb");el.querySelectorAll(".tbtn").forEach(x=>x.classList.remove("wrong"));
+      if(kind==="mic"){MIC.picked=o[0];const ok=(o[0]===m)||(m<=.125&&o[0]===.125)||(m>64&&o[0]===999);
+        if(ok){bt.classList.add("right");MIC.micOK=true;fb.className="fb show ok";fb.textContent=`✓ MIC = ${micText(m)} µg/mL. `+(m>64?"Every well grew, so even the highest level did not stop it.":`That is the lowest well that stayed clear.`)+` By the chart that is ${micCall(m)}.`;
+          MIC.done.add(0);if(micCall(m)==="R")MIC.done.add(3);$("#micSub").hidden=m>64;if(m>64){MIC.phase="end";$("#micSub").hidden=true}}
+        else{bt.classList.add("wrong");fb.className="fb show no";fb.textContent=o[0]>m&&o[0]<999?"Not quite. That well is clear, but so are lower ones. The MIC is the lowest clear well.":(o[0]===999?"Not quite. At least one well stayed clear. Find the lowest clear one.":"Not quite. That well is cloudy, so the bacteria grew there. The MIC must be a clear well.")}}
+      else{MIC.mbcPicked=o[0];const ok=o[0]===b||(b>64&&o[0]===999);
+        if(ok){bt.classList.add("right");MIC.mbcOK=true;const cid=b<=4*m;fb.className="fb show ok";fb.textContent=`✓ MBC ${b>64?"is above 64":"= "+micText(b)} µg/mL. `+(cid?`That is within 4 times the MIC, so ${MDR.find(d=>d[0]===MIC.drug)[1].toLowerCase()} is acting as cidal here.`:`Even the top well's plate grew, so the drug held the bacteria back but did not kill them: it is acting as static.`);
+          if(cid)MIC.done.add(1);else MIC.done.add(2);MIC.phase="end"}
+        else{bt.classList.add("wrong");fb.className="fb show no";fb.textContent=o[0]===999?"Not quite. Look for a plate with no colonies at all.":"Not quite. The MBC is the lowest level whose plate has no colonies. Check the plates again."}}
+      benchRes();benchChalUI();a11yKey=""};el.appendChild(bt)});
+  $("#micFb").className="fb";$("#micFb").textContent=""}
+$("#micSub").onclick=()=>{MIC.phase="sub";MIC.sub=0;$("#micSub").hidden=true;$("#micPickTitle").textContent="Step 2: find the MBC";$("#micPickHelp").textContent="A drop from each clear well was spread on drug-free agar. The MBC is the lowest level whose plate has no colonies.";micBtns("mbc");a11yKey=""};
+function benchStep(dt){if(benchMode==="kb"&&KB.phase==="inc"){KB.t=Math.min(1,KB.t+dt/3);if(KB.t>=1)kbFinish()}
+  if(benchMode==="mic"){if(MIC.phase==="inc"){MIC.t=Math.min(1,MIC.t+dt/2.5);if(MIC.t>=1)micFinish()}if(MIC.phase==="sub"||MIC.phase==="end")MIC.sub=Math.min(1,MIC.sub+dt/2)}}
+/* ---------- drawing ---------- */
+const PX=250,PY=262,PR=225,PXMM=3;
+function kbPos(i){const a=-Math.PI/2+i*TAU/6;return {x:PX+Math.cos(a)*45*PXMM,y:PY+Math.sin(a)*45*PXMM}}
+function orgIcon(o,x,y,s,t){if(o.shape==="clusters")[[-8,-5],[3,-9],[10,3],[-3,5],[-12,7],[6,12]].forEach(q=>coccus(x+q[0]*s,y+q[1]*s,5.5*s,C.gpos));
+  else if(o.shape==="chains")[[-12,-4],[-4,-4],[4,4],[12,4]].forEach(q=>coccus(x+q[0]*s,y+q[1]*s,5*s,C.gpos));else{bact(x-8*s,y-4*s,.3,6*s,1,{col:C.gneg});bact(x+9*s,y+6*s,-.4,6*s,1,{col:C.gneg})}}
+function drawBench(now){use(S1);const t=now/1000;if(benchMode==="kb")drawKB(t);else drawMIC(t)}
+function drawKB(t){const o=ORGS.find(x=>x.k===KB.org);const ph=KB.phase;const g=ph==="setup"?0:smooth(KB.t);
+  panelBox(8,8,484,504);title(22,28,"150 mm Mueller-Hinton plate");
+  plateTop(PX,PY,PR,ph==="setup"?.18:lerp(.18,1,g),KB.disks.map((c,i)=>{const p=kbPos(i);const z=zoneOf(KB.org,c);return {x:p.x,y:p.y,r:z>6?z/2*PXMM*g:0}}));
+  KB.disks.forEach((c,i)=>{const p=kbPos(i);disk(p.x,p.y,c,{r:9+2,fs:c.length>2?9.5:10.5,sel:KB.sel===i});if(KB.right[c]){checkMark(p.x+16,p.y-16,5)}});
+  for(let i=KB.disks.length;i<6;i++){const p=kbPos(i);circ(p.x,p.y,11,null,hexA(C["ink-soft"],.6),1.2);ctx.setLineDash([])}
+  if(ph==="done"&&KB.sel!=null){const c=KB.disks[KB.sel];const p=kbPos(KB.sel);const mm=zoneOf(KB.org,c);const r=Math.max(3,mm/2)*PXMM;const y=p.y+r+14;
+    line(p.x-r,p.y,p.x-r,y,C.ink,1.3,[3,3]);line(p.x+r,p.y,p.x+r,y,C.ink,1.3,[3,3]);rulerMM(p.x-r,y,p.x+r+8*PXMM,y,PXMM);
+    circ(p.x,p.y,r,null,C.accent,2.2)}
+  // side panel
+  panelBox(500,8,212,504);title(512,28,"Isolate");orgIcon(o,606,76,1.4,t);txt(606,112,o.name,{size:14,weight:700,align:"center"});txt(606,130,o.gram==="pos"?"Gram-positive":"Gram-negative",{size:12.5,align:"center",color:o.gram==="pos"?C.gpos:C.gneg,weight:600});
+  if(ph==="inc"||ph==="done"){clock(560,178,20,KB.t,C.accent);txt(590,172,"35 °C",{size:12.5,mono:true,weight:700});txt(590,190,Math.round(KB.t*18)+" h",{size:12.5,mono:true})}
+  else wrapText("Swab the lawn, place the disks, then incubate.",512,170,190,17,{size:12.5,color:C["ink-soft"]});
+  if(ph==="done"&&KB.sel!=null){const c=KB.disks[KB.sel];const mm=zoneOf(KB.org,c);const d=DRUGS[dIdx(c)];title(512,232,"Selected disk");txt(512,254,d[1],{size:13,weight:700});txt(512,274,mm+" mm",{size:20,weight:700,mono:true});
+    const bx=516,bw=180,mm2=v=>bx+clamp((v-6)/(40-6),0,1)*bw;const segs=d[3]==null?[[6,d[2]+.5,"R",C.bad],[d[2]+.5,40,"S",C.good]]:[[6,d[2]+.5,"R",C.bad],[d[2]+.5,d[4]+.5,"I",C.warn],[d[4]+.5,40,"S",C.good]];
+    segs.forEach(z=>{rr(mm2(z[0]),300,mm2(z[1])-mm2(z[0]),22,0);ctx.fillStyle=hexA(z[3],.28);ctx.fill();ctx.strokeStyle=z[3];ctx.lineWidth=1.2;ctx.stroke();txt((mm2(z[0])+mm2(z[1]))/2,311,z[2],{size:12.5,weight:700,mono:true,align:"center"})});
+    [6,20,40].forEach(v=>txt(mm2(v),334,String(v),{size:11.5,mono:true,align:"center",color:C["ink-soft"]}));
+    if(KB.right[c]){const X=mm2(mm);ctx.beginPath();ctx.moveTo(X,298);ctx.lineTo(X-6,288);ctx.lineTo(X+6,288);ctx.closePath();ctx.fillStyle=C.ink;ctx.fill();txt(512,362,"Your call: "+KB.calls[c]+" ✓",{size:13,weight:700,color:C.good})}
+    else txt(512,362,"Make your call below.",{size:12.5,color:C["ink-soft"]})}
+  else if(ph==="done")wrapText("Pick a disk below the picture to measure its zone.",512,240,190,17,{size:12.5,color:C["ink-soft"]});
+  const n=Object.keys(KB.right).length;if(ph==="done")txt(512,480,"Read correctly: "+n+" of "+KB.disks.length,{size:12.5,weight:700})}
+function drawMIC(t){const o=ORGS.find(x=>x.k===KB.org);const d=MDR.find(x=>x[0]===MIC.drug);const m=micVal(),b=mbcVal();const g=MIC.phase==="setup"?0:smooth(MIC.t);
+  panelBox(8,8,704,236);title(22,28,"Broth dilution tray: "+d[1]+" vs "+o.name);
+  const labs=WELLS.map(String).concat(["GC","SC"]);
+  labs.forEach((lb,i)=>{const x=48+i*56,y=118;const isDrug=i<10;const c=isDrug?WELLS[i]:null;const grows=isDrug?c<m:(lb==="GC");
+    circ(x,y,23,C.panel,C["glass-edge"],1.6);const cl=grows?g:0;circ(x,y,20,mix(C.water,C.food,cl*.85));
+    if(cl>0){for(let k=0;k<10;k++){const a=rnd(k+i*7)*TAU,r=rnd(k*3+i)*15;circ(x+Math.cos(a)*r,y+Math.sin(a)*r,1.4,hexA(C.ink,.35*cl))}circ(x,y+6,8*cl,hexA(C["lawn-dot"],.9))}
+    const pk=(MIC.phase!=="setup"&&MIC.phase!=="inc")&&MIC.micOK&&((isDrug&&c===m)||(m<=.125&&c===.125));if(pk){circ(x,y,27,null,C.accent,3)}
+    txt(x,y+38,lb,{size:12,mono:true,weight:700,align:"center"})});
+  txt(48+4.5*56,184,"µg/mL of drug, high to low",{size:12,align:"center",color:C["ink-soft"]});txt(48+10.5*56,184,"controls",{size:12,align:"center",color:C["ink-soft"]});
+  txt(22,214,"GC = growth control (no drug, should grow).  SC = sterility control (no bacteria, should stay clear).",{size:12,color:C["ink-soft"]});
+  if(MIC.phase==="inc"){clock(660,60,18,MIC.t,C.accent)}
+  // subculture plates
+  panelBox(8,252,704,260);title(22,272,MIC.phase==="sub"||MIC.phase==="end"?"Drops from clear wells, grown on drug-free agar":"Plates for the MBC (after the MIC is found)");
+  if((MIC.phase==="sub"||MIC.phase==="end")&&m<=64){const s=smooth(MIC.sub);WELLS.forEach((c,i)=>{if(c<m)return;const x=48+i*56,y=330;petri(x,y,24);
+      if(c<b){const n=Math.round(s*(c===m?14:c<b?7:0));for(let k=0;k<n;k++){const a=rnd(k+i*5)*TAU,r=Math.sqrt(rnd(k+11+i))*18;circ(x+Math.cos(a)*r,y+Math.sin(a)*r*.42,2.4,C.bact,hexA(C.ink,.3),.6)}}
+      txt(x,y+26,String(c),{size:11.5,mono:true,weight:700,align:"center"});if(MIC.mbcOK&&c===b)circ(x,y,30,null,C.accent,2.5)})}
+  // interpretation
+  if(MIC.micOK){const bx=40,bw=640,y0=420;txt(bx,y0-26,`MIC ${micText(m)} µg/mL`+(MIC.mbcOK?`   ·   MBC ${micText(b)} µg/mL`:""),{size:14,weight:700,mono:true});
+    const L=v=>bx+clamp((Math.log2(v)+3)/9,0,1)*bw;[[.125,d[2],"S",C.good],[d[2],d[3],"I",C.warn],[d[3],64,"R",C.bad]].forEach(z=>{if(z[1]<=z[0])return;rr(L(z[0]),y0,L(z[1])-L(z[0]),22,0);ctx.fillStyle=hexA(z[3],.28);ctx.fill();ctx.strokeStyle=z[3];ctx.lineWidth=1.2;ctx.stroke();txt((L(z[0])+L(z[1]))/2,y0+11,z[2],{size:12.5,weight:700,mono:true,align:"center"})});
+    [.125,1,4,16,64].forEach(v=>txt(L(v),y0+34,String(v),{size:11.5,mono:true,align:"center",color:C["ink-soft"]}));
+    const X=L(Math.min(64,m));ctx.beginPath();ctx.moveTo(X,y0-2);ctx.lineTo(X-7,y0-14);ctx.lineTo(X+7,y0-14);ctx.closePath();ctx.fillStyle=C.ink;ctx.fill();
+    if(MIC.mbcOK){const cid=b<=4*m;label(560,y0-26,cid?"cidal: MBC close to MIC":"static: MBC far above MIC",{size:12.5,weight:700,border:cid?C.good:C.warn})}}
+  else if(MIC.phase==="setup")wrapText("Each well holds the same number of bacteria and half as much drug as the well to its left. Incubate to see which wells grow.",30,320,640,18,{size:13})}
+function benchA11y(){const o=ORGS.find(x=>x.k===KB.org);
+  if(benchMode==="kb"){const ph=KB.phase;let lab=`Kirby-Bauer plate of ${o.name}, ${ph==="setup"?"not yet incubated":ph==="inc"?"incubating":"incubated"}.`;
+    let d=`A large agar plate with ${KB.disks.length} paper disks spaced in a ring: ${KB.disks.join(", ")}. `;
+    if(ph==="done"){d+=KB.disks.map(c=>{const z=zoneOf(KB.org,c);return z>6?`${c} has a clear zone about ${z} mm wide`:`${c} has no clear zone`}).join("; ")+". ";
+      if(KB.sel!=null){const c=KB.disks[KB.sel];d+=`A ruler lies under the ${c} zone and reads ${zoneOf(KB.org,c)} mm.`}}
+    else if(ph==="inc")d+="The tan bacterial lawn is thickening and clear rings are spreading out around some disks.";else d+="The lawn has just been swabbed and is still thin.";
+    return [lab,d]}
+  const dd=MDR.find(x=>x[0]===MIC.drug);const m=micVal();
+  let lab=`MIC tray: ${dd[1]} against ${o.name}, ${MIC.phase==="setup"?"not yet incubated":MIC.phase==="inc"?"incubating":"read"}.`;
+  let d=`A row of 12 wells with ${dd[1].toLowerCase()} from 64 down to 0.125 micrograms per mL, then a growth control and a sterility control. `;
+  if(MIC.phase!=="setup"&&MIC.phase!=="inc"){const cl=WELLS.filter(c=>c<m);d+=cl.length?`Wells at ${cl.join(", ")} are cloudy with a pellet; the higher wells are clear. `:"All drug wells are clear. ";if(m>64)d="All 10 drug wells are cloudy, like the growth control. ";
+    if(MIC.phase==="sub"||MIC.phase==="end"){const b=mbcVal();d+=`Plates from the clear wells: `+WELLS.filter(c=>c>=m).map(c=>c<b?`${c} grew colonies`:`${c} has none`).join(", ")+"."}}
+  return [lab,d]}
+
+/* ================= PART 2: resistance selection simulator ================= */
+const S2=makeStage("cvRes",720,520);
+const PEAKS=[2,4,8,16,32,64],ADH=[[.5,"half the doses"],[.75,"3 of every 4"],[.9,"9 of every 10"],[1,"every dose"]];
+const RS={peakIdx:3,adhIdx:3,days:7,pre:false,weak:false,traj:null,cur:0,running:false,done:new Set()};
+const RES_MICR=16,TEND=21*24;
+/* teaching model: two populations (susceptible S, resistant R), logistic growth, drug kill by an Emax curve,
+   immune clearance that is strong only when few bacteria are left, random mutation S -> R */
+function resSimulate(o){const rS=.12,rR=.10,K=1e10,kmax=.24,hl=6,mu=1e-8,Imax=o.weak?.06:.25,Isat=1e4,dt=.05;
+  let S=1e9,R=o.pre?100:0,Cc=0;const nd=Math.round(o.days*2);const doses=[];let acc=0;
+  for(let k=0;k<nd;k++){acc+=o.adh;const taken=acc>=1-1e-9;if(taken)acc-=1;doses.push({t:k*12,taken})}
+  const pts=[];let di=0;
+  for(let i=0;i<=Math.round(TEND/dt);i++){const t=i*dt;
+    while(di<doses.length&&doses[di].t<=t+1e-9){if(doses[di].taken)Cc+=o.peak;di++}
+    const N=S+R,g=1-N/K,im=Imax/(1+N/Isat);const h=x=>x*x/(1+x*x);
+    const dS=(rS*g-kmax*h(Cc)-im)*S,dR=(rR*g-kmax*h(Cc/RES_MICR)-im)*R+mu*rS*Math.max(0,g)*S;
+    S=Math.max(0,S+dS*dt);R=Math.max(0,R+dR*dt);if(S<1)S=0;if(R<1&&S<1)R=0;
+    Cc*=Math.exp(-Math.LN2*dt/hl);
+    if(i%10===0)pts.push([t,S,R<1?0:R,Cc])}
+  return {pts,doses}}
+function resAt(h){const P_=RS.traj.pts;const i=clamp(Math.round(h/.5),0,P_.length-1);return P_[i]}
+function resOutcome(){const e=RS.traj.pts[RS.traj.pts.length-1];const S=e[1],R=e[2];
+  if(S<1&&R<1)return "cured";if(R>S)return "resistant";return "relapse"}
+function resParams(){return {peak:PEAKS[RS.peakIdx],adh:ADH[RS.adhIdx][0],days:RS.days,pre:RS.pre,weak:RS.weak}}
+function resOut(){$("#resPeakOut").textContent=PEAKS[RS.peakIdx]+"× MIC";$("#resPeak").setAttribute("aria-valuetext",PEAKS[RS.peakIdx]+" times the MIC of the normal cells");
+  $("#resAdhOut").textContent=ADH[RS.adhIdx][1];$("#resAdh").setAttribute("aria-valuetext",ADH[RS.adhIdx][1]);
+  $("#resDaysOut").textContent=RS.days+(RS.days===1?" day":" days");$("#resDays").setAttribute("aria-valuetext",RS.days+" days")}
+function resChanged(){RS.traj=resSimulate(resParams());RS.cur=0;RS.running=false;$("#resRun").textContent="Start treatment";resOut();resRead();resStatus();a11yKey=""}
+function fmtCells(n){if(n<1)return "0";if(n<1000)return String(Math.round(n));const e=Math.floor(Math.log10(n));const m=n/Math.pow(10,e);return (m>=9.95?"1":m.toFixed(1).replace(/\.0$/,""))+" × "+ten(m>=9.95?e+1:e)}
+function resRead(){const p=resAt(RS.cur);const S=p[1],R=p[2];const tot=S+R;const day=RS.cur/24;
+  const rows=[["Day",day.toFixed(1)],["Susceptible cells",fmtCells(S)],["Resistant cells",fmtCells(R)],["Resistant share",tot<1?"–":(R/tot*100<.1&&R>0?"< 0.1%":Math.round(R/tot*100)+"%")],["Drug level now",p[3]<.05?"none":p[3].toFixed(p[3]<10?1:0)+"× MIC"]];
+  $("#resRead tbody").innerHTML=rows.map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td></tr>`).join("")}
+function resStatus(){const s=$("#resStatus");if(RS.cur<TEND-1){s.className="status";s.textContent=RS.cur>0?"Treatment running...":"Set the sliders, then press Start treatment. The run shows 21 days.";return}
+  const o=resOutcome();const msg={cured:["good","Cured: every bacterium, susceptible and resistant, was cleared and none came back."],
+    relapse:["warn","Relapse: the drug was stopped while many susceptible bacteria were still alive, and they grew back."],
+    resistant:["bad","Resistance took over: the drug killed the susceptible cells, and the resistant mutants grew into the empty space."]}[o];
+  s.className="status "+msg[0];s.textContent=msg[1]}
+function resCheck(){const o=resOutcome();const d=RS.done;if(o==="cured")d.add(0);if(o==="relapse")d.add(1);if(o==="resistant")d.add(2);if(o==="cured"&&RS.weak)d.add(3);if(o==="cured"&&RS.pre)d.add(4);resChalUI()}
+const RESCH=["Cure the infection.","Stop too early and watch susceptible bacteria come back.","Let the resistant mutants take over.","Cure a patient with a weak immune system.","Cure the infection even with resistant mutants present at the start."];
+function resChalUI(){chalUI($("#resChal"),RESCH,RS.done)}
+$("#resPeak").oninput=e=>{RS.peakIdx=+e.target.value;resChanged()};$("#resAdh").oninput=e=>{RS.adhIdx=+e.target.value;resChanged()};$("#resDays").oninput=e=>{RS.days=+e.target.value;resChanged()};
+$("#resPre").onchange=e=>{RS.pre=e.target.checked;resChanged()};$("#resWeak").onchange=e=>{RS.weak=e.target.checked;resChanged()};
+$("#resRun").onclick=()=>{if(RS.cur>=TEND-1)RS.cur=0;RS.running=!RS.running;$("#resRun").textContent=RS.running?"Pause":"Continue";resStatus()};
+$("#resReset").onclick=()=>{RS.peakIdx=3;RS.adhIdx=3;RS.days=7;RS.pre=false;RS.weak=false;$("#resPeak").value=3;$("#resAdh").value=3;$("#resDays").value=7;$("#resPre").checked=false;$("#resWeak").checked=false;resChanged()};
+function resStep(dt){if(!RS.running)return;RS.cur=Math.min(TEND,RS.cur+dt*36);if(RS.cur>=TEND){RS.running=false;$("#resRun").textContent="Run again";resRead();resStatus();resCheck()}}
+const RDOTS=Array.from({length:100},(_,i)=>({a:i*2.39996,r:Math.sqrt(i+.5)/10}));
+function drawRes(now){use(S2);const t=now/1000;const p=resAt(RS.cur);const S=p[1],R=p[2],tot=S+R;const day=RS.cur/24;
+  // infection site
+  panelBox(8,8,240,504);title(20,28,"Infection site");
+  const cx=128,cy=160,cr=100;circ(cx,cy,cr+6,hexA(C.body,.6),C["body-edge"],2);
+  const last=RS.traj.doses.filter(d=>d.t<=RS.cur&&d.taken).pop();if(last&&RS.cur-last.t<4&&RS.cur>0){const f=(RS.cur-last.t)/4;circ(cx,cy,cr*(.3+.7*f),hexA(C.drug,.25*(1-f)))}
+  const n=tot<1?0:Math.min(100,Math.max(1,Math.round(Math.log10(tot+1)*10)));let nr=R>=1?Math.max(1,Math.round(n*R/tot)):0;
+  for(let i=0;i<n;i++){const d=RDOTS[i];const X=cx+Math.cos(d.a)*d.r*cr*.95,Y=cy+Math.sin(d.a)*d.r*cr*.95;const isR=i<nr;bact(X+Math.sin(t*2+i)*1.5,Y,d.a,isR?5:4.2,1,{col:isR?C.res:C.sus});
+    if(isR){circ(X,Y,8,null,hexA(C.res,.8),1.2)}}
+  if(n===0){txt(cx,cy,"no bacteria left",{size:13,weight:700,align:"center"})}
+  txt(cx,cy+cr+22,"Each dot ≈ ten times more cells",{size:12,align:"center",color:C["ink-soft"]});
+  txt(20,320,"Day "+day.toFixed(1),{size:20,weight:700,mono:true});
+  const onDrug=RS.cur<RS.days*24;txt(20,348,RS.cur===0?"not started":onDrug?"on treatment":"treatment over",{size:13,weight:700,color:onDrug&&RS.cur>0?C.drug:C["ink-soft"]});
+  const taken=RS.traj.doses.filter(d=>d.taken).length;txt(20,374,`Doses: ${taken} of ${RS.traj.doses.length} taken`,{size:12.5});
+  txt(20,396,`Strength: ${PEAKS[RS.peakIdx]}× MIC`,{size:12.5});txt(20,418,RS.weak?"Immune system: weak":"Immune system: normal",{size:12.5});txt(20,440,RS.pre?"Resistant mutants at start: yes":"Resistant mutants at start: none",{size:12.5});
+  if(RS.cur>=TEND-1){const o=resOutcome();label(128,478,{cured:"Cured",relapse:"Relapse",resistant:"Resistance took over"}[o],{size:14,weight:700,border:{cured:C.good,relapse:C.warn,resistant:C.bad}[o]})}
+  // population graph
+  panelBox(256,8,456,300);title(268,28,"Bacteria at the infection (log scale)");
+  const gx=304,gy=48,gw=392,gh=210;const X=h=>gx+h/TEND*gw,Y=v=>gy+gh-clamp(v,0,10)/10*gh;
+  ctx.fillStyle=hexA(C.drug,.08);ctx.fillRect(gx,gy,X(RS.days*24)-gx,gh);
+  for(let e=0;e<=10;e+=2){line(gx,Y(e),gx+gw,Y(e),hexA(C.rule,.7),1);txt(gx-6,Y(e),ten(e),{size:11.5,mono:true,align:"right",color:C["ink-soft"]})}
+  for(let dd=0;dd<=21;dd+=3)txt(X(dd*24),gy+gh+12,String(dd),{size:11.5,mono:true,align:"center",color:C["ink-soft"]});txt(gx+gw/2,gy+gh+30,"Day",{size:12,weight:600,align:"center",color:C["ink-soft"]});
+  line(gx,gy,gx,gy+gh,C["ink-soft"],1.3);line(gx,gy+gh,gx+gw,gy+gh,C["ink-soft"],1.3);
+  txt(X(RS.days*24)-4,gy+10,"treatment",{size:12,weight:600,align:"right",color:C.drug});
+  const lg=v=>v<1?-1:Math.log10(v);
+  [[1,C.sus,[]],[2,C.res,[6,4]]].forEach(sr=>{ctx.beginPath();let st=false;RS.traj.pts.forEach(q=>{if(q[0]>RS.cur)return;const v=lg(q[sr[0]]);const xx=X(q[0]),yy=v<0?gy+gh+1:Y(v);st?ctx.lineTo(xx,yy):(ctx.moveTo(xx,yy),st=true)});ctx.strokeStyle=sr[1];ctx.lineWidth=3;ctx.setLineDash(sr[2]);ctx.stroke();ctx.setLineDash([])});
+  line(X(RS.cur),gy,X(RS.cur),gy+gh,hexA(C.ink,.4),1,[3,3]);
+  txt(gx+gw-4,gy+gh-14,"blue: susceptible   red dashed: resistant",{size:12,align:"right",color:C["ink-soft"]});
+  // drug level
+  panelBox(256,316,456,196);title(268,336,"Drug level vs the MIC (log scale)");
+  const dy=362,dh=110;const DY=v=>dy+dh-clamp((Math.log10(Math.max(v,.1))+1)/3,0,1)*dh;
+  ctx.fillStyle=hexA(C.gold,.18);ctx.fillRect(gx,DY(RES_MICR),gw,DY(1)-DY(RES_MICR));
+  line(gx,DY(1),gx+gw,DY(1),C.sus,1.5,[5,4]);line(gx,DY(RES_MICR),gx+gw,DY(RES_MICR),C.res,1.5,[5,4]);
+  txt(gx-6,DY(1),"1×",{size:11.5,mono:true,align:"right",color:C.sus,weight:700});txt(gx-6,DY(RES_MICR),"16×",{size:11.5,mono:true,align:"right",color:C.res,weight:700});
+  txt(gx+gw-4,DY(4),"selection window",{size:12,weight:700,align:"right",color:C["gold-ink"]});
+  ctx.beginPath();let st=false;RS.traj.pts.forEach(q=>{if(q[0]>RS.cur)return;const xx=X(q[0]),yy=DY(q[3]);st?ctx.lineTo(xx,yy):(ctx.moveTo(xx,yy),st=true)});ctx.strokeStyle=C.drug;ctx.lineWidth=2.2;ctx.stroke();
+  RS.traj.doses.forEach(d=>{const xx=X(d.t);circ(xx,dy-8,3.6,d.taken?C.drug:C.panel,C.drug,1.4)});
+  line(X(RS.cur),dy-14,X(RS.cur),dy+dh,hexA(C.ink,.4),1,[3,3]);
+  txt(gx,dy+dh+20,"Between the dashed lines, normal cells die but resistant ones survive.",{size:12,color:C["ink-soft"]});
+}
+function resA11y(){const p=resAt(RS.cur);const S=p[1],R=p[2];const day=(RS.cur/24).toFixed(0);
+  const lab=`Resistance simulator, day ${day}: ${fmtCells(S)} susceptible and ${fmtCells(R)} resistant bacteria.`;
+  let d=`Settings: drug strength ${PEAKS[RS.peakIdx]} times the MIC, ${ADH[RS.adhIdx][1]} taken, ${RS.days} days of treatment${RS.weak?", weak immune system":""}${RS.pre?", resistant mutants present at the start":""}. `;
+  d+=`A circle of blue susceptible and red resistant bacteria shows the infection; a log graph shows the blue susceptible line and a red dashed resistant line over 21 days, and a lower graph shows the drug level rising with each dose and falling between doses, with a gold band marking the selection window. `;
+  if(RS.cur>=TEND-1)d+={cured:"Outcome: cured.",relapse:"Outcome: relapse with susceptible bacteria.",resistant:"Outcome: resistant bacteria took over."}[resOutcome()];
+  return [lab,d]}
+
+/* ================= PART 3: which drug and why ================= */
+const S3=makeStage("cvCase",560,420);
+const CASES=[
+{name:"Strep throat",who:"Maria, 34",title:"A sore throat with a positive strep test",micro:"chains",extra:{type:"cassette",lab:"Rapid strep",pos:true},
+ vit:[["Temp","38.6 °C",1],["Heart rate","98 /min",0],["Resp rate","16 /min",0],["SpO₂","99%",0]],res:["Rapid strep test: positive","Throat culture: Gram-positive cocci in chains","Group A Streptococcus (S. pyogenes)"],
+ story:"Maria has had a painful sore throat and fever for two days. Her tonsils are swollen with white patches, and she has no cough. A rapid strep test is positive.",
+ legend:[["gpos","Gram-positive cocci"],["bad","Positive test line","s"]],
+ qs:[{q:"Which kind of drug fits best?",hint:"Group A strep is still reliably killed by the oldest beta-lactam.",opts:[
+   ["A narrow-spectrum penicillin",1,"Yes. Group A strep remains susceptible to penicillin, and a narrow drug spares her normal microbiota."],
+   ["A carbapenem, the broadest drug available",0,"Carbapenems are saved for serious resistant infections. Using one here adds side effects and resistance pressure for no benefit."],
+   ["An antifungal",0,"The cause is a bacterium, Streptococcus, not a fungus."],
+   ["An antiviral",0,"The strep test is positive, so this is a bacterial infection. Antivirals do not act on bacteria."]]},
+  {q:"Maria says penicillin once gave her hives. What is a common alternative class?",hint:"Look for a drug that hits a different target, not another beta-lactam.",opts:[
+   ["A macrolide, which blocks the 50S ribosome",1,"Right. Macrolides act on the ribosome, not the cell wall, and are a common choice when someone is allergic to penicillin."],
+   ["Another penicillin, such as amoxicillin",0,"Amoxicillin is also a penicillin, so the allergy risk is the same."],
+   ["Vancomycin into a vein",0,"Vancomycin is reserved for serious Gram-positive infections such as MRSA; it is not used for simple strep throat."],
+   ["Nothing; allergies do not matter",0,"Drug allergies matter a lot. An allergic reaction can be dangerous."]]},
+  {q:"She feels better after two days. Why should she keep taking it as prescribed?",hint:"Feeling better is not the same as all bacteria gone.",opts:[
+   ["Bacteria can remain after symptoms ease; stopping early risks the infection returning",1,"Yes. Finishing as prescribed clears the bacteria. For strep throat it also helps prevent complications such as rheumatic fever."],
+   ["The drug only starts working after day five",0,"The drug works from the first doses; that is why she feels better. Some bacteria are still alive, though."],
+   ["Leftover pills should be saved for next time",0,"Saving leftovers encourages self-treatment without a diagnosis. Take the course as prescribed."],
+   ["To build up her immunity to the drug",0,"People do not become immune to antibiotics; bacteria become resistant."]]}],
+ exp:"Match the drug to the bug: a known, susceptible Gram-positive gets a narrow drug. Allergy means switching to a different target, and the course is taken as prescribed."},
+
+{name:"A cold",who:"James, 28",title:"Runny nose, cough and a request for antibiotics",micro:"none",extra:{type:"cassette",lab:"Rapid strep",pos:false},
+ vit:[["Temp","37.6 °C",0],["Heart rate","82 /min",0],["Resp rate","14 /min",0],["SpO₂","99%",0]],res:["Rapid strep test: negative","Throat swab: no bacteria of concern seen","Clear nasal discharge, mild cough"],
+ story:"James has had a runny nose, sneezing, a mild cough and a scratchy throat for four days. He has a big work deadline and asks for an antibiotic to get better faster.",
+ legend:[["env","Cold virus (not seen on Gram stain)"],["ink-soft","Control line only","s"]],
+ qs:[{q:"What is the most likely cause?",hint:"Runny nose, sneezing and cough together, with a negative strep test.",opts:[
+   ["A virus, such as a rhinovirus",1,"Yes. This pattern is a common cold, which is viral."],
+   ["Group A Streptococcus",0,"The rapid strep test was negative, and a runny nose and cough point to a virus."],
+   ["A fungus",0,"Fungal throat infections are rare in healthy adults and do not look like this."],
+   ["MRSA",0,"Nothing here suggests MRSA, which usually causes skin and wound infections."]]},
+  {q:"What is the best plan?",hint:"Which drug class has a target in a cold virus?",opts:[
+   ["Rest, fluids and symptom relief; no antibiotic",1,"Right. Colds get better on their own. Antibiotics have no target in viruses."],
+   ["A broad-spectrum antibiotic to be safe",0,"It cannot treat a virus, and it still kills helpful bacteria and pushes resistance."],
+   ["A short antibiotic course of two days",0,"A shorter course of a drug that cannot work is still no help, and it still causes side effects."],
+   ["An antifungal",0,"There is no fungus to treat. Supportive care is best."]]},
+  {q:"What harm could an unneeded antibiotic cause?",hint:"Think about the gut and about other bacteria in his body.",opts:[
+   ["Side effects such as C. difficile diarrhea, and selection of resistant bacteria",1,"Yes. Every course kills helpful bacteria and selects for resistant ones, even when it treats nothing."],
+   ["None; antibiotics are harmless",0,"Antibiotics are very useful but never harmless. Side effects and resistance are real costs."],
+   ["It would make the virus resistant to antibiotics",0,"Viruses are not affected by antibiotics at all. It is the bacteria in his body that may become resistant."],
+   ["It would give him immunity to colds",0,"Antibiotics do not create immunity to anything."]]}],
+ exp:"No antibiotics for viruses. Saying no here protects James from side effects and protects everyone from resistance."},
+
+{name:"ESBL urine infection",who:"Linda, 61",title:"A urine infection that a common drug did not fix",micro:"gnrods",extra:{type:"kb",disks:[["CRO",0,"R"],["IPM",27,"S"],["CIP",0,"R"],["SXT",0,"R"]]},
+ vit:[["Temp","38.4 °C",1],["Heart rate","104 /min",1],["Resp rate","18 /min",0],["SpO₂","97%",0]],res:["Urine culture: E. coli, over 100,000 per mL","Gram-negative rods","Report: ESBL-producing; see disk results"],
+ story:"Linda has burning on urination, back pain and a fever. She was started on ceftriaxone, a cephalosporin, but she is not improving. The lab report now shows an ESBL-producing E. coli.",
+ legend:[["gneg","Gram-negative rods"],["zone","Zone of inhibition"],["lawn","Bacterial lawn"]],
+ qs:[{q:"Why did ceftriaxone fail?",hint:"What does the E in ESBL stand for, and what does that enzyme cut?",opts:[
+   ["Her E. coli makes an extended-spectrum beta-lactamase that breaks down cephalosporins",1,"Right. ESBL enzymes cut the beta-lactam ring of penicillins and most cephalosporins, including ceftriaxone."],
+   ["Ceftriaxone does not work on any Gram-negative bacteria",0,"Ceftriaxone usually works well on E. coli. This strain has an enzyme that destroys it."],
+   ["She has a viral infection",0,"The culture grew E. coli, a bacterium."],
+   ["Her E. coli has PBP2a",0,"PBP2a is the MRSA mechanism in Staphylococcus aureus, not E. coli."]]},
+  {q:"Using the disk results, which drug class fits?",hint:"Look for the disk with a large clear zone marked S.",opts:[
+   ["A carbapenem (imipenem was S)",1,"Yes. Carbapenems resist ESBL enzymes, and this isolate tested susceptible."],
+   ["Ciprofloxacin",0,"The ciprofloxacin disk had no zone (R). ESBL strains often carry other resistance genes too."],
+   ["Trimethoprim-sulfa",0,"That disk was R. It will not work for this isolate."],
+   ["Vancomycin",0,"Vancomycin cannot pass the Gram-negative outer membrane, so it never works on E. coli."]]},
+  {q:"In the hospital, what else helps stop ESBL bacteria from spreading?",hint:"How do resistant bacteria usually travel between patients?",opts:[
+   ["Hand hygiene and contact precautions",1,"Right. These bacteria spread on hands and equipment, so prevention matters as much as the drug."],
+   ["Giving every patient on the unit antibiotics",0,"That would select even more resistance."],
+   ["Opening the windows",0,"ESBL bacteria spread by contact, not through the air."],
+   ["Nothing can be done",0,"Simple steps such as hand hygiene and contact precautions are very effective."]]}],
+ exp:"Read the susceptibility report. An enzyme (ESBL) destroyed the first drug; a drug the enzyme cannot break (a carbapenem) still works."},
+
+{name:"MRSA abscess",who:"Robert, 45",title:"A skin abscess with a resistant staph",micro:"clusters",extra:{type:"kb",disks:[["FOX",0,"R"],["VA",17,"S"],["SXT",24,"S"],["TE",22,"S"]]},
+ vit:[["Temp","38.1 °C",1],["Heart rate","96 /min",0],["Resp rate","16 /min",0],["SpO₂","98%",0]],res:["Pus culture: Staphylococcus aureus","Gram-positive cocci in clusters","Cefoxitin screen: resistant"],
+ story:"Robert has a painful, warm, swollen lump on his thigh. It is drained in the clinic. The culture grows Staphylococcus aureus, and the cefoxitin screening disk shows no zone.",
+ legend:[["gpos","Gram-positive cocci in clusters"],["zone","Zone of inhibition"],["lawn","Bacterial lawn"]],
+ qs:[{q:"What does a resistant cefoxitin screen mean?",hint:"Cefoxitin is the lab's test for one famous resistance gene in staph.",opts:[
+   ["The staph is MRSA: it makes PBP2a, so beta-lactams will not work",1,"Yes. Labs use cefoxitin to detect MRSA. PBP2a keeps building the wall even with beta-lactams present."],
+   ["The staph makes an ESBL enzyme",0,"ESBLs are found mostly in Gram-negative bacteria such as E. coli."],
+   ["Only cefoxitin will fail; other beta-lactams are fine",0,"With PBP2a, nearly all beta-lactams fail, not just cefoxitin."],
+   ["The test failed and should be ignored",0,"A resistant cefoxitin screen is a key, reliable result."]]},
+  {q:"Which choice fits the report?",hint:"Pick a drug that does not need to block PBPs and tested S.",opts:[
+   ["A drug that tested S, such as trimethoprim-sulfa or a tetracycline; vancomycin if severe",1,"Right. These drugs hit targets other than PBPs. Draining the abscess is also a key part of treatment."],
+   ["Amoxicillin with clavulanic acid",0,"Clavulanic acid blocks beta-lactamase, but MRSA's problem is PBP2a. This combination still fails."],
+   ["A cephalosporin",0,"Cephalosporins are beta-lactams, so PBP2a makes MRSA resistant to them."],
+   ["A carbapenem",0,"Carbapenems are beta-lactams too. MRSA resists them."]]}],
+ exp:"MRSA resists beta-lactams through a changed target (PBP2a). Choose a drug with a different target that the report shows as S."},
+
+{name:"C. diff after antibiotics",who:"Aisha, 72",title:"Diarrhea after a course of broad-spectrum antibiotics",micro:"gprods",extra:{type:"cassette",lab:"C. diff toxin",pos:true},
+ vit:[["Temp","38.2 °C",1],["Heart rate","102 /min",1],["Resp rate","18 /min",0],["WBC","15,000 /µL",1]],res:["Stool toxin test: positive","Gram-positive rods, some with spores","Clostridioides difficile"],
+ story:"Aisha was treated for pneumonia with broad-spectrum antibiotics. Five days later she has six or more watery stools a day, cramps and a fever. A stool toxin test is positive for C. difficile.",
+ legend:[["gpos","Gram-positive rods"],["spore-coat","Endospore"],["bad","Positive test line","s"]],
+ qs:[{q:"Why did this happen?",hint:"What did the broad-spectrum drug do to her gut's normal microbiota?",opts:[
+   ["The antibiotics killed her normal gut bacteria, and C. difficile overgrew: a superinfection",1,"Yes. C. difficile spores survive antibiotics and take over when the competition is gone."],
+   ["She caught a cold virus",0,"The toxin test is positive for C. difficile, a bacterium."],
+   ["The pneumonia bacteria moved to her gut",0,"This is a different organism, C. difficile, which overgrew after her gut microbiota were disrupted."],
+   ["She is allergic to the antibiotic",0,"An allergy causes hives or swelling, not a positive C. difficile toxin test."]]},
+  {q:"Which plan fits best?",hint:"The drug has to reach the inside of the colon.",opts:[
+   ["Stop the broad antibiotic if possible and give a C. diff-active drug by mouth, such as oral vancomycin",1,"Right. Oral vancomycin stays in the gut where C. difficile lives. Removing the trigger also helps."],
+   ["Add clindamycin",0,"Clindamycin is strongly linked to C. difficile. It would make things worse."],
+   ["Give vancomycin into a vein",0,"IV vancomycin does not reach the inside of the gut well. For C. diff it must be given by mouth."],
+   ["Only give a medicine to stop the diarrhea",0,"Stopping the diarrhea alone does not treat the infection and can trap toxins in the colon."]]},
+  {q:"How should staff clean their hands after caring for her?",hint:"Alcohol does not kill one tough structure this bacterium makes.",opts:[
+   ["Soap and water, because alcohol does not kill C. difficile spores",1,"Yes. Scrubbing and rinsing physically removes spores; alcohol rubs leave them behind."],
+   ["Alcohol hand rub is enough",0,"Alcohol does not kill endospores. Soap and water are needed."],
+   ["No hand hygiene is needed with gloves",0,"Gloves help, but hands get contaminated when gloves come off."],
+   ["A quick rinse with water only",0,"A quick rinse is not enough. Use soap, scrub, then rinse."]]}],
+ exp:"Broad drugs can cause superinfection. Treat with a drug that reaches the colon, stop the trigger if possible, and use soap and water to remove spores."},
+
+{name:"Tuberculosis",who:"David, 39",title:"A three-week cough and acid-fast rods",micro:"afb",extra:{type:"none"},
+ vit:[["Temp","38.0 °C",1],["Heart rate","92 /min",0],["Resp rate","20 /min",1],["Weight","down 5 kg",1]],res:["Sputum acid-fast stain: positive","Thin red rods on a blue background","Mycobacterium tuberculosis"],
+ story:"David has had a cough for three weeks, night sweats and weight loss. His sputum shows acid-fast rods. He is starting tuberculosis treatment with several drugs at once, including rifampin.",
+ legend:[["drug","Acid-fast rods (red)"],["nonenv","Blue counterstain","s"]],
+ qs:[{q:"Why is TB treated with several drugs at the same time?",hint:"Think about rare mutants in a very large population.",opts:[
+   ["A mutant resistant to one drug is still killed by the others, which prevents resistance",1,"Yes. A mutant resistant to two or more drugs at once is extremely rare, so combinations stop resistant strains from being selected."],
+   ["To make the treatment shorter than a week",0,"TB treatment still takes months. Combinations are about preventing resistance."],
+   ["Because TB is a virus",0,"TB is caused by a bacterium, Mycobacterium tuberculosis."],
+   ["One drug for each lung",0,"All the drugs act throughout the body. The point is to block resistance."]]},
+  {q:"David notices orange-red urine and tears. What should he be told?",hint:"Which TB drug is famous for this?",opts:[
+   ["It is a harmless effect of rifampin",1,"Right. Rifampin colours body fluids orange-red. It can stain soft contact lenses, but it is not dangerous."],
+   ["Stop all the drugs at once",0,"This colour change is expected. Stopping early risks relapse and resistance."],
+   ["It means the TB has spread to his kidneys",0,"It is a drug colour effect, not a sign of spread."],
+   ["It shows he is allergic",0,"An allergy causes rash or swelling, not orange urine."]]},
+  {q:"His bacteria later test resistant to isoniazid and rifampin. What is this called?",hint:"Multi-drug...",opts:[
+   ["MDR-TB",1,"Yes. Multidrug-resistant TB resists at least isoniazid and rifampin and needs other drugs for longer."],
+   ["MRSA",0,"MRSA is a resistant Staphylococcus aureus, not TB."],
+   ["VRE",0,"VRE is vancomycin-resistant Enterococcus."],
+   ["CRE",0,"CRE are carbapenem-resistant Gram-negative bacteria."]]}],
+ exp:"TB is treated with combinations for months to stop resistant mutants. Taking every dose (often watched by a health worker) protects the patient and the community."},
+
+{name:"Yeast infection",who:"Grace, 30",title:"Itching after a course of antibiotics",micro:"yeast",extra:{type:"none"},
+ vit:[["Temp","36.9 °C",0],["Heart rate","74 /min",0],["Resp rate","14 /min",0],["SpO₂","99%",0]],res:["Wet mount with KOH: budding yeast","and pseudohyphae","Candida albicans"],
+ story:"Grace finished a broad-spectrum antibiotic for a sinus infection last week. Now she has vaginal itching and a thick white discharge. A wet mount shows budding yeast and pseudohyphae.",
+ legend:[["fungus","Budding yeast and pseudohyphae"]],
+ qs:[{q:"What happened?",hint:"Which microbes did the antibiotic kill, and which did it leave alone?",opts:[
+   ["The antibiotic killed normal bacteria that keep Candida in check, so the yeast overgrew",1,"Yes. Candida is a fungus, so antibacterial drugs do not touch it, but its competitors were removed."],
+   ["The antibiotic turned bacteria into yeast",0,"Bacteria cannot turn into fungi. The yeast was already there in small numbers."],
+   ["She caught a virus",0,"The wet mount shows yeast, a fungus."],
+   ["The sinus bacteria spread",0,"This is a different organism, Candida, which overgrew after the antibiotic."]]},
+  {q:"Which drug class fits?",hint:"Pick a drug aimed at fungi.",opts:[
+   ["An azole antifungal",1,"Right. Azoles block ergosterol synthesis in the fungal membrane."],
+   ["Another antibacterial",0,"More antibacterial drug would kill more helpful bacteria and could make the yeast worse."],
+   ["An antiviral",0,"Candida is a fungus, not a virus."],
+   ["Vancomycin",0,"Vancomycin acts on bacterial cell walls. Fungi have no peptidoglycan."]]},
+  {q:"How do azoles harm the yeast but not her cells?",hint:"Which sterol do fungal membranes use?",opts:[
+   ["They block making ergosterol, which fungal membranes use and human membranes do not",1,"Yes. Human membranes use cholesterol instead, which is why azoles are fairly selective."],
+   ["They block 70S ribosomes",0,"Fungi have 80S ribosomes like ours. Azoles act on ergosterol."],
+   ["They break peptidoglycan",0,"Fungal walls have no peptidoglycan. Azoles act on the membrane sterol."],
+   ["They are toxic to everything equally",0,"Azoles are fairly selective because they target ergosterol."]]}],
+ exp:"Antibacterial drugs can cause a fungal superinfection. Treat a fungus with an antifungal aimed at something only fungi have, such as ergosterol."},
+
+{name:"Influenza",who:"Tom, 52",title:"Sudden fever and aches in flu season",micro:"none",extra:{type:"cassette",lab:"Rapid flu A",pos:true},
+ vit:[["Temp","39.1 °C",1],["Heart rate","104 /min",1],["Resp rate","20 /min",1],["SpO₂","96%",0]],res:["Rapid influenza test: positive (influenza A)","Symptoms started yesterday","No signs of bacterial pneumonia"],
+ story:"Tom woke up yesterday with a high fever, chills, muscle aches, a dry cough and exhaustion. A rapid test is positive for influenza A. He has a heart condition, so his doctor wants to treat early.",
+ legend:[["env","Influenza virus"],["bad","Positive test line","s"]],
+ qs:[{q:"Which kind of drug fits?",hint:"Influenza is a virus. Which drug class stops new flu viruses from leaving cells?",opts:[
+   ["A neuraminidase inhibitor antiviral, best started early",1,"Yes. Neuraminidase inhibitors, such as oseltamivir, work best when started soon after symptoms begin."],
+   ["A broad-spectrum antibiotic",0,"Antibiotics have no target in viruses. They only help if a bacterial infection develops on top."],
+   ["An azole antifungal",0,"There is no fungus here."],
+   ["A macrolide",0,"Macrolides block bacterial ribosomes. Viruses have no ribosomes of their own."]]},
+  {q:"How does a neuraminidase inhibitor work?",hint:"Look at the last step of the viral life cycle.",opts:[
+   ["It stops new viruses from being released from the infected cell",1,"Right. New viruses stay stuck to the cell surface, which slows the spread to other cells."],
+   ["It breaks the viral cell wall",0,"Viruses have no cell wall."],
+   ["It blocks the 30S ribosome",0,"Viruses use our ribosomes. The drug targets a viral enzyme, neuraminidase."],
+   ["It kills the host cell",0,"The goal is to stop the virus, not to kill host cells."]]},
+  {q:"A week later Tom gets worse, with a new fever and a productive cough. The X-ray shows pneumonia, and sputum grows a bacterium. Now what?",hint:"Bacteria can infect lungs damaged by flu.",opts:[
+   ["Now an antibiotic aimed at the bacterium makes sense",1,"Yes. A secondary bacterial pneumonia is a bacterial infection, so an antibacterial drug is the right tool."],
+   ["Keep using only the antiviral",0,"The antiviral cannot treat a bacterial pneumonia."],
+   ["No treatment is needed",0,"Bacterial pneumonia after flu can be serious and needs treatment."],
+   ["An antifungal",0,"The sputum grew a bacterium, not a fungus."]]}],
+ exp:"Match the drug to the microbe. Flu gets an antiviral that blocks a viral step; if bacteria later infect the lungs, then an antibacterial is needed."}
+];
+CASES.forEach(c=>c.kind=c.micro);
+const CS={i:0,solved:{},first:{},wrong:{},shown:{}};
+function csKey(i,q){return i+"-"+q}
+function caseMeta(){const c=CASES[CS.i];
+  $("#cSolved").textContent=Object.keys(CS.solved).length+" of "+CASES.reduce((s,k)=>s+k.qs.length,0);$("#cFirst").textContent=Object.keys(CS.first).length;
+  $("#caseChips").querySelectorAll("button").forEach((b,i)=>{const done=CASES[i].qs.every((q,j)=>CS.solved[csKey(i,j)]);if(done&&!b.querySelector(".ok"))b.insertAdjacentHTML("beforeend",'<span class="ok" aria-label="solved">✓</span>')});
+  const all=c.qs.every((q,j)=>CS.solved[csKey(CS.i,j)]);const ex=$("#cExp");ex.className="explain"+(all?" show":"");ex.innerHTML=all?`<b>Lesson.</b> ${c.exp}`:""}
+function caseUI(){const c=CASES[CS.i];
+  $("#caseChips").innerHTML=CASES.map((k,i)=>`<button type="button" class="casechip" aria-pressed="${i===CS.i}" data-i="${i}">${i+1}. ${k.name}${k.qs.every((q,j)=>CS.solved[csKey(i,j)])?'<span class="ok" aria-label="solved">✓</span>':""}</button>`).join("");
+  $("#caseChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{CS.i=+b.dataset.i;caseUI();a11yKey=""});
+  $("#cN").textContent=CS.i+1;$("#cT").textContent=CASES.length;
+  $("#cWho").textContent=`Case ${CS.i+1} · ${c.who}`;$("#cTitle").textContent=c.title;$("#cStory").textContent=c.story;
+  $("#caseLegend").innerHTML=c.legend.map(l=>`<span><i class="${l[2]||""}" style="background:var(--${l[0]})"></i>${l[1]}</span>`).join("");
+  const box=$("#cQs");box.innerHTML="";let open=true;
+  c.qs.forEach((q,j)=>{const k=csKey(CS.i,j);const d=document.createElement("div");d.className="qblock";if(!open)d.hidden=true;
+    d.innerHTML=`<p class="qlab">${j+1}. ${q.q}</p><div class="opts"></div><div class="fb" role="status"></div>`;
+    const ob=d.querySelector(".opts"),fb=d.querySelector(".fb");
+    q.opts.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];
+      if(CS.solved[k]&&o[1])b.classList.add("right");
+      b.onclick=()=>{if(o[1]){b.classList.add("right");fb.className="fb show ok";fb.textContent="✓ "+o[2];if(!CS.solved[k]){CS.solved[k]=1;if(!CS.wrong[k]&&!CS.shown[k])CS.first[k]=1}
+          $("#cHintBox").hidden=true;const nx=d.nextElementSibling;if(nx)nx.hidden=false;caseMeta()}
+        else{b.classList.add("wrong");CS.wrong[k]=1;fb.className="fb show no";fb.textContent="Not quite. "+o[2]}};
+      ob.appendChild(b)});
+    box.appendChild(d);if(!CS.solved[k])open=false});
+  caseMeta();
+  $("#cPrev").disabled=CS.i===0;$("#cNext").textContent=CS.i===CASES.length-1?"Back to case 1 →":"Next case →";$("#cHintBox").hidden=true}
+$("#cHint").onclick=()=>{const c=CASES[CS.i];const j=c.qs.findIndex((q,j)=>!CS.solved[csKey(CS.i,j)]);const hb=$("#cHintBox");hb.hidden=false;hb.textContent=j<0?"All questions here are solved. Try the next case.":"Hint for question "+(j+1)+": "+c.qs[j].hint};
+$("#cShow").onclick=()=>{const c=CASES[CS.i];c.qs.forEach((q,j)=>{const k=csKey(CS.i,j);if(!CS.solved[k]){CS.shown[k]=1;CS.solved[k]=1}});caseUI();
+  $("#cQs").querySelectorAll(".qblock").forEach((d,j)=>{const fb=d.querySelector(".fb");fb.className="fb show ok";fb.textContent="✓ "+c.qs[j].opts.find(o=>o[1])[2]})};
+$("#cPrev").onclick=()=>{if(CS.i>0){CS.i--;caseUI()}};$("#cNext").onclick=()=>{CS.i=(CS.i+1)%CASES.length;caseUI()};
+
+function cassette(x,y,lab,pos,t){rr(x,y,170,58,10);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.5;ctx.stroke();
+  circ(x+24,y+29,11,C.sunk,C["ink-soft"],1.2);rr(x+52,y+16,104,26,4);ctx.fillStyle=hexA(C.agar,.4);ctx.fill();ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1;ctx.stroke();
+  const a=smooth(seg(P(t,6),.05,.4));line(x+130,y+18,x+130,y+40,hexA(C.drug,a),3.5);txt(x+130,y+50,"C",{size:11.5,mono:true,weight:700,align:"center"});
+  if(pos){line(x+96,y+18,x+96,y+40,hexA(C.drug,a*.95),3.5)}txt(x+96,y+50,"T",{size:11.5,mono:true,weight:700,align:"center"});
+  txt(x,y-12,lab+": "+(pos?"POSITIVE":"negative"),{size:12.5,weight:700,color:pos?C.bad:C.ink})}
+function stainField(cx,cy,r,bgc,t,fn){ctx.save();ctx.beginPath();ctx.arc(cx,cy,r,0,TAU);ctx.clip();ctx.fillStyle=bgc;ctx.fillRect(cx-r,cy-r,2*r,2*r);
+  ctx.translate(Math.sin(t*.3)*3,Math.cos(t*.25)*2);for(let i=0;i<30;i++){const a=rnd(i+40)*TAU,d=rnd(i+41)*r;circ(cx+Math.cos(a)*d,cy+Math.sin(a)*d,1.5,hexA(C.ink,.08))}fn();ctx.restore();
+  circ(cx,cy,r,null,C["ink-soft"],3);circ(cx,cy,r+5,null,hexA(C.ink,.2),6)}
+function drawMicro(kind,cx,cy,r,t){const pale=mix(C.panel,C.gneg,.12);
+  if(kind==="chains")stainField(cx,cy,r,pale,t,()=>{for(let c=0;c<7;c++){const a=rnd(c+3)*Math.PI,x0=cx-80+rnd(c+5)*160,y0=cy-80+rnd(c+7)*160;const n=4+Math.floor(rnd(c+9)*5);for(let k=0;k<n;k++){const ang=a+Math.sin(k*.6+c)*.25;coccus(x0+Math.cos(ang)*k*11,y0+Math.sin(ang)*k*11,5.4,C.gpos)}}});
+  else if(kind==="clusters")stainField(cx,cy,r,pale,t,()=>{for(let c=0;c<6;c++){const x0=cx-70+rnd(c+13)*140,y0=cy-70+rnd(c+17)*140;for(let k=0;k<9;k++){const a=rnd(k+c*9)*TAU,d=Math.sqrt(rnd(k*2+c))*14;coccus(x0+Math.cos(a)*d,y0+Math.sin(a)*d,5.2,C.gpos)}}});
+  else if(kind==="gnrods")stainField(cx,cy,r,pale,t,()=>{for(let i=0;i<26;i++){const a=rnd(i*3+1)*TAU,d=Math.sqrt(rnd(i+2))*r*.9;bact(cx+Math.cos(a)*d,cy+Math.sin(a)*d,rnd(i+5)*3,5.5,1,{col:C.gneg})}});
+  else if(kind==="gprods")stainField(cx,cy,r,pale,t,()=>{for(let i=0;i<18;i++){const a=rnd(i*3+1)*TAU,d=Math.sqrt(rnd(i+2))*r*.9;bact(cx+Math.cos(a)*d,cy+Math.sin(a)*d,rnd(i+5)*3,7,1,{col:C.gpos});
+      if(i%3===0){const an=rnd(i+5)*3;ell(cx+Math.cos(a)*d+Math.cos(an)*7,cy+Math.sin(a)*d+Math.sin(an)*7,4.5,3.2,an,C["spore-coat"],hexA(C.ink,.4),1)}}});
+  else if(kind==="afb")stainField(cx,cy,r,mix(C.panel,C.nonenv,.45),t,()=>{for(let i=0;i<30;i++){const a=rnd(i*3+1)*TAU,d=Math.sqrt(rnd(i+2))*r*.85;ctx.save();ctx.translate(cx+Math.cos(a)*d,cy+Math.sin(a)*d);ctx.rotate(rnd(i+4)*3);rr(-11,-2.2,22,4.4,2.2);ctx.fillStyle=C.drug;ctx.fill();ctx.restore()}
+      for(let i=0;i<6;i++){circ(cx-60+rnd(i+70)*120,cy-60+rnd(i+71)*120,9,hexA(C.nonenv,.5))}});
+  else if(kind==="yeast")stainField(cx,cy,r,mix(C.panel,C["ink-soft"],.12),t,()=>{for(let i=0;i<10;i++){const a=rnd(i*3+1)*TAU,d=Math.sqrt(rnd(i+2))*r*.85;yeast(cx+Math.cos(a)*d,cy+Math.sin(a)*d,8)}
+      for(let c=0;c<3;c++){let x=cx-90+c*60,y=cy-40+c*40;for(let k=0;k<5;k++){const an=.4+Math.sin(k+c)*.4;ell(x,y,11,4.5,an,C.fungus,hexA(C.ink,.4),1);x+=Math.cos(an)*20;y+=Math.sin(an)*20}}});
+  else{stainField(cx,cy,r,mix(C.panel,C.body,.5),t,()=>{humanCell(cx-20,cy+10,70,t*.3,{seed:3});for(let i=0;i<8;i++){const a=i/8*TAU+t*.2;const d=80+Math.sin(t+i)*6;envVirus(cx-20+Math.cos(a)*d,cy+10+Math.sin(a)*d,8,{t})}});
+    txt(cx,cy+r+14,"schematic: viruses are too small for a light microscope",{size:11.5,align:"center",color:C["ink-soft"]})}}
+function drawCase(now){use(S3);const c=CASES[CS.i];const t=now/1000;
+  panelBox(10,10,262,270);txt(22,28,c.who.toUpperCase(),{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  // ECG strip
+  rr(22,44,238,46,6);ctx.fillStyle=hexA(C.sunk,.6);ctx.fill();ctx.beginPath();for(let x=0;x<=230;x+=2){const ph=((x+t*80)%70)/70;let y=0;if(ph>.4&&ph<.44)y=-4;else if(ph>.46&&ph<.48)y=6;else if(ph>.48&&ph<.52)y=-16;else if(ph>.52&&ph<.55)y=5;else if(ph>.7&&ph<.8)y=-3;x?ctx.lineTo(26+x,68+y):ctx.moveTo(26+x,68+y)}ctx.strokeStyle=C.good;ctx.lineWidth=1.8;ctx.stroke();
+  c.vit.forEach((v,i)=>{const y=114+i*40;rr(22,y-16,238,32,5);ctx.fillStyle=v[2]?hexA(C.warn,.16):hexA(C["panel-2"],.9);ctx.fill();if(v[2]){ctx.strokeStyle=C.warn;ctx.lineWidth=1.2;ctx.stroke()}
+    txt(32,y,v[0],{size:13,weight:600});txt(250,y,v[1]+(v[2]?"  ▲ high":""),{size:13,weight:700,mono:true,align:"right",color:v[2]?C["warn-ink"]:C.ink})});
+  if(c.vit.some(v=>v[2]))txt(22,272,"▲ = outside the normal range",{size:11.5,color:C["ink-soft"]});
+  // micrograph
+  panelBox(280,10,270,270);const lab={chains:"Gram stain, oil immersion",clusters:"Gram stain, oil immersion",gnrods:"Gram stain, oil immersion",gprods:"Gram stain, oil immersion",afb:"Acid-fast stain",yeast:"Wet mount with KOH",none:"What is going on"}[c.micro];
+  txt(292,28,lab.toUpperCase(),{size:12,mono:true,weight:700,color:C["ink-soft"]});drawMicro(c.micro,415,152,104,t);
+  // lab result
+  panelBox(10,290,540,120,{fill:hexA(C.panel,.95)});txt(22,308,"LAB RESULT",{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  c.res.forEach((r,i)=>txt(22,332+i*22,r,{size:13,weight:i===0?700:500}));
+  const ex=c.extra;if(ex.type==="cassette")cassette(366,340,ex.lab,ex.pos,t);
+  else if(ex.type==="kb"){const px=478,py=350,R=58;const g=smooth(seg(P(t,8),.05,.5));plateTop(px,py,R,1,ex.disks.map((d,i)=>{const a=-Math.PI/2+i*Math.PI/2;return {x:px+Math.cos(a)*32,y:py+Math.sin(a)*32,r:d[1]/2*1.1*g}}));
+    ex.disks.forEach((d,i)=>{const a=-Math.PI/2+i*Math.PI/2;const x=px+Math.cos(a)*32,y=py+Math.sin(a)*32;disk(x,y,d[0],{r:12,fs:9.5});});
+    ex.disks.forEach((d,i)=>{const y=318+i*22;txt(358,y,d[0],{size:12,mono:true,weight:700});chipText(398,y,d[2],d[2]==="S"?C.good:C.bad)});
+    }
+}
+function caseA11y(){const c=CASES[CS.i];
+  const M={chains:"purple Gram-positive cocci in chains on a pale background",clusters:"purple Gram-positive cocci in grape-like clusters",gnrods:"pink Gram-negative rods",gprods:"purple Gram-positive rods, some with clear oval endospores",afb:"thin red acid-fast rods on a blue background",yeast:"orange oval budding yeast cells and chains of long pseudohyphae",none:"a schematic host cell with small virus particles around it, labelled as too small for a light microscope"}[c.micro];
+  let d=`Case ${CS.i+1}, ${c.who}. The vitals panel shows `+c.vit.map(v=>`${v[0]} ${v[1]}${v[2]?" (high)":""}`).join(", ")+`. The circular microscope view shows ${M}. Lab result: ${c.res.join("; ")}. `;
+  if(c.extra.type==="cassette")d+=`A rapid test cassette for ${c.extra.lab} shows ${c.extra.pos?"both a control line and a test line: positive":"only the control line: negative"}.`;
+  if(c.extra.type==="kb")d+="A small disk plate shows: "+c.extra.disks.map(x=>`${x[0]} ${x[2]==="S"?"with a clear zone, susceptible":"with no zone, resistant"}`).join(", ")+".";
+  return [`Case ${CS.i+1}: ${c.title}.`,d]}
+
+/* ================= PART 4: sort it out ================= */
+const SROUNDS=[
+{name:"Hit the target",goal:"Put each drug class in the box for the part of the bacterium it attacks.",
+ bins:[["wall","Cell wall"],["ribo","Ribosome (protein synthesis)"],["mem","Cell membrane"],["nuc","DNA or RNA enzymes"],["fol","Folic acid pathway"]],
+ cards:[["Penicillins","wall","Beta-lactams block the PBPs that cross-link the wall."],["Cephalosporins","wall","Beta-lactams: they jam wall cross-linking."],["Carbapenems","wall","Very broad beta-lactams that block PBPs."],["Vancomycin","wall","Caps the D-Ala-D-Ala ends of wall building blocks."],
+  ["Aminoglycosides","ribo","Bind the 30S subunit and cause misreading."],["Tetracyclines","ribo","Bind the 30S subunit and block tRNA docking."],["Macrolides","ribo","Bind the 50S subunit and plug the exit tunnel."],["Clindamycin","ribo","Binds the 50S subunit near the macrolide site."],["Chloramphenicol","ribo","Blocks peptide bond formation on the 50S subunit."],
+  ["Polymyxins","mem","Detergent-like: they disrupt Gram-negative membranes."],
+  ["Fluoroquinolones","nuc","Trap DNA gyrase, leaving broken DNA."],["Rifampin","nuc","Blocks bacterial RNA polymerase."],
+  ["Sulfonamides","fol","Mimic PABA and block the first folic acid enzyme."],["Trimethoprim","fol","Blocks a later enzyme in the folic acid pathway."]]},
+{name:"Kill or hold?",goal:"Does each class usually kill bacteria (cidal) or hold them back (static)? These are typical labels; they can change with drug level and organism.",
+ bins:[["cide","Usually bactericidal"],["stat","Usually bacteriostatic"]],
+ cards:[["Penicillins","cide","Wall damage leads to lysis of growing cells."],["Cephalosporins","cide","Beta-lactams cause lysis: cidal."],["Carbapenems","cide","Beta-lactams: cidal."],["Vancomycin","cide","Blocks wall building: cidal for most Gram-positives."],["Aminoglycosides","cide","Misreading makes toxic proteins: cidal."],["Fluoroquinolones","cide","Broken DNA kills the cell."],["Polymyxins","cide","Membrane damage kills the cell."],
+  ["Tetracyclines","stat","Blocking tRNA docking pauses growth."],["Macrolides","stat","Usually static: they stop protein growth."],["Clindamycin","stat","Usually static."],["Chloramphenicol","stat","Usually static for most bacteria."],["Sulfonamides (alone)","stat","Blocking folate slows growth: static on its own."]]},
+{name:"How did it survive?",goal:"Sort each resistance trick into one of the five mechanisms.",
+ bins:[["enz","Enzyme destroys or changes the drug"],["tgt","Target changed"],["pump","Efflux pump"],["perm","Drug kept out"],["byp","Bypass the blocked step"]],
+ cards:[["Beta-lactamase cuts penicillin's ring","enz","An enzyme destroys the drug."],["ESBL breaks down cephalosporins","enz","Extended-spectrum beta-lactamase: an enzyme."],["Carbapenemase in CRE","enz","An enzyme that destroys carbapenems."],["Enzyme adds a chemical group to an aminoglycoside","enz","The changed drug can no longer bind the ribosome."],
+  ["MRSA makes PBP2a","tgt","A changed PBP that beta-lactams cannot block."],["VRE builds wall ends of D-Ala-D-Lac","tgt","Vancomycin cannot grab the changed ends."],["Mutated DNA gyrase","tgt","Fluoroquinolones no longer fit their target."],["Changed ribosome site blocks macrolides","tgt","The drug's binding site is altered."],
+  ["Tetracycline pumped back out","pump","A membrane pump removes the drug."],["Pump that removes many drug classes","pump","Multidrug efflux pumps push out several classes."],
+  ["Gram-negative loses a porin","perm","Fewer porins: less drug gets in."],["Outer membrane keeps vancomycin out","perm","The drug cannot enter at all."],
+  ["Takes up ready-made folic acid","byp","Skips the step that sulfa drugs block."],["Extra enzyme that trimethoprim cannot block","byp","A different enzyme does the blocked job."]]},
+{name:"Which kind of drug?",goal:"Is each drug an antibacterial, an antifungal, an antiviral or an antiparasitic?",
+ bins:[["abx","Antibacterial"],["afx","Antifungal"],["avx","Antiviral"],["apx","Antiparasitic"]],
+ cards:[["Vancomycin","abx","Blocks bacterial wall building."],["Ciprofloxacin","abx","A fluoroquinolone that traps bacterial DNA gyrase."],["Azithromycin","abx","A macrolide that blocks bacterial 50S ribosomes."],
+  ["Fluconazole","afx","An azole: blocks ergosterol synthesis."],["Amphotericin B","afx","A polyene: binds ergosterol and makes pores."],["Echinocandins","afx","Block beta-glucan in the fungal wall."],["Nystatin","afx","A polyene used on skin and in the mouth."],
+  ["Acyclovir","avx","A nucleoside analog for herpes viruses."],["Oseltamivir","avx","A neuraminidase inhibitor for influenza."],["HIV protease inhibitors","avx","Stop HIV from cutting its proteins."],["Reverse transcriptase inhibitors","avx","Block HIV from copying RNA into DNA."],
+  ["Ivermectin","apx","Paralyses many worms and some other parasites."],["Artemisinin combinations","apx","Treat malaria."],["Albendazole","apx","Blocks worm microtubules."]]}];
+function binSVG(k){const s=b=>`<svg viewBox="0 0 56 46" aria-hidden="true" focusable="false">${b}</svg>`;
+  const rod=(x,y,col,dead)=>`<rect x="${x-9}" y="${y-5}" width="18" height="10" rx="5" fill="${dead?"var(--dead)":col||"var(--bact)"}" stroke="var(--ink)" stroke-opacity=".4"/>`;
+  const sq=(x,y)=>`<rect x="${x}" y="${y}" width="9" height="9" fill="var(--drug)" stroke="var(--ink)" stroke-opacity=".5"/>`;
+  switch(k){
+    case "wall":return s(`<rect x="6" y="8" width="44" height="30" rx="15" fill="none" stroke="var(--gpos)" stroke-width="5"/><rect x="12" y="14" width="32" height="18" rx="9" fill="var(--water)" stroke="var(--membrane)" stroke-width="1.5"/>`);
+    case "ribo":return s(`<ellipse cx="28" cy="17" rx="15" ry="9" fill="var(--r50)"/><ellipse cx="28" cy="29" rx="12" ry="6" fill="var(--r30)"/><path d="M4 36 Q16 32 28 36 T52 36" fill="none" stroke="var(--mrna)" stroke-width="2.5"/>`);
+    case "mem":return s(`<g fill="var(--membrane)">${[0,1,2,3,4,5,6].map(i=>i===3?"":`<circle cx="${6+i*7.4}" cy="16" r="3"/><circle cx="${6+i*7.4}" cy="30" r="3"/>`).join("")}</g><circle cx="28" cy="23" r="2.5" fill="var(--dna)"/><circle cx="31" cy="38" r="2" fill="var(--dna)"/>`);
+    case "nuc":return s(`<path d="M4 16 C14 4 22 28 32 16 S48 4 52 16" fill="none" stroke="var(--dna)" stroke-width="2.5"/><path d="M4 30 C14 18 22 42 32 30 S48 18 52 30" fill="none" stroke="var(--dna)" stroke-width="2.5"/><ellipse cx="28" cy="23" rx="8" ry="6" fill="var(--perox)"/>`);
+    case "fol":return s(`<line x1="4" y1="30" x2="52" y2="30" stroke="var(--ink-soft)" stroke-width="2"/><rect x="18" y="12" width="14" height="14" rx="3" fill="var(--pbp)"/><polygon points="8,24 12,21 16,24 16,28 12,31 8,28" fill="var(--gold)"/><polygon points="40,24 44,21 48,24 48,28 44,31 40,28" fill="var(--act5)"/>`);
+    case "cide":return s(`${rod(28,23,null,true)}<path d="M24 16 L29 23 L25 30" stroke="var(--panel)" stroke-width="1.6" fill="none"/>`);
+    case "stat":return s(`${rod(18,23)}<rect x="36" y="13" width="4" height="20" fill="var(--cold)"/><rect x="44" y="13" width="4" height="20" fill="var(--cold)"/>`);
+    case "enz":return s(`${sq(8,18)}<polygon points="20,18 26,22 24,28 18,28 17,22" fill="var(--drug)" opacity=".5"/><path d="M34 14 L50 28 M34 32 L50 18" stroke="var(--accent)" stroke-width="4"/><circle cx="34" cy="14" r="4" fill="none" stroke="var(--accent)" stroke-width="2"/><circle cx="34" cy="32" r="4" fill="none" stroke="var(--accent)" stroke-width="2"/>`);
+    case "tgt":return s(`<path d="M28 23 L44 12 A20 20 0 1 0 44 34 Z" fill="var(--gpos)"/><rect x="34" y="18" width="10" height="10" fill="var(--panel)"/>${sq(46,30)}`);
+    case "pump":return s(`<line x1="2" y1="30" x2="54" y2="30" stroke="var(--membrane)" stroke-width="6"/><rect x="22" y="18" width="12" height="24" rx="4" fill="var(--alc)"/><path d="M28 16 L28 4 M23 9 L28 4 L33 9" stroke="var(--ink)" stroke-width="2" fill="none"/>`);
+    case "perm":return s(`<line x1="2" y1="26" x2="54" y2="26" stroke="var(--gneg)" stroke-width="6"/><rect x="24" y="20" width="4" height="12" fill="var(--act5)"/><rect x="30" y="20" width="4" height="12" fill="var(--act5)"/>${sq(24,6)}<path d="M18 42 L38 42" stroke="var(--bad)" stroke-width="2"/>`);
+    case "byp":return s(`<line x1="4" y1="32" x2="52" y2="32" stroke="var(--ink-soft)" stroke-width="2"/><rect x="20" y="24" width="14" height="14" rx="3" fill="var(--dead)"/><path d="M8 28 Q27 2 46 28" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="4 3"/>`);
+    case "abx":return s(`${rod(28,24)}<rect x="10" y="6" width="9" height="9" fill="var(--drug)"/>`);
+    case "afx":return s(`<ellipse cx="24" cy="26" rx="12" ry="10" fill="var(--fungus)"/><ellipse cx="38" cy="18" rx="7" ry="6" fill="var(--fungus)"/>`);
+    case "avx":return s(`<circle cx="28" cy="23" r="10" fill="var(--env)" fill-opacity=".3" stroke="var(--env)" stroke-width="2"/>${[0,1,2,3,4,5,6,7].map(i=>{const a=i/8*Math.PI*2;return `<line x1="${28+Math.cos(a)*10}" y1="${23+Math.sin(a)*10}" x2="${28+Math.cos(a)*15}" y2="${23+Math.sin(a)*15}" stroke="var(--env)" stroke-width="2"/>`}).join("")}`);
+    case "apx":return s(`<path d="M4 30 C12 14 20 40 30 24 S46 14 52 22" fill="none" stroke="var(--soil)" stroke-width="5" stroke-linecap="round"/>`);
+  }return s("")}
+const SG={r:0,placed:{},mist:0,sel:null,t0:0,timer:null,hint:null,doneRounds:{}};
+function sRoundsUI(){$("#sRounds").innerHTML=SROUNDS.map((r,i)=>`<button type="button" class="round" aria-pressed="${i===SG.r}" data-i="${i}">Round ${i+1}: ${r.name}${SG.doneRounds[i]?`<span class="ok" aria-label="${SG.doneRounds[i]} stars">${"★".repeat(SG.doneRounds[i])}</span>`:""}</button>`).join("");
+  $("#sRounds").querySelectorAll("button").forEach(b=>b.onclick=()=>sLoad(+b.dataset.i))}
+function sLoad(i){SG.r=i;SG.placed={};SG.mist=0;SG.sel=null;SG.hint=null;SG.t0=Date.now();const R=SROUNDS[i];SG.order=shuffle(R.cards.map((c,k)=>k));
+  $("#sN").textContent=`Round ${i+1} of ${SROUNDS.length}`;$("#sTitle").textContent=R.name;$("#sGoal").textContent=R.goal;
+  const bins=$("#sBins");bins.innerHTML="";R.bins.forEach(b=>{const d=document.createElement("div");d.className="bin";d.dataset.k=b[0];
+    d.innerHTML=`<button type="button" class="binhead" data-k="${b[0]}">${binSVG(b[0])}<span>${b[1]}</span></button><div class="binitems"></div>`;
+    d.querySelector(".binhead").onclick=()=>{if(SG.sel!=null)sDrop(SG.sel,b[0]);else sMsg("info","Pick a card first, then tap a box.")};bins.appendChild(d)});
+  const best=store.get("best-"+i);$("#sBest").textContent=best?`Best for this round: ${"★".repeat(+best)}`:"";
+  $("#sMsg").className="msg";sRoundsUI();sRender();sTimerUI()}
+function sRender(){const R=SROUNDS[SG.r];const pool=$("#sPool");pool.innerHTML="";
+  SG.order.forEach(k=>{if(SG.placed[k])return;const c=R.cards[k];const b=document.createElement("button");b.type="button";b.className="scard"+(SG.hint===k?" hinted":"");b.textContent=c[0];b.dataset.k=k;
+    b.setAttribute("aria-pressed",SG.sel===k);b.onclick=e=>{if(b.dataset.dragged){delete b.dataset.dragged;return}SG.sel=SG.sel===k?null:k;sRender();const nb=pool.querySelector(`[data-k="${k}"]`);if(nb)nb.focus()};
+    b.addEventListener("pointerdown",e=>sDragStart(e,b,k));pool.appendChild(b)});
+  if(!pool.children.length)pool.innerHTML='<span class="small">All cards sorted.</span>';
+  document.querySelectorAll("#sBins .bin").forEach(d=>{const items=d.querySelector(".binitems");items.innerHTML="";d.classList.toggle("hintbin",SG.hint!=null&&R.cards[SG.hint][1]===d.dataset.k);
+    R.cards.forEach((c,k)=>{if(SG.placed[k]&&c[1]===d.dataset.k){const s=document.createElement("div");s.className="scard placed";s.textContent="✓ "+c[0];items.appendChild(s)}})});
+  const n=Object.keys(SG.placed).length,tot=R.cards.length;$("#sStars").textContent=n===tot?"★".repeat(sStars())+"☆".repeat(3-sStars()):"";$("#sStars").setAttribute("aria-label",n===tot?sStars()+" of 3 stars":"Stars appear when the round is done")}
+function sStars(){return SG.mist===0?3:SG.mist<=2?2:1}
+function sMsg(cls,t){const m=$("#sMsg");m.className="msg show "+cls;m.textContent=t}
+function sDrop(k,bin){const R=SROUNDS[SG.r];const c=R.cards[k];SG.sel=null;SG.hint=null;
+  if(c[1]===bin){SG.placed[k]=1;sMsg("good","✓ "+c[0]+": "+c[2])}else{SG.mist++;const nm=R.bins.find(b=>b[0]===bin)[1];sMsg("warn",`Not quite. "${c[0]}" does not go in ${nm}. Hint: ${c[2].split(":")[0].split(".")[0]}.`)}
+  sRender();if(Object.keys(SG.placed).length===R.cards.length)sFinish();else{const f=$("#sPool .scard");if(f&&document.activeElement===document.body)f.focus()}}
+function sFinish(){const st=sStars();SG.doneRounds[SG.r]=Math.max(SG.doneRounds[SG.r]||0,st);const best=+(store.get("best-"+SG.r)||0);if(st>best)store.set("best-"+SG.r,st);
+  const tm=!$("#sRelaxed").checked?` Time: ${fmt((Date.now()-SG.t0)/1000)}.`:"";sMsg("good",`Round complete with ${SG.mist} ${SG.mist===1?"mistake":"mistakes"}: ${st} of 3 stars.${tm} `+(SG.r<SROUNDS.length-1?"Press Next round when you are ready.":"That was the last round. Well done."));sRoundsUI();sRender()}
+/* drag: a ghost follows the pointer; drop on a bin */
+let drag=null;
+function sDragStart(e,b,k){if(e.button>0)return;const r=b.getBoundingClientRect();drag={k,b,sx:e.clientX,sy:e.clientY,dx:e.clientX-r.left,dy:e.clientY-r.top,g:null,over:null,id:e.pointerId};
+  window.addEventListener("pointermove",sDragMove);window.addEventListener("pointerup",sDragEnd);window.addEventListener("pointercancel",sDragEnd)}
+function sDragMove(e){if(!drag||e.pointerId!==drag.id)return;if(!drag.g){if(Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)<6)return;const g=drag.b.cloneNode(true);g.classList.add("ghost");g.removeAttribute("id");g.setAttribute("aria-hidden","true");g.tabIndex=-1;g.style.width=drag.b.offsetWidth+"px";document.body.appendChild(g);drag.g=g;drag.b.style.opacity=".35"}
+  e.preventDefault();drag.g.style.left=(e.clientX-drag.dx)+"px";drag.g.style.top=(e.clientY-drag.dy)+"px";
+  const el=document.elementFromPoint(e.clientX,e.clientY);const bin=el&&el.closest?el.closest(".bin"):null;document.querySelectorAll(".bin.over").forEach(x=>x!==bin&&x.classList.remove("over"));if(bin)bin.classList.add("over");drag.over=bin}
+function sDragEnd(e){if(!drag)return;window.removeEventListener("pointermove",sDragMove);window.removeEventListener("pointerup",sDragEnd);window.removeEventListener("pointercancel",sDragEnd);
+  const d=drag;drag=null;document.querySelectorAll(".bin.over").forEach(x=>x.classList.remove("over"));if(!d.g)return;d.g.remove();d.b.style.opacity="";d.b.dataset.dragged="1";
+  if(d.over)sDrop(d.k,d.over.dataset.k);else sRender()}
+$("#sHint").onclick=()=>{const R=SROUNDS[SG.r];const k=SG.sel!=null?SG.sel:SG.order.find(k=>!SG.placed[k]);if(k==null){sMsg("info","Everything is sorted.");return}SG.hint=k;
+  const bn=R.bins.find(b=>b[0]===R.cards[k][1])[1];sMsg("info",`Hint: "${R.cards[k][0]}" goes in the glowing box (${bn}).`);sRender()};
+$("#sShow").onclick=()=>{const R=SROUNDS[SG.r];R.cards.forEach((c,k)=>SG.placed[k]=1);SG.mist=Math.max(SG.mist,3);sMsg("info","All cards placed. Read each box to see why they belong there.");sRender();sFinish()};
+$("#sShuffle").onclick=()=>sLoad(SG.r);$("#sNext").onclick=()=>sLoad((SG.r+1)%SROUNDS.length);
+function sTimerUI(){const relaxed=$("#sRelaxed").checked;$("#sTimer").hidden=relaxed;clearInterval(SG.timer);if(!relaxed){SG.timer=setInterval(()=>{if(Object.keys(SG.placed).length<SROUNDS[SG.r].cards.length)$("#sTimer").textContent=fmt((Date.now()-SG.t0)/1000)},500)}}
+$("#sRelaxed").onchange=()=>{SG.t0=Date.now();sTimerUI()};
+/* ---------------- accessibility: live labels and picture descriptions ---------------- */
+function sortA11y(){const R=SROUNDS[SG.r];const n=Object.keys(SG.placed).length;
+  return [null,`Round ${SG.r+1}, ${R.name}. ${n} of ${R.cards.length} cards sorted. Each box has a small drawing: `+R.bins.map(b=>b[1]).join(", ")+`. Cards still to sort: `+(SG.order.filter(k=>!SG.placed[k]).map(k=>R.cards[k][0]).join(", ")||"none")+"."]}
+const A11Y={bench:{cv:"#cvBench",f:benchA11y},res:{cv:"#cvRes",f:resA11y},cases:{cv:"#cvCase",f:caseA11y},sort:{cv:null,f:sortA11y}};
+let a11yKey="",a11yT=0;
+function a11yTick(){if((++a11yT)%20)return;const a=A11Y[curTab];const [lab,d]=a.f();const key=curTab+"|"+lab+"|"+d;if(key===a11yKey)return;a11yKey=key;
+  if(a.cv&&lab)$(a.cv).setAttribute("aria-label",lab);if(window.gkDescribe)window.gkDescribe(d);
+  const box=document.getElementById("gk-desc");if(box){const host=a.cv?$(a.cv).closest(".canvas-holder"):$("#sPool");if(host&&host.nextElementSibling!==box)host.after(box);if(a.cv)$(a.cv).setAttribute("aria-describedby","gk-desc")}}
+
+/* ---------------- tabs / theme / loop ---------------- */
+let curTab="bench";
+const TABS=["bench","res","cases","sort"];
+function showTab(k,focus){curTab=k;document.querySelectorAll(".tab").forEach(x=>{const on=x.dataset.tab===k;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;if(on&&focus)x.focus()});
+  TABS.forEach(t=>$("#tab-"+t).hidden=t!==k);fitAll();a11yKey="";a11yT=19}
+document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>showTab(t.dataset.tab);t.onkeydown=e=>{const i=TABS.indexOf(t.dataset.tab);
+  if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();showTab(TABS[(i+(e.key==="ArrowRight"?1:TABS.length-1))%TABS.length],true)}
+  if(e.key==="Home"){e.preventDefault();showTab(TABS[0],true)}if(e.key==="End"){e.preventDefault();showTab(TABS[TABS.length-1],true)}}});
+function fitAll(){[S1,S2,S3].forEach(s=>s.fit())}
+window.addEventListener("resize",fitAll);
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+let last=performance.now(),rdT=0;
+function frame(now){const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;
+  try{if(curTab==="bench"){benchStep(dt);drawBench(now)}
+    else if(curTab==="res"){resStep(dt);drawRes(now);rdT+=dt;if(rdT>.25){rdT=0;if(RS.running)resRead()}}
+    else if(curTab==="cases")drawCase(now)}catch(err){console.error(err)}
+  try{a11yTick()}catch(err){console.error(err)}
+  requestAnimationFrame(frame)}
+/* test hooks */
+window.__cl={tab:k=>showTab(k),mode:m=>setMode(m),kb:o=>{if(o.org)KB.org=o.org;if(o.disks)KB.disks=o.disks.slice();benchOrgUI();kbDisksUI();benchChanged()},
+  kbInc:()=>{$("#benchRun").click();for(let i=0;i<400&&KB.phase!=="done";i++)benchStep(.02)},kbSel:i=>kbSelect(i),kbState:()=>({phase:KB.phase,right:KB.right,done:[...KB.done]}),
+  mic:o=>{if(o.org)KB.org=o.org;if(o.drug)MIC.drug=o.drug;benchOrgUI();micDrugUI();benchChanged()},micInc:()=>{$("#benchRun").click();for(let i=0;i<400&&MIC.phase==="inc";i++)benchStep(.02)},micState:()=>({phase:MIC.phase,mic:micVal(),mbc:mbcVal(),done:[...MIC.done]}),
+  res:o=>{Object.assign(RS,o);$("#resPeak").value=RS.peakIdx;$("#resAdh").value=RS.adhIdx;$("#resDays").value=RS.days;$("#resPre").checked=RS.pre;$("#resWeak").checked=RS.weak;resChanged()},
+  resRun:()=>{RS.running=true;for(let i=0;i<2000&&RS.running;i++)resStep(.02);return {outcome:resOutcome(),done:[...RS.done]}},resSeek:h=>{RS.cur=h;resRead()},
+  caseGo:i=>{CS.i=i;caseUI()},caseShow:()=>$("#cShow").click(),sortGo:i=>sLoad(i),sortShow:()=>$("#sShow").click(),sortDrop:(k,b)=>sDrop(k,b),sortState:()=>({r:SG.r,placed:Object.keys(SG.placed).length,mist:SG.mist,order:SG.order})};
+readColors();chartUI();benchOrgUI();kbDisksUI();micDrugUI();setMode("kb");resChanged();resChalUI();caseUI();sLoad(0);fitAll();requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>
